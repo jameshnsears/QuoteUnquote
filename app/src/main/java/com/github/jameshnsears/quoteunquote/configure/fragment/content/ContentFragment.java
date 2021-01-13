@@ -55,8 +55,6 @@ public class ContentFragment extends FragmentCommon {
 
     @Nullable
     protected ContentPreferences contentPreferences;
-    @Nullable
-    protected ContentCloud contentCloud;
 
     @Nullable
     private DisposableObserver<Integer> disposableObserver;
@@ -64,6 +62,9 @@ public class ContentFragment extends FragmentCommon {
     protected ContentFragment(final int widgetId) {
         super(widgetId);
     }
+
+    @Nullable
+    protected ContentCloud contentCloud;
 
     @NonNull
     public static ContentFragment newInstance(final int widgetId) {
