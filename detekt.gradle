@@ -5,8 +5,8 @@ detekt {
     ignoreFailures = false
     failFast = false
     buildUponDefaultConfig = true
-    config = files("$projectDir/detekt.yml")
-    baseline = file("${rootProject.projectDir}/config/baseline.xml")
+    config = files("${rootProject.projectDir}/config/detekt/detekt.yml")
+    baseline = file("${rootProject.projectDir}/config/detekt/baseline.xml")
     parallel = true
 
     reports {

@@ -1,6 +1,8 @@
 package com.github.jameshnsears.quoteunquote.cloud
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class CloudFavouritesHelperTest {
@@ -19,8 +21,8 @@ class CloudFavouritesHelperTest {
 
     @Test
     fun `send a save request and then a receive request`() {
-        CloudFavouritesHelper.sendRequest(RequestHelper.sendRequest())
+        CloudFavouritesHelper.sendRequest(RequestTestHelper.sendRequest())
 
-        assertTrue(CloudFavouritesHelper.receiveRequest(RequestHelper.code).contains(RequestHelper.code))
+        assertTrue(CloudFavouritesHelper.receiveRequest(RequestTestHelper.code).contains(RequestTestHelper.code))
     }
 }

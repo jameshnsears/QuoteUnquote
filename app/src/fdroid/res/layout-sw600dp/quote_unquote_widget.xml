@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="match_parent"
+    android:layout_height="fill_parent"
     android:orientation="vertical"
     tools:viewBindingIgnore="true">
 
@@ -39,6 +39,16 @@
             android:background="@android:color/white"
             android:contentDescription="@string/fragment_appearance_instructions_previous"
             android:src="@drawable/ic_baseline_chevron_left_black_24" />
+
+        <ImageButton
+            android:id="@+id/imageButtonReport"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:contentDescription="@string/fragment_appearance_instructions_report"
+            android:src="@drawable/ic_report_black_24dp"
+            android:visibility="gone" />
 
         <ImageButton
             android:id="@+id/imageButtonFavourite"

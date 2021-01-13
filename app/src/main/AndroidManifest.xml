@@ -26,7 +26,7 @@
         </receiver>
 
         <activity
-            android:name=".configure.ActivityConfigure"
+            android:name=".configure.ConfigureActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:excludeFromRecents="true">
             <intent-filter>
@@ -35,7 +35,7 @@
         </activity>
 
         <activity
-            android:name=".report.ActivityReport"
+            android:name=".report.ReportActivity"
             android:excludeFromRecents="true"
             android:theme="@style/ActivityReportTheme" />
 

@@ -3,10 +3,14 @@ apply plugin: 'checkstyle'
 task checkstyle(type: Checkstyle) {
     description 'Check code standard'
     group 'verification'
-    configFile file('$project.rootDir/.github/linters/sun_checks.xml')
     source 'src'
     include '**/*.kt'
     exclude '**/gen/**'
     classpath = files()
     ignoreFailures = false
+
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
 }

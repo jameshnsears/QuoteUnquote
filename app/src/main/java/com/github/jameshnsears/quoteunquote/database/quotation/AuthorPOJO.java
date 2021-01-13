@@ -22,7 +22,7 @@ public class AuthorPOJO implements Comparable<AuthorPOJO> {
     @ColumnInfo(name = "QUOTATION_COUNT")
     public int count;
 
-    AuthorPOJO(@NonNull final String author) {
+    public AuthorPOJO(@NonNull final String author) {
         this.author = author;
         this.key = FINAL_COLLATOR.getCollationKey(author);
     }

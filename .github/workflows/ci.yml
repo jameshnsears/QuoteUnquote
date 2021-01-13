@@ -1,0 +1,279 @@
+# https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions
+name: CI
+
+on:
+  push:
+    branches:
+  pull_request:
+    branches:
+
+jobs:
+  job_OSSAR-Scan:
+    name: github_OSSAR-Scan
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+      # If this run was triggered by a pull request event, then checkout
+      # the head of the pull request instead of the merge commit.
+      - run: git checkout HEAD^2
+        if: ${{ github.event_name == 'pull_request' }}
+
+      - name: Install .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '3.1.201'
+
+      - name: Run OSSAR
+        uses: github/ossar-action@v1
+        id: ossar
+
+      - name: Upload OSSAR results
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: ${{ steps.ossar.outputs.sarifFile }}
+
+  job_super-linter:
+    name: github_super-linter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Lint Code Base
+        uses: github/super-linter@v3
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  job_checkstyle:
+    name: checkstyle
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: local.properties
+        run: |
+          set -x
+          echo "$LOCAL_PROPERTIES" > local.properties
+
+      - name: gradlew
+        run: |
+          set -x
+          ./gradlew checkstyle
+
+  job_ktlint:
+    name: ktlint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: local.properties
+        run: |
+          set -x
+          echo "$LOCAL_PROPERTIES" > local.properties
+
+      - name: gradlew
+        run: |
+          set -x
+          ./gradlew ktlint
+
+  job_detekt:
+    name: detekt
+    needs: job_ktlint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: local.properties
+        run: |
+          set -x
+          echo "$LOCAL_PROPERTIES" > local.properties
+
+      - name: gradlew
+        run: |
+          set -x
+          ./gradlew detekt
+
+  job_lintManifestTestDebug:
+    name: lintManifestTestDebug
+    needs: [job_super-linter, job_OSSAR-Scan, job_checkstyle, job_detekt]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: local.properties
+        run: |
+          set -x
+          echo "$LOCAL_PROPERTIES" > local.properties
+
+      - name: gradlew
+        run: |
+          set -x
+          ./gradlew lintManifestTestDebug
+
+  job_lintGooglePlayDebug:
+    name: lintGooglePlayDebug
+    needs: [job_super-linter, job_OSSAR-Scan, job_checkstyle, job_detekt]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: local.properties
+        run: |
+          set -x
+          echo "$LOCAL_PROPERTIES" > local.properties
+
+      - name: gradlew
+        run: |
+          set -x
+          ./gradlew lintGooglePlayDebug
+
+  job_lintFdroidDebug:
+    name: lintFdroidDebug
+    needs: [job_super-linter, job_OSSAR-Scan, job_checkstyle, job_detekt]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: local.properties
+        run: |
+          set -x
+          echo "$LOCAL_PROPERTIES" > local.properties
+
+      - name: gradlew
+        run: |
+          set -x
+          ./gradlew lintFdroidDebug
+
+  job_testManifestTestDebugUnitTest:
+    name: testManifestTestDebugUnitTest
+    needs: [job_detekt, job_lintManifestTestDebug]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: local.properties
+        run: |
+          set -x
+          echo "$LOCAL_PROPERTIES" > local.properties
+
+      - name: testManifestTestDebugUnitTest
+        run: |
+          set -x
+          ./gradlew testManifestTestDebugUnitTest
+
+  job_testGoogleplayDebugUnitTest:
+    name: testGoogleplayDebugUnitTest
+    needs: [job_detekt, job_lintGooglePlayDebug]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: local.properties
+        run: |
+          set -x
+          echo "$LOCAL_PROPERTIES" > local.properties
+
+      - name: testGoogleplayDebugUnitTest
+        run: |
+          set -x
+          ./gradlew testGoogleplayDebugUnitTest
+
+  job_testFdroidDebugUnitTest:
+    name: testFdroidDebugUnitTest
+    needs: [job_detekt, job_lintFdroidDebug]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: local.properties
+        run: |
+          set -x
+          echo "$LOCAL_PROPERTIES" > local.properties
+
+      - name: testFdroidDebugUnitTest
+        run: |
+          set -x
+          ./gradlew testFdroidDebugUnitTest
+
+  job_connectedGoogleplayDebugAndroidTest:
+    name: connectedGoogleplayDebugAndroidTest
+    needs: job_testGoogleplayDebugUnitTest
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        api-level: [24, 29]
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: local.properties
+        run: |
+          set -x
+          echo "$LOCAL_PROPERTIES" > local.properties
+
+      - name: androidTest
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{matrix.api-level}}
+          target: default
+          script: ./gradlew connectedGoogleplayDebugAndroidTest --stacktrace
+
+  job_connectedFdroidDebugAndroidTest:
+    name: connectedFdroidDebugAndroidTest
+    needs: job_testFdroidDebugUnitTest
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        api-level: [24, 29]
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: local.properties
+        run: |
+          set -x
+          echo "$LOCAL_PROPERTIES" > local.properties
+
+      - name: androidTest
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{matrix.api-level}}
+          target: default
+          script: ./gradlew connectedGoogleplayDebugAndroidTest --stacktrace

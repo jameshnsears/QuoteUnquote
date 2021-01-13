@@ -3,12 +3,14 @@
   <component name="CheckStyle-IDEA">
     <option name="configuration">
       <map>
-        <entry key="active-configuration" value="PROJECT_RELATIVE:$PROJECT_DIR$/.github/linters/sun_checks.xml:sun_checks.xml" />
+        <entry key="active-configuration" value="LOCAL_FILE:$PROJECT_DIR$/config/checkstyle/checkstyle.xml:config/checkstyle/checkstyle.xml" />
         <entry key="checkstyle-version" value="8.36.2" />
         <entry key="copy-libs" value="false" />
         <entry key="location-0" value="BUNDLED:(bundled):Sun Checks" />
         <entry key="location-1" value="BUNDLED:(bundled):Google Checks" />
-        <entry key="location-2" value="PROJECT_RELATIVE:$PROJECT_DIR$/.github/linters/sun_checks.xml:sun_checks.xml" />
+        <entry key="location-2" value="LOCAL_FILE:$PROJECT_DIR$/config/checkstyle/checkstyle.xml:config/checkstyle/checkstyle.xml" />
+        <entry key="property-2.org.checkstyle.sun.suppressionfilter.config" value="" />
+        <entry key="property-2.org.checkstyle.sun.suppressionxpathfilter.config" value="" />
         <entry key="scan-before-checkin" value="true" />
         <entry key="scanscope" value="JavaOnlyWithTests" />
         <entry key="suppress-errors" value="false" />

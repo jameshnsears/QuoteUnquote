@@ -1,14 +1,11 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-//apply plugin: 'com.github.triplet.play'
 
-apply from: '../checkstyle.gradle'
-apply from: '../coveralls.gradle'
-apply from: '../jacoco.gradle'
-apply from: '../sonarqube.gradle'
+//apply plugin: 'com.github.triplet.play'
 
 apply from: '../ktlint.gradle'
 apply from: '../detekt.gradle'
+apply from: '../checkstyle.gradle'
 
 task espresso(type: Exec) {
     commandLine 'adb', 'shell', 'settings', 'put', 'global', 'window_animation_scale', '0'
@@ -51,10 +48,10 @@ android {
     }
 
     lintOptions {
-        abortOnError false
+        abortOnError true
         warningsAsErrors false
         checkAllWarnings = true
-        xmlReport true
+        xmlReport false
         htmlReport true
     }
 
@@ -101,22 +98,25 @@ android {
             dimension 'version'
             applicationIdSuffix ".fdroid"
             versionNameSuffix "-fdroid"
-
         }
-        'integrationTest' {
+        'manifestTest' {
             dimension 'version'
         }
     }
 
     sourceSets {
+        androidTest {
+            assets.srcDirs = ['src/main/assets', 'src/androidTest/assets/', 'src/debug/assets/']
+            java.srcDirs = ['src/main/java', 'src/androidTest/java', 'src/debug/java']
+        }
         googleplay {
             java.srcDirs = ['src/main/java', 'src/googleplay/java']
         }
         fdroid {
             java.srcDirs = ['src/main/java', 'src/fdroid/java']
         }
-        integrationTest {
-            java.srcDirs = ['src/main/java', 'src/test/java', 'src/integrationTest/java']
+        manifestTest {
+            java.srcDirs = ['src/main/java', 'src/manifestTest/java']
         }
     }
 
@@ -127,12 +127,6 @@ android {
 
             returnDefaultValues = true
             animationsDisabled = true
-            all {
-                jacoco {
-                    includeNoLocationClasses = true
-                    excludes = ['jdk.internal.*']
-                }
-            }
         }
     }
 
@@ -143,30 +137,17 @@ android {
 
 dependencies {
     androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
-    androidTestImplementation 'androidx.room:room-testing:2.2.6'
+    androidTestImplementation "androidx.room:room-testing:2.2.6"
     androidTestImplementation 'androidx.test:core:1.3.0'
-    androidTestImplementation 'androidx.test:core-ktx:1.3.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-accessibility:3.3.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.3.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.3.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-web:3.3.0'
-    androidTestImplementation 'androidx.test.espresso.idling:idling-concurrent:3.3.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.ext:junit-ktx:1.1.2'
-    androidTestImplementation 'androidx.test.ext:truth:1.3.0'
     androidTestImplementation 'androidx.test:rules:1.3.0'
     androidTestImplementation 'androidx.test:runner:1.3.0'
-    androidTestImplementation "androidx.work:work-testing:2.4.0"
-    androidTestImplementation 'com.google.truth:truth:1.1'
-    androidTestImplementation 'org.mockito:mockito-android:3.6.28'
-    androidTestImplementation 'org.mockito:mockito-core:3.6.28'
 
     annotationProcessor 'androidx.room:room-compiler:2.2.6'
 
     debugImplementation "androidx.fragment:fragment-testing:1.2.5"
     debugImplementation 'androidx.test:core:1.3.0'
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.5'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
 
     implementation "androidx.appcompat:appcompat:1.2.0"
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
@@ -189,39 +170,20 @@ dependencies {
     implementation project(path: ':cloudLib')
     implementation project(path: ':utilsLib')
 
+    manifestTestImplementation "androidx.arch.core:core-testing:2.1.0"
+    manifestTestImplementation 'androidx.test:core-ktx:1.3.0'
+    manifestTestImplementation 'androidx.test.ext:junit:1.1.2'
+    manifestTestImplementation 'io.mockk:mockk:1.10.4'
+    manifestTestImplementation 'junit:junit:4.13.1'
+    manifestTestImplementation "org.robolectric:robolectric:4.4"
+
     testImplementation "androidx.arch.core:core-testing:2.1.0"
     testImplementation 'androidx.test:core-ktx:1.3.0'
     testImplementation 'androidx.test.ext:junit:1.1.2'
-    testImplementation 'androidx.test:runner:1.3.0'
     testImplementation 'junit:junit:4.13.1'
-    testImplementation 'org.mockito:mockito-core:3.6.28'
     testImplementation "org.robolectric:robolectric:4.4"
-    testImplementation 'org.slf4j:slf4j-api:1.7.30'
-    testImplementation 'org.slf4j:slf4j-log4j12:1.7.30'
-
-    integrationTestImplementation "androidx.arch.core:core-testing:2.1.0"
-    integrationTestImplementation 'androidx.test:core-ktx:1.3.0'
-    integrationTestImplementation 'androidx.test.ext:junit:1.1.2'
-    integrationTestImplementation 'androidx.test:runner:1.3.0'
-    integrationTestImplementation 'junit:junit:4.13.1'
-    integrationTestImplementation 'org.mockito:mockito-core:3.6.28'
-    integrationTestImplementation "org.robolectric:robolectric:4.4"
-    integrationTestImplementation 'org.slf4j:slf4j-api:1.7.30'
-    integrationTestImplementation 'org.slf4j:slf4j-log4j12:1.7.30'
-    integrationTestImplementation 'com.github.guness:robolectricsqlite:1.0.8'
 }
 
 repositories {
     mavenCentral()
-    maven {
-        name = "GitHubPackages"
-        url = uri("https://maven.pkg.github.com/jameshnsears/RobolectricSQLite")
-        credentials {
-            // from local.properties, then ~/.bashrc
-            Properties properties = new Properties()
-            properties.load(project.rootProject.file('local.properties').newDataInputStream())
-            username = properties.getProperty("GITHUB_USERNAME") ?: System.getenv("GITHUB_USERNAME")
-            password = properties.getProperty("GITHUB_TOKEN") ?: System.getenv("GITHUB_TOKEN")
-        }
-    }
 }

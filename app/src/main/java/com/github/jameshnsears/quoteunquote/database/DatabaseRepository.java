@@ -5,14 +5,14 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.github.jameshnsears.quoteunquote.database.history.AbstractHistoryDatabase;
+import com.github.jameshnsears.quoteunquote.database.history.AbstractDatabaseHistory;
 import com.github.jameshnsears.quoteunquote.database.history.FavouriteDAO;
 import com.github.jameshnsears.quoteunquote.database.history.FavouriteEntity;
 import com.github.jameshnsears.quoteunquote.database.history.PreviousDAO;
 import com.github.jameshnsears.quoteunquote.database.history.PreviousEntity;
 import com.github.jameshnsears.quoteunquote.database.history.ReportedDAO;
 import com.github.jameshnsears.quoteunquote.database.history.ReportedEntity;
-import com.github.jameshnsears.quoteunquote.database.quotation.AbstractQuotationDatabase;
+import com.github.jameshnsears.quoteunquote.database.quotation.AbstractDatabaseQuotation;
 import com.github.jameshnsears.quoteunquote.database.quotation.AuthorPOJO;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationDAO;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
@@ -26,16 +26,18 @@ import io.reactivex.Single;
 import timber.log.Timber;
 
 public class DatabaseRepository {
+    private static DatabaseRepository databaseRepository;
+
     @NonNull
     public static final String DEFAULT_QUOTATION_DIGEST = "1624c314";
     @NonNull
     protected final SecureRandom secureRandom = new SecureRandom();
     @Nullable
-    protected AbstractQuotationDatabase abstractQuotationDatabase;
+    protected AbstractDatabaseQuotation abstractDatabaseQuotation;
     @Nullable
     protected QuotationDAO quotationDAO;
     @Nullable
-    protected AbstractHistoryDatabase abstractHistoryDatabase;
+    protected AbstractDatabaseHistory abstractDatabaseHistory;
     @Nullable
     protected PreviousDAO previousDAO;
     @Nullable
@@ -43,30 +45,37 @@ public class DatabaseRepository {
     @Nullable
     protected ReportedDAO reportedDAO;
 
-    public DatabaseRepository() {
+    protected DatabaseRepository() {
+        //
     }
 
-    public DatabaseRepository(@NonNull final Context context) {
-        open(context);
+    private DatabaseRepository(@NonNull final Context context) {
+        abstractDatabaseQuotation = AbstractDatabaseQuotation.getDatabase(context);
+        quotationDAO = abstractDatabaseQuotation.quotationsDAO();
+        abstractDatabaseHistory = AbstractDatabaseHistory.getDatabase(context);
+        previousDAO = abstractDatabaseHistory.contentDAO();
+        favouriteDAO = abstractDatabaseHistory.favouritesDAO();
+        reportedDAO = abstractDatabaseHistory.reportedDAO();
+    }
+
+    public static synchronized DatabaseRepository getInstance(@NonNull final Context context) {
+        if (databaseRepository == null) {
+            databaseRepository = new DatabaseRepository(context);
+        }
+
+        return databaseRepository;
     }
 
     public void close() {
-        if (abstractQuotationDatabase.isOpen()) {
-            abstractQuotationDatabase.close();
+        if (abstractDatabaseQuotation.isOpen()) {
+            abstractDatabaseQuotation.close();
         }
 
-        if (abstractHistoryDatabase.isOpen()) {
-            abstractHistoryDatabase.close();
+        if (abstractDatabaseHistory.isOpen()) {
+            abstractDatabaseHistory.close();
         }
-    }
 
-    public void open(@NonNull Context context) {
-        abstractQuotationDatabase = AbstractQuotationDatabase.getDatabase(context);
-        quotationDAO = abstractQuotationDatabase.quotationsDAO();
-        abstractHistoryDatabase = AbstractHistoryDatabase.getDatabase(context);
-        previousDAO = abstractHistoryDatabase.contentDAO();
-        favouriteDAO = abstractHistoryDatabase.favouritesDAO();
-        reportedDAO = abstractHistoryDatabase.reportedDAO();
+        databaseRepository = null;
     }
 
     public Single<Integer> countAll() {

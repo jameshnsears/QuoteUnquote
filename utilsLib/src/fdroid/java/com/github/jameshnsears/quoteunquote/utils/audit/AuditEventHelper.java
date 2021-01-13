@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import timber.log.Timber;
 
 public final class AuditEventHelper {
-    public static synchronized void createInstance(final Application application, final String appCenterKey) {
+    public static synchronized void createInstance(final Application application) {
         Timber.d("not implemented");
     }
 

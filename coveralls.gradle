@@ -1,5 +1,0 @@
-apply plugin: 'com.github.kt3k.coveralls'
-
-coveralls {
-    jacocoReportPath 'build/reports/jacoco-combined.xml'
-}

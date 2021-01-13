@@ -33,7 +33,7 @@ public class ContentViewModel extends AndroidViewModel {
 
     public ContentViewModel(@NonNull final Application application) {
         super(application);
-        databaseRepository = new DatabaseRepository(application);
+        databaseRepository = DatabaseRepository.getInstance(application);
     }
 
     public void shutdown() {

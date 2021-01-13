@@ -67,9 +67,7 @@
             android:paddingVertical="5dp"
             android:paddingStart="20dp"
             android:paddingEnd="10dp" />
-
     </LinearLayout>
-
 
     <TextView
         android:layout_width="match_parent"
@@ -80,7 +78,6 @@
         android:text="@string/fragment_appearance_text"
         android:textSize="20sp"
         android:textStyle="bold" />
-
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -196,7 +193,29 @@
             android:text="@string/fragment_appearance_instructions_previous"
             android:textSize="18sp"
             android:textStyle="normal" />
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:visibility="gone">
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/toolbarSwitchReport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:drawableStart="@drawable/ic_report_black_24dp"
+            android:drawablePadding="5dp"
+            android:paddingVertical="8dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
+            android:text="@string/fragment_appearance_instructions_report"
+            android:textSize="18sp"
+            android:textStyle="normal" />
     </LinearLayout>
 
     <LinearLayout
@@ -219,7 +238,6 @@
             android:text="@string/fragment_appearance_instructions_favourite"
             android:textSize="18sp"
             android:textStyle="normal" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -242,7 +260,6 @@
             android:text="@string/fragment_appearance_instructions_share"
             android:textSize="18sp"
             android:textStyle="normal" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -265,7 +282,6 @@
             android:text="@string/fragment_appearance_instructions_next_random"
             android:textSize="18sp"
             android:textStyle="normal" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -287,7 +303,6 @@
             android:text="@string/fragment_appearance_instructions_next_sequential"
             android:textSize="18sp"
             android:textStyle="normal" />
-
     </LinearLayout>
 
 </LinearLayout>

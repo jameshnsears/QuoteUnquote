@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?><!--suppress AndroidDomInspection -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.github.jameshnsears.quoteunquote">
+
+    <application>
+        <activity android:name=".configure.ConfigureActivityDouble" />
+        <activity android:name=".report.ReportActivityDouble" />
+    </application>
+</manifest>

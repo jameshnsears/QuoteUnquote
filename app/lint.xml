@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="InvalidPackage">
+        <ignore path="**/bcprov-jdk15on-1.65.jar" />
+        <ignore path="**/mockito-core*.jar" />
+        <ignore path="**/resources-4.4.jar" />
+        <ignore path="**/shadows-framework-4.4.jar" />
+        <ignore path="**/utils-4.4.jar" />
+    </issue>
+    <issue id="OldTargetApi" severity="ignore" />
+    <issue id="VectorRaster" severity="ignore" />
+    <issue id="VectorPath" severity="ignore" />
+    <issue id="ViewHolder" severity="ignore" />
+    <issue id="InefficientWeight" severity="ignore" />
+    <issue id="UnusedIds" severity="ignore" />
+    <issue id="ConvertToWebp" severity="ignore" />
+    <issue id="IconLocation" severity="ignore" />
+    <issue id="GoogleAppIndexingWarning" severity="ignore" />
+    <issue id="Autofill" severity="ignore" />
+    <issue id="UnknownNullness" severity="ignore" />
+</lint>

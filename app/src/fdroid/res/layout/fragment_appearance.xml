@@ -66,7 +66,6 @@
             android:paddingVertical="5dp"
             android:paddingStart="20dp"
             android:paddingEnd="10dp" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -102,7 +101,6 @@
             android:paddingStart="20dp"
             android:paddingEnd="0dp"
             android:spinnerMode="dropdown" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -187,6 +185,28 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingTop="1dp"
+        android:paddingBottom="1dp"
+        android:visibility="gone">
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/toolbarSwitchReport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:drawableStart="@drawable/ic_report_black_24dp"
+            android:drawablePadding="5dp"
+            android:paddingVertical="8dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
+            android:text="@string/fragment_appearance_instructions_report"
+            android:textStyle="normal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="1dp"
         android:paddingBottom="1dp">
 
         <androidx.appcompat.widget.SwitchCompat
@@ -201,7 +221,6 @@
             android:paddingEnd="0dp"
             android:text="@string/fragment_appearance_instructions_favourite"
             android:textStyle="normal" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -223,7 +242,6 @@
             android:paddingEnd="0dp"
             android:text="@string/fragment_appearance_instructions_share"
             android:textStyle="normal" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -245,7 +263,6 @@
             android:paddingEnd="0dp"
             android:text="@string/fragment_appearance_instructions_next_random"
             android:textStyle="normal" />
-
     </LinearLayout>
 
     <LinearLayout

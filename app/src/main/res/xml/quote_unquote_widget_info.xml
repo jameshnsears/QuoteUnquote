@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:configure="com.github.jameshnsears.quoteunquote.configure.ActivityConfigure"
+    android:configure="com.github.jameshnsears.quoteunquote.configure.ConfigureActivity"
     android:initialKeyguardLayout="@layout/quote_unquote_widget"
     android:initialLayout="@layout/quote_unquote_widget"
     android:minWidth="180dp"

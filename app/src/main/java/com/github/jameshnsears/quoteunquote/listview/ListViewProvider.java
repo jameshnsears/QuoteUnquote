@@ -14,8 +14,8 @@ import androidx.annotation.Nullable;
 
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteModel;
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteWidget;
-import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.PreferenceAppearance;
-import com.github.jameshnsears.quoteunquote.configure.fragment.content.PreferenceContent;
+import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences;
+import com.github.jameshnsears.quoteunquote.configure.fragment.content.ContentPreferences;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 
 import java.util.ArrayList;
@@ -32,9 +32,9 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
     @Nullable
     private final QuoteUnquoteWidget quoteUnquoteWidget;
     @Nullable
-    public PreferenceAppearance preferenceAppearance;
+    public AppearancePreferences appearancePreferences;
     @Nullable
-    public PreferenceContent preferenceContent;
+    public ContentPreferences contentPreferences;
     @Nullable
     private QuotationEntity quotationEntity;
 
@@ -42,8 +42,8 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
         this.context = serviceContext;
         this.widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
 
-        preferenceAppearance = new PreferenceAppearance(widgetId, serviceContext);
-        preferenceContent = new PreferenceContent(widgetId, serviceContext);
+        appearancePreferences = new AppearancePreferences(widgetId, serviceContext);
+        contentPreferences = new ContentPreferences(widgetId, serviceContext);
 
         quoteUnquoteWidget = new QuoteUnquoteWidget();
     }
@@ -62,7 +62,7 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
 
             quotationEntity = getQuoteUnquoteModel(context).getNext(
                     widgetId,
-                    preferenceContent.getContentSelection());
+                    contentPreferences.getContentSelection());
 
             if (quotationEntity != null) {
                 quotationList.add(quotationEntity.theQuotation());
@@ -72,7 +72,7 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
 
     @NonNull
     public QuoteUnquoteModel getQuoteUnquoteModel(@NonNull final Context listViewContext) {
-        return quoteUnquoteWidget.getQuoteUnquoteModelInstance(listViewContext);
+        return new QuoteUnquoteModel(listViewContext);
     }
 
     @Override
@@ -112,11 +112,11 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
                 remoteViews.setTextViewTextSize(
                         android.R.id.text1,
                         TypedValue.COMPLEX_UNIT_DIP,
-                        (float) this.preferenceAppearance.getAppearanceTextSize());
+                        (float) this.appearancePreferences.getAppearanceTextSize());
 
                 remoteViews.setTextColor(
                         android.R.id.text1,
-                        Color.parseColor(this.preferenceAppearance.getAppearanceTextColour()));
+                        Color.parseColor(this.appearancePreferences.getAppearanceTextColour()));
 
                 Timber.d("%d: digest=%s", widgetId, quotationEntity.digest);
 

@@ -8,7 +8,6 @@ import org.junit.Before
 import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runners.MethodSorters
-import java.util.*
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class CloudFavouritesTest {
@@ -33,7 +32,7 @@ class CloudFavouritesTest {
 
     @Test
     fun `00 save known code`() {
-        assertTrue("", cloudFavourites.save(Gson().toJson(RequestHelper.sendRequest())))
+        assertTrue("", cloudFavourites.save(Gson().toJson(RequestTestHelper.sendRequest())))
     }
 
     @Test
@@ -41,16 +40,14 @@ class CloudFavouritesTest {
         val requestReceive = RequestReceive()
         requestReceive.code = "dcb9pNXX9e"
 
-        val digests = cloudFavourites.receive(
-                CloudFavourites.TIMEOUT_SECONDS,
-                gson.toJson(requestReceive))
+        val digests = cloudFavourites.receive(CloudFavourites.TIMEOUT_SECONDS, gson.toJson(requestReceive))
 
         assertEquals("", 0, digests.size.toLong())
     }
 
     @Test
     fun `02 receive known code`() {
-        val actual = cloudFavourites.receive(30, Gson().toJson(RequestHelper.receiveRequest()))
+        val actual = cloudFavourites.receive(30, Gson().toJson(RequestTestHelper.receiveRequest()))
         assertEquals("", 2, actual.size.toLong())
 
         val expected = ArrayList<String>()
