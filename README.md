@@ -2,9 +2,9 @@
 
 <a href="https://play.google.com/store/apps/details?id=com.github.jameshnsears.quoteunquote&hl=en"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_gb/badges/images/generic/en_badge_web_generic.png" height="70"/></a>
 
-| Branch | CI | snyk.io | codacy.com |
+| | CI | snyk.io | codacy.com |
 | ------------- | ------------- | ------------- | ----------- |
-| HEAD | ![CI](https://github.com/jameshnsears/QuoteUnquote/workflows/CI/badge.svg) | [![Known Vulnerabilities](https://snyk.io/test/github/jameshnsears/quoteunquote/badge.svg)](https://snyk.io/test/github/jameshnsears/quoteunquote) | |
-| master | xxx | xxx | [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e9d872106c6644998c28099a9471b7f1)](https://app.codacy.com/gh/jameshnsears/QuoteUnquote?utm_source=github.com&utm_medium=referral&utm_content=jameshnsears/QuoteUnquote&utm_campaign=Badge_Grade) |
+| HEAD | ![CI](https://github.com/jameshnsears/QuoteUnquote/workflows/CI/badge.svg) | | |
+| master | | [![Known Vulnerabilities](https://snyk.io/test/github/jameshnsears/quoteunquote/badge.svg)](https://snyk.io/test/github/jameshnsears/quoteunquote) | [![Codacy Badge](https://app.codacy.com/project/badge/Grade/54a839ac6f6c4154b746592439e4b894)](https://www.codacy.com/gh/jameshnsears/QuoteUnquote/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jameshnsears/QuoteUnquote&amp;utm_campaign=Badge_Grade) |
 
 NOTE: use "Run/Debug Configuations" for Build Variants coverage.

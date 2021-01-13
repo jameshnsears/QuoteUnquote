@@ -1,4 +1,4 @@
-# Publishing the App
+# Notes
 
 ## 1. Produce .aab
 
@@ -86,5 +86,6 @@ vscodevim.vim
 ## 8. Android Studio 4.1.1 Plugins
 
 * Checkstyle-IDE - Jamie Shiell
-* Markdown - JetBrains
 * SonarLint - SonarfSource
+
+---
