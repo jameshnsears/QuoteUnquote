@@ -88,33 +88,3 @@ vscodevim.vim
 * Checkstyle-IDE - Jamie Shiell
 * Markdown - JetBrains
 * SonarLint - SonarfSource
-
----
-
-
-npm install -g appcenter-cli
-
-appcenter login
-# popup browser window, that gives APPCENTER_ACCESS_TOKEN token:
-# https://appcenter.ms/cli-login?hostname=jsears-Latitude-E6330
-
-export APPCENTER_ACCESS_TOKEN=XXX
-
-
-./gradlew clean assembleGoogleplay
-
-export APP_GOOGLEPLAY_DEBUG=app/build/outputs/apk/googleplay/debug/app-googleplay-debug.apk
-appcenter distribute release --app "jameshnsears/QuoteUnquote-Development" --file ${APP_GOOGLEPLAY_DEBUG} --group Collaborators --release-notes "GitHub CI" --token $APPCENTER_ACCESS_TOKEN --silent
-
-export APP_GOOGLEPLAY_RELEASE_UNSIGNED=app/build/outputs/apk/googleplay/release/app-googleplay-release-unsigned.apk
-appcenter distribute release --app "jameshnsears/QuoteUnquote-Production" --file ${APP_GOOGLEPLAY_RELEASE_UNSIGNED} --group Collaborators --release-notes "GitHub CI" --token $APPCENTER_ACCESS_TOKEN --silent
-
-
-./gradlew assembleFdroid
-
-export APP_FDROID_DEBUG=build/outputs/apk/fdroid/debug/app-fdroid-debug.apk
-appcenter distribute release --app "jameshnsears/QuoteUnquote-Development" --file ${APP_FDROID_DEBUG} --group Collaborators --release-notes "GitHub CI" --token $APPCENTER_ACCESS_TOKEN --silent
-
-export APP_FDROID_RELEASE_UNSIGNED=build/outputs/apk/fdroid/release/app-fdroid-release-unsigned.apk
-appcenter distribute release --app "jameshnsears/QuoteUnquote-Development" --file ${APP_FDROID_RELEASE_UNSIGNED} --group Collaborators --release-notes "GitHub CI" --token $APPCENTER_ACCESS_TOKEN --silent
-
