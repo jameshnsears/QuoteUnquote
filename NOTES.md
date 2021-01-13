@@ -100,6 +100,7 @@ appcenter login
 
 export APPCENTER_ACCESS_TOKEN=XXX
 
+
 ./gradlew clean assembleGoogleplay
 
 export APP_GOOGLEPLAY_DEBUG=app/build/outputs/apk/googleplay/debug/app-googleplay-debug.apk
