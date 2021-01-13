@@ -277,3 +277,77 @@ jobs:
           api-level: ${{matrix.api-level}}
           target: default
           script: ./gradlew connectedGoogleplayDebugAndroidTest --stacktrace
+  
+  job_assembleGoogleplay:
+    name: assembleGoogleplay
+    needs: job_connectedGoogleplayDebugAndroidTest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Install node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "10.22.1"
+
+      - name: local.properties
+        run: |
+          set -x
+          echo "$LOCAL_PROPERTIES" > local.properties
+
+      - name: assembleGoogleplay
+        run: |
+          set -x
+          ./gradlew assembleGoogleplay
+
+      - name: appcenter-cli
+        env:
+          APPCENTER_ACCESS_TOKEN: ${{ secrets.$APPCENTER_ACCESS_TOKEN }}
+        run: |
+          set -x
+          npm install -g appcenter-cli
+          appcenter login --token $APPCENTER_ACCESS_TOKEN
+          export APP_GOOGLEPLAY_DEBUG=app/build/outputs/apk/googleplay/debug/app-googleplay-debug.apk
+          appcenter distribute release --app "jameshnsears/QuoteUnquote-Development" --file ${APP_GOOGLEPLAY_DEBUG} --group Collaborators --release-notes "GitHub CI" --token $APPCENTER_ACCESS_TOKEN --silent
+          export APP_GOOGLEPLAY_RELEASE_UNSIGNED=app/build/outputs/apk/googleplay/release/app-googleplay-release-unsigned.apk
+          appcenter distribute release --app "jameshnsears/QuoteUnquote-Production" --file ${APP_GOOGLEPLAY_RELEASE_UNSIGNED} --group Collaborators --release-notes "GitHub CI" --token $APPCENTER_ACCESS_TOKEN --silent
+
+  job_assembleFdroid:
+    name: assembleFdroid
+    needs: job_connectedFdroidDebugAndroidTest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Install node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "10.22.1"
+
+      - name: local.properties
+        run: |
+          set -x
+          echo "$LOCAL_PROPERTIES" > local.properties
+
+      - name: assembleFdroid
+        run: |
+          set -x
+          ./gradlew assembleFdroid
+
+      - name: appcenter-cli
+        env:
+          APPCENTER_ACCESS_TOKEN: ${{ secrets.$APPCENTER_ACCESS_TOKEN }}
+        run: |
+          set -x
+          npm install -g appcenter-cli
+          appcenter login --token $APPCENTER_ACCESS_TOKEN
+          export APP_FDROID_DEBUG=build/outputs/apk/fdroid/debug/app-fdroid-debug.apk
+          appcenter distribute release --app "jameshnsears/QuoteUnquote-Development" --file ${APP_FDROID_DEBUG} --group Collaborators --release-notes "GitHub CI" --token $APPCENTER_ACCESS_TOKEN --silent
+          export APP_FDROID_RELEASE_UNSIGNED=build/outputs/apk/fdroid/release/app-fdroid-release-unsigned.apk
+          appcenter distribute release --app "jameshnsears/QuoteUnquote-Development" --file ${APP_FDROID_RELEASE_UNSIGNED} --group Collaborators --release-notes "GitHub CI" --token $APPCENTER_ACCESS_TOKEN --silent

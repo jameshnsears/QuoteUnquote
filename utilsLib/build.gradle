@@ -30,18 +30,18 @@ android {
     }
 
     buildTypes {
-        def appcenterKeyProd = System.getenv("APPCENTER_KEY_PROD_QUOTEUNQUOTE")
+        def appcenterKeyProd = System.getenv("APPCENTER_KEY_PRODUCTION")
         if (appcenterKeyProd == null) {
             Properties properties = new Properties()
             properties.load(project.rootProject.file('local.properties').newDataInputStream())
-            appcenterKeyProd = properties.getProperty('APPCENTER_KEY_PROD_QUOTEUNQUOTE')
+            appcenterKeyProd = properties.getProperty('APPCENTER_KEY_PRODUCTION')
         }
 
-        def appcenterKeyDev = System.getenv("APPCENTER_KEY_DEV_QUOTEUNQUOTE")
+        def appcenterKeyDev = System.getenv("APPCENTER_KEY_DEVELOPMENT")
         if (appcenterKeyDev == null) {
             Properties properties = new Properties()
             properties.load(project.rootProject.file('local.properties').newDataInputStream())
-            appcenterKeyDev = properties.getProperty('APPCENTER_KEY_DEV_QUOTEUNQUOTE')
+            appcenterKeyDev = properties.getProperty('APPCENTER_KEY_DEVELOPMENT')
         }
 
         release {
