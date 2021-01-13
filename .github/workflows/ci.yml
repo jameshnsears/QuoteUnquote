@@ -305,7 +305,7 @@ jobs:
 
       - name: appcenter-cli
         env:
-          APPCENTER_ACCESS_TOKEN: ${{ secrets.$APPCENTER_ACCESS_TOKEN }}
+          APPCENTER_ACCESS_TOKEN: ${{ secrets.APPCENTER_ACCESS_TOKEN }}
         run: |
           set -x
           npm install -g appcenter-cli
@@ -342,7 +342,7 @@ jobs:
 
       - name: appcenter-cli
         env:
-          APPCENTER_ACCESS_TOKEN: ${{ secrets.$APPCENTER_ACCESS_TOKEN }}
+          APPCENTER_ACCESS_TOKEN: ${{ secrets.APPCENTER_ACCESS_TOKEN }}
         run: |
           set -x
           npm install -g appcenter-cli
