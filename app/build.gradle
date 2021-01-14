@@ -13,7 +13,21 @@ task espresso(type: Exec) {
     commandLine 'adb', 'shell', 'settings', 'put', 'global', 'animator_duration_scale', '0'
 }
 
+def keystorePropertiesFile = rootProject.file("local.properties")
+def keystoreProperties = new Properties()
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
+
 android {
+    signingConfigs {
+        googleplay {
+            keyAlias keystoreProperties['RELEASE_KEY_ALIAS']
+            keyPassword keystoreProperties['RELEASE_KEY_PASSWORD']
+            storeFile file(keystoreProperties['RELEASE_STORE_FILE'])
+            storePassword keystoreProperties['RELEASE_STORE_PASSWORD']
+        }
+    }
+
     compileSdkVersion 29
     buildToolsVersion '30.0.2'
 
@@ -56,8 +70,6 @@ android {
     }
 
     buildTypes {
-        def useProdDb = false
-
         def gitHash = { ->
             def stdout = new ByteArrayOutputStream()
             exec {
@@ -72,12 +84,10 @@ android {
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
-            buildConfigField("boolean", "USE_PROD_DB", "$useProdDb")
             buildConfigField("String", "GIT_HASH", "\"$gitHash\"")
         }
         debug {
             testCoverageEnabled true
-            buildConfigField("boolean", "USE_PROD_DB", "$useProdDb")
             buildConfigField("String", "GIT_HASH", "\"$gitHash\"")
         }
     }
@@ -93,6 +103,7 @@ android {
             dimension 'version'
             applicationIdSuffix ".googleplay"
             versionNameSuffix "-googleplay"
+            signingConfig signingConfigs.googleplay
         }
         'fdroid' {
             dimension 'version'
@@ -106,13 +117,15 @@ android {
 
     sourceSets {
         androidTest {
-            assets.srcDirs = ['src/main/assets', 'src/androidTest/assets/', 'src/debug/assets/']
+            assets.srcDirs = ['src/androidTest/assets/']
             java.srcDirs = ['src/main/java', 'src/androidTest/java', 'src/debug/java']
         }
         googleplay {
+            assets.srcDirs = ['src/main/assets']
             java.srcDirs = ['src/main/java', 'src/googleplay/java']
         }
         fdroid {
+            assets.srcDirs = ['src/main/assets']
             java.srcDirs = ['src/main/java', 'src/fdroid/java']
         }
         manifestTest {

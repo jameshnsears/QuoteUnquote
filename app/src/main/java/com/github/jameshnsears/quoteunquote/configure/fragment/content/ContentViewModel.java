@@ -48,10 +48,10 @@ public class ContentViewModel extends AndroidViewModel {
 
     @NonNull
     public Single<List<AuthorPOJO>> authors() {
-        if (BuildConfig.USE_PROD_DB) {
-            return databaseRepository.getAuthorsWithAtLeastFiveQuotations();
-        } else {
+        if (BuildConfig.DEBUG) {
             return databaseRepository.getAuthors();
+        } else {
+            return databaseRepository.getAuthorsWithAtLeastFiveQuotations();
         }
     }
 

@@ -301,7 +301,7 @@ jobs:
       - name: assembleGoogleplay
         run: |
           set -x
-          ./gradlew assembleGoogleplay
+          ./gradlew :app:assembleGoogleplay
 
       - name: appcenter-cli
         run: |
@@ -338,7 +338,7 @@ jobs:
       - name: assembleFdroid
         run: |
           set -x
-          ./gradlew assembleFdroid
+          ./gradlew :app:assembleFdroid
 
       - name: appcenter-cli
         run: |

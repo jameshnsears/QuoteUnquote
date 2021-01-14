@@ -15,24 +15,18 @@ import com.github.jameshnsears.quoteunquote.BuildConfig;
         version = 1)
 public abstract class AbstractDatabaseQuotation extends RoomDatabase {
     @NonNull
-    public static final String DATABASE_NAME = "quotations.db.dev";
+    public static final String DATABASE_NAME = "quotations.db";
 
     @Nullable
     private static AbstractDatabaseQuotation quotationDatabase;
 
     @NonNull
     public static AbstractDatabaseQuotation getDatabase(@NonNull final Context context) {
-        String dbName = DATABASE_NAME;
-
-        if (BuildConfig.USE_PROD_DB) {
-            dbName = "quotations.db.prod";
-        }
-
         synchronized (AbstractDatabaseQuotation.class) {
             if (quotationDatabase == null) {
                 quotationDatabase = Room.databaseBuilder(context,
-                        AbstractDatabaseQuotation.class, dbName)
-                        .createFromAsset(dbName)
+                        AbstractDatabaseQuotation.class, DATABASE_NAME)
+                        .createFromAsset(DATABASE_NAME)
                         .build();
             }
             return quotationDatabase;

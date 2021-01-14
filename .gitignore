@@ -21,3 +21,6 @@ app/schemas/com.github.jameshnsears.quoteunquote.database.quotation.QuotationDat
 /utilsLibrary/coverage-error.log
 cloudLib/gcp/config/qualified-glow-281314.json
 cloudLib/gcp/config/virtual-ego-281313.json
+keystore.properties
+/keystore.jks
+/app/keystore.jks
