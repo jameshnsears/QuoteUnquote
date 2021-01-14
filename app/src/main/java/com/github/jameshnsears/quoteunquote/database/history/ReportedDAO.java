@@ -16,5 +16,5 @@ public interface ReportedDAO {
     Integer countReported();
 
     @Query("DELETE FROM REPORTED")
-    void deleteReported();
+    void deleteAll();
 }

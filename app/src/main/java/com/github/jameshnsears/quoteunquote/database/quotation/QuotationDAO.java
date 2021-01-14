@@ -42,4 +42,7 @@ public interface QuotationDAO {
 
     @Query("SELECT DIGEST FROM QUOTATIONS WHERE (QUOTATION LIKE :text OR AUTHOR LIKE :text) AND DIGEST NOT IN (:digests) ORDER BY AUTHOR ASC, ROWID ASC")
     List<String> getQuotationText(String text, List<String> digests);
+
+    @Query("DELETE FROM QUOTATIONS")
+    void deleteAll();
 }

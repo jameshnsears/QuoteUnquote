@@ -25,14 +25,14 @@ public interface PreviousDAO {
     PreviousEntity getNext(int widgetId, ContentSelection contentSelection);
 
     @Query("DELETE FROM PREVIOUS")
-    void deletePrevious();
+    void deleteAll();
 
     @Query("DELETE FROM PREVIOUS WHERE WIDGET_ID = :widgetId")
-    void deletePrevious(int widgetId);
+    void deleteAll(int widgetId);
 
     @Query("DELETE FROM PREVIOUS WHERE WIDGET_ID = :widgetId AND CONTENT_SELECTION = :contentSelection")
-    void deletePrevious(int widgetId, ContentSelection contentSelection);
+    void deleteAll(int widgetId, ContentSelection contentSelection);
 
     @Query("DELETE FROM PREVIOUS WHERE WIDGET_ID = :widgetId AND CONTENT_SELECTION = :contentSelection AND DIGEST = :digest")
-    void deletePrevious(int widgetId, ContentSelection contentSelection, String digest);
+    void deleteAll(int widgetId, ContentSelection contentSelection, String digest);
 }

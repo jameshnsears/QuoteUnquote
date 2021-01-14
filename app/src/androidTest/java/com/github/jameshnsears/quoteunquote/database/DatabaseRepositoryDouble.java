@@ -30,8 +30,8 @@ public final class DatabaseRepositoryDouble extends DatabaseRepository {
                 .allowMainThreadQueries()
                 .build();
 
-        previousDAO = abstractDatabaseHistory.contentDAO();
-        favouriteDAO = abstractDatabaseHistory.favouritesDAO();
+        previousDAO = abstractDatabaseHistory.previousDAO();
+        favouritesDAO = abstractDatabaseHistory.favouritesDAO();
         reportedDAO = abstractDatabaseHistory.reportedDAO();
     }
 
@@ -41,6 +41,14 @@ public final class DatabaseRepositoryDouble extends DatabaseRepository {
         }
 
         return databaseRepositoryDouble;
+    }
+
+    public void empty() {
+        databaseRepositoryDouble.abstractDatabaseQuotation.quotationsDAO().deleteAll();
+
+        databaseRepositoryDouble.abstractDatabaseHistory.previousDAO().deleteAll();
+        databaseRepositoryDouble.abstractDatabaseHistory.favouritesDAO().deleteAll();
+        databaseRepositoryDouble.abstractDatabaseHistory.reportedDAO().deleteAll();
     }
 
     public void insertQuotations(final List<QuotationEntity> quotationEntityList) {

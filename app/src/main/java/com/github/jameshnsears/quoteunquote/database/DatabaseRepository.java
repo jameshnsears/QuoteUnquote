@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.github.jameshnsears.quoteunquote.database.history.AbstractDatabaseHistory;
-import com.github.jameshnsears.quoteunquote.database.history.FavouriteDAO;
+import com.github.jameshnsears.quoteunquote.database.history.FavouritesDAO;
 import com.github.jameshnsears.quoteunquote.database.history.FavouriteEntity;
 import com.github.jameshnsears.quoteunquote.database.history.PreviousDAO;
 import com.github.jameshnsears.quoteunquote.database.history.PreviousEntity;
@@ -41,7 +41,7 @@ public class DatabaseRepository {
     @Nullable
     protected PreviousDAO previousDAO;
     @Nullable
-    protected FavouriteDAO favouriteDAO;
+    protected FavouritesDAO favouritesDAO;
     @Nullable
     protected ReportedDAO reportedDAO;
 
@@ -53,8 +53,8 @@ public class DatabaseRepository {
         abstractDatabaseQuotation = AbstractDatabaseQuotation.getDatabase(context);
         quotationDAO = abstractDatabaseQuotation.quotationsDAO();
         abstractDatabaseHistory = AbstractDatabaseHistory.getDatabase(context);
-        previousDAO = abstractDatabaseHistory.contentDAO();
-        favouriteDAO = abstractDatabaseHistory.favouritesDAO();
+        previousDAO = abstractDatabaseHistory.previousDAO();
+        favouritesDAO = abstractDatabaseHistory.favouritesDAO();
         reportedDAO = abstractDatabaseHistory.reportedDAO();
     }
 
@@ -113,7 +113,7 @@ public class DatabaseRepository {
 
     @NonNull
     public Single<Integer> countFavourites() {
-        return favouriteDAO.countFavourites();
+        return favouritesDAO.countFavourites();
     }
 
     @NonNull
@@ -131,7 +131,7 @@ public class DatabaseRepository {
 
     @NonNull
     public List<String> getFavourites() {
-        final List<String> favouriteQuotations = favouriteDAO.getFavourites();
+        final List<String> favouriteQuotations = favouritesDAO.getFavourites();
         logDigests(favouriteQuotations);
 
         return favouriteQuotations;
@@ -172,8 +172,8 @@ public class DatabaseRepository {
     public void markAsFavourite(@NonNull final String digest) {
         Timber.d("digest=%s", digest);
 
-        if (favouriteDAO.countIsFavourite(digest) == 0 && quotationDAO.getQuotation(digest) != null) {
-            favouriteDAO.markAsFavourite(new FavouriteEntity(digest));
+        if (favouritesDAO.countIsFavourite(digest) == 0 && quotationDAO.getQuotation(digest) != null) {
+            favouritesDAO.markAsFavourite(new FavouriteEntity(digest));
         }
     }
 
@@ -204,7 +204,7 @@ public class DatabaseRepository {
 
             case FAVOURITES:
                 availableQuotations
-                        = favouriteDAO.getFavourites(getPrevious(widgetId, contentSelection));
+                        = favouritesDAO.getFavourites(getPrevious(widgetId, contentSelection));
                 break;
 
             case AUTHOR:
@@ -249,35 +249,35 @@ public class DatabaseRepository {
 
     public void deleteFavourite(final int widgetId, @NonNull final String digest) {
         Timber.d("%d: digest=%s", widgetId, digest);
-        favouriteDAO.deleteFavourite(digest);
-        previousDAO.deletePrevious(widgetId, ContentSelection.FAVOURITES, digest);
+        favouritesDAO.deleteFavourite(digest);
+        previousDAO.deleteAll(widgetId, ContentSelection.FAVOURITES, digest);
     }
 
     public void deleteFavourites() {
-        favouriteDAO.deleteFavourites();
+        favouritesDAO.deleteAll();
     }
 
     public void deletePrevious(final int widgetId, @NonNull final ContentSelection contentSelection) {
         Timber.d("%d: contentType=%d", widgetId, contentSelection.getContentType());
-        previousDAO.deletePrevious(widgetId, contentSelection);
+        previousDAO.deleteAll(widgetId, contentSelection);
     }
 
     public void deletePrevious() {
-        previousDAO.deletePrevious();
+        previousDAO.deleteAll();
     }
 
     public void deletePrevious(final int widgetId) {
         Timber.d("widgetId=%d", widgetId);
-        previousDAO.deletePrevious(widgetId);
+        previousDAO.deleteAll(widgetId);
     }
 
     public void deleteReported() {
-        reportedDAO.deleteReported();
+        reportedDAO.deleteAll();
     }
 
     @NonNull
     public Integer countIsFavourite(@NonNull final String digest) {
-        return favouriteDAO.countIsFavourite(digest);
+        return favouritesDAO.countIsFavourite(digest);
     }
 
     @NonNull

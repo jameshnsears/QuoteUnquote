@@ -14,27 +14,16 @@ import java.util.ArrayList
 open class DatabaseTestHelper {
     protected var databaseRepositoryDouble = DatabaseRepositoryDouble.getInstance()
 
-    protected lateinit var quoteUnquoteModel: QuoteUnquoteModelDouble
+    protected lateinit var quoteUnquoteModelDouble: QuoteUnquoteModelDouble
 
-    /*
-        @Rule
-    public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
-
-    @Rule
-    public CountingTaskExecutorRule countingTaskExecutorRule = new CountingTaskExecutorRule();
-
-    protected static int widgetID = 1;
-
-     */
     @Before
     fun setUp() {
-        ApplicationProvider.getApplicationContext<Context>().deleteDatabase(AbstractDatabaseHistory.DATABASE_NAME)
-        quoteUnquoteModel = QuoteUnquoteModelDouble()
+        quoteUnquoteModelDouble = QuoteUnquoteModelDouble()
     }
 
     @After
     fun tearDown() {
-        quoteUnquoteModel.shutdown()
+        quoteUnquoteModelDouble.shutdown()
     }
 
     fun insertTestDataSet01() {

@@ -30,10 +30,10 @@ public abstract class AbstractDatabaseHistory extends RoomDatabase {
     }
 
     @NonNull
-    public abstract PreviousDAO contentDAO();
+    public abstract PreviousDAO previousDAO();
 
     @NonNull
-    public abstract FavouriteDAO favouritesDAO();
+    public abstract FavouritesDAO favouritesDAO();
 
     @NonNull
     public abstract ReportedDAO reportedDAO();

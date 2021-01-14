@@ -21,6 +21,7 @@ public class QuoteUnquoteModelDouble extends QuoteUnquoteModel {
 
     public void shutdown() {
         super.shutdown();
+        ((DatabaseRepositoryDouble) databaseRepository).empty();
     }
 
     public Single<Integer> countFavourites() {
@@ -49,12 +50,12 @@ public class QuoteUnquoteModelDouble extends QuoteUnquoteModel {
         return ContentSelection.ALL;
     }
 
-    public void insertTestDataSet01() {
-        List<QuotationEntity> quotationEntityList = new ArrayList();
-
-        quotationEntityList.add(new QuotationEntity(DatabaseRepository.DEFAULT_QUOTATION_DIGEST, "a0", "q0"));
-        quotationEntityList.add(new QuotationEntity("d1", "a1", "q1"));
-
-        ((DatabaseRepositoryDouble) databaseRepository).insertQuotations(quotationEntityList);
-    }
+//    public void insertTestDataSet01() {
+//        List<QuotationEntity> quotationEntityList = new ArrayList();
+//
+//        quotationEntityList.add(new QuotationEntity(DatabaseRepository.DEFAULT_QUOTATION_DIGEST, "a0", "q0"));
+//        quotationEntityList.add(new QuotationEntity("d1", "a1", "q1"));
+//
+//        ((DatabaseRepositoryDouble) databaseRepository).insertQuotations(quotationEntityList);
+//    }
 }

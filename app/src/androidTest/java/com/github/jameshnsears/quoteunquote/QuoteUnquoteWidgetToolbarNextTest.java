@@ -145,7 +145,7 @@ public class QuoteUnquoteWidgetToolbarNextTest extends DatabaseTestHelper {
 //        // user chooses a2 as author and keeps pressing new quotation
 //
 //        // each time user selects a new author then the prior history is deleted
-//        quoteUnquoteModelSpy.deletePrevious(WidgetIdTestHelper.WIDGET_ID, ContentSelection.AUTHOR);
+//        quoteUnquoteModelSpy.deleteAll(WidgetIdTestHelper.WIDGET_ID, ContentSelection.AUTHOR);
 //
 //        // the default quotation should still be in the history
 //        Assert.assertEquals(

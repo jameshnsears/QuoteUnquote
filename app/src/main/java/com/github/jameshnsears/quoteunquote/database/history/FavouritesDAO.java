@@ -9,7 +9,7 @@ import java.util.List;
 import io.reactivex.Single;
 
 @Dao
-public interface FavouriteDAO {
+public interface FavouritesDAO {
     @Insert
     void markAsFavourite(FavouriteEntity favouriteEntity);
 
@@ -29,5 +29,5 @@ public interface FavouriteDAO {
     void deleteFavourite(String digest);
 
     @Query("DELETE FROM FAVOURITE")
-    void deleteFavourites();
+    void deleteAll();
 }
