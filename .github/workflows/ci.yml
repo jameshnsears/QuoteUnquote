@@ -16,8 +16,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 2
-      # If this run was triggered by a pull request event, then checkout
-      # the head of the pull request instead of the merge commit.
       - run: git checkout HEAD^2
         if: ${{ github.event_name == 'pull_request' }}
 
@@ -62,12 +60,7 @@ jobs:
       - name: local.properties
         run: |
           set -x
-          echo "$LOCAL_PROPERTIES" > local.properties
-
-      - name: keystore.jks
-        run: |
-          set -x
-          touch app/keystore.jks
+          echo ${{ secrets.LOCAL_PROPERTIES }} > local.properties
 
       - name: gradlew
         run: |
@@ -86,12 +79,7 @@ jobs:
       - name: local.properties
         run: |
           set -x
-          echo "$LOCAL_PROPERTIES" > local.properties
-
-      - name: keystore.jks
-        run: |
-          set -x
-          touch app/keystore.jks
+          echo ${{ secrets.LOCAL_PROPERTIES }} > local.properties
 
       - name: gradlew
         run: |
@@ -111,12 +99,7 @@ jobs:
       - name: local.properties
         run: |
           set -x
-          echo "$LOCAL_PROPERTIES" > local.properties
-
-      - name: keystore.jks
-        run: |
-          set -x
-          touch app/keystore.jks
+          echo ${{ secrets.LOCAL_PROPERTIES }} > local.properties
 
       - name: gradlew
         run: |
@@ -136,12 +119,7 @@ jobs:
       - name: local.properties
         run: |
           set -x
-          echo "$LOCAL_PROPERTIES" > local.properties
-
-      - name: keystore.jks
-        run: |
-          set -x
-          touch app/keystore.jks
+          echo ${{ secrets.LOCAL_PROPERTIES }} > local.properties
 
       - name: gradlew
         run: |
@@ -161,12 +139,7 @@ jobs:
       - name: local.properties
         run: |
           set -x
-          echo "$LOCAL_PROPERTIES" > local.properties
-
-      - name: keystore.jks
-        run: |
-          set -x
-          touch app/keystore.jks
+          echo ${{ secrets.LOCAL_PROPERTIES }} > local.properties
 
       - name: gradlew
         run: |
@@ -186,12 +159,7 @@ jobs:
       - name: local.properties
         run: |
           set -x
-          echo "$LOCAL_PROPERTIES" > local.properties
-
-      - name: keystore.jks
-        run: |
-          set -x
-          touch app/keystore.jks
+          echo ${{ secrets.LOCAL_PROPERTIES }} > local.properties
 
       - name: gradlew
         run: |
@@ -211,12 +179,7 @@ jobs:
       - name: local.properties
         run: |
           set -x
-          echo "$LOCAL_PROPERTIES" > local.properties
-
-      - name: keystore.jks
-        run: |
-          set -x
-          touch app/keystore.jks
+          echo ${{ secrets.LOCAL_PROPERTIES }} > local.properties
 
       - name: testManifestTestDebugUnitTest
         run: |
@@ -236,12 +199,7 @@ jobs:
       - name: local.properties
         run: |
           set -x
-          echo "$LOCAL_PROPERTIES" > local.properties
-
-      - name: keystore.jks
-        run: |
-          set -x
-          touch app/keystore.jks
+          echo ${{ secrets.LOCAL_PROPERTIES }} > local.properties
 
       - name: testGoogleplayDebugUnitTest
         run: |
@@ -261,12 +219,7 @@ jobs:
       - name: local.properties
         run: |
           set -x
-          echo "$LOCAL_PROPERTIES" > local.properties
-
-      - name: keystore.jks
-        run: |
-          set -x
-          touch app/keystore.jks
+          echo ${{ secrets.LOCAL_PROPERTIES }} > local.properties
 
       - name: testFdroidDebugUnitTest
         run: |
@@ -289,12 +242,7 @@ jobs:
       - name: local.properties
         run: |
           set -x
-          echo "$LOCAL_PROPERTIES" > local.properties
-
-      - name: keystore.jks
-        run: |
-          set -x
-          touch app/keystore.jks
+          echo ${{ secrets.LOCAL_PROPERTIES }} > local.properties
 
       - name: androidTest
         uses: reactivecircus/android-emulator-runner@v2
@@ -319,12 +267,7 @@ jobs:
       - name: local.properties
         run: |
           set -x
-          echo "$LOCAL_PROPERTIES" > local.properties
-
-      - name: keystore.jks
-        run: |
-          set -x
-          touch app/keystore.jks
+          echo ${{ secrets.LOCAL_PROPERTIES }} > local.properties
 
       - name: androidTest
         uses: reactivecircus/android-emulator-runner@v2
@@ -332,7 +275,7 @@ jobs:
           api-level: ${{matrix.api-level}}
           target: default
           script: ./gradlew connectedGoogleplayDebugAndroidTest --stacktrace
-  
+
   job_assembleGoogleplay:
     name: assembleGoogleplay
     needs: job_connectedGoogleplayDebugAndroidTest
@@ -351,12 +294,7 @@ jobs:
       - name: local.properties
         run: |
           set -x
-          echo "$LOCAL_PROPERTIES" > local.properties
-
-      - name: keystore.jks
-        run: |
-          set -x
-          touch app/keystore.jks
+          echo ${{ secrets.LOCAL_PROPERTIES }} > local.properties
 
       - name: assembleGoogleplay
         run: |
@@ -393,12 +331,7 @@ jobs:
       - name: local.properties
         run: |
           set -x
-          echo "$LOCAL_PROPERTIES" > local.properties
-
-      - name: keystore.jks
-        run: |
-          set -x
-          touch app/keystore.jks
+          echo ${{ secrets.LOCAL_PROPERTIES }} > local.properties
 
       - name: assembleFdroid
         run: |
