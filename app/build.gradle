@@ -17,7 +17,6 @@ def keystorePropertiesFile = rootProject.file("local.properties")
 def keystoreProperties = new Properties()
 keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
-
 android {
     signingConfigs {
         googleplay {
