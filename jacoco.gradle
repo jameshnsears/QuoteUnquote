@@ -1,0 +1,34 @@
+apply plugin: 'jacoco'
+
+jacoco {
+    toolVersion = "0.8.5"
+}
+
+task jacocoReport(type: JacocoReport) {
+    reports {
+        xml {
+            enabled true
+            destination file("$project.buildDir/reports/jacoco.xml")
+        }
+        html {
+            enabled true
+            destination file("$project.buildDir/reports/jacoco")
+        }
+    }
+
+    def mainSrc = "${project.projectDir}/src/main/java"
+
+    def excludes = [
+            '**/R.class',
+            '**/R$*.class'
+    ]
+
+    def debugTreeJava = fileTree(dir: "${buildDir}/intermediates/javac", excludes: excludes)
+    def debugKotlin = fileTree(dir: "$project.buildDir/tmp/kotlin-classes", excludes: excludes)
+
+    getSourceDirectories().from(files([mainSrc]))
+    getClassDirectories().from(files([debugTreeJava], [debugKotlin]))
+    getExecutionData().from(fileTree(dir: "$buildDir", includes:
+            ["outputs/code_coverage/debugAndroidTest/connected/*.ec"
+            ]))
+}

@@ -251,6 +251,24 @@ jobs:
           target: default
           script: ./gradlew connectedGoogleplayDebugAndroidTest --stacktrace
 
+      - name: combined coverage
+        run: |
+          set -x
+          ./gradlew jacocoReport --stacktrace
+
+      - name: coveralls
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -x
+          ./gradlew coveralls
+
+      - name: codecov
+        run: |
+          set -x
+          bash <(curl -s https://codecov.io/bash)
+
   job_connectedFdroidDebugAndroidTest:
     name: connectedFdroidDebugAndroidTest
     needs: job_testFdroidDebugUnitTest

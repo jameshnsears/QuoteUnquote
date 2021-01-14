@@ -4,11 +4,7 @@ import com.github.jameshnsears.quoteunquote.database.DatabaseTestHelper
 import org.junit.Test
 
 class ContentViewModelTest : DatabaseTestHelper() {
-    @Test
-    fun a() {
-    }
-
-    /*
+     /*
     //    @Before
 //    fun setUpDatabases() {
 //        ApplicationProvider.getApplicationContext<Context>().deleteDatabase(AbstractDatabaseHistory.DATABASE_NAME)
