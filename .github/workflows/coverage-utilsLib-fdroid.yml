@@ -1,4 +1,4 @@
-name: coverage-utilsLib
+name: coverage-utilsLib-fdroid
 
 on:
   push:
@@ -7,8 +7,8 @@ on:
     branches:
 
 jobs:
-  coverage:
-    name: coverage
+  coverage-utilsLib-fdroid:
+    name: coverage-utilsLib-fdroid
     runs-on: macos-latest
     steps:
       - name: checkout
@@ -26,11 +26,10 @@ jobs:
         with:
           api-level: 29
           target: default
-          script: ./gradlew :utilsLib:testFdroidDebugCoverage :utilsLib:testGoogleplayDebugCoverage
+          script: ./gradlew :utilsLib:testFdroidDebugCoverage
 
       - name: publish
         run: |
           set -x
           ls -al utilsLib/build/reports/*.xml
           bash <(curl https://codecov.io/bash) -t ${{ secrets.CODECOVIO_TOKEN }} -f utilsLib/build/reports/FdroidDebug.xml -F utilslib.fdroid
-          bash <(curl https://codecov.io/bash) -t ${{ secrets.CODECOVIO_TOKEN }} -f utilsLib/build/reports/GoogleplayDebug.xml -F utilslib.googleplay

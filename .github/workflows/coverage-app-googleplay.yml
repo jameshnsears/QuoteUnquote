@@ -1,4 +1,4 @@
-name: coverage-app
+name: coverage-app-googleplay
 
 on:
   push:
@@ -7,8 +7,8 @@ on:
     branches:
 
 jobs:
-  coverage-app:
-    name: coverage-app
+  coverage-app-googleplay:
+    name: coverage-app-googleplay
     runs-on: macos-latest
     steps:
       - name: checkout
@@ -26,18 +26,7 @@ jobs:
         with:
           api-level: 29
           target: default
-          script: ./gradlew :app:testManifestTestDebugCoverage :app:testFdroidDebugCoverage :app:testGoogleplayDebugCoverage
-
-      - name: publish app.manifestTest
-        run: |
-          set -x
-          ls -al app/build/reports/*.xml
-          bash <(curl https://codecov.io/bash) -t ${{ secrets.CODECOVIO_TOKEN }} -f app/build/reports/ManifestTestDebug.xml -F app.manifestTest
-
-      - name: publish app.froid
-        run: |
-          set -x
-          bash <(curl https://codecov.io/bash) -t ${{ secrets.CODECOVIO_TOKEN }} -f app/build/reports/FdroidDebug.xml -F app.froid
+          script: ./gradlew :app:testGoogleplayDebugCoverage
 
       - name: publish app.gooleplay
         run: |

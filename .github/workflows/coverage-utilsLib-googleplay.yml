@@ -1,0 +1,35 @@
+name: coverage-utilsLib-googleplay
+
+on:
+  push:
+    branches:
+  pull_request:
+    branches:
+
+jobs:
+  coverage-utilsLib-googleplay:
+    name: coverage-utilsLib-googleplay
+    runs-on: macos-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: local.properties
+        env:
+          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
+        run: echo "$LOCAL_PROPERTIES" | base64 -d > local.properties
+
+      - name: utilsLib
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          target: default
+          script: ./gradlew :utilsLib:testGoogleplayDebugCoverage
+
+      - name: publish
+        run: |
+          set -x
+          ls -al utilsLib/build/reports/*.xml
+          bash <(curl https://codecov.io/bash) -t ${{ secrets.CODECOVIO_TOKEN }} -f utilsLib/build/reports/GoogleplayDebug.xml -F utilslib.googleplay

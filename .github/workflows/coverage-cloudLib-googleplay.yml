@@ -1,4 +1,4 @@
-name: coverage-cloudLib
+name: coverage-cloudLib-googleplay
 
 on:
   push:
@@ -7,8 +7,8 @@ on:
     branches:
 
 jobs:
-  coverage:
-    name: coverage
+  coverage-cloudLib-googleplay:
+    name: coverage-cloudLib-googleplay
     runs-on: macos-latest
     steps:
       - name: checkout
