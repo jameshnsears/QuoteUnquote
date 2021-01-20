@@ -1,7 +1,6 @@
 package com.github.jameshnsears.quoteunquote.configure.fragment.content
 
 import com.github.jameshnsears.quoteunquote.database.DatabaseTestHelper
-import org.junit.Test
 
 class ContentViewModelTest : DatabaseTestHelper() {
      /*

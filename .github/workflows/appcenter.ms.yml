@@ -1,5 +1,4 @@
-# https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions
-name: CI
+name: appcenter.ms
 
 on:
   push:
@@ -8,8 +7,8 @@ on:
     branches:
 
 jobs:
-  job_OSSAR-Scan:
-    name: github_OSSAR-Scan
+  OSSAR-Scan:
+    name: OSSAR-Scan
     runs-on: windows-latest
     steps:
       - name: Checkout repository
@@ -33,22 +32,7 @@ jobs:
         with:
           sarif_file: ${{ steps.ossar.outputs.sarifFile }}
 
-  job_super-linter:
-    name: github_super-linter
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Lint Code Base
-        uses: github/super-linter@v3
-        env:
-          VALIDATE_ALL_CODEBASE: false
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  job_checkstyle:
+  checkstyle:
     name: checkstyle
     runs-on: ubuntu-latest
     steps:
@@ -67,28 +51,8 @@ jobs:
           set -x
           ./gradlew checkstyle
 
-  job_ktlint:
-    name: ktlint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: local.properties
-        env:
-          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
-        run: echo "$LOCAL_PROPERTIES" | base64 -d > local.properties
-
-      - name: gradlew
-        run: |
-          set -x
-          ./gradlew ktlint
-
-  job_detekt:
+  detekt:
     name: detekt
-    needs: job_ktlint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -106,9 +70,45 @@ jobs:
           set -x
           ./gradlew detekt
 
-  job_lintManifestTestDebug:
+  super-linter:
+    name: super-linter
+    needs: [OSSAR-Scan, checkstyle, detekt]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Lint Code Base
+        uses: github/super-linter@v3
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  ktlint:
+    name: ktlint
+    needs: [OSSAR-Scan, checkstyle, detekt]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: local.properties
+        env:
+          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
+        run: echo "$LOCAL_PROPERTIES" | base64 -d > local.properties
+
+      - name: gradlew
+        run: |
+          set -x
+          ./gradlew ktlint
+
+  lintManifestTestDebug:
     name: lintManifestTestDebug
-    needs: [job_super-linter, job_OSSAR-Scan, job_checkstyle, job_detekt]
+    needs: [OSSAR-Scan, checkstyle, detekt]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -126,9 +126,9 @@ jobs:
           set -x
           ./gradlew lintManifestTestDebug
 
-  job_lintGooglePlayDebug:
+  lintGooglePlayDebug:
     name: lintGooglePlayDebug
-    needs: [job_super-linter, job_OSSAR-Scan, job_checkstyle, job_detekt]
+    needs: [OSSAR-Scan, checkstyle, detekt]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -146,9 +146,9 @@ jobs:
           set -x
           ./gradlew lintGooglePlayDebug
 
-  job_lintFdroidDebug:
+  lintFdroidDebug:
     name: lintFdroidDebug
-    needs: [job_super-linter, job_OSSAR-Scan, job_checkstyle, job_detekt]
+    needs: [OSSAR-Scan, checkstyle, detekt]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -166,137 +166,12 @@ jobs:
           set -x
           ./gradlew lintFdroidDebug
 
-  job_testManifestTestDebugUnitTest:
-    name: testManifestTestDebugUnitTest
-    needs: [job_detekt, job_lintManifestTestDebug]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: local.properties
-        env:
-          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
-        run: echo "$LOCAL_PROPERTIES" | base64 -d > local.properties
-
-      - name: testManifestTestDebugUnitTest
-        run: |
-          set -x
-          ./gradlew testManifestTestDebugUnitTest
-
-  job_testGoogleplayDebugUnitTest:
-    name: testGoogleplayDebugUnitTest
-    needs: [job_detekt, job_lintGooglePlayDebug]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: local.properties
-        env:
-          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
-        run: echo "$LOCAL_PROPERTIES" | base64 -d > local.properties
-
-      - name: testGoogleplayDebugUnitTest
-        run: |
-          set -x
-          ./gradlew testGoogleplayDebugUnitTest
-
-  job_testFdroidDebugUnitTest:
-    name: testFdroidDebugUnitTest
-    needs: [job_detekt, job_lintFdroidDebug]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: local.properties
-        env:
-          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
-        run: echo "$LOCAL_PROPERTIES" | base64 -d > local.properties
-
-      - name: testFdroidDebugUnitTest
-        run: |
-          set -x
-          ./gradlew testFdroidDebugUnitTest
-
-  job_connectedGoogleplayDebugAndroidTest:
-    name: connectedGoogleplayDebugAndroidTest
-    needs: job_testGoogleplayDebugUnitTest
-    runs-on: macos-latest
-    strategy:
-      matrix:
-        api-level: [24, 29]
-    steps:
-      - name: checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: local.properties
-        env:
-          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
-        run: echo "$LOCAL_PROPERTIES" | base64 -d > local.properties
-
-      - name: androidTest
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: ${{matrix.api-level}}
-          target: default
-          script: ./gradlew connectedGoogleplayDebugAndroidTest --stacktrace
-
-      - name: combined coverage
-        run: |
-          set -x
-          ./gradlew jacocoReport --stacktrace
-
-      - name: coveralls
-        env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          set -x
-          ./gradlew coveralls
-
-      - name: codecov
-        run: |
-          set -x
-          bash <(curl -s https://codecov.io/bash)
-
-  job_connectedFdroidDebugAndroidTest:
-    name: connectedFdroidDebugAndroidTest
-    needs: job_testFdroidDebugUnitTest
-    runs-on: macos-latest
-    strategy:
-      matrix:
-        api-level: [24, 29]
-    steps:
-      - name: checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: local.properties
-        env:
-          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
-        run: echo "$LOCAL_PROPERTIES" | base64 -d > local.properties
-
-      - name: androidTest
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: ${{matrix.api-level}}
-          target: default
-          script: ./gradlew connectedGoogleplayDebugAndroidTest --stacktrace
-
-  job_assembleGoogleplay:
+  assembleGoogleplay:
+    environment:
+      name: appcenter.ms
+      url: https://appcenter.ms/
     name: assembleGoogleplay
-    needs: job_connectedGoogleplayDebugAndroidTest
+    needs: [ktlint, super-linter, lintManifestTestDebug, lintGooglePlayDebug, lintFdroidDebug]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -313,6 +188,11 @@ jobs:
         env:
           LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
         run: echo "$LOCAL_PROPERTIES" | base64 -d > local.properties
+
+      - name: keystore.jks
+        env:
+          KEYSTORE_JKS: ${{ secrets.KEYSTORE_JKS }}
+        run: echo "$KEYSTORE_JKS" | base64 -d > app/keystore.jks
 
       - name: assembleGoogleplay
         run: |
@@ -331,9 +211,12 @@ jobs:
           export APP_GOOGLEPLAY_RELEASE_UNSIGNED=app/build/outputs/apk/googleplay/release/app-googleplay-release-unsigned.apk
           appcenter distribute release --app "jameshnsears/QuoteUnquote-Production" --file ${APP_GOOGLEPLAY_RELEASE_UNSIGNED} --group Collaborators --release-notes "GitHub CI" --token ${{ secrets.APPCENTER_ACCESS_TOKEN }} --silent
 
-  job_assembleFdroid:
+  assembleFdroid:
+    environment:
+      name: appcenter.ms
+      url: https://appcenter.ms/
     name: assembleFdroid
-    needs: job_connectedFdroidDebugAndroidTest
+    needs: [ktlint, super-linter, lintManifestTestDebug, lintGooglePlayDebug, lintFdroidDebug]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -350,6 +233,11 @@ jobs:
         env:
           LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
         run: echo "$LOCAL_PROPERTIES" | base64 -d > local.properties
+
+      - name: keystore.jks
+        env:
+          KEYSTORE_JKS: ${{ secrets.KEYSTORE_JKS }}
+        run: echo "$KEYSTORE_JKS" | base64 -d > app/keystore.jks
 
       - name: assembleFdroid
         run: |

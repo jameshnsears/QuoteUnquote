@@ -3,6 +3,7 @@ plugins {
 }
 apply plugin: 'kotlin-android'
 
+apply from: '../jacoco.gradle'
 apply from: '../ktlint.gradle'
 apply from: '../detekt.gradle'
 apply from: '../checkstyle.gradle'
@@ -12,7 +13,7 @@ android {
     buildToolsVersion '30.0.2'
 
     defaultConfig {
-        minSdkVersion 24
+        minSdkVersion 26
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -51,8 +52,6 @@ android {
             buildConfigField("String", "APPCENTER_KEY", "\"$appcenterKeyProd\"")
         }
         debug {
-            testCoverageEnabled true
-
             buildConfigField("String", "APPCENTER_KEY", "\"$appcenterKeyDev\"")
         }
     }
@@ -90,6 +89,11 @@ android {
     testOptions {
         unitTests {
             includeAndroidResources = true
+        }
+        unitTests.all {
+            jacoco {
+                includeNoLocationClasses = true
+            }
         }
     }
 }

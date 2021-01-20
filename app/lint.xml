@@ -6,6 +6,7 @@
         <ignore path="**/resources-4.4.jar" />
         <ignore path="**/shadows-framework-4.4.jar" />
         <ignore path="**/utils-4.4.jar" />
+        <ignore path="**/byte-buddy-agent-1.10.19.jar" />
     </issue>
     <issue id="OldTargetApi" severity="ignore" />
     <issue id="VectorRaster" severity="ignore" />

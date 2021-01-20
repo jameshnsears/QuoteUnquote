@@ -1,8 +1,9 @@
 apply plugin: 'checkstyle'
 
 task checkstyle(type: Checkstyle) {
-    description 'Check code standard'
-    group 'verification'
+    group = "Quote, Unquote"
+    description 'checkstyle'
+
     source 'src'
     include '**/*.kt'
     exclude '**/gen/**'
