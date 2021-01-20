@@ -253,7 +253,7 @@ jobs:
           npm install -g appcenter-cli
           yarn
           appcenter login --token ${{ secrets.APPCENTER_ACCESS_TOKEN }}
-          export APP_FDROID_DEBUG=build/outputs/apk/fdroid/debug/app-fdroid-debug.apk
+          export APP_FDROID_DEBUG=app/build/outputs/apk/fdroid/debug/app-fdroid-debug.apk
           appcenter distribute release --app "jameshnsears/QuoteUnquote-Development" --file ${APP_FDROID_DEBUG} --group Collaborators --release-notes "GitHub CI" --token ${{ secrets.APPCENTER_ACCESS_TOKEN }} --silent
-          export APP_FDROID_RELEASE_UNSIGNED=build/outputs/apk/fdroid/release/app-fdroid-release-unsigned.apk
+          export APP_FDROID_RELEASE_UNSIGNED=app/build/outputs/apk/fdroid/release/app-fdroid-release-unsigned.apk
           appcenter distribute release --app "jameshnsears/QuoteUnquote-Development" --file ${APP_FDROID_RELEASE_UNSIGNED} --group Collaborators --release-notes "GitHub CI" --token ${{ secrets.APPCENTER_ACCESS_TOKEN }} --silent
