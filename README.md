@@ -4,4 +4,4 @@
 
 ![appcenter.ms](https://github.com/jameshnsears/QuoteUnquote/workflows/appcenter.ms/badge.svg) 
 
-[![codecov](https://codecov.io/gh/jameshnsears/QuoteUnquote/branch/jacoco/graph/badge.svg?token=MUVXyY6kDV)](https://codecov.io/gh/jameshnsears/QuoteUnquote)
+[![codecov](https://codecov.io/gh/jameshnsears/QuoteUnquote/branch/development/graph/badge.svg?token=MUVXyY6kDV)](https://codecov.io/gh/jameshnsears/QuoteUnquote)
