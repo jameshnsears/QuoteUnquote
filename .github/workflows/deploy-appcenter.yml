@@ -1,4 +1,4 @@
-name: appcenter.ms
+name: deploy-appcenter
 
 on:
   push:
