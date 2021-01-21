@@ -169,7 +169,7 @@ jobs:
       - name: show .gradle size
         run: |
           set -x
-          du -h --max-depth=1 $HOME/.gradle
+          du -h -d 1 $HOME/.gradle
 
   lintGooglePlayDebug:
     name: lintGooglePlayDebug
@@ -204,7 +204,7 @@ jobs:
       - name: show .gradle size
         run: |
           set -x
-          du -h --max-depth=1 $HOME/.gradle
+          du -h -d 1 $HOME/.gradle
 
   lintFdroidDebug:
     name: lintFdroidDebug
@@ -239,7 +239,7 @@ jobs:
       - name: show .gradle size
         run: |
           set -x
-          du -h --max-depth=1 $HOME/.gradle
+          du -h -d 1 $HOME/.gradle
 
   assembleGoogleplay:
     environment:
@@ -288,7 +288,7 @@ jobs:
       - name: show .gradle size
         run: |
           set -x
-          du -h --max-depth=1 $HOME/.gradle
+          du -h -d 1 $HOME/.gradle
 
       - name: appcenter-cli
         run: |
@@ -349,7 +349,7 @@ jobs:
       - name: show .gradle size
         run: |
           set -x
-          du -h --max-depth=1 $HOME/.gradle
+          du -h -d 1 $HOME/.gradle
 
       - name: appcenter-cli
         run: |

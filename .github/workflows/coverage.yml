@@ -41,7 +41,7 @@ jobs:
       - name: show .gradle size
         run: |
           set -x
-          du -h --max-depth=1 $HOME/.gradle
+          du -h -d 1 $HOME/.gradle
 
       - name: publish app.manifestTest
         run: |
