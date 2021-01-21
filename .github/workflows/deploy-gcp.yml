@@ -29,4 +29,5 @@ jobs:
 
       - name: static analysis
         run: |
+          cd cloudLib/gcp
           markdownlint '**/*.md' --ignore functions/node_modules
