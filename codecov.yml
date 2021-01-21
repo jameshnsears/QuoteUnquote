@@ -2,29 +2,29 @@ flags:
   utilslib.fdroid:
     paths:
       - utilslib/src
-    carryforward: true
+    carryforward: false
 
   utilslib.googleplay:
     paths:
       - utilslib/src
-    carryforward: true
+    carryforward: false
 
   cloudlib.googleplay:
     paths:
       - cloudlib/src
-    carryforward: true
+    carryforward: false
 
   app.manifestTest:
     paths:
       - app/src
-    carryforward: true
+    carryforward: false
 
   app.froid:
     paths:
       - app/src
-    carryforward: true
+    carryforward: false
 
   app.gooleplay:
     paths:
       - app/src
-    carryforward: true
+    carryforward: false

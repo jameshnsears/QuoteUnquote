@@ -254,7 +254,7 @@ jobs:
           KEYSTORE_JKS: ${{ secrets.KEYSTORE_JKS }}
         run: echo "$KEYSTORE_JKS" | base64 -d > app/keystore.jks
 
-      -name: gradle cache
+      - name: gradle cache
         uses: actions/cache@v2
         with:
           path: |
@@ -310,7 +310,7 @@ jobs:
           KEYSTORE_JKS: ${{ secrets.KEYSTORE_JKS }}
         run: echo "$KEYSTORE_JKS" | base64 -d > app/keystore.jks
 
-      -name: gradle cache
+      - name: gradle cache
         uses: actions/cache@v2
         with:
           path: |
