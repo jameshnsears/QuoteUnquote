@@ -166,6 +166,11 @@ jobs:
           set -x
           ./gradlew lintManifestTestDebug
 
+      - name: show .gradle size
+        run: |
+          set -x
+          du -h --max-depth=1 $HOME/.gradle
+
   lintGooglePlayDebug:
     name: lintGooglePlayDebug
     needs: [OSSAR-Scan, checkstyle, detekt]
@@ -196,6 +201,11 @@ jobs:
           set -x
           ./gradlew lintGooglePlayDebug
 
+      - name: show .gradle size
+        run: |
+          set -x
+          du -h --max-depth=1 $HOME/.gradle
+
   lintFdroidDebug:
     name: lintFdroidDebug
     needs: [OSSAR-Scan, checkstyle, detekt]
@@ -225,6 +235,11 @@ jobs:
         run: |
           set -x
           ./gradlew lintFdroidDebug
+
+      - name: show .gradle size
+        run: |
+          set -x
+          du -h --max-depth=1 $HOME/.gradle
 
   assembleGoogleplay:
     environment:
@@ -269,6 +284,11 @@ jobs:
           set -x
           ./gradlew :app:assembleGoogleplay
           find . -name "*.apk" -print
+
+      - name: show .gradle size
+        run: |
+          set -x
+          du -h --max-depth=1 $HOME/.gradle
 
       - name: appcenter-cli
         run: |
@@ -325,6 +345,11 @@ jobs:
           set -x
           ./gradlew :app:assembleFdroid
           find . -name "*.apk" -print
+
+      - name: show .gradle size
+        run: |
+          set -x
+          du -h --max-depth=1 $HOME/.gradle
 
       - name: appcenter-cli
         run: |
