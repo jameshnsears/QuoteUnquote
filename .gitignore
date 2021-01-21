@@ -13,3 +13,7 @@
 local.properties
 /QuoteUnquote.cloudLib/
 /utilsLib/build/
+/.idea/modules/
+/.idea/sonarlint/issuestore/
+/.idea/compiler.xml
+/.idea/QuoteUnquote.iml
