@@ -14,7 +14,8 @@ tar -C $HOME/bin/ -xf $HOME/Downloads/$NODE_VERSION.tar.xz
 node -v
 
 # install project dependencies
-npm install -g express mocha chai chai-http nyc md5 @google-cloud/firestore markdownlint-cli jsonlint
+npm install -g express mocha chai chai-http nyc md5 \
+    @google-cloud/firestore markdownlint-cli jsonlint
 
 # update packages
 cd cloudLib/gcp

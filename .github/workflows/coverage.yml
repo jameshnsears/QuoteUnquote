@@ -25,6 +25,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
+            ~/.gradle/caches/build-cache-1
             ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
@@ -72,6 +73,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
+            ~/.gradle/caches/build-cache-1
             ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
@@ -109,6 +111,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
+            ~/.gradle/caches/build-cache-1
             ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
