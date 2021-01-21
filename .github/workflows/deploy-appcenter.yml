@@ -45,8 +45,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            ~/.gradle/caches/build-cache-1
-            ~/.gradle/wrapper
+            ~/.gradle
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
@@ -74,8 +73,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            ~/.gradle/caches/build-cache-1
-            ~/.gradle/wrapper
+            ~/.gradle
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
@@ -120,8 +118,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            ~/.gradle/caches/build-cache-1
-            ~/.gradle/wrapper
+            ~/.gradle
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
@@ -150,8 +147,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            ~/.gradle/caches/build-cache-1
-            ~/.gradle/wrapper
+            ~/.gradle
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
@@ -169,7 +165,7 @@ jobs:
       - name: show .gradle size
         run: |
           set -x
-          du -h -d 1 $HOME/.gradle
+          du -h -d 1 ~/.gradle
 
   lintGooglePlayDebug:
     name: lintGooglePlayDebug
@@ -185,8 +181,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            ~/.gradle/caches/build-cache-1
-            ~/.gradle/wrapper
+            ~/.gradle
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
@@ -204,7 +199,7 @@ jobs:
       - name: show .gradle size
         run: |
           set -x
-          du -h -d 1 $HOME/.gradle
+          du -h -d 1 ~/.gradle
 
   lintFdroidDebug:
     name: lintFdroidDebug
@@ -220,8 +215,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            ~/.gradle/caches/build-cache-1
-            ~/.gradle/wrapper
+            ~/.gradle
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
@@ -239,7 +233,7 @@ jobs:
       - name: show .gradle size
         run: |
           set -x
-          du -h -d 1 $HOME/.gradle
+          du -h -d 1 ~/.gradle
 
   assembleGoogleplay:
     environment:
@@ -273,8 +267,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            ~/.gradle/caches/build-cache-1
-            ~/.gradle/wrapper
+            ~/.gradle
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
@@ -288,7 +281,7 @@ jobs:
       - name: show .gradle size
         run: |
           set -x
-          du -h -d 1 $HOME/.gradle
+          du -h -d 1 ~/.gradle
 
       - name: appcenter-cli
         run: |
@@ -334,8 +327,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            ~/.gradle/caches/build-cache-1
-            ~/.gradle/wrapper
+            ~/.gradle
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
@@ -349,7 +341,7 @@ jobs:
       - name: show .gradle size
         run: |
           set -x
-          du -h -d 1 $HOME/.gradle
+          du -h -d 1 ~/.gradle
 
       - name: appcenter-cli
         run: |

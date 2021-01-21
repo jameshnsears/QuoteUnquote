@@ -25,8 +25,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            ~/.gradle/caches/build-cache-1
-            ~/.gradle/wrapper
+            ~/.gradle
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
@@ -41,7 +40,7 @@ jobs:
       - name: show .gradle size
         run: |
           set -x
-          du -h -d 1 $HOME/.gradle
+          du -h -d 1 ~/.gradle
 
       - name: publish app.manifestTest
         run: |
@@ -78,8 +77,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            ~/.gradle/caches/build-cache-1
-            ~/.gradle/wrapper
+            ~/.gradle
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
@@ -116,8 +114,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            ~/.gradle/caches/build-cache-1
-            ~/.gradle/wrapper
+            ~/.gradle
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
