@@ -156,7 +156,7 @@ jobs:
 
   coverage-utilsLib-googleplay:
     name: coverage-utilsLib-googleplay
-    needs: [coverage-app-googleplay, coverage-app-fdroid, coverage-app-manifest]
+    needs: [coverage-cloudLib-googleplay]
     runs-on: macos-latest
     steps:
       - name: checkout
@@ -194,7 +194,7 @@ jobs:
 
   coverage-utilsLib-fdroid:
     name: coverage-utilsLib-fdroid
-    needs: [coverage-cloudLib-googleplay, coverage-cloudLib-fdroid]
+    needs: [coverage-cloudLib-googleplay]
     runs-on: macos-latest
     steps:
       - name: checkout
