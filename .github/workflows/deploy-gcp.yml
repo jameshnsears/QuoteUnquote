@@ -16,7 +16,17 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: hi
+      - name: install node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "10.22.1"
+
+      - name: install npm dependencies
         run: |
-          set -x
-          echo "hi"
+          npm install -g express mocha chai chai-http nyc md5 @google-cloud/firestore markdownlint-cli jsonlint
+          cd cloudLib/gcp
+          ./npm-update.sh
+
+      - name: static analysis
+        run: |
+          markdownlint '**/*.md' --ignore functions/node_modules
