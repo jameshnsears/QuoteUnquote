@@ -7,14 +7,19 @@ on:
     branches:
 
 jobs:
-  coverage-app-googleplay:
-    name: coverage-app-googleplay
+  coverage-app:
+    name: coverage-app
     runs-on: macos-latest
     steps:
       - name: checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+
+      - name: local.properties
+        env:
+          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
+        run: echo "$LOCAL_PROPERTIES" | base64 -d > local.properties
 
       - name: gradle cache
         uses: actions/cache@v2
@@ -26,89 +31,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: local.properties
-        env:
-          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
-        run: echo "$LOCAL_PROPERTIES" | base64 -d > local.properties
-
       - name: app
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
           target: default
-          script: ./gradlew :app:testGoogleplayDebugCoverage
-
-      - name: publish app.gooleplay
-        run: |
-          set -x
-          bash <(curl https://codecov.io/bash) -t ${{ secrets.CODECOVIO_TOKEN }} -f app/build/reports/GoogleplayDebug.xml -F app.gooleplay
-
-  coverage-app-fdroid:
-    name: coverage-app-fdroid
-    runs-on: macos-latest
-    steps:
-      - name: checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: gradle cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-
-      - name: local.properties
-        env:
-          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
-        run: echo "$LOCAL_PROPERTIES" | base64 -d > local.properties
-
-      - name: app
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 29
-          target: default
-          script: ./gradlew :app:testFdroidDebugCoverage
-
-      - name: publish app.froid
-        run: |
-          set -x
-          bash <(curl https://codecov.io/bash) -t ${{ secrets.CODECOVIO_TOKEN }} -f app/build/reports/FdroidDebug.xml -F app.froid
-
-  coverage-app-manifest:
-    name: coverage-app-manifest
-    runs-on: macos-latest
-    steps:
-      - name: checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: gradle cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-
-      - name: local.properties
-        env:
-          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
-        run: echo "$LOCAL_PROPERTIES" | base64 -d > local.properties
-
-      - name: app
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 29
-          target: default
-          script: ./gradlew :app:testManifestTestDebugCoverage
+          script: ./gradlew :app:testManifestTestDebugCoverage :app:testFdroidDebugCoverage :app:testGoogleplayDebugCoverage
 
       - name: publish app.manifestTest
         run: |
@@ -116,15 +44,30 @@ jobs:
           ls -al app/build/reports/*.xml
           bash <(curl https://codecov.io/bash) -t ${{ secrets.CODECOVIO_TOKEN }} -f app/build/reports/ManifestTestDebug.xml -F app.manifestTest
 
-  coverage-cloudLib-googleplay:
-    name: coverage-cloudLib-googleplay
-    needs: [coverage-app-googleplay, coverage-app-fdroid, coverage-app-manifest]
+      - name: publish app.froid
+        run: |
+          set -x
+          bash <(curl https://codecov.io/bash) -t ${{ secrets.CODECOVIO_TOKEN }} -f app/build/reports/FdroidDebug.xml -F app.froid
+
+      - name: publish app.gooleplay
+        run: |
+          set -x
+          bash <(curl https://codecov.io/bash) -t ${{ secrets.CODECOVIO_TOKEN }} -f app/build/reports/GoogleplayDebug.xml -F app.gooleplay
+
+  coverage-cloudLib:
+    name: coverage-cloudLib
+    needs: coverage-app
     runs-on: macos-latest
     steps:
       - name: checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+
+      - name: local.properties
+        env:
+          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
+        run: echo "$LOCAL_PROPERTIES" | base64 -d > local.properties
 
       - name: gradle cache
         uses: actions/cache@v2
@@ -135,11 +78,6 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-
-      - name: local.properties
-        env:
-          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
-        run: echo "$LOCAL_PROPERTIES" | base64 -d > local.properties
 
       - name: cloudlib
         uses: reactivecircus/android-emulator-runner@v2
@@ -154,15 +92,20 @@ jobs:
           ls -al cloudlib/build/reports/*.xml
           bash <(curl https://codecov.io/bash) -t ${{ secrets.CODECOVIO_TOKEN }} -f cloudLib/build/reports/GoogleplayDebug.xml -F cloudlib.googleplay
 
-  coverage-utilsLib-googleplay:
-    name: coverage-utilsLib-googleplay
-    needs: [coverage-cloudLib-googleplay]
+  coverage-utilsLib:
+    name: coverage-utilsLib
+    needs: coverage-cloudLib
     runs-on: macos-latest
     steps:
       - name: checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+
+      - name: local.properties
+        env:
+          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
+        run: echo "$LOCAL_PROPERTIES" | base64 -d > local.properties
 
       - name: gradle cache
         uses: actions/cache@v2
@@ -174,58 +117,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: local.properties
-        env:
-          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
-        run: echo "$LOCAL_PROPERTIES" | base64 -d > local.properties
-
       - name: utilsLib
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
           target: default
-          script: ./gradlew :utilsLib:testGoogleplayDebugCoverage
-
-      - name: publish
-        run: |
-          set -x
-          ls -al utilsLib/build/reports/*.xml
-          bash <(curl https://codecov.io/bash) -t ${{ secrets.CODECOVIO_TOKEN }} -f utilsLib/build/reports/GoogleplayDebug.xml -F utilslib.googleplay
-
-  coverage-utilsLib-fdroid:
-    name: coverage-utilsLib-fdroid
-    needs: [coverage-cloudLib-googleplay]
-    runs-on: macos-latest
-    steps:
-      - name: checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: gradle cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-
-      - name: local.properties
-        env:
-          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
-        run: echo "$LOCAL_PROPERTIES" | base64 -d > local.properties
-
-      - name: utilsLib
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 29
-          target: default
-          script: ./gradlew :utilsLib:testFdroidDebugCoverage
+          script: ./gradlew :utilsLib:testFdroidDebugCoverage :utilsLib:testGoogleplayDebugCoverage
 
       - name: publish
         run: |
           set -x
           ls -al utilsLib/build/reports/*.xml
           bash <(curl https://codecov.io/bash) -t ${{ secrets.CODECOVIO_TOKEN }} -f utilsLib/build/reports/FdroidDebug.xml -F utilslib.fdroid
+          bash <(curl https://codecov.io/bash) -t ${{ secrets.CODECOVIO_TOKEN }} -f utilsLib/build/reports/GoogleplayDebug.xml -F utilslib.googleplay
