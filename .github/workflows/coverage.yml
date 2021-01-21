@@ -118,6 +118,7 @@ jobs:
 
   coverage-cloudLib-googleplay:
     name: coverage-cloudLib-googleplay
+    needs: [coverage-app-googleplay. coverage-app-fdroid, coverage-app-manifest]
     runs-on: macos-latest
     steps:
       - name: checkout
@@ -155,6 +156,7 @@ jobs:
 
   coverage-utilsLib-googleplay:
     name: coverage-utilsLib-googleplay
+    needs: [coverage-app-googleplay. coverage-app-fdroid, coverage-app-manifest]
     runs-on: macos-latest
     steps:
       - name: checkout
@@ -190,9 +192,9 @@ jobs:
           ls -al utilsLib/build/reports/*.xml
           bash <(curl https://codecov.io/bash) -t ${{ secrets.CODECOVIO_TOKEN }} -f utilsLib/build/reports/GoogleplayDebug.xml -F utilslib.googleplay
 
-
   coverage-utilsLib-fdroid:
     name: coverage-utilsLib-fdroid
+    needs: [coverage-cloudLib-googleplay, coverage-cloudLib-fdroid]
     runs-on: macos-latest
     steps:
       - name: checkout
