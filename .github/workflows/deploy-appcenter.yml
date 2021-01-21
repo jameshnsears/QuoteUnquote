@@ -194,6 +194,16 @@ jobs:
           KEYSTORE_JKS: ${{ secrets.KEYSTORE_JKS }}
         run: echo "$KEYSTORE_JKS" | base64 -d > app/keystore.jks
 
+      -name: gradle cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
       - name: assembleGoogleplay
         run: |
           set -x
@@ -239,6 +249,16 @@ jobs:
         env:
           KEYSTORE_JKS: ${{ secrets.KEYSTORE_JKS }}
         run: echo "$KEYSTORE_JKS" | base64 -d > app/keystore.jks
+
+      -name: gradle cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
 
       - name: assembleFdroid
         run: |
