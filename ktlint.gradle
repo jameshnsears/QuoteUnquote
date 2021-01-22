@@ -5,7 +5,7 @@ dependencies {
 }
 
 task ktlint(type: JavaExec, group: "verification") {
-    group = "Quote, Unquote"
+    group = "QuoteUnquote"
     description 'ktlint'
 
     classpath = configurations.ktlint
@@ -15,7 +15,7 @@ task ktlint(type: JavaExec, group: "verification") {
 check.dependsOn ktlint
 
 task ktlintFormat(type: JavaExec, group: "formatting") {
-    group = "Quote, Unquote"
+    group = "QuoteUnquote"
     description 'ktlintFormat'
 
     classpath = configurations.ktlint
