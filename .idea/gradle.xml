@@ -11,8 +11,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/QuoteUnquote.cloudLib/cloudLib" />
+            <option value="$PROJECT_DIR$/QuoteUnquote.utilsLib/utilsLib" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/utilsLib" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

@@ -1,3 +1,6 @@
 [submodule "QuoteUnquote.cloudLib"]
 	path = QuoteUnquote.cloudLib
 	url = https://github.com/jameshnsears/QuoteUnquote.cloudLib
+[submodule "QuoteUnquote.utilsLib"]
+	path = QuoteUnquote.utilsLib
+	url = https://github.com/jameshnsears/QuoteUnquote.utilsLib
