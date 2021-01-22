@@ -4,6 +4,6 @@
 
 | (sub)module | branch | coverage | ci/cd |
 | - | - |- | - |
-| QuoteUnquote | development |[![codecov](https://codecov.io/gh/jameshnsears/QuoteUnquote/branch/development/graph/badge.svg?token=MUVXyY6kDV)](https://codecov.io/gh/jameshnsears/QuoteUnquote) | ![deploy-appcenter](https://github.com/jameshnsears/QuoteUnquote/workflows/deploy-appcenter/badge.svg) |
-| [QuoteUnquote.cloudLib](https://github.com/jameshnsears/QuoteUnquote/QuoteUnquote.cloudLib) | master | [![codecov](https://codecov.io/gh/jameshnsears/QuoteUnquote.cloudLib/branch/master/graph/badge.svg?token=hjNc1SbSgT)](https://codecov.io/gh/jameshnsears/QuoteUnquote.cloudLib) | |
-| [QuoteUnquote.utilsLib](https://github.com/jameshnsears/QuoteUnquote/QuoteUnquote.utilsLib) | master |[![codecov](https://codecov.io/gh/jameshnsears/QuoteUnquote.utilsLib/branch/master/graph/badge.svg?token=UmWdOTiqB7)](https://codecov.io/gh/jameshnsears/QuoteUnquote.utilsLib) | |
+| QuoteUnquote | development | [![codecov](https://codecov.io/gh/jameshnsears/QuoteUnquote/branch/development/graph/badge.svg?token=MUVXyY6kDV)](https://codecov.io/gh/jameshnsears/QuoteUnquote) | ![deploy-appcenter](https://github.com/jameshnsears/QuoteUnquote/workflows/deploy-appcenter/badge.svg) |
+| [QuoteUnquote.cloudLib](https://github.com/jameshnsears/QuoteUnquote.cloudLib) | master | [![codecov](https://codecov.io/gh/jameshnsears/QuoteUnquote.cloudLib/branch/master/graph/badge.svg?token=hjNc1SbSgT)](https://codecov.io/gh/jameshnsears/QuoteUnquote.cloudLib) | |
+| [QuoteUnquote.utilsLib](https://github.com/jameshnsears/QuoteUnquote.utilsLib) | master | [![codecov](https://codecov.io/gh/jameshnsears/QuoteUnquote.utilsLib/branch/master/graph/badge.svg?token=UmWdOTiqB7)](https://codecov.io/gh/jameshnsears/QuoteUnquote.utilsLib) | |

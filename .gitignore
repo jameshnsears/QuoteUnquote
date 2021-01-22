@@ -15,5 +15,7 @@
 /.idea/sonarlint/issuestore/
 /.idea/workspace.xml
 local.properties
+/build/
 /QuoteUnquote.cloudLib/
-/utilsLib/build/
+/QuoteUnquote.utilsLib/
+/app/build/
