@@ -1,15 +1,9 @@
 flags:
   app.manifestTest:
-    paths:
-      - app
     carryforward: true
 
   app.froid:
-    paths:
-      - app
     carryforward: true
 
   app.gooleplay:
-    paths:
-      - app
     carryforward: true
