@@ -5,6 +5,7 @@ apply from: '../jacoco.gradle'
 apply from: '../ktlint.gradle'
 apply from: '../detekt.gradle'
 apply from: '../checkstyle.gradle'
+apply from: '../sonarcube.gradle'
 
 task espresso(type: Exec) {
     commandLine 'adb', 'shell', 'settings', 'put', 'global', 'window_animation_scale', '0'
