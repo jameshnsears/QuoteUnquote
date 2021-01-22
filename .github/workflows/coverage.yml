@@ -42,18 +42,10 @@ jobs:
           set -x
           du -h -d 1 ~/.gradle
 
-      - name: publish app.manifestTest
+      - name: publish
         run: |
           set -x
           ls -al app/build/reports/*.xml
           bash <(curl https://codecov.io/bash) -t ${{ secrets.CODECOVIO_TOKEN }} -f app/build/reports/ManifestTestDebug.xml -F app.manifestTest
-
-      - name: publish app.froid
-        run: |
-          set -x
           bash <(curl https://codecov.io/bash) -t ${{ secrets.CODECOVIO_TOKEN }} -f app/build/reports/FdroidDebug.xml -F app.froid
-
-      - name: publish app.gooleplay
-        run: |
-          set -x
           bash <(curl https://codecov.io/bash) -t ${{ secrets.CODECOVIO_TOKEN }} -f app/build/reports/GoogleplayDebug.xml -F app.gooleplay
