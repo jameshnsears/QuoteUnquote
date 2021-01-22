@@ -1,7 +1,7 @@
 apply plugin: 'org.sonarqube'
 
 sonarqube {
-    androidVariant 'googleplay'
+    androidVariant 'googleplayDebug'
 
     properties {
         property "sonar.projectKey", "jameshnsears_QuoteUnquote"
