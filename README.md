@@ -6,7 +6,7 @@ QuoteUnquote
 
 QuoteUnquote.cloudLib [![codecov](https://codecov.io/gh/jameshnsears/QuoteUnquote.cloudLib/branch/master/graph/badge.svg?token=hjNc1SbSgT)](https://codecov.io/gh/jameshnsears/QuoteUnquote.cloudLib)
 
-QuoteUnquote.utilsLib
+QuoteUnquote.utilsLib [![codecov](https://codecov.io/gh/jameshnsears/QuoteUnquote.utilsLib/branch/master/graph/badge.svg?token=UmWdOTiqB7)](https://codecov.io/gh/jameshnsears/QuoteUnquote.utilsLib)
 
 ![deploy-appcenter](https://github.com/jameshnsears/QuoteUnquote/workflows/deploy-appcenter/badge.svg)
 
