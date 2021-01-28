@@ -51,7 +51,7 @@
 
 ---
 
-## 6. Device Dependent Issues
+## 6. Device Dependent Issues :-(
 
 ### 6.1. MIUI 11
 
@@ -72,35 +72,14 @@
 
 ```
 
----
-
-## 7. Visual Studio Code Extensions
-
-``` text
-$ code --list-extensions
-DavidAnson.vscode-markdownlint
-GitHub.vscode-pull-request-github
-ms-azuretools.vscode-docker
-ms-kubernetes-tools.vscode-kubernetes-tools
-ms-python.python
-ms-vscode-remote.remote-containers
-ms-vscode.hexeditor
-ms-vsliveshare.vsliveshare
-ms-vsliveshare.vsliveshare-audio
-ms-vsliveshare.vsliveshare-pack
-msjsdiag.debugger-for-chrome
-redhat.fabric8-analytics
-redhat.vscode-xml
-redhat.vscode-yaml
-SonarSource.sonarlint-vscode
-vscodevim.vim
-```
-
----
-
-## 8. Android Studio 4.1.1 Plugins
+## 7. Android Studio 4.1.1 Plugins
 
 * Checkstyle-IDE - Jamie Shiell
 * SonarLint - SonarfSource
 
 ---
+
+
+## 8. Encoding files for GitHub Secrets
+
+* base64 local.properties
