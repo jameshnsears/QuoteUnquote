@@ -28,8 +28,6 @@ jobs:
           path: |
             ~/.gradle
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
 
       - name: app
         uses: reactivecircus/android-emulator-runner@v2
