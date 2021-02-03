@@ -1,2 +1,3 @@
-exclude:
-  - ".github/workflows/deploy-appcenter.yml"
+{
+    "ignore": [".github/workflows/deploy-appcenter.yml"]
+}
