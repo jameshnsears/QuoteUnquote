@@ -37,4 +37,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -x
-          ./gradlew sonarqube -Dsonar.host.url=https://sonarcloud.io -Dsonar.login="$SONAR_TOKEN" --stacktrace
+          run: ./gradlew build sonarqube --info 
