@@ -37,4 +37,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -x
-          run: ./gradlew build sonarqube --info 
+          ./gradlew build sonarqube --info 
