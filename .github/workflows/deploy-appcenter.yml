@@ -7,32 +7,6 @@ on:
     branches:
 
 jobs:
-  OSSAR-Scan:
-    name: OSSAR-Scan
-    runs-on: windows-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 2
-          submodules: true
-      - run: git checkout HEAD^2
-        if: ${{ github.event_name == 'pull_request' }}
-
-      - name: Install .NET
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: '3.1.201'
-
-      - name: Run OSSAR
-        uses: github/ossar-action@v1
-        id: ossar
-
-      - name: Upload OSSAR results
-        uses: github/codeql-action/upload-sarif@v1
-        with:
-          sarif_file: ${{ steps.ossar.outputs.sarifFile }}
-
   checkstyle:
     name: checkstyle
     runs-on: ubuntu-latest
@@ -89,7 +63,7 @@ jobs:
 
   super-linter:
     name: super-linter
-    needs: [OSSAR-Scan, checkstyle, detekt]
+    needs: [checkstyle, detekt]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -106,7 +80,7 @@ jobs:
 
   ktlint:
     name: ktlint
-    needs: [OSSAR-Scan, checkstyle, detekt]
+    needs: [checkstyle, detekt]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -134,7 +108,7 @@ jobs:
 
   lintManifestTestDebug:
     name: lintManifestTestDebug
-    needs: [OSSAR-Scan, checkstyle, detekt]
+    needs: [checkstyle, detekt]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -167,7 +141,7 @@ jobs:
 
   lintGooglePlayDebug:
     name: lintGooglePlayDebug
-    needs: [OSSAR-Scan, checkstyle, detekt]
+    needs: [checkstyle, detekt]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -200,7 +174,7 @@ jobs:
 
   lintFdroidDebug:
     name: lintFdroidDebug
-    needs: [OSSAR-Scan, checkstyle, detekt]
+    needs: [checkstyle, detekt]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
