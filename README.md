@@ -33,7 +33,7 @@ extract local.properties from .pgp files for all modules
 
 File > New > Import Module...
  >  :cloudLib
-...both modules we get imported by Android Studio!
+...both modules get imported by Android Studio!
 
 git remote add cloudLib https://github.com/jameshnsears/QuoteUnquote.cloudLib
 git remote add cloudLib.functions https://github.com/jameshnsears/QuoteUnquote.cloudLib.functions
@@ -42,14 +42,12 @@ git remote add utilsLib https://github.com/jameshnsears/QuoteUnquote.utilsLib
 Build > Rebuild Project
 
 Choose a Build Variant  
- > Run/Debug Configuration 
- > Unit Test
+ > run a Run/Debug Configuration 
 ```
 
 ### PyCharm
 
 ```text
-
 PyCharm > Open > QuoteUnquote.cloudLib.functions
 
 File > Settings > Project:
@@ -59,7 +57,8 @@ Terminal >
  > python -m pip install -r requirements-test.txt
  > python -m pip install -r src/requirements.txt
 
-run a Run/Debug Configuration 
- > set Python Intepreter to Virtualenv Environment
+extract three .pgp files
 
+run a Run/Debug Configuration 
+ > setting Python Intepreter to Virtualenv Environment
 ```
