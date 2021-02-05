@@ -42,7 +42,7 @@ git remote add utilsLib https://github.com/jameshnsears/QuoteUnquote.utilsLib
 Build > Rebuild Project
 
 Choose a Build Variant  
- > run a Run/Debug Configuration 
+ > run a Run/Debug Configuration
 ```
 
 ### PyCharm
