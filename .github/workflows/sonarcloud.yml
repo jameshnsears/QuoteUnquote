@@ -16,6 +16,16 @@ jobs:
           fetch-depth: 0
           submodules: true
 
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: keystore.jks
+        env:
+          KEYSTORE_JKS: ${{ secrets.KEYSTORE_JKS }}
+        run: echo "$KEYSTORE_JKS" | base64 -d > app/keystore.jks
+
       - name: local.properties
         env:
           LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
@@ -25,16 +35,6 @@ jobs:
           echo ${LOCAL_PROPERTIES} | base64 -d > local.properties
           echo ${LOCAL_PROPERTIES_CLOUDLIB} | base64 -d > QuoteUnquote.cloudLib/cloudLib/local.properties
           echo ${LOCAL_PROPERTIES_UTILSLIB} | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
-
-      - name: keystore.jks
-        env:
-          KEYSTORE_JKS: ${{ secrets.KEYSTORE_JKS }}
-        run: echo "$KEYSTORE_JKS" | base64 -d > app/keystore.jks
-
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11
 
       - name: sonarcloud
         env:
