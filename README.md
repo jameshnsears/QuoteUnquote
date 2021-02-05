@@ -26,10 +26,11 @@ Android Studio > Get from Version Control
 
 VSC > Git > Branches...
  > Remote Branches > origin/development > Checkout
+  > Smart Checkout
 
 git submodule update --remote
 
-extract local.properties from .pgp files for all modules
+extract/overwrite local.properties from .pgp files for :app + modules
 
 File > New > Import Module...
  >  :cloudLib
