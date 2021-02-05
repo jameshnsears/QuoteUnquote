@@ -17,6 +17,13 @@ jobs:
           fetch-depth: 0
           submodules: true
 
+     - name: gradle cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+
       - name: local.properties
         run: |
           touch local.properties
@@ -25,13 +32,6 @@ jobs:
           echo ${{ secrets.LOCAL_PROPERTIES_CLOUDLIB }} | base64 -d > QuoteUnquote.cloudLib/cloudLib/local.properties
           touch QuoteUnquote.utilsLib/utilsLib/local.properties
           echo ${{ secrets.LOCAL_PROPERTIES_UTILSLIB }} | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
-
-      - name: gradle cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.gradle
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
 
       - name: app
         uses: reactivecircus/android-emulator-runner@v2
