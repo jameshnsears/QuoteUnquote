@@ -58,7 +58,7 @@ public final class CloudServiceReceive extends Service {
 
                     final List<String> favouritesReceived = cloudFavourites.receive(
                             CloudFavourites.TIMEOUT_SECONDS,
-                            CloudFavouritesHelper.receiveRequest(remoteCodeValue));
+                            CloudFavouritesHelper.receiveRequest(remoteCodeValue)).digests;
 
                     if (favouritesReceived.isEmpty()) {
                         handler.post(() -> ToastHelper.makeToast(
