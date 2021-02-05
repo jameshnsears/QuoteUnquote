@@ -47,6 +47,8 @@ Choose a Build Variant
 ### PyCharm
 
 ```text
+After a clone...
+
 PyCharm > Open > QuoteUnquote.cloudLib.functions
 
 File > Settings > Project:
