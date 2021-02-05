@@ -3,6 +3,7 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/QuoteUnquote.cloudLib" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/QuoteUnquote.cloudLib.functions" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/QuoteUnquote.cloudLib/QuoteUnquote.cloudLib.functions" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/QuoteUnquote.utilsLib" vcs="Git" />
   </component>
