@@ -17,16 +17,49 @@
 
 ## Build Instructions
 
-* Android Studio > 
+### Android Studio
 
-* git clone --recursive https://github.com/jameshnsears/QuoteUnquote --branch development
-or
-* git submodule update --remote
+```text
+Android Studio > Get from Version Control
+ > https://github.com/jameshnsears/QuoteUnquote
+ > Clone
+
+VSC > Git > Branches...
+ > Remote Branches > origin/development > Checkout
+
+git submodule update --remote
+
+extract local.properties from .pgp files for all modules
+
+File > New > Import Module...
+ >  :cloudLib
+...both modules we get imported by Android Studio!
 
 git remote add cloudLib https://github.com/jameshnsears/QuoteUnquote.cloudLib
 git remote add cloudLib.functions https://github.com/jameshnsears/QuoteUnquote.cloudLib.functions
 git remote add utilsLib https://github.com/jameshnsears/QuoteUnquote.utilsLib
 
-* extract local.properties from .pgp files in each all 4 projects
+Build > Rebuild Project
 
-* Build > Rebuild Project
+Choose a Build Variant  
+ > Run/Debug Configuration 
+ > Unit Test
+```
+
+### PyCharm
+
+```text
+
+PyCharm > Open > QuoteUnquote.cloudLib.functions
+
+File > Settings > Project:
+ > set Intepreter > New Virtualenv Environment
+
+Terminal > 
+ > python -m pip install -r requirements-test.txt
+ > python -m pip install -r src/requirements.txt
+
+run a Run/Debug Configuration 
+ > set Python Intepreter to Virtualenv Environment
+
+```
