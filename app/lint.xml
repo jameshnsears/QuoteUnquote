@@ -4,7 +4,7 @@
         <ignore path="**/bcprov-jdk15on-1.65.jar" />
         <ignore path="**/mockito-core*.jar" />
         <ignore path="**/resources-4.4.jar" />
-        <ignore path="**/shadows-framework-4.4.jar" />
+        <ignore path="**/shadows-framework-4.5.1.jar" />
         <ignore path="**/utils-4.4.jar" />
         <ignore path="**/byte-buddy-agent-1.10.19.jar" />
     </issue>
