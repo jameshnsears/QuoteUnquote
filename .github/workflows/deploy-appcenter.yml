@@ -27,7 +27,12 @@ jobs:
       - name: local.properties
         env:
           LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
-        run: echo "$LOCAL_PROPERTIES" | base64 -d > local.properties
+          LOCAL_PROPERTIES_CLOUDLIB: ${{ secrets.LOCAL_PROPERTIES_CLOUDLIB }}
+          LOCAL_PROPERTIES_UTILSLIB: ${{ secrets.LOCAL_PROPERTIES_UTILSLIB }}
+        run: |
+          echo ${LOCAL_PROPERTIES} | base64 -d > local.properties
+          echo ${LOCAL_PROPERTIES_CLOUDLIB} | base64 -d > QuoteUnquote.cloudLib/cloudLib/local.properties
+          echo ${LOCAL_PROPERTIES_UTILSLIB} | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
 
       - name: gradlew
         run: |
@@ -54,7 +59,12 @@ jobs:
       - name: local.properties
         env:
           LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
-        run: echo "$LOCAL_PROPERTIES" | base64 -d > local.properties
+          LOCAL_PROPERTIES_CLOUDLIB: ${{ secrets.LOCAL_PROPERTIES_CLOUDLIB }}
+          LOCAL_PROPERTIES_UTILSLIB: ${{ secrets.LOCAL_PROPERTIES_UTILSLIB }}
+        run: |
+          echo ${LOCAL_PROPERTIES} | base64 -d > local.properties
+          echo ${LOCAL_PROPERTIES_CLOUDLIB} | base64 -d > QuoteUnquote.cloudLib/cloudLib/local.properties
+          echo ${LOCAL_PROPERTIES_UTILSLIB} | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
 
       - name: gradlew
         run: |
@@ -99,7 +109,12 @@ jobs:
       - name: local.properties
         env:
           LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
-        run: echo "$LOCAL_PROPERTIES" | base64 -d > local.properties
+          LOCAL_PROPERTIES_CLOUDLIB: ${{ secrets.LOCAL_PROPERTIES_CLOUDLIB }}
+          LOCAL_PROPERTIES_UTILSLIB: ${{ secrets.LOCAL_PROPERTIES_UTILSLIB }}
+        run: |
+          echo ${LOCAL_PROPERTIES} | base64 -d > local.properties
+          echo ${LOCAL_PROPERTIES_CLOUDLIB} | base64 -d > QuoteUnquote.cloudLib/cloudLib/local.properties
+          echo ${LOCAL_PROPERTIES_UTILSLIB} | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
 
       - name: gradlew
         run: |
@@ -127,7 +142,12 @@ jobs:
       - name: local.properties
         env:
           LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
-        run: echo "$LOCAL_PROPERTIES" | base64 -d > local.properties
+          LOCAL_PROPERTIES_CLOUDLIB: ${{ secrets.LOCAL_PROPERTIES_CLOUDLIB }}
+          LOCAL_PROPERTIES_UTILSLIB: ${{ secrets.LOCAL_PROPERTIES_UTILSLIB }}
+        run: |
+          echo ${LOCAL_PROPERTIES} | base64 -d > local.properties
+          echo ${LOCAL_PROPERTIES_CLOUDLIB} | base64 -d > QuoteUnquote.cloudLib/cloudLib/local.properties
+          echo ${LOCAL_PROPERTIES_UTILSLIB} | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
 
       - name: gradlew
         run: |
@@ -160,7 +180,12 @@ jobs:
       - name: local.properties
         env:
           LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
-        run: echo "$LOCAL_PROPERTIES" | base64 -d > local.properties
+          LOCAL_PROPERTIES_CLOUDLIB: ${{ secrets.LOCAL_PROPERTIES_CLOUDLIB }}
+          LOCAL_PROPERTIES_UTILSLIB: ${{ secrets.LOCAL_PROPERTIES_UTILSLIB }}
+        run: |
+          echo ${LOCAL_PROPERTIES} | base64 -d > local.properties
+          echo ${LOCAL_PROPERTIES_CLOUDLIB} | base64 -d > QuoteUnquote.cloudLib/cloudLib/local.properties
+          echo ${LOCAL_PROPERTIES_UTILSLIB} | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
 
       - name: gradlew
         run: |
@@ -193,7 +218,12 @@ jobs:
       - name: local.properties
         env:
           LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
-        run: echo "$LOCAL_PROPERTIES" | base64 -d > local.properties
+          LOCAL_PROPERTIES_CLOUDLIB: ${{ secrets.LOCAL_PROPERTIES_CLOUDLIB }}
+          LOCAL_PROPERTIES_UTILSLIB: ${{ secrets.LOCAL_PROPERTIES_UTILSLIB }}
+        run: |
+          echo ${LOCAL_PROPERTIES} | base64 -d > local.properties
+          echo ${LOCAL_PROPERTIES_CLOUDLIB} | base64 -d > QuoteUnquote.cloudLib/cloudLib/local.properties
+          echo ${LOCAL_PROPERTIES_UTILSLIB} | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
 
       - name: gradlew
         run: |
@@ -227,7 +257,12 @@ jobs:
       - name: local.properties
         env:
           LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
-        run: echo "$LOCAL_PROPERTIES" | base64 -d > local.properties
+          LOCAL_PROPERTIES_CLOUDLIB: ${{ secrets.LOCAL_PROPERTIES_CLOUDLIB }}
+          LOCAL_PROPERTIES_UTILSLIB: ${{ secrets.LOCAL_PROPERTIES_UTILSLIB }}
+        run: |
+          echo ${LOCAL_PROPERTIES} | base64 -d > local.properties
+          echo ${LOCAL_PROPERTIES_CLOUDLIB} | base64 -d > QuoteUnquote.cloudLib/cloudLib/local.properties
+          echo ${LOCAL_PROPERTIES_UTILSLIB} | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
 
       - name: keystore.jks
         env:
@@ -287,7 +322,12 @@ jobs:
       - name: local.properties
         env:
           LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
-        run: echo "$LOCAL_PROPERTIES" | base64 -d > local.properties
+          LOCAL_PROPERTIES_CLOUDLIB: ${{ secrets.LOCAL_PROPERTIES_CLOUDLIB }}
+          LOCAL_PROPERTIES_UTILSLIB: ${{ secrets.LOCAL_PROPERTIES_UTILSLIB }}
+        run: |
+          echo ${LOCAL_PROPERTIES} | base64 -d > local.properties
+          echo ${LOCAL_PROPERTIES_CLOUDLIB} | base64 -d > QuoteUnquote.cloudLib/cloudLib/local.properties
+          echo ${LOCAL_PROPERTIES_UTILSLIB} | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
 
       - name: keystore.jks
         env:
