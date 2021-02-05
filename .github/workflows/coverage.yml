@@ -25,13 +25,14 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
 
       - name: local.properties
+        env:
+          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
+          LOCAL_PROPERTIES_CLOUDLIB: ${{ secrets.LOCAL_PROPERTIES_CLOUDLIB }}
+          LOCAL_PROPERTIES_UTILSLIB: ${{ secrets.LOCAL_PROPERTIES_UTILSLIB }}
         run: |
-          touch local.properties
-          echo ${{ secrets.LOCAL_PROPERTIES }} | base64 -d > local.properties
-          touch QuoteUnquote.cloudLib/cloudLib/local.properties
-          echo ${{ secrets.LOCAL_PROPERTIES_CLOUDLIB }} | base64 -d > QuoteUnquote.cloudLib/cloudLib/local.properties
-          touch QuoteUnquote.utilsLib/utilsLib/local.properties
-          echo ${{ secrets.LOCAL_PROPERTIES_UTILSLIB }} | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
+          echo ${LOCAL_PROPERTIES} | base64 -d > local.properties
+          echo ${LOCAL_PROPERTIES_CLOUDLIB} | base64 -d > QuoteUnquote.cloudLib/cloudLib/local.properties
+          echo ${LOCAL_PROPERTIES_UTILSLIB} | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
 
       - name: app
         uses: reactivecircus/android-emulator-runner@v2
