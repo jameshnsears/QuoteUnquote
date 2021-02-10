@@ -9,6 +9,9 @@ flags:
     carryforward: false
 
 ignore:
-  - "/app/src/androidTest"
-  - "/app/src/manifestTest"
-  - "/app/src/test"
+  - "/app/src/androidTest/**/*.kt"
+  - "/app/src/androidTest/**/*.java"
+  - "/app/src/manifestTest/**/*.kt"
+  - "/app/src/manifestTest/**/*.java"
+  - "/app/src/test/**/*.kt"
+  - "/app/src/test/**/*.java"
