@@ -13,5 +13,5 @@ ignore:
   - "/app/src/androidTest/**/*.java"
   - "/app/src/manifestTest/**/*.kt"
   - "/app/src/manifestTest/**/*.java"
-  - "/app/src/test/**/*.kt"
-  - "/app/src/test/**/*.java"
+  - "**/test/**/*.kt"
+  - "**/test/**/*.java"
