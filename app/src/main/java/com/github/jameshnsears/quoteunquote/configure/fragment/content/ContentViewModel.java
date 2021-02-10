@@ -25,7 +25,7 @@ import timber.log.Timber;
 
 public class ContentViewModel extends AndroidViewModel {
     @NonNull
-    private final ExecutorService executorService = Executors.newFixedThreadPool(1);
+    protected final ExecutorService executorService = Executors.newFixedThreadPool(1);
     @Nullable
     public List<AuthorPOJO> authorPOJOList;
     @Nullable

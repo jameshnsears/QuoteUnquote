@@ -1,37 +1,39 @@
 package com.github.jameshnsears.quoteunquote.configure.fragment.content
 
 import com.github.jameshnsears.quoteunquote.database.DatabaseTestHelper
+import org.junit.After
+import org.junit.Assert.assertEquals
+import org.junit.Before
+import org.junit.Test
 
 class ContentViewModelTest : DatabaseTestHelper() {
+    lateinit var contentViewModelDouble : ContentViewModelDouble
 
-    //    @Before
-//    fun setUpDatabases() {
-//        ApplicationProvider.getApplicationContext<Context>().deleteDatabase(AbstractDatabaseHistory.DATABASE_NAME)
-//
-//        // insert's against in memory database defined in QuoteUnquoteModelFake
-//        quoteUnquoteModelDouble = QuoteUnquoteModelDouble()
-//        contentViewModel = ContentViewModelDouble(quoteUnquoteModelDouble.databaseRepository)
-//    }
-//
-//    @After
-//    fun shutdown() {
-//        contentViewModel.shutdown()
-//    }
-//
-//    @Test
-//    fun countAll() {
-//        insertTestDataSet01()
-//        Assert.assertEquals(
-//                "",
-//                2,
-//                contentViewModel.countAll().blockingGet().toInt())
-//        insertTestDataSet02()
-//        Assert.assertEquals(
-//                "",
-//                5,
-//                contentViewModel.countAll().blockingGet().toInt())
-//    }
-//
+    @Before
+    fun setUpDatabases() {
+        contentViewModelDouble = ContentViewModelDouble(databaseRepositoryDouble)
+    }
+
+    @After
+    fun shutdown() {
+        contentViewModelDouble.shutdown()
+    }
+
+    @Test
+    fun countAll() {
+        insertTestDataSet01()
+        assertEquals(
+                "",
+                2,
+                contentViewModelDouble.countAll().blockingGet().toInt())
+
+        insertTestDataSet02()
+        assertEquals(
+                "",
+                5,
+                contentViewModelDouble.countAll().blockingGet().toInt())
+    }
+
 //    @Test
 //    fun authors() {
 //        insertTestDataSet01()

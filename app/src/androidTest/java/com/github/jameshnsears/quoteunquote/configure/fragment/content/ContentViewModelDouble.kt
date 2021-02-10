@@ -1,7 +1,16 @@
-@file:Suppress("unused", "unused")
-
 package com.github.jameshnsears.quoteunquote.configure.fragment.content
 
-class ContentViewModelDouble {
-    // rm this model and re-use QuoteUnquoteModel
+import androidx.test.core.app.ApplicationProvider.getApplicationContext
+import com.github.jameshnsears.quoteunquote.database.DatabaseRepositoryDouble
+
+class ContentViewModelDouble(databaseRepositoryDouble: DatabaseRepositoryDouble): ContentViewModel(getApplicationContext()) {
+    init {
+        databaseRepository = DatabaseRepositoryDouble.getInstance();
+    }
+
+    override fun shutdown() {
+        executorService.shutdown()
+    }
+
+    // TODO rm this model and re-use QuoteUnquoteModel?
 }
