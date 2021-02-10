@@ -31,7 +31,7 @@ public class ReportActivity extends AppCompatActivity {
     @Nullable
     private ActivityReportBinding activityReportBinding;
     @Nullable
-    public QuoteUnquoteModel quoteUnquoteModel;         // TODO rm replace ContentViewModel with QuoteUnquoteModel?
+    public QuoteUnquoteModel quoteUnquoteModel;
     private int widgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
     @Override
