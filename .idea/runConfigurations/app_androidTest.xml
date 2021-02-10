@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="app.androidTest" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
-    <module name="QuoteUnquote.app" />
+    <module name="quoteunquote.app" />
     <option name="TESTING_TYPE" value="0" />
     <option name="METHOD_NAME" value="" />
     <option name="CLASS_NAME" value="" />
@@ -14,7 +14,7 @@
     <option name="FORCE_STOP_RUNNING_APP" value="true" />
     <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
     <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="2147483645" />
-    <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="qualified-glow-281314" />
+    <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="august-apricot-303508" />
     <option name="DEBUGGER_TYPE" value="Auto" />
     <Auto>
       <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />

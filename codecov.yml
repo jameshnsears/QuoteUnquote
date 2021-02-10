@@ -1,9 +1,14 @@
 flags:
   app.manifestTest:
-    carryforward: true
+    carryforward: false
 
   app.froid:
-    carryforward: true
+    carryforward: false
 
   app.gooleplay:
-    carryforward: true
+    carryforward: false
+
+ignore:
+  - "androidTest"
+  - "manifestTest"
+  - "test"

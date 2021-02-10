@@ -20,13 +20,15 @@ project.afterEvaluate {
             }
             def testTaskName = "test${sourceName.capitalize()}UnitTest"
 
-            task "test${sourceName.capitalize()}Coverage"(type: JacocoReport, dependsOn: ["$testTaskName", "connected${sourceName.capitalize()}AndroidTest"]) {
+            task "test${sourceName.capitalize()}Coverage" (type: JacocoReport, dependsOn: ["$testTaskName", "connected${sourceName.capitalize()}AndroidTest"]) {
                 group = "QuoteUnquote"
                 description = "Generate Jacoco /test + combined (if avail.) /andoidTest coverage report from ${sourceName.capitalize()}"
 
                 def excludes = [
                         '**/BuildConfig.*',
-                        '**/*_Impl*.*'
+                        '**/*_Impl*.*',
+                        '**/*Double.*',
+                        '**/*Test.*'
                 ]
 
                 def classKotlin = fileTree(dir: "$project.buildDir/tmp/kotlin-classes/${sourceName}UnitTest", excludes: excludes)
@@ -36,11 +38,12 @@ project.afterEvaluate {
                 def kotlinSrc = "$project.buildDir/src/main/kotlin"
                 def javaSrc = "$project.buildDir/src/main/java"
                 def flavourSrc = "$project.buildDir/src/$productFlavorName/java"
-                sourceDirectories.setFrom(files([javaSrc, kotlinSrc, flavourSrc]))
+                def androidTestSrc = "$project.buildDir/src/androidTest/java"
+                sourceDirectories.setFrom(files([androidTestSrc, javaSrc, kotlinSrc, flavourSrc]))
 
                 executionData.from = fileTree(dir: "${project.buildDir}", includes: [
                         "jacoco/${testTaskName}.exec",
-                        "outputs/code_coverage/$productFlavorName${buildTypeName.capitalize()}AndroidTest/connected/*.ec"
+                        "outputs/code_coverage/$productFlavorName${buildTypeName.capitalize()}AndroidTest/connected/**/*.ec"
                 ])
 
                 reports {

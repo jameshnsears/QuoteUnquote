@@ -3,7 +3,7 @@ package com.github.jameshnsears.quoteunquote.configure.fragment.content
 import com.github.jameshnsears.quoteunquote.database.DatabaseTestHelper
 
 class ContentViewModelTest : DatabaseTestHelper() {
-     /*
+
     //    @Before
 //    fun setUpDatabases() {
 //        ApplicationProvider.getApplicationContext<Context>().deleteDatabase(AbstractDatabaseHistory.DATABASE_NAME)
@@ -104,6 +104,7 @@ class ContentViewModelTest : DatabaseTestHelper() {
 //        Assert.assertTrue("", contentViewModel.favouritesToSend.contains("\"digests\":[\"d1\",\"1624c314\"]"))
 //    }
 
+    /*
     @Test
     fun `todo - authorsSorted`() {
         fail("todo")

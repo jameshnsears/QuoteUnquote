@@ -8,7 +8,7 @@
     * versionName "1.0.0"   <- appears to users
 * README.md
 * Android Studio > Build > Generate Signed Bundle / APK... > Android App Bundle
-  * using 'keystore.jks' file (after decrypted keystore)
+  * using 'keystore.jks'
   * key alias: upload
   * Build Variant: release
   * Signature Versions: V1 & V2
@@ -78,7 +78,6 @@
 * SonarLint - SonarfSource
 
 ---
-
 
 ## 8. Encoding files for GitHub Secrets
 

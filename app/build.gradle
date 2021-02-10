@@ -87,6 +87,7 @@ android {
             buildConfigField("String", "DATABASE_QUOTATIONS", "\"quotations.db.prod\"")
         }
         debug {
+            testCoverageEnabled true
             buildConfigField("String", "GIT_HASH", "\"$gitHash\"")
             buildConfigField("String", "DATABASE_QUOTATIONS", "\"quotations.db.dev\"")
         }
@@ -124,7 +125,7 @@ android {
     }
 
     testOptions {
-        execution 'ANDROIDX_TEST_ORCHESTRATOR'
+//        execution 'ANDROIDX_TEST_ORCHESTRATOR'
         animationsDisabled true
         unitTests {
             includeAndroidResources = true

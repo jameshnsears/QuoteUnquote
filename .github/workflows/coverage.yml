@@ -7,8 +7,8 @@ on:
     branches:
 
 jobs:
-  coverage-app:
-    name: coverage-app
+  coverage-manifest:
+    name: coverage-manifest
     runs-on: macos-latest
     steps:
       - name: checkout
@@ -39,7 +39,7 @@ jobs:
         with:
           api-level: 29
           target: default
-          script: ./gradlew :app:testManifestTestDebugCoverage :app:testFdroidDebugCoverage :app:testGoogleplayDebugCoverage
+          script: ./gradlew clean :app:testManifestTestDebugCoverage
 
       - name: show .gradle size
         run: |
@@ -49,7 +49,95 @@ jobs:
       - name: publish
         run: |
           set -x
-          ls -al app/build/reports/*.xml
+          find . -name "*.exec"; find . -name "*.ec"; find app/build/reports/ -name "*.xml"
           bash <(curl https://codecov.io/bash) -t ${{ secrets.CODECOVIO_TOKEN }} -f app/build/reports/ManifestTestDebug.xml -F app.manifestTest
+
+  coverage-fdroid:
+    name: coverage-fdroid
+    runs-on: macos-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          submodules: true
+
+      - name: gradle cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+
+      - name: local.properties
+        env:
+          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
+          LOCAL_PROPERTIES_CLOUDLIB: ${{ secrets.LOCAL_PROPERTIES_CLOUDLIB }}
+          LOCAL_PROPERTIES_UTILSLIB: ${{ secrets.LOCAL_PROPERTIES_UTILSLIB }}
+        run: |
+          echo "${LOCAL_PROPERTIES}" | base64 -d > local.properties
+          echo "${LOCAL_PROPERTIES_CLOUDLIB}" | base64 -d > QuoteUnquote.cloudLib/cloudLib/local.properties
+          echo "${LOCAL_PROPERTIES_UTILSLIB}" | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
+
+      - name: app
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          target: default
+          script: ./gradlew clean :app:testFdroidDebugCoverage
+
+      - name: show .gradle size
+        run: |
+          set -x
+          du -h -d 1 ~/.gradle
+
+      - name: publish
+        run: |
+          set -x
+          find . -name "*.exec"; find . -name "*.ec"; find app/build/reports/ -name "*.xml"
           bash <(curl https://codecov.io/bash) -t ${{ secrets.CODECOVIO_TOKEN }} -f app/build/reports/FdroidDebug.xml -F app.froid
+
+  coverage-googleplay:
+    name: coverage-googleplay
+    runs-on: macos-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          submodules: true
+
+      - name: gradle cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+
+      - name: local.properties
+        env:
+          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
+          LOCAL_PROPERTIES_CLOUDLIB: ${{ secrets.LOCAL_PROPERTIES_CLOUDLIB }}
+          LOCAL_PROPERTIES_UTILSLIB: ${{ secrets.LOCAL_PROPERTIES_UTILSLIB }}
+        run: |
+          echo "${LOCAL_PROPERTIES}" | base64 -d > local.properties
+          echo "${LOCAL_PROPERTIES_CLOUDLIB}" | base64 -d > QuoteUnquote.cloudLib/cloudLib/local.properties
+          echo "${LOCAL_PROPERTIES_UTILSLIB}" | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
+
+      - name: app
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          target: default
+          script: ./gradlew clean :app:testGoogleplayDebugCoverage
+
+      - name: show .gradle size
+        run: |
+          set -x
+          du -h -d 1 ~/.gradle
+
+      - name: publish
+        run: |
+          set -x
+          find . -name "*.exec"; find . -name "*.ec"; find app/build/reports/ -name "*.xml"
           bash <(curl https://codecov.io/bash) -t ${{ secrets.CODECOVIO_TOKEN }} -f app/build/reports/GoogleplayDebug.xml -F app.gooleplay
