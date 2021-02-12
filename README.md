@@ -19,11 +19,11 @@
 
 ### Deployment Diagram
 
-![Deployment Diagram](https://github.com/jameshnsears//QuoteUnquote/blob/development/docs//Deployment Diagram.jpg?raw=true)
+![Deployment Diagram](https://github.com/jameshnsears/QuoteUnquote/blob/development/docs/Deployment%20Diagram.jpg?raw=true)
 
-### androidTest 
+### androidTest ROOM Class Diagram 
 
-![androidTest ROOM Class Diagram](https://github.com/jameshnsears//QuoteUnquote/blob/development/docs//androidTest ROOM Class Diagram.jpg?raw=true)
+![androidTest ROOM Class Diagram](https://github.com/jameshnsears/QuoteUnquote/blob/development/docs/androidTest%20ROOM%20Class%20Diagram.jpg?raw=true)
 
 ---
 
