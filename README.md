@@ -4,7 +4,7 @@
 
 ---
 
-## Status
+## 1. Status
 
 | (sub)module | branch | codecov | codacy | sonarcloud | deployment |
 | - | - |- | - | - | - |
@@ -15,21 +15,21 @@
 
 ---
 
-## High Level Design
+## 2. High Level Design
 
-### Deployment Diagram
+### 2.1. Deployment Diagram
 
 ![Deployment Diagram](https://github.com/jameshnsears/QuoteUnquote/blob/development/docs/Deployment%20Diagram.jpg?raw=true)
 
-### androidTest ROOM Class Diagram 
+### 2.2. androidTest ROOM Class Diagram 
 
 ![androidTest ROOM Class Diagram](https://github.com/jameshnsears/QuoteUnquote/blob/development/docs/androidTest%20ROOM%20Class%20Diagram.jpg?raw=true)
 
 ---
 
-## Build Instructions
+## 3. Build Instructions
 
-### Android Studio
+### 3.1. Android Studio
 
 ```text
 Android Studio > Get from Version Control
@@ -57,7 +57,7 @@ Choose a Build Variant
  > run a Run/Debug Configuration
 ```
 
-### PyCharm
+### 3.2. PyCharm
 
 ```text
 After a clone...
