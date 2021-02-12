@@ -118,18 +118,16 @@ public class ContentFragment extends FragmentCommon {
         if (disposableObserver != null) {
             disposableObserver.dispose();
         }
-
-        contentViewModel.shutdown();
     }
 
     protected void setFavouriteLocalCode() {
-        final ContentPreferences contentPreferences = new ContentPreferences(0, getContext());
+        final ContentPreferences contentPreferencesLocalCode = new ContentPreferences(0, getContext());
 
-        String localCode = contentPreferences.getContentFavouritesLocalCode();
+        String localCode = contentPreferencesLocalCode.getContentFavouritesLocalCode();
 
-        if ("".equals(localCode) && !contentPreferences.getContentFavouritesLocalCode().equals(CloudFavouritesHelper.getLocalCode())) {
-            contentPreferences.setContentFavouritesLocalCode(CloudFavouritesHelper.getLocalCode());
-            localCode = contentPreferences.getContentFavouritesLocalCode();
+        if ("".equals(localCode) && !contentPreferencesLocalCode.getContentFavouritesLocalCode().equals(CloudFavouritesHelper.getLocalCode())) {
+            contentPreferencesLocalCode.setContentFavouritesLocalCode(CloudFavouritesHelper.getLocalCode());
+            localCode = contentPreferencesLocalCode.getContentFavouritesLocalCode();
         }
 
         fragmentContentBinding.textViewLocalCodeValue.setText(localCode);

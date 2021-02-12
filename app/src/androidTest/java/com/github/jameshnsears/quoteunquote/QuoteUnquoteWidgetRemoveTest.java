@@ -15,6 +15,8 @@ import static org.mockito.Mockito.spy;
 
 @RunWith(AndroidJUnit4.class)
 public class QuoteUnquoteWidgetRemoveTest extends DatabaseTestHelper {
+    QuoteUnquoteModelDouble quoteUnquoteModelDouble = new QuoteUnquoteModelDouble();
+
     @Test
     public void twoWidgetsRemoveOneOfThem() {
         final int widgetId01 = 1;

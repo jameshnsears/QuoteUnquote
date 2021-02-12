@@ -10,7 +10,6 @@ import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 
 import java.util.List;
 
-import io.reactivex.Single;
 
 public final class DatabaseRepositoryDouble extends DatabaseRepository {
     private static DatabaseRepositoryDouble databaseRepositoryDouble;
@@ -58,17 +57,7 @@ public final class DatabaseRepositoryDouble extends DatabaseRepository {
     }
 
     @NonNull
-    public Single<Integer> countAll() {
-        return quotationDAO.countAll();
-    }
-
-    @NonNull
     public Integer countReported() {
         return reportedDAO.countReported();
-    }
-
-    @NonNull
-    public QuotationEntity getQuotation(@NonNull final String digest) {
-        return quotationDAO.getQuotation(digest);
     }
 }

@@ -18,7 +18,6 @@ public class QuoteUnquoteModelDouble extends QuoteUnquoteModel {
 
     public void shutdown() {
         super.shutdown();
-        ((DatabaseRepositoryDouble) databaseRepository).empty();
     }
 
     public Single<Integer> countFavourites() {
@@ -26,7 +25,7 @@ public class QuoteUnquoteModelDouble extends QuoteUnquoteModel {
     }
 
     public Integer countReported() {
-        return ((DatabaseRepositoryDouble) databaseRepository).countReported();
+        return DatabaseRepositoryDouble.getInstance().countReported();
     }
 
     public List<String> getPrevious(final int widgetId, final ContentSelection contentSelection) {

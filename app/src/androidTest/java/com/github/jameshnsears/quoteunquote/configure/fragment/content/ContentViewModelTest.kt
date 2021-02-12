@@ -1,5 +1,7 @@
 package com.github.jameshnsears.quoteunquote.configure.fragment.content
 
+import androidx.test.core.app.ApplicationProvider
+import com.github.jameshnsears.quoteunquote.database.DatabaseRepositoryDouble
 import com.github.jameshnsears.quoteunquote.database.DatabaseTestHelper
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -7,17 +9,7 @@ import org.junit.Before
 import org.junit.Test
 
 class ContentViewModelTest : DatabaseTestHelper() {
-    lateinit var contentViewModelDouble : ContentViewModelDouble
-
-    @Before
-    fun setUpDatabases() {
-        contentViewModelDouble = ContentViewModelDouble(databaseRepositoryDouble)
-    }
-
-    @After
-    fun shutdown() {
-        contentViewModelDouble.shutdown()
-    }
+    var contentViewModelDouble = ContentViewModelDouble()
 
     @Test
     fun countAll() {

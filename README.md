@@ -15,6 +15,18 @@
 
 ---
 
+## High Level Design
+
+### Deployment Diagram
+
+![Deployment Diagram](https://github.com/jameshnsears//QuoteUnquote/blob/development/docs//Deployment Diagram.jpg?raw=true)
+
+### androidTest 
+
+![androidTest ROOM Class Diagram](https://github.com/jameshnsears//QuoteUnquote/blob/development/docs//androidTest ROOM Class Diagram.jpg?raw=true)
+
+---
+
 ## Build Instructions
 
 ### Android Studio

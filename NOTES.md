@@ -1,6 +1,6 @@
 # Notes
 
-## 1. Produce .aab
+## 1. Produce .aab - manually
 
 * increment version:
   * app/build.grade
@@ -72,10 +72,10 @@
 
 ```
 
-## 7. Android Studio 4.1.1 Plugins
+## 7. Android Studio Plugins
 
 * Checkstyle-IDE - Jamie Shiell
-* SonarLint - SonarfSource
+* SonarLint - SonarSource
 
 ---
 

@@ -1,34 +1,25 @@
 package com.github.jameshnsears.quoteunquote.database
 
-import com.github.jameshnsears.quoteunquote.QuoteUnquoteModelDouble
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
-import org.junit.After
 import org.junit.Before
 import java.util.ArrayList
 
-open class DatabaseTestHelper {
-    protected var databaseRepositoryDouble = DatabaseRepositoryDouble.getInstance()
-
-    protected lateinit var quoteUnquoteModelDouble: QuoteUnquoteModelDouble
+abstract class DatabaseTestHelper {
+    var databaseRepositoryDouble = DatabaseRepositoryDouble.getInstance()
 
     @Before
-    fun setUp() {
-        quoteUnquoteModelDouble = QuoteUnquoteModelDouble()
-    }
-
-    @After
-    fun tearDown() {
-        quoteUnquoteModelDouble.shutdown()
+    fun before() {
+        databaseRepositoryDouble.empty()
     }
 
     fun insertTestDataSet01() {
         val quotationEntityList: MutableList<QuotationEntity> = ArrayList()
         quotationEntityList.add(
-            QuotationEntity(
-                DatabaseRepository.DEFAULT_QUOTATION_DIGEST, "a0", "q0"
-            )
+                QuotationEntity(
+                        DatabaseRepository.DEFAULT_QUOTATION_DIGEST, "a0", "q0"
+                )
         )
         quotationEntityList.add(QuotationEntity("d1", "a1", "q1"))
         databaseRepositoryDouble.insertQuotations(quotationEntityList)

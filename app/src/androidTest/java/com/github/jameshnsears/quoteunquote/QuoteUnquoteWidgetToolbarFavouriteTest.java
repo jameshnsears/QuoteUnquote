@@ -24,6 +24,8 @@ import static org.mockito.Mockito.spy;
 
 @RunWith(AndroidJUnit4.class)
 public class QuoteUnquoteWidgetToolbarFavouriteTest extends DatabaseTestHelper {
+    QuoteUnquoteModelDouble quoteUnquoteModelDouble = new QuoteUnquoteModelDouble();
+
     @Test
     public void isNextQuotationFavourite() {
         insertTestDataSet01();

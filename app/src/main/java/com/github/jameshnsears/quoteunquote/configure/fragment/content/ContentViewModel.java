@@ -24,21 +24,14 @@ import io.reactivex.Single;
 import timber.log.Timber;
 
 public class ContentViewModel extends AndroidViewModel {
-    @NonNull
-    protected final ExecutorService executorService = Executors.newFixedThreadPool(1);
     @Nullable
     public List<AuthorPOJO> authorPOJOList;
     @Nullable
-    protected DatabaseRepository databaseRepository;
+    public DatabaseRepository databaseRepository;
 
     public ContentViewModel(@NonNull final Application application) {
         super(application);
-        databaseRepository = DatabaseRepository.getInstance(application);
-    }
-
-    public void shutdown() {
-        executorService.shutdown();
-        databaseRepository.close();
+        databaseRepository = DatabaseRepository.getInstance(application.getApplicationContext());
     }
 
     @NonNull
@@ -99,8 +92,9 @@ public class ContentViewModel extends AndroidViewModel {
 
     @NonNull
     public String getFavouritesToSend() {
-        final Future<String> future = executorService.submit(() -> {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
 
+        final Future<String> future = executorService.submit(() -> {
             SaveRequest saveRequest = new SaveRequest();
             saveRequest.code = CloudFavouritesHelper.getLocalCode();
             saveRequest.digests = new ArrayList<>(databaseRepository.getFavourites());

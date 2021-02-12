@@ -25,6 +25,8 @@ import static org.mockito.Mockito.doReturn;
 
 @RunWith(AndroidJUnit4.class)
 public class QuoteUnquoteWidgetToolbarNextTest extends DatabaseTestHelper {
+    QuoteUnquoteModelDouble quoteUnquoteModelDouble = new QuoteUnquoteModelDouble();
+
     @Test
     public void missingQuotationDigestProvidedByFavouritesReceive() {
         assertNull("", quoteUnquoteModelDouble.databaseRepository.getQuotation("blah"));
