@@ -18,7 +18,6 @@ class ContentFragmentDouble(widgetId: Int = WidgetIdTestHelper.WIDGET_ID) : Cont
         every { contentViewModel.authorsIndex(any()) } returns 0
         every { contentViewModel.countAuthorQuotations(any()) } returns 1
         every { contentViewModel.countFavourites() } returns Single.just(0)
-        every { contentViewModel.shutdown() } returns Unit
 
         return contentViewModel
     }
