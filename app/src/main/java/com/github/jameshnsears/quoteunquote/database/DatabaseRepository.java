@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.github.jameshnsears.quoteunquote.database.history.AbstractDatabaseHistory;
-import com.github.jameshnsears.quoteunquote.database.history.FavouritesDAO;
 import com.github.jameshnsears.quoteunquote.database.history.FavouriteEntity;
+import com.github.jameshnsears.quoteunquote.database.history.FavouritesDAO;
 import com.github.jameshnsears.quoteunquote.database.history.PreviousDAO;
 import com.github.jameshnsears.quoteunquote.database.history.PreviousEntity;
 import com.github.jameshnsears.quoteunquote.database.history.ReportedDAO;
@@ -26,10 +26,9 @@ import io.reactivex.Single;
 import timber.log.Timber;
 
 public class DatabaseRepository {
-    private static DatabaseRepository databaseRepository;
-
     @NonNull
     public static final String DEFAULT_QUOTATION_DIGEST = "1624c314";
+    private static DatabaseRepository databaseRepository;
     @NonNull
     protected final SecureRandom secureRandom = new SecureRandom();
     @Nullable

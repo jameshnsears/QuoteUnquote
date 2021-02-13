@@ -31,15 +31,15 @@ public class EventPreferences extends PreferencesFacade {
         return preferenceHelper.getPreferenceInt(getPreferenceKey("EVENT_DAILY_MINUTE"));
     }
 
+    public void setEventDailyTimeMinute(final int value) {
+        preferenceHelper.setPreference(getPreferenceKey("EVENT_DAILY_MINUTE"), value);
+    }
+
     public int getEventDailyTimeHour() {
         return preferenceHelper.getPreferenceInt(getPreferenceKey("EVENT_DAILY_HOUR"));
     }
 
     public void setEventDailyTimeHour(final int value) {
         preferenceHelper.setPreference(getPreferenceKey("EVENT_DAILY_HOUR"), value);
-    }
-
-    public void setEventDailyTimeMinute(final int value) {
-        preferenceHelper.setPreference(getPreferenceKey("EVENT_DAILY_MINUTE"), value);
     }
 }

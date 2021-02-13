@@ -29,9 +29,9 @@ import timber.log.Timber;
 
 public class ReportActivity extends AppCompatActivity {
     @Nullable
-    private ActivityReportBinding activityReportBinding;
-    @Nullable
     public QuoteUnquoteModel quoteUnquoteModel;
+    @Nullable
+    private ActivityReportBinding activityReportBinding;
     private int widgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
     @Override

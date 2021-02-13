@@ -1,12 +1,10 @@
 package com.github.jameshnsears.quoteunquote.configure.fragment.content
 
-import androidx.test.core.app.ApplicationProvider
-import com.github.jameshnsears.quoteunquote.database.DatabaseRepositoryDouble
+import com.github.jameshnsears.quoteunquote.cloud.CloudFavouritesHelper
 import com.github.jameshnsears.quoteunquote.database.DatabaseTestHelper
-import com.github.jameshnsears.quoteunquote.database.NoNextQuotationAvailableException
-import org.junit.After
+import io.mockk.every
+import io.mockk.spyk
 import org.junit.Assert.assertEquals
-import org.junit.Before
 import org.junit.Test
 
 class ContentViewModelTest : DatabaseTestHelper() {
@@ -15,12 +13,14 @@ class ContentViewModelTest : DatabaseTestHelper() {
     @Test
     fun countQuotations() {
         insertTestDataSet01()
+
         assertEquals(
                 "",
                 2,
                 contentViewModelDouble.countAll().blockingGet().toInt())
 
         insertTestDataSet02()
+
         assertEquals(
                 "",
                 5,
@@ -84,7 +84,11 @@ class ContentViewModelTest : DatabaseTestHelper() {
     }
 
     @Test
-    fun `countFavourites`() {
+    fun countFavourites() {
+        insertTestDataSet01()
+
         assertEquals("", 0, contentViewModelDouble.countFavourites().blockingGet().toInt())
+
+        assertEquals("", "{\"code\":\"bc5yX41a20\",\"digests\":[]}", contentViewModelDouble.favouritesToSend)
     }
 }

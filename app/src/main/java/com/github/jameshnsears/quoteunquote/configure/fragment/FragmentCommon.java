@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-public class FragmentCommon extends Fragment  {
+public class FragmentCommon extends Fragment {
     protected final int widgetId;
 
     protected FragmentCommon(final int theWidgetId) {

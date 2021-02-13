@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.AndroidViewModel;
 
-import com.github.jameshnsears.quoteunquote.BuildConfig;
 import com.github.jameshnsears.quoteunquote.cloud.CloudFavouritesHelper;
 import com.github.jameshnsears.quoteunquote.cloud.SaveRequest;
 import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
@@ -95,10 +94,10 @@ public class ContentViewModel extends AndroidViewModel {
 
         final Future<String> future = executorService.submit(() -> {
             SaveRequest saveRequest = new SaveRequest();
-            saveRequest.code = CloudFavouritesHelper.getLocalCode();
+            saveRequest.code = localCode();
             saveRequest.digests = new ArrayList<>(databaseRepository.getFavourites());
 
-            return CloudFavouritesHelper.sendRequest(saveRequest);
+            return CloudFavouritesHelper.jsonSendRequest(saveRequest);
         });
 
         try {
@@ -108,5 +107,9 @@ public class ContentViewModel extends AndroidViewModel {
             Thread.currentThread().interrupt();
             return "";
         }
+    }
+
+    protected String localCode() {
+        return CloudFavouritesHelper.getLocalCode();
     }
 }
