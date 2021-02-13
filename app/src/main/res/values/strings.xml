@@ -74,7 +74,7 @@
     <string name="fragment_event_device_unlock">Screen unlock (device dependent)</string>
     <string name="fragment_event_daily">Daily:</string>
 
-    <string name="fragment_footer_os_warning">Some devices require Battery Saver settings to be configured for this App</string>
+    <string name="fragment_footer_os_warning">Some devices might require Battery Saver settings to be configured for this App</string>
     <string name="fragment_footer_version">%1$s/%2$s</string>
     <string name="fragment_footer_oss">Open-source software</string>
     <string name="fragment_footer_github">GitHub</string>

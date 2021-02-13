@@ -20,9 +20,6 @@ public interface QuotationDAO {
     Single<Integer> countAll();
 
     @Query("SELECT AUTHOR, COUNT(*) AS QUOTATION_COUNT FROM QUOTATIONS GROUP BY AUTHOR ORDER BY AUTHOR ASC")
-    Single<List<AuthorPOJO>> authorsWithAtLeastFiveQuotations();
-
-    @Query("SELECT AUTHOR, COUNT(*) AS QUOTATION_COUNT FROM QUOTATIONS GROUP BY AUTHOR ORDER BY AUTHOR ASC")
     Single<List<AuthorPOJO>> authors();
 
     @Query("SELECT COUNT(QUOTATION) FROM QUOTATIONS WHERE (QUOTATION LIKE :text OR AUTHOR LIKE :text)")

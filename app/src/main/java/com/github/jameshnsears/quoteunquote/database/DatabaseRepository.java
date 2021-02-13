@@ -138,11 +138,6 @@ public class DatabaseRepository {
     }
 
     @NonNull
-    public Single<List<AuthorPOJO>> getAuthorsWithAtLeastFiveQuotations() {
-        return quotationDAO.authorsWithAtLeastFiveQuotations();
-    }
-
-    @NonNull
     public Single<List<AuthorPOJO>> getAuthors() {
         return quotationDAO.authors();
     }

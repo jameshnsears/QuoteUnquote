@@ -34,12 +34,8 @@ public class QuoteUnquoteModel {
     }
 
     public QuoteUnquoteModel(@NonNull final Context widgetContext) {
-        this.context = widgetContext;
-        databaseRepository = getDatabaseRepository();
-    }
-
-    public DatabaseRepository getDatabaseRepository() {
-        return DatabaseRepository.getInstance(this.context);
+        context = widgetContext;
+        databaseRepository = DatabaseRepository.getInstance(this.context);
     }
 
     public void shutdown() {
@@ -48,7 +44,7 @@ public class QuoteUnquoteModel {
         }
     }
 
-    public void setDefaultQuotation(final int widgetId) {
+    public void setDefault(final int widgetId) {
         logWidgetId(widgetId);
 
         final Future future = executorService.submit(() -> {
@@ -89,11 +85,11 @@ public class QuoteUnquoteModel {
                         break;
                     case AUTHOR:
                         quotationEntity = databaseRepository.getNext(
-                                widgetId, contentSelection, getPreferencesAuthorSearch(widgetId), randomNext);
+                                widgetId, contentSelection, preferencesAuthorSearch(widgetId), randomNext);
                         break;
                     case SEARCH:
                         quotationEntity = databaseRepository.getNext(
-                                widgetId, contentSelection, getPreferencesTextSearch(widgetId), randomNext);
+                                widgetId, contentSelection, preferencesTextSearch(widgetId), randomNext);
                         break;
                     default:
                         // REPORT:
@@ -118,11 +114,11 @@ public class QuoteUnquoteModel {
     }
 
     @NonNull
-    public String getPreferencesAuthorSearch(final int widgetId) {
+    public String preferencesAuthorSearch(final int widgetId) {
         return new ContentPreferences(widgetId, context).getContentSelectionAuthorName();
     }
 
-    public String getPreferencesTextSearch(final int widgetId) {
+    public String preferencesTextSearch(final int widgetId) {
         return new ContentPreferences(widgetId, context).getContentSelectionSearchText();
     }
 
@@ -139,7 +135,7 @@ public class QuoteUnquoteModel {
                 switch (contentSelection) {
                     case ALL:
                         if (countPrevious(widgetId, contentSelection) == 0) {
-                            setDefaultQuotation(widgetId);
+                            setDefault(widgetId);
                         }
                         break;
 
@@ -189,11 +185,11 @@ public class QuoteUnquoteModel {
     }
 
     public int countPreviousAuthor(final int widgetId) {
-        return databaseRepository.countPrevious(widgetId, ContentSelection.AUTHOR, getPreferencesAuthorSearch(widgetId));
+        return databaseRepository.countPrevious(widgetId, ContentSelection.AUTHOR, preferencesAuthorSearch(widgetId));
     }
 
     public int countPreviousQuotationText(final int widgetId) {
-        return databaseRepository.countPrevious(widgetId, ContentSelection.SEARCH, getPreferencesTextSearch(widgetId));
+        return databaseRepository.countPrevious(widgetId, ContentSelection.SEARCH, preferencesTextSearch(widgetId));
     }
 
     public void toggleFavourite(final int widgetId, @NonNull final String digest) {
@@ -206,7 +202,7 @@ public class QuoteUnquoteModel {
 
                 QuotationEntity quotationEntity = getNext(
                         widgetId,
-                        getSelectedContentType(widgetId));
+                        selectedContentType(widgetId));
 
                 ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
                 properties.put("Favourite",
@@ -216,7 +212,7 @@ public class QuoteUnquoteModel {
                 databaseRepository.deleteFavourite(widgetId, digest);
                 try {
                     if (databaseRepository.countFavourites().blockingGet() == 0) {
-                        if (isRadioButtonFavouriteSelected(widgetId)) {
+                        if (selectedContentTypeIsFavourite(widgetId)) {
                             setNext(widgetId, ContentSelection.ALL, true);
                         }
                     } else {
@@ -236,8 +232,8 @@ public class QuoteUnquoteModel {
         }
     }
 
-    public boolean isRadioButtonFavouriteSelected(final int widgetId) {
-        return new ContentPreferences(widgetId, context).getContentSelection().equals(ContentSelection.FAVOURITES);
+    public boolean selectedContentTypeIsFavourite(final int widgetId) {
+        return selectedContentType(widgetId).equals(ContentSelection.FAVOURITES);
     }
 
     public boolean isFavourite(final int widgetId, @NonNull final String digest) {
@@ -259,7 +255,7 @@ public class QuoteUnquoteModel {
         return isFavourite;
     }
 
-    public void removeDatabaseEntriesForInstance(final int widgetId) {
+    public void resetWidgetInstance(final int widgetId) {
         logWidgetId(widgetId);
 
         final Future future = executorService.submit(() -> {
@@ -274,7 +270,7 @@ public class QuoteUnquoteModel {
         }
     }
 
-    public void removeDatabaseEntriesForAllInstances() {
+    public void resetWidget() {
         final Future future = executorService.submit(() -> {
             databaseRepository.deletePrevious();
             databaseRepository.deleteFavourites();
@@ -289,7 +285,7 @@ public class QuoteUnquoteModel {
         }
     }
 
-    public void deletePrevious(final int widgetId, @NonNull final ContentSelection contentSelection) {
+    public void resetPrevious(final int widgetId, @NonNull final ContentSelection contentSelection) {
         final String logMsg = String.format(Locale.ENGLISH, "%d: contentType=%d", widgetId, contentSelection.getContentType());
         Timber.d(logMsg);
 
@@ -305,12 +301,12 @@ public class QuoteUnquoteModel {
         }
     }
 
-    public void markAsReported(final int widgetId) {
+    public void report(final int widgetId) {
         logWidgetId(widgetId);
 
         final Future future = executorService.submit(() -> {
             List<String> previousQuotations = databaseRepository.getPrevious(
-                    widgetId, getSelectedContentType(widgetId));
+                    widgetId, selectedContentType(widgetId));
 
             databaseRepository.markAsReported(previousQuotations.get(0));
         });
@@ -323,7 +319,7 @@ public class QuoteUnquoteModel {
         }
     }
 
-    public ContentSelection getSelectedContentType(final int widgetId) {
+    public ContentSelection selectedContentType(final int widgetId) {
         return new ContentPreferences(widgetId, context).getContentSelection();
     }
 
@@ -333,7 +329,7 @@ public class QuoteUnquoteModel {
         final Future<Integer> future = executorService.submit(() -> {
             QuotationEntity quotationEntity = getNext(
                     widgetId,
-                    getSelectedContentType(widgetId));
+                    selectedContentType(widgetId));
 
             return databaseRepository.countIsReported(quotationEntity.digest);
         });

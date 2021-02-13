@@ -41,11 +41,7 @@ public class ContentViewModel extends AndroidViewModel {
 
     @NonNull
     public Single<List<AuthorPOJO>> authors() {
-        if (BuildConfig.DEBUG) {
-            return databaseRepository.getAuthors();
-        } else {
-            return databaseRepository.getAuthorsWithAtLeastFiveQuotations();
-        }
+        return databaseRepository.getAuthors();
     }
 
     @NonNull
@@ -61,23 +57,26 @@ public class ContentViewModel extends AndroidViewModel {
     }
 
     public int countAuthorQuotations(@NonNull final String author) {
+        int countAuthorQuotations = 0;
+
         for (final AuthorPOJO authorPOJO : this.authorPOJOList) {
             if (authorPOJO.author.equals(author)) {
-                return authorPOJO.count;
+                countAuthorQuotations = authorPOJO.count;
+                break;
             }
         }
-        return -1;
+        return countAuthorQuotations;
     }
 
     public int authorsIndex(@NonNull final String author) {
         int index = 0;
         for (final AuthorPOJO authorPOJO : this.authorPOJOList) {
             if (authorPOJO.author.equals(author)) {
-                return index;
+                break;
             }
             index++;
         }
-        return -1;
+        return index;
     }
 
     @NonNull

@@ -75,7 +75,7 @@ public class QuoteUnquoteWidgetToolbarNextTest extends DatabaseTestHelper {
         insertTestDataSet01();
         insertTestDataSet02();
 
-        quoteUnquoteModelDouble.removeDatabaseEntriesForInstance(WidgetIdHelper.WIDGET_ID);
+        quoteUnquoteModelDouble.resetWidgetInstance(WidgetIdHelper.WIDGET_ID);
 
         final List<String> expectedFavouritesDigestList = new ArrayList<>();
 
@@ -153,13 +153,13 @@ public class QuoteUnquoteWidgetToolbarNextTest extends DatabaseTestHelper {
         setDefaultQuotation();
 
         final QuoteUnquoteModelDouble quoteUnquoteModelSpy = Mockito.spy(quoteUnquoteModelDouble);
-        doReturn("a2").when(quoteUnquoteModelSpy).getPreferencesAuthorSearch(ArgumentMatchers.eq(WidgetIdHelper.WIDGET_ID));
+        doReturn("a2").when(quoteUnquoteModelSpy).preferencesAuthorSearch(ArgumentMatchers.eq(WidgetIdHelper.WIDGET_ID));
 
 
         // user chooses a2 as author and keeps pressing new quotation
 
         // each time user selects a new author then the prior history is deleted
-        quoteUnquoteModelSpy.deletePrevious(WidgetIdHelper.WIDGET_ID, ContentSelection.AUTHOR);
+        quoteUnquoteModelSpy.resetPrevious(WidgetIdHelper.WIDGET_ID, ContentSelection.AUTHOR);
 
         // the default quotation should still be in the history
         assertEquals(

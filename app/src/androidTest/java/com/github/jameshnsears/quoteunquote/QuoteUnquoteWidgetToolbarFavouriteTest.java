@@ -33,7 +33,7 @@ public class QuoteUnquoteWidgetToolbarFavouriteTest extends DatabaseTestHelper {
         setDefaultQuotation();
 
         final QuoteUnquoteModelDouble quoteUnquoteModelSpy = spy(quoteUnquoteModelDouble);
-        doReturn(false).when(quoteUnquoteModelSpy).isRadioButtonFavouriteSelected(ArgumentMatchers.eq(WidgetIdHelper.WIDGET_ID));
+        doReturn(false).when(quoteUnquoteModelSpy).selectedContentTypeIsFavourite(ArgumentMatchers.eq(WidgetIdHelper.WIDGET_ID));
 
         assertEquals(
                 "",

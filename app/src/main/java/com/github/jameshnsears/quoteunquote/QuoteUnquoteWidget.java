@@ -268,7 +268,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull final AppWidgetManager appWidgetManager) {
         ToastHelper.makeToast(context, context.getString(R.string.widget_button_first_toast), Toast.LENGTH_LONG);
 
-        getQuoteUnquoteModelInstance(context).deletePrevious(widgetId, new ContentPreferences(widgetId, context).getContentSelection());
+        getQuoteUnquoteModelInstance(context).resetPrevious(widgetId, new ContentPreferences(widgetId, context).getContentSelection());
 
         updateWidgetView(context, widgetId, appWidgetManager);
     }
@@ -524,7 +524,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         for (final int widgetId : widgetIds) {
             logWidgetId(widgetId);
 
-            getQuoteUnquoteModelInstance(context).removeDatabaseEntriesForInstance(widgetId);
+            getQuoteUnquoteModelInstance(context).resetWidgetInstance(widgetId);
             PreferencesFacade.empty(context, widgetId);
 
             final EventDailyAlarm eventDailyAlarm = new EventDailyAlarm(context, widgetId);
@@ -538,7 +538,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         super.onDisabled(context);
 
         try {
-            getQuoteUnquoteModelInstance(context).removeDatabaseEntriesForAllInstances();
+            getQuoteUnquoteModelInstance(context).resetWidget();
             PreferencesFacade.empty(context);
 
             if (CloudServiceSend.isRunning(context)) {

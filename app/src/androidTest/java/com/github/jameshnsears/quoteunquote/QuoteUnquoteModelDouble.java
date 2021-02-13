@@ -12,12 +12,8 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 public class QuoteUnquoteModelDouble extends QuoteUnquoteModel {
     public QuoteUnquoteModelDouble() {
         super();
-        this.context = getApplicationContext();
+        context = getApplicationContext();
         databaseRepository = DatabaseRepositoryDouble.getInstance();
-    }
-
-    public void shutdown() {
-        super.shutdown();
     }
 
     public Single<Integer> countFavourites() {
@@ -37,12 +33,12 @@ public class QuoteUnquoteModelDouble extends QuoteUnquoteModel {
     }
 
     @Override
-    public String getPreferencesTextSearch(final int widgetId) {
+    public String preferencesTextSearch(final int widgetId) {
         return "q1";
     }
 
     @Override
-    public ContentSelection getSelectedContentType(final int widgetId) {
+    public ContentSelection selectedContentType(final int widgetId) {
         return ContentSelection.ALL;
     }
 }

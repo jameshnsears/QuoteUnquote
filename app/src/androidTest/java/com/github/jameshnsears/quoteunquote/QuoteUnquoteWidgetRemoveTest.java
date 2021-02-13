@@ -25,21 +25,21 @@ public class QuoteUnquoteWidgetRemoveTest extends DatabaseTestHelper {
         insertTestDataSet01();
         insertTestDataSet02();
 
-        quoteUnquoteModelDouble.setDefaultQuotation(widgetId01);
+        quoteUnquoteModelDouble.setDefault(widgetId01);
 
         quoteUnquoteModelDouble.toggleFavourite(
                 widgetId01, quoteUnquoteModelDouble.getNext(widgetId01, ContentSelection.ALL).digest);
 
-        quoteUnquoteModelDouble.markAsReported(widgetId01);
+        quoteUnquoteModelDouble.report(widgetId01);
 
-        quoteUnquoteModelDouble.setDefaultQuotation(widgetId02);
+        quoteUnquoteModelDouble.setDefault(widgetId02);
 
         final QuoteUnquoteModelDouble quoteUnquoteModelSpy = spy(quoteUnquoteModelDouble);
-        doReturn(false).when(quoteUnquoteModelSpy).isRadioButtonFavouriteSelected(eq(widgetId02));
+        doReturn(false).when(quoteUnquoteModelSpy).selectedContentTypeIsFavourite(eq(widgetId02));
         quoteUnquoteModelSpy.toggleFavourite(
                 widgetId02, quoteUnquoteModelDouble.getNext(widgetId01, ContentSelection.ALL).digest);
 
-        quoteUnquoteModelDouble.markAsReported(widgetId02);
+        quoteUnquoteModelDouble.report(widgetId02);
 
         assertEquals(
                 "",
@@ -70,7 +70,7 @@ public class QuoteUnquoteWidgetRemoveTest extends DatabaseTestHelper {
 
         ////////////////////////////////////////////
 
-        quoteUnquoteModelDouble.removeDatabaseEntriesForInstance(widgetId01);
+        quoteUnquoteModelDouble.resetWidgetInstance(widgetId01);
 
         assertEquals(
                 "",
@@ -89,7 +89,7 @@ public class QuoteUnquoteWidgetRemoveTest extends DatabaseTestHelper {
 
         ////////////////////////////////////////////
 
-        quoteUnquoteModelDouble.removeDatabaseEntriesForAllInstances();
+        quoteUnquoteModelDouble.resetWidget();
 
         assertEquals(
                 "",

@@ -92,7 +92,7 @@ public class ReportActivity extends AppCompatActivity {
         activityReportBinding.buttonOK.setOnClickListener(view1 -> {
             AuditEventHelper.auditEvent("REPORT", getAuditProperties());
 
-            quoteUnquoteModel.markAsReported(widgetId);
+            quoteUnquoteModel.report(widgetId);
 
             onBackPressed();
         });
