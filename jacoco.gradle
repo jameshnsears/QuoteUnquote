@@ -35,10 +35,10 @@ project.afterEvaluate {
                 def classJava =  fileTree(dir: "$project.buildDir/intermediates/javac/${sourceName}/classes", excludes: excludes)
                 classDirectories.setFrom(files([classKotlin, classJava]))
 
-                def kotlinSrc = "$project.buildDir/src/main/kotlin"
-                def javaSrc = "$project.buildDir/src/main/java"
-                def flavourSrc = "$project.buildDir/src/$productFlavorName/java"
-                def androidTestSrc = "$project.buildDir/src/androidTest/java"
+                def kotlinSrc = "$project.projectDir/src/main/kotlin"
+                def javaSrc = "$project.projectDir/src/main/java"
+                def flavourSrc = "$project.projectDir/src/$productFlavorName/java"
+                def androidTestSrc = "$project.projectDir/src/androidTest/java"
                 sourceDirectories.setFrom(files([androidTestSrc, javaSrc, kotlinSrc, flavourSrc]))
 
                 executionData.from = fileTree(dir: "${project.buildDir}", includes: [
