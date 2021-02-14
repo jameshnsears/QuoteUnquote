@@ -21,7 +21,7 @@ import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.P])
-class ConfigureActivityTest : ShadowLoggingHelper() {
+class ConfigureActivityDoubleTest : ShadowLoggingHelper() {
     private lateinit var scenario: ActivityScenario<ConfigureActivityDouble>
 
     private fun getIntent(): Intent {
@@ -51,7 +51,7 @@ class ConfigureActivityTest : ShadowLoggingHelper() {
     }
 
     @Test
-    fun fragmentEvent() {
+    fun fragmentEventInitialState() {
         scenario.onActivity { activity ->
             val fragmentEvent = activity.supportFragmentManager.findFragmentById(R.id.fragmentPlaceholderEvent) as EventFragment
             assertFalse("", fragmentEvent.fragmentEventBinding!!.checkBoxDailyAt.isChecked)

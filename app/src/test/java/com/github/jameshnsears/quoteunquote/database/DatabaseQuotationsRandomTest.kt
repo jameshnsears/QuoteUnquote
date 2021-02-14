@@ -36,7 +36,5 @@ class DatabaseQuotationsRandomTest : ShadowLoggingHelper() {
                 fail(rndIndex.toString())
             }
         }
-
-        databaseRepository.close()
     }
 }

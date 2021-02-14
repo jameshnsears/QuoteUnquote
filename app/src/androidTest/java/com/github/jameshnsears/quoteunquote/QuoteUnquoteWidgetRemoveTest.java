@@ -2,7 +2,6 @@ package com.github.jameshnsears.quoteunquote;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.github.jameshnsears.quoteunquote.database.DatabaseTestHelper;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 
 import org.junit.Test;
@@ -13,10 +12,9 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.spy;
 
-@RunWith(AndroidJUnit4.class)
-public class QuoteUnquoteWidgetRemoveTest extends DatabaseTestHelper {
-    QuoteUnquoteModelDouble quoteUnquoteModelDouble = new QuoteUnquoteModelDouble();
 
+@RunWith(AndroidJUnit4.class)
+public class QuoteUnquoteWidgetRemoveTest extends QuoteUnquoteModelUtility {
     @Test
     public void twoWidgetsRemoveOneOfThem() {
         final int widgetId01 = 1;
@@ -30,7 +28,7 @@ public class QuoteUnquoteWidgetRemoveTest extends DatabaseTestHelper {
         quoteUnquoteModelDouble.toggleFavourite(
                 widgetId01, quoteUnquoteModelDouble.getNext(widgetId01, ContentSelection.ALL).digest);
 
-        quoteUnquoteModelDouble.report(widgetId01);
+        quoteUnquoteModelDouble.reportQuotation(widgetId01);
 
         quoteUnquoteModelDouble.setDefault(widgetId02);
 
@@ -39,7 +37,7 @@ public class QuoteUnquoteWidgetRemoveTest extends DatabaseTestHelper {
         quoteUnquoteModelSpy.toggleFavourite(
                 widgetId02, quoteUnquoteModelDouble.getNext(widgetId01, ContentSelection.ALL).digest);
 
-        quoteUnquoteModelDouble.report(widgetId02);
+        quoteUnquoteModelDouble.reportQuotation(widgetId02);
 
         assertEquals(
                 "",

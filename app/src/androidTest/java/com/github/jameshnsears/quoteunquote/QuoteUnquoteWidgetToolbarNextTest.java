@@ -2,7 +2,6 @@ package com.github.jameshnsears.quoteunquote;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.github.jameshnsears.quoteunquote.database.DatabaseTestHelper;
 import com.github.jameshnsears.quoteunquote.database.NoNextQuotationAvailableException;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper;
@@ -24,9 +23,7 @@ import static org.mockito.Mockito.doReturn;
 
 
 @RunWith(AndroidJUnit4.class)
-public class QuoteUnquoteWidgetToolbarNextTest extends DatabaseTestHelper {
-    QuoteUnquoteModelDouble quoteUnquoteModelDouble = new QuoteUnquoteModelDouble();
-
+public class QuoteUnquoteWidgetToolbarNextTest extends QuoteUnquoteModelUtility {
     @Test
     public void missingQuotationDigestProvidedByFavouritesReceive() {
         assertNull("", quoteUnquoteModelDouble.databaseRepository.getQuotation("blah"));

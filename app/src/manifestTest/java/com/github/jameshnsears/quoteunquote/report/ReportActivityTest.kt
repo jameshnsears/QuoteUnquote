@@ -32,14 +32,14 @@ class ReportActivityTest : ShadowLoggingHelper() {
     }
 
     @Test
-    fun reportQuotation() {
+    fun hasQuotationAlreadyBeenReported() {
         scenario.onActivity { activity ->
             assertFalse(activity.hasQuotationAlreadyBeenReported())
         }
     }
 
     @Test
-    fun itemsInSpinner() {
+    fun itemsInReasonSpinner() {
         scenario.onActivity { activity ->
             val spinnerReason: Spinner = activity.findViewById(R.id.spinnerReason)
             assertThat("", spinnerReason.adapter.count, Is.`is`(6))

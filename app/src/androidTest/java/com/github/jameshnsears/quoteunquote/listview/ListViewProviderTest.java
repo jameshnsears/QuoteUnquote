@@ -6,9 +6,8 @@ import android.content.Intent;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.github.jameshnsears.quoteunquote.QuoteUnquoteModelDouble;
+import com.github.jameshnsears.quoteunquote.QuoteUnquoteModelUtility;
 import com.github.jameshnsears.quoteunquote.configure.fragment.content.ContentPreferences;
-import com.github.jameshnsears.quoteunquote.database.DatabaseTestHelper;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper;
 
@@ -20,10 +19,9 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 
-@RunWith(AndroidJUnit4.class)
-public class ListViewProviderTest extends DatabaseTestHelper {
-    QuoteUnquoteModelDouble quoteUnquoteModelDouble = new QuoteUnquoteModelDouble();
 
+@RunWith(AndroidJUnit4.class)
+public class ListViewProviderTest extends QuoteUnquoteModelUtility {
     @Test
     public void listView() {
         insertTestDataSet01();

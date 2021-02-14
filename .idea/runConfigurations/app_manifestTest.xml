@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="app.manifestTest" type="AndroidJUnit" factoryName="Android JUnit" repeat_count="3">
-    <module name="quoteunquote" />
+    <module name="quoteunquote.app" />
     <useClassPathOnly />
     <extension name="coverage">
       <pattern>
@@ -15,7 +15,7 @@
     <option name="VM_PARAMETERS" value="-ea -noverify" />
     <option name="PARAMETERS" value="" />
     <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
-    <dir value="$PROJECT_DIR$/app/src/manifestTest" />
+    <dir value="$PROJECT_DIR$/app/src/manifestTest/java" />
     <method v="2">
       <option name="Android.Gradle.BeforeRunTask" enabled="true" />
     </method>

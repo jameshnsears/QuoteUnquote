@@ -65,18 +65,6 @@ public class DatabaseRepository {
         return databaseRepository;
     }
 
-    public void close() {
-        if (abstractDatabaseQuotation.isOpen()) {
-            abstractDatabaseQuotation.close();
-        }
-
-        if (abstractDatabaseHistory.isOpen()) {
-            abstractDatabaseHistory.close();
-        }
-
-        databaseRepository = null;
-    }
-
     public Single<Integer> countAll() {
         return quotationDAO.countAll();
     }

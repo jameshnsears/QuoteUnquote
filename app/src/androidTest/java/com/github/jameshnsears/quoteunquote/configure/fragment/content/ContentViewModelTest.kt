@@ -1,9 +1,6 @@
 package com.github.jameshnsears.quoteunquote.configure.fragment.content
 
-import com.github.jameshnsears.quoteunquote.cloud.CloudFavouritesHelper
 import com.github.jameshnsears.quoteunquote.database.DatabaseTestHelper
-import io.mockk.every
-import io.mockk.spyk
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -14,17 +11,11 @@ class ContentViewModelTest : DatabaseTestHelper() {
     fun countQuotations() {
         insertTestDataSet01()
 
-        assertEquals(
-                "",
-                2,
-                contentViewModelDouble.countAll().blockingGet().toInt())
+        assertEquals("", 2, contentViewModelDouble.countAll().blockingGet().toInt())
 
         insertTestDataSet02()
 
-        assertEquals(
-                "",
-                5,
-                contentViewModelDouble.countAll().blockingGet().toInt())
+        assertEquals("", 5, contentViewModelDouble.countAll().blockingGet().toInt())
     }
 
     @Test
@@ -33,10 +24,7 @@ class ContentViewModelTest : DatabaseTestHelper() {
         insertTestDataSet02()
         insertTestDataSet03()
 
-        assertEquals(
-                "",
-                5,
-                contentViewModelDouble.authors().blockingGet().size)
+        assertEquals("", 5, contentViewModelDouble.authors().blockingGet().size)
     }
 
     @Test
@@ -46,17 +34,18 @@ class ContentViewModelTest : DatabaseTestHelper() {
         insertTestDataSet03()
 
         assertEquals(
-                "",
-                "a0",
-                contentViewModelDouble.authorsSorted(contentViewModelDouble.authors().blockingGet())[0])
+            "",
+            "a0",
+            contentViewModelDouble.authorsSorted(contentViewModelDouble.authors().blockingGet())[0]
+        )
         assertEquals("", 0, contentViewModelDouble.authorsIndex("a0"))
 
         assertEquals(
-                "",
-                "a5",
-                contentViewModelDouble.authorsSorted(contentViewModelDouble.authors().blockingGet())[4])
+            "",
+            "a5",
+            contentViewModelDouble.authorsSorted(contentViewModelDouble.authors().blockingGet())[4]
+        )
         assertEquals("", 4, contentViewModelDouble.authorsIndex("a5"))
-
     }
 
     @Test
@@ -66,10 +55,7 @@ class ContentViewModelTest : DatabaseTestHelper() {
         insertTestDataSet03()
 
         contentViewModelDouble.authorPOJOList = contentViewModelDouble.authors().blockingGet()
-        assertEquals(
-                "",
-                3,
-                contentViewModelDouble.countAuthorQuotations("a2"))
+        assertEquals("", 3, contentViewModelDouble.countAuthorQuotations("a2"))
     }
 
     @Test

@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="cloudLib.test" type="AndroidJUnit" factoryName="Android JUnit">
-    <module name="QuoteUnquote.cloudLib" />
+    <module name="quoteunquote.cloudLib" />
     <useClassPathOnly />
     <option name="PACKAGE_NAME" value="" />
     <option name="MAIN_CLASS_NAME" value="" />

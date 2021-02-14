@@ -1,12 +1,12 @@
 flags:
   app.manifestTest:
-    carryforward: false
+    carryforward: true
 
   app.froid:
-    carryforward: false
+    carryforward: true
 
   app.gooleplay:
-    carryforward: false
+    carryforward: true
 
 ignore:
   - "/app/src/androidTest/**/*.kt"

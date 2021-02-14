@@ -24,7 +24,7 @@ import timber.log.Timber;
 
 public class QuoteUnquoteModel {
     @NonNull
-    public final ExecutorService executorService = Executors.newFixedThreadPool(2);
+    public final ExecutorService executorService = Executors.newFixedThreadPool(6);
     @Nullable
     public DatabaseRepository databaseRepository;
     @Nullable
@@ -301,7 +301,7 @@ public class QuoteUnquoteModel {
         }
     }
 
-    public void report(final int widgetId) {
+    public void reportQuotation(final int widgetId) {
         logWidgetId(widgetId);
 
         final Future future = executorService.submit(() -> {
