@@ -36,7 +36,7 @@ Android Studio > Get from Version Control
  > https://github.com/jameshnsears/QuoteUnquote
  > Clone
 
-VSC > Git > Branches...
+VCS > Git > Branches...
  > Remote Branches > origin/development > Checkout
   > Smart Checkout
 
