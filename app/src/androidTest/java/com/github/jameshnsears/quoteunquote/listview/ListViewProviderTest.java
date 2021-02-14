@@ -1,7 +1,6 @@
 package com.github.jameshnsears.quoteunquote.listview;
 
 import android.appwidget.AppWidgetManager;
-import android.content.Context;
 import android.content.Intent;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -16,26 +15,22 @@ import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 
 
 @RunWith(AndroidJUnit4.class)
 public class ListViewProviderTest extends QuoteUnquoteModelUtility {
     @Test
-    public void listView() {
+    public void countItemsInList() {
         insertTestDataSet01();
 
         final Intent intent = new Intent();
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, WidgetIdHelper.WIDGET_ID);
 
-        final Context mockContext = mock(Context.class);
+        final ListViewProvider listViewProviderTestSpy = spy(new ListViewProvider(context, intent));
+        doReturn(quoteUnquoteModelDouble).when(listViewProviderTestSpy).getQuoteUnquoteModel(context);
 
-        final ListViewProvider listViewProviderTestSpy = spy(new ListViewProvider(mockContext, intent));
-
-        doReturn(quoteUnquoteModelDouble).when(listViewProviderTestSpy).getQuoteUnquoteModel(mockContext);
-
-        final ContentPreferences preferenceAppearanceSpy = spy(new ContentPreferences(-1, mockContext));
+        final ContentPreferences preferenceAppearanceSpy = spy(new ContentPreferences(-1, context));
         doReturn(ContentSelection.ALL).when(preferenceAppearanceSpy).getContentSelection();
         listViewProviderTestSpy.contentPreferences = preferenceAppearanceSpy;
 

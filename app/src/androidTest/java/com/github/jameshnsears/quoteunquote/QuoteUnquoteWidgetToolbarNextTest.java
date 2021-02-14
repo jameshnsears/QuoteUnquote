@@ -9,17 +9,20 @@ import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
-import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.when;
 
 
 @RunWith(AndroidJUnit4.class)
@@ -146,7 +149,7 @@ public class QuoteUnquoteWidgetToolbarNextTest extends QuoteUnquoteModelUtility 
         insertTestDataSet03();
         setDefaultQuotation();
 
-        final QuoteUnquoteModelDouble quoteUnquoteModelSpy = Mockito.spy(quoteUnquoteModelDouble);
+        final QuoteUnquoteModelDouble quoteUnquoteModelSpy = spy(quoteUnquoteModelDouble);
         doReturn("a2").when(quoteUnquoteModelSpy).preferencesAuthorSearch(ArgumentMatchers.eq(WidgetIdHelper.WIDGET_ID));
 
 
@@ -215,13 +218,17 @@ public class QuoteUnquoteWidgetToolbarNextTest extends QuoteUnquoteModelUtility 
 
         // using "q1" as the keyword from test data
 
-        try {
-            quoteUnquoteModelDouble.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.SEARCH, false);
-            quoteUnquoteModelDouble.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.SEARCH, false);
-            quoteUnquoteModelDouble.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.SEARCH, false);
-            quoteUnquoteModelDouble.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.SEARCH, false);
+        QuoteUnquoteModelDouble quoteUnquoteModelDoubleSpy = spy(QuoteUnquoteModelDouble.class);
+        quoteUnquoteModelDoubleSpy.context = getApplicationContext();
+        when(quoteUnquoteModelDoubleSpy.preferencesTextSearch(anyInt())).thenReturn("q1");
 
-            quoteUnquoteModelDouble.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.SEARCH, false);
+        try {
+            quoteUnquoteModelDoubleSpy.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.SEARCH, false);
+            quoteUnquoteModelDoubleSpy.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.SEARCH, false);
+            quoteUnquoteModelDoubleSpy.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.SEARCH, false);
+            quoteUnquoteModelDoubleSpy.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.SEARCH, false);
+
+            quoteUnquoteModelDoubleSpy.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.SEARCH, false);
             fail("");
         } catch (NoNextQuotationAvailableException e) {
             assertSame("", ContentSelection.SEARCH, e.contentSelection);
@@ -230,6 +237,6 @@ public class QuoteUnquoteWidgetToolbarNextTest extends QuoteUnquoteModelUtility 
         assertEquals(
                 "",
                 4,
-                quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID, ContentSelection.SEARCH));
+                quoteUnquoteModelDoubleSpy.countPrevious(WidgetIdHelper.WIDGET_ID, ContentSelection.SEARCH));
     }
 }

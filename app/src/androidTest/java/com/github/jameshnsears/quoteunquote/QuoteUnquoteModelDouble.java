@@ -33,11 +33,6 @@ public class QuoteUnquoteModelDouble extends QuoteUnquoteModel {
     }
 
     @Override
-    public String preferencesTextSearch(final int widgetId) {
-        return "q1";
-    }
-
-    @Override
     public ContentSelection selectedContentType(final int widgetId) {
         return ContentSelection.ALL;
     }

@@ -1,9 +1,12 @@
 package com.github.jameshnsears.quoteunquote.configure.fragment.content
 
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.jameshnsears.quoteunquote.database.DatabaseTestHelper
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import org.junit.runner.RunWith
 
+@RunWith(AndroidJUnit4::class)
 class ContentViewModelTest : DatabaseTestHelper() {
     var contentViewModelDouble = ContentViewModelDouble()
 
@@ -28,7 +31,7 @@ class ContentViewModelTest : DatabaseTestHelper() {
     }
 
     @Test
-    fun authorsSorted() {
+    fun checkAuthorsSpinnerSorted() {
         insertTestDataSet01()
         insertTestDataSet02()
         insertTestDataSet03()
@@ -59,14 +62,14 @@ class ContentViewModelTest : DatabaseTestHelper() {
     }
 
     @Test
-    fun textSearchResults() {
-        assertEquals("", 0, contentViewModelDouble.countQuotationWithText("q1").toInt())
+    fun checkTextSearchResults() {
+        assertEquals("", 0, contentViewModelDouble.countQuotationWithText("q1"))
 
         insertTestDataSet01()
         insertTestDataSet02()
         insertTestDataSet03()
 
-        assertEquals("", 4, contentViewModelDouble.countQuotationWithText("q1").toInt())
+        assertEquals("", 4, contentViewModelDouble.countQuotationWithText("q1"))
     }
 
     @Test

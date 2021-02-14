@@ -14,7 +14,7 @@ import static org.mockito.Mockito.spy;
 
 
 @RunWith(AndroidJUnit4.class)
-public class QuoteUnquoteWidgetRemoveTest extends QuoteUnquoteModelUtility {
+public class QuoteUnquoteWidgetDisabledTest extends QuoteUnquoteModelUtility {
     @Test
     public void twoWidgetsRemoveOneOfThem() {
         final int widgetId01 = 1;
