@@ -12,29 +12,29 @@ class ContentViewModelTest : DatabaseTestHelper() {
 
     @Test
     fun countQuotations() {
-        insertTestDataSet01()
+        insertDataset01()
 
         assertEquals("", 2, contentViewModelDouble.countAll().blockingGet().toInt())
 
-        insertTestDataSet02()
+        insertDataset02()
 
         assertEquals("", 5, contentViewModelDouble.countAll().blockingGet().toInt())
     }
 
     @Test
     fun countAuthors() {
-        insertTestDataSet01()
-        insertTestDataSet02()
-        insertTestDataSet03()
+        insertDataset01()
+        insertDataset02()
+        insertDataset03()
 
         assertEquals("", 5, contentViewModelDouble.authors().blockingGet().size)
     }
 
     @Test
     fun checkAuthorsSpinnerSorted() {
-        insertTestDataSet01()
-        insertTestDataSet02()
-        insertTestDataSet03()
+        insertDataset01()
+        insertDataset02()
+        insertDataset03()
 
         assertEquals(
             "",
@@ -53,9 +53,9 @@ class ContentViewModelTest : DatabaseTestHelper() {
 
     @Test
     fun countAuthorQuotations() {
-        insertTestDataSet01()
-        insertTestDataSet02()
-        insertTestDataSet03()
+        insertDataset01()
+        insertDataset02()
+        insertDataset03()
 
         contentViewModelDouble.authorPOJOList = contentViewModelDouble.authors().blockingGet()
         assertEquals("", 3, contentViewModelDouble.countAuthorQuotations("a2"))
@@ -65,16 +65,16 @@ class ContentViewModelTest : DatabaseTestHelper() {
     fun checkTextSearchResults() {
         assertEquals("", 0, contentViewModelDouble.countQuotationWithText("q1"))
 
-        insertTestDataSet01()
-        insertTestDataSet02()
-        insertTestDataSet03()
+        insertDataset01()
+        insertDataset02()
+        insertDataset03()
 
         assertEquals("", 4, contentViewModelDouble.countQuotationWithText("q1"))
     }
 
     @Test
     fun countFavourites() {
-        insertTestDataSet01()
+        insertDataset01()
 
         assertEquals("", 0, contentViewModelDouble.countFavourites().blockingGet().toInt())
 

@@ -20,8 +20,8 @@ public class WidgetDeletedTest extends QuoteUnquoteModelUtility {
         final int widgetId01 = 1;
         final int widgetId02 = 2;
 
-        insertTestDataSet01();
-        insertTestDataSet02();
+        insertDataset01();
+        insertDataset02();
 
         quoteUnquoteModelDouble.setDefault(widgetId01);
 

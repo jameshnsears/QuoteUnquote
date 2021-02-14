@@ -7,10 +7,10 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-class ReportTest : QuoteUnquoteModelUtility() {
+class ReportActivityTest : QuoteUnquoteModelUtility() {
     @Test
     fun reportQuotation() {
-        insertTestDataSet01()
+        insertDataset01()
         setDefaultQuotation()
 
         assertEquals(ContentSelection.ALL, quoteUnquoteModelDouble.selectedContentType(1))

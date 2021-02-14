@@ -25,25 +25,23 @@ import static org.mockito.Mockito.spy;
 @RunWith(AndroidJUnit4.class)
 public class WidgetToolbarNextTest extends QuoteUnquoteModelUtility {
     @Test
-    public void missingQuotationDigestProvidedByFavouritesReceive() {
+    public void deadDigestFromFavouriteReceive() {
         assertNull("", quoteUnquoteModelDouble.databaseRepository.getQuotation("blah"));
     }
 
     @Test
-    public void contentTypeAll() throws NoNextQuotationAvailableException {
-        insertTestDataSet01();
+    public void moveThroughContentTypeAll() throws NoNextQuotationAvailableException {
+        insertDataset01();
         setDefaultQuotation();
 
         quoteUnquoteModelDouble.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL, false);
 
         assertEquals(
-                "check that we're not using on DEFAULT_QUOTATION_DIGEST",
                 "d1",
                 quoteUnquoteModelDouble.getNext(
                         WidgetIdHelper.WIDGET_ID, ContentSelection.ALL).digest);
 
         assertEquals(
-                "make sure history contains correct ContentType",
                 2,
                 quoteUnquoteModelDouble
                         .countPrevious(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL));
@@ -51,7 +49,7 @@ public class WidgetToolbarNextTest extends QuoteUnquoteModelUtility {
 
     @Test(expected = NoNextQuotationAvailableException.class)
     public void noMoreQuotations() throws NoNextQuotationAvailableException {
-        insertTestDataSet01();
+        insertDataset01();
         setDefaultQuotation();
 
         try {
@@ -66,9 +64,9 @@ public class WidgetToolbarNextTest extends QuoteUnquoteModelUtility {
     }
 
     @Test
-    public void contentTypeFavourites() throws NoNextQuotationAvailableException {
-        insertTestDataSet01();
-        insertTestDataSet02();
+    public void moveThroughContentTypeFavourites() throws NoNextQuotationAvailableException {
+        insertDataset01();
+        insertDataset02();
 
         quoteUnquoteModelDouble.deleteWidget(WidgetIdHelper.WIDGET_ID);
 
@@ -140,10 +138,10 @@ public class WidgetToolbarNextTest extends QuoteUnquoteModelUtility {
     }
 
     @Test
-    public void contentTypeAuthor() {
-        insertTestDataSet01();
-        insertTestDataSet02();
-        insertTestDataSet03();
+    public void moveThroughContentTypeAuthor() {
+        insertDataset01();
+        insertDataset02();
+        insertDataset03();
         setDefaultQuotation();
 
         // user chooses a2 as author and keeps pressing new quotation
@@ -207,10 +205,10 @@ public class WidgetToolbarNextTest extends QuoteUnquoteModelUtility {
     }
 
     @Test
-    public void contentTypeQuotationText() {
-        insertTestDataSet01();
-        insertTestDataSet02();
-        insertTestDataSet03();
+    public void moveThroughContentTypeQuotationText() {
+        insertDataset01();
+        insertDataset02();
+        insertDataset03();
 
         // using "q1" as the search text
         ContentPreferences contentPreferences = new ContentPreferences(WidgetIdHelper.WIDGET_ID, getApplicationContext());

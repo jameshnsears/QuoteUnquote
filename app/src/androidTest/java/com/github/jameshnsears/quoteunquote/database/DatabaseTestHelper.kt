@@ -14,7 +14,7 @@ abstract class DatabaseTestHelper {
         databaseRepositoryDouble.empty()
     }
 
-    fun insertTestDataSet01() {
+    fun insertDataset01() {
         val quotationEntityList: MutableList<QuotationEntity> = ArrayList()
         quotationEntityList.add(
             QuotationEntity(
@@ -25,7 +25,7 @@ abstract class DatabaseTestHelper {
         databaseRepositoryDouble.insertQuotations(quotationEntityList)
     }
 
-    fun insertTestDataSet02() {
+    fun insertDataset02() {
         val quotationEntityList: MutableList<QuotationEntity> = ArrayList()
         quotationEntityList.add(QuotationEntity("d2", "a2", "q1"))
         quotationEntityList.add(QuotationEntity("d3", "a2", "q3"))
@@ -33,7 +33,7 @@ abstract class DatabaseTestHelper {
         databaseRepositoryDouble.insertQuotations(quotationEntityList)
     }
 
-    fun insertTestDataSet03() {
+    fun insertDataset03() {
         val quotationEntityList: MutableList<QuotationEntity> = ArrayList()
         quotationEntityList.add(QuotationEntity("d5", "a5", "q1"))
         quotationEntityList.add(QuotationEntity("d6", "a2", "q6"))

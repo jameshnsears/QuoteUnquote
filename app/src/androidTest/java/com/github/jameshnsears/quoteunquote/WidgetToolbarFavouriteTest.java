@@ -26,7 +26,7 @@ import static org.mockito.Mockito.spy;
 public class WidgetToolbarFavouriteTest extends QuoteUnquoteModelUtility {
     @Test
     public void isNextQuotationFavourite() {
-        insertTestDataSet01();
+        insertDataset01();
 
         setDefaultQuotation();
 
@@ -81,8 +81,8 @@ public class WidgetToolbarFavouriteTest extends QuoteUnquoteModelUtility {
 
     @Test
     public void makeSomeFavouritesFromContentAll() throws NoNextQuotationAvailableException {
-        insertTestDataSet01();
-        insertTestDataSet02();
+        insertDataset01();
+        insertDataset02();
 
         final List<String> expectedDigestsList = new ArrayList<>();
 
