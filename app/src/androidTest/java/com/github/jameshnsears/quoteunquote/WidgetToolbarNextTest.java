@@ -2,13 +2,13 @@ package com.github.jameshnsears.quoteunquote;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
+import com.github.jameshnsears.quoteunquote.configure.fragment.content.ContentPreferences;
 import com.github.jameshnsears.quoteunquote.database.NoNextQuotationAvailableException;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentMatchers;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,10 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
 
 
 @RunWith(AndroidJUnit4.class)
@@ -149,13 +146,12 @@ public class WidgetToolbarNextTest extends QuoteUnquoteModelUtility {
         insertTestDataSet03();
         setDefaultQuotation();
 
-        final QuoteUnquoteModelDouble quoteUnquoteModelSpy = spy(quoteUnquoteModelDouble);
-        doReturn("a2").when(quoteUnquoteModelSpy).preferencesAuthorSearch(ArgumentMatchers.eq(WidgetIdHelper.WIDGET_ID));
-
-
         // user chooses a2 as author and keeps pressing new quotation
+        ContentPreferences contentPreferences = new ContentPreferences(WidgetIdHelper.WIDGET_ID, getApplicationContext());
+        contentPreferences.setContentSelectionAuthorName("a2");
 
         // each time user selects a new author then the prior history is deleted
+        final QuoteUnquoteModelDouble quoteUnquoteModelSpy = spy(quoteUnquoteModelDouble);
         quoteUnquoteModelSpy.resetPrevious(WidgetIdHelper.WIDGET_ID, ContentSelection.AUTHOR);
 
         // the default quotation should still be in the history
@@ -216,20 +212,19 @@ public class WidgetToolbarNextTest extends QuoteUnquoteModelUtility {
         insertTestDataSet02();
         insertTestDataSet03();
 
-        // using "q1" as the keyword from test data
+        // using "q1" as the search text
+        ContentPreferences contentPreferences = new ContentPreferences(WidgetIdHelper.WIDGET_ID, getApplicationContext());
+        contentPreferences.setContentSelectionSearchText("q1");
 
         QuoteUnquoteModelDouble quoteUnquoteModelDoubleSpy = spy(QuoteUnquoteModelDouble.class);
-        quoteUnquoteModelDoubleSpy.context = getApplicationContext();
-        when(quoteUnquoteModelDoubleSpy.preferencesTextSearch(anyInt())).thenReturn("q1");
 
         try {
-            quoteUnquoteModelDoubleSpy.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.SEARCH, false);
-            quoteUnquoteModelDoubleSpy.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.SEARCH, false);
-            quoteUnquoteModelDoubleSpy.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.SEARCH, false);
-            quoteUnquoteModelDoubleSpy.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.SEARCH, false);
+            for (int i = 0; i < 4; i++) {
+                quoteUnquoteModelDoubleSpy.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.SEARCH, false);
+            }
 
             quoteUnquoteModelDoubleSpy.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.SEARCH, false);
-            fail("");
+            fail("exception should be thrown");
         } catch (NoNextQuotationAvailableException e) {
             assertSame("", ContentSelection.SEARCH, e.contentSelection);
         }
