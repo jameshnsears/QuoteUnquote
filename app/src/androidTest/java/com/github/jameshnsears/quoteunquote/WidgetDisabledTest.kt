@@ -5,9 +5,11 @@ import org.junit.Ignore
 import org.junit.Test
 
 @Ignore
-class QuoteUnquoteWidgetToolbarFirstTest : QuoteUnquoteModelUtility() {
+class WidgetDisabledTest : QuoteUnquoteModelUtility() {
     @Test
-    fun todo() {
+    fun lastWidgetDisabled() {
         Assert.fail("todo")
+
+        // should be nothing in the database
     }
 }

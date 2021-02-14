@@ -344,24 +344,27 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull final RemoteViews remoteViews) {
         logWidgetId(widgetId);
 
-        final AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, context);
-        final int seekBarValue = appearancePreferences.getAppearanceTransparency();
+        final int seekBarValue = new AppearancePreferences(widgetId, context).getAppearanceTransparency();
         Timber.d("seekBarValue=%d", seekBarValue);
 
+        final String setBackgroundColor = "setBackgroundColor";
+        remoteViews.setInt(R.id.listViewQuotation, setBackgroundColor, transparencyMask(seekBarValue));
+        remoteViews.setInt(R.id.imageButtonFirst, setBackgroundColor, transparencyMask(seekBarValue));
+        remoteViews.setInt(R.id.imageButtonPrevious, setBackgroundColor, transparencyMask(seekBarValue));
+        remoteViews.setInt(R.id.imageButtonReport, setBackgroundColor, transparencyMask(seekBarValue));
+        remoteViews.setInt(R.id.imageButtonFavourite, setBackgroundColor, transparencyMask(seekBarValue));
+        remoteViews.setInt(R.id.imageButtonShare, setBackgroundColor, transparencyMask(seekBarValue));
+        remoteViews.setInt(R.id.imageButtonNextRandom, setBackgroundColor, transparencyMask(seekBarValue));
+        remoteViews.setInt(R.id.imageButtonNextSequential, setBackgroundColor, transparencyMask(seekBarValue));
+    }
+
+    private int transparencyMask(final int seekBarValue) {
         float transparency = 1;
         if (seekBarValue != -1) {
             transparency -= seekBarValue * .1f;
         }
 
-        final String setBackgroundColor = "setBackgroundColor";
-        remoteViews.setInt(R.id.listViewQuotation, setBackgroundColor, (int) (transparency * 0xFF) << 24 | 0xFFFFFF);
-        remoteViews.setInt(R.id.imageButtonFirst, setBackgroundColor, (int) (transparency * 0xFF) << 24 | 0xFFFFFF);
-        remoteViews.setInt(R.id.imageButtonPrevious, setBackgroundColor, (int) (transparency * 0xFF) << 24 | 0xFFFFFF);
-        remoteViews.setInt(R.id.imageButtonReport, setBackgroundColor, (int) (transparency * 0xFF) << 24 | 0xFFFFFF);
-        remoteViews.setInt(R.id.imageButtonFavourite, setBackgroundColor, (int) (transparency * 0xFF) << 24 | 0xFFFFFF);
-        remoteViews.setInt(R.id.imageButtonShare, setBackgroundColor, (int) (transparency * 0xFF) << 24 | 0xFFFFFF);
-        remoteViews.setInt(R.id.imageButtonNextRandom, setBackgroundColor, (int) (transparency * 0xFF) << 24 | 0xFFFFFF);
-        remoteViews.setInt(R.id.imageButtonNextSequential, setBackgroundColor, (int) (transparency * 0xFF) << 24 | 0xFFFFFF);
+        return (int) (transparency * 0xFF) << 24 | 0xFFFFFF;
     }
 
     private void logWidgetId(final int widgetId) {
@@ -374,94 +377,56 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull final RemoteViews remoteViews) {
         logWidgetId(widgetId);
 
-        setToolbarButtonVisibilityFirst(context, widgetId, remoteViews);
-        setToolbarButtonVisibilityPrevious(context, widgetId, remoteViews);
-        setToolbarButtonVisibilityReport(context, widgetId, remoteViews);
-        setToolbarButtonVisibilityFavourite(context, widgetId, remoteViews);
-        setToolbarButtonVisibilityShare(context, widgetId, remoteViews);
-        setToolbarButtonVisibilityRandom(context, widgetId, remoteViews);
-        setToolbarButtonVisibilitySequential(context, widgetId, remoteViews);
+        final AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, context);
+
+        setToolbarButtonVisibility(
+                remoteViews,
+                appearancePreferences.getAppearanceToolbarFirst(),
+                R.id.imageButtonFirst);
+
+        setToolbarButtonVisibility(
+                remoteViews,
+                appearancePreferences.getAppearanceToolbarPrevious(),
+                R.id.imageButtonPrevious);
+
+        setToolbarButtonVisibility(
+                remoteViews,
+                appearancePreferences.getAppearanceToolbarReport(),
+                R.id.imageButtonReport);
+
+        setToolbarButtonVisibility(
+                remoteViews,
+                appearancePreferences.getAppearanceToolbarFavourite(),
+                R.id.imageButtonFavourite);
 
         setHeartColour(context, widgetId, remoteViews);
+
+        setToolbarButtonVisibility(
+                remoteViews,
+                appearancePreferences.getAppearanceToolbarShare(),
+                R.id.imageButtonShare);
+
+        setToolbarButtonVisibility(
+                remoteViews,
+                appearancePreferences.getAppearanceToolbarRandom(),
+                R.id.imageButtonNextRandom);
+
+        setToolbarButtonVisibility(
+                remoteViews,
+                appearancePreferences.getAppearanceToolbarSequential(),
+                R.id.imageButtonNextSequential);
     }
 
-    private void setToolbarButtonVisibilityFirst(
-            @NonNull final Context context,
-            final int widgetId,
-            @NonNull final RemoteViews remoteViews) {
-        if (new AppearancePreferences(widgetId, context).getAppearanceToolbarFirst()) {
-            remoteViews.setViewVisibility(R.id.imageButtonFirst, View.VISIBLE);
+    private void setToolbarButtonVisibility(
+            @NonNull final RemoteViews remoteViews,
+            final boolean toolbarButtonEnabled,
+            final int imageButtonId) {
+        if (toolbarButtonEnabled) {
+            remoteViews.setViewVisibility(imageButtonId, View.VISIBLE);
         } else {
-            remoteViews.setViewVisibility(R.id.imageButtonFirst, View.GONE);
+            remoteViews.setViewVisibility(imageButtonId, View.GONE);
         }
     }
-
-    private void setToolbarButtonVisibilityPrevious(
-            @NonNull final Context context,
-            final int widgetId,
-            @NonNull final RemoteViews remoteViews) {
-        if (new AppearancePreferences(widgetId, context).getAppearanceToolbarPrevious()) {
-            remoteViews.setViewVisibility(R.id.imageButtonPrevious, View.VISIBLE);
-        } else {
-            remoteViews.setViewVisibility(R.id.imageButtonPrevious, View.GONE);
-        }
-    }
-
-    private void setToolbarButtonVisibilityReport(
-            @NonNull final Context context,
-            final int widgetId,
-            @NonNull final RemoteViews remoteViews) {
-        if (new AppearancePreferences(widgetId, context).getAppearanceToolbarReport()) {
-            remoteViews.setViewVisibility(R.id.imageButtonReport, View.VISIBLE);
-        } else {
-            remoteViews.setViewVisibility(R.id.imageButtonReport, View.GONE);
-        }
-    }
-
-    private void setToolbarButtonVisibilityFavourite(
-            @NonNull final Context context,
-            final int widgetId,
-            @NonNull final RemoteViews remoteViews) {
-        if (new AppearancePreferences(widgetId, context).getAppearanceToolbarFavourite()) {
-            remoteViews.setViewVisibility(R.id.imageButtonFavourite, View.VISIBLE);
-        } else {
-            remoteViews.setViewVisibility(R.id.imageButtonFavourite, View.GONE);
-        }
-    }
-
-    private void setToolbarButtonVisibilityShare(
-            @NonNull final Context context,
-            final int widgetId,
-            @NonNull final RemoteViews remoteViews) {
-        if (new AppearancePreferences(widgetId, context).getAppearanceToolbarShare()) {
-            remoteViews.setViewVisibility(R.id.imageButtonShare, View.VISIBLE);
-        } else {
-            remoteViews.setViewVisibility(R.id.imageButtonShare, View.GONE);
-        }
-    }
-
-    private void setToolbarButtonVisibilityRandom(
-            @NonNull final Context context,
-            final int widgetId,
-            @NonNull final RemoteViews remoteViews) {
-        if (new AppearancePreferences(widgetId, context).getAppearanceToolbarRandom()) {
-            remoteViews.setViewVisibility(R.id.imageButtonNextRandom, View.VISIBLE);
-        } else {
-            remoteViews.setViewVisibility(R.id.imageButtonNextRandom, View.GONE);
-        }
-    }
-
-    private void setToolbarButtonVisibilitySequential(
-            @NonNull final Context context,
-            final int widgetId,
-            @NonNull final RemoteViews remoteViews) {
-        if (new AppearancePreferences(widgetId, context).getAppearanceToolbarSequential()) {
-            remoteViews.setViewVisibility(R.id.imageButtonNextSequential, View.VISIBLE);
-        } else {
-            remoteViews.setViewVisibility(R.id.imageButtonNextSequential, View.GONE);
-        }
-    }
-
 
     private void toggleFavouriteColour(
             @NonNull final Context context,

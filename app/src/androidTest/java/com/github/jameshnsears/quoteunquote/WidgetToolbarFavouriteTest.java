@@ -23,7 +23,7 @@ import static org.mockito.Mockito.spy;
 
 
 @RunWith(AndroidJUnit4.class)
-public class QuoteUnquoteWidgetToolbarFavouriteTest extends QuoteUnquoteModelUtility {
+public class WidgetToolbarFavouriteTest extends QuoteUnquoteModelUtility {
     @Test
     public void isNextQuotationFavourite() {
         insertTestDataSet01();

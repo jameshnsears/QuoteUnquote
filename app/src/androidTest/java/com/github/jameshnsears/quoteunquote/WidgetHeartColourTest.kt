@@ -5,7 +5,7 @@ import org.junit.Ignore
 import org.junit.Test
 
 @Ignore
-class QuoteUnquoteWidgetEventTest : QuoteUnquoteModelUtility() {
+class WidgetHeartColourTest : QuoteUnquoteModelUtility() {
     @Test
     fun todo() {
         Assert.fail("todo")

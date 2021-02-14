@@ -1,13 +1,13 @@
 package com.github.jameshnsears.quoteunquote
 
-import org.junit.Assert
+import org.junit.Assert.fail
 import org.junit.Ignore
 import org.junit.Test
 
 @Ignore
-class QuoteUnquoteWidgetHeartColourTest : QuoteUnquoteModelUtility() {
+class WidgetToolbarShareTest : QuoteUnquoteModelUtility() {
     @Test
     fun todo() {
-        Assert.fail("todo")
+        fail("todo")
     }
 }
