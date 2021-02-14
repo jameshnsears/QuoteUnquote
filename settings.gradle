@@ -1,6 +1,4 @@
 include ':cloudLib'
-include ':cloudLib'
-include ':cloudLib'
 include ':utilsLib'
 include ':app'
 project(':utilsLib').projectDir = new File(rootDir, 'QuoteUnquote.utilsLib/utilsLib/')

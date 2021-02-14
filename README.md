@@ -48,7 +48,7 @@ extract/overwrite local.properties from .pgp files for :app + modules = BuildCon
 
 File > New > Import Module...
  >  :cloudLib
-...both modules get imported by Android Studio!
+...both modules get imported by Android Studio + settings.gradle might duplicate the import!
 
 git remote add cloudLib https://github.com/jameshnsears/QuoteUnquote.cloudLib
 git remote add utilsLib https://github.com/jameshnsears/QuoteUnquote.utilsLib
