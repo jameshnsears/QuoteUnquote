@@ -44,7 +44,7 @@ VCS > Git > Branches...
 
 git submodule update --remote
 
-extract/overwrite local.properties from .pgp files for :app + modules = BuildConfig values
+extract/overwrite local.properties from .pgp files for :app + modules = BuildConfig / GitHub Action Secrets values
 
 File > New > Import Module...
  >  :cloudLib
@@ -73,7 +73,7 @@ Terminal >
  > python -m pip install -r requirements-test.txt
  > python -m pip install -r src/requirements.txt
 
-extract three .pgp files = BuildConfig values
+extract three .pgp files = BuildConfig / GitHub Action Secrets values
 
 run a Run/Debug Configuration 
  > setting Python Intepreter to Virtualenv Environment

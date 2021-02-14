@@ -84,10 +84,8 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         final ContentPreferences contentPreferences = new ContentPreferences(0, context);
         contentPreferences.setContentFavouritesLocalCode(CloudFavouritesHelper.getLocalCode());
 
-        if (BuildConfig.DEBUG) {
-            if (Timber.treeCount() == 0) {
-                Timber.plant(new MethodLineLoggingTree());
-            }
+        if (BuildConfig.DEBUG && Timber.treeCount() == 0) {
+            Timber.plant(new MethodLineLoggingTree());
         }
 
         Timber.d("onEnabled");
@@ -473,8 +471,6 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
 
         final RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.quote_unquote_widget);
 
-        final PreferencesFacade preferencesFacade = new PreferencesFacade(widgetId, context);
-
         setHeartColour(context, widgetId, remoteViews);
 
         appWidgetManager.updateAppWidget(widgetId, remoteViews);
@@ -487,12 +483,10 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         final QuotationEntity quotationEntity
                 = getQuoteUnquoteModelInstance(context).getNext(widgetId, new ContentPreferences(widgetId, context).getContentSelection());
 
-        if (quotationEntity != null) {
-            if (getQuoteUnquoteModelInstance(context).isFavourite(widgetId, quotationEntity.digest)) {
-                remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_favorite_red_24dp);
-            } else {
-                remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_favorite_border_black_24dp);
-            }
+        if (getQuoteUnquoteModelInstance(context).isFavourite(widgetId, quotationEntity.digest)) {
+            remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_favorite_red_24dp);
+        } else {
+            remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_favorite_border_black_24dp);
         }
     }
 
@@ -524,7 +518,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         for (final int widgetId : widgetIds) {
             logWidgetId(widgetId);
 
-            getQuoteUnquoteModelInstance(context).resetWidgetInstance(widgetId);
+            getQuoteUnquoteModelInstance(context).deleteWidget(widgetId);
             PreferencesFacade.empty(context, widgetId);
 
             final EventDailyAlarm eventDailyAlarm = new EventDailyAlarm(context, widgetId);
@@ -538,7 +532,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         super.onDisabled(context);
 
         try {
-            getQuoteUnquoteModelInstance(context).resetWidget();
+            getQuoteUnquoteModelInstance(context).disableWidget();
             PreferencesFacade.empty(context);
 
             if (CloudServiceSend.isRunning(context)) {

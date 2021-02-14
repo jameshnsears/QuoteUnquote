@@ -16,48 +16,38 @@
 
 ---
 
-## 2. Monitoring the release
+## 2. Key management
 
-* [Google Play console](https://play.google.com/apps/publish)
-
-* [Microsoft App Center](https://appcenter.ms/users/jameshnsears/apps/QuoteUnquote)
-
-* [Google Cloud Platform](https://console.cloud.google.com/home/dashboard)
-
----
-
-## 3. Key management
-
-### 3.1. Keystore - keystore.jks
+### 2.1. Keystore - keystore.jks
 
 * keytool -genkeypair -alias upload -keyalg RSA -keysize 2048 -validity 9125 -keystore keystore.jks
 
-### 3.2. Public - upload_certificate.pem
+### 2.2. Public - upload_certificate.pem
 
 * keytool -export -rfc -alias upload -file upload_certificate.pem -keystore keystore.jks
 
 ---
 
-## 4. Widget Image Preview
+## 3. Widget Image Preview
 
 * On the emulator, grant Storage Permission to the Widget Preview app in the app settings.
 * Image to be found in: /sdcard/Download
 
 ---
 
-## 5. USB Android Debug Bridge
+## 4. USB Android Debug Bridge
 
 * adb uninstall com.github.jameshnsears.quoteunquote
 
 ---
 
-## 6. Device Dependent Issues :-(
+## 5. Device Dependent Issues :-(
 
-### 6.1. MIUI 11
+### 5.1. MIUI 11
 
 * 2020-2118/? W/BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.USER_PRESENT flg=0x24200010 } to com.github.jameshnsears.quoteunquote/.QuoteUnquoteWidget
 
-### 6.2. MIUI 12 - ./gradlew <*>Coverage task
+### 5.2. MIUI 12 - ./gradlew <*>Coverage task
 
 ```text
 2021-01-19 16:12:02.853 22522-22522/? W/installer: type=1400 audit(0.0:17528): avc: denied { search } for name="nativetest" dev="dm-2" ino=14 scontext=u:r:shell:s0 tcontext=u:object_r:nativetest_data_file:s0 tclass=dir permissive=0
@@ -72,13 +62,7 @@
 
 ```
 
-## 7. Android Studio Plugins
+## 6. Android Studio Plugins
 
 * Checkstyle-IDE - Jamie Shiell
 * SonarLint - SonarSource
-
----
-
-## 8. Encoding files for GitHub Secrets
-
-* base64 local.properties

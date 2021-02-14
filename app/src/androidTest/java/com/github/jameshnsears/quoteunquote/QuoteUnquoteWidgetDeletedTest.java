@@ -14,9 +14,9 @@ import static org.mockito.Mockito.spy;
 
 
 @RunWith(AndroidJUnit4.class)
-public class QuoteUnquoteWidgetDisabledTest extends QuoteUnquoteModelUtility {
+public class QuoteUnquoteWidgetDeletedTest extends QuoteUnquoteModelUtility {
     @Test
-    public void twoWidgetsRemoveOneOfThem() {
+    public void twoWidgetsOneDeleted() {
         final int widgetId01 = 1;
         final int widgetId02 = 2;
 
@@ -68,7 +68,7 @@ public class QuoteUnquoteWidgetDisabledTest extends QuoteUnquoteModelUtility {
 
         ////////////////////////////////////////////
 
-        quoteUnquoteModelDouble.resetWidgetInstance(widgetId01);
+        quoteUnquoteModelDouble.deleteWidget(widgetId01);
 
         assertEquals(
                 "",
@@ -87,7 +87,7 @@ public class QuoteUnquoteWidgetDisabledTest extends QuoteUnquoteModelUtility {
 
         ////////////////////////////////////////////
 
-        quoteUnquoteModelDouble.resetWidget();
+        quoteUnquoteModelDouble.disableWidget();
 
         assertEquals(
                 "",

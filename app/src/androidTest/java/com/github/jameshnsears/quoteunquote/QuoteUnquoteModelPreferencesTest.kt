@@ -8,7 +8,7 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class QuoteUnquoteModelPreferencesTest : QuoteUnquoteModelUtility() {
     @Test
-    fun initialPreferences() {
+    fun confirmInitialPreferences() {
         insertTestDataSet01()
 
         assertEquals("", quoteUnquoteModelDouble.preferencesAuthorSearch(1))

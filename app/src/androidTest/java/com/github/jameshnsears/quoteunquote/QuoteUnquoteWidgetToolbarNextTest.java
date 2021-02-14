@@ -73,7 +73,7 @@ public class QuoteUnquoteWidgetToolbarNextTest extends QuoteUnquoteModelUtility 
         insertTestDataSet01();
         insertTestDataSet02();
 
-        quoteUnquoteModelDouble.resetWidgetInstance(WidgetIdHelper.WIDGET_ID);
+        quoteUnquoteModelDouble.deleteWidget(WidgetIdHelper.WIDGET_ID);
 
         final List<String> expectedFavouritesDigestList = new ArrayList<>();
 
