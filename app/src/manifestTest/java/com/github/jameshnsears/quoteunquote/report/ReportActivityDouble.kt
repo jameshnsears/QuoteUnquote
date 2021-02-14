@@ -12,7 +12,7 @@ import io.mockk.mockk
 class ReportActivityDouble : ReportActivity() {
     override fun getQuoteUnquoteModel(): QuoteUnquoteModel {
         val quoteUnquoteModel: QuoteUnquoteModel = mockk()
-        every { quoteUnquoteModel.report(any()) } returns Unit
+        every { quoteUnquoteModel.reportQuotation(any()) } returns Unit
         every { quoteUnquoteModel.isReported(any()) } returns false
         every { quoteUnquoteModel.getNext(any(), any()) } returns QuotationEntity("d", "a", "q")
         return quoteUnquoteModel

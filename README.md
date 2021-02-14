@@ -36,13 +36,15 @@ Android Studio > Get from Version Control
  > https://github.com/jameshnsears/QuoteUnquote
  > Clone
 
+NOTE: import to clone for IDE as submodules maintained
+
 VCS > Git > Branches...
  > Remote Branches > origin/development > Checkout
   > Smart Checkout
 
 git submodule update --remote
 
-extract/overwrite local.properties from .pgp files for :app + modules BuildConfig values
+extract/overwrite local.properties from .pgp files for :app + modules = BuildConfig values
 
 File > New > Import Module...
  >  :cloudLib
@@ -71,7 +73,7 @@ Terminal >
  > python -m pip install -r requirements-test.txt
  > python -m pip install -r src/requirements.txt
 
-extract three .pgp files for BuildConfig values
+extract three .pgp files = BuildConfig values
 
 run a Run/Debug Configuration 
  > setting Python Intepreter to Virtualenv Environment
