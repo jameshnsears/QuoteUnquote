@@ -32,7 +32,6 @@ public class QuoteUnquoteWidgetToolbarNextTest extends QuoteUnquoteModelUtility 
     @Test
     public void contentTypeAll() throws NoNextQuotationAvailableException {
         insertTestDataSet01();
-
         setDefaultQuotation();
 
         quoteUnquoteModelDouble.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL, false);
@@ -53,7 +52,6 @@ public class QuoteUnquoteWidgetToolbarNextTest extends QuoteUnquoteModelUtility 
     @Test(expected = NoNextQuotationAvailableException.class)
     public void noMoreQuotations() throws NoNextQuotationAvailableException {
         insertTestDataSet01();
-
         setDefaultQuotation();
 
         try {
@@ -146,7 +144,6 @@ public class QuoteUnquoteWidgetToolbarNextTest extends QuoteUnquoteModelUtility 
         insertTestDataSet01();
         insertTestDataSet02();
         insertTestDataSet03();
-
         setDefaultQuotation();
 
         final QuoteUnquoteModelDouble quoteUnquoteModelSpy = Mockito.spy(quoteUnquoteModelDouble);

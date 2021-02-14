@@ -9,7 +9,7 @@ import org.junit.Test
 
 class ReportTest : QuoteUnquoteModelUtility() {
     @Test
-    fun reportQuotation() {
+    fun quoteUnquoteModelReporting() {
         insertTestDataSet01()
         setDefaultQuotation()
 
