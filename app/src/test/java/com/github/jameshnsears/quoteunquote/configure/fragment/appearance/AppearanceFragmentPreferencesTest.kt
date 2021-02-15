@@ -2,8 +2,10 @@ package com.github.jameshnsears.quoteunquote.configure.fragment.appearance
 
 import android.os.Build
 import androidx.fragment.app.testing.launchFragment
+import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.jameshnsears.quoteunquote.utils.logging.ShadowLoggingHelper
+import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.IsEqual.equalTo
 import org.junit.Assert.assertEquals
@@ -75,6 +77,37 @@ class AppearanceFragmentPreferencesTest : ShadowLoggingHelper() {
 
                 fragment.fragmentAppearanceBinding?.toolbarSwitchNextSequential?.isChecked = true
                 assertTrue(fragment.appearancePreferences?.appearanceToolbarSequential == true)
+            }
+        }
+    }
+
+    @Test
+    fun emptyDeletedPreferences() {
+        with(launchFragment<AppearanceFragmentDouble>()) {
+            onFragment { fragment ->
+                fragment.appearancePreferences?.appearanceTransparency = 5
+                fragment.setTransparency()
+                assertEquals(5, fragment.appearancePreferences?.appearanceTransparency)
+
+                AppearancePreferences.emptyDeleted(getApplicationContext(), WidgetIdHelper.INSTANCE_02_WIDGET_ID)
+                assertEquals(5, fragment.appearancePreferences?.appearanceTransparency)
+
+                AppearancePreferences.emptyDeleted(getApplicationContext(), WidgetIdHelper.INSTANCE_01_WIDGET_ID)
+                assertEquals(-1, fragment.appearancePreferences?.appearanceTransparency)
+            }
+        }
+    }
+
+    @Test
+    fun emptyDisabledPreferences() {
+        with(launchFragment<AppearanceFragmentDouble>()) {
+            onFragment { fragment ->
+                fragment.appearancePreferences?.appearanceTransparency = 5
+                fragment.setTransparency()
+                assertEquals(5, fragment.appearancePreferences?.appearanceTransparency)
+
+                AppearancePreferences.emptyDisabled(getApplicationContext())
+                assertEquals(-1, fragment.appearancePreferences?.appearanceTransparency)
             }
         }
     }

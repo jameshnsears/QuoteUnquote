@@ -25,7 +25,7 @@ public class ListViewProviderTest extends QuoteUnquoteModelUtility {
         insertDataset01();
 
         final Intent intent = new Intent();
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, WidgetIdHelper.WIDGET_ID);
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, WidgetIdHelper.INSTANCE_01_WIDGET_ID);
 
         final ListViewProvider listViewProviderTestSpy = spy(new ListViewProvider(context, intent));
         doReturn(quoteUnquoteModelDouble).when(listViewProviderTestSpy).getQuoteUnquoteModel(context);

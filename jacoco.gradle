@@ -38,8 +38,7 @@ project.afterEvaluate {
                 def kotlinSrc = "$project.projectDir/src/main/kotlin"
                 def javaSrc = "$project.projectDir/src/main/java"
                 def flavourSrc = "$project.projectDir/src/$productFlavorName/java"
-                def androidTestSrc = "$project.projectDir/src/androidTest/java"
-                sourceDirectories.setFrom(files([androidTestSrc, javaSrc, kotlinSrc, flavourSrc]))
+                sourceDirectories.setFrom(files([javaSrc, kotlinSrc, flavourSrc]))
 
                 executionData.from = fileTree(dir: "${project.buildDir}", includes: [
                         "jacoco/${testTaskName}.exec",

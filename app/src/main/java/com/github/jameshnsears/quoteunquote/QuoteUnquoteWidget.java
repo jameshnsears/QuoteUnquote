@@ -484,7 +484,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             logWidgetId(widgetId);
 
             getQuoteUnquoteModelInstance(context).deleteWidget(widgetId);
-            PreferencesFacade.empty(context, widgetId);
+            PreferencesFacade.emptyDeleted(context, widgetId);
 
             final EventDailyAlarm eventDailyAlarm = new EventDailyAlarm(context, widgetId);
             eventDailyAlarm.resetAnyExistingDailyAlarm();
@@ -498,7 +498,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
 
         try {
             getQuoteUnquoteModelInstance(context).disableWidget();
-            PreferencesFacade.empty(context);
+            PreferencesFacade.emptyDisabled(context);
 
             if (CloudServiceSend.isRunning(context)) {
                 context.stopService(new Intent(context, CloudServiceSend.class));

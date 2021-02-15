@@ -31,24 +31,24 @@ public class WidgetToolbarFavouriteTest extends QuoteUnquoteModelUtility {
         setDefaultQuotation();
 
         final QuoteUnquoteModelDouble quoteUnquoteModelSpy = spy(quoteUnquoteModelDouble);
-        doReturn(false).when(quoteUnquoteModelSpy).selectedContentTypeIsFavourite(ArgumentMatchers.eq(WidgetIdHelper.WIDGET_ID));
+        doReturn(false).when(quoteUnquoteModelSpy).selectedContentTypeIsFavourite(ArgumentMatchers.eq(WidgetIdHelper.INSTANCE_01_WIDGET_ID));
 
         assertEquals(
                 "",
                 0,
-                quoteUnquoteModelSpy.countPrevious(WidgetIdHelper.WIDGET_ID, ContentSelection.FAVOURITES));
+                quoteUnquoteModelSpy.countPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.FAVOURITES));
 
         assertEquals(
                 "",
                 Integer.valueOf(0),
                 quoteUnquoteModelSpy.countFavourites().blockingGet());
 
-        final QuotationEntity nextQuotation = quoteUnquoteModelSpy.getNext(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL);
+        final QuotationEntity nextQuotation = quoteUnquoteModelSpy.getNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL);
 
-        assertFalse("", quoteUnquoteModelSpy.isFavourite(WidgetIdHelper.WIDGET_ID, nextQuotation.digest));
+        assertFalse("", quoteUnquoteModelSpy.isFavourite(WidgetIdHelper.INSTANCE_01_WIDGET_ID, nextQuotation.digest));
 
         // make a favourite
-        quoteUnquoteModelSpy.toggleFavourite(WidgetIdHelper.WIDGET_ID, nextQuotation.digest);
+        quoteUnquoteModelSpy.toggleFavourite(WidgetIdHelper.INSTANCE_01_WIDGET_ID, nextQuotation.digest);
 
         assertEquals(
                 "",
@@ -57,11 +57,11 @@ public class WidgetToolbarFavouriteTest extends QuoteUnquoteModelUtility {
 
         assertTrue(
                 "",
-                quoteUnquoteModelSpy.isFavourite(WidgetIdHelper.WIDGET_ID,
-                        quoteUnquoteModelSpy.getNext(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL).digest));
+                quoteUnquoteModelSpy.isFavourite(WidgetIdHelper.INSTANCE_01_WIDGET_ID,
+                        quoteUnquoteModelSpy.getNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL).digest));
 
         // remove the favourite, but mark as a previous
-        quoteUnquoteModelSpy.toggleFavourite(WidgetIdHelper.WIDGET_ID, nextQuotation.digest);
+        quoteUnquoteModelSpy.toggleFavourite(WidgetIdHelper.INSTANCE_01_WIDGET_ID, nextQuotation.digest);
 
         assertEquals(
                 "",
@@ -71,12 +71,12 @@ public class WidgetToolbarFavouriteTest extends QuoteUnquoteModelUtility {
         assertEquals(
                 "",
                 0,
-                quoteUnquoteModelSpy.countPrevious(WidgetIdHelper.WIDGET_ID, ContentSelection.FAVOURITES));
+                quoteUnquoteModelSpy.countPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.FAVOURITES));
 
         assertEquals(
                 "",
                 1,
-                quoteUnquoteModelSpy.countPrevious(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL));
+                quoteUnquoteModelSpy.countPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL));
     }
 
     @Test
@@ -87,11 +87,11 @@ public class WidgetToolbarFavouriteTest extends QuoteUnquoteModelUtility {
         final List<String> expectedDigestsList = new ArrayList<>();
 
         // make a favourite
-        quoteUnquoteModelDouble.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL, false);
+        quoteUnquoteModelDouble.setNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL, false);
         quoteUnquoteModelDouble.toggleFavourite(
-                WidgetIdHelper.WIDGET_ID,
-                quoteUnquoteModelDouble.getNext(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL).digest);
-        expectedDigestsList.add(quoteUnquoteModelDouble.getNext(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL).digest);
+                WidgetIdHelper.INSTANCE_01_WIDGET_ID,
+                quoteUnquoteModelDouble.getNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL).digest);
+        expectedDigestsList.add(quoteUnquoteModelDouble.getNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL).digest);
 
         assertEquals(
                 "",
@@ -99,21 +99,21 @@ public class WidgetToolbarFavouriteTest extends QuoteUnquoteModelUtility {
                 quoteUnquoteModelDouble.countFavourites().blockingGet());
 
         // make a favourite
-        quoteUnquoteModelDouble.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL, false);
+        quoteUnquoteModelDouble.setNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL, false);
         quoteUnquoteModelDouble.toggleFavourite(
-                WidgetIdHelper.WIDGET_ID,
-                quoteUnquoteModelDouble.getNext(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL).digest);
-        expectedDigestsList.add(quoteUnquoteModelDouble.getNext(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL).digest);
+                WidgetIdHelper.INSTANCE_01_WIDGET_ID,
+                quoteUnquoteModelDouble.getNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL).digest);
+        expectedDigestsList.add(quoteUnquoteModelDouble.getNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL).digest);
 
         // don't make a favourite
-        quoteUnquoteModelDouble.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL, false);
+        quoteUnquoteModelDouble.setNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL, false);
 
         // make a favourite
-        quoteUnquoteModelDouble.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL, false);
+        quoteUnquoteModelDouble.setNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL, false);
         quoteUnquoteModelDouble.toggleFavourite(
-                WidgetIdHelper.WIDGET_ID,
-                quoteUnquoteModelDouble.getNext(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL).digest);
-        expectedDigestsList.add(quoteUnquoteModelDouble.getNext(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL).digest);
+                WidgetIdHelper.INSTANCE_01_WIDGET_ID,
+                quoteUnquoteModelDouble.getNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL).digest);
+        expectedDigestsList.add(quoteUnquoteModelDouble.getNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL).digest);
 
         assertEquals(
                 "",

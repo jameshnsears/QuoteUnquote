@@ -34,17 +34,17 @@ public class WidgetToolbarNextTest extends QuoteUnquoteModelUtility {
         insertDataset01();
         setDefaultQuotation();
 
-        quoteUnquoteModelDouble.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL, false);
+        quoteUnquoteModelDouble.setNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL, false);
 
         assertEquals(
                 "d1",
                 quoteUnquoteModelDouble.getNext(
-                        WidgetIdHelper.WIDGET_ID, ContentSelection.ALL).digest);
+                        WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL).digest);
 
         assertEquals(
                 2,
                 quoteUnquoteModelDouble
-                        .countPrevious(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL));
+                        .countPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL));
     }
 
     @Test(expected = NoNextQuotationAvailableException.class)
@@ -53,13 +53,13 @@ public class WidgetToolbarNextTest extends QuoteUnquoteModelUtility {
         setDefaultQuotation();
 
         try {
-            quoteUnquoteModelDouble.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL, false);
+            quoteUnquoteModelDouble.setNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL, false);
         } catch (NoNextQuotationAvailableException e) {
             fail(e.getMessage());
         }
 
 
-        quoteUnquoteModelDouble.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL, false);
+        quoteUnquoteModelDouble.setNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL, false);
         fail("");
     }
 
@@ -68,40 +68,40 @@ public class WidgetToolbarNextTest extends QuoteUnquoteModelUtility {
         insertDataset01();
         insertDataset02();
 
-        quoteUnquoteModelDouble.deleteWidget(WidgetIdHelper.WIDGET_ID);
+        quoteUnquoteModelDouble.deleteWidget(WidgetIdHelper.INSTANCE_01_WIDGET_ID);
 
         final List<String> expectedFavouritesDigestList = new ArrayList<>();
 
-        quoteUnquoteModelDouble.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL, false);
+        quoteUnquoteModelDouble.setNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL, false);
         quoteUnquoteModelDouble.toggleFavourite(
-                WidgetIdHelper.WIDGET_ID,
-                quoteUnquoteModelDouble.getNext(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL).digest);
-        expectedFavouritesDigestList.add(quoteUnquoteModelDouble.getNext(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL).digest);
+                WidgetIdHelper.INSTANCE_01_WIDGET_ID,
+                quoteUnquoteModelDouble.getNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL).digest);
+        expectedFavouritesDigestList.add(quoteUnquoteModelDouble.getNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL).digest);
 
         assertEquals(
                 "confirm correct # of favourites",
                 Integer.valueOf(1), quoteUnquoteModelDouble.countFavourites().blockingGet());
-        assertEquals("", 0, quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID, ContentSelection.FAVOURITES));
+        assertEquals("", 0, quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.FAVOURITES));
 
-        quoteUnquoteModelDouble.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL, false);
+        quoteUnquoteModelDouble.setNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL, false);
 
-        quoteUnquoteModelDouble.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL, false);
+        quoteUnquoteModelDouble.setNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL, false);
         quoteUnquoteModelDouble.toggleFavourite(
-                WidgetIdHelper.WIDGET_ID,
-                quoteUnquoteModelDouble.getNext(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL).digest);
-        expectedFavouritesDigestList.add(quoteUnquoteModelDouble.getNext(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL).digest);
+                WidgetIdHelper.INSTANCE_01_WIDGET_ID,
+                quoteUnquoteModelDouble.getNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL).digest);
+        expectedFavouritesDigestList.add(quoteUnquoteModelDouble.getNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL).digest);
 
         assertEquals(
                 "confirm correct # of favourites",
                 Integer.valueOf(2), quoteUnquoteModelDouble.countFavourites().blockingGet());
 
-        quoteUnquoteModelDouble.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL, false);
+        quoteUnquoteModelDouble.setNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL, false);
 
-        quoteUnquoteModelDouble.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL, false);
+        quoteUnquoteModelDouble.setNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL, false);
         quoteUnquoteModelDouble.toggleFavourite(
-                WidgetIdHelper.WIDGET_ID,
-                quoteUnquoteModelDouble.getNext(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL).digest);
-        expectedFavouritesDigestList.add(quoteUnquoteModelDouble.getNext(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL).digest);
+                WidgetIdHelper.INSTANCE_01_WIDGET_ID,
+                quoteUnquoteModelDouble.getNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL).digest);
+        expectedFavouritesDigestList.add(quoteUnquoteModelDouble.getNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL).digest);
 
         assertEquals(
                 "confirm correct # of favourites",
@@ -115,11 +115,11 @@ public class WidgetToolbarNextTest extends QuoteUnquoteModelUtility {
                 quoteUnquoteModelDouble.getFavourites());
 
         // switch into ContentType.Favourites and move through them until we run out of favourite quotations
-        quoteUnquoteModelDouble.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.FAVOURITES, false);
-        quoteUnquoteModelDouble.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.FAVOURITES, false);
-        quoteUnquoteModelDouble.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.FAVOURITES, false);
+        quoteUnquoteModelDouble.setNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.FAVOURITES, false);
+        quoteUnquoteModelDouble.setNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.FAVOURITES, false);
+        quoteUnquoteModelDouble.setNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.FAVOURITES, false);
         try {
-            quoteUnquoteModelDouble.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.FAVOURITES, false);
+            quoteUnquoteModelDouble.setNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.FAVOURITES, false);
             fail("");
         } catch (NoNextQuotationAvailableException e) {
             assertSame("", ContentSelection.FAVOURITES, e.contentSelection);
@@ -127,7 +127,7 @@ public class WidgetToolbarNextTest extends QuoteUnquoteModelUtility {
 
         // make sure previous quotations same as available favourites
         final List<String> previousQuotations
-                = quoteUnquoteModelDouble.getPrevious(WidgetIdHelper.WIDGET_ID, ContentSelection.FAVOURITES);
+                = quoteUnquoteModelDouble.getPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.FAVOURITES);
         Collections.sort(previousQuotations);
 
         final List<String> favouriteQuotations
@@ -145,63 +145,63 @@ public class WidgetToolbarNextTest extends QuoteUnquoteModelUtility {
         setDefaultQuotation();
 
         // user chooses a2 as author and keeps pressing new quotation
-        ContentPreferences contentPreferences = new ContentPreferences(WidgetIdHelper.WIDGET_ID, getApplicationContext());
+        ContentPreferences contentPreferences = new ContentPreferences(WidgetIdHelper.INSTANCE_01_WIDGET_ID, getApplicationContext());
         contentPreferences.setContentSelectionAuthorName("a2");
 
         // each time user selects a new author then the prior history is deleted
         final QuoteUnquoteModelDouble quoteUnquoteModelSpy = spy(quoteUnquoteModelDouble);
-        quoteUnquoteModelSpy.resetPrevious(WidgetIdHelper.WIDGET_ID, ContentSelection.AUTHOR);
+        quoteUnquoteModelSpy.resetPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.AUTHOR);
 
         // the default quotation should still be in the history
         assertEquals(
                 "",
                 1,
-                quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID, ContentSelection.ALL));
+                quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL));
 
         assertEquals(
                 "",
                 0,
-                quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID, ContentSelection.AUTHOR));
+                quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.AUTHOR));
 
         try {
-            quoteUnquoteModelSpy.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.AUTHOR, false);
+            quoteUnquoteModelSpy.setNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.AUTHOR, false);
             assertEquals(
                     "",
                     1,
-                    quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID, ContentSelection.AUTHOR));
+                    quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.AUTHOR));
         } catch (NoNextQuotationAvailableException e) {
             fail("");
         }
 
         try {
-            quoteUnquoteModelSpy.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.AUTHOR, false);
+            quoteUnquoteModelSpy.setNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.AUTHOR, false);
             assertEquals(
                     "",
                     2,
-                    quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID, ContentSelection.AUTHOR));
+                    quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.AUTHOR));
         } catch (NoNextQuotationAvailableException e) {
             fail("");
         }
 
         try {
-            quoteUnquoteModelSpy.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.AUTHOR, false);
+            quoteUnquoteModelSpy.setNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.AUTHOR, false);
             assertEquals(
                     "",
                     3,
-                    quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID, ContentSelection.AUTHOR));
+                    quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.AUTHOR));
         } catch (NoNextQuotationAvailableException e) {
             fail("");
         }
 
         try {
-            quoteUnquoteModelSpy.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.AUTHOR, false);
+            quoteUnquoteModelSpy.setNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.AUTHOR, false);
             fail("");
         } catch (NoNextQuotationAvailableException e) {
             // user would see a Toast
             assertSame("", ContentSelection.AUTHOR, e.contentSelection);
         }
 
-        assertEquals("", 3, quoteUnquoteModelSpy.countPreviousAuthor(WidgetIdHelper.WIDGET_ID));
+        assertEquals("", 3, quoteUnquoteModelSpy.countPreviousAuthor(WidgetIdHelper.INSTANCE_01_WIDGET_ID));
     }
 
     @Test
@@ -211,17 +211,17 @@ public class WidgetToolbarNextTest extends QuoteUnquoteModelUtility {
         insertDataset03();
 
         // using "q1" as the search text
-        ContentPreferences contentPreferences = new ContentPreferences(WidgetIdHelper.WIDGET_ID, getApplicationContext());
+        ContentPreferences contentPreferences = new ContentPreferences(WidgetIdHelper.INSTANCE_01_WIDGET_ID, getApplicationContext());
         contentPreferences.setContentSelectionSearchText("q1");
 
         QuoteUnquoteModelDouble quoteUnquoteModelDoubleSpy = spy(QuoteUnquoteModelDouble.class);
 
         try {
             for (int i = 0; i < 4; i++) {
-                quoteUnquoteModelDoubleSpy.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.SEARCH, false);
+                quoteUnquoteModelDoubleSpy.setNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.SEARCH, false);
             }
 
-            quoteUnquoteModelDoubleSpy.setNext(WidgetIdHelper.WIDGET_ID, ContentSelection.SEARCH, false);
+            quoteUnquoteModelDoubleSpy.setNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.SEARCH, false);
             fail("exception should be thrown");
         } catch (NoNextQuotationAvailableException e) {
             assertSame("", ContentSelection.SEARCH, e.contentSelection);
@@ -230,6 +230,6 @@ public class WidgetToolbarNextTest extends QuoteUnquoteModelUtility {
         assertEquals(
                 "",
                 4,
-                quoteUnquoteModelDoubleSpy.countPrevious(WidgetIdHelper.WIDGET_ID, ContentSelection.SEARCH));
+                quoteUnquoteModelDoubleSpy.countPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.SEARCH));
     }
 }
