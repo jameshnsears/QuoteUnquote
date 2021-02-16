@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="cloudLib.test" type="AndroidJUnit" factoryName="Android JUnit">
-    <module name="QuoteUnquote.app" />
+    <module name="QuoteUnquote.cloudLib" />
     <useClassPathOnly />
-    <option name="PACKAGE_NAME" value="" />
+    <option name="PACKAGE_NAME" value="com.github.jameshnsears.quoteunquote" />
     <option name="MAIN_CLASS_NAME" value="" />
     <option name="METHOD_NAME" value="" />
     <option name="TEST_OBJECT" value="package" />

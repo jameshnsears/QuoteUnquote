@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="utilsLib.test" type="AndroidJUnit" factoryName="Android JUnit">
-    <module name="QuoteUnquote.app" />
+    <module name="QuoteUnquote.utilsLib" />
     <useClassPathOnly />
     <extension name="coverage">
       <pattern>
@@ -8,7 +8,7 @@
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>
-    <option name="PACKAGE_NAME" value="" />
+    <option name="PACKAGE_NAME" value="com.github.jameshnsears.quoteunquote" />
     <option name="MAIN_CLASS_NAME" value="" />
     <option name="METHOD_NAME" value="" />
     <option name="TEST_OBJECT" value="package" />
