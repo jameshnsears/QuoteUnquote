@@ -27,6 +27,7 @@ project.afterEvaluate {
                 def excludes = [
                         '**/BuildConfig.*',
                         '**/*_Impl*.*',
+                        '**/*Binding.*',
                         '**/*Double.*',
                         '**/*Test.*'
                 ]
