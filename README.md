@@ -21,7 +21,7 @@
 
 ![Deployment Diagram](https://github.com/jameshnsears/QuoteUnquote/blob/development/docs/Deployment%20Diagram.jpg?raw=true)
 
-### 2.2. androidTest ROOM Class Diagram 
+### 2.2. androidTest ROOM Class Diagram
 
 ![androidTest ROOM Class Diagram](https://github.com/jameshnsears/QuoteUnquote/blob/development/docs/androidTest%20ROOM%20Class%20Diagram.jpg?raw=true)
 
@@ -69,7 +69,7 @@ PyCharm > Open > QuoteUnquote.cloudLib.functions
 File > Settings > Project:
  > set Intepreter > New Virtualenv Environment
 
-Terminal > 
+Virtualenv Terminal > 
  > python -m pip install -r requirements-test.txt
  > python -m pip install -r src/requirements.txt
 
