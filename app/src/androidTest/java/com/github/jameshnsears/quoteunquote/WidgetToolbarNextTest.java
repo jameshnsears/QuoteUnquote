@@ -68,7 +68,7 @@ public class WidgetToolbarNextTest extends QuoteUnquoteModelUtility {
         insertDataset01();
         insertDataset02();
 
-        quoteUnquoteModelDouble.deleteWidget(WidgetIdHelper.INSTANCE_01_WIDGET_ID);
+        quoteUnquoteModelDouble.delete(WidgetIdHelper.INSTANCE_01_WIDGET_ID);
 
         final List<String> expectedFavouritesDigestList = new ArrayList<>();
 
@@ -80,7 +80,7 @@ public class WidgetToolbarNextTest extends QuoteUnquoteModelUtility {
 
         assertEquals(
                 "confirm correct # of favourites",
-                Integer.valueOf(1), quoteUnquoteModelDouble.countFavourites().blockingGet());
+                1, quoteUnquoteModelDouble.countFavourites());
         assertEquals("", 0, quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.FAVOURITES));
 
         quoteUnquoteModelDouble.setNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL, false);
@@ -93,7 +93,7 @@ public class WidgetToolbarNextTest extends QuoteUnquoteModelUtility {
 
         assertEquals(
                 "confirm correct # of favourites",
-                Integer.valueOf(2), quoteUnquoteModelDouble.countFavourites().blockingGet());
+                2, quoteUnquoteModelDouble.countFavourites());
 
         quoteUnquoteModelDouble.setNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL, false);
 
@@ -105,7 +105,7 @@ public class WidgetToolbarNextTest extends QuoteUnquoteModelUtility {
 
         assertEquals(
                 "confirm correct # of favourites",
-                Integer.valueOf(3), quoteUnquoteModelDouble.countFavourites().blockingGet());
+                3, quoteUnquoteModelDouble.countFavourites());
 
         Collections.reverse(expectedFavouritesDigestList);
 
@@ -205,7 +205,7 @@ public class WidgetToolbarNextTest extends QuoteUnquoteModelUtility {
     }
 
     @Test
-    public void moveThroughContentTypeQuotationText() {
+    public void moveThroughContentTypeSearch() {
         insertDataset01();
         insertDataset02();
         insertDataset03();

@@ -42,6 +42,19 @@ abstract class DatabaseTestHelper {
 
     fun setDefaultQuotation() {
         val defaultQuotation = databaseRepositoryDouble.getQuotation(DatabaseRepository.DEFAULT_QUOTATION_DIGEST)
-        databaseRepositoryDouble.markAsPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL, defaultQuotation.digest)
+        databaseRepositoryDouble.markAsPrevious(
+                WidgetIdHelper.INSTANCE_01_WIDGET_ID,
+                ContentSelection.ALL,
+                defaultQuotation.digest)
+    }
+
+    fun markDefaultQuotationAsFavourite() {
+        val defaultQuotation = databaseRepositoryDouble.getQuotation(DatabaseRepository.DEFAULT_QUOTATION_DIGEST)
+        databaseRepositoryDouble.markAsFavourite(defaultQuotation.digest)
+    }
+
+    fun markDefaultQuotationAsReported() {
+        val defaultQuotation = databaseRepositoryDouble.getQuotation(DatabaseRepository.DEFAULT_QUOTATION_DIGEST)
+        databaseRepositoryDouble.markAsReported(defaultQuotation.digest)
     }
 }

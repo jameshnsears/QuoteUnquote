@@ -57,7 +57,7 @@ public final class DatabaseRepositoryDouble extends DatabaseRepository {
     }
 
     @NonNull
-    public Integer countReported() {
-        return reportedDAO.countReported();
+    public int countReported() {
+        return reportedDAO.countReported().intValue();
     }
 }

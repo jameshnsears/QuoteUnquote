@@ -252,7 +252,7 @@ public class QuoteUnquoteModel {
         return isFavourite;
     }
 
-    public void deleteWidget(final int widgetId) {
+    public void delete(final int widgetId) {
         logWidgetId(widgetId);
 
         final Future future = executorService.submit(() ->
@@ -267,7 +267,7 @@ public class QuoteUnquoteModel {
         }
     }
 
-    public void disableWidget() {
+    public void disable() {
         final Future future = executorService.submit(() -> {
             databaseRepository.deletePrevious();
             databaseRepository.deleteFavourites();

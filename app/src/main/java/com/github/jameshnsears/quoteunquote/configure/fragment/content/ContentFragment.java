@@ -26,6 +26,7 @@ import com.github.jameshnsears.quoteunquote.database.quotation.AuthorPOJO;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentContentBinding;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
+import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade;
 import com.github.jameshnsears.quoteunquote.utils.ui.ToastHelper;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
@@ -119,16 +120,8 @@ public class ContentFragment extends FragmentCommon {
     }
 
     protected void setFavouriteLocalCode() {
-        final ContentPreferences contentPreferencesLocalCode = new ContentPreferences(0, getContext());
-
-        String localCode = contentPreferencesLocalCode.getContentFavouritesLocalCode();
-
-        if ("".equals(localCode) && !contentPreferencesLocalCode.getContentFavouritesLocalCode().equals(CloudFavouritesHelper.getLocalCode())) {
-            contentPreferencesLocalCode.setContentFavouritesLocalCode(CloudFavouritesHelper.getLocalCode());
-            localCode = contentPreferencesLocalCode.getContentFavouritesLocalCode();
-        }
-
-        fragmentContentBinding.textViewLocalCodeValue.setText(localCode);
+        final ContentPreferences contentPreferences = new ContentPreferences(getContext());
+        fragmentContentBinding.textViewLocalCodeValue.setText(contentPreferences.getContentFavouritesLocalCode());
     }
 
     protected void setSearch() {

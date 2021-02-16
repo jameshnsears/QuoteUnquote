@@ -19,11 +19,11 @@ public class PreferencesFacade {
         this.preferenceHelper = new PreferenceHelper(PREFERENCES_FILENAME, applicationContext);
     }
 
-    public static void emptyDisabled(@NonNull final Context context) {
+    public static void disable(@NonNull final Context context) {
         PreferenceHelper.empty(PREFERENCES_FILENAME, context);
     }
 
-    public static void emptyDeleted(@NonNull final Context context, final int widgetId) {
+    public static void delete(@NonNull final Context context, final int widgetId) {
         PreferenceHelper.empty(PREFERENCES_FILENAME, context, widgetId);
     }
 
@@ -33,7 +33,7 @@ public class PreferencesFacade {
     }
 
     @NonNull
-    protected String getPreferenceKey() {
+    public String getPreferenceKeyFavouritesLocalCode() {
         return String.format(Locale.ENGLISH, "0:CONTENT_FAVOURITES_LOCAL_CODE");
     }
 }

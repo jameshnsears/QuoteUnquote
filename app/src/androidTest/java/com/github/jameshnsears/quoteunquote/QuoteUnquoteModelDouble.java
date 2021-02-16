@@ -5,8 +5,6 @@ import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 
 import java.util.List;
 
-import io.reactivex.Single;
-
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 public class QuoteUnquoteModelDouble extends QuoteUnquoteModel {
@@ -16,12 +14,20 @@ public class QuoteUnquoteModelDouble extends QuoteUnquoteModel {
         databaseRepository = DatabaseRepositoryDouble.getInstance();
     }
 
-    public Single<Integer> countFavourites() {
-        return databaseRepository.countFavourites();
+    public int countFavourites() {
+        return databaseRepository.countFavourites().blockingGet().intValue();
     }
 
-    public Integer countReported() {
+    public int countReported() {
         return DatabaseRepositoryDouble.getInstance().countReported();
+    }
+
+    public int countPrevious(final int widgetId) {
+        return databaseRepository.countPrevious(widgetId, ContentSelection.ALL)
+                + databaseRepository.countPrevious(widgetId, ContentSelection.FAVOURITES)
+                + databaseRepository.countPrevious(widgetId, ContentSelection.AUTHOR)
+                + databaseRepository.countPrevious(widgetId, ContentSelection.SEARCH)
+                + databaseRepository.countPrevious(widgetId, ContentSelection.REPORT);
     }
 
     public List<String> getPrevious(final int widgetId, final ContentSelection contentSelection) {
@@ -30,10 +36,5 @@ public class QuoteUnquoteModelDouble extends QuoteUnquoteModel {
 
     public List<String> getFavourites() {
         return databaseRepository.getFavourites();
-    }
-
-    @Override
-    public ContentSelection selectedContentType(final int widgetId) {
-        return ContentSelection.ALL;
     }
 }

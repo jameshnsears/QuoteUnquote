@@ -25,7 +25,7 @@ import static org.mockito.Mockito.spy;
 @RunWith(AndroidJUnit4.class)
 public class WidgetToolbarFavouriteTest extends QuoteUnquoteModelUtility {
     @Test
-    public void isNextQuotationFavourite() {
+    public void isFavourite() {
         insertDataset01();
 
         setDefaultQuotation();
@@ -33,48 +33,33 @@ public class WidgetToolbarFavouriteTest extends QuoteUnquoteModelUtility {
         final QuoteUnquoteModelDouble quoteUnquoteModelSpy = spy(quoteUnquoteModelDouble);
         doReturn(false).when(quoteUnquoteModelSpy).selectedContentTypeIsFavourite(ArgumentMatchers.eq(WidgetIdHelper.INSTANCE_01_WIDGET_ID));
 
-        assertEquals(
-                "",
-                0,
-                quoteUnquoteModelSpy.countPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.FAVOURITES));
+        assertEquals(0, quoteUnquoteModelSpy.countPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.FAVOURITES));
 
-        assertEquals(
-                "",
-                Integer.valueOf(0),
-                quoteUnquoteModelSpy.countFavourites().blockingGet());
+        assertEquals(0, quoteUnquoteModelSpy.countFavourites());
 
         final QuotationEntity nextQuotation = quoteUnquoteModelSpy.getNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL);
 
-        assertFalse("", quoteUnquoteModelSpy.isFavourite(WidgetIdHelper.INSTANCE_01_WIDGET_ID, nextQuotation.digest));
+        assertFalse(quoteUnquoteModelSpy.isFavourite(WidgetIdHelper.INSTANCE_01_WIDGET_ID, nextQuotation.digest));
 
         // make a favourite
         quoteUnquoteModelSpy.toggleFavourite(WidgetIdHelper.INSTANCE_01_WIDGET_ID, nextQuotation.digest);
 
-        assertEquals(
-                "",
-                Integer.valueOf(1),
-                quoteUnquoteModelSpy.countFavourites().blockingGet());
+        assertEquals(1, quoteUnquoteModelSpy.countFavourites());
 
         assertTrue(
-                "",
                 quoteUnquoteModelSpy.isFavourite(WidgetIdHelper.INSTANCE_01_WIDGET_ID,
                         quoteUnquoteModelSpy.getNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL).digest));
 
         // remove the favourite, but mark as a previous
         quoteUnquoteModelSpy.toggleFavourite(WidgetIdHelper.INSTANCE_01_WIDGET_ID, nextQuotation.digest);
 
-        assertEquals(
-                "",
-                Integer.valueOf(0),
-                quoteUnquoteModelSpy.countFavourites().blockingGet());
+        assertEquals(0, quoteUnquoteModelSpy.countFavourites());
 
         assertEquals(
-                "",
                 0,
                 quoteUnquoteModelSpy.countPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.FAVOURITES));
 
         assertEquals(
-                "",
                 1,
                 quoteUnquoteModelSpy.countPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL));
     }
@@ -93,10 +78,7 @@ public class WidgetToolbarFavouriteTest extends QuoteUnquoteModelUtility {
                 quoteUnquoteModelDouble.getNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL).digest);
         expectedDigestsList.add(quoteUnquoteModelDouble.getNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL).digest);
 
-        assertEquals(
-                "",
-                Integer.valueOf(1),
-                quoteUnquoteModelDouble.countFavourites().blockingGet());
+        assertEquals(1, quoteUnquoteModelDouble.countFavourites());
 
         // make a favourite
         quoteUnquoteModelDouble.setNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL, false);
@@ -115,10 +97,7 @@ public class WidgetToolbarFavouriteTest extends QuoteUnquoteModelUtility {
                 quoteUnquoteModelDouble.getNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL).digest);
         expectedDigestsList.add(quoteUnquoteModelDouble.getNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL).digest);
 
-        assertEquals(
-                "",
-                Integer.valueOf(3),
-                quoteUnquoteModelDouble.countFavourites().blockingGet());
+        assertEquals(3, quoteUnquoteModelDouble.countFavourites());
 
         // the database returns in prior order
         Collections.reverse(expectedDigestsList);

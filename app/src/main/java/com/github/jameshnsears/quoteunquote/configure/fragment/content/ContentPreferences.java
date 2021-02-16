@@ -10,6 +10,10 @@ import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade;
 import timber.log.Timber;
 
 public class ContentPreferences extends PreferencesFacade {
+    public ContentPreferences(@NonNull final Context applicationContext) {
+        super(0, applicationContext);
+    }
+
     public ContentPreferences(final int widgetId, @NonNull final Context applicationContext) {
         super(widgetId, applicationContext);
     }
@@ -25,11 +29,11 @@ public class ContentPreferences extends PreferencesFacade {
 
     @NonNull
     public String getContentFavouritesLocalCode() {
-        return preferenceHelper.getPreferenceString(getPreferenceKey());
+        return preferenceHelper.getPreferenceString(getPreferenceKeyFavouritesLocalCode());
     }
 
     public void setContentFavouritesLocalCode(@NonNull final String value) {
-        preferenceHelper.setPreference(getPreferenceKey(), value);
+        preferenceHelper.setPreference(getPreferenceKeyFavouritesLocalCode(), value);
     }
 
     @NonNull

@@ -64,7 +64,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
     }
 
     @NonNull
-    private synchronized QuoteUnquoteModel getQuoteUnquoteModelInstance(@NonNull final Context context) {
+    public synchronized QuoteUnquoteModel getQuoteUnquoteModelInstance(@NonNull final Context context) {
         if (quoteUnquoteModel == null) {
             quoteUnquoteModel = new QuoteUnquoteModel(context);
         }
@@ -81,7 +81,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
 
     @Override
     public void onEnabled(@NonNull final Context context) {
-        final ContentPreferences contentPreferences = new ContentPreferences(0, context);
+        final ContentPreferences contentPreferences = new ContentPreferences(context);
         contentPreferences.setContentFavouritesLocalCode(CloudFavouritesHelper.getLocalCode());
 
         if (BuildConfig.DEBUG && Timber.treeCount() == 0) {
@@ -483,8 +483,8 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         for (final int widgetId : widgetIds) {
             logWidgetId(widgetId);
 
-            getQuoteUnquoteModelInstance(context).deleteWidget(widgetId);
-            PreferencesFacade.emptyDeleted(context, widgetId);
+            getQuoteUnquoteModelInstance(context).delete(widgetId);
+            PreferencesFacade.delete(context, widgetId);
 
             final EventDailyAlarm eventDailyAlarm = new EventDailyAlarm(context, widgetId);
             eventDailyAlarm.resetAnyExistingDailyAlarm();
@@ -497,8 +497,8 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         super.onDisabled(context);
 
         try {
-            getQuoteUnquoteModelInstance(context).disableWidget();
-            PreferencesFacade.emptyDisabled(context);
+            getQuoteUnquoteModelInstance(context).disable();
+            PreferencesFacade.disable(context);
 
             if (CloudServiceSend.isRunning(context)) {
                 context.stopService(new Intent(context, CloudServiceSend.class));
