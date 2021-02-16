@@ -31,8 +31,8 @@ public class WidgetToolbarNextTest extends QuoteUnquoteModelUtility {
 
     @Test
     public void moveThroughContentTypeAll() throws NoNextQuotationAvailableException {
-        insertDataset01();
-        setDefaultQuotation();
+        insertQuotationsTestData01();
+        setDefaultQuotationAsPreviousAll(WidgetIdHelper.INSTANCE_01_WIDGET_ID);
 
         quoteUnquoteModelDouble.setNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL, false);
 
@@ -49,8 +49,8 @@ public class WidgetToolbarNextTest extends QuoteUnquoteModelUtility {
 
     @Test(expected = NoNextQuotationAvailableException.class)
     public void noMoreQuotations() throws NoNextQuotationAvailableException {
-        insertDataset01();
-        setDefaultQuotation();
+        insertQuotationsTestData01();
+        setDefaultQuotationAsPreviousAll(WidgetIdHelper.INSTANCE_01_WIDGET_ID);
 
         try {
             quoteUnquoteModelDouble.setNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL, false);
@@ -65,8 +65,8 @@ public class WidgetToolbarNextTest extends QuoteUnquoteModelUtility {
 
     @Test
     public void moveThroughContentTypeFavourites() throws NoNextQuotationAvailableException {
-        insertDataset01();
-        insertDataset02();
+        insertQuotationsTestData01();
+        insertQuotationsTestData02();
 
         quoteUnquoteModelDouble.delete(WidgetIdHelper.INSTANCE_01_WIDGET_ID);
 
@@ -139,10 +139,10 @@ public class WidgetToolbarNextTest extends QuoteUnquoteModelUtility {
 
     @Test
     public void moveThroughContentTypeAuthor() {
-        insertDataset01();
-        insertDataset02();
-        insertDataset03();
-        setDefaultQuotation();
+        insertQuotationsTestData01();
+        insertQuotationsTestData02();
+        insertQuotationsTestData03();
+        setDefaultQuotationAsPreviousAll(WidgetIdHelper.INSTANCE_01_WIDGET_ID);
 
         // user chooses a2 as author and keeps pressing new quotation
         ContentPreferences contentPreferences = new ContentPreferences(WidgetIdHelper.INSTANCE_01_WIDGET_ID, getApplicationContext());
@@ -206,9 +206,9 @@ public class WidgetToolbarNextTest extends QuoteUnquoteModelUtility {
 
     @Test
     public void moveThroughContentTypeSearch() {
-        insertDataset01();
-        insertDataset02();
-        insertDataset03();
+        insertQuotationsTestData01();
+        insertQuotationsTestData02();
+        insertQuotationsTestData03();
 
         // using "q1" as the search text
         ContentPreferences contentPreferences = new ContentPreferences(WidgetIdHelper.INSTANCE_01_WIDGET_ID, getApplicationContext());

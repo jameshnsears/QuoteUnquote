@@ -26,9 +26,9 @@ import static org.mockito.Mockito.spy;
 public class WidgetToolbarFavouriteTest extends QuoteUnquoteModelUtility {
     @Test
     public void isFavourite() {
-        insertDataset01();
+        insertQuotationsTestData01();
 
-        setDefaultQuotation();
+        setDefaultQuotationAsPreviousAll(WidgetIdHelper.INSTANCE_01_WIDGET_ID);
 
         final QuoteUnquoteModelDouble quoteUnquoteModelSpy = spy(quoteUnquoteModelDouble);
         doReturn(false).when(quoteUnquoteModelSpy).selectedContentTypeIsFavourite(ArgumentMatchers.eq(WidgetIdHelper.INSTANCE_01_WIDGET_ID));
@@ -66,8 +66,8 @@ public class WidgetToolbarFavouriteTest extends QuoteUnquoteModelUtility {
 
     @Test
     public void makeSomeFavouritesFromContentAll() throws NoNextQuotationAvailableException {
-        insertDataset01();
-        insertDataset02();
+        insertQuotationsTestData01();
+        insertQuotationsTestData02();
 
         final List<String> expectedDigestsList = new ArrayList<>();
 

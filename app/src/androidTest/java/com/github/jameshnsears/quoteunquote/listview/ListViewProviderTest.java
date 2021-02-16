@@ -22,7 +22,7 @@ import static org.mockito.Mockito.spy;
 public class ListViewProviderTest extends QuoteUnquoteModelUtility {
     @Test
     public void countItemsInList() {
-        insertDataset01();
+        insertQuotationsTestData01();
 
         final Intent intent = new Intent();
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, WidgetIdHelper.INSTANCE_01_WIDGET_ID);

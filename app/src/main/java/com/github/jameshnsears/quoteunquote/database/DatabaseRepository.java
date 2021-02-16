@@ -258,12 +258,12 @@ public class DatabaseRepository {
     }
 
     @NonNull
-    public Integer countIsFavourite(@NonNull final String digest) {
+    public Integer countFavourite(@NonNull final String digest) {
         return favouritesDAO.countIsFavourite(digest);
     }
 
     @NonNull
-    public Integer countIsReported(@NonNull final String digest) {
+    public Integer countReported(@NonNull final String digest) {
         return reportedDAO.countIsReported(digest);
     }
 }

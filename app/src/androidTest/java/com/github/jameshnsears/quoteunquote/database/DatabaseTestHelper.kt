@@ -14,7 +14,7 @@ abstract class DatabaseTestHelper {
         databaseRepositoryDouble.empty()
     }
 
-    fun insertDataset01() {
+    fun insertQuotationsTestData01() {
         val quotationEntityList: MutableList<QuotationEntity> = ArrayList()
         quotationEntityList.add(
             QuotationEntity(
@@ -25,7 +25,7 @@ abstract class DatabaseTestHelper {
         databaseRepositoryDouble.insertQuotations(quotationEntityList)
     }
 
-    fun insertDataset02() {
+    fun insertQuotationsTestData02() {
         val quotationEntityList: MutableList<QuotationEntity> = ArrayList()
         quotationEntityList.add(QuotationEntity("d2", "a2", "q1"))
         quotationEntityList.add(QuotationEntity("d3", "a2", "q3"))
@@ -33,28 +33,43 @@ abstract class DatabaseTestHelper {
         databaseRepositoryDouble.insertQuotations(quotationEntityList)
     }
 
-    fun insertDataset03() {
+    fun insertQuotationsTestData03() {
         val quotationEntityList: MutableList<QuotationEntity> = ArrayList()
         quotationEntityList.add(QuotationEntity("d5", "a5", "q1"))
         quotationEntityList.add(QuotationEntity("d6", "a2", "q6"))
         databaseRepositoryDouble.insertQuotations(quotationEntityList)
     }
 
-    fun setDefaultQuotation() {
-        val defaultQuotation = databaseRepositoryDouble.getQuotation(DatabaseRepository.DEFAULT_QUOTATION_DIGEST)
+    fun setDefaultQuotationAsPreviousAll(widgetId : Int) {
         databaseRepositoryDouble.markAsPrevious(
-                WidgetIdHelper.INSTANCE_01_WIDGET_ID,
+                widgetId,
                 ContentSelection.ALL,
-                defaultQuotation.digest)
+                getDefaultQuotation().digest)
+    }
+
+    fun setDefaultQuotationAsPreviousAuthor(widgetId : Int) {
+        databaseRepositoryDouble.markAsPrevious(
+                widgetId,
+                ContentSelection.AUTHOR,
+                getDefaultQuotation().digest)
+    }
+
+    fun setDefaultQuotationAsPreviousSearch(widgetId : Int) {
+        databaseRepositoryDouble.markAsPrevious(
+                widgetId,
+                ContentSelection.SEARCH,
+                getDefaultQuotation().digest)
     }
 
     fun markDefaultQuotationAsFavourite() {
-        val defaultQuotation = databaseRepositoryDouble.getQuotation(DatabaseRepository.DEFAULT_QUOTATION_DIGEST)
-        databaseRepositoryDouble.markAsFavourite(defaultQuotation.digest)
+        databaseRepositoryDouble.markAsFavourite(getDefaultQuotation().digest)
     }
 
     fun markDefaultQuotationAsReported() {
-        val defaultQuotation = databaseRepositoryDouble.getQuotation(DatabaseRepository.DEFAULT_QUOTATION_DIGEST)
-        databaseRepositoryDouble.markAsReported(defaultQuotation.digest)
+        databaseRepositoryDouble.markAsReported(getDefaultQuotation().digest)
+    }
+
+    private fun getDefaultQuotation(): QuotationEntity {
+        return databaseRepositoryDouble.getQuotation(DatabaseRepository.DEFAULT_QUOTATION_DIGEST)
     }
 }

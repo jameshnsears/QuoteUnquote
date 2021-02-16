@@ -18,9 +18,8 @@ import static org.mockito.Mockito.spy;
 public class WidgetDeletedTest extends QuoteUnquoteModelUtility {
     @Test
     public void twoWidgetsOneDeleted() {
-
-        insertDataset01();
-        insertDataset02();
+        insertQuotationsTestData01();
+        insertQuotationsTestData02();
 
         quoteUnquoteModelDouble.setDefault(WidgetIdHelper.INSTANCE_01_WIDGET_ID);
 

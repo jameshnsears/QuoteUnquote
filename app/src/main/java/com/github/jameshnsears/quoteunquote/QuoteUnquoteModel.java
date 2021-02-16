@@ -179,6 +179,12 @@ public class QuoteUnquoteModel {
         return databaseRepository.countPrevious(widgetId, contentSelection);
     }
 
+    public int countPrevious(final int widgetId) {
+        return databaseRepository.countPrevious(widgetId, ContentSelection.ALL)
+                + databaseRepository.countPrevious(widgetId, ContentSelection.AUTHOR)
+                + databaseRepository.countPrevious(widgetId, ContentSelection.SEARCH);
+    }
+
     public int countPreviousAuthor(final int widgetId) {
         return databaseRepository.countPrevious(widgetId, ContentSelection.AUTHOR,
                 new ContentPreferences(widgetId, context).getContentSelectionAuthorName());
@@ -236,7 +242,7 @@ public class QuoteUnquoteModel {
     public boolean isFavourite(final int widgetId, @NonNull final String digest) {
         final String logMsg = String.format(Locale.ENGLISH, "%d: digest=%s", widgetId, digest);
 
-        final Future<Integer> future = executorService.submit(() -> databaseRepository.countIsFavourite(digest));
+        final Future<Integer> future = executorService.submit(() -> databaseRepository.countFavourite(digest));
 
         boolean isFavourite = false;
         try {
@@ -328,7 +334,7 @@ public class QuoteUnquoteModel {
                     widgetId,
                     selectedContentType(widgetId));
 
-            return databaseRepository.countIsReported(quotationEntity.digest);
+            return databaseRepository.countReported(quotationEntity.digest);
         });
 
         boolean isReported = false;

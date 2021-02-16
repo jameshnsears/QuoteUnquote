@@ -22,14 +22,6 @@ public class QuoteUnquoteModelDouble extends QuoteUnquoteModel {
         return DatabaseRepositoryDouble.getInstance().countReported();
     }
 
-    public int countPrevious(final int widgetId) {
-        return databaseRepository.countPrevious(widgetId, ContentSelection.ALL)
-                + databaseRepository.countPrevious(widgetId, ContentSelection.FAVOURITES)
-                + databaseRepository.countPrevious(widgetId, ContentSelection.AUTHOR)
-                + databaseRepository.countPrevious(widgetId, ContentSelection.SEARCH)
-                + databaseRepository.countPrevious(widgetId, ContentSelection.REPORT);
-    }
-
     public List<String> getPrevious(final int widgetId, final ContentSelection contentSelection) {
         return databaseRepository.getPrevious(widgetId, contentSelection);
     }
