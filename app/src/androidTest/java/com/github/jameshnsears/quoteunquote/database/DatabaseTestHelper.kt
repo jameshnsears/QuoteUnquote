@@ -2,7 +2,6 @@ package com.github.jameshnsears.quoteunquote.database
 
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
-import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import org.junit.Before
 import java.util.ArrayList
 
@@ -40,25 +39,28 @@ abstract class DatabaseTestHelper {
         databaseRepositoryDouble.insertQuotations(quotationEntityList)
     }
 
-    fun setDefaultQuotationAsPreviousAll(widgetId : Int) {
+    fun setDefaultQuotationAsPreviousAll(widgetId: Int) {
         databaseRepositoryDouble.markAsPrevious(
-                widgetId,
-                ContentSelection.ALL,
-                getDefaultQuotation().digest)
+            widgetId,
+            ContentSelection.ALL,
+            getDefaultQuotation().digest
+        )
     }
 
-    fun setDefaultQuotationAsPreviousAuthor(widgetId : Int) {
+    fun setDefaultQuotationAsPreviousAuthor(widgetId: Int) {
         databaseRepositoryDouble.markAsPrevious(
-                widgetId,
-                ContentSelection.AUTHOR,
-                getDefaultQuotation().digest)
+            widgetId,
+            ContentSelection.AUTHOR,
+            getDefaultQuotation().digest
+        )
     }
 
-    fun setDefaultQuotationAsPreviousSearch(widgetId : Int) {
+    fun setDefaultQuotationAsPreviousSearch(widgetId: Int) {
         databaseRepositoryDouble.markAsPrevious(
-                widgetId,
-                ContentSelection.SEARCH,
-                getDefaultQuotation().digest)
+            widgetId,
+            ContentSelection.SEARCH,
+            getDefaultQuotation().digest
+        )
     }
 
     fun markDefaultQuotationAsFavourite() {

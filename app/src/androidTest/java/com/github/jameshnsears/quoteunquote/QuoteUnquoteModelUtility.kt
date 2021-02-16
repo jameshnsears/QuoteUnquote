@@ -8,5 +8,5 @@ abstract class QuoteUnquoteModelUtility : DatabaseTestHelper() {
     @JvmField
     var quoteUnquoteModelDouble = QuoteUnquoteModelDouble()
     @JvmField
-    val context : Context = ApplicationProvider.getApplicationContext()
+    val context: Context = ApplicationProvider.getApplicationContext()
 }

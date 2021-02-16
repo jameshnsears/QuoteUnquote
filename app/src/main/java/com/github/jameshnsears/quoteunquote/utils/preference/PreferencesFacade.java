@@ -27,6 +27,10 @@ public class PreferencesFacade {
         PreferenceHelper.empty(PREFERENCES_FILENAME, context, widgetId);
     }
 
+    public static void countPreferences(@NonNull final Context context, final int widgetId) {
+        PreferenceHelper.countPreferences(PREFERENCES_FILENAME, context, widgetId);
+    }
+
     @NonNull
     protected String getPreferenceKey(@NonNull final String key) {
         return String.format(Locale.ENGLISH, "%d:%s", widgetId, key);

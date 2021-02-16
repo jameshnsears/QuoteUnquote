@@ -1,9 +1,11 @@
 package com.github.jameshnsears.quoteunquote
 
 import com.github.jameshnsears.quoteunquote.configure.fragment.content.ContentPreferences
+import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import io.mockk.every
 import io.mockk.spyk
+import junit.framework.TestCase.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -25,6 +27,7 @@ class WidgetDisabledTest : QuoteUnquoteModelUtility() {
     }
 
     private fun assertEmptySharedPreferences(contentPreferences: ContentPreferences) {
+        assertEquals(0, PreferencesFacade.countPreferences(context, WidgetIdHelper.INSTANCE_01_WIDGET_ID))
         assertTrue(contentPreferences.contentFavouritesLocalCode.isEmpty())
     }
 
