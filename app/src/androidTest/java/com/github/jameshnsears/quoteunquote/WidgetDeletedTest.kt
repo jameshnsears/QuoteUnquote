@@ -1,113 +1,88 @@
-package com.github.jameshnsears.quoteunquote;
+package com.github.jameshnsears.quoteunquote
 
-import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.github.jameshnsears.quoteunquote.utils.ContentSelection
+import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
+import org.junit.Assert
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers
+import org.mockito.Mockito
 
-import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
-import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.spy;
-
-
-@RunWith(AndroidJUnit4.class)
-public class WidgetDeletedTest extends QuoteUnquoteModelUtility {
+@RunWith(AndroidJUnit4::class)
+class WidgetDeletedTest : QuoteUnquoteModelUtility() {
     @Test
-    public void twoWidgetsOneDeleted() {
-        insertQuotationsTestData01();
-        insertQuotationsTestData02();
-
-        quoteUnquoteModelDouble.setDefault(WidgetIdHelper.INSTANCE_01_WIDGET_ID);
-
+    fun twoWidgetsOneDeleted() {
+        insertQuotationsTestData01()
+        insertQuotationsTestData02()
+        quoteUnquoteModelDouble.setDefault(WidgetIdHelper.INSTANCE_01_WIDGET_ID)
         quoteUnquoteModelDouble.toggleFavourite(
                 WidgetIdHelper.INSTANCE_01_WIDGET_ID,
                 quoteUnquoteModelDouble.getNext(
-                        WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL).digest);
-
-        quoteUnquoteModelDouble.reportQuotation(WidgetIdHelper.INSTANCE_01_WIDGET_ID);
-
-        quoteUnquoteModelDouble.setDefault(WidgetIdHelper.INSTANCE_02_WIDGET_ID);
-
-        final QuoteUnquoteModelDouble quoteUnquoteModelSpy = spy(quoteUnquoteModelDouble);
-        doReturn(false).when(quoteUnquoteModelSpy).selectedContentTypeIsFavourite(eq(WidgetIdHelper.INSTANCE_02_WIDGET_ID));
-
+                        WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL)!!.digest)
+        quoteUnquoteModelDouble.reportQuotation(WidgetIdHelper.INSTANCE_01_WIDGET_ID)
+        quoteUnquoteModelDouble.setDefault(WidgetIdHelper.INSTANCE_02_WIDGET_ID)
+        val quoteUnquoteModelSpy = Mockito.spy(quoteUnquoteModelDouble)
+        Mockito.doReturn(false).`when`(quoteUnquoteModelSpy).selectedContentTypeIsFavourite(ArgumentMatchers.eq(WidgetIdHelper.INSTANCE_02_WIDGET_ID))
         quoteUnquoteModelSpy.toggleFavourite(
                 WidgetIdHelper.INSTANCE_02_WIDGET_ID,
                 quoteUnquoteModelDouble.getNext(
-                        WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL).digest);
-
-        quoteUnquoteModelDouble.reportQuotation(WidgetIdHelper.INSTANCE_02_WIDGET_ID);
-
-        assertEquals(
+                        WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL)!!.digest)
+        quoteUnquoteModelDouble.reportQuotation(WidgetIdHelper.INSTANCE_02_WIDGET_ID)
+        Assert.assertEquals(
                 "",
                 1,
                 quoteUnquoteModelDouble.countPrevious(
-                        WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL));
-
-        assertEquals(
+                        WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL).toLong())
+        Assert.assertEquals(
                 "",
                 1,
                 quoteUnquoteModelDouble.countPrevious(
-                        WidgetIdHelper.INSTANCE_02_WIDGET_ID, ContentSelection.ALL));
-
-        assertEquals(
+                        WidgetIdHelper.INSTANCE_02_WIDGET_ID, ContentSelection.ALL).toLong())
+        Assert.assertEquals(
                 "",
                 0,
-                quoteUnquoteModelDouble.countFavourites());
-
-        assertEquals(
+                quoteUnquoteModelDouble.countFavourites().toLong())
+        Assert.assertEquals(
                 "",
                 1,
-                quoteUnquoteModelDouble.countReported());
-
+                quoteUnquoteModelDouble.countReported().toLong())
         quoteUnquoteModelSpy.toggleFavourite(
                 WidgetIdHelper.INSTANCE_02_WIDGET_ID,
-                quoteUnquoteModelDouble.getNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL).digest);
-        assertEquals(
+                quoteUnquoteModelDouble.getNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL)!!.digest)
+        Assert.assertEquals(
                 "",
                 1,
-                quoteUnquoteModelDouble.countFavourites());
+                quoteUnquoteModelDouble.countFavourites().toLong())
 
         ////////////////////////////////////////////
-
-        quoteUnquoteModelDouble.delete(WidgetIdHelper.INSTANCE_01_WIDGET_ID);
-
-        assertEquals(
+        quoteUnquoteModelDouble.delete(WidgetIdHelper.INSTANCE_01_WIDGET_ID)
+        Assert.assertEquals(
                 "",
                 0,
-                quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL));
-
-        assertEquals(
+                quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.ALL).toLong())
+        Assert.assertEquals(
                 "",
                 1,
-                quoteUnquoteModelDouble.countFavourites());
-
-        assertEquals(
+                quoteUnquoteModelDouble.countFavourites().toLong())
+        Assert.assertEquals(
                 "",
                 1,
-                quoteUnquoteModelDouble.countReported());
+                quoteUnquoteModelDouble.countReported().toLong())
 
         ////////////////////////////////////////////
-
-        quoteUnquoteModelDouble.disable();
-
-        assertEquals(
+        quoteUnquoteModelDouble.disable()
+        Assert.assertEquals(
                 "",
                 0,
-                quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.INSTANCE_02_WIDGET_ID, ContentSelection.ALL));
-
-        assertEquals(
+                quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.INSTANCE_02_WIDGET_ID, ContentSelection.ALL).toLong())
+        Assert.assertEquals(
                 "",
                 0,
-                quoteUnquoteModelDouble.countFavourites());
-
-        assertEquals(
+                quoteUnquoteModelDouble.countFavourites().toLong())
+        Assert.assertEquals(
                 "",
                 0,
-                quoteUnquoteModelDouble.countReported());
+                quoteUnquoteModelDouble.countReported().toLong())
     }
 }
