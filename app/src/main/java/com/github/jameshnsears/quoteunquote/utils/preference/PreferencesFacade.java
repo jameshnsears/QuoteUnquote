@@ -27,8 +27,8 @@ public class PreferencesFacade {
         PreferenceHelper.empty(PREFERENCES_FILENAME, context, widgetId);
     }
 
-    public static void countPreferences(@NonNull final Context context, final int widgetId) {
-        PreferenceHelper.countPreferences(PREFERENCES_FILENAME, context, widgetId);
+    public static int countPreferences(@NonNull final Context context, final int widgetId) {
+        return PreferenceHelper.countPreferences(PREFERENCES_FILENAME, context, widgetId);
     }
 
     @NonNull
@@ -37,7 +37,7 @@ public class PreferencesFacade {
     }
 
     @NonNull
-    public String getPreferenceKeyFavouritesLocalCode() {
-        return String.format(Locale.ENGLISH, "0:CONTENT_FAVOURITES_LOCAL_CODE");
+    public String getFavouritesLocalCode() {
+        return "0:CONTENT_FAVOURITES_LOCAL_CODE";
     }
 }

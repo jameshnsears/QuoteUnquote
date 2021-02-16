@@ -29,11 +29,11 @@ public class ContentPreferences extends PreferencesFacade {
 
     @NonNull
     public String getContentFavouritesLocalCode() {
-        return preferenceHelper.getPreferenceString(getPreferenceKeyFavouritesLocalCode());
+        return preferenceHelper.getPreferenceString(getFavouritesLocalCode());
     }
 
     public void setContentFavouritesLocalCode(@NonNull final String value) {
-        preferenceHelper.setPreference(getPreferenceKeyFavouritesLocalCode(), value);
+        preferenceHelper.setPreference(getFavouritesLocalCode(), value);
     }
 
     @NonNull

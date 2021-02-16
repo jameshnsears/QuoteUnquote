@@ -9,7 +9,7 @@ import junit.framework.TestCase.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-class WidgetDisabledTest : QuoteUnquoteModelUtility() {
+open class WidgetDisabledTest : QuoteUnquoteModelUtility() {
     @Test
     fun widgetDisabled() {
         setupDatabases()
