@@ -3,6 +3,6 @@
   <component name="SonarLintProjectSettings">
     <option name="bindingEnabled" value="true" />
     <option name="projectKey" value="jameshnsears_QuoteUnquote" />
-    <option name="serverId" value="jameshnsears_QuoteUnquote" />
+    <option name="serverId" value="QuoteUnquote" />
   </component>
 </project>

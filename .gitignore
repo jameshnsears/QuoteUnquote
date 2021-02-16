@@ -23,3 +23,4 @@ local.properties
 /app/build/
 /.Quote, Unquote.vpp.lck
 /Quote, Unquote.vpp.*
+.idea/vcs.xml
