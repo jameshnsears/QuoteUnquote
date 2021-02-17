@@ -125,8 +125,8 @@ android {
     }
 
     testOptions {
-        // makes tests run slowly on the emulator/device; but more reliable in CI
-        execution 'ANDROIDX_TEST_ORCHESTRATOR'
+        // makes tests run slowly on the emulator/device + seems to reduce coverage in CI!!
+        // execution 'ANDROIDX_TEST_ORCHESTRATOR'
 
         animationsDisabled true
         unitTests {
