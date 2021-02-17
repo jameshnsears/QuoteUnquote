@@ -6,7 +6,9 @@ import com.github.jameshnsears.quoteunquote.database.NoNextQuotationAvailableExc
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import junit.framework.TestCase.assertEquals
-import org.junit.Assert.*
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertSame
+import org.junit.Assert.fail
 import org.junit.Test
 
 class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
@@ -29,15 +31,17 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
         insertQuotationsTestData01()
 
         assertEquals(
-                0,
-                quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID, contentSelection))
+            0,
+            quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID, contentSelection)
+        )
 
         quoteUnquoteModelDouble.setNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, contentSelection, randomNext)
         quoteUnquoteModelDouble.setNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, contentSelection, randomNext)
 
         assertEquals(
-                2,
-                quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID, contentSelection))
+            2,
+            quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID, contentSelection)
+        )
     }
 
     @Test(expected = NoNextQuotationAvailableException::class)
@@ -82,9 +86,12 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
 
         markDefaultQuotationAsFavourite()
 
-        assertEquals(DatabaseRepository.DEFAULT_QUOTATION_DIGEST,
-                quoteUnquoteModelDouble.getNext(
-                        WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.FAVOURITES)?.digest)
+        assertEquals(
+            DatabaseRepository.DEFAULT_QUOTATION_DIGEST,
+            quoteUnquoteModelDouble.getNext(
+                WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.FAVOURITES
+            )?.digest
+        )
     }
 
     @Test
@@ -110,7 +117,8 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
         }
 
         assertEquals(
-                4,
-                quoteUnquoteModelDouble.countPreviousSearch(WidgetIdHelper.INSTANCE_01_WIDGET_ID))
+            4,
+            quoteUnquoteModelDouble.countPreviousSearch(WidgetIdHelper.INSTANCE_01_WIDGET_ID)
+        )
     }
 }

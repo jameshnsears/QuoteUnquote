@@ -24,6 +24,7 @@ import com.github.jameshnsears.quoteunquote.utils.ui.ToastHelper;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import timber.log.Timber;
 
@@ -112,11 +113,11 @@ public class ReportActivity extends AppCompatActivity {
     }
 
     @NonNull
-    public ConcurrentHashMap<String, String> getAuditProperties() {
+    public ConcurrentMap<String, String> getAuditProperties() {
         final ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
 
         final ContentPreferences contentPreferences = new ContentPreferences(widgetId, getApplicationContext());
-        final QuotationEntity quotationToReport = quoteUnquoteModel.getNext(widgetId, contentPreferences.getContentSelection());
+        final QuotationEntity quotationToReport = getQuoteUnquoteModel().getNext(widgetId, contentPreferences.getContentSelection());
 
         properties.put("Report", "digest="
                 + quotationToReport.digest

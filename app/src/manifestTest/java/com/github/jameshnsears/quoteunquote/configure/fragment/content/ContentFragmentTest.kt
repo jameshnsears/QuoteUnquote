@@ -26,13 +26,12 @@ class ContentFragmentTest : ShadowLoggingHelper() {
                 assertFalse(fragment.contentPreferences?.contentSelection == ContentSelection.SEARCH)
 
                 if (BuildConfig.DEBUG) {
-                    assertEquals("", "All: 7", fragment.fragmentContentBinding?.radioButtonAll?.text.toString())
-                    assertEquals("", "Author: 1", fragment.fragmentContentBinding?.radioButtonAuthor?.text.toString())
-                    assertEquals("", "Favourites: 0", fragment.fragmentContentBinding?.radioButtonFavourites?.text.toString())
+                    assertEquals("All: 7", fragment.fragmentContentBinding?.radioButtonAll?.text.toString())
+                    assertEquals("Author: 1", fragment.fragmentContentBinding?.radioButtonAuthor?.text.toString())
+                    assertEquals("Favourites: 0", fragment.fragmentContentBinding?.radioButtonFavourites?.text.toString())
                 }
 
-                assertTrue(fragment.fragmentContentBinding?.textViewLocalCodeValue?.text.toString().length == 10)
-                assertEquals("", "", fragment.fragmentContentBinding?.editTextSearchText?.text.toString())
+                assertEquals("", fragment.fragmentContentBinding?.editTextSearchText?.text.toString())
 
                 fragment.shutdown()
             }
@@ -74,19 +73,4 @@ class ContentFragmentTest : ShadowLoggingHelper() {
             }
         }
     }
-
-//    @Test
-//    fun `todo - authorSearch`() {
-//        fail("todo")
-//    }
-//
-//    @Test
-//    fun `todo - favouritesSend`() {
-//        fail("todo")
-//    }
-//
-//    @Test
-//    fun `todo - favouritesReceive`() {
-//        fail("todo")
-//    }
 }

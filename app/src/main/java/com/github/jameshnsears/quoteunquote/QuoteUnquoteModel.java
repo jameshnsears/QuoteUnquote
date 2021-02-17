@@ -127,16 +127,11 @@ public class QuoteUnquoteModel {
             try {
                 switch (contentSelection) {
                     case AUTHOR:
-                        if (countPreviousAuthor(widgetId) == 0) {
-                            databaseRepository.deletePrevious(widgetId, contentSelection);
-                            setNext(widgetId, contentSelection, false);
-                        }
+                        getNextAuthor(widgetId, contentSelection);
                         break;
 
                     case FAVOURITES:
-                        if (countPrevious(widgetId, contentSelection) == 0) {
-                            setNext(widgetId, contentSelection, false);
-                        }
+                        getNextFavourite(widgetId, contentSelection, countPrevious(widgetId, contentSelection) == 0, false);
                         break;
 
                     case SEARCH:
@@ -168,6 +163,19 @@ public class QuoteUnquoteModel {
         }
 
         return quotationEntity;
+    }
+
+    private void getNextFavourite(int widgetId, @NonNull ContentSelection contentSelection, boolean b, boolean b2) throws NoNextQuotationAvailableException {
+        if (b) {
+            setNext(widgetId, contentSelection, b2);
+        }
+    }
+
+    private void getNextAuthor(int widgetId, @NonNull ContentSelection contentSelection) throws NoNextQuotationAvailableException {
+        if (countPreviousAuthor(widgetId) == 0) {
+            databaseRepository.deletePrevious(widgetId, contentSelection);
+            setNext(widgetId, contentSelection, false);
+        }
     }
 
     public int countPrevious(final int widgetId, @NonNull final ContentSelection contentSelection) {
@@ -210,9 +218,7 @@ public class QuoteUnquoteModel {
                 databaseRepository.deleteFavourite(widgetId, digest);
                 try {
                     if (databaseRepository.countFavourites().blockingGet() == 0) {
-                        if (selectedContentTypeIsFavourite(widgetId)) {
-                            setNext(widgetId, ContentSelection.ALL, true);
-                        }
+                        getNextFavourite(widgetId, ContentSelection.ALL, selectedContentTypeIsFavourite(widgetId), true);
                     } else {
                         setNext(widgetId, ContentSelection.FAVOURITES, true);
                     }

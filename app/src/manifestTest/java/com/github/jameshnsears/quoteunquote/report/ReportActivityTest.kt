@@ -11,10 +11,12 @@ import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.Is
 import org.junit.After
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
+import java.util.concurrent.ConcurrentHashMap
 
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [Build.VERSION_CODES.P])
@@ -45,13 +47,13 @@ class ReportActivityTest : ShadowLoggingHelper() {
             assertThat("", spinnerReason.adapter.count, Is.`is`(6))
         }
     }
-//
-//    @Test
-//    fun hasQuotationAlreadyBeenReported() {
-//        scenario = launchActivity(ReportActivityDouble.getIntent())
-//
-//        scenario.onActivity { activity ->
-//            assertFalse("", activity.hasQuotationAlreadyBeenReported())
-//        }
-//    }
+
+    @Test
+    fun auditProperties() {
+        scenario.onActivity { activity ->
+            val expectedConcurrentHashMap: ConcurrentHashMap<String, String> = ConcurrentHashMap()
+            expectedConcurrentHashMap["Report"] = "digest=d; author=a; reason=Attribution; notes="
+            assertTrue(expectedConcurrentHashMap == activity.auditProperties)
+        }
+    }
 }
