@@ -37,16 +37,16 @@ class ContentViewModelTest : DatabaseTestHelper() {
         insertQuotationsTestData03()
 
         assertEquals(
-            "",
-            "a0",
-            contentViewModelDouble.authorsSorted(contentViewModelDouble.authors().blockingGet())[0]
+                "",
+                "a0",
+                contentViewModelDouble.authorsSorted(contentViewModelDouble.authors().blockingGet())[0]
         )
         assertEquals("", 0, contentViewModelDouble.authorsIndex("a0"))
 
         assertEquals(
-            "",
-            "a5",
-            contentViewModelDouble.authorsSorted(contentViewModelDouble.authors().blockingGet())[4]
+                "",
+                "a5",
+                contentViewModelDouble.authorsSorted(contentViewModelDouble.authors().blockingGet())[4]
         )
         assertEquals("", 4, contentViewModelDouble.authorsIndex("a5"))
     }

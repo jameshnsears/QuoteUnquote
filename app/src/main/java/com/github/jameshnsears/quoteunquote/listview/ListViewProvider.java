@@ -43,9 +43,13 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
         this.widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
 
         appearancePreferences = new AppearancePreferences(widgetId, serviceContext);
-        contentPreferences = new ContentPreferences(widgetId, serviceContext);
+        contentPreferences = getContentPreferences(serviceContext);
 
         quoteUnquoteWidget = new QuoteUnquoteWidget();
+    }
+
+    public ContentPreferences getContentPreferences(@NonNull final Context serviceContext) {
+        return new ContentPreferences(widgetId, serviceContext);
     }
 
     @Override

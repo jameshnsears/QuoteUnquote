@@ -3,9 +3,7 @@ package com.github.jameshnsears.quoteunquote.report
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteModelUtility
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Test
 
 class ReportActivityTest : QuoteUnquoteModelUtility() {

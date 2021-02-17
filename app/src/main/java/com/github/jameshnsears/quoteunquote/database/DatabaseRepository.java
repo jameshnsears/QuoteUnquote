@@ -131,11 +131,7 @@ public class DatabaseRepository {
 
     @NonNull
     public Integer countQuotationsText(@NonNull final String text) {
-        if ("".equals(text)) {
-            return 0;
-        } else {
-            return quotationDAO.countQuotationsText("%" + text + "%");
-        }
+        return quotationDAO.countQuotationsText("%" + text + "%");
     }
 
     public QuotationEntity getQuotation(final String digest) {
@@ -178,12 +174,6 @@ public class DatabaseRepository {
         List<String> availableQuotations = new ArrayList<>();
 
         switch (contentSelection) {
-            case ALL:
-                availableQuotations
-                        = quotationDAO.getAll(
-                        getPrevious(widgetId, contentSelection));
-                break;
-
             case FAVOURITES:
                 availableQuotations
                         = favouritesDAO.getFavourites(getPrevious(widgetId, contentSelection));
@@ -202,7 +192,10 @@ public class DatabaseRepository {
                 break;
 
             default:
-                Timber.e(contentSelection.getContentType().toString());
+                // ALL:
+                availableQuotations
+                        = quotationDAO.getAll(
+                        getPrevious(widgetId, contentSelection));
                 break;
         }
 

@@ -7,8 +7,8 @@ import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import io.mockk.every
 import io.mockk.spyk
 import junit.framework.TestCase.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class WidgetDeletedTest : QuoteUnquoteModelUtility() {
@@ -43,7 +43,7 @@ class WidgetDeletedTest : QuoteUnquoteModelUtility() {
         assertTrue(quoteUnquoteModelDouble.countFavourites() == 1)
         assertTrue(quoteUnquoteModelDouble.countReported() == 1)
     }
-    
+
     private fun setupDatabases() {
         insertQuotationsTestData01()
 

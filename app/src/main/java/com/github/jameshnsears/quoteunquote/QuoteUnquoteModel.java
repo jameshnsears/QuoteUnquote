@@ -39,9 +39,7 @@ public class QuoteUnquoteModel {
     }
 
     public void shutdown() {
-        if (executorService != null) {
-            executorService.shutdown();
-        }
+        executorService.shutdown();
     }
 
     public void setDefault(final int widgetId) {
@@ -128,12 +126,6 @@ public class QuoteUnquoteModel {
             // check for first time use
             try {
                 switch (contentSelection) {
-                    case ALL:
-                        if (countPrevious(widgetId, contentSelection) == 0) {
-                            setDefault(widgetId);
-                        }
-                        break;
-
                     case AUTHOR:
                         if (countPreviousAuthor(widgetId) == 0) {
                             databaseRepository.deletePrevious(widgetId, contentSelection);
@@ -148,14 +140,17 @@ public class QuoteUnquoteModel {
                         break;
 
                     case SEARCH:
-                        if (countPreviousQuotationText(widgetId) == 0) {
+                        if (countPreviousSearch(widgetId) == 0) {
                             databaseRepository.deletePrevious(widgetId, contentSelection);
                             setNext(widgetId, contentSelection, false);
                         }
                         break;
 
                     default:
-                        Timber.e(contentSelection.getContentType().toString());
+                        // ALL
+                        if (countPrevious(widgetId, contentSelection) == 0) {
+                            setDefault(widgetId);
+                        }
                         break;
                 }
             } catch (NoNextQuotationAvailableException e) {
@@ -190,7 +185,7 @@ public class QuoteUnquoteModel {
                 new ContentPreferences(widgetId, context).getContentSelectionAuthorName());
     }
 
-    public int countPreviousQuotationText(final int widgetId) {
+    public int countPreviousSearch(final int widgetId) {
         return databaseRepository.countPrevious(widgetId, ContentSelection.SEARCH,
                 new ContentPreferences(widgetId, context).getContentSelectionSearchText());
     }
