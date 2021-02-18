@@ -125,7 +125,7 @@ android {
     }
 
     testOptions {
-        // makes tests run slowly on the emulator/device + seems to reduce coverage in CI!!
+        // makes tests run slowly on the emulator/device + affects coverage #
         // execution 'ANDROIDX_TEST_ORCHESTRATOR'
 
         animationsDisabled true
