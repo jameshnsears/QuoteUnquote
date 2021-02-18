@@ -67,7 +67,6 @@
 * Checkstyle-IDE - Jamie Shiell
 * SonarLint - SonarSource
 
-## 7. Unreliable CI emulators
+## 7. Unreliable CI emulator
 
-[![coverage](https://github.com/jameshnsears/QuoteUnquote/workflows/coverage/badge.svg)](https://github.com/jameshnsears/QuoteUnquote/actions?query=workflow%3Acoverage) 
 [![CircleCI](https://circleci.com/gh/jameshnsears/QuoteUnquote.svg?style=svg)](https://github.com/jameshnsears/QuoteUnquote)
