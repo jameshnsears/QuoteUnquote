@@ -44,7 +44,7 @@ jobs:
         with:
           api-level: 29
           target: default
-          script: ./gradlew clean :app:testManifestTestDebugCoverage
+          script: ./gradlew clean :app:testManifestTestDebugCoverage --stacktrace
 
       - name: show .gradle size
         run: |
