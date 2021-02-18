@@ -89,7 +89,7 @@ jobs:
         with:
           api-level: 29
           target: default
-          script: ./gradlew clean :app:testFdroidDebugCoverage
+          script: ./gradlew clean :app:testFdroidDebugCoverage --stacktrace
 
       - name: show .gradle size
         run: |
@@ -134,7 +134,7 @@ jobs:
         with:
           api-level: 29
           target: default
-          script: ./gradlew clean :app:testGoogleplayDebugCoverage
+          script: ./gradlew clean :app:testGoogleplayDebugCoverage --stacktrace
 
       - name: show .gradle size
         run: |

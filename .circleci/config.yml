@@ -1,0 +1,15 @@
+version: 2.1
+
+orbs:
+  android: circleci/android@0.2.1
+
+jobs:
+  build:
+    executor: android/android
+
+    steps:
+      - checkout
+      - run:
+          command: |
+            ./gradlew clean :app:testManifestTestDebugCoverage --stacktrace
+            bash <(curl https://codecov.io/bash) -t ${CODECOVIO_TOKEN} -f app/build/reports/ManifestTestDebug.xml -F app.manifestTest
