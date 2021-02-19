@@ -10,10 +10,10 @@
       </option>
       <option name="taskNames">
         <list>
-          <option value="testManifestTestDebugCoverage" />
+          <option value=":app:testManifestTestDebugCoverage" />
         </list>
       </option>
-      <option name="vmOptions" value="-ea -noverify" />
+      <option name="vmOptions" value="" />
     </ExternalSystemSettings>
     <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
     <method v="2">
