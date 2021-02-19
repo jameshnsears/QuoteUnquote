@@ -121,44 +121,6 @@ jobs:
           set -x
           ./gradlew ktlint
 
-  lintManifestTestDebug:
-    name: lintManifestTestDebug
-    needs: [checkstyle, detekt]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-          submodules: true
-
-      - name: gradle cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.gradle
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-
-      - name: local.properties
-        env:
-          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
-          LOCAL_PROPERTIES_CLOUDLIB: ${{ secrets.LOCAL_PROPERTIES_CLOUDLIB }}
-          LOCAL_PROPERTIES_UTILSLIB: ${{ secrets.LOCAL_PROPERTIES_UTILSLIB }}
-        run: |
-          echo "${LOCAL_PROPERTIES}" | base64 -d > local.properties
-          echo "${LOCAL_PROPERTIES_CLOUDLIB}" | base64 -d > QuoteUnquote.cloudLib/cloudLib/local.properties
-          echo "${LOCAL_PROPERTIES_UTILSLIB}" | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
-
-      - name: gradlew
-        run: |
-          set -x
-          ./gradlew lintManifestTestDebug
-
-      - name: show .gradle size
-        run: |
-          set -x
-          du -h -d 1 ~/.gradle
-
   lintGooglePlayDebug:
     name: lintGooglePlayDebug
     needs: [checkstyle, detekt]
@@ -240,7 +202,7 @@ jobs:
       name: appcenter.ms
       url: https://appcenter.ms/
     name: assembleGoogleplay
-    needs: [ktlint, super-linter, lintManifestTestDebug, lintGooglePlayDebug, lintFdroidDebug]
+    needs: [ktlint, super-linter, lintGooglePlayDebug, lintFdroidDebug]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -305,7 +267,7 @@ jobs:
       name: appcenter.ms
       url: https://appcenter.ms/
     name: assembleFdroid
-    needs: [ktlint, super-linter, lintManifestTestDebug, lintGooglePlayDebug, lintFdroidDebug]
+    needs: [ktlint, super-linter, lintGooglePlayDebug, lintFdroidDebug]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
