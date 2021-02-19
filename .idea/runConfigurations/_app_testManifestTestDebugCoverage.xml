@@ -16,6 +16,8 @@
       <option name="vmOptions" value="" />
     </ExternalSystemSettings>
     <GradleScriptDebugEnabled>true</GradleScriptDebugEnabled>
-    <method v="2" />
+    <method v="2">
+      <option name="Gradle.BeforeRunTask" enabled="true" tasks="clean" externalProjectPath="$PROJECT_DIR$/app" vmOptions="" scriptParameters="" />
+    </method>
   </configuration>
 </component>

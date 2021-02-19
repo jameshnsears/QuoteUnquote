@@ -56,4 +56,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -x
-          ./gradlew sonarqube --stacktrace
+          ./gradlew build :app:testGoogleplayDebugCoverage sonarqube --info --stacktrace
