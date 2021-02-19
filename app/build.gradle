@@ -121,7 +121,13 @@ android {
         }
         manifestTest {
             java.srcDirs = ['src/main/java', 'src/manifestTest/java']
+            test.java.srcDirs += 'src/manifestTest/java'
         }
+    }
+
+    configurations {
+        manifestTestImplementation.extendsFrom testImplementation
+        manifestTestRuntime.extendsFrom testRuntime
     }
 
     testOptions {
