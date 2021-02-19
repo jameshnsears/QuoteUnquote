@@ -47,7 +47,7 @@
 
 * 2020-2118/? W/BroadcastQueue: Background execution not allowed: receiving Intent { act=android.intent.action.USER_PRESENT flg=0x24200010 } to com.github.jameshnsears.quoteunquote/.QuoteUnquoteWidget
 
-### 5.2. MIUI 12 - ./gradlew <*>Coverage task
+### 5.2. MIUI 12 - ./gradlew <*>CoverageCombined task
 
 ```text
 2021-01-19 16:12:02.853 22522-22522/? W/installer: type=1400 audit(0.0:17528): avc: denied { search } for name="nativetest" dev="dm-2" ino=14 scontext=u:r:shell:s0 tcontext=u:object_r:nativetest_data_file:s0 tclass=dir permissive=0
