@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="app.manifestTest" type="AndroidJUnit" factoryName="Android JUnit" repeat_count="3">
+  <configuration default="false" name="app.manifestTest" type="AndroidJUnit" factoryName="Android JUnit" show_console_on_std_err="true" show_console_on_std_out="true" repeat_count="3">
     <module name="QuoteUnquote.app" />
     <useClassPathOnly />
     <extension name="coverage">
