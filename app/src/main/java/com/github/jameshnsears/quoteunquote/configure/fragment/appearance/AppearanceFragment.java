@@ -86,10 +86,6 @@ public class AppearanceFragment extends FragmentCommon {
         fragmentAppearanceBinding.toolbarSwitchNextSequential.setChecked(appearancePreferences.getAppearanceToolbarSequential());
     }
 
-    protected void setToolbarSwitchReport() {
-
-    }
-
     private void createListenerToolbarFirst() {
         fragmentAppearanceBinding.toolbarSwitchFirst.setOnCheckedChangeListener((buttonView, isChecked) -> {
             appearancePreferences.setAppearanceToolbarFirst(isChecked);

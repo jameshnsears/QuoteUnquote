@@ -52,11 +52,11 @@ jobs:
                do
                   echo "Starting test attempt $n"
                   ./gradlew clean :app:testManifestTestDebugCoverage --stacktrace
-                  bash <(curl https://codecov.io/bash) -t $CODECOVIOTOKEN -f app/build/reports/ManifestTestDebug.xml -F app.manifestTest
+                  # bash <(curl https://codecov.io/bash) -t $CODECOVIOTOKEN -f app/build/reports/ManifestTestDebug.xml -F app.manifestTest
                   ./gradlew clean :app:testGoogleplayDebugCoverageCombined --stacktrace
-                  bash <(curl https://codecov.io/bash) -t $CODECOVIOTOKEN -f app/build/reports/GoogleplayDebug.xml -F app.gooleplay
+                  # bash <(curl https://codecov.io/bash) -t $CODECOVIOTOKEN -f app/build/reports/GoogleplayDebug.xml -F app.gooleplay
                   ./gradlew clean :app:testFdroidDebugCoverageCombined --stacktrace
-                  bash <(curl https://codecov.io/bash) -t $CODECOVIOTOKEN -f app/build/reports/FdroidDebug.xml -F app.froid
+                  # bash <(curl https://codecov.io/bash) -t $CODECOVIOTOKEN -f app/build/reports/FdroidDebug.xml -F app.froid
                   n=$[$n+1]
                   sleep 5
                done
