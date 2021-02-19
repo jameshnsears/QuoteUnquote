@@ -119,6 +119,10 @@ public class ReportActivity extends AppCompatActivity {
         final ContentPreferences contentPreferences = new ContentPreferences(widgetId, getApplicationContext());
         final QuotationEntity quotationToReport = getQuoteUnquoteModel().getNext(widgetId, contentPreferences.getContentSelection());
 
+        if (quotationToReport == null) {
+            return properties;
+        }
+
         properties.put("Report", "digest="
                 + quotationToReport.digest
                 + "; author="

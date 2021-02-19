@@ -8,7 +8,7 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-class ReportActivityTest : QuoteUnquoteModelUtility() {
+class ReportActivityModelDoubleTest : QuoteUnquoteModelUtility() {
     @Test
     fun reportQuotation() {
         insertQuotationsTestData01()
