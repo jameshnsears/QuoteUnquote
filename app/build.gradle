@@ -115,19 +115,17 @@ android {
     }
 
     sourceSets {
+        manifestTest {
+            java.srcDirs = ['src/main/java', 'src/manifestTest/java']
+        }
         fdroid {
             assets.srcDirs = ['src/main/assets']
             java.srcDirs = ['src/main/java', 'src/fdroid/java']
         }
-        manifestTest {
-            java.srcDirs = ['src/main/java', 'src/manifestTest/java']
-            test.java.srcDirs += 'src/manifestTest/java'
+        googleplay {
+            assets.srcDirs = ['src/main/assets']
+            java.srcDirs = ['src/main/java']
         }
-    }
-
-    configurations {
-        manifestTestImplementation.extendsFrom testImplementation
-        manifestTestRuntime.extendsFrom testRuntime
     }
 
     testOptions {
