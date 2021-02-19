@@ -26,6 +26,9 @@ class ContentFragmentTest : ShadowLoggingHelper() {
                 assertFalse(fragment.contentPreferences?.contentSelection == ContentSelection.SEARCH)
 
                 if (BuildConfig.DEBUG) {
+                    // allow time for Single's to be created!
+                    Thread.sleep(250)
+
                     assertEquals("All: 7", fragment.fragmentContentBinding?.radioButtonAll?.text.toString())
                     assertEquals("Author: 1", fragment.fragmentContentBinding?.radioButtonAuthor?.text.toString())
                     assertEquals("Favourites: 0", fragment.fragmentContentBinding?.radioButtonFavourites?.text.toString())

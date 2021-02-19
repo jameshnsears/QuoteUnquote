@@ -8,9 +8,9 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.core.app.launchActivity
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.jameshnsears.quoteunquote.R
-import com.github.jameshnsears.quoteunquote.WidgetIdTestHelper
 import com.github.jameshnsears.quoteunquote.configure.fragment.event.EventFragment
 import com.github.jameshnsears.quoteunquote.utils.logging.ShadowLoggingHelper
+import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import org.junit.After
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -26,7 +26,7 @@ class ConfigureActivityDoubleTest : ShadowLoggingHelper() {
 
     private fun getIntent(): Intent {
         val intent = Intent(ApplicationProvider.getApplicationContext(), ConfigureActivityDouble::class.java)
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, WidgetIdTestHelper.WIDGET_ID)
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, WidgetIdHelper.INSTANCE_01_WIDGET_ID)
         return intent
     }
 

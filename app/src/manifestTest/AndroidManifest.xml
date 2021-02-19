@@ -4,6 +4,5 @@
 
     <application>
         <activity android:name=".configure.ConfigureActivityDouble" />
-        <activity android:name=".report.ReportActivityDouble" />
     </application>
 </manifest>
