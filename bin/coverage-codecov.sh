@@ -7,7 +7,7 @@ export GIT_BRANCH=`git rev-parse --abbrev-ref HEAD`
 export CODECOV_UPLOADER_NAME=`hostname`
 
 ./gradlew clean :app:testGoogleplayDebugCoverageCombined --stacktrace
-bash <(curl https://codecov.io/bash) -v -t ${CODECOVIO_TOKEN} -C ${GIT_HEAD_HASH} -B ${GIT_BRANCH} -n ${CODECOV_UPLOADER_NAME} -f app/build/reports/GoogleplayDebug.xml -F app.gooleplay
+bash <(curl https://codecov.io/bash) -t ${CODECOVIO_TOKEN} -C ${GIT_HEAD_HASH} -B ${GIT_BRANCH} -n ${CODECOV_UPLOADER_NAME} -f app/build/reports/GoogleplayDebug.xml -F app.gooleplay
 
 ./gradlew clean :app:testFdroidDebugCoverageCombined --stacktrace
-bash <(curl https://codecov.io/bash) -v -t ${CODECOVIO_TOKEN} -C ${GIT_HEAD_HASH} -B ${GIT_BRANCH} -n ${CODECOV_UPLOADER_NAME} -f app/build/reports/FdroidDebug.xml -F app.froid
+bash <(curl https://codecov.io/bash) -t ${CODECOVIO_TOKEN} -C ${GIT_HEAD_HASH} -B ${GIT_BRANCH} -n ${CODECOV_UPLOADER_NAME} -f app/build/reports/FdroidDebug.xml -F app.froid
