@@ -66,7 +66,3 @@
 
 * Checkstyle-IDE - Jamie Shiell
 * SonarLint - SonarSource
-
-## 7. Unreliable CI emulator
-
-[![CircleCI](https://circleci.com/gh/jameshnsears/QuoteUnquote.svg?style=svg)](https://github.com/jameshnsears/QuoteUnquote)

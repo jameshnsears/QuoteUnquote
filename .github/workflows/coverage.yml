@@ -41,6 +41,7 @@ jobs:
 
       - name: build.gradle.manifestTest
         run: |
+          set -x
           rm app/build.gradle
           mv app/build.gradle.manifestTest app/build.gradle
 
