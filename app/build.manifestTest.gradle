@@ -109,15 +109,9 @@ android {
     }
 
     sourceSets {
-        fdroid {
-            assets.srcDirs = ['src/main/assets']
-            java.srcDirs = ['src/main/java', 'src/fdroid/java']
-            test.java.srcDirs = ['src/test/java']
-        }
-        googleplay {
-            assets.srcDirs = ['src/main/assets']
-            java.srcDirs = ['src/main/java']
-            test.java.srcDirs = ['src/test/java']
+        manifestTest {
+            java.srcDirs = ['src/main/java', 'src/manifestTest/java']
+            test.java.srcDirs = ['src/manifestTest/java']
         }
     }
 
