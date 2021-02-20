@@ -10,13 +10,13 @@ export CODECOV_UPLOADER_NAME=`hostname`
 
 mv app/build.gradle app/build.gradle.orig
 mv app/build.gradle.manifestTest app/build.gradle
-#./gradlew clean :app:testManifestTestDebugCoverage --stacktrace
-#bash <(curl https://codecov.io/bash) -v -t ${CODECOVIO_TOKEN} -C ${GIT_HEAD_HASH} -B ${GIT_BRANCH} -n ${CODECOV_UPLOADER_NAME} -f app/build/reports/ManifestTestDebug.xml -F app.manifestTest
+./gradlew clean :app:testManifestTestDebugCoverage --stacktrace
+bash <(curl https://codecov.io/bash) -v -t ${CODECOVIO_TOKEN} -C ${GIT_HEAD_HASH} -B ${GIT_BRANCH} -n ${CODECOV_UPLOADER_NAME} -f app/build/reports/ManifestTestDebug.xml -F app.manifestTest
 mv app/build.gradle app/build.gradle.manifestTest
 mv app/build.gradle.orig app/build.gradle
 
-#./gradlew clean :app:testGoogleplayDebugCoverageCombined --stacktrace
-#bash <(curl https://codecov.io/bash) -t ${CODECOVIO_TOKEN} -C ${GIT_HEAD_HASH} -B ${GIT_BRANCH} -n ${CODECOV_UPLOADER_NAME} -f app/build/reports/GoogleplayDebug.xml -F app.gooleplay
+./gradlew clean :app:testGoogleplayDebugCoverageCombined --stacktrace
+bash <(curl https://codecov.io/bash) -t ${CODECOVIO_TOKEN} -C ${GIT_HEAD_HASH} -B ${GIT_BRANCH} -n ${CODECOV_UPLOADER_NAME} -f app/build/reports/GoogleplayDebug.xml -F app.gooleplay
 
-#./gradlew clean :app:testFdroidDebugCoverageCombined --stacktrace
-#bash <(curl https://codecov.io/bash) -t ${CODECOVIO_TOKEN} -C ${GIT_HEAD_HASH} -B ${GIT_BRANCH} -n ${CODECOV_UPLOADER_NAME} -f app/build/reports/FdroidDebug.xml -F app.froid
+./gradlew clean :app:testFdroidDebugCoverageCombined --stacktrace
+bash <(curl https://codecov.io/bash) -t ${CODECOVIO_TOKEN} -C ${GIT_HEAD_HASH} -B ${GIT_BRANCH} -n ${CODECOV_UPLOADER_NAME} -f app/build/reports/FdroidDebug.xml -F app.froid

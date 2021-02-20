@@ -39,6 +39,11 @@ jobs:
           echo "${LOCAL_PROPERTIES_CLOUDLIB}" | base64 -d > QuoteUnquote.cloudLib/cloudLib/local.properties
           echo "${LOCAL_PROPERTIES_UTILSLIB}" | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
 
+      - name: build.gradle.manifestTest
+        run: |
+          rm app/build.gradle
+          mv app/build.gradle.manifestTest app/build.gradle
+
       - name: app
         uses: reactivecircus/android-emulator-runner@v2
         with:
