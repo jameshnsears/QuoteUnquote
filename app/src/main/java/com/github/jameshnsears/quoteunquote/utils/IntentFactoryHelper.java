@@ -65,7 +65,7 @@ public class IntentFactoryHelper {
     }
 
     @NonNull
-    private static Intent createIntent(@NonNull final Context context, final int widgetId) {
+    public static Intent createIntent(@NonNull final Context context, final int widgetId) {
         final Intent intent = new Intent(context, QuoteUnquoteWidget.class);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
         return intent;
