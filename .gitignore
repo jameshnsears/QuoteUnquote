@@ -1,3 +1,4 @@
+/app/build/
 /build
 /captures
 .cxx
@@ -12,15 +13,14 @@
 .idea/modules.xml
 .idea/navEditor.xml
 .idea/QuoteUnquote.iml
-.idea/quoteunquote.iml
 .idea/shelf/
 .idea/sonarlint/issuestore/
+.idea/sonarlint.xml
+.idea/sonarlint-state.xml
+.idea/vcs.xml
 .idea/workspace.xml
 local.properties
-/build/
 /QuoteUnquote.cloudLib/
 /QuoteUnquote.utilsLib/
-/app/build/
-/.Quote, Unquote.vpp.lck
 /Quote, Unquote.vpp.*
-.idea/vcs.xml
+/.Quote, Unquote.vpp.lck
