@@ -27,12 +27,6 @@ public class QuotationEntity {
         this.digest = digest;
     }
 
-    @Override
-    @NonNull
-    public String toString() {
-        return String.format("digest=%s; author=%s", digest, author);
-    }
-
     @NonNull
     public String theQuotation() {
         return String.format("%s%n%n - %s", quotation, author);

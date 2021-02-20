@@ -148,9 +148,8 @@ public class DatabaseRepository {
     }
 
     public void markAsFavourite(@NonNull final String digest) {
-        Timber.d("digest=%s", digest);
-
         if (favouritesDAO.countIsFavourite(digest) == 0 && quotationDAO.getQuotation(digest) != null) {
+            Timber.d("digest=%s", digest);
             favouritesDAO.markAsFavourite(new FavouriteEntity(digest));
         }
     }
