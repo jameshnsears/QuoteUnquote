@@ -9,16 +9,26 @@ import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import io.mockk.every
 import io.mockk.spyk
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Test
 
-class ListViewProviderTest : QuoteUnquoteModelUtility() {
+class ListViewTest : QuoteUnquoteModelUtility() {
+    @Test
+    fun listViewService() {
+        assertNotNull(ListViewService().onGetViewFactory(getIntent()) as ListViewProvider)
+    }
+
+    private fun getIntent(): Intent {
+        val intent = Intent()
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, WidgetIdHelper.INSTANCE_01_WIDGET_ID)
+        return intent
+    }
+
     @Test
     fun countItemsInList() {
         insertQuotationsTestData01()
-        val intent = Intent()
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, WidgetIdHelper.INSTANCE_01_WIDGET_ID)
 
-        val listViewProvider = spyk(ListViewProvider(context, intent))
+        val listViewProvider = spyk(ListViewProvider(context, getIntent()))
         every { listViewProvider.getQuoteUnquoteModel(any()) } returns quoteUnquoteModelDouble
 
         val contentPreferences = spyk(ContentPreferences(context))
@@ -32,5 +42,7 @@ class ListViewProviderTest : QuoteUnquoteModelUtility() {
         listViewProvider.onDataSetChanged()
 
         assertEquals(1, listViewProvider.count)
+
+        listViewProvider.onDestroy()
     }
 }

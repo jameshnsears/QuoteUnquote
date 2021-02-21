@@ -3,9 +3,12 @@ package com.github.jameshnsears.quoteunquote.utils
 import android.appwidget.AppWidgetManager
 import android.content.Intent
 import android.os.Build
+import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.github.jameshnsears.quoteunquote.listview.ListViewService
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
@@ -14,9 +17,8 @@ import org.robolectric.annotation.Config
 @Config(sdk = [Build.VERSION_CODES.P])
 class IntentFactoryHelperTest {
     @Test
-    fun createIntent() {
+    fun createSimpleIntent() {
         val intent = IntentFactoryHelper.createIntent(WidgetIdHelper.INSTANCE_01_WIDGET_ID)
-
         assertEquals(WidgetIdHelper.INSTANCE_01_WIDGET_ID, intent.extras?.get(AppWidgetManager.EXTRA_APPWIDGET_ID))
     }
 
@@ -27,5 +29,32 @@ class IntentFactoryHelperTest {
 
         assertEquals("s", bundle?.get("android.intent.extra.SUBJECT"))
         assertEquals("q", bundle?.get("android.intent.extra.TEXT"))
+    }
+
+    @Test
+    fun createComplexIntent() {
+        val intent = IntentFactoryHelper.createIntent(
+            getApplicationContext(),
+            ListViewService::class.java, WidgetIdHelper.INSTANCE_01_WIDGET_ID
+        )
+
+        assertNotNull(intent.extras)
+    }
+
+    @Test
+    fun createIntentAction() {
+        val intent = IntentFactoryHelper.createIntentAction(
+            getApplicationContext(), WidgetIdHelper.INSTANCE_01_WIDGET_ID,
+            IntentFactoryHelper.ACTIVITY_FINISHED_CONFIGURATION
+        )
+
+        assertNotNull(intent.extras)
+    }
+
+    @Test
+    fun createIntentActionView() {
+        val intent = IntentFactoryHelper.createIntentActionView()
+
+        assertNotNull(intent.data)
     }
 }

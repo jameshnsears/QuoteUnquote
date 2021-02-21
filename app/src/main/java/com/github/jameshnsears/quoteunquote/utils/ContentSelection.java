@@ -22,12 +22,14 @@ public enum ContentSelection {
     @TypeConverter
     @NonNull
     public static ContentSelection getContentType(@NonNull final Integer integer) {
+        ContentSelection contentType = null;
         for (final ContentSelection contentSelection : values()) {
             if (Objects.equals(contentSelection.code, integer)) {
-                return contentSelection;
+                contentType = contentSelection;
+                break;
             }
         }
-        return null;
+        return contentType;
     }
 
     @TypeConverter
