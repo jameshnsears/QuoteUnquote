@@ -26,7 +26,6 @@ import com.github.jameshnsears.quoteunquote.database.quotation.AuthorPOJO;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentContentBinding;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
-import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade;
 import com.github.jameshnsears.quoteunquote.utils.ui.ToastHelper;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
@@ -60,6 +59,7 @@ public class ContentFragment extends FragmentCommon {
     protected ContentCloud contentCloud;
     @Nullable
     private DisposableObserver<Integer> disposableObserver;
+
     protected ContentFragment(final int widgetId) {
         super(widgetId);
     }

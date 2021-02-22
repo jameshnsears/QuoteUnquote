@@ -4,6 +4,7 @@ import android.app.ActivityManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
@@ -18,9 +19,12 @@ import com.github.jameshnsears.quoteunquote.utils.ui.ToastHelper;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-public final class CloudServiceSend extends Service {
+public class CloudServiceSend extends Service {
     @NonNull
     private final Handler handler = new Handler(Looper.getMainLooper());
+
+    @Nullable
+    public CloudFavourites cloudFavourites = getCloudFavourites();
 
     public static boolean isRunning(@NonNull final Context context) {
         final ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
@@ -33,10 +37,16 @@ public final class CloudServiceSend extends Service {
         return false;
     }
 
+    public class LocalBinder extends Binder {
+        CloudServiceSend getService() {
+            return CloudServiceSend.this;
+        }
+    }
+
     @Override
     @Nullable
     public IBinder onBind(@NonNull final Intent intent) {
-        return null;
+        return new LocalBinder();
     }
 
     private void showNoNetworkToast(@NonNull final Context context) {
@@ -46,13 +56,15 @@ public final class CloudServiceSend extends Service {
                 Toast.LENGTH_SHORT));
     }
 
+    public CloudFavourites getCloudFavourites() {
+        return new CloudFavourites();
+    }
+
     @Override
     public int onStartCommand(
             @NonNull final Intent intent, final int flags, final int startId) {
         new Thread(() -> {
             final Context context = CloudServiceSend.this.getApplicationContext();
-
-            final CloudFavourites cloudFavourites = new CloudFavourites();
 
             try {
                 if (!cloudFavourites.isInternetAvailable()) {

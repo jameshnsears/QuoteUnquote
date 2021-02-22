@@ -263,7 +263,7 @@ public class QuoteUnquoteModel {
         logWidgetId(widgetId);
 
         final Future future = executorService.submit(() ->
-            databaseRepository.deletePrevious(widgetId)
+                databaseRepository.deletePrevious(widgetId)
         );
 
         try {
@@ -294,7 +294,7 @@ public class QuoteUnquoteModel {
         Timber.d(logMsg);
 
         final Future future = executorService.submit(() ->
-            databaseRepository.deletePrevious(widgetId, contentSelection)
+                databaseRepository.deletePrevious(widgetId, contentSelection)
         );
 
         try {
