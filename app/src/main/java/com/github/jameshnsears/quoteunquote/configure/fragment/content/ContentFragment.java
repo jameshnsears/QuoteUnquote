@@ -438,7 +438,7 @@ public class ContentFragment extends FragmentCommon {
         fragmentContentBinding.buttonSend.setOnClickListener(v -> {
             if (fragmentContentBinding.buttonSend.isEnabled()) {
 
-                if (!CloudServiceSend.isRunning(getContext())) {
+                if (!CloudServiceSend.isRunning) {
                     final Intent serviceIntent = new Intent(getContext(), CloudServiceSend.class);
                     serviceIntent.putExtra("savePayload", contentViewModel.getFavouritesToSend());
                     serviceIntent.putExtra(

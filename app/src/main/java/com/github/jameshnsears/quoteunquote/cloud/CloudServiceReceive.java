@@ -20,12 +20,25 @@ import com.github.jameshnsears.quoteunquote.utils.ui.ToastHelper;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
-public final class CloudServiceReceive extends Service {
+public class CloudServiceReceive extends Service {
     @NonNull
     private final IBinder binder = new LocalBinder();
 
     @NonNull
-    private final Handler handler = new Handler(Looper.getMainLooper());
+    private final Handler handler = getHandler();
+
+    @NonNull
+    protected Handler getHandler() {
+        return new Handler(Looper.getMainLooper());
+    }
+
+    @NonNull
+    private final CloudFavourites cloudFavourites = getCloudFavourites();
+
+    @NonNull
+    protected DatabaseRepository getDatabaseRepository(Context context) {
+        return DatabaseRepository.getInstance(context);
+    }
 
     @Override
     @NonNull
@@ -33,23 +46,14 @@ public final class CloudServiceReceive extends Service {
         return binder;
     }
 
-    private void showNoNetworkToast(@NonNull final Context context) {
-        handler.post(() -> ToastHelper.makeToast(
-                context,
-                context.getString(R.string.fragment_content_favourites_share_comms),
-                Toast.LENGTH_SHORT));
-    }
-
     public void receive(
             @NonNull final ContentFragment contentFragment, @NonNull final String remoteCodeValue) {
         new Thread(() -> {
             final Context context = CloudServiceReceive.this.getApplicationContext();
 
-            final CloudFavourites cloudFavourites = new CloudFavourites();
-
             try {
                 if (!cloudFavourites.isInternetAvailable()) {
-                    showNoNetworkToast(context);
+                    CloudServiceHelper.showNoNetworkToast(context, handler);
                 } else {
                     handler.post(() -> ToastHelper.makeToast(
                             context,
@@ -67,8 +71,7 @@ public final class CloudServiceReceive extends Service {
                         handler.post(() -> ToastHelper.makeToast(
                                 context, context.getString(R.string.fragment_content_favourites_share_received), Toast.LENGTH_LONG));
 
-                        final DatabaseRepository databaseRepository = DatabaseRepository.getInstance(context);
-                        favouritesReceived.forEach(databaseRepository::markAsFavourite);
+                        favouritesReceived.forEach(getDatabaseRepository(context)::markAsFavourite);
 
                         if (contentFragment != null) {
                             contentFragment.setFavouriteCount();
@@ -84,6 +87,11 @@ public final class CloudServiceReceive extends Service {
                 cloudFavourites.shutdown();
             }
         }).start();
+    }
+
+    @NonNull
+    protected CloudFavourites getCloudFavourites() {
+        return new CloudFavourites();
     }
 
     public class LocalBinder extends Binder {

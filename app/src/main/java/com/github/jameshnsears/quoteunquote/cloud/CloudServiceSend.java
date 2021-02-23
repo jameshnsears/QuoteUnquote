@@ -1,10 +1,8 @@
 package com.github.jameshnsears.quoteunquote.cloud;
 
-import android.app.ActivityManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
@@ -21,39 +19,33 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class CloudServiceSend extends Service {
     @NonNull
-    private final Handler handler = new Handler(Looper.getMainLooper());
+    public Handler handler = new Handler(Looper.getMainLooper());
 
     @Nullable
     public CloudFavourites cloudFavourites = getCloudFavourites();
 
-    public static boolean isRunning(@NonNull final Context context) {
-        final ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+    public static boolean isRunning = false;
 
-        for (final ActivityManager.RunningServiceInfo runningServiceInfo : activityManager.getRunningServices(Integer.MAX_VALUE)) {
-            if (runningServiceInfo.service.getClassName().equals(CloudServiceSend.class.getName())) {
-                return true;
-            }
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        synchronized (this) {
+            isRunning = true;
         }
-        return false;
     }
 
-    public class LocalBinder extends Binder {
-        CloudServiceSend getService() {
-            return CloudServiceSend.this;
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        synchronized (this) {
+            isRunning = false;
         }
     }
 
     @Override
     @Nullable
     public IBinder onBind(@NonNull final Intent intent) {
-        return new LocalBinder();
-    }
-
-    private void showNoNetworkToast(@NonNull final Context context) {
-        handler.post(() -> ToastHelper.makeToast(
-                context,
-                context.getString(R.string.fragment_content_favourites_share_comms),
-                Toast.LENGTH_SHORT));
+        return null;
     }
 
     public CloudFavourites getCloudFavourites() {
@@ -63,41 +55,55 @@ public class CloudServiceSend extends Service {
     @Override
     public int onStartCommand(
             @NonNull final Intent intent, final int flags, final int startId) {
-        new Thread(() -> {
-            final Context context = CloudServiceSend.this.getApplicationContext();
 
-            try {
-                if (!cloudFavourites.isInternetAvailable()) {
-                    showNoNetworkToast(context);
-                } else {
-                    handler.post(() -> ToastHelper.makeToast(
-                            context,
-                            context.getString(R.string.fragment_content_favourites_share_sending),
-                            Toast.LENGTH_LONG));
+        if (!isRunning) {
+            synchronized (this) {
+                isRunning = true;
+            }
 
-                    if (cloudFavourites.save(intent.getStringExtra("savePayload"))) {
+            new Thread(() -> {
+                final Context context = getServiceContext();
 
+                try {
+                    if (!cloudFavourites.isInternetAvailable()) {
+                        CloudServiceHelper.showNoNetworkToast(context, handler);
+                    } else {
                         handler.post(() -> ToastHelper.makeToast(
                                 context,
-                                context.getString(R.string.fragment_content_favourites_share_sent, intent.getStringExtra("localCodeValue")),
+                                context.getString(R.string.fragment_content_favourites_share_sending),
                                 Toast.LENGTH_LONG));
 
-                        final ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
-                        properties.put("code", intent.getStringExtra("localCodeValue"));
-                        AuditEventHelper.auditEvent("FAVOURITE_SEND", properties);
+                        if (cloudFavourites.save(intent.getStringExtra("savePayload"))) {
 
-                    } else {
-                        showNoNetworkToast(context);
+                            handler.post(() -> ToastHelper.makeToast(
+                                    context,
+                                    context.getString(R.string.fragment_content_favourites_share_sent, intent.getStringExtra("localCodeValue")),
+                                    Toast.LENGTH_LONG));
+
+                            final ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
+                            properties.put("code", intent.getStringExtra("localCodeValue"));
+                            AuditEventHelper.auditEvent("FAVOURITE_SEND", properties);
+
+                        } else {
+                            CloudServiceHelper.showNoNetworkToast(context, handler);
+                        }
+                    }
+
+                    stopSelf();
+                } finally {
+                    cloudFavourites.shutdown();
+                    synchronized (this) {
+                        isRunning = false;
                     }
                 }
 
-                stopSelf();
-            } finally {
-                cloudFavourites.shutdown();
-            }
-
-        }).start();
+            }).start();
+        }
 
         return START_NOT_STICKY;
+    }
+
+    public Context getServiceContext() {
+        return CloudServiceSend.this.getApplicationContext();
     }
 }

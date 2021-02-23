@@ -500,7 +500,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             getQuoteUnquoteModelInstance(context).disable();
             PreferencesFacade.disable(context);
 
-            if (CloudServiceSend.isRunning(context)) {
+            if (CloudServiceSend.isRunning) {
                 context.stopService(new Intent(context, CloudServiceSend.class));
             }
         } finally {
