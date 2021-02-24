@@ -1,6 +1,7 @@
 package com.github.jameshnsears.quoteunquote.utils;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.TypeConverter;
 
 import java.util.Objects;
@@ -20,7 +21,7 @@ public enum ContentSelection {
     }
 
     @TypeConverter
-    @NonNull
+    @Nullable
     public static ContentSelection getContentType(@NonNull final Integer integer) {
         ContentSelection contentType = null;
         for (final ContentSelection contentSelection : values()) {
