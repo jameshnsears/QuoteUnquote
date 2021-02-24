@@ -19,6 +19,7 @@
 .idea/sonarlint-state.xml
 .idea/vcs.xml
 .idea/workspace.xml
+.scannerwork
 local.properties
 /QuoteUnquote.cloudLib/
 /QuoteUnquote.utilsLib/
