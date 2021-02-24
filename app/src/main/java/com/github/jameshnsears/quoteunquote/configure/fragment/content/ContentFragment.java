@@ -46,9 +46,9 @@ public class ContentFragment extends FragmentCommon {
     private final CompositeDisposable disposables = new CompositeDisposable();
     @Nullable
     public FragmentContentBinding fragmentContentBinding;
-    public volatile CountDownLatch latchAllCount = new CountDownLatch(1);
-    public volatile CountDownLatch latchAuthor = new CountDownLatch(1);
-    public volatile CountDownLatch latchFavouriteCount = new CountDownLatch(1);
+    public CountDownLatch latchAllCount = new CountDownLatch(1);
+    public CountDownLatch latchAuthor = new CountDownLatch(1);
+    public CountDownLatch latchFavouriteCount = new CountDownLatch(1);
     public int countSearchResults;
     @Nullable
     protected ContentViewModel contentViewModel;
@@ -209,7 +209,9 @@ public class ContentFragment extends FragmentCommon {
                                 fragmentContentBinding.radioButtonAll.setText(
                                         getResources().getString(R.string.fragment_content_all, value));
 
-                                latchAllCount.countDown();
+                                synchronized(this) {
+                                    latchAllCount.countDown();
+                                }
                             }
 
                             @Override
@@ -238,7 +240,9 @@ public class ContentFragment extends FragmentCommon {
 
                                 setAuthorName(authors.get(0));
 
-                                latchAuthor.countDown();
+                                synchronized(this) {
+                                    latchAuthor.countDown();
+                                }
                             }
 
                             @Override
@@ -287,7 +291,9 @@ public class ContentFragment extends FragmentCommon {
                                 fragmentContentBinding.radioButtonFavourites.setText(
                                         getResources().getString(R.string.fragment_content_favourites, value));
 
-                                latchFavouriteCount.countDown();
+                                synchronized(this) {
+                                    latchFavouriteCount.countDown();
+                                }
                             }
 
                             @Override
