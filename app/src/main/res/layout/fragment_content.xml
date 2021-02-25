@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingTop="10dp"
+        android:paddingTop="5dp"
         android:paddingBottom="5dp">
 
         <TextView
@@ -21,7 +21,7 @@
             android:paddingEnd="10dp"
             android:text="@string/fragment_content_title"
             android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <View
@@ -42,14 +42,16 @@
             android:layout_height="wrap_content"
             android:checked="true"
             android:paddingVertical="10dp"
-            android:text="@string/fragment_content_all" />
+            android:text="@string/fragment_content_all"
+            android:textSize="16sp" />
 
         <RadioButton
             android:id="@+id/radioButtonAuthor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="10dp"
-            android:text="@string/fragment_content_author" />
+            android:text="@string/fragment_content_author"
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -69,7 +71,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="10dp"
-            android:text="@string/fragment_content_favourites" />
+            android:text="@string/fragment_content_favourites"
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -83,7 +86,8 @@
                 android:paddingVertical="5dp"
                 android:paddingStart="5dp"
                 android:paddingEnd="0dp"
-                android:text="@string/fragment_content_favourites_share_instructions" />
+                android:text="@string/fragment_content_favourites_share_instructions"
+                android:textSize="16sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -100,6 +104,7 @@
                     android:importantForAutofill="no"
                     android:inputType="text"
                     android:maxLength="10"
+                    android:textIsSelectable="true"
                     android:textSize="16sp" />
 
                 <Button
@@ -108,7 +113,8 @@
                     android:layout_height="35dp"
                     android:background="@drawable/corners_buttons"
                     android:text="@string/fragment_content_favourites_share_remote_receive"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -132,7 +138,8 @@
                     android:layout_height="35dp"
                     android:background="@drawable/corners_buttons"
                     android:text="@string/fragment_content_favourites_share_local_code_send"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
             </LinearLayout>
 
         </LinearLayout>
@@ -143,7 +150,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="10dp"
-            android:text="@string/fragment_content_text" />
+            android:text="@string/fragment_content_text"
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -162,6 +170,7 @@
                 android:importantForAutofill="no"
                 android:inputType="text"
                 android:maxLength="50"
+                android:textIsSelectable="true"
                 android:textSize="16sp" />
 
         </LinearLayout>

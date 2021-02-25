@@ -11,7 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@color/colorPrimary"
-        android:paddingVertical="10dp" />
+        android:paddingVertical="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -19,6 +21,7 @@
         android:drawablePadding="5dp"
         android:paddingVertical="10dp"
         android:text="@string/fragment_footer_os_warning"
+        android:textSize="16sp"
         app:drawableStartCompat="@drawable/ic_warning_black_24dp" />
 
     <LinearLayout
@@ -30,7 +33,7 @@
             android:id="@+id/textViewVersion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="6dp"
+            android:paddingTop="10dp"
             android:textIsSelectable="true" />
 
         <LinearLayout
@@ -39,14 +42,14 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:focusable="true"
-            android:gravity="end"
-            android:paddingBottom="10dp">
+            android:gravity="end">
 
             <ImageView
-                android:layout_width="75dp"
-                android:layout_height="30dp"
+                android:layout_width="85dp"
+                android:layout_height="40dp"
                 android:contentDescription="@string/fragment_footer_oss"
-                android:padding="5dp"
+                android:paddingStart="0dp"
+                android:paddingEnd="5dp"
                 android:src="@drawable/ic_github_logo" />
 
         </LinearLayout>

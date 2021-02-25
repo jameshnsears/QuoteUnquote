@@ -21,7 +21,7 @@
             android:paddingEnd="10dp"
             android:text="@string/fragment_event_title"
             android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="24sp"
+            android:textSize="36sp"
             android:textStyle="bold" />
 
         <View
@@ -36,12 +36,33 @@
         android:layout_height="wrap_content"
         android:paddingVertical="10dp"
         android:text="@string/fragment_event_instructions"
-        android:textSize="18sp" />
+        android:textSize="24sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <CheckBox
+                android:id="@+id/checkBoxDailyAt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_event_daily"
+                android:textSize="24sp" />
+
+            <TimePicker
+                android:id="@+id/timePickerDailyAt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:timePickerMode="spinner" />
+        </LinearLayout>
 
         <CheckBox
             android:id="@+id/checkBoxDeviceUnlock"
@@ -50,27 +71,7 @@
             android:layout_weight="1"
             android:paddingVertical="5dp"
             android:text="@string/fragment_event_device_unlock"
-            android:textSize="18sp" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <CheckBox
-                android:id="@+id/checkBoxDailyAt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/fragment_event_daily"
-                android:textSize="18sp" />
-
-            <TimePicker
-                android:id="@+id/timePickerDailyAt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:timePickerMode="spinner" />
-        </LinearLayout>
+            android:textSize="24sp" />
 
     </LinearLayout>
 </LinearLayout>

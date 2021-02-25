@@ -120,7 +120,6 @@ public class ContentFragment extends FragmentCommon {
     }
 
     protected void setFavouriteLocalCode() {
-        final ContentPreferences contentPreferences = new ContentPreferences(getContext());
         fragmentContentBinding.textViewLocalCodeValue.setText(contentPreferences.getContentFavouritesLocalCode());
     }
 
@@ -129,7 +128,7 @@ public class ContentFragment extends FragmentCommon {
 
         final String editTextKeywords = contentPreferences.getContentSelectionSearchText();
 
-        if (editTextKeywords != null && editTextKeywords.length() > 0) {
+        if (editTextKeywords.length() > 0) {
             final ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
             properties.put("Text", editTextKeywords);
             AuditEventHelper.auditEvent("SEARCH", properties);
@@ -209,7 +208,7 @@ public class ContentFragment extends FragmentCommon {
                                 fragmentContentBinding.radioButtonAll.setText(
                                         getResources().getString(R.string.fragment_content_all, value));
 
-                                synchronized(this) {
+                                synchronized (this) {
                                     latchAllCount.countDown();
                                 }
                             }
@@ -240,7 +239,7 @@ public class ContentFragment extends FragmentCommon {
 
                                 setAuthorName(authors.get(0));
 
-                                synchronized(this) {
+                                synchronized (this) {
                                     latchAuthor.countDown();
                                 }
                             }
@@ -291,7 +290,7 @@ public class ContentFragment extends FragmentCommon {
                                 fragmentContentBinding.radioButtonFavourites.setText(
                                         getResources().getString(R.string.fragment_content_favourites, value));
 
-                                synchronized(this) {
+                                synchronized (this) {
                                     latchFavouriteCount.countDown();
                                 }
                             }
@@ -464,19 +463,19 @@ public class ContentFragment extends FragmentCommon {
 
                 if (fragmentContentBinding.editTextRemoteCodeValue.getText().toString().length() != 10) {
                     ToastHelper.makeToast(
-                            getContext(), getContext().getString(R.string.fragment_content_favourites_share_remote_code_general), Toast.LENGTH_SHORT);
+                            getContext(), getContext().getString(R.string.fragment_content_favourites_share_remote_code_general), Toast.LENGTH_LONG);
                     return;
                 }
 
                 if (fragmentContentBinding.editTextRemoteCodeValue.getText().toString().equals(fragmentContentBinding.textViewLocalCodeValue.getText().toString())) {
                     ToastHelper.makeToast(
-                            getContext(), getContext().getString(R.string.fragment_content_favourites_share_remote_code_general), Toast.LENGTH_SHORT);
+                            getContext(), getContext().getString(R.string.fragment_content_favourites_share_remote_code_general), Toast.LENGTH_LONG);
                     return;
                 }
 
                 if (!CloudFavouritesHelper.isRemoteCodeValid(fragmentContentBinding.editTextRemoteCodeValue.getText().toString())) {
                     ToastHelper.makeToast(
-                            getContext(), getContext().getString(R.string.fragment_content_favourites_share_remote_code_general), Toast.LENGTH_SHORT);
+                            getContext(), getContext().getString(R.string.fragment_content_favourites_share_remote_code_general), Toast.LENGTH_LONG);
                     return;
                 }
 

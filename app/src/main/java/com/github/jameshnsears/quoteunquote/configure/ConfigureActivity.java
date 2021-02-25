@@ -116,6 +116,8 @@ public class ConfigureActivity extends AppCompatActivity {
     public void createFragments() {
         AuditEventHelper.createInstance(getApplication());
 
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.mipmap.ic_launcher);
         this.setTitle(getString(R.string.activity_configure_title));
 
         final FragmentManager supportFragmentManager = getSupportFragmentManager();

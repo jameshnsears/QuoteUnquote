@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/activity_report_reason"
-            android:textSize="18sp" />
+            android:textSize="24sp" />
 
         <Spinner
             android:id="@+id/spinnerReason"
@@ -53,14 +53,14 @@
         android:inputType="textMultiLine"
         android:lines="3"
         android:maxLength="100"
-        android:textSize="20sp" />
+        android:textSize="24sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingVertical="5dp"
         android:text="@string/activity_report_instruction_01"
-        android:textSize="18sp" />
+        android:textSize="24sp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -69,7 +69,7 @@
         android:paddingStart="10dp"
         android:paddingEnd="0dp"
         android:text="@string/activity_report_instruction_02"
-        android:textSize="18sp" />
+        android:textSize="24sp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -78,7 +78,7 @@
         android:paddingStart="10dp"
         android:paddingEnd="0dp"
         android:text="@string/activity_report_instruction_03"
-        android:textSize="18sp" />
+        android:textSize="24sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -88,12 +88,12 @@
         android:paddingTop="20dp">
 
         <Button
-            android:layout_width="80dp"
+            android:layout_width="120dp"
             android:layout_height="40dp"
             android:background="@drawable/corners_buttons"
             android:text="@android:string/cancel"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="24sp" />
 
         <View
             android:layout_width="10dp"
@@ -101,12 +101,12 @@
 
         <Button
             android:id="@+id/buttonOK"
-            android:layout_width="80dp"
+            android:layout_width="120dp"
             android:layout_height="40dp"
             android:background="@drawable/corners_buttons"
             android:text="@android:string/ok"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="24sp" />
     </LinearLayout>
 
 </LinearLayout>

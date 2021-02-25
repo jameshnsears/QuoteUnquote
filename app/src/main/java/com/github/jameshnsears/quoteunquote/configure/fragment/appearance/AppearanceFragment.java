@@ -87,45 +87,45 @@ public class AppearanceFragment extends FragmentCommon {
     }
 
     private void createListenerToolbarFirst() {
-        fragmentAppearanceBinding.toolbarSwitchFirst.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            appearancePreferences.setAppearanceToolbarFirst(isChecked);
-        });
+        fragmentAppearanceBinding.toolbarSwitchFirst.setOnCheckedChangeListener((buttonView, isChecked) ->
+            appearancePreferences.setAppearanceToolbarFirst(isChecked)
+        );
     }
 
     private void createListenerToolbarPrevious() {
-        fragmentAppearanceBinding.toolbarSwitchPrevious.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            appearancePreferences.setAppearanceToolbarPrevious(isChecked);
-        });
+        fragmentAppearanceBinding.toolbarSwitchPrevious.setOnCheckedChangeListener((buttonView, isChecked) ->
+            appearancePreferences.setAppearanceToolbarPrevious(isChecked)
+        );
     }
 
     private void createListenerToolbarReport() {
-        fragmentAppearanceBinding.toolbarSwitchReport.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            appearancePreferences.setAppearanceToolbarReport(isChecked);
-        });
+        fragmentAppearanceBinding.toolbarSwitchReport.setOnCheckedChangeListener((buttonView, isChecked) ->
+            appearancePreferences.setAppearanceToolbarReport(isChecked)
+        );
     }
 
     private void createListenerToolbarToggleFavourite() {
-        fragmentAppearanceBinding.toolbarSwitchToggleFavourite.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            appearancePreferences.setAppearanceToolbarFavourite(isChecked);
-        });
+        fragmentAppearanceBinding.toolbarSwitchToggleFavourite.setOnCheckedChangeListener((buttonView, isChecked) ->
+            appearancePreferences.setAppearanceToolbarFavourite(isChecked)
+        );
     }
 
     private void createListenerToolbarShare() {
-        fragmentAppearanceBinding.toolbarSwitchShare.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            appearancePreferences.setAppearanceToolbarShare(isChecked);
-        });
+        fragmentAppearanceBinding.toolbarSwitchShare.setOnCheckedChangeListener((buttonView, isChecked) ->
+            appearancePreferences.setAppearanceToolbarShare(isChecked)
+        );
     }
 
     private void createListenerToolbarNextRandom() {
-        fragmentAppearanceBinding.toolbarSwitchNextRandom.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            appearancePreferences.setAppearanceToolbarRandom(isChecked);
-        });
+        fragmentAppearanceBinding.toolbarSwitchNextRandom.setOnCheckedChangeListener((buttonView, isChecked) ->
+            appearancePreferences.setAppearanceToolbarRandom(isChecked)
+        );
     }
 
     private void createListenerToolbarNextSequential() {
-        fragmentAppearanceBinding.toolbarSwitchNextSequential.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            appearancePreferences.setAppearanceToolbarSequential(isChecked);
-        });
+        fragmentAppearanceBinding.toolbarSwitchNextSequential.setOnCheckedChangeListener((buttonView, isChecked) ->
+            appearancePreferences.setAppearanceToolbarSequential(isChecked)
+        );
     }
 
     private void createListenerTransparency() {
@@ -222,7 +222,7 @@ public class AppearanceFragment extends FragmentCommon {
             @NonNull final Spinner spinnerSize) {
         final int testSizePreference = this.appearancePreferences.getAppearanceTextSize();
         if (testSizePreference == -1) {
-            spinnerSize.setSelection(2);
+            spinnerSize.setSelection(3);
         } else {
             int selectionIndex = 0;
             for (final Integer sizeInteger : sizeIntegerArray) {

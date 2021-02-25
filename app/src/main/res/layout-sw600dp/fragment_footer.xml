@@ -12,7 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@color/colorPrimary"
-        android:paddingVertical="10dp" />
+        android:paddingVertical="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -20,7 +22,7 @@
         android:drawablePadding="5dp"
         android:paddingVertical="10dp"
         android:text="@string/fragment_footer_os_warning"
-        android:textSize="18sp"
+        android:textSize="24sp"
         app:drawableStartCompat="@drawable/ic_warning_black_24dp" />
 
     <LinearLayout
@@ -32,7 +34,7 @@
             android:id="@+id/textViewVersion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="6dp"
+            android:paddingTop="10dp"
             android:textIsSelectable="true"
             android:textSize="18sp" />
 
@@ -45,8 +47,8 @@
             android:gravity="end">
 
             <ImageView
-                android:layout_width="100dp"
-                android:layout_height="50dp"
+                android:layout_width="120dp"
+                android:layout_height="60dp"
                 android:contentDescription="@string/fragment_footer_github"
                 android:paddingStart="0dp"
                 android:paddingEnd="5dp"
