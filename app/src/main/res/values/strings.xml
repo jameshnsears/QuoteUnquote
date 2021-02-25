@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Quote, Unquote</string>
 
-    <string name="widget_button_first_toast">First quotation in selection</string>
-    <string name="widget_button_next_toast">Final quotation in selection</string>
+    <string name="widget_button_first_toast">First quotation, in selection</string>
+    <string name="widget_button_next_toast">Last quotation, in selection</string>
 
     <string name="activity_configure_title">Quote, Unquote</string>
 
@@ -58,8 +58,8 @@
     <string name="fragment_content_favourites_share_remove_code_value">Remote code</string>
     <string name="fragment_content_favourites_share_remote_receive">Receive</string>
     <string name="fragment_content_favourites_share_sending">Sending favourites&#8230;</string>
-    <string name="fragment_content_favourites_share_sent">Sent - use %s on other device</string>
-    <string name="fragment_content_favourites_share_remote_code_general">Please use code from another device</string>
+    <string name="fragment_content_favourites_share_sent">Sent - use %s on differfent device</string>
+    <string name="fragment_content_favourites_share_remote_code_general">Please use code from different device</string>
     <string name="fragment_content_favourites_share_receiving">Fetching favourites&#8230;</string>
     <string name="fragment_content_favourites_share_received">Received - favourites appended</string>
     <string name="fragment_content_favourites_share_missing">Unable to locate remote code, please retry later</string>
@@ -71,8 +71,8 @@
 
     <string name="fragment_event_title">Schedule</string>
     <string name="fragment_event_where">Display</string>
-    <string name="fragment_event_in_widget">in Widget</string>
-    <string name="fragment_event_as_notification">as Notification</string>
+    <string name="fragment_event_in_widget">Widget</string>
+    <string name="fragment_event_as_notification">Widget &amp; Notification</string>
     <string name="fragment_event">Event</string>
     <string name="fragment_event_device_unlock">Screen unlock (device dependent)</string>
     <string name="fragment_event_daily">Time</string>

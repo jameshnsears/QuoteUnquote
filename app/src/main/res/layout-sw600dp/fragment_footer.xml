@@ -22,7 +22,7 @@
         android:drawablePadding="5dp"
         android:paddingVertical="10dp"
         android:text="@string/fragment_footer_os_warning"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:drawableStartCompat="@drawable/ic_warning_black_24dp" />
 
     <LinearLayout
