@@ -29,19 +29,83 @@
             android:layout_height="2dp"
             android:layout_weight="1"
             android:background="@color/colorPrimary" />
+
     </LinearLayout>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="20dp"
+        android:paddingEnd="0dp">
+
+        <RadioButton
+            android:id="@+id/radioButtonNextRandom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:paddingVertical="10dp"
+            android:text="@string/fragment_appearance_instructions_next_random"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:id="@+id/radioButtonNextSequential"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="10dp"
+            android:text="@string/fragment_appearance_instructions_next_sequential"
+            android:textSize="16sp" />
+    </RadioGroup>
+
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
-        android:text="@string/fragment_event_instructions"
-        android:textSize="16sp" />
+        android:paddingBottom="5dp"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp"
+        android:text="@string/fragment_event_where"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="20dp"
+        android:paddingEnd="0dp">
+
+        <RadioButton
+            android:id="@+id/radioButtonWhereInWidget"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:paddingVertical="10dp"
+            android:text="@string/fragment_event_in_widget"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:id="@+id/radioButtonWhereAsNotification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="10dp"
+            android:text="@string/fragment_event_as_notification"
+            android:textSize="16sp" />
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="5dp"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp"
+        android:text="@string/fragment_event"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <CheckBox
         android:id="@+id/checkBoxDeviceUnlock"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingTop="10dp"
         android:text="@string/fragment_event_device_unlock"
         android:textSize="16sp" />
 

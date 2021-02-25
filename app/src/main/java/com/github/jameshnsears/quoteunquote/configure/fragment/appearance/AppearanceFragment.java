@@ -222,7 +222,7 @@ public class AppearanceFragment extends FragmentCommon {
             @NonNull final Spinner spinnerSize) {
         final int testSizePreference = this.appearancePreferences.getAppearanceTextSize();
         if (testSizePreference == -1) {
-            spinnerSize.setSelection(3);
+            spinnerSize.setSelection(2);
         } else {
             int selectionIndex = 0;
             for (final Integer sizeInteger : sizeIntegerArray) {

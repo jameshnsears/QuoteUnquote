@@ -21,7 +21,7 @@
         android:drawablePadding="5dp"
         android:paddingVertical="10dp"
         android:text="@string/fragment_footer_os_warning"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:drawableStartCompat="@drawable/ic_warning_black_24dp" />
 
     <LinearLayout
@@ -49,7 +49,7 @@
                 android:layout_height="40dp"
                 android:contentDescription="@string/fragment_footer_oss"
                 android:paddingStart="0dp"
-                android:paddingEnd="5dp"
+                android:paddingEnd="2dp"
                 android:src="@drawable/ic_github_logo" />
 
         </LinearLayout>

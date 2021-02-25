@@ -31,17 +31,93 @@
             android:background="@color/colorPrimary" />
     </LinearLayout>
 
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingVertical="10dp"
-        android:text="@string/fragment_event_instructions"
-        android:textSize="24sp" />
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingVertical="10dp">
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <RadioButton
+                android:id="@+id/radioButtonNextRandom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="10dp"
+                android:text="@string/fragment_appearance_instructions_next_random"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioButtonNextSequential"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="10dp"
+                android:text="@string/fragment_appearance_instructions_next_sequential"
+                android:textSize="20sp" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp"
+                android:paddingBottom="5dp"
+                android:text="@string/fragment_event_where"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="20dp"
+                android:paddingEnd="0dp">
+
+                <RadioButton
+                    android:id="@+id/radioButtonWhereInWidget"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:paddingVertical="10dp"
+                    android:text="@string/fragment_event_in_widget"
+                    android:textSize="20sp" />
+
+                <RadioButton
+                    android:id="@+id/radioButtonWhereAsNotification"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="10dp"
+                    android:text="@string/fragment_event_as_notification"
+                    android:textSize="20sp" />
+            </RadioGroup>
+        </LinearLayout>
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
+
+
+
+        <CheckBox
+            android:id="@+id/checkBoxDeviceUnlock"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingVertical="5dp"
+            android:text="@string/fragment_event_device_unlock"
+            android:textSize="20sp" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -55,7 +131,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_event_daily"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
 
             <TimePicker
                 android:id="@+id/timePickerDailyAt"
@@ -63,15 +139,6 @@
                 android:layout_height="wrap_content"
                 android:timePickerMode="spinner" />
         </LinearLayout>
-
-        <CheckBox
-            android:id="@+id/checkBoxDeviceUnlock"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingVertical="5dp"
-            android:text="@string/fragment_event_device_unlock"
-            android:textSize="24sp" />
 
     </LinearLayout>
 </LinearLayout>

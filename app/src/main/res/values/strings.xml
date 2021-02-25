@@ -69,8 +69,12 @@
     <string name="fragment_content_text_instructions">Case-insensitive search&#8230;</string>
     <string name="fragment_content_text_no_search_results">No results found for search</string>
 
-    <string name="fragment_event_title">Event</string>
-    <string name="fragment_event_instructions">Display a quotation automatically</string>
+    <string name="fragment_event_title">Schedule</string>
+    <string name="fragment_event_where">Where</string>
+    <string name="fragment_event_in_widget">in Widget</string>
+    <string name="fragment_event_as_notification">as Notification</string>
+
+    <string name="fragment_event">Event</string>
     <string name="fragment_event_device_unlock">Screen unlock (device dependent)</string>
     <string name="fragment_event_daily">Time</string>
 
