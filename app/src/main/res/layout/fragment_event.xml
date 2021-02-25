@@ -105,7 +105,6 @@
         android:id="@+id/checkBoxDeviceUnlock"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="10dp"
         android:text="@string/fragment_event_device_unlock"
         android:textSize="16sp" />
 

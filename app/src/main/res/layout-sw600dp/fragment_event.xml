@@ -103,12 +103,22 @@
 
     </LinearLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="5dp"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp"
+        android:text="@string/fragment_event"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingEnd="0dp">
 
         <CheckBox
             android:id="@+id/checkBoxDeviceUnlock"
@@ -131,6 +141,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_event_daily"
+                android:paddingVertical="5dp"
                 android:textSize="20sp" />
 
             <TimePicker
