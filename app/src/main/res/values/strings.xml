@@ -49,7 +49,7 @@
     <string name="fragment_appearance_instructions_next_random">Next, random</string>
     <string name="fragment_appearance_instructions_next_sequential">Next, sequential</string>
 
-    <string name="fragment_content_title">Content</string>
+    <string name="fragment_content_title">Quotations</string>
     <string name="fragment_content_all">All: %d</string>
     <string name="fragment_content_favourites">Favourites: %d</string>
     <string name="fragment_content_favourites_share_instructions">(Optional) Share across devices</string>
@@ -57,10 +57,10 @@
     <string name="fragment_content_favourites_share_local_code_send">Send</string>
     <string name="fragment_content_favourites_share_remove_code_value">Remote code</string>
     <string name="fragment_content_favourites_share_remote_receive">Receive</string>
-    <string name="fragment_content_favourites_share_sending">Sending favourites…</string>
+    <string name="fragment_content_favourites_share_sending">Sending favourites&#8230;</string>
     <string name="fragment_content_favourites_share_sent">Sent - use %s on other device</string>
-    <string name="fragment_content_favourites_share_remote_code_general">Use code from another device</string>
-    <string name="fragment_content_favourites_share_receiving">Fetching favourites…</string>
+    <string name="fragment_content_favourites_share_remote_code_general">Please use code from another device</string>
+    <string name="fragment_content_favourites_share_receiving">Fetching favourites&#8230;</string>
     <string name="fragment_content_favourites_share_received">Received - favourites appended</string>
     <string name="fragment_content_favourites_share_missing">Unable to locate remote code, please retry later</string>
     <string name="fragment_content_favourites_share_comms">Check network connection</string>
@@ -70,10 +70,9 @@
     <string name="fragment_content_text_no_search_results">No results found for search</string>
 
     <string name="fragment_event_title">Schedule</string>
-    <string name="fragment_event_where">Where</string>
+    <string name="fragment_event_where">Display</string>
     <string name="fragment_event_in_widget">in Widget</string>
     <string name="fragment_event_as_notification">as Notification</string>
-
     <string name="fragment_event">Event</string>
     <string name="fragment_event_device_unlock">Screen unlock (device dependent)</string>
     <string name="fragment_event_daily">Time</string>
