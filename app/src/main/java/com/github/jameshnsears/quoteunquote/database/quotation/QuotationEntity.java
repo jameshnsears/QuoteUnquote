@@ -29,6 +29,6 @@ public class QuotationEntity {
 
     @NonNull
     public String theQuotation() {
-        return String.format("%s%n%n - %s", quotation, author);
+        return String.format("%s%n%n%s\n\n01/11", quotation, author);
     }
 }
