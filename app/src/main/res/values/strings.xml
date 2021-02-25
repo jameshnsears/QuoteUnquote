@@ -59,7 +59,7 @@
     <string name="fragment_content_favourites_share_remote_receive">Receive</string>
     <string name="fragment_content_favourites_share_sending">Sending favourites…</string>
     <string name="fragment_content_favourites_share_sent">Sent - use %s on other device</string>
-    <string name="fragment_content_favourites_share_remote_code_general">Use remote code from other device</string>
+    <string name="fragment_content_favourites_share_remote_code_general">Use code from another device</string>
     <string name="fragment_content_favourites_share_receiving">Fetching favourites…</string>
     <string name="fragment_content_favourites_share_received">Received - favourites appended</string>
     <string name="fragment_content_favourites_share_missing">Unable to locate remote code, please retry later</string>
