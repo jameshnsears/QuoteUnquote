@@ -98,37 +98,9 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:paddingVertical="5dp">
-
-                    <EditText
-                        android:id="@+id/editTextRemoteCodeValue"
-                        android:layout_width="160dp"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:gravity="start|top"
-                        android:hint="@string/fragment_content_favourites_share_remove_code_value"
-                        android:importantForAutofill="no"
-                        android:inputType="text"
-                        android:maxLength="10"
-                        android:textSize="20sp" />
-
-                    <Button
-                        android:id="@+id/buttonReceive"
-                        android:layout_width="90dp"
-                        android:layout_height="35dp"
-                        android:background="@drawable/corners_buttons"
-                        android:text="@string/fragment_content_favourites_share_remote_receive"
-                        android:textColor="@android:color/white"
-                        android:textSize="20sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
                     android:paddingVertical="5dp"
                     android:paddingStart="20dp"
-                    android:paddingEnd="0dp">
+                    android:paddingEnd="50dp">
 
                     <TextView
                         android:id="@+id/textViewLocalCodeValue"
@@ -147,6 +119,35 @@
                         android:layout_height="35dp"
                         android:background="@drawable/corners_buttons"
                         android:text="@string/fragment_content_favourites_share_local_code_send"
+                        android:textColor="@android:color/white"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingVertical="5dp">
+
+                    <EditText
+                        android:id="@+id/editTextRemoteCodeValue"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:gravity="start|top"
+                        android:hint="@string/fragment_content_favourites_share_remove_code_value"
+                        android:importantForAutofill="no"
+                        android:inputType="text"
+                        android:maxLength="10"
+                        android:textIsSelectable="true"
+                        android:textSize="20sp" />
+
+                    <Button
+                        android:id="@+id/buttonReceive"
+                        android:layout_width="90dp"
+                        android:layout_height="35dp"
+                        android:background="@drawable/corners_buttons"
+                        android:text="@string/fragment_content_favourites_share_remote_receive"
                         android:textColor="@android:color/white"
                         android:textSize="20sp" />
 
