@@ -6,6 +6,7 @@
 
     <string name="activity_configure_title">Quote, Unquote</string>
 
+    <string name="fragment_appearance_instruction_touch">Tap widget text to return here</string>
     <string name="fragment_appearance_title">Appearance</string>
     <string name="fragment_appearance_transparency">Transparency</string>
     <string name="fragment_appearance_text">Text</string>
@@ -39,7 +40,6 @@
         <item>28</item>
         <item>32</item>
     </integer-array>
-    <string name="fragment_appearance_instruction_touch">Tap widget text to return here</string>
     <string name="fragment_appearance_display_toolbar">Toolbar</string>
     <string name="fragment_appearance_instructions_first">First, clears Previous</string>
     <string name="fragment_appearance_instructions_previous">Previous</string>>

@@ -129,6 +129,7 @@
             android:paddingStart="20dp"
             android:paddingEnd="5dp"
             android:spinnerMode="dropdown" />
+
     </LinearLayout>
 
     <TextView
@@ -139,7 +140,7 @@
         android:paddingStart="0dp"
         android:paddingEnd="0dp"
         android:text="@string/fragment_appearance_display_toolbar"
-        android:textSize="20sp"
+        android:textSize="17sp"
         android:textStyle="bold" />
 
     <LinearLayout

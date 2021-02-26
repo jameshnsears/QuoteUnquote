@@ -124,11 +124,13 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
 
                 Timber.d("%d: digest=%s", widgetId, quotationEntity.digest);
 
+                int paintFlags = Paint.ANTI_ALIAS_FLAG | Paint.FAKE_BOLD_TEXT_FLAG;
+
                 if (getQuoteUnquoteModel(context).isReported(widgetId)) {
                     remoteViews.setInt(android.R.id.text1, "setPaintFlags",
-                            Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+                            paintFlags | Paint.STRIKE_THRU_TEXT_FLAG);
                 } else {
-                    remoteViews.setInt(android.R.id.text1, "setPaintFlags", Paint.ANTI_ALIAS_FLAG);
+                    remoteViews.setInt(android.R.id.text1, "setPaintFlags", paintFlags);
                 }
             }
         }
