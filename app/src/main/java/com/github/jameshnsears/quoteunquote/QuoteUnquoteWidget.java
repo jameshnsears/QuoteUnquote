@@ -312,6 +312,20 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         }
     }
 
+    private void unlockDevice(
+            @NonNull final Context context,
+            @NonNull final AppWidgetManager appWidgetManager) {
+        for (final int widgetId : appWidgetManager.getAppWidgetIds(new ComponentName(context, QuoteUnquoteWidget.class))) {
+            if (new EventPreferences(widgetId, context).getEventDeviceUnlock()) {
+                try {
+                    scheduleEvent(context, widgetId, appWidgetManager);
+                } catch (NoNextQuotationAvailableException e) {
+                    Timber.d(e);
+                }
+            }
+        }
+    }
+
     private void onReceiveDailyAlarm(
             @NonNull final Context context,
             final int widgetId,
@@ -319,18 +333,21 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull final EventDailyAlarm eventDailyAlarm) {
         eventDailyAlarm.setDailyAlarm();
         try {
-            ContentSelection contentSelection = new ContentPreferences(widgetId, context).getContentSelection();
-            EventPreferences eventPreferences = new EventPreferences(widgetId, context);
-
-            getQuoteUnquoteModelInstance(context).setNext(widgetId, contentSelection, eventPreferences.getEventNextRandom());
-            updateWidgetView(context, widgetId, appWidgetManager);
-
-            if (eventPreferences.getEventDisplayWidgetAndNotification()) {
-                displayNotification(widgetId, context);
-            }
-
+            scheduleEvent(context, widgetId, appWidgetManager);
         } catch (NoNextQuotationAvailableException e) {
             Timber.d(e);
+        }
+    }
+
+    private void scheduleEvent(@NonNull Context context, int widgetId, @NonNull AppWidgetManager appWidgetManager) throws NoNextQuotationAvailableException {
+        ContentSelection contentSelection = new ContentPreferences(widgetId, context).getContentSelection();
+        EventPreferences eventPreferences = new EventPreferences(widgetId, context);
+
+        getQuoteUnquoteModelInstance(context).setNext(widgetId, contentSelection, eventPreferences.getEventNextRandom());
+        updateWidgetView(context, widgetId, appWidgetManager);
+
+        if (eventPreferences.getEventDisplayWidgetAndNotification()) {
+            displayNotification(widgetId, context);
         }
     }
 
@@ -506,24 +523,6 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_favorite_red_24dp);
         } else {
             remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_favorite_border_black_24dp);
-        }
-    }
-
-    private void unlockDevice(
-            @NonNull final Context context,
-            @NonNull final AppWidgetManager appWidgetManager) {
-        for (final int widgetId : appWidgetManager.getAppWidgetIds(new ComponentName(context, QuoteUnquoteWidget.class))) {
-
-            if (new EventPreferences(widgetId, context).getEventDeviceUnlock()) {
-                try {
-                    getQuoteUnquoteModelInstance(context)
-                            .setNext(widgetId, new ContentPreferences(widgetId, context).getContentSelection(), true);
-
-                    updateWidgetView(context, widgetId, appWidgetManager);
-                } catch (NoNextQuotationAvailableException e) {
-                    Timber.d(e);
-                }
-            }
         }
     }
 
