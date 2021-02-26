@@ -118,7 +118,7 @@ public class ConfigureActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.mipmap.ic_launcher);
-        this.setTitle(getString(R.string.activity_configure_title));
+        this.setTitle("  " + getString(R.string.activity_configure_title));
 
         final FragmentManager supportFragmentManager = getSupportFragmentManager();
         final FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();

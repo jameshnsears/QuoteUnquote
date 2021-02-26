@@ -259,7 +259,7 @@ public class AppearanceFragment extends FragmentCommon {
         final int transparency = appearancePreferences.getAppearanceTransparency();
 
         if (transparency == -1) {
-            fragmentAppearanceBinding.seekBarTransparency.setProgress(2);
+            fragmentAppearanceBinding.seekBarTransparency.setProgress(5);
         } else {
             fragmentAppearanceBinding.seekBarTransparency.setProgress(transparency);
         }
