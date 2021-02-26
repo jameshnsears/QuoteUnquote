@@ -54,12 +54,12 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
 
     @Override
     public void onCreate() {
-        Timber.d("widgetId=%d", widgetId);
+        logWidgetId();
     }
 
     @Override
     public void onDataSetChanged() {
-        Timber.d("widgetId=%d", widgetId);
+        logWidgetId();
 
         synchronized (this) {
             quotationList.clear();
@@ -74,6 +74,10 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
         }
     }
 
+    private void logWidgetId() {
+        Timber.d("widgetId=%d", widgetId);
+    }
+
     @NonNull
     public QuoteUnquoteModel getQuoteUnquoteModel(@NonNull final Context listViewContext) {
         return new QuoteUnquoteModel(listViewContext);
@@ -81,7 +85,7 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
 
     @Override
     public void onDestroy() {
-        Timber.d("widgetId=%d", widgetId);
+        logWidgetId();
     }
 
     @Override

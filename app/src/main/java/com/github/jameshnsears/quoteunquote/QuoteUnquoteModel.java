@@ -106,7 +106,7 @@ public class QuoteUnquoteModel {
         });
 
         try {
-            if (!future.get()) {
+            if (Boolean.FALSE.equals(future.get())) {
                 throw new NoNextQuotationAvailableException(contentSelection);
             }
         } catch (ExecutionException | InterruptedException e) {
