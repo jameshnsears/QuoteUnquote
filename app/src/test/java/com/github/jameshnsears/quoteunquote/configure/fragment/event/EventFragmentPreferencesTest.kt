@@ -15,7 +15,7 @@ import org.robolectric.annotation.Config
 @Config(sdk = [Build.VERSION_CODES.P])
 class EventFragmentPreferencesTest : ShadowLoggingHelper() {
     @Test
-    fun `confirm initial preferences`() {
+    fun confirmInitialPreferences() {
         with(launchFragment<EventFragmentDouble>()) {
             onFragment { fragment ->
                 assertTrue(fragment.eventPreferences?.eventNextRandom == true)
@@ -33,7 +33,7 @@ class EventFragmentPreferencesTest : ShadowLoggingHelper() {
     }
 
     @Test
-    fun `confirm changes to preferences`() {
+    fun confirmChangesToPreferences() {
         with(launchFragment<EventFragmentDouble>()) {
             onFragment { fragment ->
                 fragment.eventPreferences?.eventDaily = true

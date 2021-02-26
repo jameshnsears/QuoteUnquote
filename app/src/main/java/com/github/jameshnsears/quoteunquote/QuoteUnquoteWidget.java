@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -491,7 +492,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
     private void setToolbarButtonVisibility(
             @NonNull final RemoteViews remoteViews,
             final boolean toolbarButtonEnabled,
-            final int imageButtonId) {
+            @IdRes final int imageButtonId) {
         if (toolbarButtonEnabled) {
             remoteViews.setViewVisibility(imageButtonId, View.VISIBLE);
         } else {
