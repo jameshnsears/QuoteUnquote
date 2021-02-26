@@ -56,9 +56,9 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         bootCompleted.addAction("android.intent.action.BOOT_COMPLETED");
         context.registerReceiver(receiver, bootCompleted);
 
-        IntentFilter qyuickbootPoweron = new IntentFilter();
-        qyuickbootPoweron.addAction("android.intent.action.QUICKBOOT_POWERON");
-        context.registerReceiver(receiver, qyuickbootPoweron);
+        IntentFilter quickBootPowerOn = new IntentFilter();
+        quickBootPowerOn.addAction("android.intent.action.QUICKBOOT_POWERON");
+        context.registerReceiver(receiver, quickBootPowerOn);
 
         receiversRegistered = true;
     }
