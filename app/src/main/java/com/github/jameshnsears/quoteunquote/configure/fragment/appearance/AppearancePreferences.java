@@ -55,7 +55,7 @@ public class AppearancePreferences extends PreferencesFacade {
     }
 
     public boolean getAppearanceToolbarReport() {
-        return preferenceHelper.getPreferenceBoolean(getPreferenceKey("APPEARANCE_TOOLBAR_REPORT"), true);
+        return preferenceHelper.getPreferenceBoolean(getPreferenceKey("APPEARANCE_TOOLBAR_REPORT"), false);
     }
 
     public void setAppearanceToolbarReport(final boolean value) {
@@ -71,7 +71,7 @@ public class AppearancePreferences extends PreferencesFacade {
     }
 
     public boolean getAppearanceToolbarShare() {
-        return preferenceHelper.getPreferenceBoolean(getPreferenceKey("APPEARANCE_TOOLBAR_SHARE"), true);
+        return preferenceHelper.getPreferenceBoolean(getPreferenceKey("APPEARANCE_TOOLBAR_SHARE"), false);
     }
 
     public void setAppearanceToolbarShare(final boolean value) {
