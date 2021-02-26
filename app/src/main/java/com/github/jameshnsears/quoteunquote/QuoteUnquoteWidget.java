@@ -294,7 +294,6 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             final int widgetId,
             @NonNull final AppWidgetManager appWidgetManager) {
         onReceiveToolbarPressedNext(context, widgetId, appWidgetManager, false);
-        displayNotification(widgetId, context);
     }
 
     private void onReceiveToolbarPressedNext(
@@ -321,13 +320,12 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         eventDailyAlarm.setDailyAlarm();
         try {
             ContentSelection contentSelection = new ContentPreferences(widgetId, context).getContentSelection();
+            EventPreferences eventPreferences = new EventPreferences(widgetId, context);
 
-            // TODO replace true with correct value from preferences
-            getQuoteUnquoteModelInstance(context).setNext(widgetId, contentSelection, true);
-
+            getQuoteUnquoteModelInstance(context).setNext(widgetId, contentSelection, eventPreferences.getEventNextRandom());
             updateWidgetView(context, widgetId, appWidgetManager);
 
-            if (new EventPreferences(widgetId, context).getEventDisplayWidgetAndNotification()) {
+            if (eventPreferences.getEventDisplayWidgetAndNotification()) {
                 displayNotification(widgetId, context);
             }
 
@@ -336,7 +334,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         }
     }
 
-    public void displayNotification(int widgetId, @NonNull Context context) {
+    public void displayNotification(int widgetId, Context context) {
 
         ContentSelection contentSelection = new ContentPreferences(widgetId, context).getContentSelection();
         QuotationEntity quotationEntity = getQuoteUnquoteModelInstance(context).getNext(widgetId, contentSelection);
