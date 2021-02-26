@@ -26,14 +26,13 @@ public class CloudServiceReceive extends Service {
 
     @NonNull
     private final Handler handler = getHandler();
+    @NonNull
+    private final CloudFavourites cloudFavourites = getCloudFavourites();
 
     @NonNull
     protected Handler getHandler() {
         return new Handler(Looper.getMainLooper());
     }
-
-    @NonNull
-    private final CloudFavourites cloudFavourites = getCloudFavourites();
 
     @NonNull
     protected DatabaseRepository getDatabaseRepository(Context context) {

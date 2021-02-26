@@ -23,6 +23,6 @@ class CloudServiceSendDouble : CloudServiceSend() {
     }
 
     override fun getServiceContext(): Context? {
-        return this@CloudServiceSendDouble.getApplicationContext()
+        return this@CloudServiceSendDouble.applicationContext
     }
 }

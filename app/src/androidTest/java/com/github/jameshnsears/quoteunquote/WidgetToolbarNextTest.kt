@@ -31,16 +31,16 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
         insertQuotationsTestData01()
 
         assertEquals(
-            0,
-            quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID, contentSelection)
+                0,
+                quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID, contentSelection)
         )
 
         quoteUnquoteModelDouble.setNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, contentSelection, randomNext)
         quoteUnquoteModelDouble.setNext(WidgetIdHelper.INSTANCE_01_WIDGET_ID, contentSelection, randomNext)
 
         assertEquals(
-            2,
-            quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID, contentSelection)
+                2,
+                quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID, contentSelection)
         )
     }
 
@@ -87,10 +87,10 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
         markDefaultQuotationAsFavourite()
 
         assertEquals(
-            DatabaseRepository.DEFAULT_QUOTATION_DIGEST,
-            quoteUnquoteModelDouble.getNext(
-                WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.FAVOURITES
-            )?.digest
+                DatabaseRepository.DEFAULT_QUOTATION_DIGEST,
+                quoteUnquoteModelDouble.getNext(
+                        WidgetIdHelper.INSTANCE_01_WIDGET_ID, ContentSelection.FAVOURITES
+                )?.digest
         )
     }
 
@@ -117,8 +117,8 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
         }
 
         assertEquals(
-            4,
-            quoteUnquoteModelDouble.countPreviousSearch(WidgetIdHelper.INSTANCE_01_WIDGET_ID)
+                4,
+                quoteUnquoteModelDouble.countPreviousSearch(WidgetIdHelper.INSTANCE_01_WIDGET_ID)
         )
     }
 }

@@ -157,9 +157,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            android:orientation="vertical"
             android:paddingStart="0dp"
-            android:paddingEnd="5dp"
-            android:orientation="vertical">
+            android:paddingEnd="5dp">
 
             <EditText
                 android:id="@+id/editTextSearchText"

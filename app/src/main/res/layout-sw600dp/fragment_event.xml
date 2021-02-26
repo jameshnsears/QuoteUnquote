@@ -140,8 +140,8 @@
                 android:id="@+id/checkBoxDailyAt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/fragment_event_daily"
                 android:paddingVertical="5dp"
+                android:text="@string/fragment_event_daily"
                 android:textSize="20sp" />
 
             <TimePicker

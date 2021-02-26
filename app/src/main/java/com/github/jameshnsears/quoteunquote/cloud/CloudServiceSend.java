@@ -18,13 +18,11 @@ import com.github.jameshnsears.quoteunquote.utils.ui.ToastHelper;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class CloudServiceSend extends Service {
+    public static boolean isRunning = false;
     @NonNull
     public Handler handler = new Handler(Looper.getMainLooper());
-
     @Nullable
     public CloudFavourites cloudFavourites = getCloudFavourites();
-
-    public static boolean isRunning = false;
 
     @Override
     public void onCreate() {

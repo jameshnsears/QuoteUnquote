@@ -39,7 +39,7 @@ class EventFragmentTest {
         val intent = IntentFactoryHelper.createIntent(context, WidgetIdHelper.INSTANCE_01_WIDGET_ID)
         intent.action = IntentFactoryHelper.DAILY_ALARM
         return PendingIntent.getBroadcast(
-            context, WidgetIdHelper.INSTANCE_01_WIDGET_ID, intent, PendingIntent.FLAG_NO_CREATE
+                context, WidgetIdHelper.INSTANCE_01_WIDGET_ID, intent, PendingIntent.FLAG_NO_CREATE
         ) != null
     }
 }

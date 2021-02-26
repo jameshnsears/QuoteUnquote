@@ -10,12 +10,12 @@ import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade;
 import timber.log.Timber;
 
 public class ContentPreferences extends PreferencesFacade {
-    private static String contentAll = "CONTENT_ALL";
-    private static String contentAuthor = "CONTENT_AUTHOR";
-    private static String contentAuthorName = "CONTENT_AUTHOR_NAME";
-    private static String contentFavourites = "CONTENT_FAVOURITES";
-    private static String contentSearch = "CONTENT_SEARCH";
-    private static String contentSearchText = "CONTENT_SEARCH_TEXT";
+    private static final String CONTENT_ALL = "CONTENT_ALL";
+    private static final String CONTENT_AUTHOR = "CONTENT_AUTHOR";
+    private static final String CONTENT_AUTHOR_NAME = "CONTENT_AUTHOR_NAME";
+    private static final String CONTENT_FAVOURITES = "CONTENT_FAVOURITES";
+    private static final String CONTENT_SEARCH = "CONTENT_SEARCH";
+    private static final String CONTENT_SEARCH_TEXT = "CONTENT_SEARCH_TEXT";
 
     public ContentPreferences(@NonNull final Context applicationContext) {
         super(0, applicationContext);
@@ -27,11 +27,11 @@ public class ContentPreferences extends PreferencesFacade {
 
     @NonNull
     public String getContentSelectionAuthorName() {
-        return preferenceHelper.getPreferenceString(getPreferenceKey(contentAuthorName));
+        return preferenceHelper.getPreferenceString(getPreferenceKey(CONTENT_AUTHOR_NAME));
     }
 
     public void setContentSelectionAuthorName(@NonNull final String value) {
-        preferenceHelper.setPreference(getPreferenceKey(contentAuthorName), value);
+        preferenceHelper.setPreference(getPreferenceKey(CONTENT_AUTHOR_NAME), value);
     }
 
     @NonNull
@@ -45,24 +45,24 @@ public class ContentPreferences extends PreferencesFacade {
 
     @NonNull
     public String getContentSelectionSearchText() {
-        return preferenceHelper.getPreferenceString(getPreferenceKey(contentSearchText));
+        return preferenceHelper.getPreferenceString(getPreferenceKey(CONTENT_SEARCH_TEXT));
     }
 
     public void setContentSelectionSearchText(@NonNull final String value) {
-        preferenceHelper.setPreference(getPreferenceKey(contentSearchText), value);
+        preferenceHelper.setPreference(getPreferenceKey(CONTENT_SEARCH_TEXT), value);
     }
 
     @NonNull
     public ContentSelection getContentSelection() {
-        if (preferenceHelper.getPreferenceBoolean(getPreferenceKey(contentAuthor), false)) {
+        if (preferenceHelper.getPreferenceBoolean(getPreferenceKey(CONTENT_AUTHOR), false)) {
             return ContentSelection.AUTHOR;
         }
 
-        if (preferenceHelper.getPreferenceBoolean(getPreferenceKey(contentFavourites), false)) {
+        if (preferenceHelper.getPreferenceBoolean(getPreferenceKey(CONTENT_FAVOURITES), false)) {
             return ContentSelection.FAVOURITES;
         }
 
-        if (preferenceHelper.getPreferenceBoolean(getPreferenceKey(contentSearch), false)) {
+        if (preferenceHelper.getPreferenceBoolean(getPreferenceKey(CONTENT_SEARCH), false)) {
             return ContentSelection.SEARCH;
         }
 
@@ -72,31 +72,31 @@ public class ContentPreferences extends PreferencesFacade {
     public void setContentSelection(@NonNull final ContentSelection contentSelection) {
         switch (contentSelection) {
             case ALL:
-                preferenceHelper.setPreference(getPreferenceKey(contentAll), true);
-                preferenceHelper.setPreference(getPreferenceKey(contentAuthor), false);
-                preferenceHelper.setPreference(getPreferenceKey(contentFavourites), false);
-                preferenceHelper.setPreference(getPreferenceKey(contentSearch), false);
+                preferenceHelper.setPreference(getPreferenceKey(CONTENT_ALL), true);
+                preferenceHelper.setPreference(getPreferenceKey(CONTENT_AUTHOR), false);
+                preferenceHelper.setPreference(getPreferenceKey(CONTENT_FAVOURITES), false);
+                preferenceHelper.setPreference(getPreferenceKey(CONTENT_SEARCH), false);
                 break;
 
             case AUTHOR:
-                preferenceHelper.setPreference(getPreferenceKey(contentAll), false);
-                preferenceHelper.setPreference(getPreferenceKey(contentAuthor), true);
-                preferenceHelper.setPreference(getPreferenceKey(contentFavourites), false);
-                preferenceHelper.setPreference(getPreferenceKey(contentSearch), false);
+                preferenceHelper.setPreference(getPreferenceKey(CONTENT_ALL), false);
+                preferenceHelper.setPreference(getPreferenceKey(CONTENT_AUTHOR), true);
+                preferenceHelper.setPreference(getPreferenceKey(CONTENT_FAVOURITES), false);
+                preferenceHelper.setPreference(getPreferenceKey(CONTENT_SEARCH), false);
                 break;
 
             case FAVOURITES:
-                preferenceHelper.setPreference(getPreferenceKey(contentAll), false);
-                preferenceHelper.setPreference(getPreferenceKey(contentAuthor), false);
-                preferenceHelper.setPreference(getPreferenceKey(contentFavourites), true);
-                preferenceHelper.setPreference(getPreferenceKey(contentSearch), false);
+                preferenceHelper.setPreference(getPreferenceKey(CONTENT_ALL), false);
+                preferenceHelper.setPreference(getPreferenceKey(CONTENT_AUTHOR), false);
+                preferenceHelper.setPreference(getPreferenceKey(CONTENT_FAVOURITES), true);
+                preferenceHelper.setPreference(getPreferenceKey(CONTENT_SEARCH), false);
                 break;
 
             case SEARCH:
-                preferenceHelper.setPreference(getPreferenceKey(contentAll), false);
-                preferenceHelper.setPreference(getPreferenceKey(contentAuthor), false);
-                preferenceHelper.setPreference(getPreferenceKey(contentFavourites), false);
-                preferenceHelper.setPreference(getPreferenceKey(contentSearch), true);
+                preferenceHelper.setPreference(getPreferenceKey(CONTENT_ALL), false);
+                preferenceHelper.setPreference(getPreferenceKey(CONTENT_AUTHOR), false);
+                preferenceHelper.setPreference(getPreferenceKey(CONTENT_FAVOURITES), false);
+                preferenceHelper.setPreference(getPreferenceKey(CONTENT_SEARCH), true);
                 break;
 
             default:

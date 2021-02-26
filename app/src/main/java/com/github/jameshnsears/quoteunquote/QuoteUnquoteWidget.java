@@ -352,7 +352,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         }
     }
 
-    public void displayNotification(int widgetId, Context context) {
+    public void displayNotification(int widgetId, @NonNull Context context) {
 
         ContentSelection contentSelection = new ContentPreferences(widgetId, context).getContentSelection();
         QuotationEntity quotationEntity = getQuoteUnquoteModelInstance(context).getNext(widgetId, contentSelection);
