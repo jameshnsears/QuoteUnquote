@@ -22,7 +22,7 @@ class AppearanceFragmentPreferencesTest : ShadowLoggingHelper() {
         with(launchFragment<AppearanceFragmentDouble>()) {
             onFragment { fragment ->
                 fragment.setTransparency()
-                assertThat(fragment.appearancePreferences?.appearanceTransparency, equalTo(2))
+                assertThat(fragment.appearancePreferences?.appearanceTransparency, equalTo(5))
 
                 fragment.setTextColour()
                 assertEquals("#FF000000", fragment.appearancePreferences?.appearanceTextColour)
@@ -32,9 +32,9 @@ class AppearanceFragmentPreferencesTest : ShadowLoggingHelper() {
 
                 assertTrue(fragment.appearancePreferences?.appearanceToolbarFirst == false)
                 assertTrue(fragment.appearancePreferences?.appearanceToolbarPrevious == true)
-                assertTrue(fragment.appearancePreferences?.appearanceToolbarReport == true)
+                assertTrue(fragment.appearancePreferences?.appearanceToolbarReport == false)
                 assertTrue(fragment.appearancePreferences?.appearanceToolbarFavourite == true)
-                assertTrue(fragment.appearancePreferences?.appearanceToolbarShare == true)
+                assertTrue(fragment.appearancePreferences?.appearanceToolbarShare == false)
                 assertTrue(fragment.appearancePreferences?.appearanceToolbarRandom == true)
                 assertTrue(fragment.appearancePreferences?.appearanceToolbarSequential == false)
             }

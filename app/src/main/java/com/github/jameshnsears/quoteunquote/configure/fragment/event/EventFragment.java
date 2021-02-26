@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.RadioButton;
 import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
@@ -53,10 +54,16 @@ public class EventFragment extends FragmentCommon {
     @Override
     public void onViewCreated(
             @NonNull final View view, final Bundle savedInstanceState) {
+        setNext();
+        setDisplay();
         setDeviceUnlock();
         setDaily();
         setDailyTime();
 
+        createListenerNextRandom();
+        createListenerNextSequential();
+        createListenerDisplayWidget();
+        createListenerDisplayWidgetAndNotification();
         createListenerDeviceUnlock();
         createListenerDaily();
         createListenerDailyTime();
@@ -75,8 +82,54 @@ public class EventFragment extends FragmentCommon {
         }
     }
 
+    private void setNext() {
+        fragmentEventBinding.radioButtonNextRandom.setChecked(eventPreferences.getEventNextRandom());
+        fragmentEventBinding.radioButtonNextSequential.setChecked(eventPreferences.getEventNextSequential());
+    }
+
+    private void setDisplay() {
+        fragmentEventBinding.radioButtonWhereInWidget.setChecked(eventPreferences.getEventDisplayWidget());
+        fragmentEventBinding.radioButtonWhereAsNotification.setChecked(eventPreferences.getEventDisplayWidgetAndNotification());
+    }
+
     private void setDeviceUnlock() {
         fragmentEventBinding.checkBoxDeviceUnlock.setChecked(eventPreferences.getEventDeviceUnlock());
+    }
+
+    private void createListenerNextRandom() {
+        final RadioButton radioButtonNextRandom = fragmentEventBinding.radioButtonNextRandom;
+        radioButtonNextRandom.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (eventPreferences.getEventNextRandom() != isChecked) {
+                eventPreferences.setEventNextRandom(isChecked);
+            }
+        });
+    }
+
+    private void createListenerNextSequential() {
+        final RadioButton radioButtonNextSequential = fragmentEventBinding.radioButtonNextSequential;
+        radioButtonNextSequential.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (eventPreferences.getEventNextSequential() != isChecked) {
+                eventPreferences.setEventNextSequential(isChecked);
+            }
+        });
+    }
+
+    private void createListenerDisplayWidget() {
+        final RadioButton radioButtonWhereInWidget = fragmentEventBinding.radioButtonWhereInWidget;
+        radioButtonWhereInWidget.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (eventPreferences.getEventDisplayWidget() != isChecked) {
+                eventPreferences.setEventdisplayWidget(isChecked);
+            }
+        });
+    }
+
+    private void createListenerDisplayWidgetAndNotification() {
+        final RadioButton radioButtonWhereAsNotification = fragmentEventBinding.radioButtonWhereAsNotification;
+        radioButtonWhereAsNotification.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (eventPreferences.getEventDisplayWidgetAndNotification() != isChecked) {
+                eventPreferences.setEventdisplayWidgetAndNotification(isChecked);
+            }
+        });
     }
 
     private void createListenerDeviceUnlock() {

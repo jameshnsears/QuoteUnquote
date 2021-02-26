@@ -11,6 +11,38 @@ public class EventPreferences extends PreferencesFacade {
         super(widgetId, applicationContext);
     }
 
+    public boolean getEventNextRandom() {
+        return preferenceHelper.getPreferenceBoolean(getPreferenceKey("EVENT_NEXT_RANDOM"), true);
+    }
+
+    public void setEventNextRandom(final boolean value) {
+        preferenceHelper.setPreference(getPreferenceKey("EVENT_NEXT_RANDOM"), value);
+    }
+
+    public boolean getEventNextSequential() {
+        return preferenceHelper.getPreferenceBoolean(getPreferenceKey("EVENT_NEXT_SEQUENTIAL"), false);
+    }
+
+    public void setEventNextSequential(final boolean value) {
+        preferenceHelper.setPreference(getPreferenceKey("EVENT_NEXT_SEQUENTIAL"), value);
+    }
+
+    public boolean getEventDisplayWidget() {
+        return preferenceHelper.getPreferenceBoolean(getPreferenceKey("EVENT_DISPLAY_WIDGET"), true);
+    }
+
+    public void setEventdisplayWidget(final boolean value) {
+        preferenceHelper.setPreference(getPreferenceKey("EVENT_DISPLAY_WIDGET"), value);
+    }
+
+    public boolean getEventDisplayWidgetAndNotification() {
+        return preferenceHelper.getPreferenceBoolean(getPreferenceKey("EVENT_DISPLAY_WIDGET_AND_NOTIFICATION"), false);
+    }
+
+    public void setEventdisplayWidgetAndNotification(final boolean value) {
+        preferenceHelper.setPreference(getPreferenceKey("EVENT_DISPLAY_WIDGET_AND_NOTIFICATION"), value);
+    }
+
     public boolean getEventDaily() {
         return preferenceHelper.getPreferenceBoolean(getPreferenceKey("EVENT_DAILY"), false);
     }

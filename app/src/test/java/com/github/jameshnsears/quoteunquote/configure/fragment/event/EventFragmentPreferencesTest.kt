@@ -18,6 +18,11 @@ class EventFragmentPreferencesTest : ShadowLoggingHelper() {
     fun `confirm initial preferences`() {
         with(launchFragment<EventFragmentDouble>()) {
             onFragment { fragment ->
+                assertTrue(fragment.eventPreferences?.eventNextRandom == true)
+                assertTrue(fragment.eventPreferences?.eventNextSequential == false)
+                assertTrue(fragment.eventPreferences?.eventDisplayWidget == true)
+                assertTrue(fragment.eventPreferences?.eventDisplayWidgetAndNotification == false)
+
                 assertTrue(fragment.eventPreferences?.eventDeviceUnlock == false)
 
                 assertTrue(fragment.eventPreferences?.eventDaily == false)
