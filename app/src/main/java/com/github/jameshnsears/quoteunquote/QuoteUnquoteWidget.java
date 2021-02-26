@@ -1,5 +1,7 @@
 package com.github.jameshnsears.quoteunquote;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -7,12 +9,15 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.github.jameshnsears.quoteunquote.cloud.CloudFavouritesHelper;
 import com.github.jameshnsears.quoteunquote.cloud.CloudServiceSend;
@@ -39,6 +44,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
     private static volatile boolean receiversRegistered = false;
     @Nullable
     private QuoteUnquoteModel quoteUnquoteModel;
+    private int notificationId = 0;
 
     private static void registerReceivers(@NonNull Context contextIn) {
         if (receiversRegistered) {
@@ -288,6 +294,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             final int widgetId,
             @NonNull final AppWidgetManager appWidgetManager) {
         onReceiveToolbarPressedNext(context, widgetId, appWidgetManager, false);
+        displayNotification(widgetId, context);
     }
 
     private void onReceiveToolbarPressedNext(
@@ -313,12 +320,61 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull final EventDailyAlarm eventDailyAlarm) {
         eventDailyAlarm.setDailyAlarm();
         try {
-            getQuoteUnquoteModelInstance(context)
-                    .setNext(widgetId, new ContentPreferences(widgetId, context).getContentSelection(), true);
+            ContentSelection contentSelection = new ContentPreferences(widgetId, context).getContentSelection();
+
+            // TODO replace true with correct value from preferences
+            getQuoteUnquoteModelInstance(context).setNext(widgetId, contentSelection, true);
 
             updateWidgetView(context, widgetId, appWidgetManager);
+
+            if (new EventPreferences(widgetId, context).getEventDisplayWidgetAndNotification()) {
+                displayNotification(widgetId, context);
+            }
+
         } catch (NoNextQuotationAvailableException e) {
             Timber.d(e);
+        }
+    }
+
+    public void displayNotification(int widgetId, @NonNull Context context) {
+
+        ContentSelection contentSelection = new ContentPreferences(widgetId, context).getContentSelection();
+        QuotationEntity quotationEntity = getQuoteUnquoteModelInstance(context).getNext(widgetId, contentSelection);
+
+        CharSequence author = quotationEntity.author;
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(
+                context, createNotificationChannel(context))
+                .setSmallIcon(R.drawable.ic_notification_icon)
+                .setContentTitle(author)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(quotationEntity.quotation))
+                .setPriority(NotificationCompat.PRIORITY_HIGH);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+
+        notificationId += 1;
+        notificationManager.notify(notificationId, builder.build());
+    }
+
+    private String createNotificationChannel(@NonNull Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String notificationChannelId = context.getString(R.string.notification_channel_id);
+
+            NotificationChannel notificationChannel = new NotificationChannel(
+                    notificationChannelId,
+                    context.getText(R.string.notification_channel_name),
+                    NotificationManager.IMPORTANCE_HIGH);
+
+            notificationChannel.setDescription(context.getString(R.string.notification_channel_description));
+            notificationChannel.enableVibration(true);
+
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(notificationChannel);
+
+            return notificationChannelId;
+        } else {
+            // pre-O (26) devices.
+            return null;
         }
     }
 

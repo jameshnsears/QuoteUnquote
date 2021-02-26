@@ -97,4 +97,9 @@
     <string name="activity_report_instruction_02">\u2022 Strikethrough the quotation</string>
     <string name="activity_report_instruction_03">\u2022 Register the report in analytics</string>
     <string name="activity_report_warning">Quotation already reported</string>
+
+    <string name="notification_title">Quote, Unquote</string>
+    <string name="notification_channel_id">quote_unquote_channel_01</string>
+    <string name="notification_channel_name">Quotations</string>
+    <string name="notification_channel_description">Quotation Notifications</string>
 </resources>

@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
-<svg xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:xlink="http://www.w3.org/1999/xlink"
-    height="350" id="svg80" version="1.1" viewBox="0 0 350 350"
-    width="350" xmlns="http://www.w3.org/2000/svg" inkscape:export-filename="/home/jsears/GIT_REPOS/QuoteUnquote/images/new_icon/imkscape.png" inkscape:export-xdpi="92.800003"
-    inkscape:export-ydpi="92.800003"
-    inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)" sodipodi:docname="imkscape.svg">
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   height="350"
+   id="svg80"
+   version="1.1"
+   viewBox="0 0 350 350"
+   width="350"
+   inkscape:export-filename="/home/jsears/GIT_REPOS/QuoteUnquote/images/new_icon/imkscape.png"
+   inkscape:export-xdpi="92.800003"
+   inkscape:export-ydpi="92.800003"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   sodipodi:docname="icon.svg">
   <metadata
      id="metadata86">
     <rdf:RDF>
@@ -35,12 +46,13 @@
      id="namedview82"
      showgrid="false"
      inkscape:zoom="0.67948542"
-     inkscape:cx="173.71407"
+     inkscape:cx="-92.663978"
      inkscape:cy="188.0704"
-     inkscape:window-x="2"
-     inkscape:window-y="27"
+     inkscape:window-x="292"
+     inkscape:window-y="87"
      inkscape:window-maximized="0"
-     inkscape:current-layer="layer3" />
+     inkscape:current-layer="layer5"
+     inkscape:document-rotation="0" />
   <g
      inkscape:groupmode="layer"
      id="layer2"
@@ -77,12 +89,10 @@
      inkscape:label="inner circle"
      style="display:inline"
      transform="translate(0,-162)">
-    <circle
-       id="path3850"
-       cx="175"
-       cy="337"
+    <path
        style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.80873287;stroke-opacity:1"
-       r="124.59563" />
+       d="M 299.59563,337 A 124.59563,124.59563 0 0 1 175,461.59563 124.59563,124.59563 0 0 1 50.404373,337 124.59563,124.59563 0 0 1 175,212.40437 124.59563,124.59563 0 0 1 299.59563,337 Z"
+       id="path3850" />
   </g>
   <g
      style="display:none"
@@ -95,9 +105,9 @@
        id="text4689"
        y="405.2048"
        x="246.31453"
-       style="font-style:normal;font-weight:normal;font-size:40.24202347px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.00605035"
+       style="font-style:normal;font-weight:normal;font-size:40.242px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.00605"
        xml:space="preserve"><tspan
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:193.16168213px;font-family:MathJax_Main;-inkscape-font-specification:'MathJax_Main Bold';stroke-width:1.00605035"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:193.162px;font-family:MathJax_Main;-inkscape-font-specification:'MathJax_Main Bold';stroke-width:1.00605"
          y="405.2048"
          x="246.31453"
          id="tspan4687"
@@ -107,9 +117,9 @@
        id="text4693"
        y="-121.90665"
        x="-253.90561"
-       style="font-style:normal;font-weight:normal;font-size:40.0132637px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.00033164"
+       style="font-style:normal;font-weight:normal;font-size:40.0133px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.00033"
        xml:space="preserve"><tspan
-         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:192.06367493px;font-family:MathJax_Main;-inkscape-font-specification:'MathJax_Main Bold';stroke-width:1.00033164"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:192.064px;font-family:MathJax_Main;-inkscape-font-specification:'MathJax_Main Bold';stroke-width:1.00033"
          y="-121.90665"
          x="-253.90561"
          id="tspan4691"
@@ -121,17 +131,15 @@
      inkscape:label="quotes v2"
      style="display:inline"
      transform="translate(0,-162)">
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:84.47922516px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2.11197996"
-       x="26.49267"
-       y="559.36322"
-       id="text4667"
-       transform="scale(1.0218605,0.97860716)"><tspan
-         sodipodi:role="line"
-         id="tspan4665"
-         x="26.49267"
-         y="559.36322"
-         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:405.50018311px;font-family:MathJax_Main;-inkscape-font-specification:'MathJax_Main Italic';stroke-width:2.11197996">&quot;</tspan></text>
+    <g
+       aria-label="&quot;"
+       transform="scale(1.0218605,0.97860716)"
+       style="font-style:normal;font-weight:normal;font-size:84.47920227px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2.11197996"
+       id="text4667">
+      <path
+         d="m 133.54467,327.01172 c 8.5155,0 14.1925,-4.055 14.1925,-3.6495 0,0.4055 -2.8385,9.3265 -4.866,14.1925 -7.7045,19.8695 -22.3025,38.928 -39.739,53.1205 -3.6495,2.8385 -5.2715,4.4605 -5.2715,6.0825 0,2.8385 6.0825,8.921 8.11,8.921 0.811,0 2.0275,-0.811 3.244,-1.622 5.677,-4.055 14.598,-12.5705 19.8695,-18.653 16.22,-17.842 28.7905,-39.3335 34.873,-65.691 0.811,-4.4605 0.811,-6.0825 0.811,-13.3815 v -3.6495 c 0,-13.787 -8.5155,-24.7355 -21.086,-24.7355 -16.6255,0 -30.4125,13.787 -30.4125,30.007 0,12.165 8.11,19.0585 20.275,19.0585 z m 79.8835,0 c 8.5155,0 14.1925,-4.055 14.1925,-3.6495 0,0.4055 -2.8385,9.3265 -4.866,14.1925 -7.7045,19.8695 -22.3025,38.928 -39.739,53.1205 -3.6495,2.8385 -5.2715,4.4605 -5.2715,6.0825 0,2.8385 6.0825,8.921 8.11,8.921 0.811,0 2.0275,-0.811 3.244,-1.622 5.677,-4.055 14.598,-12.5705 19.8695,-18.653 16.22,-17.842 28.7905,-39.3335 34.873,-65.691 0.811,-4.4605 0.811,-6.0825 0.811,-13.3815 v -3.6495 c 0,-13.787 -8.5155,-24.7355 -21.086,-24.7355 -16.6255,0 -30.4125,13.787 -30.4125,30.007 0,12.165 8.11,19.0585 20.275,19.0585 z"
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:405.5px;font-family:MathJax_Main;-inkscape-font-specification:'MathJax_Main Italic';stroke-width:2.11197996"
+         id="path21" />
+    </g>
   </g>
 </svg>
