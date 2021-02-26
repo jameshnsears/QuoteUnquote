@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
         android:text="@string/fragment_appearance_instruction_touch"
-        android:textSize="16sp"
+        android:textSize="15sp"
         android:textStyle="normal|italic" />
 
     <LinearLayout
@@ -31,7 +31,7 @@
             android:paddingEnd="10dp"
             android:text="@string/fragment_appearance_title"
             android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="24sp"
+            android:textSize="22sp"
             android:textStyle="bold" />
 
         <View
@@ -55,7 +55,7 @@
             android:paddingStart="0dp"
             android:paddingEnd="0dp"
             android:text="@string/fragment_appearance_transparency"
-            android:textSize="18sp"
+            android:textSize="17sp"
             android:textStyle="bold" />
 
         <SeekBar
@@ -83,7 +83,7 @@
             android:paddingStart="0dp"
             android:paddingEnd="0dp"
             android:text="@string/fragment_appearance_text"
-            android:textSize="18sp"
+            android:textSize="17sp"
             android:textStyle="bold" />
 
         <TextView
@@ -94,14 +94,14 @@
             android:paddingStart="20dp"
             android:paddingEnd="0dp"
             android:text="@string/fragment_appearance_colour"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
 
         <Spinner
             android:id="@+id/spinnerColour"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="20dp"
-            android:paddingEnd="0dp"
+            android:paddingEnd="5dp"
             android:spinnerMode="dropdown" />
     </LinearLayout>
 
@@ -120,14 +120,14 @@
             android:paddingStart="20dp"
             android:paddingEnd="0dp"
             android:text="@string/fragment_appearance_size"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
 
         <Spinner
             android:id="@+id/spinnerSize"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="20dp"
-            android:paddingEnd="0dp"
+            android:paddingEnd="5dp"
             android:spinnerMode="dropdown" />
     </LinearLayout>
 
@@ -160,7 +160,7 @@
             android:paddingStart="20dp"
             android:paddingEnd="0dp"
             android:text="@string/fragment_appearance_instructions_first"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:textStyle="normal" />
     </LinearLayout>
 
@@ -182,7 +182,7 @@
             android:paddingStart="20dp"
             android:paddingEnd="0dp"
             android:text="@string/fragment_appearance_instructions_previous"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:textStyle="normal" />
     </LinearLayout>
 
@@ -204,7 +204,7 @@
             android:paddingStart="20dp"
             android:paddingEnd="0dp"
             android:text="@string/fragment_appearance_instructions_report"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:textStyle="normal" />
     </LinearLayout>
 
@@ -226,7 +226,7 @@
             android:paddingStart="20dp"
             android:paddingEnd="0dp"
             android:text="@string/fragment_appearance_instructions_favourite"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:textStyle="normal" />
     </LinearLayout>
 
@@ -248,7 +248,7 @@
             android:paddingStart="20dp"
             android:paddingEnd="0dp"
             android:text="@string/fragment_appearance_instructions_share"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:textStyle="normal" />
     </LinearLayout>
 
@@ -270,7 +270,7 @@
             android:paddingStart="20dp"
             android:paddingEnd="0dp"
             android:text="@string/fragment_appearance_instructions_next_random"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:textStyle="normal" />
     </LinearLayout>
 
@@ -291,7 +291,7 @@
             android:paddingStart="20dp"
             android:paddingEnd="0dp"
             android:text="@string/fragment_appearance_instructions_next_sequential"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:textStyle="normal" />
     </LinearLayout>
 

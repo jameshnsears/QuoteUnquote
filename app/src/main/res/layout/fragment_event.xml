@@ -21,7 +21,7 @@
             android:paddingEnd="10dp"
             android:text="@string/fragment_event_title"
             android:textAppearance="@style/TextAppearance.AppCompat"
-            android:textSize="24sp"
+            android:textSize="22sp"
             android:textStyle="bold" />
 
         <View
@@ -43,7 +43,7 @@
             android:checked="true"
             android:paddingVertical="10dp"
             android:text="@string/fragment_appearance_instructions_next_random"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
 
         <RadioButton
             android:id="@+id/radioButtonNextSequential"
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:paddingVertical="10dp"
             android:text="@string/fragment_appearance_instructions_next_sequential"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
     </RadioGroup>
 
 
@@ -62,7 +62,7 @@
         android:paddingStart="0dp"
         android:paddingEnd="0dp"
         android:text="@string/fragment_event_where"
-        android:textSize="18sp"
+        android:textSize="17sp"
         android:textStyle="bold" />
 
     <RadioGroup
@@ -78,7 +78,7 @@
             android:checked="true"
             android:paddingVertical="10dp"
             android:text="@string/fragment_event_in_widget"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
 
         <RadioButton
             android:id="@+id/radioButtonWhereAsNotification"
@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:paddingVertical="10dp"
             android:text="@string/fragment_event_as_notification"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
     </RadioGroup>
 
     <TextView
@@ -96,7 +96,7 @@
         android:paddingStart="0dp"
         android:paddingEnd="0dp"
         android:text="@string/fragment_event"
-        android:textSize="18sp"
+        android:textSize="17sp"
         android:textStyle="bold" />
 
     <LinearLayout
@@ -110,7 +110,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/fragment_event_device_unlock"
-            android:textSize="16sp" />
+            android:textSize="15sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -122,7 +122,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="@string/fragment_event_daily"
-                android:textSize="16sp" />
+                android:textSize="15sp" />
 
             <TimePicker
                 android:id="@+id/timePickerDailyAt"

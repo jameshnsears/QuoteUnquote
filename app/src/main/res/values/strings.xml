@@ -51,7 +51,7 @@
 
     <string name="fragment_content_title">Quotations</string>
     <string name="fragment_content_all">All: %d</string>
-    <string name="fragment_content_favourites">Favourites: %d</string>
+    <string name="fragment_content_favourites">Favourite: %d</string>
     <string name="fragment_content_favourites_share_instructions">(Optional) Share across devices</string>
     <string name="fragment_content_favourites_share_local_code_value">%s</string>
     <string name="fragment_content_favourites_share_local_code_send">Send</string>
