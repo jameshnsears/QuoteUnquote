@@ -1,7 +1,5 @@
 package com.github.jameshnsears.quoteunquote.configure.fragment;
 
-import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 
 public class FragmentCommon extends Fragment {
