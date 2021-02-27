@@ -282,7 +282,7 @@ jobs:
           script: |
             adb logcat -c
             adb logcat &
-            ./gradlew clean :app:testManifestTestDebugCoverage --stacktrace
+            ./gradlew clean :app:testManifestTestDebugCoverage --no-build-cache --no-daemon --stacktrace
 
       - name: show .gradle size
         run: |
@@ -331,7 +331,7 @@ jobs:
           script: |
             adb logcat -c
             adb logcat &
-            ./gradlew clean :app:testFdroidDebugCoverageCombined --stacktrace
+            ./gradlew clean :app:testFdroidDebugCoverageCombined --no-build-cache --no-daemon --stacktrace
 
       - name: show .gradle size
         run: |
@@ -380,7 +380,7 @@ jobs:
           script: |
             adb logcat -c
             adb logcat &
-            ./gradlew clean :app:testGoogleplayDebugCoverageCombined --stacktrace
+            ./gradlew clean :app:testGoogleplayDebugCoverageCombined --no-build-cache --no-daemon --stacktrace
 
       - name: show .gradle size
         run: |
