@@ -279,7 +279,10 @@ jobs:
         with:
           api-level: 29
           target: default
-          script: ./gradlew clean :app:testManifestTestDebugCoverage --stacktrace
+          script: |
+            adb logcat -c
+            adb logcat &
+            ./gradlew clean :app:testManifestTestDebugCoverage --stacktrace
 
       - name: show .gradle size
         run: |
@@ -325,7 +328,10 @@ jobs:
         with:
           api-level: 29
           target: default
-          script: ./gradlew clean :app:testFdroidDebugCoverageCombined --stacktrace
+          script: |
+            adb logcat -c
+            adb logcat &
+            ./gradlew clean :app:testFdroidDebugCoverageCombined --stacktrace
 
       - name: show .gradle size
         run: |
@@ -371,7 +377,10 @@ jobs:
         with:
           api-level: 29
           target: default
-          script: ./gradlew clean :app:testGoogleplayDebugCoverageCombined --stacktrace
+          script: |
+            adb logcat -c
+            adb logcat &
+            ./gradlew clean :app:testGoogleplayDebugCoverageCombined --stacktrace
 
       - name: show .gradle size
         run: |
