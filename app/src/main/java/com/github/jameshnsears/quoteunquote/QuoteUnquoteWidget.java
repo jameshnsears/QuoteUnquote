@@ -39,8 +39,6 @@ import com.github.jameshnsears.quoteunquote.utils.ui.ToastHelper;
 
 import timber.log.Timber;
 
-import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_DISABLED;
-
 public final class QuoteUnquoteWidget extends AppWidgetProvider {
     private static volatile boolean receiversRegistered = false;
     @Nullable
@@ -227,7 +225,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             }
         } finally {
             // mainly for screen rotation!
-            if (!intent.getAction().equals(ACTION_APPWIDGET_DISABLED)) {
+            if (!intent.getAction().equals(AppWidgetManager.ACTION_APPWIDGET_DISABLED)) {
                 onUpdate(context, appWidgetManager, new int[]{widgetId});
             }
         }

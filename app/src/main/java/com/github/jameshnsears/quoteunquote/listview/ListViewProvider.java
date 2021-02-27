@@ -13,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteModel;
-import com.github.jameshnsears.quoteunquote.QuoteUnquoteWidget;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences;
 import com.github.jameshnsears.quoteunquote.configure.fragment.content.ContentPreferences;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
@@ -30,41 +29,30 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
     private final Context context;
     private final int widgetId;
     @Nullable
-    private final QuoteUnquoteWidget quoteUnquoteWidget;
-    @Nullable
     public AppearancePreferences appearancePreferences;
     @Nullable
     public ContentPreferences contentPreferences;
-    @Nullable
-    private QuotationEntity quotationEntity;
 
-    ListViewProvider(@NonNull final Context serviceContext, @NonNull final Intent intent) {
-        this.context = serviceContext;
-        this.widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
+    ListViewProvider(@NonNull final Context context, @NonNull final Intent intent) {
+        this.context = context;
+        widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
 
-        appearancePreferences = new AppearancePreferences(widgetId, serviceContext);
-        contentPreferences = getContentPreferences(serviceContext);
-
-        quoteUnquoteWidget = new QuoteUnquoteWidget();
-    }
-
-    public ContentPreferences getContentPreferences(@NonNull final Context serviceContext) {
-        return new ContentPreferences(widgetId, serviceContext);
+        appearancePreferences = new AppearancePreferences(widgetId, context);
+        contentPreferences = new ContentPreferences(widgetId, context);
     }
 
     @Override
     public void onCreate() {
-        logWidgetId();
     }
 
     @Override
     public void onDataSetChanged() {
-        logWidgetId();
+        Timber.d("widgetId=%d", widgetId);
 
         synchronized (this) {
             quotationList.clear();
 
-            quotationEntity = getQuoteUnquoteModel(context).getNext(
+            QuotationEntity quotationEntity = getQuoteUnquoteModel().getNext(
                     widgetId,
                     contentPreferences.getContentSelection());
 
@@ -74,18 +62,13 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
         }
     }
 
-    private void logWidgetId() {
-        Timber.d("widgetId=%d", widgetId);
-    }
-
     @NonNull
-    public QuoteUnquoteModel getQuoteUnquoteModel(@NonNull final Context listViewContext) {
-        return new QuoteUnquoteModel(listViewContext);
+    public QuoteUnquoteModel getQuoteUnquoteModel() {
+        return new QuoteUnquoteModel(context);
     }
 
     @Override
     public void onDestroy() {
-        logWidgetId();
     }
 
     @Override
@@ -109,28 +92,29 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
 
     @NonNull
     private RemoteViews getRemoteViews(final int position) {
-        final RemoteViews remoteViews = new RemoteViews(this.context.getPackageName(),
+        final RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
                 android.R.layout.simple_list_item_1);
 
         synchronized (this) {
             if (!quotationList.isEmpty()) {
-
                 remoteViews.setTextViewText(android.R.id.text1, quotationList.get(position));
 
-                remoteViews.setTextViewTextSize(
-                        android.R.id.text1,
-                        TypedValue.COMPLEX_UNIT_DIP,
-                        (float) this.appearancePreferences.getAppearanceTextSize());
+                if (appearancePreferences.getAppearanceTextSize() != -1) {
+                    remoteViews.setTextViewTextSize(
+                            android.R.id.text1,
+                            TypedValue.COMPLEX_UNIT_DIP,
+                            (float) appearancePreferences.getAppearanceTextSize());
+                }
 
-                remoteViews.setTextColor(
-                        android.R.id.text1,
-                        Color.parseColor(this.appearancePreferences.getAppearanceTextColour()));
-
-                Timber.d("%d: digest=%s", widgetId, quotationEntity.digest);
+                if (!appearancePreferences.getAppearanceTextColour().equals("")) {
+                    remoteViews.setTextColor(
+                            android.R.id.text1,
+                            Color.parseColor(appearancePreferences.getAppearanceTextColour()));
+                }
 
                 int paintFlags = Paint.ANTI_ALIAS_FLAG | Paint.FAKE_BOLD_TEXT_FLAG;
 
-                if (getQuoteUnquoteModel(context).isReported(widgetId)) {
+                if (getQuoteUnquoteModel().isReported(widgetId)) {
                     remoteViews.setInt(android.R.id.text1, "setPaintFlags",
                             paintFlags | Paint.STRIKE_THRU_TEXT_FLAG);
                 } else {

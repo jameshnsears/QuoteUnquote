@@ -24,7 +24,7 @@ import timber.log.Timber;
 
 public class QuoteUnquoteModel {
     @NonNull
-    public final ExecutorService executorService = Executors.newFixedThreadPool(6);
+    public final ExecutorService executorService = Executors.newFixedThreadPool(8);
     @Nullable
     public DatabaseRepository databaseRepository;
     @Nullable
@@ -43,8 +43,6 @@ public class QuoteUnquoteModel {
     }
 
     public void setDefault(final int widgetId) {
-        logWidgetId(widgetId);
-
         final Future future = executorService.submit(() -> {
             QuotationEntity defaultQuotation = databaseRepository.getQuotation(DatabaseRepository.DEFAULT_QUOTATION_DIGEST);
 
@@ -57,10 +55,6 @@ public class QuoteUnquoteModel {
             Timber.w(e.toString());
             Thread.currentThread().interrupt();
         }
-    }
-
-    private void logWidgetId(final int widgetId) {
-        Timber.d("widgetId=%d", widgetId);
     }
 
     public void setNext(
@@ -260,8 +254,6 @@ public class QuoteUnquoteModel {
     }
 
     public void delete(final int widgetId) {
-        logWidgetId(widgetId);
-
         final Future future = executorService.submit(() ->
                 databaseRepository.deletePrevious(widgetId)
         );
@@ -306,8 +298,6 @@ public class QuoteUnquoteModel {
     }
 
     public void reportQuotation(final int widgetId) {
-        logWidgetId(widgetId);
-
         final Future future = executorService.submit(() -> {
             List<String> previousQuotations = databaseRepository.getPrevious(
                     widgetId, selectedContentType(widgetId));
@@ -328,8 +318,6 @@ public class QuoteUnquoteModel {
     }
 
     public boolean isReported(final int widgetId) {
-        logWidgetId(widgetId);
-
         final Future<Integer> future = executorService.submit(() -> {
             QuotationEntity quotationEntity = getNext(
                     widgetId,
