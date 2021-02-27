@@ -3,6 +3,7 @@ package com.github.jameshnsears.quoteunquote.configure;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,19 @@ public class ConfigureActivity extends AppCompatActivity {
         finish();
 
         super.onPause();
+    }
+
+    private void scrollBarPositionRemember() {
+        ConfigurePreferences configurePreferences = new ConfigurePreferences(widgetId, getApplicationContext());
+        ScrollView scrollView = findViewById(R.id.configureScrollView);
+        configurePreferences.setScrollY(scrollView.getScrollY());
+    }
+
+    private void scrollsBarPositionRestore() {
+        ConfigurePreferences configurePreferences = new ConfigurePreferences(widgetId, getApplicationContext());
+        ScrollView scrollView = (ScrollView) findViewById(R.id.configureScrollView);
+        scrollView.post(()
+                -> scrollView.scrollTo(scrollView.getScrollX(), configurePreferences.getScrollY()));
     }
 
     @Override
@@ -75,6 +89,8 @@ public class ConfigureActivity extends AppCompatActivity {
         Timber.d("widgetId=%d", widgetId);
         super.onBackPressed();
 
+        scrollBarPositionRemember();
+
         finish();
     }
 
@@ -111,6 +127,10 @@ public class ConfigureActivity extends AppCompatActivity {
         }
 
         createFragments();
+
+        setContentView(R.layout.activity_configure);
+
+        scrollsBarPositionRestore();
     }
 
     public void createFragments() {
@@ -127,8 +147,6 @@ public class ConfigureActivity extends AppCompatActivity {
         fragmentTransaction.add(R.id.fragmentPlaceholderEvent, EventFragment.newInstance(widgetId));
         fragmentTransaction.add(R.id.fragmentPlaceholderFooter, FooterFragment.newInstance(widgetId));
         fragmentTransaction.commit();
-
-        setContentView(R.layout.activity_configure);
     }
 
     @NonNull
