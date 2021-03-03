@@ -25,7 +25,7 @@ public class NotificationHelper {
                 context, createNotificationChannel(context))
                 .setSmallIcon(com.github.jameshnsears.quoteunquote.R.drawable.ic_notification_icon)
                 .setContentTitle(author)
-                .setStyle(new NotificationCompat.BigTextStyle().bigText(fiveLinesMaxNotification(quotationEntity.quotation)))
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(restrictQuotationSize(quotationEntity.quotation)))
                 .setPriority(NotificationCompat.PRIORITY_HIGH);
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
@@ -34,20 +34,24 @@ public class NotificationHelper {
         notificationManager.notify(notificationId, builder.build());
     }
 
-    public CharSequence fiveLinesMaxNotification(String quotation) {
-        String[] lines = quotation.split("\r\n|\r|\n");
+    public CharSequence restrictQuotationSize(String quotation) {
 
-        String fiveLinesMaxNotifcation = quotation;
-        if (lines.length > 5) {
-            fiveLinesMaxNotifcation
-                    = lines[0] + "\n"
-                    + lines[1] + "\n"
-                    + lines[2] + "\n"
-                    + "...\n"
-                    + lines[lines.length - 1];
+        String reducedQuotation = quotation;
+
+        if (quotation.length() > 180) {
+            reducedQuotation = quotation.substring(0, 180) + "...";
+        } else {
+            String[] lines = quotation.split("\r\n|\r|\n");
+            if (lines.length > 5) {
+                reducedQuotation
+                        = lines[0] + "\n"
+                        + lines[1] + "\n"
+                        + lines[2] + "\n"
+                        + lines[3] + "\n"
+                        + "...";
+            }
         }
-
-        return (CharSequence) fiveLinesMaxNotifcation;
+        return (CharSequence) reducedQuotation;
     }
 
     private String createNotificationChannel(@NonNull Context context) {

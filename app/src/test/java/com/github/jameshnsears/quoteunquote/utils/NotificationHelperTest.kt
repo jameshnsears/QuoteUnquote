@@ -4,7 +4,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class NotificationHelperTest {
-    fun largeQuotation() =
+    fun largeMultiLineQuotation() =
         """
             To be, or not to be: that is the question:
             Whether ‘tis nobler in the mind to suffer
@@ -39,22 +39,37 @@ class NotificationHelperTest {
             And lose the name of action. III, i, 56
         """.trimIndent()
 
-    fun reducedLargeQuoation() =
+    fun largeMultiLineQuoationReduced() =
         """
             To be, or not to be: that is the question:
             Whether ‘tis nobler in the mind to suffer
             The slings and arrows of outrageous fortune,
+            Or to take arms against a sea of troubles,
             ...
-            And lose the name of action. III, i, 56
         """.trimIndent()
 
+    fun largeSingleLineQuotation() =
+            """
+            The legitimate object of government, is to do for a community of people, whatever they need to have done, but can not do, at all, or can not, so well do, for themselves in their separate, and individual capacities. In all that the people can individually do as well for themselves, government ought not to interfere. The desirable things which the individuals of a people can not do, or can not well do, for themselves, fall into two classes: those which have relation to wrongs, and those which have not. Each of these branch off into an infinite variety of subdivisions. The firstthat in relation to wrongsembraces all crimes, misdemeanors, and nonperformance of contracts. The other embraces all which, in its nature, and without wrong, requires combined action, as public roads and highways, public schools, charities, pauperism, orphanage, estates of the deceased, and the machinery of government itself. From this it appears that if all men were just, there still would be some, though not so much, need for government.
+            """.trimIndent()
+
+    fun largeSingleLineQuotationReduced() =
+            """
+            The legitimate object of government, is to do for a community of people, whatever they need to have done, but can not do, at all, or can not, so well do, for themselves in their se...
+            """.trimIndent()
+
     @Test
-    fun getContent() {
+    fun restrictQuotationSize() {
         val notifcationHelper = NotificationHelper()
 
         assertEquals(
-            reducedLargeQuoation(),
-            notifcationHelper.fiveLinesMaxNotification(largeQuotation())
+            largeMultiLineQuoationReduced(),
+            notifcationHelper.restrictQuotationSize(largeMultiLineQuotation())
+        )
+
+        assertEquals(
+                largeSingleLineQuotationReduced(),
+                notifcationHelper.restrictQuotationSize(largeSingleLineQuotation())
         )
     }
 }
