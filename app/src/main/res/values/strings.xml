@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">Quote, Unquote</string>
+    <string name="app_name">Quote, Unquote&#8230;</string>
 
     <string name="widget_button_first_toast">First quotation, in selection</string>
     <string name="widget_button_next_toast">Last quotation, in selection</string>
 
-    <string name="activity_configure_title">Quote, Unquote</string>
+    <string name="activity_configure_title">Quote, Unquote&#8230;</string>
 
     <string name="fragment_appearance_instruction_touch">Tap widget text to return here</string>
     <string name="fragment_appearance_title">Appearance</string>
@@ -58,8 +58,8 @@
     <string name="fragment_content_favourites_share_remove_code_value">Remote code</string>
     <string name="fragment_content_favourites_share_remote_receive">Receive</string>
     <string name="fragment_content_favourites_share_sending">Sending favourites&#8230;</string>
-    <string name="fragment_content_favourites_share_sent">Sent - use %s on differfent device</string>
-    <string name="fragment_content_favourites_share_remote_code_general">Please use code from different device</string>
+    <string name="fragment_content_favourites_share_sent">Sent - use %s on remote device</string>
+    <string name="fragment_content_favourites_share_remote_code_general">Use code from remote device</string>
     <string name="fragment_content_favourites_share_receiving">Fetching favourites&#8230;</string>
     <string name="fragment_content_favourites_share_received">Received - favourites appended</string>
     <string name="fragment_content_favourites_share_missing">Unable to locate remote code, please retry later</string>
@@ -98,7 +98,7 @@
     <string name="activity_report_instruction_03">\u2022 Register the report in analytics</string>
     <string name="activity_report_warning">Quotation already reported</string>
 
-    <string name="notification_title">Quote, Unquote</string>
+    <string name="notification_title">Quote, Unquote&#8230;</string>
     <string name="notification_channel_id">quote_unquote_channel_01</string>
     <string name="notification_channel_name">Quotations</string>
     <string name="notification_channel_description">Quotation Notifications</string>
