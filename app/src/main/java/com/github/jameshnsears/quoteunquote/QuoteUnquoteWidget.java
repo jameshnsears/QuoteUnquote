@@ -339,13 +339,17 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         ContentSelection contentSelection = new ContentPreferences(widgetId, context).getContentSelection();
         EventPreferences eventPreferences = new EventPreferences(widgetId, context);
 
-        getQuoteUnquoteModelInstance(context).setNext(widgetId, contentSelection, eventPreferences.getEventNextRandom());
-        updateWidgetView(context, widgetId, appWidgetManager);
+        try {
+            getQuoteUnquoteModelInstance(context).setNext(widgetId, contentSelection, eventPreferences.getEventNextRandom());
 
-        if (eventPreferences.getEventDisplayWidgetAndNotification()) {
-            notificationHelper.displayNotification(
-                    widgetId, context, getQuoteUnquoteModelInstance(context).getNext(widgetId, contentSelection));
+            if (eventPreferences.getEventDisplayWidgetAndNotification()) {
+                notificationHelper.displayNotification(
+                        widgetId, context, getQuoteUnquoteModelInstance(context).getNext(widgetId, contentSelection));
+            }
+        } catch (NoNextQuotationAvailableException e) {
+            ToastHelper.makeToast(context, context.getString(R.string.widget_button_next_toast), Toast.LENGTH_LONG);
         }
+        updateWidgetView(context, widgetId, appWidgetManager);
     }
 
     private void updateWidgetView(
