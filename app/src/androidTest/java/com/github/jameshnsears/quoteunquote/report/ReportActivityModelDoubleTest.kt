@@ -1,9 +1,7 @@
 package com.github.jameshnsears.quoteunquote.report
 
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteModelUtility
-import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
-import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -11,14 +9,13 @@ import org.junit.Test
 class ReportActivityModelDoubleTest : QuoteUnquoteModelUtility() {
     @Test
     fun reportQuotation() {
-        insertQuotationsTestData01()
-        setDefaultQuotationAsPreviousAll(WidgetIdHelper.INSTANCE_01_WIDGET_ID)
+        insertQuotationTestData01()
+        setDefaultQuotationAll(WidgetIdHelper.WIDGET_ID_01)
 
-        assertEquals(ContentSelection.ALL, quoteUnquoteModelDouble.selectedContentType(1))
-        assertFalse(quoteUnquoteModelDouble.isReported(1))
+        assertFalse(quoteUnquoteModelDouble.isReported(WidgetIdHelper.WIDGET_ID_01))
 
-        quoteUnquoteModelDouble.reportQuotation(1)
+        quoteUnquoteModelDouble.markAsReported(WidgetIdHelper.WIDGET_ID_01)
 
-        assertTrue(quoteUnquoteModelDouble.isReported(1))
+        assertTrue(quoteUnquoteModelDouble.isReported(WidgetIdHelper.WIDGET_ID_01))
     }
 }

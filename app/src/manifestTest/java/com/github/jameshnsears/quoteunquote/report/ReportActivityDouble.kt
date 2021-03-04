@@ -12,9 +12,9 @@ import io.mockk.mockk
 class ReportActivityDouble : ReportActivity() {
     override fun getQuoteUnquoteModel(): QuoteUnquoteModel {
         val quoteUnquoteModel: QuoteUnquoteModel = mockk()
-        every { quoteUnquoteModel.reportQuotation(any()) } returns Unit
+        every { quoteUnquoteModel.markAsReported(any()) } returns Unit
         every { quoteUnquoteModel.isReported(any()) } returns false
-        every { quoteUnquoteModel.getNext(any(), any()) } returns QuotationEntity("d", "a", "q")
+        every { quoteUnquoteModel.getNextQuotation(any(), any()) } returns QuotationEntity("d", "a", "q")
         return quoteUnquoteModel
     }
 
@@ -25,7 +25,7 @@ class ReportActivityDouble : ReportActivity() {
     companion object {
         fun getIntent(): Intent {
             val intent = Intent(ApplicationProvider.getApplicationContext(), ReportActivityDouble::class.java)
-            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, WidgetIdHelper.INSTANCE_01_WIDGET_ID)
+            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, WidgetIdHelper.WIDGET_ID_01)
             return intent
         }
     }

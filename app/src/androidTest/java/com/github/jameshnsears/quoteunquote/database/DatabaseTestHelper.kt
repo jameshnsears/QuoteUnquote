@@ -12,7 +12,7 @@ abstract class DatabaseTestHelper {
         databaseRepositoryDouble.empty()
     }
 
-    fun insertQuotationsTestData01() {
+    fun insertQuotationTestData01() {
         val quotationEntityList: MutableList<QuotationEntity> = ArrayList()
         quotationEntityList.add(
             QuotationEntity(
@@ -23,7 +23,7 @@ abstract class DatabaseTestHelper {
         databaseRepositoryDouble.insertQuotations(quotationEntityList)
     }
 
-    fun insertQuotationsTestData02() {
+    fun insertQuotationTestData02() {
         val quotationEntityList: MutableList<QuotationEntity> = ArrayList()
         quotationEntityList.add(QuotationEntity("d2", "a2", "q1"))
         quotationEntityList.add(QuotationEntity("d3", "a2", "q3"))
@@ -31,14 +31,14 @@ abstract class DatabaseTestHelper {
         databaseRepositoryDouble.insertQuotations(quotationEntityList)
     }
 
-    fun insertQuotationsTestData03() {
+    fun insertQuotationTestData03() {
         val quotationEntityList: MutableList<QuotationEntity> = ArrayList()
         quotationEntityList.add(QuotationEntity("d5", "a5", "q1"))
         quotationEntityList.add(QuotationEntity("d6", "a2", "q6"))
         databaseRepositoryDouble.insertQuotations(quotationEntityList)
     }
 
-    fun setDefaultQuotationAsPreviousAll(widgetId: Int) {
+    fun setDefaultQuotationAll(widgetId: Int) {
         databaseRepositoryDouble.markAsPrevious(
             widgetId,
             ContentSelection.ALL,
@@ -46,7 +46,7 @@ abstract class DatabaseTestHelper {
         )
     }
 
-    fun setDefaultQuotationAsPreviousAuthor(widgetId: Int) {
+    fun setDefaultQuotationAuthor(widgetId: Int) {
         databaseRepositoryDouble.markAsPrevious(
             widgetId,
             ContentSelection.AUTHOR,
@@ -54,7 +54,7 @@ abstract class DatabaseTestHelper {
         )
     }
 
-    fun setDefaultQuotationAsPreviousSearch(widgetId: Int) {
+    fun setDefaultQuotationSearch(widgetId: Int) {
         databaseRepositoryDouble.markAsPrevious(
             widgetId,
             ContentSelection.SEARCH,

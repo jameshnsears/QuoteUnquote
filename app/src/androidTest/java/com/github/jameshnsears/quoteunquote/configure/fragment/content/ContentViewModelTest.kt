@@ -12,29 +12,29 @@ class ContentViewModelTest : DatabaseTestHelper() {
 
     @Test
     fun countQuotations() {
-        insertQuotationsTestData01()
+        insertQuotationTestData01()
 
         assertEquals("", 2, contentViewModelDouble.countAll().blockingGet().toInt())
 
-        insertQuotationsTestData02()
+        insertQuotationTestData02()
 
         assertEquals("", 5, contentViewModelDouble.countAll().blockingGet().toInt())
     }
 
     @Test
     fun countAuthors() {
-        insertQuotationsTestData01()
-        insertQuotationsTestData02()
-        insertQuotationsTestData03()
+        insertQuotationTestData01()
+        insertQuotationTestData02()
+        insertQuotationTestData03()
 
         assertEquals("", 5, contentViewModelDouble.authors().blockingGet().size)
     }
 
     @Test
     fun checkAuthorsSpinnerSorted() {
-        insertQuotationsTestData01()
-        insertQuotationsTestData02()
-        insertQuotationsTestData03()
+        insertQuotationTestData01()
+        insertQuotationTestData02()
+        insertQuotationTestData03()
 
         assertEquals(
             "",
@@ -53,9 +53,9 @@ class ContentViewModelTest : DatabaseTestHelper() {
 
     @Test
     fun countAuthorQuotations() {
-        insertQuotationsTestData01()
-        insertQuotationsTestData02()
-        insertQuotationsTestData03()
+        insertQuotationTestData01()
+        insertQuotationTestData02()
+        insertQuotationTestData03()
 
         contentViewModelDouble.authorPOJOList = contentViewModelDouble.authors().blockingGet()
         assertEquals("", 3, contentViewModelDouble.countAuthorQuotations("a2"))
@@ -65,16 +65,16 @@ class ContentViewModelTest : DatabaseTestHelper() {
     fun checkTextSearchResults() {
         assertEquals("", 0, contentViewModelDouble.countQuotationWithText("q1"))
 
-        insertQuotationsTestData01()
-        insertQuotationsTestData02()
-        insertQuotationsTestData03()
+        insertQuotationTestData01()
+        insertQuotationTestData02()
+        insertQuotationTestData03()
 
         assertEquals("", 4, contentViewModelDouble.countQuotationWithText("q1"))
     }
 
     @Test
     fun countFavourites() {
-        insertQuotationsTestData01()
+        insertQuotationTestData01()
 
         assertEquals("", 0, contentViewModelDouble.countFavourites().blockingGet().toInt())
 

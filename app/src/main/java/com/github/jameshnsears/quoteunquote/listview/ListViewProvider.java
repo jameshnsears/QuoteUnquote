@@ -52,7 +52,7 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
         synchronized (this) {
             quotationList.clear();
 
-            QuotationEntity quotationEntity = getQuoteUnquoteModel().getNext(
+            QuotationEntity quotationEntity = getQuoteUnquoteModel().getNextQuotation(
                     widgetId,
                     contentPreferences.getContentSelection());
 

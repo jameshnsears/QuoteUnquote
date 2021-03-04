@@ -2,7 +2,7 @@
     <string name="app_name">Quote, Unquote&#8230;</string>
 
     <string name="widget_button_first_toast">First quotation, in selection</string>
-    <string name="widget_button_next_toast">Last quotation, in selection</string>
+    <string name="widget_button_next_toast">No more quotations, in selection</string>
 
     <string name="activity_configure_title">Quote, Unquote&#8230;</string>
 

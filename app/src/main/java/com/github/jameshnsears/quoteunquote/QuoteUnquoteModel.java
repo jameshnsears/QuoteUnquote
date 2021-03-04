@@ -42,49 +42,43 @@ public class QuoteUnquoteModel {
         executorService.shutdown();
     }
 
-    public void setDefault(final int widgetId) {
-        final Future future = executorService.submit(() -> {
-            QuotationEntity defaultQuotation = databaseRepository.getQuotation(DatabaseRepository.DEFAULT_QUOTATION_DIGEST);
-
-            databaseRepository.markAsPrevious(widgetId, ContentSelection.ALL, defaultQuotation.digest);
-        });
-
-        try {
-            future.get();
-        } catch (ExecutionException | InterruptedException e) {
-            Timber.w(e.toString());
-            Thread.currentThread().interrupt();
-        }
-    }
-
-    public void setNext(
+    public void setNextQuotation(
             final int widgetId,
-            @NonNull final ContentSelection contentSelection,
             final boolean randomNext)
             throws NoNextQuotationAvailableException {
-        final String logMsg = String.format(Locale.ENGLISH, "%d: contentType=%d", widgetId, contentSelection.getContentType());
-        Timber.d(logMsg);
+        final ContentPreferences contentPreferences = getContentPreferences(widgetId);
 
         final Future<Boolean> future = executorService.submit(() -> {
             try {
                 QuotationEntity quotationEntity = null;
 
-                switch (contentSelection) {
+                switch (contentPreferences.getContentSelection()) {
                     case ALL:
+                        quotationEntity = databaseRepository.GetNextQuotation(
+                                widgetId,
+                                ContentSelection.ALL,
+                                null,
+                                randomNext);
+                        break;
                     case FAVOURITES:
-                        quotationEntity = databaseRepository.getNext(
-                                widgetId, contentSelection, null, randomNext);
+                        quotationEntity = databaseRepository.GetNextQuotation(
+                                widgetId,
+                                ContentSelection.FAVOURITES,
+                                null,
+                                randomNext);
                         break;
                     case AUTHOR:
-                        quotationEntity = databaseRepository.getNext(
-                                widgetId, contentSelection,
-                                new ContentPreferences(widgetId, context).getContentSelectionAuthorName(),
+                        quotationEntity = databaseRepository.GetNextQuotation(
+                                widgetId,
+                                ContentSelection.AUTHOR,
+                                contentPreferences.getContentSelectionAuthorName(),
                                 randomNext);
                         break;
                     case SEARCH:
-                        quotationEntity = databaseRepository.getNext(
-                                widgetId, contentSelection,
-                                new ContentPreferences(widgetId, context).getContentSelectionSearchText(),
+                        quotationEntity = databaseRepository.GetNextQuotation(
+                                widgetId,
+                                ContentSelection.SEARCH,
+                                contentPreferences.getContentSelectionSearchText(),
                                 randomNext);
                         break;
                     default:
@@ -92,7 +86,10 @@ public class QuoteUnquoteModel {
                         break;
                 }
 
-                databaseRepository.markAsPrevious(widgetId, contentSelection, quotationEntity.digest);
+                databaseRepository.markAsPrevious(
+                        widgetId,
+                        contentPreferences.getContentSelection(),
+                        quotationEntity.digest);
                 return true;
             } catch (NoNextQuotationAvailableException e) {
                 return false;
@@ -101,7 +98,7 @@ public class QuoteUnquoteModel {
 
         try {
             if (Boolean.FALSE.equals(future.get())) {
-                throw new NoNextQuotationAvailableException(contentSelection);
+                throw new NoNextQuotationAvailableException();
             }
         } catch (ExecutionException | InterruptedException e) {
             Timber.w(e.toString());
@@ -109,47 +106,44 @@ public class QuoteUnquoteModel {
         }
     }
 
-    @Nullable
-    public QuotationEntity getNext(
+    @NonNull
+    public ContentPreferences getContentPreferences(int widgetId) {
+        return new ContentPreferences(widgetId, context);
+    }
+
+    @NonNull
+    public QuotationEntity getNextQuotation(
             final int widgetId,
             @NonNull final ContentSelection contentSelection) {
-        final String logMsg = String.format(Locale.ENGLISH, "%d: contentType=%s", widgetId, contentSelection.getContentType());
-        Timber.d(logMsg);
 
         final Future<QuotationEntity> future = executorService.submit(() -> {
             // check for first time use
             try {
                 switch (contentSelection) {
                     case AUTHOR:
-                        getNextAuthor(widgetId, contentSelection);
+                        setDefaultAuthor(widgetId);
                         break;
 
                     case FAVOURITES:
-                        getNextFavourite(widgetId, contentSelection, countPrevious(widgetId, contentSelection) == 0, false);
+                        setDefaultFavourite(widgetId);
                         break;
 
                     case SEARCH:
-                        if (countPreviousSearch(widgetId) == 0) {
-                            databaseRepository.deletePrevious(widgetId, contentSelection);
-                            setNext(widgetId, contentSelection, false);
-                        }
+                        setDefaultSearch(widgetId);
                         break;
 
                     default:
-                        // ALL
-                        if (countPrevious(widgetId, contentSelection) == 0) {
-                            setDefault(widgetId);
-                        }
+                        setDefaultAll(widgetId);
                         break;
                 }
             } catch (NoNextQuotationAvailableException e) {
                 Timber.d(e);
             }
 
-            return databaseRepository.getNext(widgetId, contentSelection);
+            return databaseRepository.GetNextQuotation(widgetId, contentSelection);
         });
 
-        QuotationEntity quotationEntity = null;
+        QuotationEntity quotationEntity = new QuotationEntity("", "", "");
         try {
             quotationEntity = future.get();
         } catch (ExecutionException | InterruptedException e) {
@@ -159,16 +153,40 @@ public class QuoteUnquoteModel {
         return quotationEntity;
     }
 
-    private void getNextFavourite(int widgetId, @NonNull ContentSelection contentSelection, boolean b, boolean b2) throws NoNextQuotationAvailableException {
-        if (b) {
-            setNext(widgetId, contentSelection, b2);
+    private void setDefaultAuthor(int widgetId) throws NoNextQuotationAvailableException {
+        if (countPreviousAuthor(widgetId) == 0) {
+            databaseRepository.deletePrevious(widgetId, ContentSelection.AUTHOR);
+            setNextQuotation(widgetId, false);
         }
     }
 
-    private void getNextAuthor(int widgetId, @NonNull ContentSelection contentSelection) throws NoNextQuotationAvailableException {
-        if (countPreviousAuthor(widgetId) == 0) {
-            databaseRepository.deletePrevious(widgetId, contentSelection);
-            setNext(widgetId, contentSelection, false);
+    private void setDefaultFavourite(int widgetId) throws NoNextQuotationAvailableException {
+        if (countPrevious(widgetId, ContentSelection.FAVOURITES) == 0) {
+            setNextQuotation(widgetId, false);
+        }
+    }
+
+    private void setDefaultSearch(int widgetId) throws NoNextQuotationAvailableException {
+        if (countPreviousSearch(widgetId) == 0) {
+            databaseRepository.deletePrevious(widgetId, ContentSelection.SEARCH);
+            setNextQuotation(widgetId, false);
+        }
+    }
+
+    private void setDefaultAll(int widgetId) {
+        if (countPrevious(widgetId, ContentSelection.ALL) == 0) {
+            final Future future = executorService.submit(() -> {
+                QuotationEntity defaultQuotation = databaseRepository.getQuotation(DatabaseRepository.DEFAULT_QUOTATION_DIGEST);
+
+                databaseRepository.markAsPrevious(widgetId, ContentSelection.ALL, defaultQuotation.digest);
+            });
+
+            try {
+                future.get();
+            } catch (ExecutionException | InterruptedException e) {
+                Timber.w(e.toString());
+                Thread.currentThread().interrupt();
+            }
         }
     }
 
@@ -176,20 +194,14 @@ public class QuoteUnquoteModel {
         return databaseRepository.countPrevious(widgetId, contentSelection);
     }
 
-    public int countPrevious(final int widgetId) {
-        return databaseRepository.countPrevious(widgetId, ContentSelection.ALL)
-                + databaseRepository.countPrevious(widgetId, ContentSelection.AUTHOR)
-                + databaseRepository.countPrevious(widgetId, ContentSelection.SEARCH);
-    }
-
     public int countPreviousAuthor(final int widgetId) {
         return databaseRepository.countPrevious(widgetId, ContentSelection.AUTHOR,
-                new ContentPreferences(widgetId, context).getContentSelectionAuthorName());
+                getContentPreferences(widgetId).getContentSelectionAuthorName());
     }
 
     public int countPreviousSearch(final int widgetId) {
         return databaseRepository.countPrevious(widgetId, ContentSelection.SEARCH,
-                new ContentPreferences(widgetId, context).getContentSelectionSearchText());
+                getContentPreferences(widgetId).getContentSelectionSearchText());
     }
 
     public void toggleFavourite(final int widgetId, @NonNull final String digest) {
@@ -200,9 +212,9 @@ public class QuoteUnquoteModel {
             if (!isFavourite(widgetId, digest)) {
                 databaseRepository.markAsFavourite(digest);
 
-                QuotationEntity quotationEntity = getNext(
+                QuotationEntity quotationEntity = getNextQuotation(
                         widgetId,
-                        selectedContentType(widgetId));
+                        getContentPreferences(widgetId).getContentSelection());
 
                 ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
                 properties.put("Favourite",
@@ -212,9 +224,11 @@ public class QuoteUnquoteModel {
                 databaseRepository.deleteFavourite(widgetId, digest);
                 try {
                     if (databaseRepository.countFavourites().blockingGet() == 0) {
-                        getNextFavourite(widgetId, ContentSelection.ALL, selectedContentTypeIsFavourite(widgetId), true);
+                        getContentPreferences(widgetId).setContentSelection(ContentSelection.ALL);
+                        setNextQuotation(widgetId, false);
                     } else {
-                        setNext(widgetId, ContentSelection.FAVOURITES, true);
+                        getContentPreferences(widgetId).setContentSelection(ContentSelection.FAVOURITES);
+                        setNextQuotation(widgetId, false);
                     }
                 } catch (NoNextQuotationAvailableException e) {
                     Timber.d(e);
@@ -228,10 +242,6 @@ public class QuoteUnquoteModel {
             Timber.w(e.toString());
             Thread.currentThread().interrupt();
         }
-    }
-
-    public boolean selectedContentTypeIsFavourite(final int widgetId) {
-        return selectedContentType(widgetId).equals(ContentSelection.FAVOURITES);
     }
 
     public boolean isFavourite(final int widgetId, @NonNull final String digest) {
@@ -297,10 +307,10 @@ public class QuoteUnquoteModel {
         }
     }
 
-    public void reportQuotation(final int widgetId) {
+    public void markAsReported(final int widgetId) {
         final Future future = executorService.submit(() -> {
-            List<String> previousQuotations = databaseRepository.getPrevious(
-                    widgetId, selectedContentType(widgetId));
+            List<String> previousQuotations = databaseRepository.getAllPrevious(
+                    widgetId, getContentPreferences(widgetId).getContentSelection());
 
             databaseRepository.markAsReported(previousQuotations.get(0));
         });
@@ -313,15 +323,11 @@ public class QuoteUnquoteModel {
         }
     }
 
-    public ContentSelection selectedContentType(final int widgetId) {
-        return new ContentPreferences(widgetId, context).getContentSelection();
-    }
-
     public boolean isReported(final int widgetId) {
         final Future<Integer> future = executorService.submit(() -> {
-            QuotationEntity quotationEntity = getNext(
+            QuotationEntity quotationEntity = getNextQuotation(
                     widgetId,
-                    selectedContentType(widgetId));
+                    getContentPreferences(widgetId).getContentSelection());
 
             return databaseRepository.countReported(quotationEntity.digest);
         });

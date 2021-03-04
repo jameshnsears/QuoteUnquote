@@ -40,16 +40,6 @@ public class NotificationHelper {
 
         if (quotation.length() > 180) {
             reducedQuotation = quotation.substring(0, 180) + "...";
-        } else {
-            String[] lines = quotation.split("\r\n|\r|\n");
-            if (lines.length > 5) {
-                reducedQuotation
-                        = lines[0] + "\n"
-                        + lines[1] + "\n"
-                        + lines[2] + "\n"
-                        + lines[3] + "\n"
-                        + "...";
-            }
         }
         return (CharSequence) reducedQuotation;
     }

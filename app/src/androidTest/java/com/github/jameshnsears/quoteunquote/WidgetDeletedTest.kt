@@ -23,39 +23,39 @@ class WidgetDeletedTest : QuoteUnquoteModelUtility() {
         quoteUnquoteWidget.onEnabled(context)
         val contentPreferences = ContentPreferences(context)
         assertTrue(contentPreferences.contentFavouritesLocalCode.length == 10)
-        quoteUnquoteWidget.onDeleted(context, intArrayOf(WidgetIdHelper.INSTANCE_01_WIDGET_ID))
+        quoteUnquoteWidget.onDeleted(context, intArrayOf(WidgetIdHelper.WIDGET_ID_01))
 
         assertEmptyDatabasesForTheDeletedInstance()
         assertSharedPreferencesStillGood(contentPreferences)
     }
 
     private fun assertSharedPreferencesStillGood(contentPreferences: ContentPreferences) {
-        assertEquals(0, PreferencesFacade.countPreferences(context, WidgetIdHelper.INSTANCE_01_WIDGET_ID))
-        assertEquals(1, PreferencesFacade.countPreferences(context, WidgetIdHelper.INSTANCE_02_WIDGET_ID))
+        assertEquals(0, PreferencesFacade.countPreferences(context, WidgetIdHelper.WIDGET_ID_01))
+        assertEquals(1, PreferencesFacade.countPreferences(context, WidgetIdHelper.WIDGET_ID_02))
 
         assertFalse(contentPreferences.contentFavouritesLocalCode.isEmpty())
     }
 
     private fun assertEmptyDatabasesForTheDeletedInstance() {
-        assertTrue(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID) == 0)
+        assertTrue(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01) == 0)
 
-        assertTrue(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.INSTANCE_02_WIDGET_ID) == 3)
+        assertTrue(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_02) == 3)
         assertTrue(quoteUnquoteModelDouble.countFavourites() == 1)
         assertTrue(quoteUnquoteModelDouble.countReported() == 1)
     }
 
     private fun setupDatabases() {
-        insertQuotationsTestData01()
+        insertQuotationTestData01()
 
-        setDefaultQuotationAsPreviousAll(WidgetIdHelper.INSTANCE_01_WIDGET_ID)
-        setDefaultQuotationAsPreviousAuthor(WidgetIdHelper.INSTANCE_01_WIDGET_ID)
-        setDefaultQuotationAsPreviousSearch(WidgetIdHelper.INSTANCE_01_WIDGET_ID)
-        assertTrue(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID) == 3)
+        setDefaultQuotationAll(WidgetIdHelper.WIDGET_ID_01)
+        setDefaultQuotationAuthor(WidgetIdHelper.WIDGET_ID_01)
+        setDefaultQuotationSearch(WidgetIdHelper.WIDGET_ID_01)
+        assertTrue(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01) == 3)
 
-        setDefaultQuotationAsPreviousAll(WidgetIdHelper.INSTANCE_02_WIDGET_ID)
-        setDefaultQuotationAsPreviousAuthor(WidgetIdHelper.INSTANCE_02_WIDGET_ID)
-        setDefaultQuotationAsPreviousSearch(WidgetIdHelper.INSTANCE_02_WIDGET_ID)
-        assertTrue(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.INSTANCE_02_WIDGET_ID) == 3)
+        setDefaultQuotationAll(WidgetIdHelper.WIDGET_ID_02)
+        setDefaultQuotationAuthor(WidgetIdHelper.WIDGET_ID_02)
+        setDefaultQuotationSearch(WidgetIdHelper.WIDGET_ID_02)
+        assertTrue(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_02) == 3)
 
         markDefaultQuotationAsFavourite()
         markDefaultQuotationAsReported()
@@ -64,7 +64,7 @@ class WidgetDeletedTest : QuoteUnquoteModelUtility() {
     }
 
     private fun setupSharedPreferences() {
-        AppearancePreferences(WidgetIdHelper.INSTANCE_01_WIDGET_ID, context).appearanceTextSize = 1
-        AppearancePreferences(WidgetIdHelper.INSTANCE_02_WIDGET_ID, context).appearanceTextSize = 1
+        AppearancePreferences(WidgetIdHelper.WIDGET_ID_01, context).appearanceTextSize = 1
+        AppearancePreferences(WidgetIdHelper.WIDGET_ID_02, context).appearanceTextSize = 1
     }
 }

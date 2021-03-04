@@ -19,10 +19,10 @@ public interface PreviousDAO {
     int countPrevious(int widgetId, ContentSelection contentSelection);
 
     @Query("SELECT DIGEST FROM PREVIOUS WHERE WIDGET_ID = :widgetId AND CONTENT_SELECTION = :contentSelection ORDER BY NAVIGATION DESC")
-    List<String> getPrevious(int widgetId, ContentSelection contentSelection);
+    List<String> getAllPrevious(int widgetId, ContentSelection contentSelection);
 
     @Query("SELECT * FROM PREVIOUS WHERE WIDGET_ID = :widgetId AND CONTENT_SELECTION = :contentSelection ORDER BY NAVIGATION DESC LIMIT 1")
-    PreviousEntity getNext(int widgetId, ContentSelection contentSelection);
+    PreviousEntity getPrevious(int widgetId, ContentSelection contentSelection);
 
     @Query("DELETE FROM PREVIOUS")
     void deleteAll();

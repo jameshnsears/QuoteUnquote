@@ -27,23 +27,23 @@ open class WidgetDisabledTest : QuoteUnquoteModelUtility() {
     }
 
     private fun assertEmptySharedPreferences(contentPreferences: ContentPreferences) {
-        assertEquals(0, PreferencesFacade.countPreferences(context, WidgetIdHelper.INSTANCE_01_WIDGET_ID))
+        assertEquals(0, PreferencesFacade.countPreferences(context, WidgetIdHelper.WIDGET_ID_01))
         assertTrue(contentPreferences.contentFavouritesLocalCode.isEmpty())
     }
 
     private fun assertEmptyDatabases() {
-        assertTrue(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID) == 0)
+        assertTrue(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01) == 0)
         assertTrue(quoteUnquoteModelDouble.countFavourites() == 0)
         assertTrue(quoteUnquoteModelDouble.countReported() == 0)
     }
 
     private fun setupDatabases() {
-        insertQuotationsTestData01()
+        insertQuotationTestData01()
 
-        setDefaultQuotationAsPreviousAll(WidgetIdHelper.INSTANCE_01_WIDGET_ID)
-        setDefaultQuotationAsPreviousAuthor(WidgetIdHelper.INSTANCE_01_WIDGET_ID)
-        setDefaultQuotationAsPreviousSearch(WidgetIdHelper.INSTANCE_01_WIDGET_ID)
-        assertTrue(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.INSTANCE_01_WIDGET_ID) == 3)
+        setDefaultQuotationAll(WidgetIdHelper.WIDGET_ID_01)
+        setDefaultQuotationAuthor(WidgetIdHelper.WIDGET_ID_01)
+        setDefaultQuotationSearch(WidgetIdHelper.WIDGET_ID_01)
+        assertTrue(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01) == 3)
 
         markDefaultQuotationAsFavourite()
         markDefaultQuotationAsReported()

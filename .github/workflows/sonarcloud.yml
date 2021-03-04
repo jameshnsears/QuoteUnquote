@@ -56,4 +56,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -x
-          ./gradlew clean assembleDebug sonarqube --stacktrace
+          ./gradlew clean assembleDebug sonarqube --stacktrace || true

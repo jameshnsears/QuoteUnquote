@@ -19,7 +19,6 @@ import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 
 import java.security.SecureRandom;
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Single;
@@ -81,10 +80,10 @@ public class DatabaseRepository {
         List<String> availableDigests;
 
         if (contentSelection == ContentSelection.AUTHOR) {
-            digestsPrevious = previousDAO.getPrevious(widgetId, ContentSelection.AUTHOR);
+            digestsPrevious = previousDAO.getAllPrevious(widgetId, ContentSelection.AUTHOR);
             availableDigests = quotationDAO.getAuthors(criteria);
         } else {
-            digestsPrevious = previousDAO.getPrevious(widgetId, ContentSelection.SEARCH);
+            digestsPrevious = previousDAO.getAllPrevious(widgetId, ContentSelection.SEARCH);
             availableDigests = quotationDAO.getQuotationText("%" + criteria + "%");
         }
 
@@ -104,13 +103,13 @@ public class DatabaseRepository {
     }
 
     @NonNull
-    public QuotationEntity getNext(final int widgetId, @NonNull final ContentSelection contentSelection) {
-        return getQuotation(previousDAO.getNext(widgetId, contentSelection).digest);
+    public QuotationEntity GetNextQuotation(final int widgetId, @NonNull final ContentSelection contentSelection) {
+        return getQuotation(previousDAO.getPrevious(widgetId, contentSelection).digest);
     }
 
     @NonNull
-    public List<String> getPrevious(final int widgetId, @NonNull final ContentSelection contentSelection) {
-        final List<String> previousOrdered = previousDAO.getPrevious(widgetId, contentSelection);
+    public List<String> getAllPrevious(final int widgetId, @NonNull final ContentSelection contentSelection) {
+        final List<String> previousOrdered = previousDAO.getAllPrevious(widgetId, contentSelection);
         logDigests(previousOrdered);
 
         return previousOrdered;
@@ -162,7 +161,7 @@ public class DatabaseRepository {
     }
 
     @NonNull
-    public QuotationEntity getNext(
+    public QuotationEntity GetNextQuotation(
             final int widgetId,
             @NonNull final ContentSelection contentSelection,
             @NonNull final String searchString,
@@ -170,36 +169,36 @@ public class DatabaseRepository {
             throws NoNextQuotationAvailableException {
         Timber.d("%d: contentType=%d; searchString=%s", widgetId, contentSelection.getContentType(), searchString);
 
-        List<String> availableQuotations = new ArrayList<>();
+        List<String> availableQuotations;
 
         switch (contentSelection) {
             case FAVOURITES:
                 availableQuotations
-                        = favouritesDAO.getFavourites(getPrevious(widgetId, contentSelection));
+                        = favouritesDAO.getFavourites(getAllPrevious(widgetId, contentSelection));
                 break;
 
             case AUTHOR:
                 availableQuotations
                         = quotationDAO.getAuthors(
-                        searchString, getPrevious(widgetId, contentSelection));
+                        searchString, getAllPrevious(widgetId, contentSelection));
                 break;
 
             case SEARCH:
                 availableQuotations
                         = quotationDAO.getQuotationText(
-                        "%" + searchString + "%", getPrevious(widgetId, contentSelection));
+                        "%" + searchString + "%", getAllPrevious(widgetId, contentSelection));
                 break;
 
             default:
                 // ALL:
                 availableQuotations
                         = quotationDAO.getAll(
-                        getPrevious(widgetId, contentSelection));
+                        getAllPrevious(widgetId, contentSelection));
                 break;
         }
 
         if (availableQuotations.isEmpty()) {
-            throw new NoNextQuotationAvailableException(contentSelection);
+            throw new NoNextQuotationAvailableException();
         }
 
         if (randomNext) {

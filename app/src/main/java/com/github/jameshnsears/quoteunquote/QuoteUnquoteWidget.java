@@ -241,7 +241,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
     private void onReceiveToolbarPressedShare(@NonNull final Context context, final int widgetId) {
         context.startActivity(IntentFactoryHelper.createIntentShare(
                 context.getResources().getString(R.string.app_name),
-                getQuoteUnquoteModelInstance(context).getNext(
+                getQuoteUnquoteModelInstance(context).getNextQuotation(
                         widgetId, new ContentPreferences(widgetId, context).getContentSelection()).theQuotation()));
     }
 
@@ -251,7 +251,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull final AppWidgetManager appWidgetManager) {
         final ContentPreferences contentPreferences = new ContentPreferences(widgetId, context);
 
-        getQuoteUnquoteModelInstance(context).toggleFavourite(widgetId, getQuoteUnquoteModelInstance(context).getNext(
+        getQuoteUnquoteModelInstance(context).toggleFavourite(widgetId, getQuoteUnquoteModelInstance(context).getNextQuotation(
                 widgetId, contentPreferences.getContentSelection()).digest);
 
         toggleFavouriteColour(context, widgetId, appWidgetManager);
@@ -297,10 +297,8 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             final int widgetId,
             @NonNull final AppWidgetManager appWidgetManager,
             final boolean randomNext) {
-        final ContentPreferences contentPreferences = new ContentPreferences(widgetId, context);
-
         try {
-            getQuoteUnquoteModelInstance(context).setNext(widgetId, contentPreferences.getContentSelection(), randomNext);
+            getQuoteUnquoteModelInstance(context).setNextQuotation(widgetId, randomNext);
 
             updateWidgetView(context, widgetId, appWidgetManager);
         } catch (NoNextQuotationAvailableException e) {
@@ -313,12 +311,8 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull final AppWidgetManager appWidgetManager) {
         for (final int widgetId : appWidgetManager.getAppWidgetIds(new ComponentName(context, QuoteUnquoteWidget.class))) {
             if (new EventPreferences(widgetId, context).getEventDeviceUnlock()) {
-                try {
-                    scheduleEvent(context, widgetId, appWidgetManager);
-                } catch (NoNextQuotationAvailableException e) {
-                    Timber.d(e);
-                }
-            }
+                scheduleEvent(context, widgetId, appWidgetManager);
+             }
         }
     }
 
@@ -326,30 +320,26 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull final Context context,
             final int widgetId,
             @NonNull final AppWidgetManager appWidgetManager,
-            @NonNull final EventDailyAlarm eventDailyAlarm) {
-        eventDailyAlarm.setDailyAlarm();
-        try {
-            scheduleEvent(context, widgetId, appWidgetManager);
-        } catch (NoNextQuotationAvailableException e) {
-            Timber.d(e);
-        }
+            @NonNull final EventDailyAlarm scheduleDailyAlarm) {
+        scheduleDailyAlarm.setDailyAlarm();
+        scheduleEvent(context, widgetId, appWidgetManager);
     }
 
-    private void scheduleEvent(@NonNull Context context, int widgetId, @NonNull AppWidgetManager appWidgetManager) throws NoNextQuotationAvailableException {
+    private void scheduleEvent(@NonNull Context context, int widgetId, @NonNull AppWidgetManager appWidgetManager) {
         ContentSelection contentSelection = new ContentPreferences(widgetId, context).getContentSelection();
         EventPreferences eventPreferences = new EventPreferences(widgetId, context);
 
         try {
-            getQuoteUnquoteModelInstance(context).setNext(widgetId, contentSelection, eventPreferences.getEventNextRandom());
+            getQuoteUnquoteModelInstance(context).setNextQuotation(widgetId, eventPreferences.getEventNextRandom());
+            updateWidgetView(context, widgetId, appWidgetManager);
 
             if (eventPreferences.getEventDisplayWidgetAndNotification()) {
                 notificationHelper.displayNotification(
-                        widgetId, context, getQuoteUnquoteModelInstance(context).getNext(widgetId, contentSelection));
+                        widgetId, context, getQuoteUnquoteModelInstance(context).getNextQuotation(widgetId, contentSelection));
             }
         } catch (NoNextQuotationAvailableException e) {
             ToastHelper.makeToast(context, context.getString(R.string.widget_button_next_toast), Toast.LENGTH_LONG);
         }
-        updateWidgetView(context, widgetId, appWidgetManager);
     }
 
     private void updateWidgetView(
@@ -476,7 +466,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             final int widgetId,
             @NonNull final RemoteViews remoteViews) {
         final QuotationEntity quotationEntity
-                = getQuoteUnquoteModelInstance(context).getNext(widgetId, new ContentPreferences(widgetId, context).getContentSelection());
+                = getQuoteUnquoteModelInstance(context).getNextQuotation(widgetId, new ContentPreferences(widgetId, context).getContentSelection());
 
         if (getQuoteUnquoteModelInstance(context).isFavourite(widgetId, quotationEntity.digest)) {
             remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_favorite_red_24dp);

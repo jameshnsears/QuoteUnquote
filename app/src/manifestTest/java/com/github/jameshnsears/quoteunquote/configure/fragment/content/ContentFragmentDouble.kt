@@ -6,7 +6,7 @@ import io.mockk.every
 import io.mockk.mockk
 import io.reactivex.Single
 
-class ContentFragmentDouble(widgetId: Int = WidgetIdHelper.INSTANCE_01_WIDGET_ID) : ContentFragment(widgetId) {
+class ContentFragmentDouble(widgetId: Int = WidgetIdHelper.WIDGET_ID_01) : ContentFragment(widgetId) {
     override fun getContentViewModel(): ContentViewModel {
         val contentViewModel: ContentViewModel = mockk()
         every { contentViewModel.countAll() } returns Single.just(7)

@@ -18,8 +18,8 @@ import org.robolectric.annotation.Config
 class IntentFactoryHelperTest {
     @Test
     fun createSimpleIntent() {
-        val intent = IntentFactoryHelper.createIntent(WidgetIdHelper.INSTANCE_01_WIDGET_ID)
-        assertEquals(WidgetIdHelper.INSTANCE_01_WIDGET_ID, intent.extras?.get(AppWidgetManager.EXTRA_APPWIDGET_ID))
+        val intent = IntentFactoryHelper.createIntent(WidgetIdHelper.WIDGET_ID_01)
+        assertEquals(WidgetIdHelper.WIDGET_ID_01, intent.extras?.get(AppWidgetManager.EXTRA_APPWIDGET_ID))
     }
 
     @Test
@@ -35,7 +35,7 @@ class IntentFactoryHelperTest {
     fun createComplexIntent() {
         val intent = IntentFactoryHelper.createIntent(
             getApplicationContext(),
-            ListViewService::class.java, WidgetIdHelper.INSTANCE_01_WIDGET_ID
+            ListViewService::class.java, WidgetIdHelper.WIDGET_ID_01
         )
 
         assertNotNull(intent.extras)
@@ -44,7 +44,7 @@ class IntentFactoryHelperTest {
     @Test
     fun createIntentAction() {
         val intent = IntentFactoryHelper.createIntentAction(
-            getApplicationContext(), WidgetIdHelper.INSTANCE_01_WIDGET_ID,
+            getApplicationContext(), WidgetIdHelper.WIDGET_ID_01,
             IntentFactoryHelper.ACTIVITY_FINISHED_CONFIGURATION
         )
 

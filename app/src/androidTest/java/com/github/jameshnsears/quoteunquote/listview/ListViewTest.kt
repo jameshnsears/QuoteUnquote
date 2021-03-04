@@ -20,21 +20,19 @@ class ListViewTest : QuoteUnquoteModelUtility() {
 
     private fun getIntent(): Intent {
         val intent = Intent()
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, WidgetIdHelper.INSTANCE_01_WIDGET_ID)
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, WidgetIdHelper.WIDGET_ID_01)
         return intent
     }
 
     @Test
     fun countItemsInList() {
-        insertQuotationsTestData01()
+        insertQuotationTestData01()
 
         val listViewProvider = spyk(ListViewProvider(context, getIntent()))
-        every { listViewProvider.getQuoteUnquoteModel(any()) } returns quoteUnquoteModelDouble
+        every { listViewProvider.getQuoteUnquoteModel() } returns quoteUnquoteModelDouble
 
-        val contentPreferences = spyk(ContentPreferences(context))
-        every { contentPreferences.contentSelection } returns ContentSelection.ALL
-
-        every { listViewProvider.getContentPreferences(any()) } returns contentPreferences
+        val contentPreferences = ContentPreferences(context)
+        contentPreferences.contentSelection = ContentSelection.ALL
 
         listViewProvider.onCreate()
         assertEquals(0, listViewProvider.count)

@@ -93,7 +93,7 @@ public class ReportActivity extends AppCompatActivity {
         activityReportBinding.buttonOK.setOnClickListener(view1 -> {
             AuditEventHelper.auditEvent("REPORT", getAuditProperties());
 
-            quoteUnquoteModel.reportQuotation(widgetId);
+            quoteUnquoteModel.markAsReported(widgetId);
 
             onBackPressed();
         });
@@ -117,7 +117,7 @@ public class ReportActivity extends AppCompatActivity {
         final ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
 
         final ContentPreferences contentPreferences = new ContentPreferences(widgetId, getApplicationContext());
-        final QuotationEntity quotationToReport = getQuoteUnquoteModel().getNext(widgetId, contentPreferences.getContentSelection());
+        final QuotationEntity quotationToReport = getQuoteUnquoteModel().getNextQuotation(widgetId, contentPreferences.getContentSelection());
 
         if (quotationToReport == null) {
             return properties;

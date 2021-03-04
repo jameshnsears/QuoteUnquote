@@ -22,10 +22,10 @@ class EventFragmentTest {
 
         assertFalse(isAlarmSet(context))
 
-        val eventPreferences = EventPreferences(WidgetIdHelper.INSTANCE_01_WIDGET_ID, context)
+        val eventPreferences = EventPreferences(WidgetIdHelper.WIDGET_ID_01, context)
         eventPreferences.eventDaily = true
 
-        val eventDailyAlarm = EventDailyAlarm(context, WidgetIdHelper.INSTANCE_01_WIDGET_ID)
+        val eventDailyAlarm = EventDailyAlarm(context, WidgetIdHelper.WIDGET_ID_01)
         eventDailyAlarm.setDailyAlarm()
 
         assertTrue(isAlarmSet(context))
@@ -36,10 +36,10 @@ class EventFragmentTest {
     }
 
     private fun isAlarmSet(context: Context): Boolean {
-        val intent = IntentFactoryHelper.createIntent(context, WidgetIdHelper.INSTANCE_01_WIDGET_ID)
+        val intent = IntentFactoryHelper.createIntent(context, WidgetIdHelper.WIDGET_ID_01)
         intent.action = IntentFactoryHelper.DAILY_ALARM
         return PendingIntent.getBroadcast(
-            context, WidgetIdHelper.INSTANCE_01_WIDGET_ID, intent, PendingIntent.FLAG_NO_CREATE
+            context, WidgetIdHelper.WIDGET_ID_01, intent, PendingIntent.FLAG_NO_CREATE
         ) != null
     }
 }

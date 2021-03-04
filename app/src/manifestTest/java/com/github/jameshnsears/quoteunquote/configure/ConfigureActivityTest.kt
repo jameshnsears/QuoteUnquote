@@ -26,7 +26,7 @@ class ConfigureActivityDoubleTest : ShadowLoggingHelper() {
 
     private fun getIntent(): Intent {
         val intent = Intent(ApplicationProvider.getApplicationContext(), ConfigureActivityDouble::class.java)
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, WidgetIdHelper.INSTANCE_01_WIDGET_ID)
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, WidgetIdHelper.WIDGET_ID_01)
         return intent
     }
 
