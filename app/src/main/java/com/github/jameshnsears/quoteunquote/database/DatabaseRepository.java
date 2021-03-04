@@ -103,7 +103,7 @@ public class DatabaseRepository {
     }
 
     @NonNull
-    public QuotationEntity GetNextQuotation(final int widgetId, @NonNull final ContentSelection contentSelection) {
+    public QuotationEntity getNextQuotation(final int widgetId, @NonNull final ContentSelection contentSelection) {
         return getQuotation(previousDAO.getPrevious(widgetId, contentSelection).digest);
     }
 
@@ -161,7 +161,7 @@ public class DatabaseRepository {
     }
 
     @NonNull
-    public QuotationEntity GetNextQuotation(
+    public QuotationEntity getNextQuotation(
             final int widgetId,
             @NonNull final ContentSelection contentSelection,
             @NonNull final String searchString,

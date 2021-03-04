@@ -54,28 +54,28 @@ public class QuoteUnquoteModel {
 
                 switch (contentPreferences.getContentSelection()) {
                     case ALL:
-                        quotationEntity = databaseRepository.GetNextQuotation(
+                        quotationEntity = databaseRepository.getNextQuotation(
                                 widgetId,
                                 ContentSelection.ALL,
                                 null,
                                 randomNext);
                         break;
                     case FAVOURITES:
-                        quotationEntity = databaseRepository.GetNextQuotation(
+                        quotationEntity = databaseRepository.getNextQuotation(
                                 widgetId,
                                 ContentSelection.FAVOURITES,
                                 null,
                                 randomNext);
                         break;
                     case AUTHOR:
-                        quotationEntity = databaseRepository.GetNextQuotation(
+                        quotationEntity = databaseRepository.getNextQuotation(
                                 widgetId,
                                 ContentSelection.AUTHOR,
                                 contentPreferences.getContentSelectionAuthorName(),
                                 randomNext);
                         break;
                     case SEARCH:
-                        quotationEntity = databaseRepository.GetNextQuotation(
+                        quotationEntity = databaseRepository.getNextQuotation(
                                 widgetId,
                                 ContentSelection.SEARCH,
                                 contentPreferences.getContentSelectionSearchText(),
@@ -140,7 +140,7 @@ public class QuoteUnquoteModel {
                 Timber.d(e);
             }
 
-            return databaseRepository.GetNextQuotation(widgetId, contentSelection);
+            return databaseRepository.getNextQuotation(widgetId, contentSelection);
         });
 
         QuotationEntity quotationEntity = new QuotationEntity("", "", "");
