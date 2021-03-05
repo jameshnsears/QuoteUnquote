@@ -111,7 +111,7 @@ public class QuoteUnquoteModel {
         return new ContentPreferences(widgetId, context);
     }
 
-    @NonNull
+    @Nullable
     public QuotationEntity getNextQuotation(
             final int widgetId,
             @NonNull final ContentSelection contentSelection) {
@@ -144,11 +144,15 @@ public class QuoteUnquoteModel {
             }
 
             QuotationEntity quotationEntity = databaseRepository.getNextQuotation(widgetId, contentSelection);
-            quotationEntity.counts = databaseRepository.getPreviousNextCounts(widgetId, contentSelection, criteria);
-            return quotationEntity;
+            String previousNextCounts = databaseRepository.getPreviousNextCounts(widgetId, contentSelection, criteria);
+
+            return new QuotationEntity(
+                    quotationEntity.digest,
+                    quotationEntity.author + " " + previousNextCounts,
+                    quotationEntity.quotation);
         });
 
-        QuotationEntity quotationEntity = new QuotationEntity("", "", "");
+        QuotationEntity quotationEntity = null;
         try {
             quotationEntity = future.get();
         } catch (ExecutionException | InterruptedException e) {

@@ -55,7 +55,10 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
             QuotationEntity quotationEntity = getQuoteUnquoteModel().getNextQuotation(
                     widgetId,
                     contentPreferences.getContentSelection());
-            quotationList.add(quotationEntity.theQuotation());
+
+            if (quotationEntity != null) {
+                quotationList.add(quotationEntity.theQuotation());
+            }
         }
     }
 

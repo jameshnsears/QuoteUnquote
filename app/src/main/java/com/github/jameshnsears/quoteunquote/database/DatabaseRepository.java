@@ -176,14 +176,14 @@ public class DatabaseRepository {
     }
 
     public void markAsFavourite(@NonNull final String digest) {
-        if (favouritesDAO.countFavourite(digest) == 0 && quotationDAO.getQuotation(digest) != null) {
+        if (favouritesDAO.isFavourite(digest) == 0 && quotationDAO.getQuotation(digest) != null) {
             Timber.d("digest=%s", digest);
             favouritesDAO.markAsFavourite(new FavouriteEntity(digest));
         }
     }
 
     public void markAsReported(@NonNull final String digest) {
-        if (reportedDAO.countReported(digest) == 0) {
+        if (reportedDAO.isReported(digest) == 0) {
             Timber.d("digest=%s", digest);
             reportedDAO.markAsReported(new ReportedEntity(digest));
         }
@@ -279,11 +279,11 @@ public class DatabaseRepository {
 
     @NonNull
     public Integer countFavourite(@NonNull final String digest) {
-        return favouritesDAO.countFavourite(digest);
+        return favouritesDAO.isFavourite(digest);
     }
 
     @NonNull
     public Integer countReported(@NonNull final String digest) {
-        return reportedDAO.countReported(digest);
+        return reportedDAO.isReported(digest);
     }
 }

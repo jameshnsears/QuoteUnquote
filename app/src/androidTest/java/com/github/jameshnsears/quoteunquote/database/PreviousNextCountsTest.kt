@@ -11,40 +11,68 @@ class PreviousNextCountsTest : QuoteUnquoteModelUtility() {
     @Test
     fun getPreviousNextCountsAll() {
         insertQuotationTestData01()
-        assertEquals("@ 0/2", databaseRepositoryDouble.getPreviousNextCounts(
-                WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, null))
+        assertEquals(
+            "@ 0/2",
+            databaseRepositoryDouble.getPreviousNextCounts(
+                WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, null
+            )
+        )
 
         setDefaultQuotationAll(WidgetIdHelper.WIDGET_ID_01)
 
-        assertEquals("@ 1/2", databaseRepositoryDouble.getPreviousNextCounts(
-                WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, null))
+        assertEquals(
+            "@ 1/2",
+            databaseRepositoryDouble.getPreviousNextCounts(
+                WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, null
+            )
+        )
     }
 
     @Test
     fun getPreviousNextCountsFavourites() {
         insertQuotationTestData01()
-        assertEquals("@ 0/0", databaseRepositoryDouble.getPreviousNextCounts(
-                WidgetIdHelper.WIDGET_ID_01, ContentSelection.FAVOURITES, null))
+        assertEquals(
+            "@ 0/0",
+            databaseRepositoryDouble.getPreviousNextCounts(
+                WidgetIdHelper.WIDGET_ID_01, ContentSelection.FAVOURITES, null
+            )
+        )
 
         val contentPreferences = ContentPreferences(WidgetIdHelper.WIDGET_ID_01, context)
         contentPreferences.contentSelection = ContentSelection.ALL
 
         markNextQuotationAsFavourite(ContentSelection.ALL)
-        assertEquals("@ 0/1", databaseRepositoryDouble.getPreviousNextCounts(
-                WidgetIdHelper.WIDGET_ID_01, ContentSelection.FAVOURITES, null))
+        assertEquals(
+            "@ 0/1",
+            databaseRepositoryDouble.getPreviousNextCounts(
+                WidgetIdHelper.WIDGET_ID_01, ContentSelection.FAVOURITES, null
+            )
+        )
 
         markNextQuotationAsFavourite(ContentSelection.ALL)
-        assertEquals("@ 0/2", databaseRepositoryDouble.getPreviousNextCounts(
-                WidgetIdHelper.WIDGET_ID_01, ContentSelection.FAVOURITES, null))
+        assertEquals(
+            "@ 0/2",
+            databaseRepositoryDouble.getPreviousNextCounts(
+                WidgetIdHelper.WIDGET_ID_01, ContentSelection.FAVOURITES, null
+            )
+        )
 
         contentPreferences.contentSelection = ContentSelection.FAVOURITES
         quoteUnquoteModelDouble.setNextQuotation(WidgetIdHelper.WIDGET_ID_01, false)
-        assertEquals("@ 1/2", databaseRepositoryDouble.getPreviousNextCounts(
-                WidgetIdHelper.WIDGET_ID_01, ContentSelection.FAVOURITES, null))
+        assertEquals(
+            "@ 1/2",
+            databaseRepositoryDouble.getPreviousNextCounts(
+                WidgetIdHelper.WIDGET_ID_01, ContentSelection.FAVOURITES, null
+            )
+        )
 
         quoteUnquoteModelDouble.setNextQuotation(WidgetIdHelper.WIDGET_ID_01, false)
-        assertEquals("@ 2/2", databaseRepositoryDouble.getPreviousNextCounts(
-                WidgetIdHelper.WIDGET_ID_01, ContentSelection.FAVOURITES, null))
+        assertEquals(
+            "@ 2/2",
+            databaseRepositoryDouble.getPreviousNextCounts(
+                WidgetIdHelper.WIDGET_ID_01, ContentSelection.FAVOURITES, null
+            )
+        )
     }
 
     private fun markNextQuotationAsFavourite(contentSelection: ContentSelection) {
@@ -60,8 +88,12 @@ class PreviousNextCountsTest : QuoteUnquoteModelUtility() {
         insertQuotationTestData02()
         insertQuotationTestData03()
 
-        assertEquals("@ 0/3", databaseRepositoryDouble.getPreviousNextCounts(
-                WidgetIdHelper.WIDGET_ID_01, ContentSelection.AUTHOR, "a2"))
+        assertEquals(
+            "@ 0/3",
+            databaseRepositoryDouble.getPreviousNextCounts(
+                WidgetIdHelper.WIDGET_ID_01, ContentSelection.AUTHOR, "a2"
+            )
+        )
 
         val contentPreferences = ContentPreferences(WidgetIdHelper.WIDGET_ID_01, context)
         contentPreferences.contentSelection = ContentSelection.AUTHOR
@@ -69,8 +101,12 @@ class PreviousNextCountsTest : QuoteUnquoteModelUtility() {
 
         quoteUnquoteModelDouble.setNextQuotation(WidgetIdHelper.WIDGET_ID_01, false)
 
-        assertEquals("@ 1/3", databaseRepositoryDouble.getPreviousNextCounts(
-                WidgetIdHelper.WIDGET_ID_01, ContentSelection.AUTHOR, "a2"))
+        assertEquals(
+            "@ 1/3",
+            databaseRepositoryDouble.getPreviousNextCounts(
+                WidgetIdHelper.WIDGET_ID_01, ContentSelection.AUTHOR, "a2"
+            )
+        )
     }
 
     @Test
@@ -79,8 +115,12 @@ class PreviousNextCountsTest : QuoteUnquoteModelUtility() {
         insertQuotationTestData02()
         insertQuotationTestData03()
 
-        assertEquals("@ 0/4", databaseRepositoryDouble.getPreviousNextCounts(
-                WidgetIdHelper.WIDGET_ID_01, ContentSelection.SEARCH, "q1"))
+        assertEquals(
+            "@ 0/4",
+            databaseRepositoryDouble.getPreviousNextCounts(
+                WidgetIdHelper.WIDGET_ID_01, ContentSelection.SEARCH, "q1"
+            )
+        )
 
         val contentPreferences = ContentPreferences(WidgetIdHelper.WIDGET_ID_01, context)
         contentPreferences.contentSelection = ContentSelection.SEARCH
@@ -88,7 +128,11 @@ class PreviousNextCountsTest : QuoteUnquoteModelUtility() {
 
         quoteUnquoteModelDouble.setNextQuotation(WidgetIdHelper.WIDGET_ID_01, false)
 
-        assertEquals("@ 1/4", databaseRepositoryDouble.getPreviousNextCounts(
-                WidgetIdHelper.WIDGET_ID_01, ContentSelection.SEARCH, "q1"))
+        assertEquals(
+            "@ 1/4",
+            databaseRepositoryDouble.getPreviousNextCounts(
+                WidgetIdHelper.WIDGET_ID_01, ContentSelection.SEARCH, "q1"
+            )
+        )
     }
 }
