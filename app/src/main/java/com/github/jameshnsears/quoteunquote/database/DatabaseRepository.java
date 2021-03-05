@@ -72,6 +72,31 @@ public class DatabaseRepository {
         return previousDAO.countPrevious(widgetId, contentSelection);
     }
 
+    public String getPreviousNextCounts(final int widgetId, @NonNull final ContentSelection contentSelection) {
+        int countPrevious = countPrevious(widgetId, contentSelection);
+
+        int countNext = 0;
+        switch (contentSelection) {
+            case FAVOURITES:
+                countNext = favouritesDAO.countFavourites().blockingGet().intValue();
+
+                break;
+
+            case AUTHOR:
+                break;
+
+            case SEARCH:
+                break;
+
+            default:
+                // ALL:
+                countNext = quotationDAO.countAll().blockingGet().intValue();
+                break;
+        }
+
+        return String.format(" @ %d/%d", countPrevious, countNext);
+    }
+
     public int countPrevious(
             final int widgetId,
             @NonNull final ContentSelection contentSelection,
@@ -87,14 +112,14 @@ public class DatabaseRepository {
             availableDigests = quotationDAO.getQuotationText("%" + criteria + "%");
         }
 
-        int countDigestInPrevious = 0;
+        int countPrevious = 0;
         for (final String digest : availableDigests) {
             if (digestsPrevious.contains(digest)) {
-                countDigestInPrevious++;
+                countPrevious++;
             }
         }
 
-        return countDigestInPrevious;
+        return countPrevious;
     }
 
     @NonNull
