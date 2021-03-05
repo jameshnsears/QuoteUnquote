@@ -10,7 +10,7 @@ public interface ReportedDAO {
     void markAsReported(ReportedEntity reportedEntity);
 
     @Query("SELECT COUNT(*) FROM REPORTED WHERE DIGEST = :digest")
-    Integer countIsReported(String digest);
+    Integer countReported(String digest);
 
     @Query("SELECT COUNT(*) FROM REPORTED")
     Integer countReported();

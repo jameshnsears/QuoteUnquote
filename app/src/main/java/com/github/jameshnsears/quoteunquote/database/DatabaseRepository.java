@@ -72,7 +72,10 @@ public class DatabaseRepository {
         return previousDAO.countPrevious(widgetId, contentSelection);
     }
 
-    public String getPreviousNextCounts(final int widgetId, @NonNull final ContentSelection contentSelection) {
+    public String getPreviousNextCounts(
+            final int widgetId,
+            @NonNull final ContentSelection contentSelection,
+            @Nullable final String criteria) {
         int countPrevious = countPrevious(widgetId, contentSelection);
 
         int countNext = 0;
@@ -82,9 +85,11 @@ public class DatabaseRepository {
                 break;
 
             case AUTHOR:
+                countNext = quotationDAO.getAuthors(criteria).size();
                 break;
 
             case SEARCH:
+                countNext = quotationDAO.getQuotationText("%" + criteria + "%").size();
                 break;
 
             default:
@@ -171,14 +176,14 @@ public class DatabaseRepository {
     }
 
     public void markAsFavourite(@NonNull final String digest) {
-        if (favouritesDAO.countIsFavourite(digest) == 0 && quotationDAO.getQuotation(digest) != null) {
+        if (favouritesDAO.countFavourite(digest) == 0 && quotationDAO.getQuotation(digest) != null) {
             Timber.d("digest=%s", digest);
             favouritesDAO.markAsFavourite(new FavouriteEntity(digest));
         }
     }
 
     public void markAsReported(@NonNull final String digest) {
-        if (reportedDAO.countIsReported(digest) == 0) {
+        if (reportedDAO.countReported(digest) == 0) {
             Timber.d("digest=%s", digest);
             reportedDAO.markAsReported(new ReportedEntity(digest));
         }
@@ -274,11 +279,11 @@ public class DatabaseRepository {
 
     @NonNull
     public Integer countFavourite(@NonNull final String digest) {
-        return favouritesDAO.countIsFavourite(digest);
+        return favouritesDAO.countFavourite(digest);
     }
 
     @NonNull
     public Integer countReported(@NonNull final String digest) {
-        return reportedDAO.countIsReported(digest);
+        return reportedDAO.countReported(digest);
     }
 }

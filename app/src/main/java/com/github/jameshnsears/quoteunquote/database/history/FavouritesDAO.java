@@ -17,7 +17,7 @@ public interface FavouritesDAO {
     Single<Integer> countFavourites();
 
     @Query("SELECT COUNT(*) FROM FAVOURITE WHERE DIGEST = :digest")
-    Integer countIsFavourite(String digest);
+    Integer countFavourite(String digest);
 
     @Query("SELECT DIGEST FROM FAVOURITE ORDER BY NAVIGATION DESC")
     List<String> getFavourites();

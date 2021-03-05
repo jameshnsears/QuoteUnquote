@@ -118,10 +118,12 @@ public class QuoteUnquoteModel {
 
         final Future<QuotationEntity> future = executorService.submit(() -> {
             // check for first time use
+            String criteria = null;
             try {
                 switch (contentSelection) {
                     case AUTHOR:
                         setDefaultAuthor(widgetId);
+                        criteria = new ContentPreferences(widgetId, context).getContentSelectionAuthorName();
                         break;
 
                     case FAVOURITES:
@@ -130,6 +132,7 @@ public class QuoteUnquoteModel {
 
                     case SEARCH:
                         setDefaultSearch(widgetId);
+                        criteria = new ContentPreferences(widgetId, context).getContentSelectionSearchText();
                         break;
 
                     default:
@@ -141,7 +144,7 @@ public class QuoteUnquoteModel {
             }
 
             QuotationEntity quotationEntity = databaseRepository.getNextQuotation(widgetId, contentSelection);
-            quotationEntity.counts = databaseRepository.getPreviousNextCounts(widgetId, contentSelection);
+            quotationEntity.counts = databaseRepository.getPreviousNextCounts(widgetId, contentSelection, criteria);
             return quotationEntity;
         });
 
