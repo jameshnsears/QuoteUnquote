@@ -97,7 +97,7 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
             DatabaseRepository.DEFAULT_QUOTATION_DIGEST,
             quoteUnquoteModelDouble.getNextQuotation(
                 WidgetIdHelper.WIDGET_ID_01, ContentSelection.FAVOURITES
-            ).digest
+            )?.digest
         )
     }
 

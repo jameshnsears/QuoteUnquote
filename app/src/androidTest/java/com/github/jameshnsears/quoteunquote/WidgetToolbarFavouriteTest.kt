@@ -40,11 +40,11 @@ class WidgetToolbarFavouriteTest : QuoteUnquoteModelUtility() {
 
         var digest = quoteUnquoteModelDouble.getNextQuotation(
             WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL
-        ).digest
+        )?.digest
 
-        quoteUnquoteModelDouble.toggleFavourite(WidgetIdHelper.WIDGET_ID_01, digest)
+        quoteUnquoteModelDouble.toggleFavourite(WidgetIdHelper.WIDGET_ID_01, digest.toString())
 
-        expectedDigestsList.add(digest)
+        expectedDigestsList.add(digest.toString())
 
         // press 'next'
         quoteUnquoteModelDouble.setNextQuotation(WidgetIdHelper.WIDGET_ID_01, false)
@@ -54,11 +54,11 @@ class WidgetToolbarFavouriteTest : QuoteUnquoteModelUtility() {
 
         digest = quoteUnquoteModelDouble.getNextQuotation(
             WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL
-        ).digest
+        )?.digest
 
-        quoteUnquoteModelDouble.toggleFavourite(WidgetIdHelper.WIDGET_ID_01, digest)
+        quoteUnquoteModelDouble.toggleFavourite(WidgetIdHelper.WIDGET_ID_01, digest.toString())
 
-        expectedDigestsList.add(digest)
+        expectedDigestsList.add(digest.toString())
 
         assertEquals(2, quoteUnquoteModelDouble.countFavourites())
 
