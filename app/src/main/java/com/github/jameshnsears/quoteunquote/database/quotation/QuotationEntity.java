@@ -18,6 +18,8 @@ public class QuotationEntity {
     @ColumnInfo(name = "digest")
     public final String digest;
 
+    public String counts = "";
+
     public QuotationEntity(
             @NonNull final String digest,
             @NonNull final String author,
@@ -29,6 +31,6 @@ public class QuotationEntity {
 
     @NonNull
     public String theQuotation() {
-        return String.format("%s%n%n%s", quotation, author);
+        return String.format("%s%n%n%s %s", quotation, author, counts);
     }
 }

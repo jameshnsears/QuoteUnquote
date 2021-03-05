@@ -140,7 +140,9 @@ public class QuoteUnquoteModel {
                 Timber.d(e);
             }
 
-            return databaseRepository.getNextQuotation(widgetId, contentSelection);
+            QuotationEntity quotationEntity = databaseRepository.getNextQuotation(widgetId, contentSelection);
+            quotationEntity.counts = databaseRepository.getPreviousNextCounts(widgetId, contentSelection);
+            return quotationEntity;
         });
 
         QuotationEntity quotationEntity = new QuotationEntity("", "", "");

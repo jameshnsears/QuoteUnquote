@@ -79,7 +79,6 @@ public class DatabaseRepository {
         switch (contentSelection) {
             case FAVOURITES:
                 countNext = favouritesDAO.countFavourites().blockingGet().intValue();
-
                 break;
 
             case AUTHOR:
@@ -94,7 +93,7 @@ public class DatabaseRepository {
                 break;
         }
 
-        return String.format(" @ %d/%d", countPrevious, countNext);
+        return String.format("@ %d/%d", countPrevious, countNext);
     }
 
     public int countPrevious(

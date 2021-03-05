@@ -1,15 +1,23 @@
 package com.github.jameshnsears.quoteunquote.database
 
+import android.content.Context
+import androidx.test.core.app.ApplicationProvider
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
+import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade
 import org.junit.Before
 
 abstract class DatabaseTestHelper {
     var databaseRepositoryDouble = DatabaseRepositoryDouble.getInstance()
 
+    @JvmField
+    val context: Context = ApplicationProvider.getApplicationContext()
+
     @Before
     fun before() {
         databaseRepositoryDouble.empty()
+
+        PreferencesFacade.disable(context)
     }
 
     fun insertQuotationTestData01() {
