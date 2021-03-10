@@ -40,7 +40,7 @@ public class EventPreferences extends PreferencesFacade {
         return preferenceHelper.getPreferenceBoolean(getPreferenceKey(EVENT_DISPLAY_WIDGET), true);
     }
 
-    public void setEventdisplayWidget(final boolean value) {
+    public void setEventDisplayWidget(final boolean value) {
         preferenceHelper.setPreference(getPreferenceKey(EVENT_DISPLAY_WIDGET), value);
     }
 

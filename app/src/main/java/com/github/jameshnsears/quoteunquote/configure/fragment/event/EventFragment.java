@@ -118,7 +118,7 @@ public class EventFragment extends FragmentCommon {
         final RadioButton radioButtonWhereInWidget = fragmentEventBinding.radioButtonWhereInWidget;
         radioButtonWhereInWidget.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (eventPreferences.getEventDisplayWidget() != isChecked) {
-                eventPreferences.setEventdisplayWidget(isChecked);
+                eventPreferences.setEventDisplayWidget(isChecked);
             }
         });
     }

@@ -10,16 +10,13 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.github.jameshnsears.quoteunquote.R;
-import com.github.jameshnsears.quoteunquote.configure.fragment.content.ContentPreferences;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 
 public class NotificationHelper {
     private int notificationId = 0;
 
-    public void displayNotification(int widgetId, @NonNull Context context, @NonNull QuotationEntity quotationEntity) {
-        ContentSelection contentSelection = new ContentPreferences(widgetId, context).getContentSelection();
-
-        CharSequence author = quotationEntity.author;
+    public void displayNotification(@NonNull Context context, @NonNull QuotationEntity quotationEntity) {
+        CharSequence author = quotationEntity.author.substring(0, quotationEntity.author.lastIndexOf("@"));
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(
                 context, createNotificationChannel(context))

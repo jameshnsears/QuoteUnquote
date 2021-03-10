@@ -43,6 +43,7 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
 
     @Override
     public void onCreate() {
+        // ...
     }
 
     @Override
@@ -69,6 +70,7 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
 
     @Override
     public void onDestroy() {
+        // ...
     }
 
     @Override
@@ -81,10 +83,11 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
     @Override
     @NonNull
     public RemoteViews getViewAt(final int position) {
-        final RemoteViews remoteViews = getRemoteViews(position);
+        Timber.d("getviewAt=%d", position);
 
         final Intent intent = new Intent();
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
+        final RemoteViews remoteViews = getRemoteViews(position);
         remoteViews.setOnClickFillInIntent(android.R.id.text1, intent);
 
         return remoteViews;
@@ -92,6 +95,8 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
 
     @NonNull
     private RemoteViews getRemoteViews(final int position) {
+        Timber.d("getRemoteViews=%d", position);
+
         final RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
                 android.R.layout.simple_list_item_1);
 

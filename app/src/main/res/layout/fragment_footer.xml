@@ -50,7 +50,7 @@
                 android:layout_height="40dp"
                 android:contentDescription="@string/fragment_footer_oss"
                 android:paddingStart="0dp"
-                android:paddingEnd="2dp"
+                android:paddingEnd="10dp"
                 android:src="@drawable/ic_github_logo" />
 
         </LinearLayout>

@@ -88,8 +88,6 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         if (BuildConfig.DEBUG && Timber.treeCount() == 0) {
             Timber.plant(new MethodLineLoggingTree());
         }
-
-        Timber.d("onEnabled");
     }
 
     @Override
@@ -97,6 +95,8 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull final Context context,
             @NonNull final AppWidgetManager appWidgetManager,
             @NonNull final int[] widgetIds) {
+        super.onUpdate(context, appWidgetManager, widgetIds);
+
         registerReceivers(context);
 
         final RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.quote_unquote_widget);
@@ -235,7 +235,11 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
     private void onReceiveDeviceUnlock(
             @NonNull final Context context,
             @NonNull final AppWidgetManager appWidgetManager) {
-        unlockDevice(context, appWidgetManager);
+        for (final int widgetId : appWidgetManager.getAppWidgetIds(new ComponentName(context, QuoteUnquoteWidget.class))) {
+            if (new EventPreferences(widgetId, context).getEventDeviceUnlock()) {
+                scheduleEvent(context, widgetId, appWidgetManager);
+            }
+        }
     }
 
     private void onReceiveToolbarPressedShare(@NonNull final Context context, final int widgetId) {
@@ -258,6 +262,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
 
         if (contentPreferences.getContentSelection().equals(ContentSelection.FAVOURITES)
                 || contentPreferences.getContentSelection().equals(ContentSelection.ALL)) {
+
             appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
         }
     }
@@ -306,16 +311,6 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         }
     }
 
-    private void unlockDevice(
-            @NonNull final Context context,
-            @NonNull final AppWidgetManager appWidgetManager) {
-        for (final int widgetId : appWidgetManager.getAppWidgetIds(new ComponentName(context, QuoteUnquoteWidget.class))) {
-            if (new EventPreferences(widgetId, context).getEventDeviceUnlock()) {
-                scheduleEvent(context, widgetId, appWidgetManager);
-             }
-        }
-    }
-
     private void onReceiveDailyAlarm(
             @NonNull final Context context,
             final int widgetId,
@@ -331,11 +326,12 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
 
         try {
             getQuoteUnquoteModelInstance(context).setNextQuotation(widgetId, eventPreferences.getEventNextRandom());
+
             updateWidgetView(context, widgetId, appWidgetManager);
 
             if (eventPreferences.getEventDisplayWidgetAndNotification()) {
                 notificationHelper.displayNotification(
-                        widgetId, context, getQuoteUnquoteModelInstance(context).getNextQuotation(widgetId, contentSelection));
+                        context, getQuoteUnquoteModelInstance(context).getNextQuotation(widgetId, contentSelection));
             }
         } catch (NoNextQuotationAvailableException e) {
             ToastHelper.makeToast(context, context.getString(R.string.widget_button_next_toast), Toast.LENGTH_LONG);
@@ -347,14 +343,16 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             final int widgetId,
             @NonNull final AppWidgetManager appWidgetManager) {
         toggleFavouriteColour(context, widgetId, appWidgetManager);
+
         appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
-    }
+     }
 
     private void onReceiveActivityFinishedConfiguration(
             final int widgetId,
             @NonNull final AppWidgetManager appWidgetManager,
             @NonNull final EventDailyAlarm eventDailyAlarm) {
         eventDailyAlarm.setDailyAlarm();
+
         appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
     }
 
@@ -362,7 +360,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull final Context context,
             final int widgetId,
             @NonNull final RemoteViews remoteViews) {
-        logWidgetId(widgetId);
+        Timber.d("transparency; widgetId=%d", widgetId);
 
         final int seekBarValue = new AppearancePreferences(widgetId, context).getAppearanceTransparency();
         Timber.d("seekBarValue=%d", seekBarValue);
@@ -387,15 +385,11 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         return (int) (transparency * 0xFF) << 24 | 0xFFFFFF;
     }
 
-    private void logWidgetId(final int widgetId) {
-        Timber.d("widgetId=%d", widgetId);
-    }
-
     private void setToolbarButtonsVisibility(
             @NonNull final Context context,
             final int widgetId,
             @NonNull final RemoteViews remoteViews) {
-        logWidgetId(widgetId);
+        Timber.d("buttons visibility; widgetId=%d", widgetId);
 
         final AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, context);
 
@@ -452,9 +446,9 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull final Context context,
             final int widgetId,
             @NonNull final AppWidgetManager appWidgetManager) {
-        logWidgetId(widgetId);
+        Timber.d("favourite toggled; widgetId=%d", widgetId);
 
-        final RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.quote_unquote_widget);
+        final RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.id.imageButtonFavourite);
 
         setHeartColour(context, widgetId, remoteViews);
 
@@ -479,11 +473,10 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
     public void onDeleted(
             @NonNull final Context context,
             @NonNull final int[] widgetIds) {
-        // a widget instance is removed from the home screen
         super.onDeleted(context, widgetIds);
 
         for (final int widgetId : widgetIds) {
-            logWidgetId(widgetId);
+            Timber.d("instance removed from screen; widgetId=%d", widgetId);
 
             getQuoteUnquoteModelInstance(context).delete(widgetId);
             PreferencesFacade.delete(context, widgetId);
