@@ -235,7 +235,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
     private void onReceiveDeviceUnlock(
             @NonNull final Context context,
             @NonNull final AppWidgetManager appWidgetManager) {
-        int [] widgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, QuoteUnquoteWidget.class));
+        int[] widgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, QuoteUnquoteWidget.class));
 
         for (final int widgetId : widgetIds) {
             if (new EventPreferences(widgetId, context).getEventDeviceUnlock()) {
