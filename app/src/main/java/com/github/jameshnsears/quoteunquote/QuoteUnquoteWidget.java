@@ -229,17 +229,21 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
 
     private void onReceiveActivityFinishedReport(
             final int widgetId, @NonNull final AppWidgetManager appWidgetManager) {
-        appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
+        dataChangedNotification(widgetId, appWidgetManager);
     }
 
     private void onReceiveDeviceUnlock(
             @NonNull final Context context,
             @NonNull final AppWidgetManager appWidgetManager) {
-        for (final int widgetId : appWidgetManager.getAppWidgetIds(new ComponentName(context, QuoteUnquoteWidget.class))) {
+        int [] widgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, QuoteUnquoteWidget.class));
+
+        for (final int widgetId : widgetIds) {
             if (new EventPreferences(widgetId, context).getEventDeviceUnlock()) {
                 scheduleEvent(context, widgetId, appWidgetManager);
             }
         }
+
+        onUpdate(context, appWidgetManager, widgetIds);
     }
 
     private void onReceiveToolbarPressedShare(@NonNull final Context context, final int widgetId) {
@@ -263,7 +267,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         if (contentPreferences.getContentSelection().equals(ContentSelection.FAVOURITES)
                 || contentPreferences.getContentSelection().equals(ContentSelection.ALL)) {
 
-            appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
+            dataChangedNotification(widgetId, appWidgetManager);
         }
     }
 
@@ -327,8 +331,6 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         try {
             getQuoteUnquoteModelInstance(context).setNextQuotation(widgetId, eventPreferences.getEventNextRandom());
 
-            updateWidgetView(context, widgetId, appWidgetManager);
-
             if (eventPreferences.getEventDisplayWidgetAndNotification()) {
                 notificationHelper.displayNotification(
                         context, getQuoteUnquoteModelInstance(context).getNextQuotation(widgetId, contentSelection));
@@ -344,8 +346,12 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull final AppWidgetManager appWidgetManager) {
         toggleFavouriteColour(context, widgetId, appWidgetManager);
 
+        dataChangedNotification(widgetId, appWidgetManager);
+    }
+
+    private void dataChangedNotification(int widgetId, @NonNull AppWidgetManager appWidgetManager) {
         appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
-     }
+    }
 
     private void onReceiveActivityFinishedConfiguration(
             final int widgetId,
@@ -353,7 +359,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull final EventDailyAlarm eventDailyAlarm) {
         eventDailyAlarm.setDailyAlarm();
 
-        appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
+        dataChangedNotification(widgetId, appWidgetManager);
     }
 
     private void setTransparency(
