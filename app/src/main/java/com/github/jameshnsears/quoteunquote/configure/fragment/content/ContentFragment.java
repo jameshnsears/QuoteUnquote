@@ -199,7 +199,7 @@ public class ContentFragment extends FragmentCommon {
     public void setAllCount() {
         disposables.add(contentViewModel.countAll()
                 .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())     // AndroidSchedulers.mainThread()
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(
                         new DisposableSingleObserver<Integer>() {
                             @Override
@@ -222,7 +222,7 @@ public class ContentFragment extends FragmentCommon {
     protected void setAuthor() {
         disposables.add(contentViewModel.authors()
                 .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())     // AndroidSchedulers.mainThread()
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(
                         new DisposableSingleObserver<List<AuthorPOJO>>() {
                             @Override
@@ -276,7 +276,7 @@ public class ContentFragment extends FragmentCommon {
     public void setFavouriteCount() {
         disposables.add(contentViewModel.countFavourites()
                 .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())      // AndroidSchedulers.mainThread()
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(
                         new DisposableSingleObserver<Integer>() {
                             @Override
@@ -444,7 +444,7 @@ public class ContentFragment extends FragmentCommon {
 
                 if (!CloudServiceSend.isRunning) {
                     final Intent serviceIntent = new Intent(getContext(), CloudServiceSend.class);
-                    serviceIntent.putExtra("savePayload", contentViewModel.getFavouritesToSend());
+                    serviceIntent.putExtra("savePayload", contentViewModel.getFavouritesToSend(getContext()));
                     serviceIntent.putExtra(
                             "localCodeValue", fragmentContentBinding.textViewLocalCodeValue.getText().toString());
                     getContext().startService(serviceIntent);

@@ -1,6 +1,7 @@
 package com.github.jameshnsears.quoteunquote.configure.fragment.content;
 
 import android.app.Application;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,6 +11,7 @@ import com.github.jameshnsears.quoteunquote.cloud.CloudFavouritesHelper;
 import com.github.jameshnsears.quoteunquote.cloud.SaveRequest;
 import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
 import com.github.jameshnsears.quoteunquote.database.quotation.AuthorPOJO;
+import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -89,12 +91,12 @@ public class ContentViewModel extends AndroidViewModel {
     }
 
     @NonNull
-    public String getFavouritesToSend() {
+    public String getFavouritesToSend(@NonNull final Context context) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
 
         final Future<String> future = executorService.submit(() -> {
             SaveRequest saveRequest = new SaveRequest();
-            saveRequest.code = localCode();
+            saveRequest.code = localCode(context);
             saveRequest.digests = new ArrayList<>(databaseRepository.getFavourites());
 
             return CloudFavouritesHelper.jsonSendRequest(saveRequest);
@@ -109,7 +111,8 @@ public class ContentViewModel extends AndroidViewModel {
         }
     }
 
-    protected String localCode() {
-        return CloudFavouritesHelper.getLocalCode();
+    protected String localCode(@NonNull final Context context) {
+        ContentPreferences contentPreferences = new ContentPreferences(0, context);
+        return contentPreferences.getContentFavouritesLocalCode();
     }
 }

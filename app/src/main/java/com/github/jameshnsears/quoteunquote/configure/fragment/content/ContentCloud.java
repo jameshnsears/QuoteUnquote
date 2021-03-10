@@ -12,7 +12,7 @@ import com.github.jameshnsears.quoteunquote.cloud.CloudServiceReceive;
 public class ContentCloud {
     @Nullable
     public CloudServiceReceive cloudServiceReceive;
-    public boolean isServiceReceiveBound;
+    public boolean isServiceReceiveBound = false;
 
     @NonNull
     public final ServiceConnection serviceConnection = new ServiceConnection() {
@@ -20,10 +20,8 @@ public class ContentCloud {
         public void onServiceConnected(final ComponentName name, final IBinder service) {
             final CloudServiceReceive.LocalBinder binder = (CloudServiceReceive.LocalBinder) service;
 
-            if (cloudServiceReceive != null) {
-                cloudServiceReceive = binder.getService();
-                isServiceReceiveBound = true;
-            }
+            cloudServiceReceive = binder.getService();
+            isServiceReceiveBound = true;
         }
 
         @Override

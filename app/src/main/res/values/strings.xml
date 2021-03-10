@@ -58,11 +58,11 @@
     <string name="fragment_content_favourites_share_remove_code_value">Remote code</string>
     <string name="fragment_content_favourites_share_remote_receive">Receive</string>
     <string name="fragment_content_favourites_share_sending">Sending favourites&#8230;</string>
-    <string name="fragment_content_favourites_share_sent">Sent - use %s on remote device</string>
-    <string name="fragment_content_favourites_share_remote_code_general">Use code from remote device</string>
+    <string name="fragment_content_favourites_share_sent">Success - favourites sent</string>
+    <string name="fragment_content_favourites_share_remote_code_general">Use code from other device</string>
     <string name="fragment_content_favourites_share_receiving">Fetching favourites&#8230;</string>
     <string name="fragment_content_favourites_share_received">Received - favourites appended</string>
-    <string name="fragment_content_favourites_share_missing">Unable to locate remote code, please retry later</string>
+    <string name="fragment_content_favourites_share_missing">Unable to locate remote code</string>
     <string name="fragment_content_favourites_share_comms">Check network connection</string>
     <string name="fragment_content_author">Author: %d</string>
     <string name="fragment_content_text">Search: %d</string>
