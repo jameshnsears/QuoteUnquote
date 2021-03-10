@@ -27,9 +27,6 @@ public class CloudServiceSend extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        synchronized (this) {
-            isRunning = true;
-        }
     }
 
     @Override
@@ -89,10 +86,10 @@ public class CloudServiceSend extends Service {
 
                     stopSelf();
                 } finally {
-                    cloudFavourites.shutdown();
                     synchronized (this) {
                         isRunning = false;
                     }
+                    cloudFavourites.shutdown();
                 }
 
             }).start();

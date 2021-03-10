@@ -52,7 +52,6 @@ public class ContentFragment extends FragmentCommon {
     public int countSearchResults;
     @Nullable
     protected ContentViewModel contentViewModel;
-
     @Nullable
     protected ContentPreferences contentPreferences;
     @Nullable
