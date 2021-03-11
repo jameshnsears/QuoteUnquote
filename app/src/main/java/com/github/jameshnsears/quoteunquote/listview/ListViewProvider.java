@@ -29,16 +29,29 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
     private final Context context;
     private final int widgetId;
     @Nullable
-    public AppearancePreferences appearancePreferences;
-    @Nullable
-    public ContentPreferences contentPreferences;
+    private QuotationEntity quotationEntity;
+    private boolean isReported = false;
+    private int textSize = -1;
+    @NonNull
+    private String textColour = "";
 
     ListViewProvider(@NonNull final Context context, @NonNull final Intent intent) {
-        this.context = context;
-        widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
+        synchronized (this) {
+            this.context = context;
+            widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
 
-        appearancePreferences = new AppearancePreferences(widgetId, context);
-        contentPreferences = new ContentPreferences(widgetId, context);
+            AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, context);
+            textSize = appearancePreferences.getAppearanceTextSize();
+            textColour = appearancePreferences.getAppearanceTextColour();
+
+            ContentPreferences contentPreferences = new ContentPreferences(widgetId, context);
+
+            quotationEntity = getQuoteUnquoteModel().getNextQuotation(
+                    widgetId,
+                    contentPreferences.getContentSelection());
+
+            isReported = getQuoteUnquoteModel().isReported(widgetId);
+        }
     }
 
     @Override
@@ -52,14 +65,7 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
 
         synchronized (this) {
             quotationList.clear();
-
-            QuotationEntity quotationEntity = getQuoteUnquoteModel().getNextQuotation(
-                    widgetId,
-                    contentPreferences.getContentSelection());
-
-            if (quotationEntity != null) {
-                quotationList.add(quotationEntity.theQuotation());
-            }
+            quotationList.add(quotationEntity.theQuotation());
         }
     }
 
@@ -75,9 +81,7 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
 
     @Override
     public int getCount() {
-        synchronized (this) {
-            return quotationList.size();
-        }
+        return 1;
     }
 
     @Override
@@ -85,9 +89,10 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
     public RemoteViews getViewAt(final int position) {
         Timber.d("getviewAt=%d", position);
 
+        final RemoteViews remoteViews = getRemoteViews(position);
+
         final Intent intent = new Intent();
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
-        final RemoteViews remoteViews = getRemoteViews(position);
         remoteViews.setOnClickFillInIntent(android.R.id.text1, intent);
 
         return remoteViews;
@@ -102,24 +107,24 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
 
         synchronized (this) {
             if (!quotationList.isEmpty()) {
-                remoteViews.setTextViewText(android.R.id.text1, quotationList.get(position));
+                remoteViews.setTextViewText(android.R.id.text1, quotationEntity.theQuotation());
 
-                if (appearancePreferences.getAppearanceTextSize() != -1) {
+                if (textSize != -1) {
                     remoteViews.setTextViewTextSize(
                             android.R.id.text1,
                             TypedValue.COMPLEX_UNIT_DIP,
-                            (float) appearancePreferences.getAppearanceTextSize());
+                            (float) textSize);
                 }
 
-                if (!appearancePreferences.getAppearanceTextColour().equals("")) {
+                if (!textColour.equals("")) {
                     remoteViews.setTextColor(
                             android.R.id.text1,
-                            Color.parseColor(appearancePreferences.getAppearanceTextColour()));
+                            Color.parseColor(textColour));
                 }
 
                 int paintFlags = Paint.ANTI_ALIAS_FLAG | Paint.FAKE_BOLD_TEXT_FLAG;
 
-                if (getQuoteUnquoteModel().isReported(widgetId)) {
+                if (isReported) {
                     remoteViews.setInt(android.R.id.text1, "setPaintFlags",
                             paintFlags | Paint.STRIKE_THRU_TEXT_FLAG);
                 } else {
