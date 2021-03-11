@@ -13,7 +13,7 @@ class PreviousNextCountsTest : QuoteUnquoteModelUtility() {
         insertQuotationTestData01()
         assertEquals(
             "@ 0/2",
-            databaseRepositoryDouble.getPreviousCounts(
+            databaseRepositoryDouble.getQuotationPositionInNext(
                 WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, null
             )
         )
@@ -22,7 +22,7 @@ class PreviousNextCountsTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             "@ 1/2",
-            databaseRepositoryDouble.getPreviousCounts(
+            databaseRepositoryDouble.getQuotationPositionInNext(
                 WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, null
             )
         )
@@ -33,7 +33,7 @@ class PreviousNextCountsTest : QuoteUnquoteModelUtility() {
         insertQuotationTestData01()
         assertEquals(
             "@ 0/0",
-            databaseRepositoryDouble.getPreviousCounts(
+            databaseRepositoryDouble.getQuotationPositionInNext(
                 WidgetIdHelper.WIDGET_ID_01, ContentSelection.FAVOURITES, null
             )
         )
@@ -44,7 +44,7 @@ class PreviousNextCountsTest : QuoteUnquoteModelUtility() {
         markNextQuotationAsFavourite(ContentSelection.ALL)
         assertEquals(
             "@ 0/1",
-            databaseRepositoryDouble.getPreviousCounts(
+            databaseRepositoryDouble.getQuotationPositionInNext(
                 WidgetIdHelper.WIDGET_ID_01, ContentSelection.FAVOURITES, null
             )
         )
@@ -52,7 +52,7 @@ class PreviousNextCountsTest : QuoteUnquoteModelUtility() {
         markNextQuotationAsFavourite(ContentSelection.ALL)
         assertEquals(
             "@ 0/2",
-            databaseRepositoryDouble.getPreviousCounts(
+            databaseRepositoryDouble.getQuotationPositionInNext(
                 WidgetIdHelper.WIDGET_ID_01, ContentSelection.FAVOURITES, null
             )
         )
@@ -61,7 +61,7 @@ class PreviousNextCountsTest : QuoteUnquoteModelUtility() {
         quoteUnquoteModelDouble.setNextQuotation(WidgetIdHelper.WIDGET_ID_01, false)
         assertEquals(
             "@ 1/2",
-            databaseRepositoryDouble.getPreviousCounts(
+            databaseRepositoryDouble.getQuotationPositionInNext(
                 WidgetIdHelper.WIDGET_ID_01, ContentSelection.FAVOURITES, null
             )
         )
@@ -69,7 +69,7 @@ class PreviousNextCountsTest : QuoteUnquoteModelUtility() {
         quoteUnquoteModelDouble.setNextQuotation(WidgetIdHelper.WIDGET_ID_01, false)
         assertEquals(
             "@ 2/2",
-            databaseRepositoryDouble.getPreviousCounts(
+            databaseRepositoryDouble.getQuotationPositionInNext(
                 WidgetIdHelper.WIDGET_ID_01, ContentSelection.FAVOURITES, null
             )
         )
@@ -90,7 +90,7 @@ class PreviousNextCountsTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             "@ 0/3",
-            databaseRepositoryDouble.getPreviousCounts(
+            databaseRepositoryDouble.getQuotationPositionInNext(
                 WidgetIdHelper.WIDGET_ID_01, ContentSelection.AUTHOR, "a2"
             )
         )
@@ -103,7 +103,7 @@ class PreviousNextCountsTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             "@ 1/3",
-            databaseRepositoryDouble.getPreviousCounts(
+            databaseRepositoryDouble.getQuotationPositionInNext(
                 WidgetIdHelper.WIDGET_ID_01, ContentSelection.AUTHOR, "a2"
             )
         )
@@ -117,7 +117,7 @@ class PreviousNextCountsTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             "@ 0/4",
-            databaseRepositoryDouble.getPreviousCounts(
+            databaseRepositoryDouble.getQuotationPositionInNext(
                 WidgetIdHelper.WIDGET_ID_01, ContentSelection.SEARCH, "q1"
             )
         )
@@ -130,7 +130,7 @@ class PreviousNextCountsTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             "@ 1/4",
-            databaseRepositoryDouble.getPreviousCounts(
+            databaseRepositoryDouble.getQuotationPositionInNext(
                 WidgetIdHelper.WIDGET_ID_01, ContentSelection.SEARCH, "q1"
             )
         )

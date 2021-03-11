@@ -3,10 +3,12 @@ package com.github.jameshnsears.quoteunquote.report;
 
 import android.appwidget.AppWidgetManager;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,8 +31,6 @@ import java.util.concurrent.ConcurrentMap;
 import timber.log.Timber;
 
 public class ReportActivity extends AppCompatActivity {
-    @Nullable
-    public QuoteUnquoteModel quoteUnquoteModel;
     @Nullable
     private ActivityReportBinding activityReportBinding;
     private int widgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
@@ -74,8 +74,6 @@ public class ReportActivity extends AppCompatActivity {
             finish();
         }
 
-        quoteUnquoteModel = getQuoteUnquoteModel();
-
         if (hasQuotationAlreadyBeenReported()) {
             finish();
         }
@@ -86,14 +84,21 @@ public class ReportActivity extends AppCompatActivity {
         this.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         this.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
+        TextView textViewStrikethrough = activityReportBinding.textViewStrikethrough;
+        textViewStrikethrough.setPaintFlags(textViewStrikethrough.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
         setContentView(view);
 
+        createClickListeners();
+    }
+
+    private void createClickListeners() {
         activityReportBinding.cancelButton.setOnClickListener(view1 -> finish());
 
         activityReportBinding.buttonOK.setOnClickListener(view1 -> {
             AuditEventHelper.auditEvent("REPORT", getAuditProperties());
 
-            quoteUnquoteModel.markAsReported(widgetId);
+            getQuoteUnquoteModel().markAsReported(widgetId);
 
             onBackPressed();
         });
@@ -104,7 +109,7 @@ public class ReportActivity extends AppCompatActivity {
     }
 
     public boolean hasQuotationAlreadyBeenReported() {
-        if (quoteUnquoteModel.isReported(widgetId)) {
+        if (getQuoteUnquoteModel().isReported(widgetId)) {
             ToastHelper.makeToast(getApplicationContext(), getApplicationContext().getString(R.string.activity_report_warning), Toast.LENGTH_SHORT);
             return true;
         }

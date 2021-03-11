@@ -72,7 +72,7 @@ public class DatabaseRepository {
         return previousDAO.countPrevious(widgetId, contentSelection);
     }
 
-    public String getPreviousCounts(
+    public String getQuotationPositionInNext(
             final int widgetId,
             @NonNull final ContentSelection contentSelection,
             @Nullable final String criteria) {

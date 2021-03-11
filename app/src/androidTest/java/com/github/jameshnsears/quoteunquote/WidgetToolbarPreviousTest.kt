@@ -45,14 +45,19 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
         getPreviousQuotation = DONE
 
         setCurrentQuotation
+        = where does the value go?
+        = own entity in History database?
+
+        setNextQuotation
+        = uses setCurrentQuotation
 
         getNextQuotation -> getCurrentQuotation
 
-        getCurrentQuotationPositionInPrevious
+        getQuotationPositionInPrevious
         = @ n/n
+            = in databaseRepository API
 
-        getCurrentQuotationPositionInNext
-        = @ n/n
+         test to go back in ContentSelection.FAVOURITES + AUTHOR + SEARCH
         */
     }
 

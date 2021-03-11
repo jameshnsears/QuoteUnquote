@@ -175,7 +175,7 @@ public class QuoteUnquoteModel {
             }
 
             QuotationEntity quotationEntity = databaseRepository.getNextQuotation(widgetId, contentSelection);
-            String previousCounts = databaseRepository.getPreviousCounts(widgetId, contentSelection, criteria);
+            String previousCounts = databaseRepository.getQuotationPositionInNext(widgetId, contentSelection, criteria);
 
             return new QuotationEntity(
                     quotationEntity.digest,
