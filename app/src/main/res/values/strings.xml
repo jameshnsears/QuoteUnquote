@@ -74,7 +74,7 @@
     <string name="fragment_event_in_widget">Widget</string>
     <string name="fragment_event_as_notification">Widget &amp; Notification</string>
     <string name="fragment_event">Event</string>
-    <string name="fragment_event_device_unlock">Screen unlock (device dependent)</string>
+    <string name="fragment_event_device_unlock">Screen unlock</string>
     <string name="fragment_event_daily">Time</string>
 
     <string name="fragment_footer_os_warning">Some devices require Battery Saver settings to be configured for this App</string>

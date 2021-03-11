@@ -151,6 +151,8 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
 
             setToolbarButtonsVisibility(context, widgetId, remoteViews);
 
+            setFavouriteColour(context, widgetId, appWidgetManager);
+
             appWidgetManager.updateAppWidget(widgetId, remoteViews);
         }
     }
@@ -229,7 +231,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
 
     private void onReceiveActivityFinishedReport(
             final int widgetId, @NonNull final AppWidgetManager appWidgetManager) {
-        dataChangedNotification(widgetId, appWidgetManager);
+        appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
     }
 
     private void onReceiveDeviceUnlock(
@@ -262,12 +264,10 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         getQuoteUnquoteModelInstance(context).toggleFavourite(widgetId, getQuoteUnquoteModelInstance(context).getNextQuotation(
                 widgetId, contentPreferences.getContentSelection()).digest);
 
-        toggleFavouriteColour(context, widgetId, appWidgetManager);
-
         if (contentPreferences.getContentSelection().equals(ContentSelection.FAVOURITES)
                 || contentPreferences.getContentSelection().equals(ContentSelection.ALL)) {
 
-            dataChangedNotification(widgetId, appWidgetManager);
+            appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
         }
     }
 
@@ -279,12 +279,13 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
 
         getQuoteUnquoteModelInstance(context).resetPrevious(widgetId, new ContentPreferences(widgetId, context).getContentSelection());
 
-        updateWidgetView(context, widgetId, appWidgetManager);
+        appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
     }
 
     private void onReceiveToolbarPressedPrevious(
             final Context context, final int widgetId, final AppWidgetManager appWidgetManager) {
-        updateWidgetView(context, widgetId, appWidgetManager);
+        // TODO - the back button
+        appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
     }
 
     private void onReceiveToolbarPressedNextRandom(
@@ -309,7 +310,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         try {
             getQuoteUnquoteModelInstance(context).setNextQuotation(widgetId, randomNext);
 
-            updateWidgetView(context, widgetId, appWidgetManager);
+            appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
         } catch (NoNextQuotationAvailableException e) {
             ToastHelper.makeToast(context, context.getString(R.string.widget_button_next_toast), Toast.LENGTH_LONG);
         }
@@ -340,26 +341,12 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         }
     }
 
-    private void updateWidgetView(
-            @NonNull final Context context,
-            final int widgetId,
-            @NonNull final AppWidgetManager appWidgetManager) {
-        toggleFavouriteColour(context, widgetId, appWidgetManager);
-
-        dataChangedNotification(widgetId, appWidgetManager);
-    }
-
-    private void dataChangedNotification(int widgetId, @NonNull AppWidgetManager appWidgetManager) {
-        appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
-    }
-
     private void onReceiveActivityFinishedConfiguration(
             final int widgetId,
             @NonNull final AppWidgetManager appWidgetManager,
             @NonNull final EventDailyAlarm eventDailyAlarm) {
         eventDailyAlarm.setDailyAlarm();
-
-        dataChangedNotification(widgetId, appWidgetManager);
+        appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
     }
 
     private void setTransparency(
@@ -448,7 +435,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         }
     }
 
-    private void toggleFavouriteColour(
+    private void setFavouriteColour(
             @NonNull final Context context,
             final int widgetId,
             @NonNull final AppWidgetManager appWidgetManager) {
