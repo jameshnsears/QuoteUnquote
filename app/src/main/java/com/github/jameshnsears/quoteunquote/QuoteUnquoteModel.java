@@ -12,6 +12,7 @@ import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
@@ -112,6 +113,36 @@ public class QuoteUnquoteModel {
     }
 
     @Nullable
+    public QuotationEntity getPreviousQuotation(
+            final int widgetId,
+            @NonNull final ContentSelection contentSelection,
+            @NonNull final String digest) {
+
+        final Future<QuotationEntity> future = executorService.submit(() -> {
+
+            List<String> previousDigests = getAllPrevious(widgetId, contentSelection);
+
+            int priorDigestIndex = previousDigests.indexOf(digest) + 1;
+            if (priorDigestIndex == previousDigests.size()) {
+                priorDigestIndex -= 1;
+            }
+
+            return databaseRepository.getQuotation(previousDigests.get(priorDigestIndex));
+        });
+
+        QuotationEntity quotationEntity = null;
+
+        try {
+            quotationEntity = future.get();
+        } catch (ExecutionException | InterruptedException e) {
+            Timber.w(e.toString());
+            Thread.currentThread().interrupt();
+        }
+
+        return quotationEntity;
+    }
+
+    @NonNull
     public QuotationEntity getNextQuotation(
             final int widgetId,
             @NonNull final ContentSelection contentSelection) {
@@ -160,6 +191,25 @@ public class QuoteUnquoteModel {
         }
 
         return quotationEntity;
+    }
+
+    public List<String> getAllPrevious(
+            final int widgetId,
+            @NonNull final ContentSelection contentSelection) {
+        final Future<List<String>> future = executorService.submit(() ->
+                databaseRepository.getAllPrevious(widgetId, contentSelection));
+
+
+        List<String> allPreviousDigests = new ArrayList<>();
+
+        try {
+            allPreviousDigests = future.get();
+        } catch (ExecutionException | InterruptedException e) {
+            Timber.w(e.toString());
+            Thread.currentThread().interrupt();
+        }
+
+        return allPreviousDigests;
     }
 
     private void setDefaultAuthor(int widgetId) throws NoNextQuotationAvailableException {
@@ -248,9 +298,8 @@ public class QuoteUnquoteModel {
     }
 
     public boolean isFavourite(final int widgetId, @NonNull final String digest) {
-        final String logMsg = String.format(Locale.ENGLISH, "%d: digest=%s", widgetId, digest);
-
-        final Future<Integer> future = executorService.submit(() -> databaseRepository.countFavourite(digest));
+        final Future<Integer> future = executorService.submit(()
+                -> databaseRepository.countFavourite(digest));
 
         boolean isFavourite = false;
         try {
@@ -261,6 +310,8 @@ public class QuoteUnquoteModel {
             Timber.w(e.toString());
             Thread.currentThread().interrupt();
         }
+
+        final String logMsg = String.format(Locale.ENGLISH, "%d: digest=%s", widgetId, digest);
         Timber.d(logMsg + "; isFavourite=" + isFavourite);
 
         return isFavourite;

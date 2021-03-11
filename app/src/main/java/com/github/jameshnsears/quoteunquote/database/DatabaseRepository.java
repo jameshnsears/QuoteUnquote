@@ -139,15 +139,12 @@ public class DatabaseRepository {
     @NonNull
     public List<String> getAllPrevious(final int widgetId, @NonNull final ContentSelection contentSelection) {
         final List<String> previousOrdered = previousDAO.getAllPrevious(widgetId, contentSelection);
-        logDigests(previousOrdered);
-
         return previousOrdered;
     }
 
     @NonNull
     public List<String> getFavourites() {
         final List<String> favouriteQuotations = favouritesDAO.getFavourites();
-        logDigests(favouriteQuotations);
         return favouriteQuotations;
     }
 
@@ -238,14 +235,6 @@ public class DatabaseRepository {
 
     public int getRandomIndex(@NonNull final List<String> availableNextQuotations) {
         return secureRandom.nextInt(availableNextQuotations.size());
-    }
-
-    private void logDigests(@NonNull final List<String> digests) {
-        int index = 0;
-        for (final String digest : digests) {
-            Timber.d("index=%d, digest=%s", index, digest);
-            index += 1;
-        }
     }
 
     public void deleteFavourite(final int widgetId, @NonNull final String digest) {
