@@ -39,6 +39,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
     private static volatile boolean receiversRegistered = false;
     @Nullable
     private QuoteUnquoteModel quoteUnquoteModel;
+    @NonNull
     private NotificationHelper notificationHelper = new NotificationHelper();
 
     private static void registerReceivers(@NonNull Context contextIn) {
@@ -261,22 +262,29 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull final AppWidgetManager appWidgetManager) {
         final ContentPreferences contentPreferences = new ContentPreferences(widgetId, context);
 
-        getQuoteUnquoteModelInstance(context).toggleFavourite(widgetId, getQuoteUnquoteModelInstance(context).getNextQuotation(
-                widgetId, contentPreferences.getContentSelection()).digest);
+        int favouritesCount = getQuoteUnquoteModelInstance(context).toggleFavourite(
+                widgetId,
+                getQuoteUnquoteModelInstance(context).getNextQuotation(
+                        widgetId, contentPreferences.getContentSelection()).digest);
 
-        if (contentPreferences.getContentSelection().equals(ContentSelection.FAVOURITES)
-                || contentPreferences.getContentSelection().equals(ContentSelection.ALL)) {
-
-            appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
+        if (favouritesCount == 0) {
+            ToastHelper.makeToast(context, context.getString(R.string.widget_button_favourites_no_more), Toast.LENGTH_LONG);
+            contentPreferences.setContentSelection(ContentSelection.ALL);
+            try {
+                getQuoteUnquoteModelInstance(context).setNextQuotation(widgetId, false);
+                onUpdate(context, appWidgetManager, new int[]{widgetId});
+            } catch (NoNextQuotationAvailableException e) {
+                Timber.d(e);
+            }
         }
+
+        appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
     }
 
     private void onReceiveToolbarPressedFirst(
             @NonNull final Context context,
             final int widgetId,
             @NonNull final AppWidgetManager appWidgetManager) {
-        ToastHelper.makeToast(context, context.getString(R.string.widget_button_first_toast), Toast.LENGTH_LONG);
-
         getQuoteUnquoteModelInstance(context).resetPrevious(widgetId, new ContentPreferences(widgetId, context).getContentSelection());
 
         appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
@@ -312,7 +320,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
 
             appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
         } catch (NoNextQuotationAvailableException e) {
-            ToastHelper.makeToast(context, context.getString(R.string.widget_button_next_toast), Toast.LENGTH_LONG);
+            Timber.d(e);
         }
     }
 
@@ -337,7 +345,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
                         context, getQuoteUnquoteModelInstance(context).getNextQuotation(widgetId, contentSelection));
             }
         } catch (NoNextQuotationAvailableException e) {
-            ToastHelper.makeToast(context, context.getString(R.string.widget_button_next_toast), Toast.LENGTH_LONG);
+            ToastHelper.makeToast(context, context.getString(R.string.widget_button_next_no_more), Toast.LENGTH_LONG);
         }
     }
 
@@ -452,8 +460,10 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull final Context context,
             final int widgetId,
             @NonNull final RemoteViews remoteViews) {
-        final QuotationEntity quotationEntity
-                = getQuoteUnquoteModelInstance(context).getNextQuotation(widgetId, new ContentPreferences(widgetId, context).getContentSelection());
+        ContentPreferences contentPreferences = new ContentPreferences(widgetId, context);
+
+        final QuotationEntity quotationEntity = getQuoteUnquoteModelInstance(context).getNextQuotation(
+                widgetId, contentPreferences.getContentSelection());
 
         if (getQuoteUnquoteModelInstance(context).isFavourite(widgetId, quotationEntity.digest)) {
             remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_favorite_red_24dp);

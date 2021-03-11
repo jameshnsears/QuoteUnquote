@@ -144,11 +144,11 @@ public class QuoteUnquoteModel {
             }
 
             QuotationEntity quotationEntity = databaseRepository.getNextQuotation(widgetId, contentSelection);
-            String previousNextCounts = databaseRepository.getPreviousNextCounts(widgetId, contentSelection, criteria);
+            String previousCounts = databaseRepository.getPreviousCounts(widgetId, contentSelection, criteria);
 
             return new QuotationEntity(
                     quotationEntity.digest,
-                    quotationEntity.author + " " + previousNextCounts,
+                    quotationEntity.author + " " + previousCounts,
                     quotationEntity.quotation);
         });
 
@@ -213,11 +213,11 @@ public class QuoteUnquoteModel {
                 getContentPreferences(widgetId).getContentSelectionSearchText());
     }
 
-    public void toggleFavourite(final int widgetId, @NonNull final String digest) {
+    public int toggleFavourite(final int widgetId, @NonNull final String digest) {
         final String logMsg = String.format(Locale.ENGLISH, "%d: digest=%s", widgetId, digest);
         Timber.d(logMsg);
 
-        final Future future = executorService.submit(() -> {
+        final Future<Integer> future = executorService.submit(() -> {
             if (!isFavourite(widgetId, digest)) {
                 databaseRepository.markAsFavourite(digest);
 
@@ -231,26 +231,20 @@ public class QuoteUnquoteModel {
                 AuditEventHelper.auditEvent("FAVOURITE", properties);
             } else {
                 databaseRepository.deleteFavourite(widgetId, digest);
-                try {
-                    if (databaseRepository.countFavourites().blockingGet() == 0) {
-                        getContentPreferences(widgetId).setContentSelection(ContentSelection.ALL);
-                        setNextQuotation(widgetId, false);
-                    } else {
-                        getContentPreferences(widgetId).setContentSelection(ContentSelection.FAVOURITES);
-                        setNextQuotation(widgetId, false);
-                    }
-                } catch (NoNextQuotationAvailableException e) {
-                    Timber.d(e);
-                }
             }
+
+            return databaseRepository.countFavourites().blockingGet();
         });
 
+        int favouritesCount = 0;
         try {
-            future.get();
+            favouritesCount = future.get().intValue();
         } catch (ExecutionException | InterruptedException e) {
             Timber.w(e.toString());
             Thread.currentThread().interrupt();
         }
+
+        return favouritesCount;
     }
 
     public boolean isFavourite(final int widgetId, @NonNull final String digest) {

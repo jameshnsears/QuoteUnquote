@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Build;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -16,7 +17,7 @@ public class NotificationHelper {
     private int notificationId = 0;
 
     public void displayNotification(@NonNull Context context, @NonNull QuotationEntity quotationEntity) {
-        CharSequence author = quotationEntity.author.substring(0, quotationEntity.author.lastIndexOf("@"));
+        CharSequence author = restrictAuthorSize(quotationEntity.author);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(
                 context, createNotificationChannel(context))
@@ -31,16 +32,49 @@ public class NotificationHelper {
         notificationManager.notify(notificationId, builder.build());
     }
 
-    public CharSequence restrictQuotationSize(String quotation) {
+    @NonNull
+    public String restrictAuthorSize(@NonNull String author) {
+        int notificationTitleMaxSize = 20;
 
-        String reducedQuotation = quotation;
+        String authorMinusPosition = author.substring(0, author.lastIndexOf("@"));
 
-        if (quotation.length() > 180) {
-            reducedQuotation = quotation.substring(0, 180) + "...";
+        String reducedAuthor = "";
+        int cumlativeWordLength = 0;
+
+        for (String word: author.split(" ")) {
+            cumlativeWordLength += word.length();
+            if (cumlativeWordLength < notificationTitleMaxSize) {
+                reducedAuthor += word + " ";
+            } else {
+                reducedAuthor += "...";
+                break;
+            }
         }
+
+        return reducedAuthor;
+    }
+
+    @NonNull
+    public CharSequence restrictQuotationSize(@NonNull String quotation) {
+        int notificationBodyMaxSize = 150;
+
+        String reducedQuotation = "";
+        int cumlativeWordLength = 0;
+
+        for (String word: quotation.split(" ")) {
+            cumlativeWordLength += word.length();
+            if (cumlativeWordLength < notificationBodyMaxSize) {
+                reducedQuotation += word + " ";
+            } else {
+                reducedQuotation += "...";
+                break;
+            }
+        }
+
         return (CharSequence) reducedQuotation;
     }
 
+    @Nullable
     private String createNotificationChannel(@NonNull Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             String notificationChannelId = context.getString(com.github.jameshnsears.quoteunquote.R.string.notification_channel_id);

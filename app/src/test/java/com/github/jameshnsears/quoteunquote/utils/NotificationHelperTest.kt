@@ -4,6 +4,8 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class NotificationHelperTest {
+    val notifcationHelper = NotificationHelper()
+
     fun largeMultiLineQuotation() =
         """
             To be, or not to be: that is the question:
@@ -55,13 +57,11 @@ class NotificationHelperTest {
 
     fun largeSingleLineQuotationReduced() =
         """
-            The legitimate object of government, is to do for a community of people, whatever they need to have done, but can not do, at all, or can not, so well do, for themselves in their se...
+            The legitimate object of government, is to do for a community of people, whatever they need to have done, but can not do, at all, or can not, so well do, for themselves in their ...
         """.trimIndent()
 
     @Test
     fun restrictQuotationSize() {
-        val notifcationHelper = NotificationHelper()
-
         assertEquals(
             largeMultiLineQuoationReduced(),
             notifcationHelper.restrictQuotationSize(largeMultiLineQuotation())
@@ -70,6 +70,15 @@ class NotificationHelperTest {
         assertEquals(
             largeSingleLineQuotationReduced(),
             notifcationHelper.restrictQuotationSize(largeSingleLineQuotation())
+        )
+    }
+
+    @Test
+    fun restrictAuthorSize() {
+        val veryLongAuthor = "one two three four five six seven eight nine ten @ 1/1"
+        assertEquals(
+                "one two three four five ...",
+                notifcationHelper.restrictAuthorSize(veryLongAuthor)
         )
     }
 }

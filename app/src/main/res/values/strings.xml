@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Quote, Unquote&#8230;</string>
 
-    <string name="widget_button_first_toast">First quotation, in selection</string>
-    <string name="widget_button_next_toast">No more quotations, in selection</string>
+    <string name="widget_button_favourites_no_more">No more favourites</string>
+    <string name="widget_button_next_no_more">No more quotations, in selection</string>
 
     <string name="activity_configure_title">Quote, Unquote&#8230;</string>
 
@@ -52,7 +52,7 @@
     <string name="fragment_content_title">Quotations</string>
     <string name="fragment_content_all">All: %d</string>
     <string name="fragment_content_favourites">Favourite: %d</string>
-    <string name="fragment_content_favourites_share_instructions">(Optional) Share across devices</string>
+    <string name="fragment_content_favourites_share_instructions">(Optional) Sync across devices</string>
     <string name="fragment_content_favourites_share_local_code_value">%s</string>
     <string name="fragment_content_favourites_share_local_code_send">Send</string>
     <string name="fragment_content_favourites_share_remove_code_value">Remote code</string>

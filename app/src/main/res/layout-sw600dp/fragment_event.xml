@@ -47,6 +47,8 @@
                 android:id="@+id/radioButtonNextRandom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_baseline_refresh_24"
+                android:drawablePadding="5dp"
                 android:paddingVertical="10dp"
                 android:text="@string/fragment_appearance_instructions_next_random"
                 android:textSize="20sp" />
@@ -55,6 +57,8 @@
                 android:id="@+id/radioButtonNextSequential"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_chevron_right_black_24dp"
+                android:drawablePadding="5dp"
                 android:paddingVertical="10dp"
                 android:text="@string/fragment_appearance_instructions_next_sequential"
                 android:textSize="20sp" />

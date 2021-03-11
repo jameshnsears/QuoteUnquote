@@ -72,7 +72,7 @@ public class DatabaseRepository {
         return previousDAO.countPrevious(widgetId, contentSelection);
     }
 
-    public String getPreviousNextCounts(
+    public String getPreviousCounts(
             final int widgetId,
             @NonNull final ContentSelection contentSelection,
             @Nullable final String criteria) {
@@ -148,7 +148,6 @@ public class DatabaseRepository {
     public List<String> getFavourites() {
         final List<String> favouriteQuotations = favouritesDAO.getFavourites();
         logDigests(favouriteQuotations);
-
         return favouriteQuotations;
     }
 
