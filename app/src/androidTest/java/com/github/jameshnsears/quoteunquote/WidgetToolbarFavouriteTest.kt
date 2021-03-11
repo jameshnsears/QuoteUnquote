@@ -7,7 +7,6 @@ import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import junit.framework.TestCase.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import kotlin.collections.ArrayList
 
 class WidgetToolbarFavouriteTest : QuoteUnquoteModelUtility() {
     @Test

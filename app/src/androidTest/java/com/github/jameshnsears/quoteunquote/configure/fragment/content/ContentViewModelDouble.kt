@@ -7,8 +7,4 @@ class ContentViewModelDouble : ContentViewModel(getApplicationContext()) {
     init {
         databaseRepository = DatabaseRepositoryDouble.getInstance()
     }
-
-    override fun localCode(): String {
-        return "bc5yX41a20"
-    }
 }

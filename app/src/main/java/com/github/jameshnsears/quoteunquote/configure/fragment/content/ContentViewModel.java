@@ -11,7 +11,6 @@ import com.github.jameshnsears.quoteunquote.cloud.CloudFavouritesHelper;
 import com.github.jameshnsears.quoteunquote.cloud.SaveRequest;
 import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
 import com.github.jameshnsears.quoteunquote.database.quotation.AuthorPOJO;
-import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -9,15 +9,9 @@ import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import io.mockk.every
 import io.mockk.spyk
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
 import org.junit.Test
 
 class ListViewTest : QuoteUnquoteModelUtility() {
-    @Test
-    fun listViewService() {
-        assertNotNull(ListViewService().onGetViewFactory(getIntent()) as ListViewProvider)
-    }
-
     private fun getIntent(): Intent {
         val intent = Intent()
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, WidgetIdHelper.WIDGET_ID_01)
@@ -35,7 +29,7 @@ class ListViewTest : QuoteUnquoteModelUtility() {
         contentPreferences.contentSelection = ContentSelection.ALL
 
         listViewProvider.onCreate()
-        assertEquals(0, listViewProvider.count)
+        assertEquals(1, listViewProvider.count)
 
         listViewProvider.onDataSetChanged()
 

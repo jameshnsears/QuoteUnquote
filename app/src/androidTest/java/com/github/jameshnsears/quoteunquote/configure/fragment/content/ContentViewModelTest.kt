@@ -2,6 +2,7 @@ package com.github.jameshnsears.quoteunquote.configure.fragment.content
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.jameshnsears.quoteunquote.database.DatabaseTestHelper
+import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -78,6 +79,11 @@ class ContentViewModelTest : DatabaseTestHelper() {
 
         assertEquals("", 0, contentViewModelDouble.countFavourites().blockingGet().toInt())
 
-        assertEquals("", "{\"code\":\"bc5yX41a20\",\"digests\":[]}", contentViewModelDouble.favouritesToSend)
+        var contentPreferences = ContentPreferences(WidgetIdHelper.WIDGET_ID_01, context)
+        contentPreferences.contentFavouritesLocalCode = "bc5yX41a20"
+
+        assertEquals("",
+                "{\"code\":\"bc5yX41a20\",\"digests\":[]}",
+                contentViewModelDouble.getFavouritesToSend(context))
     }
 }
