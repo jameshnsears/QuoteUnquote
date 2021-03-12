@@ -38,8 +38,8 @@ class WidgetToolbarFavouriteTest : QuoteUnquoteModelUtility() {
         quoteUnquoteModelDouble.setNextQuotation(WidgetIdHelper.WIDGET_ID_01, false)
 
         var digest = quoteUnquoteModelDouble.getNextQuotation(
-            WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL
-        )?.digest
+                WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL
+        ).digest
 
         quoteUnquoteModelDouble.toggleFavourite(WidgetIdHelper.WIDGET_ID_01, digest.toString())
 
@@ -53,7 +53,7 @@ class WidgetToolbarFavouriteTest : QuoteUnquoteModelUtility() {
 
         digest = quoteUnquoteModelDouble.getNextQuotation(
             WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL
-        )?.digest
+        ).digest
 
         quoteUnquoteModelDouble.toggleFavourite(WidgetIdHelper.WIDGET_ID_01, digest.toString())
 

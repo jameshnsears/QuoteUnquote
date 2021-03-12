@@ -65,8 +65,13 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
 
         synchronized (this) {
             quotationList.clear();
-            quotationList.add(quotationEntity.theQuotation());
+            quotationList.add(getTheQuotation());
         }
+    }
+
+    @NonNull
+    public String getTheQuotation() {
+        return quotationEntity.theQuotation();
     }
 
     @NonNull
@@ -107,7 +112,7 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
 
         synchronized (this) {
             if (!quotationList.isEmpty()) {
-                remoteViews.setTextViewText(android.R.id.text1, quotationEntity.theQuotation());
+                remoteViews.setTextViewText(android.R.id.text1, getTheQuotation());
 
                 if (textSize != -1) {
                     remoteViews.setTextViewTextSize(

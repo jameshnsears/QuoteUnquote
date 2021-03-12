@@ -10,7 +10,6 @@ import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 
 import java.util.List;
 
-
 public final class DatabaseRepositoryDouble extends DatabaseRepository {
     private static DatabaseRepositoryDouble databaseRepositoryDouble;
 
@@ -32,6 +31,7 @@ public final class DatabaseRepositoryDouble extends DatabaseRepository {
         previousDAO = abstractDatabaseHistory.previousDAO();
         favouritesDAO = abstractDatabaseHistory.favouritesDAO();
         reportedDAO = abstractDatabaseHistory.reportedDAO();
+        currentDAO = abstractDatabaseHistory.currentDAO();
     }
 
     public static synchronized DatabaseRepositoryDouble getInstance() {
@@ -48,6 +48,7 @@ public final class DatabaseRepositoryDouble extends DatabaseRepository {
         databaseRepositoryDouble.abstractDatabaseHistory.previousDAO().deleteAll();
         databaseRepositoryDouble.abstractDatabaseHistory.favouritesDAO().deleteAll();
         databaseRepositoryDouble.abstractDatabaseHistory.reportedDAO().deleteAll();
+        databaseRepositoryDouble.abstractDatabaseHistory.currentDAO().deleteAll();
     }
 
     public void insertQuotations(final List<QuotationEntity> quotationEntityList) {

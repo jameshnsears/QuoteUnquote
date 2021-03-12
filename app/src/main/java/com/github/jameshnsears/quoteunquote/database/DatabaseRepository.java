@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.github.jameshnsears.quoteunquote.database.history.AbstractDatabaseHistory;
+import com.github.jameshnsears.quoteunquote.database.history.CurrentDAO;
+import com.github.jameshnsears.quoteunquote.database.history.CurrentEntity;
 import com.github.jameshnsears.quoteunquote.database.history.FavouriteEntity;
 import com.github.jameshnsears.quoteunquote.database.history.FavouritesDAO;
 import com.github.jameshnsears.quoteunquote.database.history.PreviousDAO;
@@ -42,6 +44,8 @@ public class DatabaseRepository {
     protected FavouritesDAO favouritesDAO;
     @Nullable
     protected ReportedDAO reportedDAO;
+    @Nullable
+    protected CurrentDAO currentDAO;
 
     protected DatabaseRepository() {
         //
@@ -54,6 +58,7 @@ public class DatabaseRepository {
         previousDAO = abstractDatabaseHistory.previousDAO();
         favouritesDAO = abstractDatabaseHistory.favouritesDAO();
         reportedDAO = abstractDatabaseHistory.reportedDAO();
+        currentDAO = abstractDatabaseHistory.currentDAO();
     }
 
     public static synchronized DatabaseRepository getInstance(@NonNull final Context context) {
@@ -167,7 +172,6 @@ public class DatabaseRepository {
             @NonNull final ContentSelection contentSelection,
             @NonNull final String digest) {
         Timber.d("%d: contentType=%d; digest=%s", widgetId, contentSelection.getContentType(), digest);
-
         previousDAO.markAsPrevious(new PreviousEntity(widgetId, contentSelection, digest));
     }
 
@@ -183,6 +187,23 @@ public class DatabaseRepository {
             Timber.d("digest=%s", digest);
             reportedDAO.markAsReported(new ReportedEntity(digest));
         }
+    }
+
+    public void markAsCurrent(
+            final int widgetId,
+            @NonNull final ContentSelection contentSelection,
+            @NonNull final String digest) {
+        Timber.d("%d: contentType=%d; digest=%s", widgetId, contentSelection.getContentType(), digest);
+        currentDAO.deleteAll(widgetId, contentSelection);
+        currentDAO.markAsCurrent(new CurrentEntity(widgetId, contentSelection, digest));
+    }
+
+    public int countCurrent(final int widgetId, @NonNull final ContentSelection contentSelection) {
+        return currentDAO.countCurrent(widgetId, contentSelection);
+    }
+
+    public String getCurrent(final int widgetId, @NonNull final ContentSelection contentSelection) {
+        return currentDAO.getCurrent(widgetId, contentSelection);
     }
 
     @NonNull
@@ -263,6 +284,15 @@ public class DatabaseRepository {
 
     public void deleteReported() {
         reportedDAO.deleteAll();
+    }
+
+    public void deleteCurrent() {
+        currentDAO.deleteAll();
+    }
+
+    public void deleteCurrent(final int widgetId) {
+        Timber.d("widgetId=%d", widgetId);
+        currentDAO.deleteAll(widgetId);
     }
 
     @NonNull

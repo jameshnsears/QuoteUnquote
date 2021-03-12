@@ -4,6 +4,7 @@ import android.appwidget.AppWidgetManager
 import android.content.Intent
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteModelUtility
 import com.github.jameshnsears.quoteunquote.configure.fragment.content.ContentPreferences
+import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import io.mockk.every
@@ -23,7 +24,8 @@ class ListViewTest : QuoteUnquoteModelUtility() {
         insertQuotationTestData01()
 
         val listViewProvider = spyk(ListViewProvider(context, getIntent()))
-        every { listViewProvider.getQuoteUnquoteModel() } returns quoteUnquoteModelDouble
+        every { listViewProvider.quoteUnquoteModel } returns quoteUnquoteModelDouble
+        every { listViewProvider.theQuotation } returns "q"
 
         val contentPreferences = ContentPreferences(context)
         contentPreferences.contentSelection = ContentSelection.ALL

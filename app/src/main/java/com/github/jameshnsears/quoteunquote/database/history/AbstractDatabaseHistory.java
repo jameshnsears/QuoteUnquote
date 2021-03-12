@@ -9,7 +9,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 @Database(
-        entities = {PreviousEntity.class, FavouriteEntity.class, ReportedEntity.class},
+        entities = {PreviousEntity.class, FavouriteEntity.class, ReportedEntity.class, CurrentEntity.class},
         version = 1)
 public abstract class AbstractDatabaseHistory extends RoomDatabase {
     @NonNull
@@ -37,4 +37,7 @@ public abstract class AbstractDatabaseHistory extends RoomDatabase {
 
     @NonNull
     public abstract ReportedDAO reportedDAO();
+
+    @NonNull
+    public abstract CurrentDAO currentDAO();
 }
