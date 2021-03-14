@@ -1,6 +1,7 @@
 package com.github.jameshnsears.quoteunquote.database.history;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteException;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,6 +10,8 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
+
+import timber.log.Timber;
 
 @Database(
         entities = {PreviousEntity.class, FavouriteEntity.class, ReportedEntity.class, CurrentEntity.class},
@@ -22,13 +25,19 @@ public abstract class AbstractHistoryDatabase extends RoomDatabase {
     static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
-            // RENAME keyword not yet present in SQLite Android version
-            database.execSQL("CREATE TABLE `previous_new` (`widget_id` INTEGER NOT NULL, `content_selection` INTEGER NOT NULL, `digest` TEXT NOT NULL, `navigation` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)");
-            database.execSQL("INSERT INTO `previous_new` (`widget_id`, `content_selection`, `digest`) SELECT `widget_id`, `content_type`, `digest` FROM `previous` ORDER BY `navigation` ASC");
-            database.execSQL("DROP TABLE `previous`");
-            database.execSQL("ALTER TABLE `previous_new` RENAME TO `previous`");
-
             database.execSQL("CREATE TABLE `current` (`widget_id` INTEGER NOT NULL, `digest` TEXT NOT NULL, `content_selection` INTEGER NOT NULL, `navigation` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)");
+
+            try {
+                database.execSQL("SELECT `content_type` from `previous`");
+                // RENAME keyword not yet present in SQLite Android version
+                database.execSQL("CREATE TABLE `previous_new` (`widget_id` INTEGER NOT NULL, `content_selection` INTEGER NOT NULL, `digest` TEXT NOT NULL, `navigation` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)");
+                database.execSQL("INSERT INTO `previous_new` (`widget_id`, `content_selection`, `digest`) SELECT `widget_id`, `content_type`, `digest` FROM `previous` ORDER BY `navigation` ASC");
+                database.execSQL("DROP TABLE `previous`");
+                database.execSQL("ALTER TABLE `previous_new` RENAME TO `previous`");
+            } catch (SQLiteException e) {
+                // get's thrown if no version 1 present
+                Timber.e(e.getMessage());
+            }
         }
     };
 
