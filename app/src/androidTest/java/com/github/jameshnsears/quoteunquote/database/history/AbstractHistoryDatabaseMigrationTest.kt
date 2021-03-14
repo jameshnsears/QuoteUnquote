@@ -16,12 +16,12 @@ import org.junit.runner.RunWith
 import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
-class AbstractDatabaseHistoryMigrationTest {
+class AbstractHistoryDatabaseMigrationTest {
     @Rule
     @JvmField
     val helper: MigrationTestHelper = MigrationTestHelper(
             InstrumentationRegistry.getInstrumentation(),
-            AbstractDatabaseHistory::class.java.canonicalName,
+            AbstractHistoryDatabase::class.java.canonicalName,
             FrameworkSQLiteOpenHelperFactory()
     )
 
@@ -39,7 +39,7 @@ class AbstractDatabaseHistoryMigrationTest {
         db.close()
 
         helper.runMigrationsAndValidate(DATABASE, 2, true,
-                AbstractDatabaseHistory.MIGRATION_1_2)
+                AbstractHistoryDatabase.MIGRATION_1_2)
 
         val databaseRepository = DatabaseRepository.getInstance(getApplicationContext())
         val previousEntity = databaseRepository.previousDAO?.getPrevious(1, ContentSelection.ALL)

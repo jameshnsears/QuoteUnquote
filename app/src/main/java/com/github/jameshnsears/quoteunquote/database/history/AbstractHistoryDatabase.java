@@ -1,7 +1,6 @@
 package com.github.jameshnsears.quoteunquote.database.history;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteException;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,16 +10,14 @@ import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import timber.log.Timber;
-
 @Database(
         entities = {PreviousEntity.class, FavouriteEntity.class, ReportedEntity.class, CurrentEntity.class},
         version = 2)
-public abstract class AbstractDatabaseHistory extends RoomDatabase {
+public abstract class AbstractHistoryDatabase extends RoomDatabase {
     @NonNull
     public static final String DATABASE_NAME = "history.db";
     @Nullable
-    private static AbstractDatabaseHistory historyDatabase;
+    private static AbstractHistoryDatabase historyDatabase;
 
     static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
@@ -36,11 +33,11 @@ public abstract class AbstractDatabaseHistory extends RoomDatabase {
     };
 
     @NonNull
-    public static AbstractDatabaseHistory getDatabase(@NonNull final Context context) {
-        synchronized (AbstractDatabaseHistory.class) {
+    public static AbstractHistoryDatabase getDatabase(@NonNull final Context context) {
+        synchronized (AbstractHistoryDatabase.class) {
             if (historyDatabase == null) {
                 historyDatabase = Room.databaseBuilder(context,
-                        AbstractDatabaseHistory.class, DATABASE_NAME)
+                        AbstractHistoryDatabase.class, DATABASE_NAME)
                         .addMigrations(MIGRATION_1_2)
                         .build();
             }

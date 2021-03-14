@@ -4,8 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
 
-import com.github.jameshnsears.quoteunquote.database.history.AbstractDatabaseHistory;
-import com.github.jameshnsears.quoteunquote.database.quotation.AbstractDatabaseQuotation;
+import com.github.jameshnsears.quoteunquote.database.history.AbstractHistoryDatabase;
+import com.github.jameshnsears.quoteunquote.database.quotation.AbstractQuotationDatabase;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 
 import java.util.List;
@@ -14,24 +14,24 @@ public final class DatabaseRepositoryDouble extends DatabaseRepository {
     private static DatabaseRepositoryDouble databaseRepositoryDouble;
 
     private DatabaseRepositoryDouble() {
-        abstractDatabaseQuotation = Room.inMemoryDatabaseBuilder(
+        abstractQuotationDatabase = Room.inMemoryDatabaseBuilder(
                 ApplicationProvider.getApplicationContext(),
-                AbstractDatabaseQuotation.class)
+                AbstractQuotationDatabase.class)
                 .allowMainThreadQueries()
                 .build();
 
-        quotationDAO = abstractDatabaseQuotation.quotationsDAO();
+        quotationDAO = abstractQuotationDatabase.quotationsDAO();
 
-        abstractDatabaseHistory = Room.inMemoryDatabaseBuilder(
+        abstractHistoryDatabase = Room.inMemoryDatabaseBuilder(
                 ApplicationProvider.getApplicationContext(),
-                AbstractDatabaseHistory.class)
+                AbstractHistoryDatabase.class)
                 .allowMainThreadQueries()
                 .build();
 
-        previousDAO = abstractDatabaseHistory.previousDAO();
-        favouritesDAO = abstractDatabaseHistory.favouritesDAO();
-        reportedDAO = abstractDatabaseHistory.reportedDAO();
-        currentDAO = abstractDatabaseHistory.currentDAO();
+        previousDAO = abstractHistoryDatabase.previousDAO();
+        favouritesDAO = abstractHistoryDatabase.favouritesDAO();
+        reportedDAO = abstractHistoryDatabase.reportedDAO();
+        currentDAO = abstractHistoryDatabase.currentDAO();
     }
 
     public static synchronized DatabaseRepositoryDouble getInstance() {
@@ -43,12 +43,12 @@ public final class DatabaseRepositoryDouble extends DatabaseRepository {
     }
 
     public void empty() {
-        databaseRepositoryDouble.abstractDatabaseQuotation.quotationsDAO().deleteAll();
+        databaseRepositoryDouble.abstractQuotationDatabase.quotationsDAO().deleteAll();
 
-        databaseRepositoryDouble.abstractDatabaseHistory.previousDAO().deleteAll();
-        databaseRepositoryDouble.abstractDatabaseHistory.favouritesDAO().deleteAll();
-        databaseRepositoryDouble.abstractDatabaseHistory.reportedDAO().deleteAll();
-        databaseRepositoryDouble.abstractDatabaseHistory.currentDAO().deleteAll();
+        databaseRepositoryDouble.abstractHistoryDatabase.previousDAO().deleteAll();
+        databaseRepositoryDouble.abstractHistoryDatabase.favouritesDAO().deleteAll();
+        databaseRepositoryDouble.abstractHistoryDatabase.reportedDAO().deleteAll();
+        databaseRepositoryDouble.abstractHistoryDatabase.currentDAO().deleteAll();
     }
 
     public void insertQuotations(final List<QuotationEntity> quotationEntityList) {

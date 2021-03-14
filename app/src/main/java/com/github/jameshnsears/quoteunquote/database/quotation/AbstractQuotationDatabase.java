@@ -13,16 +13,16 @@ import com.github.jameshnsears.quoteunquote.BuildConfig;
 @Database(
         entities = {QuotationEntity.class},
         version = 1)
-public abstract class AbstractDatabaseQuotation extends RoomDatabase {
+public abstract class AbstractQuotationDatabase extends RoomDatabase {
     @Nullable
-    private static AbstractDatabaseQuotation quotationDatabase;
+    private static AbstractQuotationDatabase quotationDatabase;
 
     @NonNull
-    public static AbstractDatabaseQuotation getDatabase(@NonNull final Context context) {
-        synchronized (AbstractDatabaseQuotation.class) {
+    public static AbstractQuotationDatabase getDatabase(@NonNull final Context context) {
+        synchronized (AbstractQuotationDatabase.class) {
             if (quotationDatabase == null) {
                 quotationDatabase = Room.databaseBuilder(context,
-                        AbstractDatabaseQuotation.class, BuildConfig.DATABASE_QUOTATIONS)
+                        AbstractQuotationDatabase.class, BuildConfig.DATABASE_QUOTATIONS)
                         .createFromAsset(BuildConfig.DATABASE_QUOTATIONS)
                         .build();
             }
