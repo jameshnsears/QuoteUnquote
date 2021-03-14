@@ -28,7 +28,9 @@ class AbstractHistoryDatabaseMigrationTest {
     @Test
     @Throws(IOException::class)
     fun migrate1To2() {
-        var db = helper.createDatabase(DATABASE, 1)
+        var db = helper.createDatabase(
+                AbstractHistoryDatabase.DATABASE_NAME,
+                1)
 
         val values = ContentValues()
         values.put("widget_id", 1)
@@ -38,15 +40,13 @@ class AbstractHistoryDatabaseMigrationTest {
 
         db.close()
 
-        helper.runMigrationsAndValidate(DATABASE, 2, true,
+        helper.runMigrationsAndValidate(AbstractHistoryDatabase.DATABASE_NAME,
+                2,
+                true,
                 AbstractHistoryDatabase.MIGRATION_1_2)
 
         val databaseRepository = DatabaseRepository.getInstance(getApplicationContext())
         val previousEntity = databaseRepository.previousDAO?.getPrevious(1, ContentSelection.ALL)
-        assertEquals(ContentSelection.ALL.contentSelection, previousEntity?.contentSelection)
-    }
-
-    companion object {
-        const val DATABASE = "history"
+        assertEquals(ContentSelection.ALL, previousEntity?.contentSelection)
     }
 }
