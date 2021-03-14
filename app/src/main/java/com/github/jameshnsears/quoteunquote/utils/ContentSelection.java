@@ -22,25 +22,25 @@ public enum ContentSelection {
 
     @TypeConverter
     @Nullable
-    public static ContentSelection getContentType(@NonNull final Integer integer) {
-        ContentSelection contentType = null;
-        for (final ContentSelection contentSelection : values()) {
-            if (Objects.equals(contentSelection.code, integer)) {
-                contentType = contentSelection;
+    public static ContentSelection getContentSelection(@NonNull final Integer integer) {
+        ContentSelection contentSelection = null;
+        for (final ContentSelection contentSelectionValue : values()) {
+            if (Objects.equals(contentSelectionValue.code, integer)) {
+                contentSelection = contentSelectionValue;
                 break;
             }
         }
-        return contentType;
+        return contentSelection;
     }
 
     @TypeConverter
     @NonNull
-    public static Integer getContentTypeInt(@NonNull final ContentSelection contentSelection) {
+    public static Integer getContentSelectionInt(@NonNull final ContentSelection contentSelection) {
         return contentSelection.code;
     }
 
     @NonNull
-    public Integer getContentType() {
+    public Integer getContentSelection() {
         return code;
     }
 }

@@ -39,7 +39,7 @@ public class DatabaseRepository {
     @Nullable
     protected AbstractDatabaseHistory abstractDatabaseHistory;
     @Nullable
-    protected PreviousDAO previousDAO;
+    public PreviousDAO previousDAO;
     @Nullable
     protected FavouritesDAO favouritesDAO;
     @Nullable
@@ -171,7 +171,7 @@ public class DatabaseRepository {
             final int widgetId,
             @NonNull final ContentSelection contentSelection,
             @NonNull final String digest) {
-        Timber.d("%d: contentType=%d; digest=%s", widgetId, contentSelection.getContentType(), digest);
+        Timber.d("%d: contentType=%d; digest=%s", widgetId, contentSelection.getContentSelection(), digest);
         previousDAO.markAsPrevious(new PreviousEntity(widgetId, contentSelection, digest));
     }
 
@@ -193,7 +193,7 @@ public class DatabaseRepository {
             final int widgetId,
             @NonNull final ContentSelection contentSelection,
             @NonNull final String digest) {
-        Timber.d("%d: contentType=%d; digest=%s", widgetId, contentSelection.getContentType(), digest);
+        Timber.d("%d: contentType=%d; digest=%s", widgetId, contentSelection.getContentSelection(), digest);
         currentDAO.deleteAll(widgetId, contentSelection);
         currentDAO.markAsCurrent(new CurrentEntity(widgetId, contentSelection, digest));
     }
@@ -213,7 +213,7 @@ public class DatabaseRepository {
             @NonNull final String searchString,
             final boolean randomNext)
             throws NoNextQuotationAvailableException {
-        Timber.d("%d: contentType=%d; searchString=%s", widgetId, contentSelection.getContentType(), searchString);
+        Timber.d("%d: contentType=%d; searchString=%s", widgetId, contentSelection.getContentSelection(), searchString);
 
         List<String> availableQuotations;
 
@@ -269,7 +269,7 @@ public class DatabaseRepository {
     }
 
     public void deletePrevious(final int widgetId, @NonNull final ContentSelection contentSelection) {
-        Timber.d("%d: contentType=%d", widgetId, contentSelection.getContentType());
+        Timber.d("%d: contentType=%d", widgetId, contentSelection.getContentSelection());
         previousDAO.deleteAll(widgetId, contentSelection);
     }
 

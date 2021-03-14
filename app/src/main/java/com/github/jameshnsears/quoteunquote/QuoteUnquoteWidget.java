@@ -465,10 +465,12 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         final QuotationEntity quotationEntity = getQuoteUnquoteModelInstance(context).getNextQuotation(
                 widgetId, contentPreferences.getContentSelection());
 
-        if (getQuoteUnquoteModelInstance(context).isFavourite(widgetId, quotationEntity.digest)) {
-            remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_favorite_red_24dp);
-        } else {
-            remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_favorite_border_black_24dp);
+        if (quotationEntity != null) {
+            if (getQuoteUnquoteModelInstance(context).isFavourite(widgetId, quotationEntity.digest)) {
+                remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_favorite_red_24dp);
+            } else {
+                remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_favorite_border_black_24dp);
+            }
         }
     }
 

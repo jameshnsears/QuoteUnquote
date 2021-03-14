@@ -3,6 +3,7 @@ package com.github.jameshnsears.quoteunquote
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.fail
 import org.junit.Test
 
 class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
@@ -76,9 +77,18 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
         assertEquals(
                 0,
                 databaseRepositoryDouble.countCurrent(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL))
+    }
 
-
+    @Test
+    fun getQuotationPositionInPrevious() {
         /*
+        1615572357.999 5976-5976/com.github.jameshnsears.quoteunquote D/ContentFragment.onError, 299: java.lang.IllegalStateException: A migration from 1 to 2 was required but not found. Please provide the necessary Migration path via RoomDatabase.Builder.addMigration(Migration ...) or allow for destructive migrations via one of the RoomDatabase.Builder.fallbackToDestructiveMigration* methods.
+
+https://gitlab.com/commonsguy/cw-room/-/blob/v0.2/Migration/src/main/java/com/commonsware/room/migration/NoteDatabase.kt
+
+
+
+
         getPreviousQuotation = DONE
 
         markAsCurrent = DONE
@@ -94,6 +104,8 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
 
         tests to include previous quotes in ContentSelection.FAVOURITES + AUTHOR + SEARCH
         */
+
+        fail("todo")
     }
 
     private fun pressNextSequentialFourTimes() {

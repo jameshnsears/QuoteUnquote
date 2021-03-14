@@ -346,7 +346,7 @@ public class QuoteUnquoteModel {
     }
 
     public void resetPrevious(final int widgetId, @NonNull final ContentSelection contentSelection) {
-        final String logMsg = String.format(Locale.ENGLISH, "%d: contentType=%d", widgetId, contentSelection.getContentType());
+        final String logMsg = String.format(Locale.ENGLISH, "%d: contentType=%d", widgetId, contentSelection.getContentSelection());
         Timber.d(logMsg);
 
         final Future future = executorService.submit(() ->
