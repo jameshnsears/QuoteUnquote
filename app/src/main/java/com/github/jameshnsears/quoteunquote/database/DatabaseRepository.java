@@ -21,6 +21,7 @@ import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 
 import java.security.SecureRandom;
+import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.Single;
@@ -77,33 +78,59 @@ public class DatabaseRepository {
         return previousDAO.countPrevious(widgetId, contentSelection);
     }
 
+    public String getQuotationPositionInPrevious(
+            final int widgetId,
+            @NonNull final ContentSelection contentSelection,
+            @Nullable final String criteria) throws MissingCriteriaException {
+
+        List<String> allPrevious = getAllPrevious(widgetId, contentSelection);
+        Collections.reverse(allPrevious);
+        String currentDigest = getCurrent(widgetId, contentSelection);
+
+        return String.format("@ %d/%d",
+                allPrevious.indexOf(currentDigest) + 1,
+                countNext(widgetId, contentSelection, criteria));
+    }
+
     public String getQuotationPositionInNext(
             final int widgetId,
             @NonNull final ContentSelection contentSelection,
-            @Nullable final String criteria) {
-        int countPrevious = countPrevious(widgetId, contentSelection);
+            @Nullable final String criteria) throws MissingCriteriaException {
+        return String.format("@ %d/%d",
+                countPrevious(widgetId, contentSelection),
+                countNext(widgetId, contentSelection, criteria));
+    }
 
-        int countNext = 0;
+    public int countNext(
+            final int widgetId,
+            @NonNull final ContentSelection contentSelection,
+            @Nullable final String criteria) throws MissingCriteriaException {
+
+        if (contentSelection == null
+                && (contentSelection == ContentSelection.AUTHOR || contentSelection == ContentSelection.SEARCH)) {
+            throw new MissingCriteriaException();
+        }
+
+        int countTotalNext = 0;
         switch (contentSelection) {
             case FAVOURITES:
-                countNext = favouritesDAO.countFavourites().blockingGet().intValue();
+                countTotalNext = favouritesDAO.countFavourites().blockingGet().intValue();
                 break;
 
             case AUTHOR:
-                countNext = quotationDAO.getAuthors(criteria).size();
+                countTotalNext = quotationDAO.getAuthors(criteria).size();
                 break;
 
             case SEARCH:
-                countNext = quotationDAO.getQuotationText("%" + criteria + "%").size();
+                countTotalNext = quotationDAO.getQuotationText("%" + criteria + "%").size();
                 break;
 
             default:
                 // ALL:
-                countNext = quotationDAO.countAll().blockingGet().intValue();
+                countTotalNext = quotationDAO.countAll().blockingGet().intValue();
                 break;
         }
-
-        return String.format("@ %d/%d", countPrevious, countNext);
+        return countTotalNext;
     }
 
     public int countPrevious(

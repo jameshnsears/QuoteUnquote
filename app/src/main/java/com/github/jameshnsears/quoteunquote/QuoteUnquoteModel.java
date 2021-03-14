@@ -199,7 +199,6 @@ public class QuoteUnquoteModel {
         final Future<List<String>> future = executorService.submit(() ->
                 databaseRepository.getAllPrevious(widgetId, contentSelection));
 
-
         List<String> allPreviousDigests = new ArrayList<>();
 
         try {

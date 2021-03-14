@@ -81,21 +81,34 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
 
     @Test
     fun getQuotationPositionInPrevious() {
+        pressNextSequentialFourTimes()
+
+        databaseRepositoryDouble.markAsCurrent(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, "d3")
+
+        assertEquals(
+                "@ 4/7",
+                databaseRepositoryDouble.getQuotationPositionInPrevious(
+                        WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, null))
+
+        databaseRepositoryDouble.markAsCurrent(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, "1624c314")
+
+        assertEquals(
+                "@ 1/7",
+                databaseRepositoryDouble.getQuotationPositionInPrevious(
+                        WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, null))
+    }
+
+    @Test
+    fun setNextQuotation() {
         /*
-        1615572357.999 5976-5976/com.github.jameshnsears.quoteunquote D/ContentFragment.onError, 299: java.lang.IllegalStateException: A migration from 1 to 2 was required but not found. Please provide the necessary Migration path via RoomDatabase.Builder.addMigration(Migration ...) or allow for destructive migrations via one of the RoomDatabase.Builder.fallbackToDestructiveMigration* methods.
-
-https://gitlab.com/commonsguy/cw-room/-/blob/v0.2/Migration/src/main/java/com/commonsware/room/migration/NoteDatabase.kt
-
-
-
-
         getPreviousQuotation = DONE
 
         markAsCurrent = DONE
 
-        getQuotationPositionInPrevious
-        = @ n/n
+        getQuotationPositionInPrevious = DONE
+        = @ n1/n2
             = in databaseRepository API
+        = n1 = index of previous / total next available
 
         setNextQuotation
         = uses markAsCurrent
@@ -104,7 +117,6 @@ https://gitlab.com/commonsguy/cw-room/-/blob/v0.2/Migration/src/main/java/com/co
 
         tests to include previous quotes in ContentSelection.FAVOURITES + AUTHOR + SEARCH
         */
-
         fail("todo")
     }
 
