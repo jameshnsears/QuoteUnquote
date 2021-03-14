@@ -12,11 +12,13 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
         pressNextSequentialFourTimes()
 
         val currentQuotation = quoteUnquoteModelDouble.getNextQuotation(
-                WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL)
+            WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL
+        )
         assertEquals("d3", currentQuotation.digest)
 
         val allPreviousDigests = quoteUnquoteModelDouble.getAllPrevious(
-                WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL)
+            WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL
+        )
         assertEquals(4, allPreviousDigests.size)
 
         assertEquals("d3", allPreviousDigests[0])
@@ -24,17 +26,33 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
         assertEquals("d1", allPreviousDigests[2])
         assertEquals("1624c314", allPreviousDigests[3])
 
-        assertEquals("d2", quoteUnquoteModelDouble.getPreviousQuotation(
-                WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, "d3")?.digest)
+        assertEquals(
+            "d2",
+            quoteUnquoteModelDouble.getPreviousQuotation(
+                WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, "d3"
+            )?.digest
+        )
 
-        assertEquals("d1", quoteUnquoteModelDouble.getPreviousQuotation(
-                WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, "d2")?.digest)
+        assertEquals(
+            "d1",
+            quoteUnquoteModelDouble.getPreviousQuotation(
+                WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, "d2"
+            )?.digest
+        )
 
-        assertEquals("1624c314", quoteUnquoteModelDouble.getPreviousQuotation(
-                WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, "d1")?.digest)
+        assertEquals(
+            "1624c314",
+            quoteUnquoteModelDouble.getPreviousQuotation(
+                WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, "d1"
+            )?.digest
+        )
 
-        assertEquals("1624c314", quoteUnquoteModelDouble.getPreviousQuotation(
-                WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, "1624c314")?.digest)
+        assertEquals(
+            "1624c314",
+            quoteUnquoteModelDouble.getPreviousQuotation(
+                WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, "1624c314"
+            )?.digest
+        )
     }
 
     @Test
@@ -42,41 +60,45 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
         pressNextSequentialFourTimes()
 
         assertEquals(
-                0,
-                databaseRepositoryDouble.countCurrent(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL))
+            0,
+            databaseRepositoryDouble.countCurrent(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL)
+        )
 
         databaseRepositoryDouble.markAsCurrent(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, "d3")
 
         assertEquals(
-                1,
-                databaseRepositoryDouble.countCurrent(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL))
-
+            1,
+            databaseRepositoryDouble.countCurrent(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL)
+        )
 
         databaseRepositoryDouble.markAsCurrent(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, "d2")
 
         assertEquals(
-                1,
-                databaseRepositoryDouble.countCurrent(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL))
+            1,
+            databaseRepositoryDouble.countCurrent(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL)
+        )
 
         assertEquals(
-                "d2",
-                databaseRepositoryDouble.getCurrent(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL))
-
+            "d2",
+            databaseRepositoryDouble.getCurrent(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL)
+        )
     }
 
     @Test
     fun deleteAll() {
         assertEquals(
-                0,
-                databaseRepositoryDouble.countCurrent(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL))
+            0,
+            databaseRepositoryDouble.countCurrent(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL)
+        )
 
         databaseRepositoryDouble.markAsCurrent(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, "d3")
 
         databaseRepositoryDouble.deleteCurrent()
 
         assertEquals(
-                0,
-                databaseRepositoryDouble.countCurrent(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL))
+            0,
+            databaseRepositoryDouble.countCurrent(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL)
+        )
     }
 
     @Test
@@ -86,16 +108,20 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
         databaseRepositoryDouble.markAsCurrent(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, "d3")
 
         assertEquals(
-                "@ 4/7",
-                databaseRepositoryDouble.getQuotationPositionInPrevious(
-                        WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, null))
+            "@ 4/7",
+            databaseRepositoryDouble.getQuotationPositionInPrevious(
+                WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, null
+            )
+        )
 
         databaseRepositoryDouble.markAsCurrent(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, "1624c314")
 
         assertEquals(
-                "@ 1/7",
-                databaseRepositoryDouble.getQuotationPositionInPrevious(
-                        WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, null))
+            "@ 1/7",
+            databaseRepositoryDouble.getQuotationPositionInPrevious(
+                WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, null
+            )
+        )
     }
 
     @Test

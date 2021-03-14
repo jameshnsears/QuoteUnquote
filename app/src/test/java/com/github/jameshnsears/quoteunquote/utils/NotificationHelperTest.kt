@@ -77,8 +77,8 @@ class NotificationHelperTest {
     fun restrictAuthorSize() {
         val veryLongAuthor = "one two three four five six seven eight nine ten @ 1/1"
         assertEquals(
-                "one two three four five ...",
-                notifcationHelper.restrictAuthorSize(veryLongAuthor)
+            "one two three four five ...",
+            notifcationHelper.restrictAuthorSize(veryLongAuthor)
         )
     }
 }

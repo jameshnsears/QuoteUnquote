@@ -20,17 +20,18 @@ class AbstractHistoryDatabaseMigrationTest {
     @Rule
     @JvmField
     val helper: MigrationTestHelper = MigrationTestHelper(
-            InstrumentationRegistry.getInstrumentation(),
-            AbstractHistoryDatabase::class.java.canonicalName,
-            FrameworkSQLiteOpenHelperFactory()
+        InstrumentationRegistry.getInstrumentation(),
+        AbstractHistoryDatabase::class.java.canonicalName,
+        FrameworkSQLiteOpenHelperFactory()
     )
 
     @Test
     @Throws(IOException::class)
     fun migrate1To2() {
         var db = helper.createDatabase(
-                AbstractHistoryDatabase.DATABASE_NAME,
-                1)
+            AbstractHistoryDatabase.DATABASE_NAME,
+            1
+        )
 
         val values = ContentValues()
         values.put("widget_id", 1)
@@ -40,10 +41,12 @@ class AbstractHistoryDatabaseMigrationTest {
 
         db.close()
 
-        helper.runMigrationsAndValidate(AbstractHistoryDatabase.DATABASE_NAME,
-                2,
-                true,
-                AbstractHistoryDatabase.MIGRATION_1_2)
+        helper.runMigrationsAndValidate(
+            AbstractHistoryDatabase.DATABASE_NAME,
+            2,
+            true,
+            AbstractHistoryDatabase.MIGRATION_1_2
+        )
 
         val databaseRepository = DatabaseRepository.getInstance(getApplicationContext())
         val previousEntity = databaseRepository.previousDAO?.getPrevious(1, ContentSelection.ALL)

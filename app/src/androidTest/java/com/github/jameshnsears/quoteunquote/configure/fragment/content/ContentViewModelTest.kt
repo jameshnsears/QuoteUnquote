@@ -82,8 +82,10 @@ class ContentViewModelTest : DatabaseTestHelper() {
         var contentPreferences = ContentPreferences(WidgetIdHelper.WIDGET_ID_01, context)
         contentPreferences.contentFavouritesLocalCode = "bc5yX41a20"
 
-        assertEquals("",
-                "{\"code\":\"bc5yX41a20\",\"digests\":[]}",
-                contentViewModelDouble.getFavouritesToSend(context))
+        assertEquals(
+            "",
+            "{\"code\":\"bc5yX41a20\",\"digests\":[]}",
+            contentViewModelDouble.getFavouritesToSend(context)
+        )
     }
 }
