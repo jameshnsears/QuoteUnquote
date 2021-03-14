@@ -70,8 +70,8 @@ android {
         applicationId "com.github.jameshnsears.quoteunquote"
         minSdkVersion 24
         targetSdkVersion 29
-        versionCode 34
-        versionName "1.0.0"
+        versionCode 35
+        versionName "1.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments clearPackageData: 'true'
 
@@ -96,19 +96,14 @@ android {
         def useProdDb = true
         def useProdRndQuotations = false
 
-        def appcenterKeyProd = System.getenv("APPCENTER_KEY_PROD")
-        if (appcenterKeyProd == null) {
-            Properties properties = new Properties()
-            properties.load(project.rootProject.file('local.properties').newDataInputStream())
-            appcenterKeyProd = properties.getProperty('APPCENTER_KEY_PROD')
-        }
 
-        def appcenterKeyDev = System.getenv("APPCENTER_KEY_DEV")
-        if (appcenterKeyDev == null) {
-            Properties properties = new Properties()
-            properties.load(project.rootProject.file('local.properties').newDataInputStream())
-            appcenterKeyDev = properties.getProperty('APPCENTER_KEY_DEV')
-        }
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+        def appcenterKeyProd = properties.getProperty('APPCENTER_KEY_PROD')
+        def remoteDeviceEndpointProd = properties.getProperty('REMOTE_DEVICE_ENDPOINT_PROD')
+        def appcenterKeyDev = properties.getProperty('APPCENTER_KEY_DEV')
+        def remoteDeviceEndpointDev = properties.getProperty('REMOTE_DEVICE_ENDPOINT_DEV')
 
         def gitHash = { ->
             def stdout = new ByteArrayOutputStream()
@@ -124,7 +119,7 @@ android {
             buildConfigField("String", "GIT_HASH", "\"$gitHash\"")
             buildConfigField("boolean", "USE_PROD_DB", "$useProdDb")
             buildConfigField("boolean", "USE_PROD_QUOTATION_ORDER", "$useProdRndQuotations")
-            buildConfigField("String", "REMOTE_DEVICE_ENDPOINT", '"https://us-central1-qualified-glow-281314.cloudfunctions.net/favourites"')
+            buildConfigField("String", "REMOTE_DEVICE_ENDPOINT", "\"$remoteDeviceEndpointProd\"")
 
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -135,7 +130,7 @@ android {
             buildConfigField("String", "GIT_HASH", "\"$gitHash\"")
             buildConfigField("boolean", "USE_PROD_DB", "$useProdDb")
             buildConfigField("boolean", "USE_PROD_QUOTATION_ORDER", "$useProdRndQuotations")
-            buildConfigField("String", "REMOTE_DEVICE_ENDPOINT", '"https://us-central1-virtual-ego-281313.cloudfunctions.net/favourites"')
+            buildConfigField("String", "REMOTE_DEVICE_ENDPOINT", "\"$remoteDeviceEndpointDev\"")
         }
     }
 

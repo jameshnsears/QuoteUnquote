@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Test Suite" type="AndroidJUnit" factoryName="Android JUnit">
-    <module name="app" />
+    <module name="QuoteUnquote.app" />
     <option name="MAIN_CLASS_NAME" value="" />
     <option name="METHOD_NAME" value="" />
     <option name="TEST_OBJECT" value="directory" />

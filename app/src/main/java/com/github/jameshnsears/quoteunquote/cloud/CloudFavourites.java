@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
@@ -82,6 +83,16 @@ public class CloudFavourites {
         }
     }
 
+    class Digests {
+        String digest;
+        public List<String> digests;
+
+        public Digests(String d, List<String> l) {
+            digest = d;
+            digests = l;
+        }
+    }
+
     public List<String> receive(final int timeout, final String payload) {
         final String endpointLoad = BuildConfig.REMOTE_DEVICE_ENDPOINT + "/receive";
         Log.d(LOG_TAG, String.format("endpointLoad=%s; payload=%s", endpointLoad, payload));
@@ -123,12 +134,13 @@ public class CloudFavourites {
             client.newCall(request).enqueue(future);
 
             response = future.get();
-            final String responseBody = escapeResponse(response.body().string());
+            final String responseBody = response.body().string();
             Log.d(LOG_TAG, "response.body=" + responseBody);
 
             final Gson gson = new Gson();
-            return gson.fromJson(responseBody, new TypeToken<List<String>>() {
-            }.getType());
+
+            Digests d = gson.fromJson(responseBody, (Type) Digests.class);
+            return d.digests;
         } catch (ExecutionException | InterruptedException | IOException e) {
             Log.w(LOG_TAG, e.toString());
             Thread.currentThread().interrupt();
