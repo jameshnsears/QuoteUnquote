@@ -15,14 +15,14 @@ public interface PreviousDAO {
     @Insert
     void markAsPrevious(PreviousEntity previousEntity);
 
-    @Query("SELECT COUNT(*) FROM PREVIOUS WHERE WIDGET_ID = :widgetId AND CONTENT_SELECTION = :contentSelection")
-    int countPrevious(int widgetId, ContentSelection contentSelection);
+    @Query("SELECT COUNT(*) FROM PREVIOUS WHERE WIDGET_ID = :widgetId AND CONTENT_TYPE = :contentType")
+    int countPrevious(int widgetId, ContentSelection contentType);
 
-    @Query("SELECT DIGEST FROM PREVIOUS WHERE WIDGET_ID = :widgetId AND CONTENT_SELECTION = :contentSelection ORDER BY NAVIGATION DESC")
-    List<String> getAllPrevious(int widgetId, ContentSelection contentSelection);
+    @Query("SELECT DIGEST FROM PREVIOUS WHERE WIDGET_ID = :widgetId AND CONTENT_TYPE = :contentType ORDER BY NAVIGATION DESC")
+    List<String> getAllPrevious(int widgetId, ContentSelection contentType);
 
-    @Query("SELECT * FROM PREVIOUS WHERE WIDGET_ID = :widgetId AND CONTENT_SELECTION = :contentSelection ORDER BY NAVIGATION DESC LIMIT 1")
-    PreviousEntity getPrevious(int widgetId, ContentSelection contentSelection);
+    @Query("SELECT * FROM PREVIOUS WHERE WIDGET_ID = :widgetId AND CONTENT_TYPE = :contentType ORDER BY NAVIGATION DESC LIMIT 1")
+    PreviousEntity getPrevious(int widgetId, ContentSelection contentType);
 
     @Query("DELETE FROM PREVIOUS")
     void deleteAll();
@@ -30,9 +30,9 @@ public interface PreviousDAO {
     @Query("DELETE FROM PREVIOUS WHERE WIDGET_ID = :widgetId")
     void deleteAll(int widgetId);
 
-    @Query("DELETE FROM PREVIOUS WHERE WIDGET_ID = :widgetId AND CONTENT_SELECTION = :contentSelection")
-    void deleteAll(int widgetId, ContentSelection contentSelection);
+    @Query("DELETE FROM PREVIOUS WHERE WIDGET_ID = :widgetId AND CONTENT_TYPE = :contentType")
+    void deleteAll(int widgetId, ContentSelection contentType);
 
-    @Query("DELETE FROM PREVIOUS WHERE WIDGET_ID = :widgetId AND CONTENT_SELECTION = :contentSelection AND DIGEST = :digest")
-    void deleteAll(int widgetId, ContentSelection contentSelection, String digest);
+    @Query("DELETE FROM PREVIOUS WHERE WIDGET_ID = :widgetId AND CONTENT_TYPE = :contentType AND DIGEST = :digest")
+    void deleteAll(int widgetId, ContentSelection contentType, String digest);
 }

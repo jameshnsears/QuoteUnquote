@@ -26,18 +26,6 @@ public abstract class AbstractHistoryDatabase extends RoomDatabase {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
             database.execSQL("CREATE TABLE `current` (`widget_id` INTEGER NOT NULL, `digest` TEXT NOT NULL, `content_selection` INTEGER NOT NULL, `navigation` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)");
-
-            try {
-                database.execSQL("SELECT `content_type` from `previous`");
-                // RENAME keyword not yet present in SQLite Android version
-                database.execSQL("CREATE TABLE `previous_new` (`widget_id` INTEGER NOT NULL, `digest` TEXT NOT NULL, `content_selection` INTEGER NOT NULL, `navigation` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)");
-                database.execSQL("INSERT INTO `previous_new` (`widget_id`, `digest`, `content_selection`) SELECT `widget_id`, `digest`, `content_type` FROM `previous` ORDER BY `navigation` ASC");
-                database.execSQL("DROP TABLE `previous`");
-                database.execSQL("ALTER TABLE `previous_new` RENAME TO `previous`");
-            } catch (SQLiteException e) {
-                // get's thrown if no version 1 present
-                Timber.e(e.getMessage());
-            }
         }
     };
 

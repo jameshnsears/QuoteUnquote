@@ -50,6 +50,6 @@ class AbstractHistoryDatabaseMigrationTest {
 
         val databaseRepository = DatabaseRepository.getInstance(getApplicationContext())
         val previousEntity = databaseRepository.previousDAO?.getPrevious(1, ContentSelection.ALL)
-        assertEquals(ContentSelection.ALL, previousEntity?.contentSelection)
+        assertEquals(ContentSelection.ALL, previousEntity?.contentType)
     }
 }

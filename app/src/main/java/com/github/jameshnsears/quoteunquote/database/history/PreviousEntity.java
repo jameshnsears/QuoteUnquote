@@ -15,8 +15,8 @@ public class PreviousEntity {
     public final int widgetId;
 
     @NonNull
-    @ColumnInfo(name = "content_selection")
-    public final ContentSelection contentSelection;
+    @ColumnInfo(name = "content_type")
+    public final ContentSelection contentType;
 
     @NonNull
     @ColumnInfo(name = "digest")
@@ -27,10 +27,10 @@ public class PreviousEntity {
 
     public PreviousEntity(
             final int widgetId,
-            @NonNull final ContentSelection contentSelection,
+            @NonNull final ContentSelection contentType,
             @NonNull final String digest) {
         this.widgetId = widgetId;
-        this.contentSelection = contentSelection;
+        this.contentType = contentType;
         this.digest = digest;
     }
 }
