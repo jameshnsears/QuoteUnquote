@@ -81,11 +81,11 @@ public class DatabaseRepository {
     public String getQuotationPositionInPrevious(
             final int widgetId,
             @NonNull final ContentSelection contentSelection,
-            @Nullable final String criteria) throws MissingCriteriaException {
+            @Nullable final String criteria) {
 
         List<String> allPrevious = getAllPrevious(widgetId, contentSelection);
         Collections.reverse(allPrevious);
-        String currentDigest = getCurrent(widgetId, contentSelection);
+        String currentDigest = getCurrentQuotation(widgetId, contentSelection).digest;
 
         return String.format("@ %d/%d",
                 allPrevious.indexOf(currentDigest) + 1,
@@ -95,7 +95,7 @@ public class DatabaseRepository {
     public String getQuotationPositionInNext(
             final int widgetId,
             @NonNull final ContentSelection contentSelection,
-            @Nullable final String criteria) throws MissingCriteriaException {
+            @Nullable final String criteria) {
         return String.format("@ %d/%d",
                 countPrevious(widgetId, contentSelection),
                 countNext(widgetId, contentSelection, criteria));
@@ -104,13 +104,7 @@ public class DatabaseRepository {
     public int countNext(
             final int widgetId,
             @NonNull final ContentSelection contentSelection,
-            @Nullable final String criteria) throws MissingCriteriaException {
-
-        if (contentSelection == null
-                && (contentSelection == ContentSelection.AUTHOR || contentSelection == ContentSelection.SEARCH)) {
-            throw new MissingCriteriaException();
-        }
-
+            @Nullable final String criteria) {
         int countTotalNext = 0;
         switch (contentSelection) {
             case FAVOURITES:
@@ -225,12 +219,8 @@ public class DatabaseRepository {
         currentDAO.markAsCurrent(new CurrentEntity(widgetId, contentSelection, digest));
     }
 
-    public int countCurrent(final int widgetId, @NonNull final ContentSelection contentSelection) {
-        return currentDAO.countCurrent(widgetId, contentSelection);
-    }
-
-    public String getCurrent(final int widgetId, @NonNull final ContentSelection contentSelection) {
-        return currentDAO.getCurrent(widgetId, contentSelection);
+    public QuotationEntity getCurrentQuotation(final int widgetId, @NonNull final ContentSelection contentSelection) {
+        return getQuotation(currentDAO.getCurrent(widgetId, contentSelection));
     }
 
     @NonNull

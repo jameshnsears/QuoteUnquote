@@ -7,6 +7,7 @@ import androidx.test.core.app.ApplicationProvider;
 import com.github.jameshnsears.quoteunquote.database.history.AbstractHistoryDatabase;
 import com.github.jameshnsears.quoteunquote.database.quotation.AbstractQuotationDatabase;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
+import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 
 import java.util.List;
 
@@ -57,8 +58,11 @@ public final class DatabaseRepositoryDouble extends DatabaseRepository {
         }
     }
 
-    @NonNull
     public int countReported() {
         return reportedDAO.countReported().intValue();
+    }
+
+    public int countCurrent(final int widgetId, @NonNull final ContentSelection contentSelection) {
+        return currentDAO.countCurrent(widgetId, contentSelection);
     }
 }

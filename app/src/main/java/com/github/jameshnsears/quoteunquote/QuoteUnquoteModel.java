@@ -72,14 +72,14 @@ public class QuoteUnquoteModel {
                         quotationEntity = databaseRepository.getNextQuotation(
                                 widgetId,
                                 ContentSelection.AUTHOR,
-                                contentPreferences.getContentSelectionAuthorName(),
+                                contentPreferences.getContentSelectionAuthor(),
                                 randomNext);
                         break;
                     case SEARCH:
                         quotationEntity = databaseRepository.getNextQuotation(
                                 widgetId,
                                 ContentSelection.SEARCH,
-                                contentPreferences.getContentSelectionSearchText(),
+                                contentPreferences.getContentSelectionSearch(),
                                 randomNext);
                         break;
                     default:
@@ -88,6 +88,11 @@ public class QuoteUnquoteModel {
                 }
 
                 databaseRepository.markAsPrevious(
+                        widgetId,
+                        contentPreferences.getContentSelection(),
+                        quotationEntity.digest);
+
+                databaseRepository.markAsCurrent(
                         widgetId,
                         contentPreferences.getContentSelection(),
                         quotationEntity.digest);
@@ -143,18 +148,40 @@ public class QuoteUnquoteModel {
     }
 
     @NonNull
-    public QuotationEntity getNextQuotation(
+    public QuotationEntity getCurrentQuotation(
             final int widgetId,
             @NonNull final ContentSelection contentSelection) {
+        final Future<QuotationEntity> future = executorService.submit(() ->
+                databaseRepository.getCurrentQuotation(widgetId, contentSelection));
 
-        final Future<QuotationEntity> future = executorService.submit(() -> {
+        QuotationEntity quotationEntity = null;
+
+        try {
+            quotationEntity = future.get();
+        } catch (ExecutionException | InterruptedException e) {
+            Timber.w(e.toString());
+            Thread.currentThread().interrupt();
+        }
+
+        return quotationEntity;
+    }
+
+    @NonNull
+    public void getNextQuotation(
+            final int widgetId) {
+        final ContentPreferences contentPreferences = getContentPreferences(widgetId);
+        ContentSelection contentSelection = contentPreferences.getContentSelection();
+
+        // TODO rename / split function into getFirstQuotation?
+
+        final Future future = executorService.submit(() -> {
             // check for first time use
             String criteria = null;
             try {
                 switch (contentSelection) {
                     case AUTHOR:
                         setDefaultAuthor(widgetId);
-                        criteria = new ContentPreferences(widgetId, context).getContentSelectionAuthorName();
+                        criteria = new ContentPreferences(widgetId, context).getContentSelectionAuthor();
                         break;
 
                     case FAVOURITES:
@@ -163,7 +190,7 @@ public class QuoteUnquoteModel {
 
                     case SEARCH:
                         setDefaultSearch(widgetId);
-                        criteria = new ContentPreferences(widgetId, context).getContentSelectionSearchText();
+                        criteria = new ContentPreferences(widgetId, context).getContentSelectionSearch();
                         break;
 
                     default:
@@ -177,20 +204,17 @@ public class QuoteUnquoteModel {
             QuotationEntity quotationEntity = databaseRepository.getNextQuotation(widgetId, contentSelection);
             String previousCounts = databaseRepository.getQuotationPositionInNext(widgetId, contentSelection, criteria);
 
-            return new QuotationEntity(
-                    quotationEntity.digest,
-                    quotationEntity.author + " " + previousCounts,
-                    quotationEntity.quotation);
+            databaseRepository.markAsCurrent(
+                    widgetId,
+                    contentSelection,
+                    quotationEntity.digest);
         });
 
-        QuotationEntity quotationEntity = null;
         try {
-            quotationEntity = future.get();
+            future.get();
         } catch (ExecutionException | InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-
-        return quotationEntity;
     }
 
     public List<String> getAllPrevious(
@@ -254,12 +278,12 @@ public class QuoteUnquoteModel {
 
     public int countPreviousAuthor(final int widgetId) {
         return databaseRepository.countPrevious(widgetId, ContentSelection.AUTHOR,
-                getContentPreferences(widgetId).getContentSelectionAuthorName());
+                getContentPreferences(widgetId).getContentSelectionAuthor());
     }
 
     public int countPreviousSearch(final int widgetId) {
         return databaseRepository.countPrevious(widgetId, ContentSelection.SEARCH,
-                getContentPreferences(widgetId).getContentSelectionSearchText());
+                getContentPreferences(widgetId).getContentSelectionSearch());
     }
 
     public int toggleFavourite(final int widgetId, @NonNull final String digest) {
@@ -270,7 +294,7 @@ public class QuoteUnquoteModel {
             if (!isFavourite(widgetId, digest)) {
                 databaseRepository.markAsFavourite(digest);
 
-                QuotationEntity quotationEntity = getNextQuotation(
+                QuotationEntity quotationEntity = getCurrentQuotation(
                         widgetId,
                         getContentPreferences(widgetId).getContentSelection());
 
@@ -378,7 +402,7 @@ public class QuoteUnquoteModel {
 
     public boolean isReported(final int widgetId) {
         final Future<Integer> future = executorService.submit(() -> {
-            QuotationEntity quotationEntity = getNextQuotation(
+            QuotationEntity quotationEntity = getCurrentQuotation(
                     widgetId,
                     getContentPreferences(widgetId).getContentSelection());
 

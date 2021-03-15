@@ -125,7 +125,7 @@ public class ContentFragment extends FragmentCommon {
     protected void setSearch() {
         setSearchObserver();
 
-        final String editTextKeywords = contentPreferences.getContentSelectionSearchText();
+        final String editTextKeywords = contentPreferences.getContentSelectionSearch();
 
         if (editTextKeywords.length() > 0) {
             final ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
@@ -164,8 +164,8 @@ public class ContentFragment extends FragmentCommon {
                     if (!keywords.equals("")) {
                         Timber.d("apply:%s", keywords);
 
-                        if (!contentPreferences.getContentSelectionSearchText().equals(keywords)) {
-                            contentPreferences.setContentSelectionSearchText(keywords);
+                        if (!contentPreferences.getContentSelectionSearch().equals(keywords)) {
+                            contentPreferences.setContentSelectionSearch(keywords);
                         }
 
                         return contentViewModel.countQuotationWithText(keywords);
@@ -251,7 +251,7 @@ public class ContentFragment extends FragmentCommon {
     }
 
     protected void setAuthorName(@NonNull final String firstAuthor) {
-        final String authorPreference = contentPreferences.getContentSelectionAuthorName();
+        final String authorPreference = contentPreferences.getContentSelectionAuthor();
 
         if ("".equals(authorPreference) && !authorPreference.equals(firstAuthor)) {
             fragmentContentBinding.radioButtonAuthor.setText(
@@ -260,8 +260,8 @@ public class ContentFragment extends FragmentCommon {
                             contentViewModel.countAuthorQuotations(firstAuthor)));
 
 
-            if (!contentPreferences.getContentSelectionAuthorName().equals(firstAuthor)) {
-                contentPreferences.setContentSelectionAuthorName(firstAuthor);
+            if (!contentPreferences.getContentSelectionAuthor().equals(firstAuthor)) {
+                contentPreferences.setContentSelectionAuthor(firstAuthor);
             }
         } else {
             fragmentContentBinding.spinnerAuthors.setSelection(contentViewModel.authorsIndex(authorPreference));
@@ -345,10 +345,10 @@ public class ContentFragment extends FragmentCommon {
 
         fragmentContentBinding.radioButtonSearch.requestFocus();
 
-        final String searchText = contentPreferences.getContentSelectionSearchText();
+        final String searchText = contentPreferences.getContentSelectionSearch();
 
-        if (!searchText.equals("") && !contentPreferences.getContentSelectionSearchText().equals(searchText)) {
-            contentPreferences.setContentSelectionSearchText(searchText);
+        if (!searchText.equals("") && !contentPreferences.getContentSelectionSearch().equals(searchText)) {
+            contentPreferences.setContentSelectionSearch(searchText);
 
             final EditText editTextKeywordsSearch = fragmentContentBinding.editTextSearchText;
             editTextKeywordsSearch.setText(searchText);
@@ -421,13 +421,13 @@ public class ContentFragment extends FragmentCommon {
                         getResources().getString(R.string.fragment_content_author,
                                 contentViewModel.countAuthorQuotations(author)));
 
-                if (!contentPreferences.getContentSelectionAuthorName().equals(author)) {
+                if (!contentPreferences.getContentSelectionAuthor().equals(author)) {
                     Timber.d("sending new event, author=%s", author);
                     final ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
                     properties.put("Author", author);
                     AuditEventHelper.auditEvent("AUTHOR", properties);
 
-                    contentPreferences.setContentSelectionAuthorName(author);
+                    contentPreferences.setContentSelectionAuthor(author);
                 }
             }
 

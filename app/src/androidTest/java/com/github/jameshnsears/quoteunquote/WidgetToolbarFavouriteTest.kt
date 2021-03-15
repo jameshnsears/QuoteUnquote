@@ -37,7 +37,7 @@ class WidgetToolbarFavouriteTest : QuoteUnquoteModelUtility() {
         // press 'favourite'
         quoteUnquoteModelDouble.setNextQuotation(WidgetIdHelper.WIDGET_ID_01, false)
 
-        var digest = quoteUnquoteModelDouble.getNextQuotation(
+        var digest = quoteUnquoteModelDouble.getCurrentQuotation(
             WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL
         ).digest
 
@@ -51,7 +51,7 @@ class WidgetToolbarFavouriteTest : QuoteUnquoteModelUtility() {
         // press 'favourite'
         quoteUnquoteModelDouble.setNextQuotation(WidgetIdHelper.WIDGET_ID_01, false)
 
-        digest = quoteUnquoteModelDouble.getNextQuotation(
+        digest = quoteUnquoteModelDouble.getCurrentQuotation(
             WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL
         ).digest
 

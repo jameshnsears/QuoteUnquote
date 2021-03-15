@@ -46,7 +46,7 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
 
             ContentPreferences contentPreferences = new ContentPreferences(widgetId, context);
 
-            quotationEntity = getQuoteUnquoteModel().getNextQuotation(
+            quotationEntity = getQuoteUnquoteModel().getCurrentQuotation(
                     widgetId,
                     contentPreferences.getContentSelection());
 

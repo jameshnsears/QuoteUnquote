@@ -97,7 +97,7 @@ class PreviousNextCountsTest : QuoteUnquoteModelUtility() {
 
         val contentPreferences = ContentPreferences(WidgetIdHelper.WIDGET_ID_01, context)
         contentPreferences.contentSelection = ContentSelection.AUTHOR
-        contentPreferences.contentSelectionAuthorName = "a2"
+        contentPreferences.contentSelectionAuthor = "a2"
 
         quoteUnquoteModelDouble.setNextQuotation(WidgetIdHelper.WIDGET_ID_01, false)
 
@@ -124,7 +124,7 @@ class PreviousNextCountsTest : QuoteUnquoteModelUtility() {
 
         val contentPreferences = ContentPreferences(WidgetIdHelper.WIDGET_ID_01, context)
         contentPreferences.contentSelection = ContentSelection.SEARCH
-        contentPreferences.contentSelectionSearchText = "q1"
+        contentPreferences.contentSelectionSearch = "q1"
 
         quoteUnquoteModelDouble.setNextQuotation(WidgetIdHelper.WIDGET_ID_01, false)
 

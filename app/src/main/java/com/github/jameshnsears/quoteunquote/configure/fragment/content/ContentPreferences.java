@@ -26,11 +26,11 @@ public class ContentPreferences extends PreferencesFacade {
     }
 
     @NonNull
-    public String getContentSelectionAuthorName() {
+    public String getContentSelectionAuthor() {
         return preferenceHelper.getPreferenceString(getPreferenceKey(CONTENT_AUTHOR_NAME));
     }
 
-    public void setContentSelectionAuthorName(@NonNull final String value) {
+    public void setContentSelectionAuthor(@NonNull final String value) {
         preferenceHelper.setPreference(getPreferenceKey(CONTENT_AUTHOR_NAME), value);
     }
 
@@ -44,11 +44,11 @@ public class ContentPreferences extends PreferencesFacade {
     }
 
     @NonNull
-    public String getContentSelectionSearchText() {
+    public String getContentSelectionSearch() {
         return preferenceHelper.getPreferenceString(getPreferenceKey(CONTENT_SEARCH_TEXT));
     }
 
-    public void setContentSelectionSearchText(@NonNull final String value) {
+    public void setContentSelectionSearch(@NonNull final String value) {
         preferenceHelper.setPreference(getPreferenceKey(CONTENT_SEARCH_TEXT), value);
     }
 

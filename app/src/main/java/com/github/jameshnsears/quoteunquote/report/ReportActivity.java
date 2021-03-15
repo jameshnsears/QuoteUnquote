@@ -122,7 +122,7 @@ public class ReportActivity extends AppCompatActivity {
         final ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
 
         final ContentPreferences contentPreferences = new ContentPreferences(widgetId, getApplicationContext());
-        final QuotationEntity quotationToReport = getQuoteUnquoteModel().getNextQuotation(widgetId, contentPreferences.getContentSelection());
+        final QuotationEntity quotationToReport = getQuoteUnquoteModel().getCurrentQuotation(widgetId, contentPreferences.getContentSelection());
 
         if (quotationToReport == null) {
             return properties;

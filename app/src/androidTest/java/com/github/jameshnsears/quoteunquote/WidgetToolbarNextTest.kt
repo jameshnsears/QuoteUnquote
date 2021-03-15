@@ -62,7 +62,7 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
 
         val contentPreferences = ContentPreferences(WidgetIdHelper.WIDGET_ID_01, context)
         contentPreferences.contentSelection = ContentSelection.AUTHOR
-        contentPreferences.contentSelectionAuthorName = "a2"
+        contentPreferences.contentSelectionAuthor = "a2"
 
         quoteUnquoteModelDouble.setNextQuotation(WidgetIdHelper.WIDGET_ID_01, false)
         quoteUnquoteModelDouble.setNextQuotation(WidgetIdHelper.WIDGET_ID_01, false)
@@ -95,7 +95,7 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             DatabaseRepository.DEFAULT_QUOTATION_DIGEST,
-            quoteUnquoteModelDouble.getNextQuotation(
+            quoteUnquoteModelDouble.getCurrentQuotation(
                 WidgetIdHelper.WIDGET_ID_01, ContentSelection.FAVOURITES
             ).digest
         )
@@ -111,7 +111,7 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
 
         val contentPreferences = ContentPreferences(WidgetIdHelper.WIDGET_ID_01, context)
         contentPreferences.contentSelection = ContentSelection.SEARCH
-        contentPreferences.contentSelectionSearchText = "q1"
+        contentPreferences.contentSelectionSearch = "q1"
 
         try {
             for (i in 1..4) {

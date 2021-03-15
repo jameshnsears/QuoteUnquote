@@ -184,7 +184,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
                 am broadcast -a android.intent.action.BOOT_COMPLETED
                  */
                 case IntentFactoryHelper.ACTIVITY_FINISHED_CONFIGURATION:
-                    onReceiveActivityFinishedConfiguration(widgetId, appWidgetManager, eventDailyAlarm);
+                    onReceiveActivityFinishedConfiguration(context, widgetId, appWidgetManager, eventDailyAlarm);
                     break;
 
                 case IntentFactoryHelper.ACTIVITY_FINISHED_REPORT:
@@ -252,7 +252,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
     private void onReceiveToolbarPressedShare(@NonNull final Context context, final int widgetId) {
         context.startActivity(IntentFactoryHelper.createIntentShare(
                 context.getResources().getString(R.string.app_name),
-                getQuoteUnquoteModelInstance(context).getNextQuotation(
+                getQuoteUnquoteModelInstance(context).getCurrentQuotation(
                         widgetId, new ContentPreferences(widgetId, context).getContentSelection()).theQuotation()));
     }
 
@@ -264,7 +264,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
 
         int favouritesCount = getQuoteUnquoteModelInstance(context).toggleFavourite(
                 widgetId,
-                getQuoteUnquoteModelInstance(context).getNextQuotation(
+                getQuoteUnquoteModelInstance(context).getCurrentQuotation(
                         widgetId, contentPreferences.getContentSelection()).digest);
 
         if (favouritesCount == 0) {
@@ -286,6 +286,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             final int widgetId,
             @NonNull final AppWidgetManager appWidgetManager) {
         getQuoteUnquoteModelInstance(context).resetPrevious(widgetId, new ContentPreferences(widgetId, context).getContentSelection());
+        getQuoteUnquoteModelInstance(context).getNextQuotation(widgetId);
 
         appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
     }
@@ -293,6 +294,27 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
     private void onReceiveToolbarPressedPrevious(
             final Context context, final int widgetId, final AppWidgetManager appWidgetManager) {
         // TODO - the back button
+
+        /*
+
+        assertEquals(
+            "d3",
+            databaseRepositoryDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL).digest
+        )
+
+            quoteUnquoteModelDouble.getPreviousQuotation(
+                WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, "d3"
+            )?.digest
+
+
+
+            databaseRepositoryDouble.markAsCurrent(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, "d3")
+
+         */
+
+        // TODO - the counts somehow need to be displayed - maybe a relative_position field in current
+
+        // TODO - in Model minimise use of calling other threaded methods, instead just call databaseRepoistory direct
         appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
     }
 
@@ -342,7 +364,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
 
             if (eventPreferences.getEventDisplayWidgetAndNotification()) {
                 notificationHelper.displayNotification(
-                        context, getQuoteUnquoteModelInstance(context).getNextQuotation(widgetId, contentSelection));
+                        context, getQuoteUnquoteModelInstance(context).getCurrentQuotation(widgetId, contentSelection));
             }
         } catch (NoNextQuotationAvailableException e) {
             ToastHelper.makeToast(context, context.getString(R.string.widget_button_next_no_more), Toast.LENGTH_LONG);
@@ -350,9 +372,11 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
     }
 
     private void onReceiveActivityFinishedConfiguration(
+            @NonNull final Context context,
             final int widgetId,
             @NonNull final AppWidgetManager appWidgetManager,
             @NonNull final EventDailyAlarm eventDailyAlarm) {
+        getQuoteUnquoteModelInstance(context).getNextQuotation(widgetId);
         eventDailyAlarm.setDailyAlarm();
         appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
     }
@@ -462,7 +486,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull final RemoteViews remoteViews) {
         ContentPreferences contentPreferences = new ContentPreferences(widgetId, context);
 
-        final QuotationEntity quotationEntity = getQuoteUnquoteModelInstance(context).getNextQuotation(
+        final QuotationEntity quotationEntity = getQuoteUnquoteModelInstance(context).getCurrentQuotation(
                 widgetId, contentPreferences.getContentSelection());
 
         if (quotationEntity != null) {

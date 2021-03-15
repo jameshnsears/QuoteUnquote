@@ -52,6 +52,12 @@ abstract class DatabaseTestHelper {
             ContentSelection.ALL,
             getDefaultQuotation().digest
         )
+
+        databaseRepositoryDouble.markAsCurrent(
+                widgetId,
+                ContentSelection.ALL,
+                getDefaultQuotation().digest
+        )
     }
 
     fun setDefaultQuotationAuthor(widgetId: Int) {
