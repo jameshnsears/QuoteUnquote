@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "913d84dee9a2c99d03f1347460053391",
+    "identityHash": "c9b3b1fa3a0cdf493988bb1c10c958d3",
     "entities": [
       {
         "tableName": "previous",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`widget_id` INTEGER NOT NULL, `content_selection` INTEGER NOT NULL, `digest` TEXT NOT NULL, `navigation` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`widget_id` INTEGER NOT NULL, `content_type` INTEGER NOT NULL, `digest` TEXT NOT NULL, `navigation` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
         "fields": [
           {
             "fieldPath": "widgetId",
@@ -15,8 +15,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "contentSelection",
-            "columnName": "content_selection",
+            "fieldPath": "contentType",
+            "columnName": "content_type",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -130,7 +130,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '913d84dee9a2c99d03f1347460053391')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c9b3b1fa3a0cdf493988bb1c10c958d3')"
     ]
   }
 }

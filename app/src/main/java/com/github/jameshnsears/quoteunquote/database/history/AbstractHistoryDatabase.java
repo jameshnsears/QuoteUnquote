@@ -25,7 +25,11 @@ public abstract class AbstractHistoryDatabase extends RoomDatabase {
     static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
-            database.execSQL("CREATE TABLE `current` (`widget_id` INTEGER NOT NULL, `digest` TEXT NOT NULL, `content_selection` INTEGER NOT NULL, `navigation` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)");
+            try {
+                database.execSQL("CREATE TABLE `current` (`widget_id` INTEGER NOT NULL, `digest` TEXT NOT NULL, `content_selection` INTEGER NOT NULL, `navigation` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)");
+            } catch (IllegalStateException e) {
+                Timber.e(e.getMessage());
+            }
         }
     };
 
@@ -35,7 +39,8 @@ public abstract class AbstractHistoryDatabase extends RoomDatabase {
             if (historyDatabase == null) {
                 historyDatabase = Room.databaseBuilder(context,
                         AbstractHistoryDatabase.class, DATABASE_NAME)
-                        .addMigrations(MIGRATION_1_2)
+//                        .addMigrations(MIGRATION_1_2)
+                        .fallbackToDestructiveMigration()
                         .build();
             }
             return historyDatabase;
