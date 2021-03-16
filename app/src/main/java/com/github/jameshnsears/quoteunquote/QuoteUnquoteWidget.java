@@ -264,6 +264,12 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
                 getQuoteUnquoteModelInstance(context).getCurrentQuotation(
                         widgetId, contentPreferences.getContentSelection()).digest);
 
+        noMoreFavourites(context, widgetId, appWidgetManager, contentPreferences, favouritesCount);
+
+        appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
+    }
+
+    private void noMoreFavourites(@NonNull Context context, int widgetId, @NonNull AppWidgetManager appWidgetManager, ContentPreferences contentPreferences, int favouritesCount) {
         if (favouritesCount == 0 && contentPreferences.getContentSelection() != ContentSelection.ALL) {
             contentPreferences.setContentSelection(ContentSelection.ALL);
             try {
@@ -274,8 +280,6 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
                 onUpdate(context, appWidgetManager, new int[]{widgetId});
             }
         }
-
-        appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
     }
 
     private void onReceiveToolbarPressedFirst(

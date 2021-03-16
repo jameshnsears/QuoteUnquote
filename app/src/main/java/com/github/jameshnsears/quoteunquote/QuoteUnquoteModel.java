@@ -24,7 +24,7 @@ import timber.log.Timber;
 
 public class QuoteUnquoteModel {
     @NonNull
-    public final ExecutorService executorService = Executors.newFixedThreadPool(10);// TODO why so many?
+    public final ExecutorService executorService = Executors.newFixedThreadPool(2);
     @Nullable
     public DatabaseRepository databaseRepository;
     @Nullable
