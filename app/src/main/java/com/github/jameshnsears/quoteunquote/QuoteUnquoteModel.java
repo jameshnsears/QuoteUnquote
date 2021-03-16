@@ -395,6 +395,20 @@ public class QuoteUnquoteModel {
         }
     }
 
+    public void markAsCurrent(
+            final int widgetId,
+            @NonNull final String digest) {
+        final Future future = executorService.submit(() ->
+                databaseRepository.markAsCurrent(widgetId, digest));
+
+        try {
+            future.get();
+        } catch (ExecutionException | InterruptedException e) {
+            Timber.e(e);
+            Thread.currentThread().interrupt();
+        }
+    }
+
     public boolean isReported(final int widgetId) {
         final Future<Integer> future = executorService.submit(() -> {
             QuotationEntity quotationEntity = getCurrentQuotation(

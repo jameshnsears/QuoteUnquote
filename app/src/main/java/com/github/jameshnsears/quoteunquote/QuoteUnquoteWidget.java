@@ -223,10 +223,6 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         }
     }
 
-    private void onReceiveAppWidgetEnabled(@NonNull final Context context, final int widgetId) {
-        getQuoteUnquoteModelInstance(context).getNextQuotation(widgetId);
-    }
-
     private void onReceiveActivityFinishedReport(
             final int widgetId, @NonNull final AppWidgetManager appWidgetManager) {
         appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
@@ -294,24 +290,17 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
 
     private void onReceiveToolbarPressedPrevious(
             final Context context, final int widgetId, final AppWidgetManager appWidgetManager) {
-        // TODO - the back button
+        ContentPreferences contentPreferences = new ContentPreferences(widgetId, context);
+        ContentSelection contentSelection = contentPreferences.getContentSelection();
 
-        /*
+        QuotationEntity currentQuotation = getQuoteUnquoteModelInstance(context).getCurrentQuotation(
+                widgetId, contentSelection);
 
-        assertEquals(
-            "d3",
-            databaseRepositoryDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL).digest
-        )
+        QuotationEntity previousQuotation = getQuoteUnquoteModelInstance(context).getPreviousQuotation(
+                widgetId, contentSelection, currentQuotation.digest);
 
-            quoteUnquoteModelDouble.getPreviousQuotation(
-                WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, "d3"
-            )?.digest
+        getQuoteUnquoteModelInstance(context).markAsCurrent(widgetId, previousQuotation.digest);
 
-
-
-            databaseRepositoryDouble.markAsCurrent(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, "d3")
-
-         */
 
         // TODO - the counts somehow need to be displayed - maybe a relative_position field in current
 
