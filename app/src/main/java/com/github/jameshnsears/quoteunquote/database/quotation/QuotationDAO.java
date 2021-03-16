@@ -41,5 +41,5 @@ public interface QuotationDAO {
     List<String> getQuotationText(String text, List<String> digests);
 
     @Query("DELETE FROM QUOTATIONS")
-    void deleteAll();
+    void erase();
 }

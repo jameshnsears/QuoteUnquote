@@ -1,13 +1,11 @@
 package com.github.jameshnsears.quoteunquote.database;
 
-import androidx.annotation.NonNull;
 import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
 
 import com.github.jameshnsears.quoteunquote.database.history.AbstractHistoryDatabase;
 import com.github.jameshnsears.quoteunquote.database.quotation.AbstractQuotationDatabase;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
-import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 
 import java.util.List;
 
@@ -43,13 +41,14 @@ public final class DatabaseRepositoryDouble extends DatabaseRepository {
         return databaseRepositoryDouble;
     }
 
-    public void empty() {
-        databaseRepositoryDouble.abstractQuotationDatabase.quotationsDAO().deleteAll();
+    @Override
+    public void erase() {
+        databaseRepositoryDouble.abstractQuotationDatabase.quotationsDAO().erase();
 
-        databaseRepositoryDouble.abstractHistoryDatabase.previousDAO().deleteAll();
-        databaseRepositoryDouble.abstractHistoryDatabase.favouritesDAO().deleteAll();
-        databaseRepositoryDouble.abstractHistoryDatabase.reportedDAO().deleteAll();
-        databaseRepositoryDouble.abstractHistoryDatabase.currentDAO().deleteAll();
+        databaseRepositoryDouble.abstractHistoryDatabase.previousDAO().erase();
+        databaseRepositoryDouble.abstractHistoryDatabase.currentDAO().erase();
+        databaseRepositoryDouble.abstractHistoryDatabase.favouritesDAO().erase();
+        databaseRepositoryDouble.abstractHistoryDatabase.reportedDAO().erase();
     }
 
     public void insertQuotations(final List<QuotationEntity> quotationEntityList) {

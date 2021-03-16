@@ -4,7 +4,6 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.content.ContentPr
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import junit.framework.TestCase.assertEquals
-import junit.framework.TestCase.fail
 import org.junit.Test
 
 class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
@@ -67,7 +66,7 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
     }
 
     @Test
-    fun deleteAll() {
+    fun erase() {
         assertEquals(
             0,
             databaseRepositoryDouble.countCurrent(WidgetIdHelper.WIDGET_ID_01)
@@ -75,7 +74,7 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
 
         databaseRepositoryDouble.markAsCurrent(WidgetIdHelper.WIDGET_ID_01, "d3")
 
-        databaseRepositoryDouble.deleteCurrent()
+        databaseRepositoryDouble.erase(WidgetIdHelper.WIDGET_ID_01)
 
         assertEquals(
             0,
@@ -89,10 +88,12 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
 
         databaseRepositoryDouble.markAsCurrent(WidgetIdHelper.WIDGET_ID_01, "d3")
 
+        val contentPreferences = ContentPreferences(WidgetIdHelper.WIDGET_ID_01, context)
+
         assertEquals(
             "@ 4/7",
-            databaseRepositoryDouble.getQuotationPositionInPrevious(
-                WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, null
+            databaseRepositoryDouble.getQuotationPosition(
+                WidgetIdHelper.WIDGET_ID_01, contentPreferences
             )
         )
 
@@ -100,8 +101,8 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             "@ 1/7",
-            databaseRepositoryDouble.getQuotationPositionInPrevious(
-                WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, null
+            databaseRepositoryDouble.getQuotationPosition(
+                WidgetIdHelper.WIDGET_ID_01, contentPreferences
             )
         )
     }

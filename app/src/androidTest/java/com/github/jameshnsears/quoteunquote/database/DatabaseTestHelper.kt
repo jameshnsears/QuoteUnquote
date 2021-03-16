@@ -15,8 +15,7 @@ abstract class DatabaseTestHelper {
 
     @Before
     fun before() {
-        databaseRepositoryDouble.empty()
-
+        databaseRepositoryDouble.erase()
         PreferencesFacade.disable(context)
     }
 

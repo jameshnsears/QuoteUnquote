@@ -30,6 +30,8 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
     private final int widgetId;
     @Nullable
     private QuotationEntity quotationEntity;
+    @Nullable
+    private String quotationPosition;
     private boolean isReported = false;
     private int textSize = -1;
     @NonNull
@@ -52,6 +54,10 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
                     widgetId,
                     contentPreferences.getContentSelection());
 
+            quotationPosition = getQuoteUnquoteModel().getQuotationPosition(
+                    widgetId,
+                    contentPreferences);
+
             isReported = getQuoteUnquoteModel().isReported(widgetId);
         }
     }
@@ -73,7 +79,7 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
 
     @NonNull
     public String getTheQuotation() {
-        return quotationEntity.theQuotation();
+        return quotationEntity.theQuotation() + quotationPosition;
     }
 
     @NonNull

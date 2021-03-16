@@ -165,6 +165,27 @@ public class QuoteUnquoteModel {
     }
 
     @NonNull
+    public String getQuotationPosition(
+            final int widgetId,
+            @NonNull final ContentPreferences contentPreferences) {
+
+        final Future<String> future = executorService.submit(() ->
+            databaseRepository.getQuotationPosition(widgetId, contentPreferences));
+
+
+        String quotationPosition = null;
+
+        try {
+            quotationPosition = future.get();
+        } catch (ExecutionException | InterruptedException e) {
+            Timber.e(e);
+            Thread.currentThread().interrupt();
+        }
+
+        return quotationPosition;
+    }
+
+    @NonNull
     public void getNextQuotation(
             final int widgetId) {
         final ContentPreferences contentPreferences = getContentPreferences(widgetId);
@@ -174,12 +195,10 @@ public class QuoteUnquoteModel {
 
         final Future future = executorService.submit(() -> {
             // check for first time use
-            String criteria = null;
             try {
                 switch (contentSelection) {
                     case AUTHOR:
                         setDefaultAuthor(widgetId);
-                        criteria = contentPreferences.getContentSelectionAuthor();
                         break;
 
                     case FAVOURITES:
@@ -188,7 +207,6 @@ public class QuoteUnquoteModel {
 
                     case SEARCH:
                         setDefaultSearch(widgetId);
-                        criteria = contentPreferences.getContentSelectionSearch();
                         break;
 
                     default:
@@ -200,7 +218,6 @@ public class QuoteUnquoteModel {
             }
 
             QuotationEntity quotationEntity = databaseRepository.getNextQuotation(widgetId, contentSelection);
-            String previousCounts = databaseRepository.getQuotationPositionInNext(widgetId, contentSelection, criteria);
 
             databaseRepository.markAsCurrent(
                     widgetId,
@@ -300,7 +317,7 @@ public class QuoteUnquoteModel {
                         "digest=" + digest + "; author=" + quotationEntity.author + "; quotation=" + quotationEntity.quotation);
                 AuditEventHelper.auditEvent("FAVOURITE", properties);
             } else {
-                databaseRepository.deleteFavourite(widgetId, digest);
+                databaseRepository.eraseFavourite(widgetId, digest);
             }
 
             return databaseRepository.countFavourites().blockingGet();
@@ -352,8 +369,6 @@ public class QuoteUnquoteModel {
     public void disable() {
         final Future future = executorService.submit(() -> {
             databaseRepository.erase();
-            databaseRepository.eraseFavourites();
-            databaseRepository.eraseReported();
         });
 
         try {

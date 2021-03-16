@@ -5,11 +5,12 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.github.jameshnsears.quoteunquote.configure.fragment.content.ContentPreferences;
 import com.github.jameshnsears.quoteunquote.database.history.AbstractHistoryDatabase;
 import com.github.jameshnsears.quoteunquote.database.history.CurrentDAO;
 import com.github.jameshnsears.quoteunquote.database.history.CurrentEntity;
-import com.github.jameshnsears.quoteunquote.database.history.FavouriteEntity;
 import com.github.jameshnsears.quoteunquote.database.history.FavouriteDAO;
+import com.github.jameshnsears.quoteunquote.database.history.FavouriteEntity;
 import com.github.jameshnsears.quoteunquote.database.history.PreviousDAO;
 import com.github.jameshnsears.quoteunquote.database.history.PreviousEntity;
 import com.github.jameshnsears.quoteunquote.database.history.ReportedDAO;
@@ -34,13 +35,13 @@ public class DatabaseRepository {
     @NonNull
     protected final SecureRandom secureRandom = new SecureRandom();
     @Nullable
+    public PreviousDAO previousDAO;
+    @Nullable
     protected AbstractQuotationDatabase abstractQuotationDatabase;
     @Nullable
     protected QuotationDAO quotationDAO;
     @Nullable
     protected AbstractHistoryDatabase abstractHistoryDatabase;
-    @Nullable
-    public PreviousDAO previousDAO;
     @Nullable
     protected FavouriteDAO favouriteDAO;
     @Nullable
@@ -78,45 +79,39 @@ public class DatabaseRepository {
         return previousDAO.countPrevious(widgetId, contentSelection);
     }
 
-    public String getQuotationPositionInPrevious(
+    public String getQuotationPosition(
             final int widgetId,
-            @NonNull final ContentSelection contentSelection,
-            @Nullable final String criteria) {
+            @NonNull final ContentPreferences contentPreferences) {
 
-        List<String> allPrevious = getAllPrevious(widgetId, contentSelection);
+        List<String> allPrevious = getAllPrevious(widgetId, contentPreferences.getContentSelection());
         Collections.reverse(allPrevious);
-        String currentDigest = getCurrentQuotation(widgetId).digest;
 
-        return String.format("@ %d/%d",
-                allPrevious.indexOf(currentDigest) + 1,
-                countNext(widgetId, contentSelection, criteria));
-    }
-
-    public String getQuotationPositionInNext(
-            final int widgetId,
-            @NonNull final ContentSelection contentSelection,
-            @Nullable final String criteria) {
-        return String.format("@ %d/%d",
-                countPrevious(widgetId, contentSelection),
-                countNext(widgetId, contentSelection, criteria));
+        int position = 0;
+        if (allPrevious.size() != 0) {
+            String currentDigest = getCurrentQuotation(widgetId).digest;
+            position = allPrevious.indexOf(currentDigest) + 1;
+        }
+       
+        return String.format("@ %d/%d", position, countNext(widgetId, contentPreferences));
     }
 
     public int countNext(
             final int widgetId,
-            @NonNull final ContentSelection contentSelection,
-            @Nullable final String criteria) {
+            @NonNull final ContentPreferences contentPreferences) {
         int countTotalNext = 0;
-        switch (contentSelection) {
+
+        switch (contentPreferences.getContentSelection()) {
             case FAVOURITES:
                 countTotalNext = favouriteDAO.countFavourites().blockingGet().intValue();
                 break;
 
             case AUTHOR:
-                countTotalNext = quotationDAO.getAuthors(criteria).size();
+                countTotalNext = quotationDAO.getAuthors(contentPreferences.getContentSelectionAuthor()).size();
                 break;
 
             case SEARCH:
-                countTotalNext = quotationDAO.getQuotationText("%" + criteria + "%").size();
+                countTotalNext = quotationDAO.getQuotationText(
+                        "%" + contentPreferences.getContentSelectionSearch() + "%").size();
                 break;
 
             default:
@@ -278,24 +273,17 @@ public class DatabaseRepository {
         return secureRandom.nextInt(availableNextQuotations.size());
     }
 
-    public void deleteFavourite(final int widgetId, @NonNull final String digest) {
+    public void eraseFavourite(final int widgetId, @NonNull final String digest) {
         Timber.d("digest=%s", digest);
         favouriteDAO.deleteFavourite(digest);
         previousDAO.erase(widgetId, ContentSelection.FAVOURITES, digest);
     }
 
-    public void eraseFavourites() {
-        favouriteDAO.deleteAll();
-    }
-
-    public void erase(final int widgetId, @NonNull final ContentSelection contentSelection) {
-        Timber.d("contentType=%d", contentSelection.getContentSelection());
-        previousDAO.erase(widgetId, contentSelection);
-    }
-
     public void erase() {
         previousDAO.erase();
         currentDAO.erase();
+        favouriteDAO.erase();
+        reportedDAO.erase();
     }
 
     public void erase(final int widgetId) {
@@ -303,8 +291,10 @@ public class DatabaseRepository {
         currentDAO.erase(widgetId);
     }
 
-    public void eraseReported() {
-        reportedDAO.erase();
+    public void erase(final int widgetId, @NonNull final ContentSelection contentSelection) {
+        Timber.d("contentType=%d", contentSelection.getContentSelection());
+        previousDAO.erase(widgetId, contentSelection);
+        currentDAO.erase(widgetId);
     }
 
     @NonNull

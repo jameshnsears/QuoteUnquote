@@ -29,5 +29,5 @@ public interface FavouriteDAO {
     void deleteFavourite(String digest);
 
     @Query("DELETE FROM FAVOURITE")
-    void deleteAll();
+    void erase();
 }
