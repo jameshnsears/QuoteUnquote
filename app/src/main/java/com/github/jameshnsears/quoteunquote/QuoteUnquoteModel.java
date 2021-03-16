@@ -24,7 +24,7 @@ import timber.log.Timber;
 
 public class QuoteUnquoteModel {
     @NonNull
-    public final ExecutorService executorService = Executors.newFixedThreadPool(4);
+    public final ExecutorService executorService = Executors.newFixedThreadPool(10);// TODO why so many?
     @Nullable
     public DatabaseRepository databaseRepository;
     @Nullable
@@ -146,7 +146,7 @@ public class QuoteUnquoteModel {
     }
 
     @NonNull
-    public synchronized QuotationEntity getCurrentQuotation(
+    public QuotationEntity getCurrentQuotation(
             final int widgetId,
             @NonNull final ContentSelection contentSelection) {
         final Future<QuotationEntity> future = executorService.submit(() ->
@@ -179,7 +179,7 @@ public class QuoteUnquoteModel {
                 switch (contentSelection) {
                     case AUTHOR:
                         setDefaultAuthor(widgetId);
-                        criteria = new ContentPreferences(widgetId, context).getContentSelectionAuthor();
+                        criteria = contentPreferences.getContentSelectionAuthor();
                         break;
 
                     case FAVOURITES:
@@ -188,7 +188,7 @@ public class QuoteUnquoteModel {
 
                     case SEARCH:
                         setDefaultSearch(widgetId);
-                        criteria = new ContentPreferences(widgetId, context).getContentSelectionSearch();
+                        criteria = contentPreferences.getContentSelectionSearch();
                         break;
 
                     default:

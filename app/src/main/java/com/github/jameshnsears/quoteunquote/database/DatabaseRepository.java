@@ -220,7 +220,9 @@ public class DatabaseRepository {
 
     public QuotationEntity getCurrentQuotation(final int widgetId) {
         QuotationEntity quotationEntity = getQuotation(currentDAO.getCurrent(widgetId));
-        Timber.d("digest=%s", quotationEntity.digest);
+        if (quotationEntity != null) {
+            Timber.d("digest=%s", quotationEntity.digest);
+        }
         return quotationEntity;
     }
 

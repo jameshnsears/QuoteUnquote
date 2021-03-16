@@ -29,7 +29,6 @@ import com.github.jameshnsears.quoteunquote.report.ReportActivity;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
 import com.github.jameshnsears.quoteunquote.utils.NotificationHelper;
-import com.github.jameshnsears.quoteunquote.utils.logging.MethodLineLoggingTree;
 import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade;
 import com.github.jameshnsears.quoteunquote.utils.ui.ToastHelper;
 
@@ -85,10 +84,6 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
     public void onEnabled(@NonNull final Context context) {
         final ContentPreferences contentPreferences = new ContentPreferences(context);
         contentPreferences.setContentFavouritesLocalCode(CloudFavouritesHelper.getLocalCode());
-
-        if (BuildConfig.DEBUG && Timber.treeCount() == 0) {
-            Timber.plant(new MethodLineLoggingTree());
-        }
     }
 
     @Override
@@ -221,11 +216,15 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
                     break;
             }
         } finally {
-            // mainly for screen rotation!
-            if (!intent.getAction().equals(AppWidgetManager.ACTION_APPWIDGET_DISABLED)) {
+            if (!intent.getAction().equals(AppWidgetManager.ACTION_APPWIDGET_DISABLED)
+                    || !intent.getAction().equals(AppWidgetManager.ACTION_APPWIDGET_ENABLED)) {
                 onUpdate(context, appWidgetManager, new int[]{widgetId});
             }
         }
+    }
+
+    private void onReceiveAppWidgetEnabled(@NonNull final Context context, final int widgetId) {
+        getQuoteUnquoteModelInstance(context).getNextQuotation(widgetId);
     }
 
     private void onReceiveActivityFinishedReport(
@@ -265,13 +264,14 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
                 getQuoteUnquoteModelInstance(context).getCurrentQuotation(
                         widgetId, contentPreferences.getContentSelection()).digest);
 
-        if (favouritesCount == 0) {
+        if (favouritesCount == 0 && contentPreferences.getContentSelection() != ContentSelection.ALL) {
             contentPreferences.setContentSelection(ContentSelection.ALL);
             try {
                 getQuoteUnquoteModelInstance(context).setNextQuotation(widgetId, false);
-                onUpdate(context, appWidgetManager, new int[]{widgetId});
             } catch (NoNextQuotationAvailableException e) {
                 Timber.d(e.getMessage());
+            } finally {
+                onUpdate(context, appWidgetManager, new int[]{widgetId});
             }
         }
 
