@@ -38,7 +38,9 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
     ListViewProvider(@NonNull final Context context, @NonNull final Intent intent) {
         synchronized (this) {
             this.context = context;
+
             widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
+            Timber.d("%d", widgetId);
 
             AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, context);
             textSize = appearancePreferences.getAppearanceTextSize();

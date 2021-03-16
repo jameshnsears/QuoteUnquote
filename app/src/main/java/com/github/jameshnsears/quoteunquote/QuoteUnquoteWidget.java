@@ -152,8 +152,6 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
 
             setToolbarButtonsVisibility(context, widgetId, remoteViews);
 
-//            setFavouriteColour(context, widgetId, appWidgetManager);
-
             appWidgetManager.updateAppWidget(widgetId, remoteViews);
         }
     }
@@ -268,13 +266,12 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
                         widgetId, contentPreferences.getContentSelection()).digest);
 
         if (favouritesCount == 0) {
-            ToastHelper.makeToast(context, context.getString(R.string.widget_button_favourites_no_more), Toast.LENGTH_LONG);
             contentPreferences.setContentSelection(ContentSelection.ALL);
             try {
                 getQuoteUnquoteModelInstance(context).setNextQuotation(widgetId, false);
                 onUpdate(context, appWidgetManager, new int[]{widgetId});
             } catch (NoNextQuotationAvailableException e) {
-                Timber.d(e);
+                Timber.d(e.getMessage());
             }
         }
 
@@ -342,7 +339,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
 
             appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
         } catch (NoNextQuotationAvailableException e) {
-            Timber.d(e);
+            Timber.d(e.toString());
         }
     }
 
@@ -386,7 +383,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             final int widgetId,
             @NonNull final RemoteViews remoteViews) {
         final int seekBarValue = new AppearancePreferences(widgetId, context).getAppearanceTransparency();
-        Timber.d("%d: seekBarValue=%d", widgetId, seekBarValue);
+        Timber.d("%d", widgetId);
 
         final String setBackgroundColor = "setBackgroundColor";
         remoteViews.setInt(R.id.listViewQuotation, setBackgroundColor, transparencyMask(seekBarValue));
@@ -465,19 +462,6 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         }
     }
 
-    private void setFavouriteColour(
-            @NonNull final Context context,
-            final int widgetId,
-            @NonNull final AppWidgetManager appWidgetManager) {
-        Timber.d("%d", widgetId);
-
-        final RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.id.imageButtonFavourite);
-
-        setHeartColour(context, widgetId, remoteViews);
-
-        appWidgetManager.updateAppWidget(widgetId, remoteViews);
-    }
-
     private void setHeartColour(
             @NonNull final Context context,
             final int widgetId,
@@ -506,7 +490,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         super.onDeleted(context, widgetIds);
 
         for (final int widgetId : widgetIds) {
-            Timber.d("instance removed from screen; widgetId=%d", widgetId);
+            Timber.d("%d", widgetId);
 
             getQuoteUnquoteModelInstance(context).delete(widgetId);
             PreferencesFacade.delete(context, widgetId);

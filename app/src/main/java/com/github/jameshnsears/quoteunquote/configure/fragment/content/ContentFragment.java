@@ -162,7 +162,7 @@ public class ContentFragment extends FragmentCommon {
                     final String keywords = charSequence.toString();
 
                     if (!keywords.equals("")) {
-                        Timber.d("apply:%s", keywords);
+                        Timber.d("%s", keywords);
 
                         if (!contentPreferences.getContentSelectionSearch().equals(keywords)) {
                             contentPreferences.setContentSelectionSearch(keywords);
@@ -422,7 +422,7 @@ public class ContentFragment extends FragmentCommon {
                                 contentViewModel.countAuthorQuotations(author)));
 
                 if (!contentPreferences.getContentSelectionAuthor().equals(author)) {
-                    Timber.d("sending new event, author=%s", author);
+                    Timber.d("author=%s", author);
                     final ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
                     properties.put("Author", author);
                     AuditEventHelper.auditEvent("AUTHOR", properties);
@@ -458,7 +458,7 @@ public class ContentFragment extends FragmentCommon {
     protected void createListenerFavouriteButtonReceive() {
         fragmentContentBinding.buttonReceive.setOnClickListener(v -> {
             if (fragmentContentBinding.buttonReceive.isEnabled()) {
-                Timber.d("buttonReceive: remoteCode=%s", fragmentContentBinding.editTextRemoteCodeValue.getText().toString());
+                Timber.d("remoteCode=%s", fragmentContentBinding.editTextRemoteCodeValue.getText().toString());
 
                 if (fragmentContentBinding.editTextRemoteCodeValue.getText().toString().length() != 10) {
                     ToastHelper.makeToast(

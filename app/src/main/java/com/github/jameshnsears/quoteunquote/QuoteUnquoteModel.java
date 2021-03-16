@@ -105,7 +105,7 @@ public class QuoteUnquoteModel {
                 throw new NoNextQuotationAvailableException();
             }
         } catch (ExecutionException | InterruptedException e) {
-            Timber.w(e.toString());
+            Timber.e(e);
             Thread.currentThread().interrupt();
         }
     }
@@ -138,7 +138,7 @@ public class QuoteUnquoteModel {
         try {
             quotationEntity = future.get();
         } catch (ExecutionException | InterruptedException e) {
-            Timber.w(e.toString());
+            Timber.e(e);
             Thread.currentThread().interrupt();
         }
 
@@ -146,7 +146,7 @@ public class QuoteUnquoteModel {
     }
 
     @NonNull
-    public QuotationEntity getCurrentQuotation(
+    public synchronized QuotationEntity getCurrentQuotation(
             final int widgetId,
             @NonNull final ContentSelection contentSelection) {
         final Future<QuotationEntity> future = executorService.submit(() ->
@@ -157,7 +157,7 @@ public class QuoteUnquoteModel {
         try {
             quotationEntity = future.get();
         } catch (ExecutionException | InterruptedException e) {
-            Timber.w(e.toString());
+            Timber.e(e);
             Thread.currentThread().interrupt();
         }
 
@@ -210,6 +210,7 @@ public class QuoteUnquoteModel {
         try {
             future.get();
         } catch (ExecutionException | InterruptedException e) {
+            Timber.e(e);
             Thread.currentThread().interrupt();
         }
     }
@@ -225,7 +226,7 @@ public class QuoteUnquoteModel {
         try {
             allPreviousDigests = future.get();
         } catch (ExecutionException | InterruptedException e) {
-            Timber.w(e.toString());
+            Timber.e(e);
             Thread.currentThread().interrupt();
         }
 
@@ -263,7 +264,7 @@ public class QuoteUnquoteModel {
             try {
                 future.get();
             } catch (ExecutionException | InterruptedException e) {
-                Timber.w(e.toString());
+                Timber.e(e);
                 Thread.currentThread().interrupt();
             }
         }
@@ -309,7 +310,7 @@ public class QuoteUnquoteModel {
         try {
             favouritesCount = future.get().intValue();
         } catch (ExecutionException | InterruptedException e) {
-            Timber.w(e.toString());
+            Timber.e(e);
             Thread.currentThread().interrupt();
         }
 
@@ -327,11 +328,11 @@ public class QuoteUnquoteModel {
                 isFavourite = true;
             }
         } catch (ExecutionException | InterruptedException e) {
-            Timber.w(e.toString());
+            Timber.e(e);
             Thread.currentThread().interrupt();
         }
 
-        Timber.d("digest=%s; isFavourite=%b", digest, isFavourite);
+        Timber.d("%b", isFavourite);
         return isFavourite;
     }
 
@@ -343,7 +344,7 @@ public class QuoteUnquoteModel {
         try {
             future.get();
         } catch (ExecutionException | InterruptedException e) {
-            Timber.w(e.toString());
+            Timber.e(e);
             Thread.currentThread().interrupt();
         }
     }
@@ -358,7 +359,7 @@ public class QuoteUnquoteModel {
         try {
             future.get();
         } catch (ExecutionException | InterruptedException e) {
-            Timber.w(e.toString());
+            Timber.e(e);
             Thread.currentThread().interrupt();
         }
     }
@@ -373,7 +374,7 @@ public class QuoteUnquoteModel {
         try {
             future.get();
         } catch (ExecutionException | InterruptedException e) {
-            Timber.w(e.toString());
+            Timber.e(e);
             Thread.currentThread().interrupt();
         }
     }
@@ -389,7 +390,7 @@ public class QuoteUnquoteModel {
         try {
             future.get();
         } catch (ExecutionException | InterruptedException e) {
-            Timber.w(e.toString());
+            Timber.e(e);
             Thread.currentThread().interrupt();
         }
     }
@@ -409,10 +410,10 @@ public class QuoteUnquoteModel {
                 isReported = true;
             }
         } catch (ExecutionException | InterruptedException e) {
-            Timber.w(e.toString());
+            Timber.e(e);
             Thread.currentThread().interrupt();
         }
-        Timber.d("isReported=%b", isReported);
+        Timber.d("%b", isReported);
 
         return isReported;
     }
