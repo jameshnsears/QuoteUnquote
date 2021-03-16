@@ -1,7 +1,6 @@
 package com.github.jameshnsears.quoteunquote.database.history;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteException;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,7 +10,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import timber.log.Timber;
+import com.github.jameshnsears.quoteunquote.BuildConfig;
 
 @Database(
         entities = {PreviousEntity.class, FavouriteEntity.class, ReportedEntity.class, CurrentEntity.class},
@@ -25,11 +24,7 @@ public abstract class AbstractHistoryDatabase extends RoomDatabase {
     static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
-            try {
-                database.execSQL("CREATE TABLE `current` (`widget_id` INTEGER NOT NULL, `digest` TEXT NOT NULL, `content_selection` INTEGER NOT NULL, `navigation` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)");
-            } catch (IllegalStateException e) {
-                Timber.e(e.getMessage());
-            }
+            database.execSQL("CREATE TABLE IF NOT EXISTS `current` (`widget_id` INTEGER NOT NULL, `digest` TEXT NOT NULL, PRIMARY KEY(`widget_id`))");
         }
     };
 
@@ -37,11 +32,17 @@ public abstract class AbstractHistoryDatabase extends RoomDatabase {
     public static AbstractHistoryDatabase getDatabase(@NonNull final Context context) {
         synchronized (AbstractHistoryDatabase.class) {
             if (historyDatabase == null) {
-                historyDatabase = Room.databaseBuilder(context,
-                        AbstractHistoryDatabase.class, DATABASE_NAME)
-//                        .addMigrations(MIGRATION_1_2)
-                        .fallbackToDestructiveMigration()
-                        .build();
+                if (BuildConfig.DEBUG) {
+                    historyDatabase = Room.databaseBuilder(context,
+                            AbstractHistoryDatabase.class, DATABASE_NAME)
+                            .fallbackToDestructiveMigration()
+                            .build();
+                } else {
+                    historyDatabase = Room.databaseBuilder(context,
+                            AbstractHistoryDatabase.class, DATABASE_NAME)
+                            .addMigrations(MIGRATION_1_2)
+                            .build();
+                }
             }
             return historyDatabase;
         }
@@ -51,7 +52,7 @@ public abstract class AbstractHistoryDatabase extends RoomDatabase {
     public abstract PreviousDAO previousDAO();
 
     @NonNull
-    public abstract FavouritesDAO favouritesDAO();
+    public abstract FavouriteDAO favouritesDAO();
 
     @NonNull
     public abstract ReportedDAO reportedDAO();

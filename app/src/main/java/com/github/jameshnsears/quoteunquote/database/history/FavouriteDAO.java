@@ -9,7 +9,7 @@ import java.util.List;
 import io.reactivex.Single;
 
 @Dao
-public interface FavouritesDAO {
+public interface FavouriteDAO {
     @Insert
     void markAsFavourite(FavouriteEntity favouriteEntity);
 

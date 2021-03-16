@@ -94,7 +94,6 @@ public class QuoteUnquoteModel {
 
                 databaseRepository.markAsCurrent(
                         widgetId,
-                        contentPreferences.getContentSelection(),
                         quotationEntity.digest);
                 return true;
             } catch (NoNextQuotationAvailableException e) {
@@ -152,7 +151,7 @@ public class QuoteUnquoteModel {
             final int widgetId,
             @NonNull final ContentSelection contentSelection) {
         final Future<QuotationEntity> future = executorService.submit(() ->
-                databaseRepository.getCurrentQuotation(widgetId, contentSelection));
+                databaseRepository.getCurrentQuotation(widgetId));
 
         QuotationEntity quotationEntity = null;
 
@@ -206,7 +205,6 @@ public class QuoteUnquoteModel {
 
             databaseRepository.markAsCurrent(
                     widgetId,
-                    contentSelection,
                     quotationEntity.digest);
         });
 

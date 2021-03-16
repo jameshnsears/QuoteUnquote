@@ -55,7 +55,6 @@ abstract class DatabaseTestHelper {
 
         databaseRepositoryDouble.markAsCurrent(
                 widgetId,
-                ContentSelection.ALL,
                 getDefaultQuotation().digest
         )
     }

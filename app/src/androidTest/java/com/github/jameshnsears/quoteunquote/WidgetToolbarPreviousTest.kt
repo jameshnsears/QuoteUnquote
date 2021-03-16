@@ -57,12 +57,12 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             1,
-            databaseRepositoryDouble.countCurrent(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL)
+            databaseRepositoryDouble.countCurrent(WidgetIdHelper.WIDGET_ID_01)
         )
 
         assertEquals(
             "d3",
-            databaseRepositoryDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL).digest
+            databaseRepositoryDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01).digest
         )
     }
 
@@ -70,16 +70,16 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
     fun deleteAll() {
         assertEquals(
             0,
-            databaseRepositoryDouble.countCurrent(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL)
+            databaseRepositoryDouble.countCurrent(WidgetIdHelper.WIDGET_ID_01)
         )
 
-        databaseRepositoryDouble.markAsCurrent(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, "d3")
+        databaseRepositoryDouble.markAsCurrent(WidgetIdHelper.WIDGET_ID_01, "d3")
 
         databaseRepositoryDouble.deleteCurrent()
 
         assertEquals(
             0,
-            databaseRepositoryDouble.countCurrent(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL)
+            databaseRepositoryDouble.countCurrent(WidgetIdHelper.WIDGET_ID_01)
         )
     }
 
@@ -87,7 +87,7 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
     fun getQuotationPositionInPrevious() {
         pressNextSequentialFourTimes()
 
-        databaseRepositoryDouble.markAsCurrent(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, "d3")
+        databaseRepositoryDouble.markAsCurrent(WidgetIdHelper.WIDGET_ID_01, "d3")
 
         assertEquals(
             "@ 4/7",
@@ -96,7 +96,7 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
             )
         )
 
-        databaseRepositoryDouble.markAsCurrent(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL, "1624c314")
+        databaseRepositoryDouble.markAsCurrent(WidgetIdHelper.WIDGET_ID_01, "1624c314")
 
         assertEquals(
             "@ 1/7",

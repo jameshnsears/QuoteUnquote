@@ -30,7 +30,7 @@ public final class DatabaseRepositoryDouble extends DatabaseRepository {
                 .build();
 
         previousDAO = abstractHistoryDatabase.previousDAO();
-        favouritesDAO = abstractHistoryDatabase.favouritesDAO();
+        favouriteDAO = abstractHistoryDatabase.favouritesDAO();
         reportedDAO = abstractHistoryDatabase.reportedDAO();
         currentDAO = abstractHistoryDatabase.currentDAO();
     }
@@ -62,7 +62,7 @@ public final class DatabaseRepositoryDouble extends DatabaseRepository {
         return reportedDAO.countReported().intValue();
     }
 
-    public int countCurrent(final int widgetId, @NonNull final ContentSelection contentSelection) {
-        return currentDAO.countCurrent(widgetId, contentSelection);
+    public int countCurrent(final int widgetId) {
+        return currentDAO.countCurrent(widgetId);
     }
 }

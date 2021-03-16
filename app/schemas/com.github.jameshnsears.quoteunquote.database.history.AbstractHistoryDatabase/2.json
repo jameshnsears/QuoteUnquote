@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "c9b3b1fa3a0cdf493988bb1c10c958d3",
+    "identityHash": "6a20d42d914b1a4ec57131bbc7e7a628",
     "entities": [
       {
         "tableName": "previous",
@@ -90,7 +90,7 @@
       },
       {
         "tableName": "current",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`widget_id` INTEGER NOT NULL, `digest` TEXT NOT NULL, `content_selection` INTEGER NOT NULL, `navigation` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`widget_id` INTEGER NOT NULL, `digest` TEXT NOT NULL, PRIMARY KEY(`widget_id`))",
         "fields": [
           {
             "fieldPath": "widgetId",
@@ -103,25 +103,13 @@
             "columnName": "digest",
             "affinity": "TEXT",
             "notNull": true
-          },
-          {
-            "fieldPath": "contentSelection",
-            "columnName": "content_selection",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "navigation",
-            "columnName": "navigation",
-            "affinity": "INTEGER",
-            "notNull": true
           }
         ],
         "primaryKey": {
           "columnNames": [
-            "navigation"
+            "widget_id"
           ],
-          "autoGenerate": true
+          "autoGenerate": false
         },
         "indices": [],
         "foreignKeys": []
@@ -130,7 +118,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'c9b3b1fa3a0cdf493988bb1c10c958d3')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6a20d42d914b1a4ec57131bbc7e7a628')"
     ]
   }
 }
