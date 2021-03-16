@@ -20,8 +20,8 @@ public interface CurrentDAO {
     String getCurrent(int widgetId);
 
     @Query("DELETE FROM CURRENT")
-    void deleteAll();
+    void erase();
 
     @Query("DELETE FROM CURRENT WHERE WIDGET_ID = :widgetId")
-    void deleteAll(int widgetId);
+    void erase(int widgetId);
 }

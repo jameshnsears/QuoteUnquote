@@ -29,7 +29,7 @@ public final class EventDailyAlarm {
     public void setDailyAlarm() {
         if (eventPreferences.getEventDaily()) {
 
-            Timber.d("widgetId=%d", widgetId);
+            Timber.d("%d", widgetId);
 
             final Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(System.currentTimeMillis());
@@ -61,7 +61,7 @@ public final class EventDailyAlarm {
 
     public void resetAnyExistingDailyAlarm() {
         if (!eventPreferences.getEventDaily()) {
-            Timber.d("widgetId=%d", widgetId);
+            Timber.d("%d", widgetId);
 
             final PendingIntent alarmPendingIntent
                     = IntentFactoryHelper.createIntentPending(context, widgetId, IntentFactoryHelper.DAILY_ALARM);

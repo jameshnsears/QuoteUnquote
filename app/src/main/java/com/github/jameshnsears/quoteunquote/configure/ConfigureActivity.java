@@ -30,10 +30,7 @@ public class ConfigureActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        Timber.d("widgetId=%d", widgetId);
-
         finish();
-
         super.onPause();
     }
 
@@ -86,11 +83,8 @@ public class ConfigureActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Timber.d("widgetId=%d", widgetId);
         super.onBackPressed();
-
         scrollBarPositionRemember();
-
         finish();
     }
 

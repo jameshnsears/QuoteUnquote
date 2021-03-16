@@ -43,7 +43,7 @@ public class ReportActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Timber.d("widgetId=%d", widgetId);
+        Timber.d("%d", widgetId);
 
         activityReportBinding = null;
 

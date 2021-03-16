@@ -192,7 +192,7 @@ public class DatabaseRepository {
             final int widgetId,
             @NonNull final ContentSelection contentSelection,
             @NonNull final String digest) {
-        Timber.d("%d: contentType=%d; digest=%s", widgetId, contentSelection.getContentSelection(), digest);
+        Timber.d("contentType=%d; digest=%s", contentSelection.getContentSelection(), digest);
         previousDAO.markAsPrevious(new PreviousEntity(widgetId, contentSelection, digest));
     }
 
@@ -213,13 +213,15 @@ public class DatabaseRepository {
     public void markAsCurrent(
             final int widgetId,
             @NonNull final String digest) {
-        Timber.d("%d: digest=%s", widgetId, digest);
-        currentDAO.deleteAll(widgetId);
+        Timber.d("digest=%s", digest);
+        currentDAO.erase(widgetId);
         currentDAO.markAsCurrent(new CurrentEntity(widgetId, digest));
     }
 
     public QuotationEntity getCurrentQuotation(final int widgetId) {
-        return getQuotation(currentDAO.getCurrent(widgetId));
+        QuotationEntity quotationEntity = getQuotation(currentDAO.getCurrent(widgetId));
+        Timber.d("digest=%s", quotationEntity.digest);
+        return quotationEntity;
     }
 
     @NonNull
@@ -229,7 +231,7 @@ public class DatabaseRepository {
             @NonNull final String searchString,
             final boolean randomNext)
             throws NoNextQuotationAvailableException {
-        Timber.d("%d: contentType=%d; searchString=%s", widgetId, contentSelection.getContentSelection(), searchString);
+        Timber.d("contentType=%d; searchString=%s", contentSelection.getContentSelection(), searchString);
 
         List<String> availableQuotations;
 
@@ -275,40 +277,32 @@ public class DatabaseRepository {
     }
 
     public void deleteFavourite(final int widgetId, @NonNull final String digest) {
-        Timber.d("%d: digest=%s", widgetId, digest);
+        Timber.d("digest=%s", digest);
         favouriteDAO.deleteFavourite(digest);
-        previousDAO.deleteAll(widgetId, ContentSelection.FAVOURITES, digest);
+        previousDAO.erase(widgetId, ContentSelection.FAVOURITES, digest);
     }
 
-    public void deleteFavourites() {
+    public void eraseFavourites() {
         favouriteDAO.deleteAll();
     }
 
-    public void deletePrevious(final int widgetId, @NonNull final ContentSelection contentSelection) {
-        Timber.d("%d: contentType=%d", widgetId, contentSelection.getContentSelection());
-        previousDAO.deleteAll(widgetId, contentSelection);
+    public void erase(final int widgetId, @NonNull final ContentSelection contentSelection) {
+        Timber.d("contentType=%d", contentSelection.getContentSelection());
+        previousDAO.erase(widgetId, contentSelection);
     }
 
-    public void deletePrevious() {
-        previousDAO.deleteAll();
+    public void erase() {
+        previousDAO.erase();
+        currentDAO.erase();
     }
 
-    public void deletePrevious(final int widgetId) {
-        Timber.d("widgetId=%d", widgetId);
-        previousDAO.deleteAll(widgetId);
+    public void erase(final int widgetId) {
+        previousDAO.erase(widgetId);
+        currentDAO.erase(widgetId);
     }
 
-    public void deleteReported() {
-        reportedDAO.deleteAll();
-    }
-
-    public void deleteCurrent() {
-        currentDAO.deleteAll();
-    }
-
-    public void deleteCurrent(final int widgetId) {
-        Timber.d("widgetId=%d", widgetId);
-        currentDAO.deleteAll(widgetId);
+    public void eraseReported() {
+        reportedDAO.erase();
     }
 
     @NonNull

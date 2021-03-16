@@ -14,7 +14,6 @@ import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -197,7 +196,7 @@ public class QuoteUnquoteModel {
                         break;
                 }
             } catch (NoNextQuotationAvailableException e) {
-                Timber.d(e);
+                Timber.d(e.toString());
             }
 
             QuotationEntity quotationEntity = databaseRepository.getNextQuotation(widgetId, contentSelection);
@@ -235,7 +234,7 @@ public class QuoteUnquoteModel {
 
     private void setDefaultAuthor(int widgetId) throws NoNextQuotationAvailableException {
         if (countPreviousAuthor(widgetId) == 0) {
-            databaseRepository.deletePrevious(widgetId, ContentSelection.AUTHOR);
+            databaseRepository.erase(widgetId, ContentSelection.AUTHOR);
             setNextQuotation(widgetId, false);
         }
     }
@@ -248,7 +247,7 @@ public class QuoteUnquoteModel {
 
     private void setDefaultSearch(int widgetId) throws NoNextQuotationAvailableException {
         if (countPreviousSearch(widgetId) == 0) {
-            databaseRepository.deletePrevious(widgetId, ContentSelection.SEARCH);
+            databaseRepository.erase(widgetId, ContentSelection.SEARCH);
             setNextQuotation(widgetId, false);
         }
     }
@@ -285,8 +284,7 @@ public class QuoteUnquoteModel {
     }
 
     public int toggleFavourite(final int widgetId, @NonNull final String digest) {
-        final String logMsg = String.format(Locale.ENGLISH, "%d: digest=%s", widgetId, digest);
-        Timber.d(logMsg);
+        Timber.d("digest=%s", digest);
 
         final Future<Integer> future = executorService.submit(() -> {
             if (!isFavourite(widgetId, digest)) {
@@ -323,6 +321,7 @@ public class QuoteUnquoteModel {
                 -> databaseRepository.countFavourite(digest));
 
         boolean isFavourite = false;
+
         try {
             if (future.get() == 1) {
                 isFavourite = true;
@@ -332,15 +331,13 @@ public class QuoteUnquoteModel {
             Thread.currentThread().interrupt();
         }
 
-        final String logMsg = String.format(Locale.ENGLISH, "%d: digest=%s", widgetId, digest);
-        Timber.d(logMsg + "; isFavourite=" + isFavourite);
-
+        Timber.d("digest=%s; isFavourite=%b", digest, isFavourite);
         return isFavourite;
     }
 
     public void delete(final int widgetId) {
         final Future future = executorService.submit(() ->
-                databaseRepository.deletePrevious(widgetId)
+                databaseRepository.erase(widgetId)
         );
 
         try {
@@ -353,9 +350,9 @@ public class QuoteUnquoteModel {
 
     public void disable() {
         final Future future = executorService.submit(() -> {
-            databaseRepository.deletePrevious();
-            databaseRepository.deleteFavourites();
-            databaseRepository.deleteReported();
+            databaseRepository.erase();
+            databaseRepository.eraseFavourites();
+            databaseRepository.eraseReported();
         });
 
         try {
@@ -367,11 +364,10 @@ public class QuoteUnquoteModel {
     }
 
     public void resetPrevious(final int widgetId, @NonNull final ContentSelection contentSelection) {
-        final String logMsg = String.format(Locale.ENGLISH, "%d: contentType=%d", widgetId, contentSelection.getContentSelection());
-        Timber.d(logMsg);
+        Timber.d("contentSelection=%d", contentSelection.getContentSelection());
 
         final Future future = executorService.submit(() ->
-                databaseRepository.deletePrevious(widgetId, contentSelection)
+                databaseRepository.erase(widgetId, contentSelection)
         );
 
         try {

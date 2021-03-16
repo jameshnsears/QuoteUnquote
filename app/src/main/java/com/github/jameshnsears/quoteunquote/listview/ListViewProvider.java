@@ -61,7 +61,7 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
 
     @Override
     public void onDataSetChanged() {
-        Timber.d("widgetId=%d", widgetId);
+        Timber.d("%d", widgetId);
 
         synchronized (this) {
             quotationList.clear();
@@ -92,8 +92,6 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
     @Override
     @NonNull
     public RemoteViews getViewAt(final int position) {
-        Timber.d("getviewAt=%d", position);
-
         final RemoteViews remoteViews = getRemoteViews(position);
 
         final Intent intent = new Intent();
@@ -105,8 +103,6 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
 
     @NonNull
     private RemoteViews getRemoteViews(final int position) {
-        Timber.d("getRemoteViews=%d", position);
-
         final RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
                 android.R.layout.simple_list_item_1);
 

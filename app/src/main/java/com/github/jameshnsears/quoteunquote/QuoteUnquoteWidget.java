@@ -152,7 +152,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
 
             setToolbarButtonsVisibility(context, widgetId, remoteViews);
 
-            setFavouriteColour(context, widgetId, appWidgetManager);
+//            setFavouriteColour(context, widgetId, appWidgetManager);
 
             appWidgetManager.updateAppWidget(widgetId, remoteViews);
         }
@@ -385,10 +385,8 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull final Context context,
             final int widgetId,
             @NonNull final RemoteViews remoteViews) {
-        Timber.d("transparency; widgetId=%d", widgetId);
-
         final int seekBarValue = new AppearancePreferences(widgetId, context).getAppearanceTransparency();
-        Timber.d("seekBarValue=%d", seekBarValue);
+        Timber.d("%d: seekBarValue=%d", widgetId, seekBarValue);
 
         final String setBackgroundColor = "setBackgroundColor";
         remoteViews.setInt(R.id.listViewQuotation, setBackgroundColor, transparencyMask(seekBarValue));
@@ -414,7 +412,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull final Context context,
             final int widgetId,
             @NonNull final RemoteViews remoteViews) {
-        Timber.d("buttons visibility; widgetId=%d", widgetId);
+        Timber.d("%d", widgetId);
 
         final AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, context);
 
@@ -471,7 +469,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull final Context context,
             final int widgetId,
             @NonNull final AppWidgetManager appWidgetManager) {
-        Timber.d("favourite toggled; widgetId=%d", widgetId);
+        Timber.d("%d", widgetId);
 
         final RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.id.imageButtonFavourite);
 
@@ -484,6 +482,8 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull final Context context,
             final int widgetId,
             @NonNull final RemoteViews remoteViews) {
+        Timber.d("%d", widgetId);
+
         ContentPreferences contentPreferences = new ContentPreferences(widgetId, context);
 
         final QuotationEntity quotationEntity = getQuoteUnquoteModelInstance(context).getCurrentQuotation(
@@ -502,6 +502,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
     public void onDeleted(
             @NonNull final Context context,
             @NonNull final int[] widgetIds) {
+        // a widget instance deleted
         super.onDeleted(context, widgetIds);
 
         for (final int widgetId : widgetIds) {
