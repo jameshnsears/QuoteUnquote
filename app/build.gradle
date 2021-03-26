@@ -1,0 +1,225 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'pmd'
+apply plugin: 'jacoco'
+apply plugin: 'org.sonarqube'
+apply plugin: 'com.github.kt3k.coveralls'
+//apply plugin: 'com.github.triplet.play'
+
+task pmd(type: Pmd) {
+    ignoreFailures = true
+    consoleOutput = true
+
+    ruleSetFiles = files("${project.rootDir}/pmd-rules.xml")
+
+    source 'src'
+    include '**/*.java'
+    reports {
+        xml.enabled = true
+        xml.destination = file("$project.buildDir/reports/pmd-results.xml")
+        html.enabled = true
+        html.destination = file("$project.buildDir/reports/pmd-results.html")
+    }
+}
+
+jacoco {
+    toolVersion = '0.8.5'
+}
+
+// , dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']
+task jacocoReport(type: JacocoReport) {
+    reports {
+        xml.enabled true
+        xml.destination file("$project.buildDir/reports/jacoco-combined.xml")
+        html.enabled true
+        html.destination file("$project.buildDir/reports/jacoco")
+    }
+
+    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/databinding/*.class', 'android/**/*.*']
+    def debugTree = fileTree(dir: "${buildDir}/intermediates/javac", excludes: fileFilter)
+    def mainSrc = "${project.projectDir}/src/main/java"
+
+    sourceDirectories.from = files([mainSrc])
+    classDirectories.from = files([debugTree])
+
+    // https://proandroiddev.com/unified-code-coverage-for-android-revisited-44789c9b722f
+
+    executionData.from = fileTree(dir: project.buildDir, includes: [
+            "jacoco/testDebugUnitTest.exec",
+            "outputs/code_coverage/debugAndroidTest/connected/**/*.ec"
+    ])
+}
+
+coveralls {
+    jacocoReportPath 'build/reports/jacoco-combined.xml'
+}
+
+sonarqube {
+    properties {
+        def props = new Properties()
+        file("sonar-project.properties").withInputStream { props.load(it) }
+        props.each {
+            property("${it.key}", "${it.value}")
+        }
+    }
+}
+
+android {
+    compileSdkVersion 29
+    defaultConfig {
+        applicationId "com.github.jameshnsears.quoteunquote"
+        minSdkVersion 24
+        targetSdkVersion 29
+        versionCode 34
+        versionName "1.0.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArguments clearPackageData: 'true'
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [
+                        "room.schemaLocation": "$projectDir/schemas".toString(),
+                        "room.incremental": "true"
+                ]
+            }
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+        warningsAsErrors false
+        xmlReport true
+        htmlReport true
+    }
+
+    buildTypes {
+        def useProdDb = true
+        def useProdRndQuotations = false
+
+        def appcenterKeyProd = System.getenv("APPCENTER_KEY_PROD")
+        if (appcenterKeyProd == null) {
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file('local.properties').newDataInputStream())
+            appcenterKeyProd = properties.getProperty('APPCENTER_KEY_PROD')
+        }
+
+        def appcenterKeyDev = System.getenv("APPCENTER_KEY_DEV")
+        if (appcenterKeyDev == null) {
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file('local.properties').newDataInputStream())
+            appcenterKeyDev = properties.getProperty('APPCENTER_KEY_DEV')
+        }
+
+        def gitHash = { ->
+            def stdout = new ByteArrayOutputStream()
+            exec {
+                commandLine 'git', 'rev-parse', '--short', 'HEAD'
+                standardOutput = stdout
+            }
+            return stdout.toString().trim()
+        }
+
+        release {
+            buildConfigField("String", "APPCENTER_KEY", "\"$appcenterKeyProd\"")
+            buildConfigField("String", "GIT_HASH", "\"$gitHash\"")
+            buildConfigField("boolean", "USE_PROD_DB", "$useProdDb")
+            buildConfigField("boolean", "USE_PROD_QUOTATION_ORDER", "$useProdRndQuotations")
+            buildConfigField("String", "REMOTE_DEVICE_ENDPOINT", '"https://us-central1-qualified-glow-281314.cloudfunctions.net/favourites"')
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            testCoverageEnabled true
+            buildConfigField("String", "APPCENTER_KEY", "\"$appcenterKeyDev\"")
+            buildConfigField("String", "GIT_HASH", "\"$gitHash\"")
+            buildConfigField("boolean", "USE_PROD_DB", "$useProdDb")
+            buildConfigField("boolean", "USE_PROD_QUOTATION_ORDER", "$useProdRndQuotations")
+            buildConfigField("String", "REMOTE_DEVICE_ENDPOINT", '"https://us-central1-virtual-ego-281313.cloudfunctions.net/favourites"')
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildFeatures {
+        viewBinding = true
+    }
+
+    testOptions {
+        animationsDisabled true
+        unitTests {
+            includeAndroidResources = true
+            returnDefaultValues = true
+            all {
+               jacoco {
+                    includeNoLocationClasses = true
+                    excludes = ['jdk.internal.*']
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    def appCenterSdkVersion = '3.2.1'
+    def appcompat_version = "1.1.0"
+    def fragment_version = "1.2.5"
+    def lifecycle_version = "2.2.0"
+    def room_version = "2.2.5"
+    def work_version = "2.3.4"
+
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
+    androidTestImplementation "androidx.room:room-testing:$room_version"
+    androidTestImplementation 'androidx.test:core:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-accessibility:3.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-web:3.2.0'
+    androidTestImplementation 'androidx.test.espresso.idling:idling-concurrent:3.2.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.ext:truth:1.2.0'
+    androidTestImplementation 'androidx.test:rules:1.2.0'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation "androidx.work:work-testing:$work_version"
+    androidTestImplementation 'com.google.truth:truth:1.0.1'
+    androidTestImplementation 'org.mockito:mockito-android:3.3.3'
+    androidTestImplementation 'org.mockito:mockito-core:3.3.3'
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.4'
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation "androidx.room:room-guava:$room_version"
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-rxjava2:$room_version"
+    implementation "androidx.work:work-runtime:$work_version"
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation "com.jakewharton.rxbinding2:rxbinding:2.2.0"
+    implementation "com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}"
+    implementation "com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}"
+    implementation 'com.squareup.okhttp3:okhttp:4.7.2'
+    implementation 'commons-codec:commons-codec:20041127.091804'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.19'
+    implementation 'org.apache.commons:commons-lang3:3.10'
+    implementation 'org.conscrypt:conscrypt-android:2.4.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    testImplementation 'junit:junit:4.13'
+    testImplementation 'org.mockito:mockito-core:3.3.3'
+    testImplementation 'org.slf4j:slf4j-api:1.7.30'
+    testImplementation 'org.slf4j:slf4j-log4j12:1.7.30'
+}
+repositories {
+    mavenCentral()
+}

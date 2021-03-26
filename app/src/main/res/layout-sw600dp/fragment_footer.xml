@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".configure.fragment.footer.FragmentFooter">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingEnd="5dp"
+        android:paddingStart="0dp">
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:paddingVertical="10dp"
+            android:background="@color/colorPrimary"/>
+
+        <TextView
+            android:id="@+id/textViewPowerSaverWarning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_warning_black_24dp"
+            android:drawablePadding="5dp"
+            android:paddingVertical="10dp"
+            android:text="@string/fragment_footer_os_warning"
+            android:textSize="18sp"
+            android:textStyle="italic" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="6dp"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:id="@+id/layoutFooter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="end">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="5dp"
+                    android:src="@drawable/ic_github_logo"
+                    android:contentDescription="@string/fragment_footer_github"/>
+
+            </LinearLayout>
+
+    </LinearLayout>
+
+
+    </LinearLayout>
+
+</FrameLayout>

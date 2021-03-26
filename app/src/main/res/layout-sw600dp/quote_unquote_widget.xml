@@ -1,0 +1,72 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:viewBindingIgnore="true">
+
+    <ListView
+        android:id="@+id/listViewQuotation"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:drawSelectorOnTop="false"
+        android:layout_marginBottom="5dp"
+        android:paddingVertical="2dp"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/imageButtonFirst"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:contentDescription="@string/widget_button_first"
+            android:src="@drawable/ic_first_page_black_24dp" />
+
+        <ImageButton
+            android:id="@+id/imageButtonReport"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:contentDescription="@string/widget_button_report"
+            android:src="@drawable/ic_report_black_24dp" />
+
+        <ImageButton
+            android:id="@+id/imageButtonFavourite"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:contentDescription="@string/widget_button_favorite"
+            android:src="@drawable/ic_favorite_border_black_24dp" />
+
+        <ImageButton
+            android:id="@+id/imageButtonShare"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:contentDescription="@string/widget_button_share"
+            android:src="@drawable/ic_share_black_24dp" />
+
+        <ImageButton
+            android:id="@+id/imageButtonNew"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:contentDescription="@string/widget_button_next"
+            android:src="@drawable/ic_chevron_right_black_24dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".configure.fragment.content.FragmentContent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingEnd="5dp"
+        android:paddingStart="0dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingTop="10dp"
+            android:paddingBottom="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_content_title"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textSize="20sp"
+                android:paddingEnd="10dp"
+                android:paddingStart="0dp"
+                android:textStyle="bold" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"/>
+        </LinearLayout>
+
+        <RadioGroup
+            android:id="@+id/radioGroupContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/radioButtonAll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:paddingVertical="10dp"
+                android:text="@string/fragment_content_all" />
+
+            <RadioButton
+                android:id="@+id/radioButtonAuthor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="10dp"
+                android:text="@string/fragment_content_author" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:orientation="vertical">
+
+                <Spinner
+                    android:id="@+id/spinnerAuthors"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="10dp"/>
+            </LinearLayout>
+
+            <RadioButton
+                android:id="@+id/radioButtonFavourites"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="10dp"
+                android:text="@string/fragment_content_favourites" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewShareInstructions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="5dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/fragment_content_favourites_share_instructions" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingVertical="5dp">
+
+                    <EditText
+                        android:id="@+id/editTextRemoteCodeValue"
+                        android:layout_width="140dp"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:gravity="start|top"
+                        android:hint="@string/fragment_content_favourites_share_remove_code_value"
+                        android:inputType="text"
+                        android:maxLength="10"
+                        android:textSize="16sp" />
+
+                    <Button
+                        android:id="@+id/buttonReceive"
+                        android:layout_width="90dp"
+                        android:layout_height="35dp"
+                        android:background="@drawable/corners_buttons"
+                        android:text="@string/fragment_content_favourites_share_remote_receive"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textViewLocalCodeValue"
+                        android:layout_width="140dp"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="10dp"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="40dp"
+                        android:text="@string/fragment_content_favourites_share_local_code_value"
+                        android:textIsSelectable="true" />
+
+                    <Button
+                        android:id="@+id/buttonSend"
+                        android:layout_width="90dp"
+                        android:layout_height="35dp"
+                        android:background="@drawable/corners_buttons"
+                        android:text="@string/fragment_content_favourites_share_local_code_send"
+                        android:textColor="@android:color/white" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <RadioButton
+                android:id="@+id/radioButtonKeywords"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="10dp"
+                android:text="@string/fragment_content_text" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/editTextKeywords"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:gravity="start|top"
+                    android:hint="@string/fragment_content_text_instructions"
+                    android:inputType="text"
+                    android:maxLength="50"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+</FrameLayout>

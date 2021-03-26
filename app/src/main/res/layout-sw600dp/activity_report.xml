@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
+    android:orientation="vertical"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    android:baselineAligned="false"
+    android:background="@drawable/corners_report_dialog">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:padding="10dp"
+        android:text="@string/activity_report_title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@android:color/white"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingVertical="10dp">
+
+        <TextView
+            android:id="@+id/textViewReason"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/activity_report_reason"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/spinnerReason"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/activity_report_reason_array"/>
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/editTextNotes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="@string/activity_report_notes"
+        android:inputType="textMultiLine"
+        android:lines="3"
+        android:maxLength="100"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textViewReportInstructions01"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="5dp"
+        android:text="@string/activity_report_instruction_01"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textViewReportInstructions02"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="5dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="0dp"
+        android:text="@string/activity_report_instruction_02"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textViewReportInstructions03"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="5dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="0dp"
+        android:text="@string/activity_report_instruction_03"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="end"
+        android:orientation="horizontal"
+        android:paddingTop="20dp">
+
+        <Button
+            android:id="@+id/cancel_button"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:background="@drawable/corners_buttons"
+            android:text="@android:string/cancel"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+        <View android:layout_height="fill_parent"
+            android:layout_width="10dp"/>
+
+        <Button
+            android:id="@+id/buttonOK"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:background="@drawable/corners_buttons"
+            android:text="@android:string/ok"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+</LinearLayout>

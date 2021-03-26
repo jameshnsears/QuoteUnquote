@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:configure="com.github.jameshnsears.quoteunquote.configure.ActivityConfigure"
+    android:initialKeyguardLayout="@layout/quote_unquote_widget"
+    android:initialLayout="@layout/quote_unquote_widget"
+    android:minWidth="180dp"
+    android:minHeight="110dp"
+    android:updatePeriodMillis="21600000"
+    android:previewImage="@drawable/example_appwidget_preview"
+    android:resizeMode="horizontal|vertical"
+    android:widgetCategory="home_screen"/>
+
+<!--https://developer.android.com/guide/practices/ui_guidelines/widget_design#anatomy_determining_size-->
