@@ -5,83 +5,124 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.Log;
 import android.util.TypedValue;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteModel;
-import com.github.jameshnsears.quoteunquote.QuoteUnquoteWidget;
+import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences;
+import com.github.jameshnsears.quoteunquote.configure.fragment.content.ContentPreferences;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
-import com.github.jameshnsears.quoteunquote.utils.Preferences;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import timber.log.Timber;
+
 class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
-    private static final String LOG_TAG = ListViewProvider.class.getSimpleName();
-
+    @NonNull
     private final List<String> quotationList = new ArrayList<>();
+    @NonNull
     private final Context context;
-    public Preferences preferences;
-    private int widgetId;
-    private QuotationEntity quotationEntity;
-    private QuoteUnquoteWidget quoteUnquoteWidget;
+    private final int widgetId;
+    @Nullable
+    public QuoteUnquoteModel quoteUnquoteModel;
+    @Nullable
+    private final QuotationEntity quotationEntity;
+    @Nullable
+    private String quotationPosition;
+    private boolean isReported;
+    private final int textSize;
+    @Nullable
+    private final String textColour;
 
-    public ListViewProvider(final Context context, final Intent intent) {
-        Log.d(LOG_TAG, "ListViewProvider");
-        this.context = context;
-        this.widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
-
-        preferences = new Preferences(widgetId, context);
-        quoteUnquoteWidget = new QuoteUnquoteWidget();
+    @Nullable
+    public QuoteUnquoteModel getQuoteUnquoteModel() {
+        return quoteUnquoteModel;
     }
 
-    @Override
-    public void onCreate() {
-        Log.d(LOG_TAG, String.format("%d: %s", widgetId,
-                new Object() {
-                }.getClass().getEnclosingMethod().getName()));
+    public void setQuoteUnquoteModel(@Nullable QuoteUnquoteModel quoteUnquoteModel) {
+        this.quoteUnquoteModel = quoteUnquoteModel;
     }
 
-    @Override
-    public void onDataSetChanged() {
-        Log.d(LOG_TAG, String.format("%d: %s", widgetId,
-                new Object() {
-                }.getClass().getEnclosingMethod().getName()));
-
+    ListViewProvider(@NonNull final Context context, @NonNull final Intent intent) {
         synchronized (this) {
-            quotationList.clear();
+            this.context = context;
 
-            quotationEntity = getQuoteUnquoteModel(context).getNext(
-                    widgetId,
-                    preferences.getSelectedContentType());
+            widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
+            Timber.d("%d", widgetId);
+
+            AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, context);
+            textSize = appearancePreferences.getAppearanceTextSize();
+            textColour = appearancePreferences.getAppearanceTextColour();
+
+            ContentPreferences contentPreferences = new ContentPreferences(widgetId, context);
+
+            setQuoteUnquoteModel(new QuoteUnquoteModel(context));
+
+            quotationEntity = getQuoteUnquoteModel().getCurrentQuotation(
+                    widgetId);
 
             if (quotationEntity != null) {
-                quotationList.add(quotationEntity.theQuotation());
+                Timber.d("digest=%s", quotationEntity.digest);
+
+                quotationPosition = getQuoteUnquoteModel().getCurrentPosition(
+                        widgetId,
+                        contentPreferences);
+
+                isReported = getQuoteUnquoteModel().isReported(widgetId);
             }
         }
     }
 
-    public QuoteUnquoteModel getQuoteUnquoteModel(final Context context) {
-        return quoteUnquoteWidget.getQuoteUnquoteModelInstance(context);
+    @Override
+    public void onCreate() {
+        // ...
     }
 
     @Override
-    public void onDestroy() {
-        Log.d(LOG_TAG, String.format("%d: %s", widgetId,
-                new Object() {
-                }.getClass().getEnclosingMethod().getName()));
-    }
+    public void onDataSetChanged() {
+        Timber.d("%d", widgetId);
 
-    @Override
-    public int getCount() {
         synchronized (this) {
-            return quotationList.size();
+            if (quotationList.isEmpty()) {
+                // first time call
+                quotationList.add(getTheQuotation());
+            } else {
+                // subsequent calls
+                if (!"".equals(getTheQuotation())) {
+                    if (!quotationList.get(0).equals(getTheQuotation())) {
+                        quotationList.set(0, getTheQuotation());
+                    }
+                }
+            }
+        }
+    }
+
+    @NonNull
+    public String getTheQuotation() {
+        if (quotationEntity == null) {
+            return "";
+        } else {
+            return quotationEntity.theQuotation() + quotationPosition;
         }
     }
 
     @Override
+    public void onDestroy() {
+        // ...
+    }
+
+    @Override
+    public int getCount() {
+        return 1;
+    }
+
+    @Override
+    @NonNull
     public RemoteViews getViewAt(final int position) {
         final RemoteViews remoteViews = getRemoteViews(position);
 
@@ -92,35 +133,35 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
         return remoteViews;
     }
 
+    @NonNull
     private RemoteViews getRemoteViews(final int position) {
-        final RemoteViews remoteViews = new RemoteViews(this.context.getPackageName(),
+        final RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
                 android.R.layout.simple_list_item_1);
 
         synchronized (this) {
-            if (!quotationList.isEmpty()) {
+            if (!quotationList.isEmpty() && !"".equals(getTheQuotation())) {
+                remoteViews.setTextViewText(android.R.id.text1, getTheQuotation());
 
-                remoteViews.setTextViewText(android.R.id.text1, quotationList.get(position));
+                if (textSize != -1) {
+                    remoteViews.setTextViewTextSize(
+                            android.R.id.text1,
+                            TypedValue.COMPLEX_UNIT_DIP,
+                            (float) textSize);
+                }
 
-                remoteViews.setTextViewTextSize(
-                        android.R.id.text1,
-                        TypedValue.COMPLEX_UNIT_DIP,
-                        (float) this.preferences.getSharedPreferenceInt(Preferences.FRAGMENT_APPEARANCE, Preferences.SPINNER_SIZE));
+                if (!textColour.equals("")) {
+                    remoteViews.setTextColor(
+                            android.R.id.text1,
+                            Color.parseColor(textColour));
+                }
 
-                remoteViews.setTextColor(
-                        android.R.id.text1,
-                        Color.parseColor(this.preferences.getSharedPreferenceString(
-                                Preferences.FRAGMENT_APPEARANCE, Preferences.SPINNER_COLOUR)));
+                int paintFlags = Paint.ANTI_ALIAS_FLAG | Paint.FAKE_BOLD_TEXT_FLAG;
 
-                Log.d(LOG_TAG, String.format("%d: %s: digest=%s", widgetId,
-                        new Object() {
-                        }.getClass().getEnclosingMethod().getName(),
-                        quotationEntity.digest));
-
-                if (getQuoteUnquoteModel(context).isReported(widgetId)) {
+                if (isReported) {
                     remoteViews.setInt(android.R.id.text1, "setPaintFlags",
-                            Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
+                            paintFlags | Paint.STRIKE_THRU_TEXT_FLAG);
                 } else {
-                    remoteViews.setInt(android.R.id.text1, "setPaintFlags", Paint.ANTI_ALIAS_FLAG);
+                    remoteViews.setInt(android.R.id.text1, "setPaintFlags", paintFlags);
                 }
             }
         }
@@ -128,6 +169,7 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
         return remoteViews;
     }
 
+    @NonNull
     @Override
     public RemoteViews getLoadingView() {
         return getRemoteViews(0);

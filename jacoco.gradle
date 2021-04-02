@@ -1,0 +1,80 @@
+apply plugin: 'jacoco'
+
+jacoco {
+    toolVersion = "0.8.6"
+}
+
+project.afterEvaluate {
+    def buildTypes = android.buildTypes.collect { type -> type.name }
+    def productFlavors = android.productFlavors.collect { flavor -> flavor.name }
+
+    if (!productFlavors) productFlavors.add('')
+
+    productFlavors.each { productFlavorName ->
+        buildTypes.each { buildTypeName ->
+            def sourceName
+            if (!productFlavorName) {
+                sourceName = "${buildTypeName}"
+            } else {
+                sourceName = "${productFlavorName}${buildTypeName.capitalize()}"
+            }
+            def testTaskName = "test${sourceName.capitalize()}UnitTest"
+
+            def excludes = [
+                    '**/BuildConfig.*',
+                    '**/*_Impl*.*',
+                    '**/*Double.*',
+                    '**/*Binding.*',
+                    '**/*Test.*'
+            ]
+
+            def classKotlin = fileTree(dir: "$project.buildDir/tmp/kotlin-classes/${sourceName}UnitTest", excludes: excludes)
+            def classJava = fileTree(dir: "$project.buildDir/intermediates/javac/${sourceName}/classes", excludes: excludes)
+
+            def kotlinSrc = "$project.projectDir/src/main/kotlin"
+            def javaSrc = "$project.projectDir/src/main/java"
+            def flavourSrc = "$project.projectDir/src/$productFlavorName/java"
+
+            task "test${sourceName.capitalize()}CoverageCombined"(type: JacocoReport, dependsOn: ["$testTaskName", "connected${sourceName.capitalize()}AndroidTest"]) {
+                group = "QuoteUnquote"
+                description = "Generate Jacoco /test + combined (if avail.) /andoidTest coverage report from ${sourceName.capitalize()}"
+
+                classDirectories.setFrom(files([classKotlin, classJava]))
+
+                sourceDirectories.setFrom(files([javaSrc, kotlinSrc, flavourSrc]))
+
+                executionData.from = fileTree(dir: "${project.buildDir}", includes: [
+                        "jacoco/${testTaskName}.exec",
+                        "outputs/code_coverage/$productFlavorName${buildTypeName.capitalize()}AndroidTest/connected/**/*.ec"
+                ])
+
+                reports {
+                    xml.enabled = true
+                    xml.destination file("${project.buildDir}/reports/${sourceName.capitalize()}.xml")
+                    html.enabled = true
+                    html.destination file("$project.buildDir/reports/jacoco")
+                }
+            }
+
+            task "test${sourceName.capitalize()}Coverage"(type: JacocoReport, dependsOn: ["$testTaskName"]) {
+                group = "QuoteUnquote"
+                description = "Generate Jacoco /test coverage report from ${sourceName.capitalize()}"
+
+                classDirectories.setFrom(files([classKotlin, classJava]))
+
+                sourceDirectories.setFrom(files([javaSrc, kotlinSrc, flavourSrc]))
+
+                executionData.from = fileTree(dir: "${project.buildDir}", includes: [
+                        "jacoco/${testTaskName}.exec"
+                ])
+
+                reports {
+                    xml.enabled = true
+                    xml.destination file("${project.buildDir}/reports/${sourceName.capitalize()}.xml")
+                    html.enabled = true
+                    html.destination file("$project.buildDir/reports/jacoco")
+                }
+            }
+        }
+    }
+}

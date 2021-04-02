@@ -1,0 +1,102 @@
+<?xml version="1.0" ?>
+<SmellBaseline>
+    <ManuallySuppressedIssues>
+        <ID>CatchRuntimeException:Junk.kt$e: RuntimeException</ID>
+    </ManuallySuppressedIssues>
+    <CurrentIssues>
+        <ID>LongParameterList:MediaStoreHelper.kt$MediaStoreHelper$( resources: Resources, context:
+            Context, contentResolver: ContentResolver, resourceId: Int, soundName: String,
+            mediaType: String )
+        </ID>
+        <ID>MagicNumber:SharedPreferencesHelper.kt$SharedPreferencesHelper$10</ID>
+        <ID>
+            MaxLineLength:ActivityBrexitSoundboard.kt$ActivityBrexitSoundboard$Uri.parse("https://docs.google.com/forms/d/e/1FAIpQLSfHLj5AkDLyb8fFAHtAl5AdJ1FrKE9gK5uxEnTt0J9sIOa2qQ/viewform?c=0&amp;w=1")
+        </ID>
+        <ID>
+            MaxLineLength:ActivityBrexitSoundboard.kt$ActivityBrexitSoundboard$activityHomeBinding!!.installSound.isChecked
+            = grantResults.size &gt; 0 &amp;&amp; grantResults[0] ==
+            PackageManager.PERMISSION_GRANTED
+        </ID>
+        <ID>
+            MaxLineLength:ActivityBrexitSoundboard.kt$ActivityBrexitSoundboard$activityHomeBinding!!.installSound.isChecked
+            = sharedPreferences.getBoolean(SharedPreferencesHelper.INSTALL_SOUND,
+            activityHomeBinding!!.installSound.isChecked)
+        </ID>
+        <ID>
+            MaxLineLength:ActivityBrexitSoundboard.kt$ActivityBrexitSoundboard$getSharedPreferences(this).edit().putBoolean(SharedPreferencesHelper.INSTALL_SOUND,
+            activityHomeBinding!!.installSound.isChecked)
+        </ID>
+        <ID>MaxLineLength:ActivityBrexitSoundboard.kt$ActivityBrexitSoundboard$if
+            (activityHomeBinding!!.installSound.isChecked &amp;&amp;
+            checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+            PackageManager.PERMISSION_GRANTED) { requestPermissions(
+            arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE), BREXIT_SOUNDBOARD_EXTERNAL_STORAGE ) }
+        </ID>
+        <ID>MaxLineLength:ActivityBrexitSoundboard.kt$ActivityBrexitSoundboard$selectedButtonIdBoris
+            = sharedPreferences.getInt(SharedPreferencesHelper.SELECTED_BUTTONID_BORIS,
+            activityHomeBinding!!.imageButtonBoris00.id)
+        </ID>
+        <ID>MaxLineLength:ActivityBrexitSoundboard.kt$ActivityBrexitSoundboard$selectedButtonIdDavid
+            = sharedPreferences.getInt(SharedPreferencesHelper.SELECTED_BUTTONID_DAVID,
+            activityHomeBinding!!.imageButtonDavid00.id)
+        </ID>
+        <ID>MaxLineLength:ActivityBrexitSoundboard.kt$ActivityBrexitSoundboard$selectedButtonIdLiam
+            = sharedPreferences.getInt(SharedPreferencesHelper.SELECTED_BUTTONID_LIAM,
+            activityHomeBinding!!.imageButtonLiam00.id)
+        </ID>
+        <ID>
+            MaxLineLength:ActivityBrexitSoundboard.kt$ActivityBrexitSoundboard$selectedButtonIdTheresa
+            = sharedPreferences.getInt(SharedPreferencesHelper.SELECTED_BUTTONID_THERESA,
+            activityHomeBinding!!.imageButtonTheresa00.id)
+        </ID>
+        <ID>
+            MaxLineLength:MapButtonToSound.kt$MapButtonToSound$buttonIdToSoundIdMap[R.id.buttonBorisBrexitHasNotDamagedCountry]
+            = R.raw.boris_sound_brexit_has_not_damaged_our_country
+        </ID>
+        <ID>
+            MaxLineLength:MapButtonToSound.kt$MapButtonToSound$buttonIdToSoundIdMap[R.id.buttonBorisCostOfGettingOutVirtuallyNil]
+            = R.raw.boris_sound_cost_of_getting_out_virtually_nil
+        </ID>
+        <ID>
+            MaxLineLength:MapButtonToSound.kt$MapButtonToSound$buttonIdToSoundIdMap[R.id.buttonBorisLittleBenefitFromEU]
+            = R.raw.boris_sound_little_benefit_from_single_market_and_customs_union
+        </ID>
+        <ID>
+            MaxLineLength:MapButtonToSound.kt$MapButtonToSound$buttonIdToSoundIdMap[R.id.buttonBorisUsaVeryEnthusiasticAboutFreeTradeDeal]
+            = R.raw.boris_sound_usa_very_enthusiastic_about_free_trade_deal
+        </ID>
+        <ID>
+            MaxLineLength:MapButtonToSound.kt$MapButtonToSound$buttonIdToSoundIdMap[R.id.buttonBorisWeightLiftedFromBritishBusiness]
+            = R.raw.boris_sound_weight_lifted_from_british_business
+        </ID>
+        <ID>
+            MaxLineLength:MapButtonToSound.kt$MapButtonToSound$buttonIdToSoundIdMap[R.id.buttonDavidDifficultToReadWhatWeIntend]
+            = R.raw.david_sound_difficult_to_read_what_we_intend
+        </ID>
+        <ID>
+            MaxLineLength:MapButtonToSound.kt$MapButtonToSound$buttonIdToSoundIdMap[R.id.buttonDavidNobodyPretendedThisWillBeSimpleOrEasy]
+            = R.raw.david_sound_nobody_pretended_this_will_be_simple_or_easy
+        </ID>
+        <ID>
+            MaxLineLength:MapButtonToSound.kt$MapButtonToSound$buttonIdToSoundIdMap[R.id.buttonLiamThinkOfTheConsequences]
+            = R.raw.liam_sound_think_of_the_political_consequences
+        </ID>
+        <ID>
+            MaxLineLength:MapButtonToSound.kt$MapButtonToSound$buttonIdToSoundIdMap[R.id.buttonTheresaNoDealBetterThanABadDeal]
+            = R.raw.theresa_sound_no_deal_better_than_a_bad_deal
+        </ID>
+        <ID>
+            MaxLineLength:MapButtonToSound.kt$MapButtonToSound$buttonIdToSoundIdMap[R.id.buttonTheresaStrongAndStableLeadership]
+            = R.raw.theresa_sound_strong_and_stable_leadership
+        </ID>
+        <ID>TooGenericExceptionCaught:AbstractActivityPerson.kt$AbstractActivityPerson$exception:
+            NullPointerException
+        </ID>
+        <ID>TooGenericExceptionCaught:MediaPlayerHelper.kt$MediaPlayerHelper$e: Exception</ID>
+        <ID>TooGenericExceptionCaught:MediaStoreHelper.kt$MediaStoreHelper$e: Exception</ID>
+        <ID>
+            TooManyFunctions:ActivityBrexitSoundboard.kt$ActivityBrexitSoundboard$ActivityBrexitSoundboard
+        </ID>
+    </CurrentIssues>
+</SmellBaseline>

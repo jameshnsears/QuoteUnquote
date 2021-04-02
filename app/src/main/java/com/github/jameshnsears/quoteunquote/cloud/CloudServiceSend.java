@@ -1,71 +1,61 @@
 package com.github.jameshnsears.quoteunquote.cloud;
 
-import android.app.ActivityManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.github.jameshnsears.quoteunquote.R;
-import com.github.jameshnsears.quoteunquote.audit.AuditEventHelper;
-import com.github.jameshnsears.quoteunquote.utils.ToastHelper;
-
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.github.jameshnsears.quoteunquote.R;
+import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
+import com.github.jameshnsears.quoteunquote.utils.ui.ToastHelper;
+
+import java.util.concurrent.ConcurrentHashMap;
+
+import timber.log.Timber;
+
 public class CloudServiceSend extends Service {
-    private static final String LOG_TAG = CloudServiceSend.class.getSimpleName();
+    public static boolean isRunning = false;
+    @NonNull
+    public final Handler handler = new Handler(Looper.getMainLooper());
+    @Nullable
+    public final CloudFavourites cloudFavourites = getCloudFavourites();
 
-    protected Handler handler = new Handler(Looper.getMainLooper());
-
-    public static boolean isRunning(Context context) {
-        final ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-
-        for (final ActivityManager.RunningServiceInfo runningServiceInfo : activityManager.getRunningServices(Integer.MAX_VALUE)) {
-            if (runningServiceInfo.service.getClassName().equals(CloudServiceSend.class.getName())) {
-                return true;
-            }
-        }
-        return false;
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Timber.d("%b", isRunning);
+        isRunning = false;
+        CloudFavourites.shutdown();
     }
 
-    @Nullable
     @Override
-    public IBinder onBind(Intent intent) {
+    @Nullable
+    public IBinder onBind(@NonNull final Intent intent) {
         return null;
     }
 
     @Override
-    public void onDestroy() {
-        Log.d(LOG_TAG, String.format("%s", new Object() {
-        }.getClass().getEnclosingMethod().getName()));
+    public int onStartCommand(
+            @NonNull final Intent intent,
+            final int flags,
+            final int startId) {
 
-        super.onDestroy();
-    }
+        if (!isRunning) {
+            isRunning = true;
 
-    private void showNoNetworkToast(Context context) {
-        handler.post(() -> ToastHelper.makeToast(
-                context,
-                context.getString(R.string.fragment_content_favourites_share_comms),
-                Toast.LENGTH_SHORT));
-    }
+            new Thread(() -> {
+                Timber.d("isRunning=%b", isRunning);
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(LOG_TAG, String.format("%s", new Object() {
-        }.getClass().getEnclosingMethod().getName()));
+                final Context context = getServiceContext();
 
-        new Thread(() -> {
-            final Context context = CloudServiceSend.this.getApplicationContext();
-
-            final CloudFavourites cloudFavourites = new CloudFavourites();
-
-            try {
                 if (!cloudFavourites.isInternetAvailable()) {
-                    showNoNetworkToast(context);
+                    CloudServiceHelper.showNoNetworkToast(context, handler);
                 } else {
                     handler.post(() -> ToastHelper.makeToast(
                             context,
@@ -76,24 +66,36 @@ public class CloudServiceSend extends Service {
 
                         handler.post(() -> ToastHelper.makeToast(
                                 context,
-                                context.getString(R.string.fragment_content_favourites_share_sent, intent.getStringExtra("localCodeValue")),
+                                context.getString(R.string.fragment_content_favourites_share_sent),
                                 Toast.LENGTH_LONG));
 
-                        CloudFavouritesHelper.auditFavourites(
-                                AuditEventHelper.FAVOURITE_SEND,
-                                intent.getStringExtra("localCodeValue"));
+                        final ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
+                        properties.put("code", intent.getStringExtra("localCodeValue"));
+                        AuditEventHelper.auditEvent("FAVOURITE_SEND", properties);
+
                     } else {
-                        showNoNetworkToast(context);
+                        CloudServiceHelper.showNoNetworkToast(context, handler);
                     }
                 }
 
-                stopSelf();
-            } finally {
-                cloudFavourites.shutdown();
-            }
+                isRunning = false;
+                Timber.d("isRunning=%b", isRunning);
 
-        }).start();
+                stopSelf();
+
+            }).start();
+        }
 
         return START_NOT_STICKY;
+    }
+
+    @NonNull
+    public CloudFavourites getCloudFavourites() {
+        return new CloudFavourites();
+    }
+
+    @Nullable
+    public Context getServiceContext() {
+        return CloudServiceSend.this.getApplicationContext();
     }
 }

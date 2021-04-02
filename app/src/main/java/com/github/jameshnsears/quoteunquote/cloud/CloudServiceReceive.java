@@ -7,48 +7,70 @@ import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
-import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.github.jameshnsears.quoteunquote.R;
-import com.github.jameshnsears.quoteunquote.audit.AuditEventHelper;
-import com.github.jameshnsears.quoteunquote.configure.fragment.content.FragmentContent;
+import com.github.jameshnsears.quoteunquote.configure.fragment.content.ContentFragment;
 import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
-import com.github.jameshnsears.quoteunquote.utils.ToastHelper;
+import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
+import com.github.jameshnsears.quoteunquote.utils.ui.ToastHelper;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+
+import timber.log.Timber;
 
 public class CloudServiceReceive extends Service {
-    private static final String LOG_TAG = CloudServiceReceive.class.getSimpleName();
-
+    public boolean isRunning = false;
+    @NonNull
     private final IBinder binder = new LocalBinder();
-
-    protected Handler handler = new Handler(Looper.getMainLooper());
+    @NonNull
+    private final Handler handler = getHandler();
+    @NonNull
+    private final CloudFavourites cloudFavourites = getCloudFavourites();
 
     @Override
-    public IBinder onBind(Intent intent) {
+    public void onDestroy() {
+        super.onDestroy();
+        isRunning = false;
+        Timber.d("%b", isRunning);
+        CloudFavourites.shutdown();
+    }
+
+    @NonNull
+    protected Handler getHandler() {
+        return new Handler(Looper.getMainLooper());
+    }
+
+    @NonNull
+    protected DatabaseRepository getDatabaseRepository(@NonNull Context context) {
+        return DatabaseRepository.getInstance(context);
+    }
+
+    @Override
+    @NonNull
+    public IBinder onBind(@NonNull final Intent intent) {
         return binder;
     }
 
-    private void showNoNetworkToast(Context context) {
-        handler.post(() -> ToastHelper.makeToast(
-                context,
-                context.getString(R.string.fragment_content_favourites_share_comms),
-                Toast.LENGTH_SHORT));
-    }
+    public void receive(
+            @NonNull final ContentFragment contentFragment,
+            @NonNull final String remoteCodeValue) {
 
-    public void receive(FragmentContent fragmentContent, String remoteCodeValue) {
-        Log.d(LOG_TAG, String.format("%s", new Object() {
-        }.getClass().getEnclosingMethod().getName()));
+        if (!isRunning) {
+            isRunning = true;
 
-        new Thread(() -> {
-            final Context context = CloudServiceReceive.this.getApplicationContext();
+             new Thread(() -> {
+                Timber.d("isRunning=%b", isRunning);
 
-            final CloudFavourites cloudFavourites = new CloudFavourites();
+                final Context context = getServiceContext();
 
-            try {
+
                 if (!cloudFavourites.isInternetAvailable()) {
-                    showNoNetworkToast(context);
+                    CloudServiceHelper.showNoNetworkToast(context, handler);
                 } else {
                     handler.post(() -> ToastHelper.makeToast(
                             context,
@@ -56,38 +78,49 @@ public class CloudServiceReceive extends Service {
                             Toast.LENGTH_LONG));
 
                     final List<String> favouritesReceived = cloudFavourites.receive(
-                            CloudFavourites.TIMEOUT,
-                            CloudFavouritesHelper.receiveRequest(remoteCodeValue));
+                            CloudFavourites.TIMEOUT_SECONDS,
+                            CloudFavouritesHelper.jsonReceiveRequest(remoteCodeValue)).digests;
 
-                    if (favouritesReceived.isEmpty()) {
+                    if (favouritesReceived == null) {
                         handler.post(() -> ToastHelper.makeToast(
                                 context, context.getString(R.string.fragment_content_favourites_share_missing), Toast.LENGTH_LONG));
                     } else {
                         handler.post(() -> ToastHelper.makeToast(
                                 context, context.getString(R.string.fragment_content_favourites_share_received), Toast.LENGTH_LONG));
 
-                        final DatabaseRepository databaseRepository = new DatabaseRepository(context);
-                        favouritesReceived.forEach(databaseRepository::markAsFavourite);
+                        favouritesReceived.forEach(getDatabaseRepository(context)::markAsFavourite);
 
-                        if (fragmentContent != null) {
-                            fragmentContent.setCountFavourites();
-                            fragmentContent.enableFavouriteReceiveButton(true);
+                        if (contentFragment != null) {
+                            contentFragment.setFavouriteCount();
                         }
 
-                        CloudFavouritesHelper.auditFavourites(
-                                AuditEventHelper.FAVOURITE_RECEIVE,
-                                remoteCodeValue);
+                        final ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
+                        properties.put("code", remoteCodeValue);
+                        AuditEventHelper.auditEvent("FAVOURITE_RECEIVE", properties);
                     }
                 }
-            } finally {
-                cloudFavourites.shutdown();
-            }
-        }).start();
+
+                isRunning = false;
+                Timber.d("isRunning=%b", isRunning);
+
+            }).start();
+        }
+    }
+
+    @NonNull
+    protected CloudFavourites getCloudFavourites() {
+        return new CloudFavourites();
     }
 
     public class LocalBinder extends Binder {
+        @NonNull
         public CloudServiceReceive getService() {
             return CloudServiceReceive.this;
         }
+    }
+
+    @Nullable
+    public Context getServiceContext() {
+        return CloudServiceReceive.this.getApplicationContext();
     }
 }

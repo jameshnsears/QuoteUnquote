@@ -1,10 +1,15 @@
 package com.github.jameshnsears.quoteunquote.database;
 
 import android.content.Context;
-import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.github.jameshnsears.quoteunquote.BuildConfig;
+import com.github.jameshnsears.quoteunquote.configure.fragment.content.ContentPreferences;
 import com.github.jameshnsears.quoteunquote.database.history.AbstractHistoryDatabase;
+import com.github.jameshnsears.quoteunquote.database.history.CurrentDAO;
+import com.github.jameshnsears.quoteunquote.database.history.CurrentEntity;
 import com.github.jameshnsears.quoteunquote.database.history.FavouriteDAO;
 import com.github.jameshnsears.quoteunquote.database.history.FavouriteEntity;
 import com.github.jameshnsears.quoteunquote.database.history.PreviousDAO;
@@ -15,259 +20,323 @@ import com.github.jameshnsears.quoteunquote.database.quotation.AbstractQuotation
 import com.github.jameshnsears.quoteunquote.database.quotation.AuthorPOJO;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationDAO;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
-import com.github.jameshnsears.quoteunquote.utils.ContentType;
+import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 
 import java.security.SecureRandom;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 
 import io.reactivex.Single;
+import timber.log.Timber;
 
 public class DatabaseRepository {
+    @NonNull
     public static final String DEFAULT_QUOTATION_DIGEST = "1624c314";
-    private static final String LOG_TAG = DatabaseRepository.class.getSimpleName();
+    private static DatabaseRepository databaseRepository;
+    @NonNull
+    protected final SecureRandom secureRandom = new SecureRandom();
+    @Nullable
+    public PreviousDAO previousDAO;
+    @Nullable
     protected AbstractQuotationDatabase abstractQuotationDatabase;
+    @Nullable
     protected QuotationDAO quotationDAO;
+    @Nullable
     protected AbstractHistoryDatabase abstractHistoryDatabase;
-    protected PreviousDAO previousDAO;
+    @Nullable
     protected FavouriteDAO favouriteDAO;
+    @Nullable
     protected ReportedDAO reportedDAO;
-    protected SecureRandom secureRandom = new SecureRandom();
+    @Nullable
+    protected CurrentDAO currentDAO;
 
     public DatabaseRepository() {
+        //
     }
 
-    public DatabaseRepository(final Context context) {
+    private DatabaseRepository(@NonNull final Context context) {
         abstractQuotationDatabase = AbstractQuotationDatabase.getDatabase(context);
         quotationDAO = abstractQuotationDatabase.quotationsDAO();
         abstractHistoryDatabase = AbstractHistoryDatabase.getDatabase(context);
-        previousDAO = abstractHistoryDatabase.contentDAO();
+        previousDAO = abstractHistoryDatabase.previousDAO();
         favouriteDAO = abstractHistoryDatabase.favouritesDAO();
         reportedDAO = abstractHistoryDatabase.reportedDAO();
+        currentDAO = abstractHistoryDatabase.currentDAO();
+    }
+
+    public static void resetDatabaseInstances(@NonNull final Context context) {
+        AbstractQuotationDatabase.quotationDatabase = null;
+        AbstractHistoryDatabase.historyDatabase = null;
+        DatabaseRepository.getInstance(context);
+    }
+
+    public static synchronized DatabaseRepository getInstance(@NonNull final Context context) {
+        if (databaseRepository == null) {
+            databaseRepository = new DatabaseRepository(context);
+        }
+
+        return databaseRepository;
     }
 
     public Single<Integer> countAll() {
         return quotationDAO.countAll();
     }
 
-    public int countPrevious(final int widgetId, final ContentType contentType) {
-        return previousDAO.countPrevious(widgetId, contentType);
+    public int countPrevious(final int widgetId, @NonNull final ContentSelection contentSelection) {
+        return previousDAO.countPrevious(widgetId, contentSelection);
     }
 
-    public int countPrevious(final int widgetId, final ContentType contentType, final String criteria) {
+    public int positionInPrevious(
+            final int widgetId,
+            @NonNull final ContentPreferences contentPreferences) {
+
+        List<String> allPrevious = getPrevious(widgetId, contentPreferences.getContentSelection());
+        Collections.reverse(allPrevious);
+
+        int position = 0;
+        if (!allPrevious.isEmpty()) {
+            String currentDigest = getCurrentQuotation(widgetId).digest;
+            position = allPrevious.indexOf(currentDigest) + 1;
+        }
+
+        return position;
+    }
+
+    public int countNext(@NonNull final ContentPreferences contentPreferences) {
+        int countTotalNext;
+
+        switch (contentPreferences.getContentSelection()) {
+            case FAVOURITES:
+                countTotalNext = favouriteDAO.countFavourites().blockingGet();
+                break;
+
+            case AUTHOR:
+                countTotalNext = quotationDAO.getDigestsForAuthor(contentPreferences.getContentSelectionAuthor()).size();
+                break;
+
+            case SEARCH:
+                countTotalNext = quotationDAO.getSearchTextDigests(
+                        "%" + contentPreferences.getContentSelectionSearch() + "%").size();
+                break;
+
+            default:
+                // ALL:
+                countTotalNext = quotationDAO.countAll().blockingGet();
+                break;
+        }
+        return countTotalNext;
+    }
+
+    public int countPrevious(
+            final int widgetId,
+            @NonNull final ContentSelection contentSelection,
+            @NonNull final String criteria) {
         List<String> digestsPrevious;
         List<String> availableDigests;
 
-        if (contentType == ContentType.AUTHOR) {
-            digestsPrevious = previousDAO.getPrevious(widgetId, ContentType.AUTHOR);
-            availableDigests = quotationDAO.getAuthors(criteria);
+        if (contentSelection == ContentSelection.AUTHOR) {
+            digestsPrevious = previousDAO.getAllPrevious(widgetId, ContentSelection.AUTHOR);
+            availableDigests = quotationDAO.getDigestsForAuthor(criteria);
         } else {
-            digestsPrevious = previousDAO.getPrevious(widgetId, ContentType.QUOTATION_TEXT);
-            availableDigests = quotationDAO.getQuotationText("%" + criteria + "%");
+            digestsPrevious = previousDAO.getAllPrevious(widgetId, ContentSelection.SEARCH);
+            availableDigests = quotationDAO.getSearchTextDigests("%" + criteria + "%");
         }
 
-        int countDigestInPrevious = 0;
+        int countPrevious = 0;
         for (final String digest : availableDigests) {
             if (digestsPrevious.contains(digest)) {
-                countDigestInPrevious++;
+                countPrevious++;
             }
         }
 
-        return countDigestInPrevious;
+        return countPrevious;
     }
 
+    @NonNull
     public Single<Integer> countFavourites() {
         return favouriteDAO.countFavourites();
     }
 
-    public QuotationEntity getNext(final int widgetId, final ContentType contentType) {
-        return getQuotation(previousDAO.getNext(widgetId, contentType).digest);
+    @NonNull
+    public QuotationEntity getNextQuotation(final int widgetId, @NonNull final ContentSelection contentSelection) {
+        return getQuotation(previousDAO.getPrevious(widgetId, contentSelection).digest);
     }
 
-    public List<String> getPrevious(final int widgetId, final ContentType contentType) {
-        final List<String> previousOrdered = previousDAO.getPrevious(widgetId, contentType);
-        logDigests(new Object() {
-        }.getClass().getEnclosingMethod().getName(), previousOrdered);
-
-        return previousOrdered;
+    @NonNull
+    public List<String> getPrevious(final int widgetId, @NonNull final ContentSelection contentSelection) {
+        return previousDAO.getAllPrevious(widgetId, contentSelection);
     }
 
+    @NonNull
     public List<String> getFavourites() {
-        final List<String> favouriteQuotations = favouriteDAO.getFavourites();
-        logDigests(new Object() {
-        }.getClass().getEnclosingMethod().getName(), favouriteQuotations);
-
-        return favouriteQuotations;
+        return favouriteDAO.getFavouriteDigests();
     }
 
-    public Single<List<AuthorPOJO>> getAuthorsWithAtLeastFiveQuotations() {
-        return quotationDAO.authorsWithAtLeastFiveQuotations();
-    }
-
-    public Single<List<AuthorPOJO>> getAuthors() {
-        return quotationDAO.authors();
-    }
-
-    public Integer countQuotationsText(final String text) {
-        if ("".equals(text)) {
-            return 0;
-        } else {
-            return quotationDAO.countQuotationsText("%" + text + "%");
+    @NonNull
+    public Single<List<AuthorPOJO>> getAuthorsAndQuotationCounts() {
+        if (BuildConfig.DEBUG) {
+            return quotationDAO.getAuthorsAndQuotationCounts(1);
         }
+        return quotationDAO.getAuthorsAndQuotationCounts(5);
+    }
+
+    @NonNull
+    public Integer countSearchText(@NonNull final String text) {
+        return quotationDAO.countSearchText("%" + text + "%");
     }
 
     public QuotationEntity getQuotation(final String digest) {
         return quotationDAO.getQuotation(digest);
     }
 
-    public void markAsPrevious(final int widgetId, final ContentType contentType, final String digest) {
-        Log.d(LOG_TAG, String.format("%d: %s: contentType=%d; digest=%s", widgetId,
-                new Object() {
-                }.getClass().getEnclosingMethod().getName(),
-                contentType.getContentType(), digest));
-
-        previousDAO.markAsPrevious(new PreviousEntity(widgetId, contentType, digest));
+    public void markAsPrevious(
+            final int widgetId,
+            @NonNull final ContentSelection contentSelection,
+            @NonNull final String digest) {
+        Timber.d("contentType=%d; digest=%s", contentSelection.getContentSelection(), digest);
+        previousDAO.markAsPrevious(new PreviousEntity(widgetId, contentSelection, digest));
     }
 
-    public void markAsFavourite(final String digest) {
-        Log.d(LOG_TAG, String.format("%s: digest=%s",
-                new Object() {
-                }.getClass().getEnclosingMethod().getName(), digest));
-
-        if (favouriteDAO.countIsFavourite(digest) == 0 && quotationDAO.getQuotation(digest) != null) {
+    public void markAsFavourite(@NonNull final String digest) {
+        if (favouriteDAO.isFavourite(digest) == 0) {
+            Timber.d("digest=%s", digest);
             favouriteDAO.markAsFavourite(new FavouriteEntity(digest));
         }
     }
 
-    public void markAsReported(final String digest) {
-        if (reportedDAO.countIsReported(digest) == 0) {
-            Log.d(LOG_TAG, String.format("%s: digest=%s",
-                    new Object() {
-                    }.getClass().getEnclosingMethod().getName(),
-                    digest));
-            reportedDAO.markAsReported(new ReportedEntity(digest));
-        }
+    public void markAsReported(@NonNull final String digest) {
+        Timber.d("digest=%s", digest);
+        reportedDAO.markAsReported(new ReportedEntity(digest));
     }
 
-    public QuotationEntity getNextRandom(final int widgetId, final ContentType contentType, final String searchString)
-            throws NoNextQuotationAvailableException {
-        Log.d(LOG_TAG, String.format(Locale.ENGLISH,
-                "%d: %s: contentType=%d; searchString=%s", widgetId,
-                new Object() {
-                }.getClass().getEnclosingMethod().getName(),
-                contentType.getContentType(), searchString));
+    public void markAsCurrent(
+            final int widgetId,
+            @NonNull final String digest) {
+        Timber.d("digest=%s", digest);
+        currentDAO.erase(widgetId);
+        currentDAO.markAsCurrent(new CurrentEntity(widgetId, digest));
+    }
 
-        List<String> availableQuotations = new ArrayList<>();
+    public QuotationEntity getCurrentQuotation(final int widgetId) {
+        QuotationEntity quotationEntity = getQuotation(currentDAO.getCurrentDigest(widgetId));
+        if (quotationEntity != null) {
+            Timber.d("digest=%s", quotationEntity.digest);
+        }
+        return quotationEntity;
+    }
 
-        switch (contentType) {
-            case ALL:
-                availableQuotations
-                        = quotationDAO.getAll(
-                        getPrevious(widgetId, contentType));
-                break;
+    @NonNull
+    public QuotationEntity getNextQuotation(
+            final int widgetId,
+            @NonNull final ContentSelection contentSelection,
+            @Nullable final String searchString,
+            final boolean randomNext) {
+        Timber.d("contentType=%d; searchString=%s", contentSelection.getContentSelection(), searchString);
 
+        List<String> nextQuotationDigests = getNextQuotationDigests(widgetId, contentSelection, searchString);
+
+        QuotationEntity currentQuotation = getCurrentQuotation(widgetId);
+        QuotationEntity nextQuotation;
+
+        if (!randomNext) {
+            List<String> previousQuotations = getPrevious(widgetId, contentSelection);
+
+            if (previousQuotations.isEmpty()) {
+                nextQuotation = getQuotation(nextQuotationDigests.get(0));
+            } else {
+                int indexInPrevious = previousQuotations.indexOf(currentQuotation.digest);
+
+                if (indexInPrevious != 0) {
+                    // move through previous quotations
+                    indexInPrevious -= 1;
+                    nextQuotation = getQuotation(previousQuotations.get(indexInPrevious));
+                } else {
+                    if (!nextQuotationDigests.isEmpty()) {
+                        // use a new quotation
+                        nextQuotation = getQuotation(nextQuotationDigests.get(0));
+                    } else {
+                        // we've run out of new quotations
+                        nextQuotation = currentQuotation;
+                    }
+                }
+            }
+        } else {
+            if (!nextQuotationDigests.isEmpty()) {
+                nextQuotation = getQuotation(nextQuotationDigests.get(getRandomIndex(nextQuotationDigests)));
+            } else {
+                // we've run out of new quotations
+                nextQuotation = currentQuotation;
+            }
+        }
+
+        return nextQuotation;
+    }
+
+    private List<String> getNextQuotationDigests(int widgetId, @NonNull ContentSelection contentSelection, @Nullable String searchString) {
+        List<String> nextQuotationDigests;
+        switch (contentSelection) {
             case FAVOURITES:
-                availableQuotations
-                        = favouriteDAO.getFavourites(getPrevious(widgetId, contentType));
+                nextQuotationDigests
+                        = favouriteDAO.getNextFavouriteDigests(getPrevious(widgetId, contentSelection));
                 break;
 
             case AUTHOR:
-                availableQuotations
-                        = quotationDAO.getAuthors(
-                        searchString, getPrevious(widgetId, contentType));
+                nextQuotationDigests
+                        = quotationDAO.getNextAuthorDigest(
+                        searchString, getPrevious(widgetId, contentSelection));
                 break;
 
-            case QUOTATION_TEXT:
-                availableQuotations
-                        = quotationDAO.getQuotationText(
-                        "%" + searchString + "%", getPrevious(widgetId, contentType));
+            case SEARCH:
+                nextQuotationDigests
+                        = quotationDAO.getNextSearchTextDigests(
+                        "%" + searchString + "%", getPrevious(widgetId, contentSelection));
                 break;
 
             default:
-                Log.e(LOG_TAG, contentType.getContentType().toString());
+                // ALL:
+                nextQuotationDigests
+                        = quotationDAO.getNextAllDigests(
+                        getPrevious(widgetId, contentSelection));
                 break;
         }
-
-        if (availableQuotations.isEmpty()) {
-            throw new NoNextQuotationAvailableException(contentType);
-        }
-
-        return getQuotation(availableQuotations.get(geRandomIndex(availableQuotations)));
+        return nextQuotationDigests;
     }
 
-    public int geRandomIndex(final List<String> availableNextQuotations) {
-        if (BuildConfig.USE_PROD_QUOTATION_ORDER) {
-            return secureRandom.nextInt(availableNextQuotations.size());
-        } else {
-            return 0;
-        }
+    public int getRandomIndex(@NonNull final List<String> availableNextQuotations) {
+        return secureRandom.nextInt(availableNextQuotations.size());
     }
 
-    private void logDigests(final String source, final List<String> digests) {
-        int index = 0;
-        for (final String digest : digests) {
-            Log.d(LOG_TAG, String.format("%s: index=%d, digest=%s", source, index, digest));
-            index += 1;
-        }
-    }
-
-    public void deleteFavourite(final int widgetId, final String digest) {
-        Log.d(LOG_TAG, String.format("%d: %s: digest=%s", widgetId,
-                new Object() {
-                }.getClass().getEnclosingMethod().getName(),
-                digest));
-
+    public void eraseFavourite(final int widgetId, @NonNull final String digest) {
+        Timber.d("digest=%s", digest);
         favouriteDAO.deleteFavourite(digest);
-        previousDAO.deletePrevious(widgetId, ContentType.FAVOURITES, digest);
+        previousDAO.erase(widgetId, ContentSelection.FAVOURITES, digest);
     }
 
-    public void deleteFavourites() {
-        Log.d(LOG_TAG, String.format("%s",
-                new Object() {
-                }.getClass().getEnclosingMethod().getName()));
-
-        favouriteDAO.deleteFavourites();
+    public void erase() {
+        previousDAO.erase();
+        currentDAO.erase();
+        favouriteDAO.erase();
+        reportedDAO.erase();
     }
 
-    public void deletePrevious(final int widgetId, final ContentType contentType) {
-        Log.d(LOG_TAG, String.format("%d: %s: contentType=%d", widgetId,
-                new Object() {
-                }.getClass().getEnclosingMethod().getName(),
-                contentType.getContentType()));
-
-        previousDAO.deletePrevious(widgetId, contentType);
+    public void erase(final int widgetId) {
+        previousDAO.erase(widgetId);
+        currentDAO.erase(widgetId);
     }
 
-    public void deletePrevious() {
-        Log.d(LOG_TAG, String.format("%s",
-                new Object() {
-                }.getClass().getEnclosingMethod().getName()));
-
-        previousDAO.deletePrevious();
+    public void erase(final int widgetId, @NonNull final ContentSelection contentSelection) {
+        Timber.d("contentType=%d", contentSelection.getContentSelection());
+        previousDAO.erase(widgetId, contentSelection);
+        currentDAO.erase(widgetId);
     }
 
-    public void deletePrevious(final int widgetId) {
-        Log.d(LOG_TAG, String.format("%d: %s", widgetId,
-                new Object() {
-                }.getClass().getEnclosingMethod().getName()));
-
-        previousDAO.deletePrevious(widgetId);
+    @NonNull
+    public Boolean isFavourite(@NonNull final String digest) {
+        return favouriteDAO.isFavourite(digest) > 0;
     }
 
-    public void deleteReported() {
-        Log.d(LOG_TAG, String.format("%s",
-                new Object() {
-                }.getClass().getEnclosingMethod().getName()));
-
-        reportedDAO.deleteReported();
-    }
-
-    public Integer countIsFavourite(final String digest) {
-        return favouriteDAO.countIsFavourite(digest);
-    }
-
-    public Integer countIsReported(final String digest) {
-        return reportedDAO.countIsReported(digest);
+    @NonNull
+    public Boolean isReported(@NonNull final String digest) {
+        return reportedDAO.isReported(digest) > 0;
     }
 }

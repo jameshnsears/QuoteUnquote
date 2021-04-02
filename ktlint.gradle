@@ -1,0 +1,24 @@
+configurations.create("ktlint")
+
+dependencies {
+    ktlint 'com.pinterest:ktlint:0.41.0'
+}
+
+task ktlint(type: JavaExec, group: "verification") {
+    group = "QuoteUnquote"
+    description 'ktlint'
+
+    classpath = configurations.ktlint
+    main = "com.pinterest.ktlint.Main"
+    args = ["--disabled_rules=import-ordering", "src/**/*.kt"]
+}
+check.dependsOn ktlint
+
+task ktlintFormat(type: JavaExec, group: "formatting") {
+    group = "QuoteUnquote"
+    description 'ktlintFormat'
+
+    classpath = configurations.ktlint
+    main = "com.pinterest.ktlint.Main"
+    args "-F", "src/**/*.kt"
+}

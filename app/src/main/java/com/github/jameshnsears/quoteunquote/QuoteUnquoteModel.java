@@ -1,410 +1,568 @@
 package com.github.jameshnsears.quoteunquote;
 
 import android.content.Context;
-import android.util.Log;
 
-import com.github.jameshnsears.quoteunquote.audit.AuditEventHelper;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.github.jameshnsears.quoteunquote.cloud.CloudFavouritesHelper;
+import com.github.jameshnsears.quoteunquote.cloud.SaveRequest;
+import com.github.jameshnsears.quoteunquote.configure.fragment.content.ContentPreferences;
 import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
-import com.github.jameshnsears.quoteunquote.database.NoNextQuotationAvailableException;
+import com.github.jameshnsears.quoteunquote.database.quotation.AuthorPOJO;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
-import com.github.jameshnsears.quoteunquote.utils.ContentType;
-import com.github.jameshnsears.quoteunquote.utils.Preferences;
-import com.microsoft.appcenter.Flags;
+import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
+import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-public class QuoteUnquoteModel {
-    private static final String LOG_TAG = QuoteUnquoteModel.class.getSimpleName();
+import io.reactivex.Single;
+import timber.log.Timber;
 
-    public final ExecutorService executorService = Executors.newFixedThreadPool(3);
-    protected DatabaseRepository databaseRepository;
+public class QuoteUnquoteModel {
+    @Nullable
+    public DatabaseRepository databaseRepository;
+    @Nullable
     protected Context context;
 
     public QuoteUnquoteModel() {
     }
 
-    public QuoteUnquoteModel(final Context context) {
-        Log.d(LOG_TAG, "QuoteUnquoteModel");
-
-        this.context = context;
-        databaseRepository = new DatabaseRepository(context);
+    public QuoteUnquoteModel(@NonNull final Context widgetContext) {
+        context = widgetContext;
+        databaseRepository = DatabaseRepository.getInstance(this.context);
     }
 
-    public void shutdown() {
-        Log.d(LOG_TAG, String.format("%s", new Object() {
-        }.getClass().getEnclosingMethod().getName()));
+    private boolean isNextNew(
+            final int widgetId, @NonNull ContentPreferences contentPreferences, final boolean randomNext) {
+        int availableQuotations = databaseRepository.countNext(contentPreferences);
 
-        if (executorService != null) {
-            executorService.shutdown();
+        if (databaseRepository.positionInPrevious(widgetId, contentPreferences) == availableQuotations) {
+            return false;
         }
+
+        return !randomNext
+                || databaseRepository.countPrevious(widgetId, contentPreferences.getContentSelection())
+                != availableQuotations;
     }
 
-    public void setDefaultQuotation(final int widgetId) {
-        final String logMsg = String.format(Locale.ENGLISH, "%d: %s", widgetId,
-                new Object() {
-                }.getClass().getEnclosingMethod().getName());
-        Log.d(LOG_TAG, logMsg);
-
-        final Future future = executorService.submit(() -> {
-            Thread.currentThread().setName(Thread.currentThread().getId() + ": " + logMsg);
-
-            databaseRepository.markAsPrevious(
-                    widgetId,
-                    ContentType.ALL,
-                    databaseRepository.getQuotation(DatabaseRepository.DEFAULT_QUOTATION_DIGEST).digest);
-        });
-
-        try {
-            future.get();
-        } catch (ExecutionException | InterruptedException e) {
-            Log.w(LOG_TAG, e.toString());
-            Thread.currentThread().interrupt();
-        }
+    @NonNull
+    public ContentPreferences getContentPreferences(int widgetId) {
+        return new ContentPreferences(widgetId, context);
     }
 
-    public void setNext(final int widgetId, final ContentType contentType)
-            throws NoNextQuotationAvailableException {
-        final String logMsg = String.format(Locale.ENGLISH, "%d: %s: contentType=%d", widgetId,
-                new Object() {
-                }.getClass().getEnclosingMethod().getName(),
-                contentType.getContentType());
-        Log.d(LOG_TAG, logMsg);
+    @Nullable
+    public QuotationEntity getPrevious(
+            final int widgetId,
+            @NonNull final ContentSelection contentSelection,
+            @NonNull final String digest) {
 
-        final Future<Boolean> future = executorService.submit(() -> {
-            Thread.currentThread().setName(Thread.currentThread().getId() + ": " + logMsg);
+        final Future<QuotationEntity> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
 
-            try {
-                QuotationEntity quotationEntity = null;
+            List<String> previousDigests = getPrevious(widgetId, contentSelection);
 
-                switch (contentType) {
-                    case ALL:
-                    case FAVOURITES:
-                        quotationEntity = databaseRepository.getNextRandom(
-                                widgetId, contentType, null);
-                        break;
-                    case AUTHOR:
-                        quotationEntity = databaseRepository.getNextRandom(
-                                widgetId, contentType, getPreferencesAuthorSearch(widgetId));
-                        break;
-                    case QUOTATION_TEXT:
-                        quotationEntity = databaseRepository.getNextRandom(
-                                widgetId, contentType, getPreferencesTextSearch(widgetId));
-                        break;
-                    case REPORT:
-                        break;
-                }
-
-                databaseRepository.markAsPrevious(widgetId, contentType, quotationEntity.digest);
-                return true;
-            } catch (NoNextQuotationAvailableException e) {
-                return false;
-            }
-        });
-
-        try {
-            if (!future.get()) {
-                throw new NoNextQuotationAvailableException(contentType);
-            }
-        } catch (ExecutionException | InterruptedException e) {
-            Log.w(LOG_TAG, e.toString());
-            Thread.currentThread().interrupt();
-        }
-    }
-
-    public String getPreferencesAuthorSearch(final int widgetId) {
-        final Preferences preferences = new Preferences(widgetId, context);
-        return preferences.getSharedPreferenceString(Preferences.FRAGMENT_CONTENT, Preferences.SPINNER_AUTHORS);
-    }
-
-    public String getPreferencesTextSearch(final int widgetId) {
-        final Preferences preferences = new Preferences(widgetId, context);
-        return preferences.getSharedPreferenceString(Preferences.FRAGMENT_CONTENT, Preferences.EDIT_TEXT_KEYWORDS);
-    }
-
-    public QuotationEntity getNext(final int widgetId, final ContentType contentType) {
-        final String logMsg = String.format(Locale.ENGLISH, "%d: %s: contentType=%s", widgetId,
-                new Object() {
-                }.getClass().getEnclosingMethod().getName(),
-                contentType.getContentType());
-        Log.d(LOG_TAG, logMsg);
-
-        final Future<QuotationEntity> future = executorService.submit(() -> {
-            Thread.currentThread().setName(Thread.currentThread().getId() + ": " + logMsg);
-
-            // check for first time use
-            try {
-                switch (contentType) {
-                    case ALL:
-                        if (countPrevious(widgetId, contentType) == 0) {
-                            setDefaultQuotation(widgetId);
-                        }
-                        break;
-
-                    case AUTHOR:
-                        if (countPreviousAuthor(widgetId) == 0) {
-                            databaseRepository.deletePrevious(widgetId, contentType);
-                            setNext(widgetId, contentType);
-                        }
-                        break;
-
-                    case FAVOURITES:
-                        if (countPrevious(widgetId, contentType) == 0) {
-                            setNext(widgetId, contentType);
-                        }
-                        break;
-
-                    case QUOTATION_TEXT:
-                        if (countPreviousQuotationText(widgetId) == 0) {
-                            databaseRepository.deletePrevious(widgetId, contentType);
-                            setNext(widgetId, contentType);
-                        }
-                        break;
-
-                    default:
-                        Log.e(LOG_TAG, contentType.getContentType().toString());
-                        break;
-                }
-            } catch (NoNextQuotationAvailableException e) {
-                Log.w(LOG_TAG, e.getMessage());
+            int priorDigestIndex = previousDigests.indexOf(digest) + 1;
+            if (priorDigestIndex == previousDigests.size()) {
+                priorDigestIndex -= 1;
             }
 
-            return databaseRepository.getNext(widgetId, contentType);
+            return databaseRepository.getQuotation(previousDigests.get(priorDigestIndex));
         });
 
         QuotationEntity quotationEntity = null;
+
         try {
             quotationEntity = future.get();
-        } catch (ExecutionException | InterruptedException e) {
-            Log.w(LOG_TAG, e.toString());
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
             Thread.currentThread().interrupt();
         }
 
         return quotationEntity;
     }
 
-    public int countPrevious(final int widgetId, final ContentType contentType) {
-        return databaseRepository.countPrevious(widgetId, contentType);
+    @Nullable
+    public QuotationEntity getCurrentQuotation(
+            final int widgetId) {
+
+        final Future<QuotationEntity> future = QuoteUnquoteWidget.getExecutorService().submit(() ->
+                databaseRepository.getCurrentQuotation(widgetId));
+
+        QuotationEntity quotationEntity = null;
+
+        try {
+            quotationEntity = future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
+            Thread.currentThread().interrupt();
+        }
+
+        return quotationEntity;
+    }
+
+    @Nullable
+    public String getCurrentPosition(
+            final int widgetId,
+            @NonNull final ContentPreferences contentPreferences) {
+        final Future<String> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+            int positionInPrevious = databaseRepository.positionInPrevious(widgetId, contentPreferences);
+
+            if (positionInPrevious == 0) {
+                positionInPrevious += 1;
+            }
+
+            return String.format("@ %d/%d",
+                    positionInPrevious,
+                    databaseRepository.countNext(contentPreferences));
+        });
+
+        String currentPosition = null;
+
+        try {
+            currentPosition = future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
+            Thread.currentThread().interrupt();
+        }
+
+        Timber.d("%s; %s", contentPreferences.toString(), currentPosition);
+
+        return currentPosition;
+    }
+
+    public void markAsCurrentNext(
+            final int widgetId,
+            final boolean randomNext) {
+        Timber.d("%b", randomNext);
+
+        final ContentPreferences contentPreferences = getContentPreferences(widgetId);
+
+        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+            QuotationEntity nextQuotation = getNextQuotation(widgetId, randomNext);
+
+            List<String> previous = getPrevious(widgetId, contentPreferences.getContentSelection());
+
+            if (!previous.contains(nextQuotation.digest)) {
+                databaseRepository.markAsPrevious(
+                        widgetId,
+                        contentPreferences.getContentSelection(),
+                        nextQuotation.digest);
+            } else {
+                if (!isNextNew(widgetId, contentPreferences, randomNext) && randomNext) {
+                    nextQuotation = databaseRepository.getQuotation(previous.get(0));
+                }
+            }
+
+            databaseRepository.markAsCurrent(
+                    widgetId,
+                    nextQuotation.digest);
+        });
+
+        try {
+            future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    @NonNull
+    public QuotationEntity getNextQuotation(
+            final int widgetId,
+            final boolean randomNext) {
+        QuotationEntity nextQuotation;
+
+        switch (getContentPreferences(widgetId).getContentSelection()) {
+            case FAVOURITES:
+                nextQuotation = databaseRepository.getNextQuotation(
+                        widgetId,
+                        ContentSelection.FAVOURITES,
+                        null,
+                        randomNext);
+                break;
+            case AUTHOR:
+                nextQuotation = databaseRepository.getNextQuotation(
+                        widgetId,
+                        ContentSelection.AUTHOR,
+                        getContentPreferences(widgetId).getContentSelectionAuthor(),
+                        randomNext);
+                break;
+            case SEARCH:
+                nextQuotation = databaseRepository.getNextQuotation(
+                        widgetId,
+                        ContentSelection.SEARCH,
+                        getContentPreferences(widgetId).getContentSelectionSearch(),
+                        randomNext);
+                break;
+            default:
+                nextQuotation = databaseRepository.getNextQuotation(
+                        widgetId,
+                        ContentSelection.ALL,
+                        null,
+                        randomNext);
+                break;
+        }
+
+        return nextQuotation;
+    }
+
+    public void markAsCurrentDefault(
+            final int widgetId) {
+        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+            ContentSelection contentSelection = getContentPreferences(widgetId).getContentSelection();
+
+            setDefault(widgetId, contentSelection);
+
+            QuotationEntity quotationEntity
+                    = databaseRepository.getNextQuotation(widgetId, contentSelection);
+
+            databaseRepository.markAsCurrent(
+                    widgetId,
+                    quotationEntity.digest);
+        });
+
+        try {
+            future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    private void setDefault(
+            final int widgetId, @NonNull final ContentSelection contentSelection) {
+        switch (contentSelection) {
+            case AUTHOR:
+                setDefaultAuthor(widgetId);
+                break;
+
+            case FAVOURITES:
+                setDefaultFavourite(widgetId);
+                break;
+
+            case SEARCH:
+                setDefaultSearch(widgetId);
+                break;
+
+            default:
+                setDefaultAll(widgetId);
+                break;
+        }
+    }
+
+    public List<String> getPrevious(
+            final int widgetId,
+            @NonNull final ContentSelection contentSelection) {
+        final Future<List<String>> future = QuoteUnquoteWidget.getExecutorService().submit(() ->
+                databaseRepository.getPrevious(widgetId, contentSelection));
+
+        List<String> allPreviousDigests = new ArrayList<>();
+
+        try {
+            allPreviousDigests = future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
+            Thread.currentThread().interrupt();
+        }
+
+        for (String previousDigest: allPreviousDigests) {
+            Timber.d(previousDigest);
+        }
+        Timber.d("%d", allPreviousDigests.size());
+
+        return allPreviousDigests;
+    }
+
+    private void setDefaultAuthor(int widgetId) {
+        if (countPreviousAuthor(widgetId) == 0) {
+            databaseRepository.erase(widgetId, ContentSelection.AUTHOR);
+            markAsCurrentNext(widgetId, false);
+        }
+    }
+
+    private void setDefaultFavourite(int widgetId) {
+        if (countPrevious(widgetId, ContentSelection.FAVOURITES) == 0) {
+            markAsCurrentNext(widgetId, false);
+        }
+    }
+
+    private void setDefaultSearch(int widgetId) {
+        if (countPreviousSearch(widgetId) == 0) {
+            databaseRepository.erase(widgetId, ContentSelection.SEARCH);
+            markAsCurrentNext(widgetId, false);
+        }
+    }
+
+    private void setDefaultAll(final int widgetId) {
+        if (countPrevious(widgetId, ContentSelection.ALL) == 0) {
+            databaseRepository.markAsPrevious(
+                    widgetId, ContentSelection.ALL, DatabaseRepository.DEFAULT_QUOTATION_DIGEST);
+        }
+    }
+
+    public int countPrevious(final int widgetId,
+                             @NonNull final ContentSelection contentSelection) {
+        return databaseRepository.countPrevious(widgetId, contentSelection);
     }
 
     public int countPreviousAuthor(final int widgetId) {
-        return databaseRepository.countPrevious(widgetId, ContentType.AUTHOR, getPreferencesAuthorSearch(widgetId));
+        return databaseRepository.countPrevious(widgetId, ContentSelection.AUTHOR,
+                getContentPreferences(widgetId).getContentSelectionAuthor());
     }
 
-    public int countPreviousQuotationText(final int widgetId) {
-        return databaseRepository.countPrevious(widgetId, ContentType.QUOTATION_TEXT, getPreferencesTextSearch(widgetId));
+    public int countPreviousSearch(final int widgetId) {
+        return databaseRepository.countPrevious(widgetId, ContentSelection.SEARCH,
+                getContentPreferences(widgetId).getContentSelectionSearch());
     }
 
-    public void toggleFavourite(final int widgetId, final String digest) {
-        final String logMsg = String.format(Locale.ENGLISH, "%d: %s: digest=%s", widgetId,
-                new Object() {
-                }.getClass().getEnclosingMethod().getName(),
-                digest);
-        Log.d(LOG_TAG, logMsg);
+    public int toggleFavourite(final int widgetId, @NonNull final String digest) {
 
-        final Future future = executorService.submit(() -> {
-            Thread.currentThread().setName(Thread.currentThread().getId() + ": " + logMsg);
-
-            if (!isFavourite(widgetId, digest)) {
-                databaseRepository.markAsFavourite(digest);
-
-                QuotationEntity quotationEntity = getNext(
-                        widgetId,
-                        getSelectedContentType(widgetId));
-
-                ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
-                properties.put("Favourite",
-                        "digest=" + digest + "; author=" + quotationEntity.author + "; quotation=" + quotationEntity.quotation);
-                AuditEventHelper.auditAppCenter(AuditEventHelper.FAVOURITE, properties, Flags.NORMAL);
-            } else {
-                databaseRepository.deleteFavourite(widgetId, digest);
-                try {
-                    if (databaseRepository.countFavourites().blockingGet() == 0) {
-                        if (isRadioButtonFavouriteSelected(widgetId)) {
-                            switchFromFavouriteToAllContent(widgetId);
-                            setNext(widgetId, ContentType.ALL);
-                        }
-                    } else {
-                        setNext(widgetId, ContentType.FAVOURITES);
-                    }
-                } catch (NoNextQuotationAvailableException e) {
-                    Log.w(LOG_TAG, e.getMessage());
-                }
+        final Future<Integer> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+            List<String> favourites = databaseRepository.getFavourites();
+            for (String favourite: favourites
+                 ) {
+                Timber.d(favourite);
             }
+            Timber.d("%d", favourites.size());
+
+            boolean isFavourite = favourites.contains(digest);
+
+            Timber.d("digest=%s; %b", digest, isFavourite);
+
+            if (!isFavourite) {
+                databaseRepository.markAsFavourite(digest);
+                auditFavourite(widgetId, digest);
+            } else {
+                databaseRepository.eraseFavourite(widgetId, digest);
+            }
+
+            return databaseRepository.countFavourites().blockingGet();
         });
 
+        int favouritesCount = 0;
         try {
-            future.get();
-        } catch (ExecutionException | InterruptedException e) {
-            Log.w(LOG_TAG, e.toString());
+            favouritesCount = future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
             Thread.currentThread().interrupt();
         }
+
+        return favouritesCount;
     }
 
-    public boolean isRadioButtonFavouriteSelected(final int widgetId) {
-        final Preferences preferences = new Preferences(widgetId, context);
-        return preferences.getSharedPreferenceBoolean(Preferences.FRAGMENT_CONTENT, Preferences.RADIO_BUTTON_FAVOURITES, false);
+    private void auditFavourite(int widgetId, @NonNull String digest) {
+        QuotationEntity quotationEntity = getCurrentQuotation(
+                widgetId);
+
+        ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
+        properties.put("Favourite",
+                "digest=" + digest + "; author=" + quotationEntity.author + "; quotation=" + quotationEntity.quotation);
+        AuditEventHelper.auditEvent("FAVOURITE", properties);
     }
 
-    public boolean isFavourite(final int widgetId, final String digest) {
-        final String logMsg = String.format(Locale.ENGLISH, "%d: %s: digest=%s", widgetId,
-                new Object() {
-                }.getClass().getEnclosingMethod().getName(),
-                digest);
-
-        final Future<Integer> future = executorService.submit(() -> {
-            Thread.currentThread().setName(Thread.currentThread().getId() + ": " + logMsg);
-            return databaseRepository.countIsFavourite(digest);
-        });
+    public boolean isFavourite(@NonNull final String digest) {
+        final Future<Boolean> future = QuoteUnquoteWidget.getExecutorService().submit(()
+                -> databaseRepository.isFavourite(digest));
 
         boolean isFavourite = false;
+
         try {
-            if (future.get() == 1) {
-                isFavourite = true;
-            }
-        } catch (ExecutionException | InterruptedException e) {
-            Log.w(LOG_TAG, e.toString());
+            isFavourite = future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
             Thread.currentThread().interrupt();
         }
-        Log.d(LOG_TAG, logMsg + "; isFavourite=" + isFavourite);
 
+        Timber.d("%b", isFavourite);
         return isFavourite;
     }
 
-    public void removeDatabaseEntriesForInstance(final int widgetId) {
-        final String logMsg = String.format(Locale.ENGLISH, "%d: %s", widgetId,
-                new Object() {
-                }.getClass().getEnclosingMethod().getName());
-        Log.d(LOG_TAG, logMsg);
-
-        final Future future = executorService.submit(() -> {
-            Thread.currentThread().setName(Thread.currentThread().getId() + ": " + logMsg);
-            databaseRepository.deletePrevious(widgetId);
-        });
+    public void delete(final int widgetId) {
+        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() ->
+                databaseRepository.erase(widgetId)
+        );
 
         try {
             future.get();
-        } catch (ExecutionException | InterruptedException e) {
-            Log.w(LOG_TAG, e.toString());
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
             Thread.currentThread().interrupt();
         }
     }
 
-    public void removeDatabaseEntriesForAllInstances() {
-        final String logMsg = String.format(Locale.ENGLISH, "%s",
-                new Object() {
-                }.getClass().getEnclosingMethod().getName());
-        Log.d(LOG_TAG, logMsg);
-
-        final Future future = executorService.submit(() -> {
-            Thread.currentThread().setName(Thread.currentThread().getId() + ": " + logMsg);
-            databaseRepository.deletePrevious();
-            databaseRepository.deleteFavourites();
-            databaseRepository.deleteReported();
-        });
+    public void disable() {
+        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() ->
+                databaseRepository.erase());
 
         try {
             future.get();
-        } catch (ExecutionException | InterruptedException e) {
-            Log.w(LOG_TAG, e.toString());
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
             Thread.currentThread().interrupt();
         }
     }
 
-    public void deletePrevious(final int widgetId, final ContentType contentType) {
-        final String logMsg = String.format(Locale.ENGLISH, "%d: %s: contentType=%d", widgetId,
-                new Object() {
-                }.getClass().getEnclosingMethod().getName(),
-                contentType.getContentType());
-        Log.d(LOG_TAG, logMsg);
+    public void resetPrevious(final int widgetId, @NonNull final ContentSelection contentSelection) {
+        Timber.d("contentSelection=%d", contentSelection.getContentSelection());
 
-        final Future future = executorService.submit(() -> {
-            Thread.currentThread().setName(Thread.currentThread().getId() + ": " + logMsg);
-            databaseRepository.deletePrevious(widgetId, contentType);
-        });
+        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() ->
+                databaseRepository.erase(widgetId, contentSelection)
+        );
 
         try {
             future.get();
-        } catch (ExecutionException | InterruptedException e) {
-            Log.w(LOG_TAG, e.toString());
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
             Thread.currentThread().interrupt();
         }
-    }
-
-    protected void switchFromFavouriteToAllContent(final int widgetId) {
-        Log.d(LOG_TAG, String.format("%d: %s", widgetId,
-                new Object() {
-                }.getClass().getEnclosingMethod().getName()));
-
-        final Preferences preferences = new Preferences(widgetId, context);
-        preferences.setSharedPreference(Preferences.FRAGMENT_CONTENT, Preferences.RADIO_BUTTON_ALL, true);
-        preferences.setSharedPreference(Preferences.FRAGMENT_CONTENT, Preferences.RADIO_BUTTON_AUTHOR, false);
-        preferences.setSharedPreference(Preferences.FRAGMENT_CONTENT, Preferences.RADIO_BUTTON_FAVOURITES, false);
-        preferences.setSharedPreference(Preferences.FRAGMENT_CONTENT, Preferences.RADIO_BUTTON_QUOTATION_TEXT, false);
     }
 
     public void markAsReported(final int widgetId) {
-        final String logMsg = String.format(Locale.ENGLISH, "%d: %s", widgetId,
-                new Object() {
-                }.getClass().getEnclosingMethod().getName());
-
-        Log.d(LOG_TAG, logMsg);
-
-        final Future future = executorService.submit(() -> {
-            Thread.currentThread().setName(Thread.currentThread().getId() + ": " + logMsg);
-
+        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
             List<String> previousQuotations = databaseRepository.getPrevious(
-                    widgetId, getSelectedContentType(widgetId));
+                    widgetId, getContentPreferences(widgetId).getContentSelection());
 
             databaseRepository.markAsReported(previousQuotations.get(0));
         });
 
         try {
             future.get();
-        } catch (ExecutionException | InterruptedException e) {
-            Log.w(LOG_TAG, e.toString());
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
             Thread.currentThread().interrupt();
         }
     }
 
-    public ContentType getSelectedContentType(final int widgetId) {
-        final Preferences preferences = new Preferences(widgetId, context);
-        return preferences.getSelectedContentType();
+    public void markAsCurrentPrevious(
+            final int widgetId) {
+        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+            QuotationEntity previousQuotation = getPrevious(
+                    widgetId,
+                    getContentPreferences(widgetId).getContentSelection(),
+                    getCurrentQuotation(widgetId).digest);
+
+            databaseRepository.markAsCurrent(widgetId, previousQuotation.digest);
+        });
+
+        try {
+            future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
+            Thread.currentThread().interrupt();
+        }
     }
 
     public boolean isReported(final int widgetId) {
-        final String logMsg = String.format(Locale.ENGLISH, "%d: %s", widgetId,
-                new Object() {
-                }.getClass().getEnclosingMethod().getName());
+        final Future<Boolean> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+            QuotationEntity quotationEntity = getCurrentQuotation(
+                    widgetId);
 
-        Log.d(LOG_TAG, logMsg);
-
-        final Future<Integer> future = executorService.submit(() -> {
-            Thread.currentThread().setName(Thread.currentThread().getId() + ": " + logMsg);
-
-            QuotationEntity quotationEntity = getNext(
-                    widgetId,
-                    getSelectedContentType(widgetId));
-
-            return databaseRepository.countIsReported(quotationEntity.digest);
+            return databaseRepository.isReported(quotationEntity.digest);
         });
 
         boolean isReported = false;
         try {
-            if (future.get() != 0) {
-                isReported = true;
-            }
-        } catch (ExecutionException | InterruptedException e) {
-            Log.w(LOG_TAG, e.toString());
+            isReported = future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
             Thread.currentThread().interrupt();
         }
-        Log.d(LOG_TAG, logMsg + "; isReported=" + isReported);
+        Timber.d("%b", isReported);
 
         return isReported;
+    }
+
+    //////////////////////
+
+    @Nullable
+    public List<AuthorPOJO> cachedAuthorPOJOList;
+
+    @NonNull
+    public Single<Integer> countAll() {
+        return databaseRepository.countAll();
+    }
+
+    @NonNull
+    public Single<List<AuthorPOJO>> authors() {
+        return databaseRepository.getAuthorsAndQuotationCounts();
+    }
+
+    @NonNull
+    public List<String> authorsSorted(@NonNull final List<AuthorPOJO> unsortedAuthorPOJOList) {
+        this.cachedAuthorPOJOList = unsortedAuthorPOJOList;
+
+        Collections.sort(unsortedAuthorPOJOList);
+        final ArrayList<String> authors = new ArrayList<>();
+        for (final AuthorPOJO authorPOJO : unsortedAuthorPOJOList) {
+            authors.add(authorPOJO.author);
+        }
+        return authors;
+    }
+
+    public int countAuthorQuotations(@NonNull final String author) {
+        int countAuthorQuotations = 0;
+
+        for (final AuthorPOJO authorPOJO : this.cachedAuthorPOJOList) {
+            if (authorPOJO.author.equals(author)) {
+                countAuthorQuotations = authorPOJO.count;
+                break;
+            }
+        }
+        return countAuthorQuotations;
+    }
+
+    public int authorsIndex(@NonNull final String author) {
+        int index = 0;
+        for (final AuthorPOJO authorPOJO : this.cachedAuthorPOJOList) {
+            if (authorPOJO.author.equals(author)) {
+                break;
+            } else {
+                index++;
+            }
+        }
+
+        Timber.d("index=%s; author=%s", index, author);
+        return index;
+    }
+
+    @NonNull
+    public Single<Integer> countFavourites() {
+        return databaseRepository.countFavourites();
+    }
+
+    @NonNull
+    public Integer countQuotationWithSearchText(@NonNull final String text) {
+        return databaseRepository.countSearchText(text);
+    }
+
+    @NonNull
+    public String getFavouritesToSend(@NonNull final Context context) {
+        final Future<String> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+            SaveRequest saveRequest = new SaveRequest();
+
+            saveRequest.code = localCode(context);
+            saveRequest.digests = databaseRepository.getFavourites();
+
+            return CloudFavouritesHelper.jsonSendRequest(saveRequest);
+        });
+
+        try {
+            return future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.w(e.toString());
+            Thread.currentThread().interrupt();
+            return "";
+        }
+    }
+
+    @NonNull
+    protected String localCode(@NonNull final Context context) {
+        ContentPreferences contentPreferences = new ContentPreferences(0, context);
+        return contentPreferences.getContentFavouritesLocalCode();
     }
 }

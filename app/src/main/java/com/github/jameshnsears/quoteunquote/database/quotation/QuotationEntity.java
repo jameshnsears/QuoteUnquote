@@ -3,8 +3,11 @@ package com.github.jameshnsears.quoteunquote.database.quotation;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Index;
 
-@Entity(tableName = "quotations", primaryKeys = {"author", "quotation"})
+@Entity(tableName = "quotations",
+        indices = {@Index("digest"), @Index(value = {"digest", "author"})},
+        primaryKeys = {"author", "quotation"})
 public class QuotationEntity {
     @NonNull
     @ColumnInfo(name = "author", collate = ColumnInfo.NOCASE)
@@ -18,18 +21,17 @@ public class QuotationEntity {
     @ColumnInfo(name = "digest")
     public final String digest;
 
-    public QuotationEntity(final String digest, final String author, final String quotation) {
+    public QuotationEntity(
+            @NonNull final String digest,
+            @NonNull final String author,
+            @NonNull final String quotation) {
         this.author = author;
         this.quotation = quotation;
         this.digest = digest;
     }
 
-    @Override
-    public String toString() {
-        return String.format("digest=%s; author=%s", digest, author);
-    }
-
+    @NonNull
     public String theQuotation() {
-        return String.format("%s%n%n - %s", quotation, author);
+        return String.format("%s%n%n%s ", quotation, author);
     }
 }

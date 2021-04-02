@@ -1,2 +1,12 @@
+flags:
+  app.froid:
+    carryforward: false
+
+  app.gooleplay:
+    carryforward: false
+
 ignore:
-  - "app/src/androidTest"
+  - "**/androidTest/**/*.kt"
+  - "**/androidTest/**/*.java"
+  - "**/test/**/*.kt"
+  - "**/test/**/*.java"

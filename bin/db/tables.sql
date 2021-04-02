@@ -1,9 +1,0 @@
-BEGIN TRANSACTION;
-DROP TABLE IF EXISTS `quotations`;
-CREATE TABLE IF NOT EXISTS `quotations` (
-	`author`	TEXT NOT NULL COLLATE NOCASE,
-	`quotation`	TEXT NOT NULL COLLATE NOCASE,
-	`digest`	TEXT NOT NULL,
-	PRIMARY KEY(`author`,`quotation`)
-);
-COMMIT;

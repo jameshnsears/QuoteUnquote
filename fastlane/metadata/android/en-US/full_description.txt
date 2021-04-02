@@ -1,0 +1,18 @@
+Description
+• Discover carefully chosen quotations from a diverse range of famous people.
+• Increase your self-esteem and happiness with some of the best quotations available.
+
+Key features
+• 14,000+ quality quotations - compiled from reviewed sources with de-duplication.
+• Minimalist, configurable, look &amp; feel
+• A search feature to help you find inspiration
+• Easily sync favourites with another device
+• (Optional) provide feedback &amp; help improve the App
+
+Other items of interest
+• All quotations are in English
+• Free &amp; without Ads
+• Works offline - quotations are bundled in the App
+• No permissions required
+• Anonymous analytics
+• <a href="https://github.com/jameshnsears/quoteunquote">Open Source Software</a>

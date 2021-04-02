@@ -1,0 +1,5 @@
+{
+  "ignore": [
+    ".github/workflows/deploy-appcenter.yml"
+  ]
+}

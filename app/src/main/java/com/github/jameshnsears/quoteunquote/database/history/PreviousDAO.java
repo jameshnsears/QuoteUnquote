@@ -1,38 +1,38 @@
 package com.github.jameshnsears.quoteunquote.database.history;
 
-import com.github.jameshnsears.quoteunquote.utils.ContentType;
-
-import java.util.List;
-
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.TypeConverters;
 
+import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
+
+import java.util.List;
+
 @Dao
-@TypeConverters({ContentType.class})
+@TypeConverters({ContentSelection.class})
 public interface PreviousDAO {
     @Insert
     void markAsPrevious(PreviousEntity previousEntity);
 
     @Query("SELECT COUNT(*) FROM PREVIOUS WHERE WIDGET_ID = :widgetId AND CONTENT_TYPE = :contentType")
-    int countPrevious(int widgetId, ContentType contentType);
+    int countPrevious(int widgetId, ContentSelection contentType);
 
     @Query("SELECT DIGEST FROM PREVIOUS WHERE WIDGET_ID = :widgetId AND CONTENT_TYPE = :contentType ORDER BY NAVIGATION DESC")
-    List<String> getPrevious(int widgetId, ContentType contentType);
+    List<String> getAllPrevious(int widgetId, ContentSelection contentType);
 
     @Query("SELECT * FROM PREVIOUS WHERE WIDGET_ID = :widgetId AND CONTENT_TYPE = :contentType ORDER BY NAVIGATION DESC LIMIT 1")
-    PreviousEntity getNext(int widgetId, ContentType contentType);
+    PreviousEntity getPrevious(int widgetId, ContentSelection contentType);
 
     @Query("DELETE FROM PREVIOUS")
-    void deletePrevious();
+    void erase();
 
     @Query("DELETE FROM PREVIOUS WHERE WIDGET_ID = :widgetId")
-    void deletePrevious(int widgetId);
+    void erase(int widgetId);
 
     @Query("DELETE FROM PREVIOUS WHERE WIDGET_ID = :widgetId AND CONTENT_TYPE = :contentType")
-    void deletePrevious(int widgetId, ContentType contentType);
+    void erase(int widgetId, ContentSelection contentType);
 
     @Query("DELETE FROM PREVIOUS WHERE WIDGET_ID = :widgetId AND CONTENT_TYPE = :contentType AND DIGEST = :digest")
-    void deletePrevious(int widgetId, ContentType contentType, String digest);
+    void erase(int widgetId, ContentSelection contentType, String digest);
 }

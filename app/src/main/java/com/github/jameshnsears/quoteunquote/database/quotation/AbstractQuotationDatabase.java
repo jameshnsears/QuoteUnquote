@@ -2,30 +2,30 @@ package com.github.jameshnsears.quoteunquote.database.quotation;
 
 import android.content.Context;
 
-import com.github.jameshnsears.quoteunquote.BuildConfig;
-
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.github.jameshnsears.quoteunquote.BuildConfig;
+
 @Database(
         entities = {QuotationEntity.class},
-        version = 1)
+        version = 2)
 public abstract class AbstractQuotationDatabase extends RoomDatabase {
-    private static AbstractQuotationDatabase quotationDatabase;
+    @Nullable
+    public static AbstractQuotationDatabase quotationDatabase;
 
-    public static AbstractQuotationDatabase getDatabase(final Context context) {
-        String dbName = "quotations.db.dev";
-
-        if (BuildConfig.USE_PROD_DB) {
-            dbName = "quotations.db.prod";
-        }
-
+    @NonNull
+    public static AbstractQuotationDatabase getDatabase(@NonNull final Context context) {
         synchronized (AbstractQuotationDatabase.class) {
             if (quotationDatabase == null) {
                 quotationDatabase = Room.databaseBuilder(context,
-                        AbstractQuotationDatabase.class, dbName)
-                        .createFromAsset(dbName)
+                        AbstractQuotationDatabase.class, BuildConfig.DATABASE_QUOTATIONS)
+                        .createFromAsset(BuildConfig.DATABASE_QUOTATIONS)
+                        // indexes added
+                        .fallbackToDestructiveMigration()
                         .build();
             }
             return quotationDatabase;

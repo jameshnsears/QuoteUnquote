@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    android:paddingStart="0dp"
+    android:paddingEnd="5dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:text="@string/fragment_appearance_instruction_touch"
+        android:textSize="15sp"
+        android:textStyle="normal|italic" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="0dp"
+            android:paddingEnd="10dp"
+            android:text="@string/fragment_appearance_title"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textSize="30sp" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="5dp"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:text="@string/fragment_appearance_transparency"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <SeekBar
+            android:id="@+id/seek_bar_transparency"
+            style="@style/Widget.AppCompat.SeekBar.Discrete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:max="10"
+            android:paddingVertical="5dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="10dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="0dp"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:text="@string/fragment_appearance_text"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewColour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="5dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
+            android:text="@string/fragment_appearance_colour"
+            android:textSize="15sp" />
+
+        <Spinner
+            android:id="@+id/spinnerColour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingEnd="5dp"
+            android:spinnerMode="dropdown" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp">
+
+        <TextView
+            android:id="@+id/textViewSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="5dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
+            android:text="@string/fragment_appearance_size"
+            android:textSize="15sp" />
+
+        <Spinner
+            android:id="@+id/spinnerSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingEnd="5dp"
+            android:spinnerMode="dropdown" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="0dp"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp"
+        android:text="@string/fragment_appearance_display_toolbar"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="1dp"
+        android:paddingBottom="1dp">
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/toolbarSwitchFirst"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:drawableStart="@drawable/ic_first_page_black_24dp"
+            android:drawablePadding="5dp"
+            android:paddingVertical="10dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
+            android:text="@string/fragment_appearance_instructions_first"
+            android:textSize="15sp"
+            android:textStyle="normal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="1dp"
+        android:paddingBottom="1dp">
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/toolbarSwitchPrevious"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:drawableStart="@drawable/ic_baseline_chevron_left_black_24"
+            android:drawablePadding="5dp"
+            android:paddingVertical="10dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
+            android:text="@string/fragment_appearance_instructions_previous"
+            android:textSize="15sp"
+            android:textStyle="normal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="1dp"
+        android:paddingBottom="1dp"
+        android:visibility="gone">
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/toolbarSwitchReport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:drawableStart="@drawable/ic_report_black_24dp"
+            android:drawablePadding="5dp"
+            android:paddingVertical="10dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
+            android:text="@string/fragment_appearance_instructions_report"
+            android:textSize="15sp"
+            android:textStyle="normal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="1dp"
+        android:paddingBottom="1dp">
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/toolbarSwitchToggleFavourite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:drawableStart="@drawable/ic_favorite_border_black_24dp"
+            android:drawablePadding="5dp"
+            android:paddingVertical="10dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
+            android:text="@string/fragment_appearance_instructions_favourite"
+            android:textSize="15sp"
+            android:textStyle="normal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="1dp"
+        android:paddingBottom="1dp">
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/toolbarSwitchShare"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:drawableStart="@drawable/ic_share_black_24dp"
+            android:drawablePadding="5dp"
+            android:paddingVertical="10dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
+            android:text="@string/fragment_appearance_instructions_share"
+            android:textSize="15sp"
+            android:textStyle="normal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="1dp"
+        android:paddingBottom="1dp">
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/toolbarSwitchNextSequential"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_chevron_right_black_24dp"
+            android:drawablePadding="5dp"
+            android:paddingVertical="10dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
+            android:text="@string/fragment_appearance_instructions_next_sequential"
+            android:textSize="15sp"
+            android:textStyle="normal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="1dp"
+        android:paddingBottom="1dp">
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/toolbarSwitchNextRandom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:drawableStart="@drawable/ic_baseline_refresh_24"
+            android:drawablePadding="5dp"
+            android:paddingVertical="10dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
+            android:text="@string/fragment_appearance_instructions_next_random"
+            android:textSize="15sp"
+            android:textStyle="normal" />
+    </LinearLayout>
+
+</LinearLayout>

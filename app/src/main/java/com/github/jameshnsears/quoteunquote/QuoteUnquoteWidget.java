@@ -6,58 +6,111 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
+import android.content.IntentFilter;
 import android.view.View;
 import android.widget.RemoteViews;
-import android.widget.Toast;
+
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.github.jameshnsears.quoteunquote.cloud.CloudFavouritesHelper;
 import com.github.jameshnsears.quoteunquote.cloud.CloudServiceSend;
-import com.github.jameshnsears.quoteunquote.configure.ActivityConfigure;
-import com.github.jameshnsears.quoteunquote.database.NoNextQuotationAvailableException;
+import com.github.jameshnsears.quoteunquote.configure.ConfigureActivity;
+import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences;
+import com.github.jameshnsears.quoteunquote.configure.fragment.content.ContentPreferences;
+import com.github.jameshnsears.quoteunquote.configure.fragment.event.EventDailyAlarm;
+import com.github.jameshnsears.quoteunquote.configure.fragment.event.EventPreferences;
+import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 import com.github.jameshnsears.quoteunquote.listview.ListViewService;
-import com.github.jameshnsears.quoteunquote.report.ActivityReport;
-import com.github.jameshnsears.quoteunquote.utils.DailyAlarm;
+import com.github.jameshnsears.quoteunquote.report.ReportActivity;
+import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
-import com.github.jameshnsears.quoteunquote.utils.Preferences;
-import com.github.jameshnsears.quoteunquote.utils.ToastHelper;
+import com.github.jameshnsears.quoteunquote.utils.NotificationHelper;
+import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade;
 
-import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_DISABLED;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
-public class QuoteUnquoteWidget extends AppWidgetProvider {
-    private static final String LOG_TAG = QuoteUnquoteWidget.class.getSimpleName();
+import timber.log.Timber;
 
-    private QuoteUnquoteModel quoteUnquoteModel;
+public final class QuoteUnquoteWidget extends AppWidgetProvider {
+    @Nullable
+    private static ExecutorService executorService;
+    private static volatile boolean receiversRegistered = false;
+    @Nullable
+    public QuoteUnquoteModel quoteUnquoteModel;
+    @NonNull
+    private final NotificationHelper notificationHelper = new NotificationHelper();
 
-    public synchronized QuoteUnquoteModel getQuoteUnquoteModelInstance(final Context context) {
-        if (quoteUnquoteModel == null) {
-            quoteUnquoteModel = new QuoteUnquoteModel(context);
-        }
+    private static void registerReceivers(@NonNull Context contextIn) {
+        Timber.d("receiversRegistered=%b", receiversRegistered);
 
-        return quoteUnquoteModel;
-    }
+        if (!receiversRegistered) {
+            Context context = contextIn.getApplicationContext();
+            QuoteUnquoteWidget receiver = new QuoteUnquoteWidget();
 
-    public void shutdownQuoteUnquoteModel(final Context context) {
-        if (quoteUnquoteModel != null) {
-            getQuoteUnquoteModelInstance(context).shutdown();
-            quoteUnquoteModel = null;
+            IntentFilter userPresent = new IntentFilter();
+            userPresent.addAction("android.intent.action.USER_PRESENT");
+            context.registerReceiver(receiver, userPresent);
+
+            IntentFilter bootCompleted = new IntentFilter();
+            bootCompleted.addAction("android.intent.action.BOOT_COMPLETED");
+            context.registerReceiver(receiver, bootCompleted);
+
+            IntentFilter quickBootPowerOn = new IntentFilter();
+            quickBootPowerOn.addAction("android.intent.action.QUICKBOOT_POWERON");
+            context.registerReceiver(receiver, quickBootPowerOn);
+
+            receiversRegistered = true;
         }
     }
 
     @Override
-    public void onEnabled(final Context context) {
-        Log.d(LOG_TAG, String.format("%s", new Object() {
-        }.getClass().getEnclosingMethod().getName()));
+    public void onEnabled(@NonNull final Context context) {
+        final ContentPreferences contentPreferences = new ContentPreferences(context);
+        contentPreferences.setContentFavouritesLocalCode(CloudFavouritesHelper.getLocalCode());
+        startDatabaseConnectivity(context);
+    }
 
-        CloudFavouritesHelper.setSharedPreferenceLocalCode(context);
+    public static ExecutorService getExecutorService() {
+        if (executorService == null) {
+            executorService = Executors.newFixedThreadPool(5);
+        }
+        Timber.d(executorService.toString());
+        return executorService;
+    }
+
+    public static void stopExecutorService() {
+        if (executorService != null) {
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                executorService.shutdown();
+                try {
+                    if (!executorService.awaitTermination(5000, TimeUnit.MICROSECONDS)) {
+                        Timber.d("awaitTermination=timeout");
+                    }
+                } catch (@NonNull InterruptedException e) {
+                    Timber.e(e);
+                    Thread.currentThread().interrupt();
+                }
+                Timber.d(executorService.toString());
+            }));
+        }
     }
 
     @Override
-    public void onUpdate(final Context context, final AppWidgetManager appWidgetManager, final int[] widgetIds) {
+    public void onUpdate(
+            @NonNull final Context context,
+            @NonNull final AppWidgetManager appWidgetManager,
+            @NonNull final int[] widgetIds) {
+        registerReceivers(context);
+
+        final RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.quote_unquote_widget);
+
         for (final int widgetId : widgetIds) {
-
-            final RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.quote_unquote_widget);
+            Timber.d("%d", widgetId);
 
             remoteViews.setRemoteAdapter(
                     R.id.listViewQuotation,
@@ -68,7 +121,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                     PendingIntent.getActivity(
                             context,
                             widgetId,
-                            IntentFactoryHelper.createIntent(context, ActivityConfigure.class, widgetId),
+                            IntentFactoryHelper.createIntent(context, ConfigureActivity.class, widgetId),
                             PendingIntent.FLAG_UPDATE_CURRENT));
 
             remoteViews.setOnClickPendingIntent(
@@ -76,11 +129,15 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                     IntentFactoryHelper.createIntentPending(context, widgetId, IntentFactoryHelper.TOOLBAR_PRESSED_FIRST));
 
             remoteViews.setOnClickPendingIntent(
+                    R.id.imageButtonPrevious,
+                    IntentFactoryHelper.createIntentPending(context, widgetId, IntentFactoryHelper.TOOLBAR_PRESSED_PREVIOUS));
+
+            remoteViews.setOnClickPendingIntent(
                     R.id.imageButtonReport,
                     PendingIntent.getActivity(
                             context,
                             widgetId,
-                            IntentFactoryHelper.createIntent(context, ActivityReport.class, widgetId),
+                            IntentFactoryHelper.createIntent(context, ReportActivity.class, widgetId),
                             PendingIntent.FLAG_UPDATE_CURRENT));
 
             remoteViews.setOnClickPendingIntent(
@@ -92,35 +149,45 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                     IntentFactoryHelper.createIntentPending(context, widgetId, IntentFactoryHelper.TOOLBAR_PRESSED_SHARE));
 
             remoteViews.setOnClickPendingIntent(
-                    R.id.imageButtonNew,
-                    IntentFactoryHelper.createIntentPending(context, widgetId, IntentFactoryHelper.TOOLBAR_PRESSED_NEXT));
+                    R.id.imageButtonNextRandom,
+                    IntentFactoryHelper.createIntentPending(context, widgetId, IntentFactoryHelper.TOOLBAR_PRESSED_NEXT_RANDOM));
 
-            setTransparency(context, widgetId, remoteViews);
+            remoteViews.setOnClickPendingIntent(
+                    R.id.imageButtonNextSequential,
+                    IntentFactoryHelper.createIntentPending(context, widgetId, IntentFactoryHelper.TOOLBAR_PRESSED_NEXT_SEQUENTIAL));
 
-            setToolbarVisibility(context, widgetId, remoteViews);
+            if (widgetId != 0) {
+                setTransparency(context, widgetId, remoteViews);
+
+                setToolbarButtonsVisibility(context, widgetId, remoteViews);
+            }
 
             appWidgetManager.updateAppWidget(widgetId, remoteViews);
         }
+
+        // at end, so that onReceive get's called first
+        super.onUpdate(context, appWidgetManager, widgetIds);
     }
 
     @Override
-    public void onReceive(final Context context, final Intent intent) {
+    public void onReceive(@NonNull final Context context, @NonNull final Intent intent) {
         super.onReceive(context, intent);
 
         final int widgetId = intent.getIntExtra(
                 AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
 
-        Log.d(LOG_TAG, String.format("%d: %s: action=%s", widgetId,
-                new Object() {
-                }.getClass().getEnclosingMethod().getName(),
-                intent.getAction()));
+        Timber.d("%d: action=%s", widgetId, intent.getAction());
 
         final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
 
-        final DailyAlarm dailyAlarm = new DailyAlarm(context, widgetId);
+        final EventDailyAlarm eventDailyAlarm = new EventDailyAlarm(context, widgetId);
 
         try {
             switch (intent.getAction()) {
+                case Intent.ACTION_MY_PACKAGE_REPLACED:
+                    onReceiveMyPackageReplaced(context, widgetId, appWidgetManager);
+                    break;
+
                 case Intent.ACTION_USER_PRESENT:
                     onReceiveDeviceUnlock(context, appWidgetManager);
                     break;
@@ -132,7 +199,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                 am broadcast -a android.intent.action.BOOT_COMPLETED
                  */
                 case IntentFactoryHelper.ACTIVITY_FINISHED_CONFIGURATION:
-                    onReceiveActivityFinishedConfiguration(widgetId, appWidgetManager, dailyAlarm);
+                    onReceiveActivityFinishedConfiguration(context, widgetId, eventDailyAlarm);
                     break;
 
                 case IntentFactoryHelper.ACTIVITY_FINISHED_REPORT:
@@ -140,11 +207,15 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                     break;
 
                 case IntentFactoryHelper.DAILY_ALARM:
-                    onReceiveDailyAlarm(context, widgetId, appWidgetManager, dailyAlarm);
+                    onReceiveDailyAlarm(context, widgetId, eventDailyAlarm);
                     break;
 
                 case IntentFactoryHelper.TOOLBAR_PRESSED_FIRST:
                     onReceiveToolbarPressedFirst(context, widgetId, appWidgetManager);
+                    break;
+
+                case IntentFactoryHelper.TOOLBAR_PRESSED_PREVIOUS:
+                    onReceiveToolbarPressedPrevious(context, widgetId, appWidgetManager);
                     break;
 
                 case IntentFactoryHelper.TOOLBAR_PRESSED_FAVOURITE:
@@ -155,158 +226,298 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                     onReceiveToolbarPressedShare(context, widgetId);
                     break;
 
-                case IntentFactoryHelper.TOOLBAR_PRESSED_NEXT:
-                    onReceiveToolbarPressedNext(context, widgetId, appWidgetManager);
+                case IntentFactoryHelper.TOOLBAR_PRESSED_NEXT_RANDOM:
+                    onReceiveToolbarPressedNextRandom(context, widgetId, appWidgetManager);
+                    break;
+
+                case IntentFactoryHelper.TOOLBAR_PRESSED_NEXT_SEQUENTIAL:
+                    onReceiveToolbarPressedNextSequential(context, widgetId, appWidgetManager);
                     break;
 
                 default:
                     break;
             }
         } finally {
-            // mainly for screen rotation!
-            if (!intent.getAction().equals(ACTION_APPWIDGET_DISABLED)) {
+            if (!intent.getAction().equals(AppWidgetManager.ACTION_APPWIDGET_DISABLED)
+                    || !intent.getAction().equals(AppWidgetManager.ACTION_APPWIDGET_ENABLED)) {
                 onUpdate(context, appWidgetManager, new int[]{widgetId});
             }
         }
     }
 
-    private void onReceiveActivityFinishedReport(final int widgetId, final AppWidgetManager appWidgetManager) {
+    private void onReceiveMyPackageReplaced(
+            @NonNull final Context context,
+            final int widgetId,
+            @NonNull final AppWidgetManager appWidgetManager) {
+        Timber.d("performing update: %d", widgetId);
+
+        // adb uninstall com.github.jameshnsears.quoteunquote
+        //
+        // adb install -r ~/Desktop/app-debug-1.0.1.apk
+        //
+        // Build > Build Bundle(s) / APK(s) > Build APK(s)
+        // adb install -r app/build/outputs/apk/googleplay/debug/app-googleplay-debug.apk
+        //
+        // look at Logcat
+        stopDatabaseConnectivity();
+        stopExecutorService();
+
+        DatabaseRepository.resetDatabaseInstances(context);
+
+        startDatabaseConnectivity(context);
+
+        // < version 2.0.0
+        AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, context);
+        appearancePreferences.performMigration();
+
+        ContentPreferences contentPreferences = new ContentPreferences(widgetId, context);
+        contentPreferences.performMigration();
+
+        EventPreferences eventPreferences = new EventPreferences(widgetId, context);
+        eventPreferences.performMigration();
+
+        for (int id: appWidgetManager.getAppWidgetIds(new ComponentName(context, QuoteUnquoteWidget.class))) {
+            Timber.d("%d", id);
+            getQuoteUnquoteModel(context).resetPrevious(id, new ContentPreferences(id, context).getContentSelection());
+            getQuoteUnquoteModel(context).markAsCurrentDefault(id);
+            appWidgetManager.notifyAppWidgetViewDataChanged(id, R.id.listViewQuotation);
+        }
+    }
+
+    private void startDatabaseConnectivity(@NonNull Context context) {
+        setQuoteUnquoteModel(new QuoteUnquoteModel(context));
+    }
+
+    public void stopDatabaseConnectivity() {
+        quoteUnquoteModel = null;
+    }
+
+    private void onReceiveActivityFinishedReport(
+            final int widgetId, @NonNull final AppWidgetManager appWidgetManager) {
         appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
     }
 
-    private void onReceiveDeviceUnlock(final Context context, final AppWidgetManager appWidgetManager) {
-        unlockDevice(context, appWidgetManager);
+    private void onReceiveDeviceUnlock(
+            @NonNull final Context context,
+            @NonNull final AppWidgetManager appWidgetManager) {
+        int[] widgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, QuoteUnquoteWidget.class));
+
+        for (final int widgetId : widgetIds) {
+            if (new EventPreferences(widgetId, context).getEventDeviceUnlock()) {
+                scheduleEvent(context, widgetId);
+            }
+        }
+
+        onUpdate(context, appWidgetManager, widgetIds);
     }
 
-    private void onReceiveToolbarPressedShare(final Context context, final int widgetId) {
-        final Preferences preferences = new Preferences(widgetId, context);
+    public void onReceiveToolbarPressedShare(@NonNull final Context context, final int widgetId) {
         context.startActivity(IntentFactoryHelper.createIntentShare(
                 context.getResources().getString(R.string.app_name),
-                getQuoteUnquoteModelInstance(context).getNext(widgetId, preferences.getSelectedContentType()).theQuotation()));
+                getQuoteUnquoteModel(context).getCurrentQuotation(widgetId).theQuotation()));
     }
 
     private void onReceiveToolbarPressedFavourite(
-            final Context context, final int widgetId, final AppWidgetManager appWidgetManager) {
-        final Preferences preferences = new Preferences(widgetId, context);
+            @NonNull final Context context,
+            final int widgetId,
+            @NonNull final AppWidgetManager appWidgetManager) {
+        final ContentPreferences contentPreferences = new ContentPreferences(widgetId, context);
 
-        getQuoteUnquoteModelInstance(context).toggleFavourite(widgetId, getQuoteUnquoteModelInstance(context).getNext(
-                widgetId, preferences.getSelectedContentType()).digest);
+        QuotationEntity currentQuotation = getQuoteUnquoteModel(context).getCurrentQuotation(
+                widgetId);
 
-        toggleFavouriteColour(widgetId, context, appWidgetManager);
+        int favouritesCount = getQuoteUnquoteModel(context).toggleFavourite(
+                widgetId, currentQuotation.digest);
 
-        if (preferences.getSharedPreferenceBoolean(Preferences.FRAGMENT_CONTENT, Preferences.RADIO_BUTTON_FAVOURITES)
-                || preferences.getSharedPreferenceBoolean(Preferences.FRAGMENT_CONTENT, Preferences.RADIO_BUTTON_ALL)) {
+        if (contentPreferences.getContentSelection() == ContentSelection.FAVOURITES) {
+            if (favouritesCount == 0) {
+                noFavouritesSoMoveToAll(context, widgetId, contentPreferences);
+            } else {
+                getQuoteUnquoteModel(context).markAsCurrentDefault(widgetId);
+            }
+
             appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
         }
     }
 
-    private void onReceiveToolbarPressedFirst(
-            final Context context, final int widgetId, final AppWidgetManager appWidgetManager) {
-        ToastHelper.makeToast(context, context.getString(R.string.widget_button_first_toast), Toast.LENGTH_SHORT);
+    private void noFavouritesSoMoveToAll(
+            @NonNull Context context,
+            int widgetId,
+            @NonNull ContentPreferences contentPreferences) {
+        Timber.d("%s", contentPreferences.getContentSelection());
 
-        final Preferences preferences = new Preferences(widgetId, context);
-        getQuoteUnquoteModelInstance(context).deletePrevious(widgetId, preferences.getSelectedContentType());
+        if (contentPreferences.getContentSelection() != ContentSelection.ALL) {
+            contentPreferences.setContentSelection(ContentSelection.ALL);
+            Timber.d("%s", contentPreferences.getContentSelection());
+            getQuoteUnquoteModel(context).markAsCurrentDefault(widgetId);
+        }
+    }
 
-        toggleFavouriteColour(widgetId, context, appWidgetManager);
+    public void onReceiveToolbarPressedFirst(
+            @NonNull final Context context,
+            final int widgetId,
+            @NonNull final AppWidgetManager appWidgetManager) {
+        getQuoteUnquoteModel(context).resetPrevious(widgetId, new ContentPreferences(widgetId, context).getContentSelection());
+        getQuoteUnquoteModel(context).markAsCurrentDefault(widgetId);
+
         appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
+    }
+
+    private void onReceiveToolbarPressedPrevious(
+            @NonNull final Context context, final int widgetId, @NonNull final AppWidgetManager appWidgetManager) {
+        getQuoteUnquoteModel(context).markAsCurrentPrevious(widgetId);
+
+        appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
+    }
+
+    private void onReceiveToolbarPressedNextRandom(
+            @NonNull final Context context,
+            final int widgetId,
+            @NonNull final AppWidgetManager appWidgetManager) {
+        onReceiveToolbarPressedNext(context, widgetId, appWidgetManager, true);
+    }
+
+    private void onReceiveToolbarPressedNextSequential(
+            @NonNull final Context context,
+            final int widgetId,
+            @NonNull final AppWidgetManager appWidgetManager) {
+        onReceiveToolbarPressedNext(context, widgetId, appWidgetManager, false);
     }
 
     private void onReceiveToolbarPressedNext(
-            final Context context, final int widgetId, final AppWidgetManager appWidgetManager) {
-        final Preferences preferences = new Preferences(widgetId, context);
-
-        try {
-            getQuoteUnquoteModelInstance(context).setNext(widgetId, preferences.getSelectedContentType());
-            toggleFavouriteColour(widgetId, context, appWidgetManager);
-            appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
-        } catch (NoNextQuotationAvailableException e) {
-            Log.w(LOG_TAG, e.getMessage());
-            ToastHelper.makeToast(context, context.getString(R.string.widget_button_next_toast), Toast.LENGTH_SHORT);
-        }
-    }
-
-    private void onReceiveDailyAlarm(
-            final Context context, final int widgetId, final AppWidgetManager appWidgetManager, final DailyAlarm dailyAlarm) {
-        dailyAlarm.setDailyAlarm();
-        try {
-            final Preferences preferences = new Preferences(widgetId, context);
-            getQuoteUnquoteModelInstance(context).setNext(widgetId, preferences.getSelectedContentType());
-            toggleFavouriteColour(widgetId, context, appWidgetManager);
-            appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
-        } catch (NoNextQuotationAvailableException e) {
-            Log.w(LOG_TAG, e.getMessage());
-        }
-    }
-
-    private void onReceiveActivityFinishedConfiguration(final int widgetId, final AppWidgetManager appWidgetManager, final DailyAlarm dailyAlarm) {
-        dailyAlarm.setDailyAlarm();
+            @NonNull final Context context,
+            final int widgetId,
+            @NonNull final AppWidgetManager appWidgetManager,
+            final boolean randomNext) {
+        getQuoteUnquoteModel(context).markAsCurrentNext(widgetId, randomNext);
         appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
     }
 
-    private void setTransparency(final Context context, final int widgetId, final RemoteViews remoteViews) {
-        Log.d(LOG_TAG, String.format("%d: %s", widgetId,
-                new Object() {
-                }.getClass().getEnclosingMethod().getName()));
+    private void onReceiveDailyAlarm(
+            @NonNull final Context context,
+            final int widgetId,
+            @NonNull final EventDailyAlarm scheduleDailyAlarm) {
+        scheduleDailyAlarm.setDailyAlarm();
+        scheduleEvent(context, widgetId);
+    }
 
-        final Preferences preferences = new Preferences(widgetId, context);
+    private void scheduleEvent(@NonNull Context context, int widgetId) {
+        EventPreferences eventPreferences = new EventPreferences(widgetId, context);
 
-        final int seekBarValue = preferences.getSharedPreferenceInt(
-                Preferences.FRAGMENT_APPEARANCE,
-                Preferences.SEEK_BAR);
-        Log.d(LOG_TAG, "seekBarProgress=" + seekBarValue);
+        getQuoteUnquoteModel(context).markAsCurrentNext(widgetId, eventPreferences.getEventNextRandom());
 
+        if (eventPreferences.getEventDisplayWidgetAndNotification()) {
+            QuotationEntity currentQuotation = getQuoteUnquoteModel(context).getCurrentQuotation(
+                    widgetId);
+
+            notificationHelper.displayNotification(context, currentQuotation);
+        }
+    }
+
+    private void onReceiveActivityFinishedConfiguration(
+            @NonNull final Context context,
+            final int widgetId,
+            @NonNull final EventDailyAlarm eventDailyAlarm) {
+        getQuoteUnquoteModel(context).markAsCurrentDefault(widgetId);
+        eventDailyAlarm.setDailyAlarm();
+    }
+
+    private void setTransparency(
+            @NonNull final Context context,
+            final int widgetId,
+            @NonNull final RemoteViews remoteViews) {
+        final int seekBarValue = new AppearancePreferences(widgetId, context).getAppearanceTransparency();
+        Timber.d("%d", widgetId);
+
+        final String setBackgroundColor = "setBackgroundColor";
+        remoteViews.setInt(R.id.listViewQuotation, setBackgroundColor, getTransparencyMask(seekBarValue));
+        remoteViews.setInt(R.id.imageButtonFirst, setBackgroundColor, getTransparencyMask(seekBarValue));
+        remoteViews.setInt(R.id.imageButtonPrevious, setBackgroundColor, getTransparencyMask(seekBarValue));
+        remoteViews.setInt(R.id.imageButtonReport, setBackgroundColor, getTransparencyMask(seekBarValue));
+        remoteViews.setInt(R.id.imageButtonFavourite, setBackgroundColor, getTransparencyMask(seekBarValue));
+        remoteViews.setInt(R.id.imageButtonShare, setBackgroundColor, getTransparencyMask(seekBarValue));
+        remoteViews.setInt(R.id.imageButtonNextRandom, setBackgroundColor, getTransparencyMask(seekBarValue));
+        remoteViews.setInt(R.id.imageButtonNextSequential, setBackgroundColor, getTransparencyMask(seekBarValue));
+    }
+
+    private int getTransparencyMask(final int seekBarValue) {
         float transparency = 1;
         if (seekBarValue != -1) {
             transparency -= seekBarValue * .1f;
         }
 
-        String setBackgroundColor = "setBackgroundColor";
-        remoteViews.setInt(R.id.listViewQuotation, setBackgroundColor, (int) (transparency * 0xFF) << 24 | 0xFFFFFF);
-        remoteViews.setInt(R.id.imageButtonFirst, setBackgroundColor, (int) (transparency * 0xFF) << 24 | 0xFFFFFF);
-        remoteViews.setInt(R.id.imageButtonReport, setBackgroundColor, (int) (transparency * 0xFF) << 24 | 0xFFFFFF);
-        remoteViews.setInt(R.id.imageButtonFavourite, setBackgroundColor, (int) (transparency * 0xFF) << 24 | 0xFFFFFF);
-        remoteViews.setInt(R.id.imageButtonShare, setBackgroundColor, (int) (transparency * 0xFF) << 24 | 0xFFFFFF);
-        remoteViews.setInt(R.id.imageButtonNew, setBackgroundColor, (int) (transparency * 0xFF) << 24 | 0xFFFFFF);
+        return (int) (transparency * 0xFF) << 24 | 0xFFFFFF;
     }
 
-    private void setToolbarVisibility(final Context context, final int widgetId, final RemoteViews remoteViews) {
-        Log.d(LOG_TAG, String.format("%d: %s", widgetId,
-                new Object() {
-                }.getClass().getEnclosingMethod().getName()));
+    private void setToolbarButtonsVisibility(
+            @NonNull final Context context,
+            final int widgetId,
+            @NonNull final RemoteViews remoteViews) {
+        Timber.d("%d", widgetId);
 
-        final Preferences preferences = new Preferences(widgetId, context);
-        if (preferences.getSharedPreferenceBoolean(
-                "FragmentAppearance", "checkBoxDisplayToolbar", true)) {
-            remoteViews.setViewVisibility(R.id.linearLayoutToolbar, View.VISIBLE);
+        final AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, context);
+
+        setToolbarButtonVisibility(
+                remoteViews,
+                appearancePreferences.getAppearanceToolbarFirst(),
+                R.id.imageButtonFirst);
+
+        setToolbarButtonVisibility(
+                remoteViews,
+                appearancePreferences.getAppearanceToolbarPrevious(),
+                R.id.imageButtonPrevious);
+
+        setToolbarButtonVisibility(
+                remoteViews,
+                appearancePreferences.getAppearanceToolbarReport(),
+                R.id.imageButtonReport);
+
+        setToolbarButtonVisibility(
+                remoteViews,
+                appearancePreferences.getAppearanceToolbarFavourite(),
+                R.id.imageButtonFavourite);
+
+        setHeartColour(context, widgetId, remoteViews);
+
+        setToolbarButtonVisibility(
+                remoteViews,
+                appearancePreferences.getAppearanceToolbarShare(),
+                R.id.imageButtonShare);
+
+        setToolbarButtonVisibility(
+                remoteViews,
+                appearancePreferences.getAppearanceToolbarRandom(),
+                R.id.imageButtonNextRandom);
+
+        setToolbarButtonVisibility(
+                remoteViews,
+                appearancePreferences.getAppearanceToolbarSequential(),
+                R.id.imageButtonNextSequential);
+    }
+
+    private void setToolbarButtonVisibility(
+            @NonNull final RemoteViews remoteViews,
+            final boolean toolbarButtonEnabled,
+            @IdRes final int imageButtonId) {
+        if (toolbarButtonEnabled) {
+            remoteViews.setViewVisibility(imageButtonId, View.VISIBLE);
         } else {
-            remoteViews.setViewVisibility(R.id.linearLayoutToolbar, View.GONE);
+            remoteViews.setViewVisibility(imageButtonId, View.GONE);
         }
-
-        setHeartColour(context, widgetId, remoteViews, preferences);
     }
 
-    private void toggleFavouriteColour(
-            final int widgetId, final Context context, final AppWidgetManager appWidgetManager) {
-        Log.d(LOG_TAG, String.format("%d: %s", widgetId,
-                new Object() {
-                }.getClass().getEnclosingMethod().getName()));
+    public void setHeartColour(
+            @NonNull final Context context,
+            final int widgetId,
+            @NonNull final RemoteViews remoteViews) {
+        Timber.d("%d", widgetId);
 
-        final RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.quote_unquote_widget);
-
-        final Preferences preferences = new Preferences(widgetId, context);
-
-        setHeartColour(context, widgetId, remoteViews, preferences);
-
-        appWidgetManager.updateAppWidget(widgetId, remoteViews);
-    }
-
-    private void setHeartColour(
-            final Context context, final int widgetId, final RemoteViews remoteViews, final Preferences preferences) {
-
-        final QuotationEntity quotationEntity = getQuoteUnquoteModelInstance(context).getNext(widgetId, preferences.getSelectedContentType());
+        final QuotationEntity quotationEntity = getQuoteUnquoteModel(context).getCurrentQuotation(
+                widgetId);
 
         if (quotationEntity != null) {
-            if (getQuoteUnquoteModelInstance(context).isFavourite(widgetId, quotationEntity.digest)) {
+            // null check needed for startup
+            if (getQuoteUnquoteModel(context).isFavourite(quotationEntity.digest)) {
                 remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_favorite_red_24dp);
             } else {
                 remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_favorite_border_black_24dp);
@@ -314,61 +525,51 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
         }
     }
 
-    private void unlockDevice(final Context context, final AppWidgetManager appWidgetManager) {
-        for (final int widgetId : appWidgetManager.getAppWidgetIds(new ComponentName(context, QuoteUnquoteWidget.class))) {
-
-            final Preferences preferences = new Preferences(widgetId, context);
-
-            if (preferences.getSharedPreferenceBoolean(
-                    Preferences.FRAGMENT_EVENT, Preferences.CHECK_BOX_DEVICE_UNLOCK)) {
-                try {
-                    getQuoteUnquoteModelInstance(context).setNext(widgetId, preferences.getSelectedContentType());
-
-                    toggleFavouriteColour(widgetId, context, appWidgetManager);
-                    appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
-                } catch (NoNextQuotationAvailableException e) {
-                    Log.w(LOG_TAG, e.getMessage());
-                }
-            }
-        }
-    }
-
     @Override
-    public void onDeleted(final Context context, final int[] widgetIds) {
-        // a widget instance is removed from the home screen
+    public void onDeleted(
+            @NonNull final Context context,
+            @NonNull final int[] widgetIds) {
+        // a widget instance deleted
         super.onDeleted(context, widgetIds);
 
         for (final int widgetId : widgetIds) {
-            Log.d(LOG_TAG, String.format("%d: %s", widgetId,
-                    new Object() {
-                    }.getClass().getEnclosingMethod().getName()));
+            Timber.d("%d", widgetId);
 
-            getQuoteUnquoteModelInstance(context).removeDatabaseEntriesForInstance(widgetId);
-            Preferences.removeSharedPreferencesForWidgetId(context, widgetId);
+            getQuoteUnquoteModel(context).delete(widgetId);
+            PreferencesFacade.delete(context, widgetId);
 
-            final DailyAlarm dailyAlarm = new DailyAlarm(context, widgetId);
-            dailyAlarm.resetAnyExistingDailyAlarm();
+            final EventDailyAlarm eventDailyAlarm = new EventDailyAlarm(context, widgetId);
+            eventDailyAlarm.resetAnyExistingDailyAlarm();
         }
     }
 
     @Override
-    public void onDisabled(final Context context) {
+    public void onDisabled(@NonNull final Context context) {
         // last widget instance deleted
         super.onDisabled(context);
 
-        Log.d(LOG_TAG, String.format("%s",
-                new Object() {
-                }.getClass().getEnclosingMethod().getName()));
-
         try {
-            getQuoteUnquoteModelInstance(context).removeDatabaseEntriesForAllInstances();
-            Preferences.empty(context);
+            getQuoteUnquoteModel(context).disable();
+            PreferencesFacade.disable(context);
 
-            if (CloudServiceSend.isRunning(context)) {
+            if (CloudServiceSend.isRunning) {
                 context.stopService(new Intent(context, CloudServiceSend.class));
             }
         } finally {
-            shutdownQuoteUnquoteModel(context);
+            stopDatabaseConnectivity();
+            stopExecutorService();
         }
+    }
+
+    @Nullable
+    public QuoteUnquoteModel getQuoteUnquoteModel(@NonNull final Context context) {
+        if (quoteUnquoteModel == null) {
+            quoteUnquoteModel = new QuoteUnquoteModel(context);
+        }
+        return quoteUnquoteModel;
+    }
+
+    public void setQuoteUnquoteModel(@Nullable QuoteUnquoteModel quoteUnquoteModel) {
+        this.quoteUnquoteModel = quoteUnquoteModel;
     }
 }
