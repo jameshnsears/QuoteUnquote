@@ -1,7 +1,1 @@
-* New icon
-* Improved navigation
-* Schedule a Quotation Notification
-* @ relative position
-* Transcription corrections
-* Additional 4000+ quotations
-* F-Droid variant preparation
+* First F-Droid release

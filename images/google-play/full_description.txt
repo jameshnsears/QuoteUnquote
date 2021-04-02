@@ -12,7 +12,7 @@ Key features
 Other items of interest
 • All quotations are in English
 • Works offline - quotations are bundled in the App
-• No ads
-• No analytics
-• Single permission required: android.permission.REORDER_TASKS
+• Free &amp; without ads
+• Anonymous analytics
+• No explicit permissions required
 • <a href="https://github.com/jameshnsears/quoteunquote">Open Source Software</a>

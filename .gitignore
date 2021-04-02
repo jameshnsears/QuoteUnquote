@@ -25,3 +25,4 @@ local.properties
 /.Quote, Unquote.vpp.lck
 /app/keystore.jks
 /app/googleplay/debug/
+/app/googleplay/release/app-googleplay-release.aab
