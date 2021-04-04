@@ -238,7 +238,10 @@ public class ContentFragment extends FragmentCommon {
                                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                 fragmentContentBinding.spinnerAuthors.setAdapter(adapter);
 
-                                contentPreferences.setContentSelectionAuthor(authors.get(0));
+                                if ("".equals(contentPreferences.getContentSelectionAuthor())) {
+                                    contentPreferences.setContentSelectionAuthor(authors.get(0));
+                                }
+
                                 setAuthorName();
 
                                 synchronized (this) {
@@ -458,13 +461,14 @@ public class ContentFragment extends FragmentCommon {
                 }
 
                 // same as code on this device?
-                if (!BuildConfig.DEBUG) {
-                    if (fragmentContentBinding.editTextRemoteCodeValue.getText().toString().equals(fragmentContentBinding.textViewLocalCodeValue.getText().toString())) {
-                        ToastHelper.makeToast(
-                                getContext(), getContext().getString(R.string.fragment_content_favourites_share_remote_code_general), Toast.LENGTH_LONG);
-                        return;
-                    }
+                if (!BuildConfig.DEBUG
+                    && fragmentContentBinding.editTextRemoteCodeValue.getText().toString().equals(
+                            fragmentContentBinding.textViewLocalCodeValue.getText().toString())) {
+                    ToastHelper.makeToast(
+                            getContext(), getContext().getString(R.string.fragment_content_favourites_share_remote_code_general), Toast.LENGTH_LONG);
+                    return;
                 }
+
 
                 if (contentCloud.isServiceReceiveBound) {
                     contentCloud.cloudServiceReceive.receive(this, fragmentContentBinding.editTextRemoteCodeValue.getText().toString());

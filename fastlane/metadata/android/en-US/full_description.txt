@@ -4,15 +4,13 @@ Description
 
 Key features
 • 18,000+ quality quotations - compiled from reviewed sources with de-duplication.
-• Minimalist, configurable, look &amp; feel
-• A search feature to help you find inspiration
-• Easily sync favourites with another device
-• (Optional) provide feedback &amp; help improve the App
+• Minimalist, configurable, look &amp; feel.
+• A search feature to help you find inspiration.
 
 Other items of interest
-• All quotations are in English
-• Works offline - quotations are bundled in the App
-• No ads
-• No analytics
-• Single permission required: android.permission.REORDER_TASKS
+• All quotations are in English.
+• Works offline - quotations are bundled in the App.
+• No ads.
+• No analytics,
+• Single permission required: android.permission.REORDER_TASKS.
 • <a href="https://github.com/jameshnsears/quoteunquote">Open Source Software</a>
