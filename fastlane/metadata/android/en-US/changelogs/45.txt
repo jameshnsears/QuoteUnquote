@@ -1,0 +1,4 @@
+* Fix: Remove android.permission.REORDER_TASKS
+* Bump 3rd party lib / kotlin versions.
+* Increase Analyze profile.
+* Two new Runtime Configurations.

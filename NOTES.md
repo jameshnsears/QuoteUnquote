@@ -39,3 +39,12 @@
 
 * Checkstyle-IDE - Jamie Shiell
 * SonarLint - SonarSource
+
+---
+
+## 5. android.permission.REORDER_TASKS - F-Droid: https://www.virustotal.com/gui/
+
+* ./gradlew assembleRelease
+* build/outputs/logs/manifest-merger-fdroid-release-report.txt
+* ./gradlew :app:dependencies
+* search for fdroidReleaseRuntimeClasspath & then androidx.test:core

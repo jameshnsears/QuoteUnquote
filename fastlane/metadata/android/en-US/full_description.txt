@@ -12,5 +12,5 @@ Other items of interest
 • Works offline - quotations are bundled in the App.
 • No ads.
 • No analytics,
-• Single permission required: android.permission.REORDER_TASKS.
+• No permissions.
 • <a href="https://github.com/jameshnsears/quoteunquote">Open Source Software</a>
