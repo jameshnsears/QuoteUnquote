@@ -18,7 +18,7 @@
         android:background="@color/colorPrimary"
         android:padding="10dp"
         android:text="@string/activity_report_title"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
         android:textColor="@android:color/white"
         android:textSize="22sp"
         android:textStyle="bold" />

@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'kotlin-android'
 
 apply from: '../jacoco.gradle'
@@ -39,10 +41,10 @@ android {
 
     defaultConfig {
         applicationId "com.github.jameshnsears.quoteunquote"
-        minSdkVersion 25
+        minSdkVersion 24
         targetSdkVersion 29
-        versionCode 45
-        versionName "2.0.1"
+        versionCode 48
+        versionName "2.1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments clearPackageData: 'true'

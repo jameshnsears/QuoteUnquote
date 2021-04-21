@@ -36,13 +36,15 @@ class EventFragmentPreferencesTest : ShadowLoggingHelper() {
     fun confirmChangesToPreferences() {
         with(launchFragment<EventFragmentDouble>()) {
             onFragment { fragment ->
-                fragment.eventPreferences?.eventDaily = true
-                fragment.eventPreferences?.eventDailyTimeHour = 16
-                fragment.eventPreferences?.eventDailyTimeMinute = 30
+                assertThat(fragment.eventPreferences?.eventDailyTimeHour, IsEqual.equalTo(6))
+                assertThat(fragment.eventPreferences?.eventDailyTimeMinute, IsEqual.equalTo(0))
 
                 fragment.setDailyTime()
+                fragment.eventPreferences?.eventDaily = true
+                fragment.eventPreferences?.eventDailyTimeHour = 7
+                fragment.eventPreferences?.eventDailyTimeMinute = 30
 
-                assertThat(fragment.eventPreferences?.eventDailyTimeHour, IsEqual.equalTo(16))
+                assertThat(fragment.eventPreferences?.eventDailyTimeHour, IsEqual.equalTo(7))
                 assertThat(fragment.eventPreferences?.eventDailyTimeMinute, IsEqual.equalTo(30))
             }
         }

@@ -35,6 +35,11 @@ jobs:
           echo "${LOCAL_PROPERTIES_CLOUDLIB}" | base64 -d > QuoteUnquote.cloudLib/cloudLib/local.properties
           echo "${LOCAL_PROPERTIES_UTILSLIB}" | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
 
+      - name: google-services.json
+        env:
+          GOOGLE_PLAY_JSON_DEVELOPMENT: ${{ secrets.GOOGLE_PLAY_JSON_DEVELOPMENT }}
+        run: echo "${GOOGLE_PLAY_JSON_DEVELOPMENT}" | base64 -d > app/google-services.json
+
       - name: keystore.jks
         env:
           KEYSTORE_JKS: ${{ secrets.KEYSTORE_JKS }}

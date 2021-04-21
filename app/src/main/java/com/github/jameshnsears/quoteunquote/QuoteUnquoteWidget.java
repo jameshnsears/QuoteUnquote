@@ -75,6 +75,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         startDatabaseConnectivity(context);
     }
 
+    @Nullable
     public static ExecutorService getExecutorService() {
         if (executorService == null) {
             executorService = Executors.newFixedThreadPool(5);
@@ -266,7 +267,6 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
 
         startDatabaseConnectivity(context);
 
-        // < version 2.0.0
         AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, context);
         appearancePreferences.performMigration();
 
@@ -426,27 +426,57 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull final Context context,
             final int widgetId,
             @NonNull final RemoteViews remoteViews) {
-        final int seekBarValue = new AppearancePreferences(widgetId, context).getAppearanceTransparency();
         Timber.d("%d", widgetId);
 
+        int seekBarValue = new AppearancePreferences(widgetId, context).getAppearanceTransparency();
+        seekBarValue = seekBarValue / 10;
+
         final String setBackgroundColor = "setBackgroundColor";
-        remoteViews.setInt(R.id.listViewQuotation, setBackgroundColor, getTransparencyMask(seekBarValue));
-        remoteViews.setInt(R.id.imageButtonFirst, setBackgroundColor, getTransparencyMask(seekBarValue));
-        remoteViews.setInt(R.id.imageButtonPrevious, setBackgroundColor, getTransparencyMask(seekBarValue));
-        remoteViews.setInt(R.id.imageButtonReport, setBackgroundColor, getTransparencyMask(seekBarValue));
-        remoteViews.setInt(R.id.imageButtonFavourite, setBackgroundColor, getTransparencyMask(seekBarValue));
-        remoteViews.setInt(R.id.imageButtonShare, setBackgroundColor, getTransparencyMask(seekBarValue));
-        remoteViews.setInt(R.id.imageButtonNextRandom, setBackgroundColor, getTransparencyMask(seekBarValue));
-        remoteViews.setInt(R.id.imageButtonNextSequential, setBackgroundColor, getTransparencyMask(seekBarValue));
+        remoteViews.setInt(R.id.listViewQuotation, setBackgroundColor, getTransparencyMask(context, widgetId, seekBarValue));
+        remoteViews.setInt(R.id.imageButtonFirst, setBackgroundColor, getTransparencyMask(context, widgetId, seekBarValue));
+        remoteViews.setInt(R.id.imageButtonPrevious, setBackgroundColor, getTransparencyMask(context, widgetId, seekBarValue));
+        remoteViews.setInt(R.id.imageButtonReport, setBackgroundColor, getTransparencyMask(context, widgetId, seekBarValue));
+        remoteViews.setInt(R.id.imageButtonFavourite, setBackgroundColor, getTransparencyMask(context, widgetId, seekBarValue));
+        remoteViews.setInt(R.id.imageButtonShare, setBackgroundColor, getTransparencyMask(context, widgetId, seekBarValue));
+        remoteViews.setInt(R.id.imageButtonNextRandom, setBackgroundColor, getTransparencyMask(context, widgetId, seekBarValue));
+        remoteViews.setInt(R.id.imageButtonNextSequential, setBackgroundColor, getTransparencyMask(context, widgetId, seekBarValue));
     }
 
-    private int getTransparencyMask(final int seekBarValue) {
+    private int getTransparencyMask(
+            @NonNull final Context context,
+            final int widgetId,
+            final int seekBarValue) {
         float transparency = 1;
         if (seekBarValue != -1) {
             transparency -= seekBarValue * .1f;
         }
 
-        return (int) (transparency * 0xFF) << 24 | 0xFFFFFF;
+        int transparencyMask = 0;
+
+        switch (new AppearancePreferences(widgetId, context).getAppearanceColour()) {
+            case "#FFF8FD89":
+                transparencyMask = (int) (transparency * 0xFF) << 24 | 0xF8FD89;
+                break;
+
+            case "#FFEDDD6E":
+                transparencyMask = (int) (transparency * 0xFF) << 24 | 0xEDDD6E;
+                break;
+
+            case "#FFFFFFFF":
+                transparencyMask = (int) (transparency * 0xFF) << 24 | 0xFFFFFF;
+                break;
+
+            case "#FFB987DC":
+                transparencyMask = (int) (transparency * 0xFF) << 24 | 0xB987DC;
+                break;
+
+            default:
+                // "#FFEDD1B0":
+                transparencyMask = (int) (transparency * 0xFF) << 24 | 0xEDD1B0;
+                break;
+        }
+
+        return transparencyMask;
     }
 
     private void setToolbarButtonsVisibility(
@@ -518,9 +548,9 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         if (quotationEntity != null) {
             // null check needed for startup
             if (getQuoteUnquoteModel(context).isFavourite(quotationEntity.digest)) {
-                remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_favorite_red_24dp);
+                remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_toolbar_favorite_red_24dp);
             } else {
-                remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_favorite_border_black_24dp);
+                remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_toolbar_favorite_black_24dp);
             }
         }
     }

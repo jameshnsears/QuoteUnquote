@@ -34,6 +34,11 @@ jobs:
           echo "${LOCAL_PROPERTIES_CLOUDLIB}" | base64 -d > QuoteUnquote.cloudLib/cloudLib/local.properties
           echo "${LOCAL_PROPERTIES_UTILSLIB}" | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
 
+      - name: google-services.json
+        env:
+          GOOGLE_PLAY_JSON_DEVELOPMENT: ${{ secrets.GOOGLE_PLAY_JSON_DEVELOPMENT }}
+        run: echo "${GOOGLE_PLAY_JSON_DEVELOPMENT}" | base64 -d > app/google-services.json
+
       - name: gradlew
         run: |
           set -x
@@ -65,6 +70,11 @@ jobs:
           echo "${LOCAL_PROPERTIES}" | base64 -d > local.properties
           echo "${LOCAL_PROPERTIES_CLOUDLIB}" | base64 -d > QuoteUnquote.cloudLib/cloudLib/local.properties
           echo "${LOCAL_PROPERTIES_UTILSLIB}" | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
+
+      - name: google-services.json
+        env:
+          GOOGLE_PLAY_JSON_DEVELOPMENT: ${{ secrets.GOOGLE_PLAY_JSON_DEVELOPMENT }}
+        run: echo "${GOOGLE_PLAY_JSON_DEVELOPMENT}" | base64 -d > app/google-services.json
 
       - name: gradlew
         run: |
@@ -117,6 +127,11 @@ jobs:
           echo "${LOCAL_PROPERTIES_CLOUDLIB}" | base64 -d > QuoteUnquote.cloudLib/cloudLib/local.properties
           echo "${LOCAL_PROPERTIES_UTILSLIB}" | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
 
+      - name: google-services.json
+        env:
+          GOOGLE_PLAY_JSON_DEVELOPMENT: ${{ secrets.GOOGLE_PLAY_JSON_DEVELOPMENT }}
+        run: echo "${GOOGLE_PLAY_JSON_DEVELOPMENT}" | base64 -d > app/google-services.json
+
       - name: gradlew
         run: |
           set -x
@@ -149,6 +164,11 @@ jobs:
           echo "${LOCAL_PROPERTIES}" | base64 -d > local.properties
           echo "${LOCAL_PROPERTIES_CLOUDLIB}" | base64 -d > QuoteUnquote.cloudLib/cloudLib/local.properties
           echo "${LOCAL_PROPERTIES_UTILSLIB}" | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
+
+      - name: google-services.json
+        env:
+          GOOGLE_PLAY_JSON_DEVELOPMENT: ${{ secrets.GOOGLE_PLAY_JSON_DEVELOPMENT }}
+        run: echo "${GOOGLE_PLAY_JSON_DEVELOPMENT}" | base64 -d > app/google-services.json
 
       - name: gradlew
         run: |
@@ -234,7 +254,15 @@ jobs:
           script: |
             adb logcat -c
             adb logcat &
-            ./gradlew clean :app:testFdroidDebugCoverageCombined --no-build-cache --no-daemon --stacktrace
+            ./gradlew :app:testFdroidDebugCoverageCombined --stacktrace
+
+      - name: show error report
+        run: |
+          set -x
+          ERROR_REPORT_FILE=/Users/runner/work/QuoteUnquote/QuoteUnquote/app/build/reports/androidTests/connected/flavors/fdroidDebugAndroidTest/index.html
+          if [ -f "$ERROR_REPORT_FILE" ]; then
+            cat $ERROR_REPORT_FILE
+          fi
 
       - name: show .gradle size
         run: |
@@ -275,6 +303,11 @@ jobs:
           echo "${LOCAL_PROPERTIES_CLOUDLIB}" | base64 -d > QuoteUnquote.cloudLib/cloudLib/local.properties
           echo "${LOCAL_PROPERTIES_UTILSLIB}" | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
 
+      - name: google-services.json
+        env:
+          GOOGLE_PLAY_JSON_DEVELOPMENT: ${{ secrets.GOOGLE_PLAY_JSON_DEVELOPMENT }}
+        run: echo "${GOOGLE_PLAY_JSON_DEVELOPMENT}" | base64 -d > app/google-services.json
+
       - name: app
         uses: reactivecircus/android-emulator-runner@v2
         with:
@@ -283,7 +316,15 @@ jobs:
           script: |
             adb logcat -c
             adb logcat &
-            ./gradlew clean :app:testGoogleplayDebugCoverageCombined --no-build-cache --no-daemon --stacktrace
+            ./gradlew :app:testGoogleplayDebugCoverageCombined --stacktrace
+
+      - name: show error report
+        run: |
+          set -x
+          ERROR_REPORT_FILE=/Users/runner/work/QuoteUnquote/QuoteUnquote/app/build/reports/androidTests/connected/flavors/googleplayDebugAndroidTest/index.html
+          if [ -f "$ERROR_REPORT_FILE" ]; then
+            cat $ERROR_REPORT_FILE
+          fi
 
       - name: show .gradle size
         run: |

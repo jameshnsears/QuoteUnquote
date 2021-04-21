@@ -3,7 +3,7 @@
 &bull; Increase your self-esteem and happiness with some of the best quotations available.
 
 <b>Key features</b>
-&bull; 18,000+ quality quotations - compiled from reviewed sources with de-duplication.
+&bull; 27,000+ quality quotations - compiled from reviewed sources with de-duplication.
 &bull; Minimalist, configurable, look &amp; feel.
 &bull; A search feature to help you find inspiration.
 &bull; Easily sync favourites with another device.
@@ -11,8 +11,8 @@
 
 <b>Other items of interest</b>
 &bull; All quotations are in English.
+&bull; Works offline.
 &bull; Free &amp; without Ads.
-&bull; Works offline - quotations are bundled in the App.
-&bull; Minimal permissions.
 &bull; Anonymous analytics.
+&bull; Minimal permissions.
 &bull; <a href="https://github.com/jameshnsears/quoteunquote">Open Source Software</a>.

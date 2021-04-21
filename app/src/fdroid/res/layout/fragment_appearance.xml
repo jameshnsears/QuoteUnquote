@@ -30,7 +30,7 @@
             android:paddingStart="0dp"
             android:paddingEnd="10dp"
             android:text="@string/fragment_appearance_title"
-            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             android:textSize="30sp" />
 
         <View
@@ -53,45 +53,16 @@
             android:paddingVertical="5dp"
             android:paddingStart="0dp"
             android:paddingEnd="0dp"
-            android:text="@string/fragment_appearance_transparency"
-            android:textSize="17sp"
-            android:textStyle="bold" />
-
-        <SeekBar
-            android:id="@+id/seek_bar_transparency"
-            style="@style/Widget.AppCompat.SeekBar.Discrete"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:max="10"
-            android:paddingVertical="5dp"
-            android:paddingStart="20dp"
-            android:paddingEnd="10dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="0dp"
-            android:paddingStart="0dp"
-            android:paddingEnd="0dp"
-            android:text="@string/fragment_appearance_text"
+            android:text="@string/fragment_appearance_background"
             android:textSize="17sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textViewColour"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="5dp"
             android:paddingStart="20dp"
-            android:paddingEnd="0dp"
+            android:paddingEnd="20dp"
             android:text="@string/fragment_appearance_colour"
             android:textSize="15sp" />
 
@@ -112,6 +83,113 @@
         android:paddingBottom="2dp">
 
         <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="5dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="@string/fragment_appearance_transparency"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingStart="20dp"
+            android:paddingEnd="10dp">
+
+            <com.google.android.material.slider.Slider
+                android:id="@+id/seek_bar_transparency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/fragment_appearance_transparency"
+                android:max="10"
+                android:paddingVertical="5dp"
+                android:stepSize="10"
+                android:value="false"
+                android:valueFrom="0"
+                android:valueTo="100" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="5dp"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:text="@string/fragment_appearance_text"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textViewFamily"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="5dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="@string/fragment_appearance_family"
+            android:textSize="15sp" />
+
+        <Spinner
+            android:id="@+id/spinnerFamily"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/fragment_appearance_family_array"
+            android:paddingStart="20dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="5dp"
+            android:spinnerMode="dropdown" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp">
+
+        <TextView
+            android:id="@+id/textViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="5dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="@string/fragment_appearance_style"
+            android:textSize="15sp" />
+
+        <Spinner
+            android:id="@+id/spinnerStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/fragment_appearance_style_array"
+            android:paddingStart="20dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="5dp"
+            android:spinnerMode="dropdown" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp">
+
+        <TextView
             android:id="@+id/textViewSize"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -125,6 +203,7 @@
             android:id="@+id/spinnerSize"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:entries="@array/fragment_appearance_size_array"
             android:paddingStart="20dp"
             android:paddingEnd="5dp"
             android:spinnerMode="dropdown" />
@@ -135,7 +214,7 @@
         android:id="@+id/textViewToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="0dp"
+        android:paddingTop="10dp"
         android:paddingStart="0dp"
         android:paddingEnd="0dp"
         android:text="@string/fragment_appearance_display_toolbar"
@@ -149,12 +228,12 @@
         android:paddingTop="1dp"
         android:paddingBottom="1dp">
 
-        <androidx.appcompat.widget.SwitchCompat
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/toolbarSwitchFirst"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="false"
-            android:drawableStart="@drawable/ic_first_page_black_24dp"
+            android:drawableStart="@drawable/ic_toolbar_first_black_24dp"
             android:drawablePadding="5dp"
             android:paddingVertical="10dp"
             android:paddingStart="20dp"
@@ -171,12 +250,12 @@
         android:paddingTop="1dp"
         android:paddingBottom="1dp">
 
-        <androidx.appcompat.widget.SwitchCompat
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/toolbarSwitchPrevious"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:drawableStart="@drawable/ic_baseline_chevron_left_black_24"
+            android:drawableStart="@drawable/ic_toolbar_left_black_24"
             android:drawablePadding="5dp"
             android:paddingVertical="10dp"
             android:paddingStart="20dp"
@@ -194,12 +273,12 @@
         android:paddingBottom="1dp"
         android:visibility="gone">
 
-        <androidx.appcompat.widget.SwitchCompat
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/toolbarSwitchReport"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="false"
-            android:drawableStart="@drawable/ic_report_black_24dp"
+            android:drawableStart="@drawable/ic_toolbar_report_black_24dp"
             android:drawablePadding="5dp"
             android:paddingVertical="10dp"
             android:paddingStart="20dp"
@@ -216,12 +295,12 @@
         android:paddingTop="1dp"
         android:paddingBottom="1dp">
 
-        <androidx.appcompat.widget.SwitchCompat
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/toolbarSwitchToggleFavourite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:drawableStart="@drawable/ic_favorite_border_black_24dp"
+            android:drawableStart="@drawable/ic_toolbar_favorite_black_24dp"
             android:drawablePadding="5dp"
             android:paddingVertical="10dp"
             android:paddingStart="20dp"
@@ -238,12 +317,12 @@
         android:paddingTop="1dp"
         android:paddingBottom="1dp">
 
-        <androidx.appcompat.widget.SwitchCompat
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/toolbarSwitchShare"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="false"
-            android:drawableStart="@drawable/ic_share_black_24dp"
+            android:drawableStart="@drawable/ic_toolbar_share_black_24dp"
             android:drawablePadding="5dp"
             android:paddingVertical="10dp"
             android:paddingStart="20dp"
@@ -260,11 +339,11 @@
         android:paddingTop="1dp"
         android:paddingBottom="1dp">
 
-        <androidx.appcompat.widget.SwitchCompat
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/toolbarSwitchNextSequential"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_chevron_right_black_24dp"
+            android:drawableStart="@drawable/ic_toolbar_next_sequential_black_24dp"
             android:drawablePadding="5dp"
             android:paddingVertical="10dp"
             android:paddingStart="20dp"
@@ -281,12 +360,12 @@
         android:paddingTop="1dp"
         android:paddingBottom="1dp">
 
-        <androidx.appcompat.widget.SwitchCompat
+        <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/toolbarSwitchNextRandom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:drawableStart="@drawable/ic_baseline_refresh_24"
+            android:drawableStart="@drawable/ic_toolbar_next_random_black_24"
             android:drawablePadding="5dp"
             android:paddingVertical="10dp"
             android:paddingStart="20dp"

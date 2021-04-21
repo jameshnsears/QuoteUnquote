@@ -1,5 +1,6 @@
 package com.github.jameshnsears.quoteunquote.configure.fragment.appearance;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -7,19 +8,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.SeekBar;
+import android.widget.BaseAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.view.ContextThemeWrapper;
 
 import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentAppearanceBinding;
+import com.google.android.material.slider.Slider;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import timber.log.Timber;
 
 public class AppearanceFragment extends FragmentCommon {
     @Nullable
@@ -44,9 +49,11 @@ public class AppearanceFragment extends FragmentCommon {
             @NonNull final LayoutInflater inflater,
             final ViewGroup container,
             final Bundle savedInstanceState) {
-        appearancePreferences = new AppearancePreferences(this.widgetId, this.getContext());
+        final Context context = new ContextThemeWrapper(getActivity(), R.style.AppTheme);
 
-        fragmentAppearanceBinding = FragmentAppearanceBinding.inflate(getLayoutInflater());
+        appearancePreferences = new AppearancePreferences(this.widgetId, getContext());
+
+        fragmentAppearanceBinding = FragmentAppearanceBinding.inflate(inflater.cloneInContext(context));
         return fragmentAppearanceBinding.getRoot();
     }
 
@@ -60,8 +67,12 @@ public class AppearanceFragment extends FragmentCommon {
     public void onViewCreated(
             @NonNull final View view, final Bundle savedInstanceState) {
         createListenerTransparency();
-        createListenerTextColour();
+        createListenerColour();
+
+        createListenerTextFamily();
+        createListenerTextStyle();
         createListenerTextSize();
+
         createListenerToolbarFirst();
         createListenerToolbarPrevious();
         createListenerToolbarReport();
@@ -71,8 +82,12 @@ public class AppearanceFragment extends FragmentCommon {
         createListenerToolbarNextSequential();
 
         setTransparency();
-        setTextColour();
+        setColour();
+
+        setTextFamily();
+        setTextStyle();
         setTextSize();
+
         setToolbar();
     }
 
@@ -129,35 +144,68 @@ public class AppearanceFragment extends FragmentCommon {
     }
 
     private void createListenerTransparency() {
-        fragmentAppearanceBinding.seekBarTransparency.setOnSeekBarChangeListener(
-                new SeekBar.OnSeekBarChangeListener() {
+        fragmentAppearanceBinding.seekBarTransparency.addOnSliderTouchListener(
+                new Slider.OnSliderTouchListener() {
                     @Override
-                    public void onProgressChanged(final SeekBar seekBar, final int progress, final boolean fromUser) {
-                        if (appearancePreferences.getAppearanceTransparency() != progress) {
-                            appearancePreferences.setAppearanceTransparency(progress);
-                        }
+                    public void onStartTrackingTouch(@NonNull Slider slider) {
+                        // ...
                     }
 
                     @Override
-                    public void onStartTrackingTouch(final SeekBar seekBar) {
-                        // do nothing
-                    }
-
-                    @Override
-                    public void onStopTrackingTouch(final SeekBar seekBar) {
-                        // do nothing
+                    public void onStopTrackingTouch(@NonNull Slider slider) {
+                        int sliderValue = (int) slider.getValue();
+                        Timber.d("%d", sliderValue);
+                        appearancePreferences.setAppearanceTransparency(sliderValue);
                     }
                 });
     }
 
-    private void createListenerTextColour() {
+    private void createListenerTextFamily() {
+        final Spinner spinner = fragmentAppearanceBinding.spinnerFamily;
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String selectedItem = spinner.getSelectedItem().toString();
+                if (!appearancePreferences.getAppearanceTextFamily().equals(selectedItem)) {
+                    appearancePreferences.setAppearanceTextFamily(selectedItem);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                // do nothing
+            }
+        });
+    }
+
+    private void createListenerTextStyle() {
+        final Spinner spinner = fragmentAppearanceBinding.spinnerStyle;
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String selectedItem = spinner.getSelectedItem().toString();
+                if (!appearancePreferences.getAppearanceTextStyle().equals(selectedItem)) {
+                    appearancePreferences.setAppearanceTextStyle(selectedItem);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                // do nothing
+            }
+        });
+    }
+
+    private void createListenerColour() {
         final Spinner spinner = fragmentAppearanceBinding.spinnerColour;
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(final AdapterView<?> parent, final View view, final int position, final long selectedItemId) {
                 String selectedItem = spinner.getSelectedItem().toString();
-                if (!appearancePreferences.getAppearanceTextColour().equals(selectedItem)) {
-                    appearancePreferences.setAppearanceTextColour(selectedItem);
+                if (!appearancePreferences.getAppearanceColour().equals(selectedItem)) {
+                    appearancePreferences.setAppearanceColour(selectedItem);
                 }
             }
 
@@ -265,26 +313,68 @@ public class AppearanceFragment extends FragmentCommon {
 
     protected void setTransparency() {
         final int transparency = appearancePreferences.getAppearanceTransparency();
+        Timber.d("%d", transparency);
 
         if (transparency == -1) {
-            fragmentAppearanceBinding.seekBarTransparency.setProgress(0);
+            fragmentAppearanceBinding.seekBarTransparency.setValue(0);
         } else {
-            fragmentAppearanceBinding.seekBarTransparency.setProgress(transparency);
+            fragmentAppearanceBinding.seekBarTransparency.setValue(transparency);
         }
     }
 
-    protected void setTextColour() {
-        final Spinner spinnerColour = fragmentAppearanceBinding.spinnerColour;
-        spinnerColour.setAdapter(new AppearanceColourSpinnerAdapter(getActivity().getBaseContext()));
+    protected void setTextFamily() {
+        setSpinner(
+                fragmentAppearanceBinding.spinnerFamily,
+                new AppearanceFamilySpinnerAdapter(getActivity().getBaseContext()),
+                appearancePreferences.getAppearanceTextFamily(),
+                2,
+                R.array.fragment_appearance_family_array
+        );
 
-        final String spinnerColourPreference = this.appearancePreferences.getAppearanceTextColour();
-        if ("".equals(spinnerColourPreference)) {
-            spinnerColour.setSelection(0);
+        appearancePreferences.setAppearanceTextFamily(fragmentAppearanceBinding.spinnerFamily.getSelectedItem().toString());
+    }
+
+    protected void setTextStyle() {
+        setSpinner(
+                fragmentAppearanceBinding.spinnerStyle,
+                new AppearanceStyleSpinnerAdapter(getActivity().getBaseContext()),
+                appearancePreferences.getAppearanceTextStyle(),
+                3,
+                R.array.fragment_appearance_style_array
+        );
+
+        appearancePreferences.setAppearanceTextStyle(fragmentAppearanceBinding.spinnerStyle.getSelectedItem().toString());
+    }
+
+    protected void setColour() {
+        setSpinner(
+                fragmentAppearanceBinding.spinnerColour,
+                new AppearanceColourSpinnerAdapter(getActivity().getBaseContext()),
+                appearancePreferences.getAppearanceColour(),
+                1,
+                R.array.fragment_appearance_colour_array
+        );
+    }
+
+    private void setSpinner(
+            @NonNull
+            final Spinner spinner,
+            @NonNull
+            final BaseAdapter spinnerAdapter,
+            @NonNull
+            final String preference,
+            int defaultSelection,
+            int resourceArrayId) {
+
+        spinner.setAdapter(spinnerAdapter);
+
+        if ("".equals(preference)) {
+            spinner.setSelection(defaultSelection);
         } else {
             int selectionIndex = 0;
-            for (final String colour : getActivity().getBaseContext().getResources().getStringArray(R.array.fragment_appearance_colour_array)) {
-                if (colour.equals(spinnerColourPreference)) {
-                    spinnerColour.setSelection(selectionIndex);
+            for (final String spinnerRow : getActivity().getBaseContext().getResources().getStringArray(resourceArrayId)) {
+                if (spinnerRow.equals(preference)) {
+                    spinner.setSelection(selectionIndex);
                     break;
                 }
                 selectionIndex++;

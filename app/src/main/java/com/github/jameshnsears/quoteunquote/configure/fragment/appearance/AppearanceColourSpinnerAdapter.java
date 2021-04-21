@@ -46,13 +46,18 @@ class AppearanceColourSpinnerAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View view, final ViewGroup viewGroup) {
-        final LayoutInflater inflater = LayoutInflater.from(context);
-        view = inflater.inflate(android.R.layout.simple_spinner_dropdown_item, null);
+    public View getView(final int position, View convertView, final ViewGroup viewGroup) {
+        View view = convertView;
+
+        if (view == null) {
+            view = LayoutInflater.from(context).inflate(android.R.layout.simple_spinner_dropdown_item, null);
+        }
+
         final TextView textView = view.findViewById(android.R.id.text1);
         textView.setBackgroundColor(Color.parseColor(colours.get(position)));
         textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
         textView.setText(" ");
+
         return view;
     }
 }

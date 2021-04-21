@@ -5,26 +5,33 @@
 
     <string name="fragment_appearance_instruction_touch">Tap widget text to return here</string>
     <string name="fragment_appearance_title">Appearance</string>
-    <string name="fragment_appearance_transparency">Transparency</string>
+    <string name="fragment_appearance_transparency">Transparency %</string>
     <string name="fragment_appearance_text">Text</string>
+    <string name="fragment_appearance_family">Family</string>
+    <string-array name="fragment_appearance_family_array">
+        <item>Cursive</item>
+        <item>Monospace</item>
+        <item>Sans Serif</item>
+        <item>Sans Serif Condensed</item>
+        <item>Sans Serif Medium</item>
+        <item>Serif</item>
+    </string-array>
+    <string name="fragment_appearance_style">Style</string>
+    <string-array name="fragment_appearance_style_array">
+        <item>Bold</item>
+        <item>Bold Italic</item>
+        <item>Italic</item>
+        <item>Regular</item>
+    </string-array>
+    <string name="fragment_appearance_background">Background</string>
     <string name="fragment_appearance_colour">Colour</string>
     <!-- https://www.colorhexa.com/ -->
     <string-array name="fragment_appearance_colour_array">
-        <item>#FF000000</item>
+        <item>#FFEDD1B0</item>
+        <item>#FFF8FD89</item>
+        <item>#FFEDDD6E</item>
         <item>#FFFFFFFF</item>
-        <item>#FF0000FF</item>
-        <item>#FF00008B</item>
-        <item>#FFFF0000</item>
-        <item>#FF8B0000</item>
-        <item>#FF00FF00</item>
-        <item>#FF008000</item>
-        <item>#FF800080</item>
-        <item>#FF9370DB</item>
-        <item>#FFFFFF00</item>
-        <item>#FFFFD700</item>
-        <item>#FFC0C0C0</item>
-        <item>#FFFF1493</item>
-        <item>#FFFF69B4</item>
+        <item>#FFB987DC</item>
     </string-array>
     <string name="fragment_appearance_size">Size</string>
     <integer-array name="fragment_appearance_size_array">
@@ -35,7 +42,6 @@
         <item>20</item>
         <item>24</item>
         <item>28</item>
-        <item>32</item>
     </integer-array>
     <string name="fragment_appearance_display_toolbar">Toolbar</string>
     <string name="fragment_appearance_instructions_first">First, clears Previous</string>
@@ -63,13 +69,13 @@
     <string name="fragment_content_favourites_share_comms">Check network connection</string>
     <string name="fragment_content_author">Author: %d</string>
     <string name="fragment_content_text">Search: %d</string>
-    <string name="fragment_content_text_instructions">Case-insensitive text search&#8230;</string>
+    <string name="fragment_content_text_instructions">Case-insensitive phrase search&#8230;</string>
     <string name="fragment_content_text_no_search_results">No results found for search</string>
 
     <string name="fragment_event_title">Schedule</string>
     <string name="fragment_event_where">Display</string>
     <string name="fragment_event_in_widget">Widget</string>
-    <string name="fragment_event_as_notification">Widget &amp; Notification</string>
+    <string name="fragment_event_as_notification">Notification &amp; Widget</string>
     <string name="fragment_event">Event</string>
     <string name="fragment_event_device_unlock">Screen unlock</string>
     <string name="fragment_event_daily">Time</string>

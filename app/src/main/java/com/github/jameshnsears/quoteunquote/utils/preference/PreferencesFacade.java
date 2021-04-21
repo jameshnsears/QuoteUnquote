@@ -11,6 +11,7 @@ public class PreferencesFacade {
     @NonNull
     public static final String PREFERENCES_FILENAME = "QuoteUnquote";
     protected int widgetId;
+    @NonNull
     protected final Context applicationContext;
     @Nullable
     protected final PreferenceHelper preferenceHelper;

@@ -24,8 +24,8 @@ class AppearanceFragmentPreferencesTest : ShadowLoggingHelper() {
                 fragment.setTransparency()
                 assertThat(fragment.appearancePreferences?.appearanceTransparency, equalTo(-1))
 
-                fragment.setTextColour()
-                assertEquals("#FF000000", fragment.appearancePreferences?.appearanceTextColour)
+                fragment.setColour()
+                assertEquals("#FFF8FD89", fragment.appearancePreferences?.appearanceColour)
 
                 fragment.setTextSize()
                 assertThat(fragment.appearancePreferences?.appearanceTextSize, equalTo(16))
@@ -49,9 +49,9 @@ class AppearanceFragmentPreferencesTest : ShadowLoggingHelper() {
                 fragment.setTransparency()
                 assertEquals(5, fragment.appearancePreferences?.appearanceTransparency)
 
-                fragment.appearancePreferences?.appearanceTextColour = "#FFFFFFFF"
-                fragment.setTextColour()
-                assertEquals("#FFFFFFFF", fragment.appearancePreferences?.appearanceTextColour)
+                fragment.appearancePreferences?.appearanceColour = "#FFFFFFFF"
+                fragment.setColour()
+                assertEquals("#FFFFFFFF", fragment.appearancePreferences?.appearanceColour)
 
                 fragment.appearancePreferences?.appearanceTextSize = 32
                 fragment.setTextSize()

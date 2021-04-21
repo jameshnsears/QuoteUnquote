@@ -25,4 +25,8 @@ class CloudServiceSendDouble : CloudServiceSend() {
     override fun getServiceContext(): Context? {
         return this@CloudServiceSendDouble.applicationContext
     }
+
+    override fun auditSend(intent: Intent) {
+        // ...
+    }
 }

@@ -17,7 +17,7 @@ public class ContentCloud {
     @NonNull
     public final ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
-        public void onServiceConnected(final ComponentName name, final IBinder service) {
+        public void onServiceConnected(final ComponentName name, @Nullable final IBinder service) {
             final CloudServiceReceive.LocalBinder binder = (CloudServiceReceive.LocalBinder) service;
 
             if (service != null) {

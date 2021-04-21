@@ -20,7 +20,7 @@
             android:paddingStart="0dp"
             android:paddingEnd="10dp"
             android:text="@string/fragment_event_title"
-            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             android:textSize="30sp" />
 
         <View
@@ -40,9 +40,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:drawableStart="@drawable/ic_baseline_refresh_24"
+            android:drawableStart="@drawable/ic_toolbar_next_random_black_24"
             android:drawablePadding="5dp"
             android:paddingVertical="10dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="0dp"
             android:text="@string/fragment_appearance_instructions_next_random"
             android:textSize="15sp" />
 
@@ -50,9 +52,11 @@
             android:id="@+id/radioButtonNextSequential"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_chevron_right_black_24dp"
+            android:drawableStart="@drawable/ic_toolbar_next_sequential_black_24dp"
             android:drawablePadding="5dp"
             android:paddingVertical="10dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="0dp"
             android:text="@string/fragment_appearance_instructions_next_sequential"
             android:textSize="15sp" />
     </RadioGroup>
@@ -79,7 +83,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
+            android:drawableStart="@drawable/ic_event_widgets_black_24"
+            android:drawablePadding="5dp"
             android:paddingVertical="10dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="0dp"
             android:text="@string/fragment_event_in_widget"
             android:textSize="15sp" />
 
@@ -87,7 +95,11 @@
             android:id="@+id/radioButtonWhereAsNotification"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_event_notifications_black_24"
+            android:drawablePadding="5dp"
             android:paddingVertical="10dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="0dp"
             android:text="@string/fragment_event_as_notification"
             android:textSize="15sp" />
     </RadioGroup>
@@ -113,6 +125,10 @@
             android:id="@+id/checkBoxDeviceUnlock"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:drawableStart="@drawable/ic_event_unlock_black_24"
+            android:drawablePadding="5dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="0dp"
             android:text="@string/fragment_event_device_unlock"
             android:textSize="15sp" />
 
@@ -125,6 +141,10 @@
                 android:id="@+id/checkBoxDailyAt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:drawableStart="@drawable/ic_event_time_black_24"
+                android:drawablePadding="5dp"
+                android:paddingStart="12dp"
+                android:paddingEnd="0dp"
                 android:text="@string/fragment_event_daily"
                 android:textSize="15sp" />
 

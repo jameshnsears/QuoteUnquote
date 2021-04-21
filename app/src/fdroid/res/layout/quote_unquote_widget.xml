@@ -28,7 +28,7 @@
             android:layout_weight="1"
             android:background="@android:color/white"
             android:contentDescription="@string/fragment_appearance_instructions_first"
-            android:src="@drawable/ic_first_page_black_24dp"
+            android:src="@drawable/ic_toolbar_first_black_24dp"
             android:visibility="gone" />
 
         <ImageButton
@@ -38,7 +38,7 @@
             android:layout_weight="1"
             android:background="@android:color/white"
             android:contentDescription="@string/fragment_appearance_instructions_previous"
-            android:src="@drawable/ic_baseline_chevron_left_black_24" />
+            android:src="@drawable/ic_toolbar_left_black_24" />
 
         <ImageButton
             android:id="@+id/imageButtonReport"
@@ -47,7 +47,7 @@
             android:layout_weight="1"
             android:background="@android:color/white"
             android:contentDescription="@string/fragment_appearance_instructions_report"
-            android:src="@drawable/ic_report_black_24dp"
+            android:src="@drawable/ic_toolbar_report_black_24dp"
             android:visibility="gone" />
 
         <ImageButton
@@ -57,7 +57,7 @@
             android:layout_weight="1"
             android:background="@android:color/white"
             android:contentDescription="@string/fragment_appearance_instructions_favourite"
-            android:src="@drawable/ic_favorite_border_black_24dp" />
+            android:src="@drawable/ic_toolbar_favorite_black_24dp" />
 
         <ImageButton
             android:id="@+id/imageButtonShare"
@@ -66,7 +66,7 @@
             android:layout_weight="1"
             android:background="@android:color/white"
             android:contentDescription="@string/fragment_appearance_instructions_share"
-            android:src="@drawable/ic_share_black_24dp" />
+            android:src="@drawable/ic_toolbar_share_black_24dp" />
 
         <ImageButton
             android:id="@+id/imageButtonNextSequential"
@@ -75,7 +75,7 @@
             android:layout_weight="1"
             android:background="@android:color/white"
             android:contentDescription="@string/fragment_appearance_instructions_next_sequential"
-            android:src="@drawable/ic_chevron_right_black_24dp"
+            android:src="@drawable/ic_toolbar_next_sequential_black_24dp"
             android:visibility="gone" />
 
         <ImageButton
@@ -85,7 +85,7 @@
             android:layout_weight="1"
             android:background="@android:color/white"
             android:contentDescription="@string/fragment_appearance_instructions_next_random"
-            android:src="@drawable/ic_baseline_refresh_24" />
+            android:src="@drawable/ic_toolbar_next_random_black_24" />
 
     </LinearLayout>
 

@@ -177,19 +177,21 @@ public class EventFragment extends FragmentCommon {
         final TimePicker timePicker = fragmentEventBinding.timePickerDailyAt;
 
         final int hourOfDay = eventPreferences.getEventDailyTimeHour();
-        if (hourOfDay == -1 || eventPreferences.getEventDailyTimeHour() != hourOfDay) {
+        if (hourOfDay == -1) {
             eventPreferences.setEventDailyTimeHour(6);
             timePicker.setHour(6);
+        } else {
+            timePicker.setHour(hourOfDay);
         }
 
         final int minute = eventPreferences.getEventDailyTimeMinute();
-        if (minute == -1 || eventPreferences.getEventDailyTimeMinute() != minute) {
+        if (minute == -1) {
             eventPreferences.setEventDailyTimeMinute(0);
             timePicker.setMinute(0);
+        } else {
+            timePicker.setMinute(minute);
         }
 
-        timePicker.setHour(hourOfDay);
-        timePicker.setMinute(minute);
         timePicker.setIs24HourView(false);
     }
 }

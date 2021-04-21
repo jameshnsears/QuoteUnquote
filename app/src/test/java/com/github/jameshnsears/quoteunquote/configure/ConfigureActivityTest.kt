@@ -33,8 +33,6 @@ class ConfigureActivityTest {
             activity.onBackPressed()
 
             Assert.assertTrue(activity.fragmentContent.fragmentContentBinding?.radioButtonAll?.isChecked == true)
-
-            activity.fragmentContent.shutdown()
         }
         scenario.close()
     }

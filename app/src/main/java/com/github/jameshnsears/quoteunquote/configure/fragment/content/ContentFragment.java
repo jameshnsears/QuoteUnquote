@@ -150,7 +150,7 @@ public class ContentFragment extends FragmentCommon {
 
             @Override
             public void onError(@NonNull final Throwable throwable) {
-                Timber.d(throwable);
+                Timber.d("onError=%s", throwable.getMessage());
             }
 
             @Override
@@ -215,7 +215,7 @@ public class ContentFragment extends FragmentCommon {
 
                             @Override
                             public void onError(@NonNull final Throwable throwable) {
-                                Timber.d(throwable);
+                                Timber.d("onError=%s", throwable.getMessage());
                             }
                         }));
     }
@@ -251,7 +251,7 @@ public class ContentFragment extends FragmentCommon {
 
                             @Override
                             public void onError(@NonNull final Throwable throwable) {
-                                Timber.d(throwable);
+                                Timber.d("onError=%s", throwable.getMessage());
                             }
                         }));
     }
@@ -292,7 +292,7 @@ public class ContentFragment extends FragmentCommon {
 
                             @Override
                             public void onError(@NonNull final Throwable throwable) {
-                                Timber.d(throwable);
+                                Timber.d("onError=%s", throwable.getMessage());
                             }
                         }));
     }

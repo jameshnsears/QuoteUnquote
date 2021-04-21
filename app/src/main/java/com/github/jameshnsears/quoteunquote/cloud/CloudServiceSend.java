@@ -69,10 +69,7 @@ public class CloudServiceSend extends Service {
                                 context.getString(R.string.fragment_content_favourites_share_sent),
                                 Toast.LENGTH_LONG));
 
-                        final ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
-                        properties.put("code", intent.getStringExtra("localCodeValue"));
-                        AuditEventHelper.auditEvent("FAVOURITE_SEND", properties);
-
+                        auditSend(intent);
                     } else {
                         CloudServiceHelper.showNoNetworkToast(context, handler);
                     }
@@ -87,6 +84,12 @@ public class CloudServiceSend extends Service {
         }
 
         return START_NOT_STICKY;
+    }
+
+    protected void auditSend(@NonNull Intent intent) {
+        final ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
+        properties.put("code", intent.getStringExtra("localCodeValue"));
+        AuditEventHelper.auditEvent("FAVOURITE_SEND", properties);
     }
 
     @NonNull

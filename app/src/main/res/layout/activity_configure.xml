@@ -1,36 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/configureScrollView"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingStart="22dp"
-    android:paddingEnd="0dp">
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/configureToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@color/colorPrimary"
+        app:navigationIcon="@drawable/ic_action_bar_icon"
+        app:title="@string/activity_configure_title"
+        app:titleTextColor="@color/white" />
 
-        <FrameLayout
-            android:id="@+id/fragmentPlaceholderAppearance"
+    <ScrollView
+        android:id="@+id/configureScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="15dp"
+        android:paddingEnd="0dp">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <FrameLayout
-            android:id="@+id/fragmentPlaceholderContent"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            <FrameLayout
+                android:id="@+id/fragmentPlaceholderAppearance"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-        <FrameLayout
-            android:id="@+id/fragmentPlaceholderEvent"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            <FrameLayout
+                android:id="@+id/fragmentPlaceholderContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-        <FrameLayout
-            android:id="@+id/fragmentPlaceholderFooter"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
-</ScrollView>
+            <FrameLayout
+                android:id="@+id/fragmentPlaceholderEvent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
+            <FrameLayout
+                android:id="@+id/fragmentPlaceholderFooter"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

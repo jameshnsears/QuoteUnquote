@@ -40,8 +40,7 @@ public class ReportActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Timber.d("%d", widgetId);
-
+        super.onBackPressed();
         activityReportBinding = null;
 
         broadcastFinishIntent();
@@ -78,8 +77,8 @@ public class ReportActivity extends AppCompatActivity {
         activityReportBinding = ActivityReportBinding.inflate(getLayoutInflater());
         final View view = activityReportBinding.getRoot();
 
-        this.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        this.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(view);
 

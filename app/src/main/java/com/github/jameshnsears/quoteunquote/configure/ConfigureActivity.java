@@ -137,10 +137,6 @@ public class ConfigureActivity extends AppCompatActivity {
 
         AuditEventHelper.createInstance(getApplication());
 
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setIcon(R.drawable.ic_action_bar_icon);
-        this.setTitle("  " + getString(R.string.activity_configure_title));
-
         final FragmentManager supportFragmentManager = getSupportFragmentManager();
         final FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragmentPlaceholderAppearance, AppearanceFragment.newInstance(widgetId));

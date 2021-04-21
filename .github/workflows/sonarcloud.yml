@@ -40,6 +40,14 @@ jobs:
           KEYSTORE_JKS: ${{ secrets.KEYSTORE_JKS }}
         run: echo "$KEYSTORE_JKS" | base64 -d > app/keystore.jks
 
+      - name: google-services.json
+        env:
+          GOOGLE_PLAY_JSON_DEVELOPMENT: ${{ secrets.GOOGLE_PLAY_JSON_DEVELOPMENT }}
+        run: |
+          echo "${GOOGLE_PLAY_JSON_DEVELOPMENT}" | base64 -d > app/google-services.json
+          ls -al
+          ls -al app/src
+
       - name: local.properties
         env:
           LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}

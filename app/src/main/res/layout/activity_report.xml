@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/corners_report_dialog"
@@ -18,7 +19,7 @@
         android:background="@color/colorPrimary"
         android:padding="10dp"
         android:text="@string/activity_report_title"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
         android:textColor="@android:color/white"
         android:textStyle="bold" />
 
@@ -89,15 +90,16 @@
 
         <Button
             android:id="@+id/cancel_button"
-            android:layout_width="90dp"
+            android:layout_width="100dp"
             android:layout_height="40dp"
             android:background="@drawable/corners_buttons"
             android:text="@android:string/cancel"
             android:textColor="@android:color/white"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            app:backgroundTint="@null" />
 
         <View
-            android:layout_width="10dp"
+            android:layout_width="20dp"
             android:layout_height="fill_parent" />
 
         <Button
@@ -107,7 +109,8 @@
             android:background="@drawable/corners_buttons"
             android:text="@android:string/ok"
             android:textColor="@android:color/white"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            app:backgroundTint="@null" />
     </LinearLayout>
 
 </LinearLayout>

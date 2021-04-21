@@ -1,1 +1,1 @@
-A simple App Widget featuring quality quotations.
+A simple App Widget featuring quality quotes.

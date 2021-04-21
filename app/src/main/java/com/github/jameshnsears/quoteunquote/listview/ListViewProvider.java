@@ -3,7 +3,6 @@ package com.github.jameshnsears.quoteunquote.listview;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.TypedValue;
 import android.widget.RemoteViews;
@@ -13,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteModel;
+import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences;
 import com.github.jameshnsears.quoteunquote.configure.fragment.content.ContentPreferences;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
@@ -36,8 +36,6 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
     private String quotationPosition;
     private boolean isReported;
     private final int textSize;
-    @Nullable
-    private final String textColour;
 
     @Nullable
     public QuoteUnquoteModel getQuoteUnquoteModel() {
@@ -57,7 +55,6 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
 
             AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, context);
             textSize = appearancePreferences.getAppearanceTextSize();
-            textColour = appearancePreferences.getAppearanceTextColour();
 
             ContentPreferences contentPreferences = new ContentPreferences(widgetId, context);
 
@@ -128,40 +125,74 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
 
         final Intent intent = new Intent();
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
-        remoteViews.setOnClickFillInIntent(android.R.id.text1, intent);
+        remoteViews.setOnClickFillInIntent(R.id.textViewRow, intent);
 
         return remoteViews;
     }
 
+    private int getRowLayoutId() {
+        AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, context);
+
+        String textFamily = appearancePreferences.getAppearanceTextFamily();
+        String textStyle = appearancePreferences.getAppearanceTextStyle();
+        Timber.d("textFamily=%s; textStyle=%s", textFamily, textStyle);
+
+        int layoutId = 0;
+
+        switch (textFamily) {
+            case "Cursive":
+                layoutId = ListViewLayoutIdHelper.Companion.layoutIdForCursive(textStyle);
+                break;
+
+            case "Monospace":
+                layoutId = ListViewLayoutIdHelper.Companion.layoutIdForMonospace(textStyle);
+                break;
+
+            case "Sans Serif":
+                layoutId = ListViewLayoutIdHelper.Companion.layoutIdForSansSerif(textStyle);
+                break;
+
+            case "Sans Serif Condensed":
+                layoutId = ListViewLayoutIdHelper.Companion.layoutIdForSansSerifCondensed(textStyle);
+                break;
+
+            case "Sans Serif Medium":
+                layoutId = ListViewLayoutIdHelper.Companion.layoutIdForSansSerifMedium(textStyle);
+                break;
+
+            default:
+                layoutId = ListViewLayoutIdHelper.Companion.layoutIdForSerif(textStyle);
+                break;
+        }
+
+        Timber.d("%d", layoutId);
+        return layoutId;
+    }
+
     @NonNull
     private RemoteViews getRemoteViews(final int position) {
-        final RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
-                android.R.layout.simple_list_item_1);
+        final RemoteViews remoteViews = new RemoteViews(context.getPackageName(), getRowLayoutId());
+
+        remoteViews.setTextViewText(R.id.textViewRow, getTheQuotation());
 
         synchronized (this) {
             if (!quotationList.isEmpty() && !"".equals(getTheQuotation())) {
-                remoteViews.setTextViewText(android.R.id.text1, getTheQuotation());
+                remoteViews.setTextViewText(R.id.textViewRow, getTheQuotation());
 
                 if (textSize != -1) {
                     remoteViews.setTextViewTextSize(
-                            android.R.id.text1,
+                            R.id.textViewRow,
                             TypedValue.COMPLEX_UNIT_DIP,
                             (float) textSize);
                 }
 
-                if (!textColour.equals("")) {
-                    remoteViews.setTextColor(
-                            android.R.id.text1,
-                            Color.parseColor(textColour));
-                }
-
-                int paintFlags = Paint.ANTI_ALIAS_FLAG | Paint.FAKE_BOLD_TEXT_FLAG;
+                int paintFlags = Paint.ANTI_ALIAS_FLAG;
 
                 if (isReported) {
-                    remoteViews.setInt(android.R.id.text1, "setPaintFlags",
+                    remoteViews.setInt(R.id.textViewRow, "setPaintFlags",
                             paintFlags | Paint.STRIKE_THRU_TEXT_FLAG);
                 } else {
-                    remoteViews.setInt(android.R.id.text1, "setPaintFlags", paintFlags);
+                    remoteViews.setInt(R.id.textViewRow, "setPaintFlags", paintFlags);
                 }
             }
         }
