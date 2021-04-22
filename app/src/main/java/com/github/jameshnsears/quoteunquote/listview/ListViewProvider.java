@@ -3,6 +3,7 @@ package com.github.jameshnsears.quoteunquote.listview;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.TypedValue;
 import android.widget.RemoteViews;
@@ -36,6 +37,8 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
     private String quotationPosition;
     private boolean isReported;
     private final int textSize;
+    @Nullable
+    private String textColour;
 
     @Nullable
     public QuoteUnquoteModel getQuoteUnquoteModel() {
@@ -55,6 +58,7 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
 
             AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, context);
             textSize = appearancePreferences.getAppearanceTextSize();
+            textColour = appearancePreferences.getAppearanceTextColour();
 
             ContentPreferences contentPreferences = new ContentPreferences(widgetId, context);
 
@@ -186,7 +190,13 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
                             (float) textSize);
                 }
 
-                int paintFlags = Paint.ANTI_ALIAS_FLAG;
+                if (!textColour.equals("")) {
+                    remoteViews.setTextColor(
+                            R.id.textViewRow,
+                            Color.parseColor(textColour));
+                }
+
+                int paintFlags = Paint.ANTI_ALIAS_FLAG | Paint.FAKE_BOLD_TEXT_FLAG;
 
                 if (isReported) {
                     remoteViews.setInt(R.id.textViewRow, "setPaintFlags",

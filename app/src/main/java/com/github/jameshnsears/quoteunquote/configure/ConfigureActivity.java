@@ -4,37 +4,25 @@ import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ScrollView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.fragment.app.Fragment;
 
 import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearanceFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.content.ContentFragment;
-import com.github.jameshnsears.quoteunquote.configure.fragment.content.ContentPreferences;
 import com.github.jameshnsears.quoteunquote.configure.fragment.event.EventFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.footer.FooterFragment;
-import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
-import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
 import com.github.jameshnsears.quoteunquote.utils.ui.ToastHelper;
-
-import timber.log.Timber;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 public class ConfigureActivity extends AppCompatActivity {
     public int widgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
     public boolean broadcastFinishIntent = true;
-
-    @Override
-    protected void onPause() {
-        finish();
-        super.onPause();
-    }
 
     private void scrollBarPositionRemember() {
         ConfigurePreferences configurePreferences = new ConfigurePreferences(widgetId, getApplicationContext());
@@ -50,32 +38,14 @@ public class ConfigureActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onDestroy() {
-        ToastHelper.toast = null;
-        super.onDestroy();
-    }
-
-    @Override
     public void finish() {
-        ensureFragmentContentSearchConsistency();
-
         if (broadcastFinishIntent) {
             broadcastTheFinishIntent();
         }
 
-        super.finish();
-    }
+        ToastHelper.toast = null;
 
-    public void ensureFragmentContentSearchConsistency() {
-        final ContentFragment contentFragment = getFragmentContent();
-
-        if (isSearchSelectedButWithoutResults(contentFragment)) {
-            warnUserAboutSearchResults();
-            contentFragment.fragmentContentBinding.radioButtonAll.setChecked(true);
-            resetContentSelection();
-        }
-
-        contentFragment.shutdown();
+        finishAndRemoveTask();
     }
 
     public void broadcastTheFinishIntent() {
@@ -87,30 +57,15 @@ public class ConfigureActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         scrollBarPositionRemember();
-        finish();
+
+        super.onBackPressed();
     }
 
     @NonNull
     public ContentFragment getFragmentContent() {
         return (ContentFragment)
                 getSupportFragmentManager().findFragmentById(R.id.fragmentPlaceholderContent);
-    }
-
-    private void resetContentSelection() {
-        final ContentPreferences contentPreferences = new ContentPreferences(widgetId, getApplicationContext());
-        contentPreferences.setContentSelection(ContentSelection.ALL);
-    }
-
-    private void warnUserAboutSearchResults() {
-        ToastHelper.makeToast(this, this.getString(R.string.fragment_content_text_no_search_results), Toast.LENGTH_LONG);
-    }
-
-    private boolean isSearchSelectedButWithoutResults(
-            @NonNull final ContentFragment contentFragment) {
-        return contentFragment.fragmentContentBinding.radioButtonSearch.isChecked()
-                && contentFragment.countSearchResults == 0;
     }
 
     @Override
@@ -125,26 +80,41 @@ public class ConfigureActivity extends AppCompatActivity {
             broadcastFinishIntent = extras.getBoolean("broadcastFinishIntent", true);
         }
 
-        createFragments();
-
         setContentView(R.layout.activity_configure);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.configureNavigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
+
+        getSupportFragmentManager().beginTransaction().replace(
+                R.id.fragmentPlaceholderContent, getFragmentContentNewInstance()).commit();
 
         scrollsBarPositionRestore();
     }
 
-    public void createFragments() {
-        Timber.d("%d", widgetId);
+    private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
+            = item -> {
+                Fragment selectedFragment = null;
+                switch (item.getItemId()) {
+                    case R.id.navigationBarAppearance:
+                        selectedFragment = AppearanceFragment.newInstance(widgetId);
+                        break;
+                    case R.id.navigationBarQuotations:
+                        selectedFragment = getFragmentContentNewInstance();
+                        break;
+                    case R.id.navigationBarSchedule:
+                        selectedFragment = EventFragment.newInstance(widgetId);
+                        break;
+                    case R.id.navigationBarAbout:
+                        selectedFragment = FooterFragment.newInstance(widgetId);
+                        break;
+                }
 
-        AuditEventHelper.createInstance(getApplication());
-
-        final FragmentManager supportFragmentManager = getSupportFragmentManager();
-        final FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.fragmentPlaceholderAppearance, AppearanceFragment.newInstance(widgetId));
-        fragmentTransaction.add(R.id.fragmentPlaceholderContent, getFragmentContentNewInstance());
-        fragmentTransaction.add(R.id.fragmentPlaceholderEvent, EventFragment.newInstance(widgetId));
-        fragmentTransaction.add(R.id.fragmentPlaceholderFooter, FooterFragment.newInstance(widgetId));
-        fragmentTransaction.commit();
-    }
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragmentPlaceholderContent, selectedFragment)
+                        .commit();
+                return true;
+            };
 
     @NonNull
     public ContentFragment getFragmentContentNewInstance() {

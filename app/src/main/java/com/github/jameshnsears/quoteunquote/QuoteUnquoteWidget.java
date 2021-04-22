@@ -160,6 +160,8 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             if (widgetId != 0) {
                 setTransparency(context, widgetId, remoteViews);
 
+                setToolbarButtonColours(context, widgetId, remoteViews);
+
                 setToolbarButtonsVisibility(context, widgetId, remoteViews);
             }
 
@@ -252,14 +254,6 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull final AppWidgetManager appWidgetManager) {
         Timber.d("performing update: %d", widgetId);
 
-        // adb uninstall com.github.jameshnsears.quoteunquote
-        //
-        // adb install -r ~/Desktop/app-debug-1.0.1.apk
-        //
-        // Build > Build Bundle(s) / APK(s) > Build APK(s)
-        // adb install -r app/build/outputs/apk/googleplay/debug/app-googleplay-debug.apk
-        //
-        // look at Logcat
         stopDatabaseConnectivity();
         stopExecutorService();
 
@@ -276,7 +270,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         EventPreferences eventPreferences = new EventPreferences(widgetId, context);
         eventPreferences.performMigration();
 
-        for (int id: appWidgetManager.getAppWidgetIds(new ComponentName(context, QuoteUnquoteWidget.class))) {
+        for (int id : appWidgetManager.getAppWidgetIds(new ComponentName(context, QuoteUnquoteWidget.class))) {
             Timber.d("%d", id);
             getQuoteUnquoteModel(context).resetPrevious(id, new ContentPreferences(id, context).getContentSelection());
             getQuoteUnquoteModel(context).markAsCurrentDefault(id);
@@ -470,6 +464,10 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
                 transparencyMask = (int) (transparency * 0xFF) << 24 | 0xB987DC;
                 break;
 
+            case "#FF000000":
+                transparencyMask = (int) (transparency * 0xFF) << 24 | 0x000000;
+                break;
+
             default:
                 // "#FFEDD1B0":
                 transparencyMask = (int) (transparency * 0xFF) << 24 | 0xEDD1B0;
@@ -487,48 +485,105 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
 
         final AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, context);
 
-        setToolbarButtonVisibility(
-                remoteViews,
-                appearancePreferences.getAppearanceToolbarFirst(),
-                R.id.imageButtonFirst);
+        if (!appearancePreferences.getAppearanceToolbarFirst()
+                && !appearancePreferences.getAppearanceToolbarPrevious()
+                && !appearancePreferences.getAppearanceToolbarReport()
+                && !appearancePreferences.getAppearanceToolbarFavourite()
+                && !appearancePreferences.getAppearanceToolbarShare()
+                && !appearancePreferences.getAppearanceToolbarRandom()
+                && !appearancePreferences.getAppearanceToolbarSequential()) {
+            setToolbarVisibility(remoteViews, false);
+        } else {
+            setToolbarVisibility(remoteViews, true);
 
-        setToolbarButtonVisibility(
-                remoteViews,
-                appearancePreferences.getAppearanceToolbarPrevious(),
-                R.id.imageButtonPrevious);
+            setToolbarButtonVisibility(
+                    remoteViews,
+                    appearancePreferences.getAppearanceToolbarFirst(),
+                    R.id.imageButtonFirst);
 
-        setToolbarButtonVisibility(
-                remoteViews,
-                appearancePreferences.getAppearanceToolbarReport(),
-                R.id.imageButtonReport);
+            setToolbarButtonVisibility(
+                    remoteViews,
+                    appearancePreferences.getAppearanceToolbarPrevious(),
+                    R.id.imageButtonPrevious);
 
-        setToolbarButtonVisibility(
-                remoteViews,
-                appearancePreferences.getAppearanceToolbarFavourite(),
-                R.id.imageButtonFavourite);
+            setToolbarButtonVisibility(
+                    remoteViews,
+                    appearancePreferences.getAppearanceToolbarReport(),
+                    R.id.imageButtonReport);
+
+            setToolbarButtonVisibility(
+                    remoteViews,
+                    appearancePreferences.getAppearanceToolbarFavourite(),
+                    R.id.imageButtonFavourite);
+
+            setHeartColour(context, widgetId, remoteViews);
+
+            setToolbarButtonVisibility(
+                    remoteViews,
+                    appearancePreferences.getAppearanceToolbarShare(),
+                    R.id.imageButtonShare);
+
+            setToolbarButtonVisibility(
+                    remoteViews,
+                    appearancePreferences.getAppearanceToolbarRandom(),
+                    R.id.imageButtonNextRandom);
+
+            setToolbarButtonVisibility(
+                    remoteViews,
+                    appearancePreferences.getAppearanceToolbarSequential(),
+                    R.id.imageButtonNextSequential);
+        }
+    }
+
+    private void setToolbarVisibility(
+            @NonNull final RemoteViews remoteViews,
+            final boolean toolbarEnabled) {
+        if (toolbarEnabled) {
+            remoteViews.setViewVisibility(R.id.linearLayoutToolbar, View.VISIBLE);
+        } else {
+            remoteViews.setViewVisibility(R.id.linearLayoutToolbar, View.GONE);
+        }
+    }
+
+    private void setToolbarButtonColours(
+            @NonNull final Context context,
+            final int widgetId,
+            @NonNull final RemoteViews remoteViews) {
+        Timber.d("%d", widgetId);
+
+        AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, context);
+
+        switch (appearancePreferences.getAppearanceToolbarColour()) {
+            case "#FFFFFFFF":
+                remoteViews.setImageViewResource(R.id.imageButtonFirst, R.drawable.ic_toolbar_first_ffffffff_24dp);
+                remoteViews.setImageViewResource(R.id.imageButtonPrevious, R.drawable.ic_toolbar_previous_ffffffff_24);
+                remoteViews.setImageViewResource(R.id.imageButtonReport, R.drawable.ic_toolbar_report_ffffffff_24dp);
+                remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_toolbar_favorite_ffffffff_24dp);
+                remoteViews.setImageViewResource(R.id.imageButtonShare, R.drawable.ic_toolbar_share_ffffffff_24dp);
+                remoteViews.setImageViewResource(R.id.imageButtonNextSequential, R.drawable.ic_toolbar_next_sequential_ffffffff_24dp);
+                remoteViews.setImageViewResource(R.id.imageButtonNextRandom, R.drawable.ic_toolbar_next_random_ffffffff_24);
+                break;
+
+            default:
+            // case "#FF000000":
+                remoteViews.setImageViewResource(R.id.imageButtonFirst, R.drawable.ic_toolbar_first_ff000000_24dp);
+                remoteViews.setImageViewResource(R.id.imageButtonPrevious, R.drawable.ic_toolbar_previous_ff000000_24);
+                remoteViews.setImageViewResource(R.id.imageButtonReport, R.drawable.ic_toolbar_report_ff000000_24dp);
+                remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_toolbar_favorite_ff000000_24dp);
+                remoteViews.setImageViewResource(R.id.imageButtonShare, R.drawable.ic_toolbar_share_ff000000_24dp);
+                remoteViews.setImageViewResource(R.id.imageButtonNextSequential, R.drawable.ic_toolbar_next_sequential_ff000000_24dp);
+                remoteViews.setImageViewResource(R.id.imageButtonNextRandom, R.drawable.ic_toolbar_next_random_ff000000_24);
+                break;
+        }
 
         setHeartColour(context, widgetId, remoteViews);
-
-        setToolbarButtonVisibility(
-                remoteViews,
-                appearancePreferences.getAppearanceToolbarShare(),
-                R.id.imageButtonShare);
-
-        setToolbarButtonVisibility(
-                remoteViews,
-                appearancePreferences.getAppearanceToolbarRandom(),
-                R.id.imageButtonNextRandom);
-
-        setToolbarButtonVisibility(
-                remoteViews,
-                appearancePreferences.getAppearanceToolbarSequential(),
-                R.id.imageButtonNextSequential);
     }
 
     private void setToolbarButtonVisibility(
             @NonNull final RemoteViews remoteViews,
             final boolean toolbarButtonEnabled,
             @IdRes final int imageButtonId) {
+
         if (toolbarButtonEnabled) {
             remoteViews.setViewVisibility(imageButtonId, View.VISIBLE);
         } else {
@@ -545,13 +600,8 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         final QuotationEntity quotationEntity = getQuoteUnquoteModel(context).getCurrentQuotation(
                 widgetId);
 
-        if (quotationEntity != null) {
-            // null check needed for startup
-            if (getQuoteUnquoteModel(context).isFavourite(quotationEntity.digest)) {
-                remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_toolbar_favorite_red_24dp);
-            } else {
-                remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_toolbar_favorite_black_24dp);
-            }
+        if (quotationEntity != null && getQuoteUnquoteModel(context).isFavourite(quotationEntity.digest)) {
+            remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_toolbar_favorite_red_24dp);
         }
     }
 

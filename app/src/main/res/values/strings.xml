@@ -3,7 +3,7 @@
 
     <string name="activity_configure_title">Quote&#8230; Unquote</string>
 
-    <string name="fragment_appearance_instruction_touch">Tap widget text to return here</string>
+    <string name="fragment_appearance_instruction_touch">Tap widget text to return here!</string>
     <string name="fragment_appearance_title">Appearance</string>
     <string name="fragment_appearance_transparency">Transparency %</string>
     <string name="fragment_appearance_text">Text</string>
@@ -25,13 +25,13 @@
     </string-array>
     <string name="fragment_appearance_background">Background</string>
     <string name="fragment_appearance_colour">Colour</string>
-    <!-- https://www.colorhexa.com/ -->
     <string-array name="fragment_appearance_colour_array">
         <item>#FFEDD1B0</item>
         <item>#FFF8FD89</item>
         <item>#FFEDDD6E</item>
-        <item>#FFFFFFFF</item>
         <item>#FFB987DC</item>
+        <item>#FFFFFFFF</item>
+        <item>#FF000000</item>
     </string-array>
     <string name="fragment_appearance_size">Size</string>
     <integer-array name="fragment_appearance_size_array">
@@ -43,6 +43,23 @@
         <item>24</item>
         <item>28</item>
     </integer-array>
+    <string-array name="fragment_appearance_text_colour_array">
+        <item>#FF000000</item>
+        <item>#FFFFFFFF</item>
+        <item>#FF0000FF</item>
+        <item>#FF00008B</item>
+        <item>#FFFF0000</item>
+        <item>#FF8B0000</item>
+        <item>#FF00FF00</item>
+        <item>#FF008000</item>
+        <item>#FF800080</item>
+        <item>#FF9370DB</item>
+        <item>#FFFFFF00</item>
+        <item>#FFFFD700</item>
+        <item>#FFFF1493</item>
+        <item>#FFFF69B4</item>
+        <item>#FFC0C0C0</item>
+    </string-array>
     <string name="fragment_appearance_display_toolbar">Toolbar</string>
     <string name="fragment_appearance_instructions_first">First, clears Previous</string>
     <string name="fragment_appearance_instructions_previous">Previous</string>>
@@ -51,7 +68,11 @@
     <string name="fragment_appearance_instructions_share">Share</string>
     <string name="fragment_appearance_instructions_next_random">Next, random</string>
     <string name="fragment_appearance_instructions_next_sequential">Next, sequential</string>
-
+    <string name="fragment_appearance_toolbar_colour">Colour</string>
+    <string-array name="fragment_appearance_toolbar_colour_array">
+        <item>#FF000000</item>
+        <item>#FFFFFFFF</item>
+    </string-array>
     <string name="fragment_content_title">Quotations</string>
     <string name="fragment_content_all">All: %d</string>
     <string name="fragment_content_favourites">Favourite: %d</string>
@@ -80,7 +101,8 @@
     <string name="fragment_event_device_unlock">Screen unlock</string>
     <string name="fragment_event_daily">Time</string>
 
-    <string name="fragment_footer_os_warning">Some devices require Battery Saver settings to be configured for this App</string>
+    <string name="fragment_footer_title">About</string>
+    <string name="fragment_footer_os_warning">Some devices require Battery Saver settings to be configured for this App.</string>
     <string name="fragment_footer_version">%1$s/%2$s</string>
     <string name="fragment_footer_oss">Open-source software</string>
     <string name="fragment_footer_github">GitHub</string>
@@ -100,6 +122,11 @@
     <string name="activity_report_instruction_02">\u2022 Strikethrough the quotation</string>
     <string name="activity_report_instruction_03">\u2022 Register the report in analytics</string>
     <string name="activity_report_warning">Quotation already reported</string>
+
+    <string name="configure_navigation_bar_appearance">Appearance</string>
+    <string name="configure_navigation_bar_quotations">Quotations</string>
+    <string name="configure_navigation_bar_event">Schedule</string>
+    <string name="configure_navigation_bar_about">About</string>
 
     <string name="notification_channel_id">quote_unquote_channel_01</string>
     <string name="notification_channel_name">Quotations</string>

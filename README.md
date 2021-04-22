@@ -69,7 +69,7 @@ Choose a Build Variant
  > run a Run/Debug Configuration
 ```
 
-### 3.3. PyCharm
+### 3.3. PyCharm 2021.n
 
 ```text
 After a clone...

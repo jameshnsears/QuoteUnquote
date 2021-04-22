@@ -2,19 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
     android:paddingStart="0dp"
     android:paddingEnd="5dp">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:text="@string/fragment_appearance_instruction_touch"
-        android:textSize="15sp"
-        android:textStyle="normal|italic" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -33,26 +24,18 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             android:textSize="30sp" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp">
+        android:paddingVertical="5dp" >
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="5dp"
-            android:paddingStart="0dp"
-            android:paddingEnd="0dp"
             android:text="@string/fragment_appearance_background"
             android:textSize="17sp"
             android:textStyle="bold" />
@@ -86,8 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp">
+        android:paddingTop="2dp">
 
         <TextView
             android:id="@+id/textView"
@@ -124,55 +106,72 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingStart="0dp"
-        android:paddingEnd="0dp">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="5dp"
-            android:paddingStart="0dp"
-            android:paddingEnd="0dp"
             android:text="@string/fragment_appearance_text"
             android:textSize="17sp"
             android:textStyle="bold" />
+    </LinearLayout>
 
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textViewTextColour"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="5dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
+            android:text="@string/fragment_appearance_colour"
+            android:textSize="15sp" />
+
+        <Spinner
+            android:id="@+id/spinnerTextColour"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:paddingTop="1dp"
-            android:paddingBottom="1dp">
-
-            <TextView
-                android:id="@+id/textViewFamily"
-                android:layout_width="90dp"
-                android:layout_height="wrap_content"
-                android:paddingVertical="5dp"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:text="@string/fragment_appearance_family"
-                android:textSize="15sp" />
-
-            <Spinner
-                android:id="@+id/spinnerFamily"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:entries="@array/fragment_appearance_family_array"
-                android:paddingStart="20dp"
-                android:paddingEnd="5dp"
-                android:spinnerMode="dropdown" />
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingStart="20dp"
+            android:paddingEnd="5dp"
+            android:spinnerMode="dropdown" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="1dp"
-        android:paddingBottom="1dp">
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textViewFamily"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="5dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="@string/fragment_appearance_family"
+            android:textSize="15sp" />
+
+        <Spinner
+            android:id="@+id/spinnerFamily"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/fragment_appearance_family_array"
+            android:paddingStart="20dp"
+            android:paddingEnd="5dp"
+            android:spinnerMode="dropdown" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/textViewStyle"
@@ -198,9 +197,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="1dp"
-        android:paddingBottom="1dp">
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/textViewSize"
@@ -223,30 +220,59 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textViewToolbar"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:paddingStart="0dp"
-        android:paddingEnd="0dp"
-        android:text="@string/fragment_appearance_display_toolbar"
-        android:textSize="17sp"
-        android:textStyle="bold" />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textViewToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/fragment_appearance_display_toolbar"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="1dp"
-        android:paddingBottom="1dp">
+        android:orientation="horizontal"
+        android:paddingVertical="5dp">
+
+        <TextView
+            android:id="@+id/textViewToolbarColour"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
+            android:text="@string/fragment_appearance_colour"
+            android:textSize="15sp" />
+
+        <Spinner
+            android:id="@+id/spinnerToolbarColour"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingStart="20dp"
+            android:paddingEnd="5dp"
+            android:spinnerMode="dropdown" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/toolbarSwitchFirst"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="false"
-            android:drawableStart="@drawable/ic_toolbar_first_black_24dp"
+            android:drawableStart="@drawable/ic_toolbar_first_ff000000_24dp"
             android:drawablePadding="5dp"
             android:paddingVertical="10dp"
             android:paddingStart="20dp"
@@ -259,16 +285,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="1dp"
-        android:paddingBottom="1dp">
+        android:orientation="vertical">
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/toolbarSwitchPrevious"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:drawableStart="@drawable/ic_toolbar_left_black_24"
+            android:drawableStart="@drawable/ic_toolbar_previous_ff000000_24"
             android:drawablePadding="5dp"
             android:paddingVertical="10dp"
             android:paddingStart="20dp"
@@ -282,8 +306,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="1dp"
-        android:paddingBottom="1dp"
         android:visibility="gone">
 
         <com.google.android.material.switchmaterial.SwitchMaterial
@@ -291,7 +313,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="false"
-            android:drawableStart="@drawable/ic_toolbar_report_black_24dp"
+            android:drawableStart="@drawable/ic_toolbar_report_ff000000_24dp"
             android:drawablePadding="5dp"
             android:paddingVertical="10dp"
             android:paddingStart="20dp"
@@ -304,16 +326,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="1dp"
-        android:paddingBottom="1dp">
+        android:orientation="vertical">
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/toolbarSwitchToggleFavourite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:drawableStart="@drawable/ic_toolbar_favorite_black_24dp"
+            android:drawableStart="@drawable/ic_toolbar_favorite_ff000000_24dp"
             android:drawablePadding="5dp"
             android:paddingVertical="10dp"
             android:paddingStart="20dp"
@@ -326,16 +346,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="1dp"
-        android:paddingBottom="1dp">
+        android:orientation="vertical">
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/toolbarSwitchShare"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="false"
-            android:drawableStart="@drawable/ic_toolbar_share_black_24dp"
+            android:drawableStart="@drawable/ic_toolbar_share_ff000000_24dp"
             android:drawablePadding="5dp"
             android:paddingVertical="10dp"
             android:paddingStart="20dp"
@@ -348,15 +366,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="1dp"
-        android:paddingBottom="1dp">
+        android:orientation="vertical">
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/toolbarSwitchNextSequential"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_toolbar_next_sequential_black_24dp"
+            android:drawableStart="@drawable/ic_toolbar_next_sequential_ff000000_24dp"
             android:drawablePadding="5dp"
             android:paddingVertical="10dp"
             android:paddingStart="20dp"
@@ -369,16 +385,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="1dp"
-        android:paddingBottom="1dp">
+        android:orientation="vertical">
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/toolbarSwitchNextRandom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:drawableStart="@drawable/ic_toolbar_next_random_black_24"
+            android:drawableStart="@drawable/ic_toolbar_next_random_ff000000_24"
             android:drawablePadding="5dp"
             android:paddingVertical="10dp"
             android:paddingStart="20dp"

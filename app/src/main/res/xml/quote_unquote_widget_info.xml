@@ -4,8 +4,8 @@
     android:initialKeyguardLayout="@layout/quote_unquote_widget"
     android:initialLayout="@layout/quote_unquote_widget"
     android:minWidth="180dp"
-    android:minHeight="110dp"
+    android:minHeight="55dp"
     android:previewImage="@drawable/example_appwidget_preview"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="1800000"
-    android:widgetCategory="home_screen" />
+    android:widgetCategory="home_screen|keyguard" />

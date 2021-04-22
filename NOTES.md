@@ -45,7 +45,12 @@
 ## 5. Test new .apk over prior .apk via emulator / device
 
 * adb uninstall com.github.jameshnsears.quoteunquote
-* checkout prio version & build debug with prod db
-* adb install -r "app/build/outputs/apk/googleplay/release/app-googleplay-release.apk"
-* look at Logcat
-* checkout HEAD, and run debug with prod db
+* checkout prior version
+* clean + googleplayDebug + with quotations.db.prod + gradle sync
+* Build > Build Bundle(s) / APK(s) > > Build APK(s)
+* adb install -r app/build/outputs/apk/googleplay/debug/app-googleplay-debug.apk
+* or
+* adb install -r 2.1.1-4f4b8b28-app-googleplay-debug.apk
+* adb logcat -c
+* adb logcat > logcat &
+* checkout HEAD, build + install with above & observe after install

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.github.jameshnsears.quoteunquote">
+
+    <uses-permission android:name="android.permission.REORDER_TASKS" tools:node="remove"/>
 
     <application
         android:allowBackup="true"
@@ -27,9 +31,7 @@
         </receiver>
 
         <activity
-            android:name=".configure.ConfigureActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:excludeFromRecents="true">
+            android:name=".configure.ConfigureActivity">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
@@ -37,7 +39,6 @@
 
         <activity
             android:name=".report.ReportActivity"
-            android:excludeFromRecents="true"
             android:theme="@style/ActivityReportTheme" />
 
         <service

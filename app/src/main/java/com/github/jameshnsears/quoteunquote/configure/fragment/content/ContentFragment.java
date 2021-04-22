@@ -77,6 +77,7 @@ public class ContentFragment extends FragmentCommon {
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         contentCloud = new ContentCloud();
         quoteUnquoteModel = new QuoteUnquoteModel(getContext());
     }
@@ -100,12 +101,37 @@ public class ContentFragment extends FragmentCommon {
     public void onDestroyView() {
         super.onDestroyView();
 
+        ensureFragmentContentSearchConsistency();
+
         fragmentContentBinding = null;
 
         shutdown();
 
         getContext().unbindService(contentCloud.serviceConnection);
         contentCloud.isServiceReceiveBound = false;
+    }
+
+    public void ensureFragmentContentSearchConsistency() {
+        if (isSearchSelectedButWithoutResults()) {
+            warnUserAboutSearchResults();
+            fragmentContentBinding.radioButtonAll.setChecked(true);
+            resetContentSelection();
+        }
+    }
+
+    private void resetContentSelection() {
+        final ContentPreferences contentPreferences = new ContentPreferences(widgetId, getContext());
+        contentPreferences.setContentSelection(ContentSelection.ALL);
+        contentPreferences.setContentSelectionSearch("");
+    }
+
+    private void warnUserAboutSearchResults() {
+        ToastHelper.makeToast(getContext(), this.getString(R.string.fragment_content_text_no_search_results), Toast.LENGTH_LONG);
+    }
+
+    private boolean isSearchSelectedButWithoutResults() {
+        return fragmentContentBinding.radioButtonSearch.isChecked()
+                && contentPreferences.getContentSelectionSearch().equals("");
     }
 
     public void shutdown() {
@@ -160,7 +186,7 @@ public class ContentFragment extends FragmentCommon {
         };
 
         RxTextView.textChanges(fragmentContentBinding.editTextSearchText)
-                .debounce(300, TimeUnit.MILLISECONDS)
+                .debounce(25, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .map(charSequence -> {
                     final String keywords = charSequence.toString();
@@ -168,12 +194,11 @@ public class ContentFragment extends FragmentCommon {
                     if (!keywords.equals("")) {
                         Timber.d("%s", keywords);
 
-                        if (!contentPreferences.getContentSelectionSearch().equals(keywords)) {
-                            contentPreferences.setContentSelectionSearch(keywords);
-                        }
+                        contentPreferences.setContentSelectionSearch(keywords);
 
                         return quoteUnquoteModel.countQuotationWithSearchText(keywords);
                     } else {
+                        contentPreferences.setContentSelectionSearch("");
                         return 0;
                     }
                 })
@@ -184,6 +209,10 @@ public class ContentFragment extends FragmentCommon {
     @Override
     public void onViewCreated(
             @NonNull final View view, final Bundle savedInstanceState) {
+        fragmentContentBinding.radioButtonSearch.setText(
+                getResources().getString(R.string.fragment_content_text,
+                        0));
+
         createListenerRadioGroup();
         createListenerAuthor();
         createListenerFavouriteButtonSend();

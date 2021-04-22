@@ -23,11 +23,6 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             android:textSize="48sp" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary" />
     </LinearLayout>
 
 
@@ -46,7 +41,7 @@
                 android:id="@+id/radioButtonNextSequential"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_toolbar_next_sequential_black_24dp"
+                android:drawableStart="@drawable/ic_toolbar_next_sequential_ff000000_24dp"
                 android:drawablePadding="5dp"
                 android:paddingVertical="10dp"
                 android:paddingStart="15dp"
@@ -58,7 +53,7 @@
                 android:id="@+id/radioButtonNextRandom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_toolbar_next_random_black_24"
+                android:drawableStart="@drawable/ic_toolbar_next_random_ff000000_24"
                 android:drawablePadding="5dp"
                 android:paddingVertical="10dp"
                 android:paddingStart="15dp"
@@ -93,12 +88,12 @@
                     android:id="@+id/radioButtonWhereInWidget"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:checked="true"
+                    android:checked="false"
+                    android:drawableStart="@drawable/ic_event_widgets_black_24"
+                    android:drawablePadding="5dp"
                     android:paddingVertical="10dp"
                     android:paddingStart="15dp"
                     android:paddingEnd="0dp"
-                    android:drawableStart="@drawable/ic_event_widgets_black_24"
-                    android:drawablePadding="5dp"
                     android:text="@string/fragment_event_in_widget"
                     android:textSize="20sp" />
 

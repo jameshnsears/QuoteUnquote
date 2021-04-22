@@ -72,7 +72,9 @@ public class AppearanceFragment extends FragmentCommon {
         createListenerTextFamily();
         createListenerTextStyle();
         createListenerTextSize();
+        createListenerTextColour();
 
+        createListenerToolbarColour();
         createListenerToolbarFirst();
         createListenerToolbarPrevious();
         createListenerToolbarReport();
@@ -82,12 +84,14 @@ public class AppearanceFragment extends FragmentCommon {
         createListenerToolbarNextSequential();
 
         setTransparency();
-        setColour();
+        setBackgroundColour();
 
         setTextFamily();
         setTextStyle();
         setTextSize();
+        setTextColour();
 
+        setToolbarColour();
         setToolbar();
     }
 
@@ -99,6 +103,21 @@ public class AppearanceFragment extends FragmentCommon {
         fragmentAppearanceBinding.toolbarSwitchShare.setChecked(appearancePreferences.getAppearanceToolbarShare());
         fragmentAppearanceBinding.toolbarSwitchNextRandom.setChecked(appearancePreferences.getAppearanceToolbarRandom());
         fragmentAppearanceBinding.toolbarSwitchNextSequential.setChecked(appearancePreferences.getAppearanceToolbarSequential());
+    }
+
+    private void createListenerToolbarColour() {
+        final Spinner spinner = fragmentAppearanceBinding.spinnerToolbarColour;
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(final AdapterView<?> parent, final View view, final int position, final long selectedItemId) {
+                appearancePreferences.setAppearanceToolbarColour(spinner.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(final AdapterView<?> parent) {
+                // do nothing
+            }
+        });
     }
 
     private void createListenerToolbarFirst() {
@@ -185,10 +204,7 @@ public class AppearanceFragment extends FragmentCommon {
 
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                String selectedItem = spinner.getSelectedItem().toString();
-                if (!appearancePreferences.getAppearanceTextStyle().equals(selectedItem)) {
-                    appearancePreferences.setAppearanceTextStyle(selectedItem);
-                }
+                appearancePreferences.setAppearanceTextStyle(spinner.getSelectedItem().toString());
             }
 
             @Override
@@ -203,10 +219,7 @@ public class AppearanceFragment extends FragmentCommon {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(final AdapterView<?> parent, final View view, final int position, final long selectedItemId) {
-                String selectedItem = spinner.getSelectedItem().toString();
-                if (!appearancePreferences.getAppearanceColour().equals(selectedItem)) {
-                    appearancePreferences.setAppearanceColour(selectedItem);
-                }
+                appearancePreferences.setAppearanceColour(spinner.getSelectedItem().toString());
             }
 
             @Override
@@ -221,10 +234,22 @@ public class AppearanceFragment extends FragmentCommon {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(final AdapterView<?> parent, final View view, final int position, final long selectedItemId) {
-                int selectedItem = Integer.parseInt(spinner.getSelectedItem().toString());
-                if (appearancePreferences.getAppearanceTextSize() != selectedItem) {
-                    appearancePreferences.setAppearanceTextSize(selectedItem);
-                }
+                appearancePreferences.setAppearanceTextSize(Integer.parseInt(spinner.getSelectedItem().toString()));
+            }
+
+            @Override
+            public void onNothingSelected(final AdapterView<?> parent) {
+                // do nothing
+            }
+        });
+    }
+
+    private void createListenerTextColour() {
+        final Spinner spinner = fragmentAppearanceBinding.spinnerTextColour;
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(final AdapterView<?> parent, final View view, final int position, final long selectedItemId) {
+                appearancePreferences.setAppearanceTextColour(spinner.getSelectedItem().toString());
             }
 
             @Override
@@ -325,7 +350,7 @@ public class AppearanceFragment extends FragmentCommon {
     protected void setTextFamily() {
         setSpinner(
                 fragmentAppearanceBinding.spinnerFamily,
-                new AppearanceFamilySpinnerAdapter(getActivity().getBaseContext()),
+                new AppearanceTextFamilySpinnerAdapter(getActivity().getBaseContext()),
                 appearancePreferences.getAppearanceTextFamily(),
                 2,
                 R.array.fragment_appearance_family_array
@@ -337,7 +362,7 @@ public class AppearanceFragment extends FragmentCommon {
     protected void setTextStyle() {
         setSpinner(
                 fragmentAppearanceBinding.spinnerStyle,
-                new AppearanceStyleSpinnerAdapter(getActivity().getBaseContext()),
+                new AppearanceTextStyleSpinnerAdapter(getActivity().getBaseContext()),
                 appearancePreferences.getAppearanceTextStyle(),
                 3,
                 R.array.fragment_appearance_style_array
@@ -346,14 +371,40 @@ public class AppearanceFragment extends FragmentCommon {
         appearancePreferences.setAppearanceTextStyle(fragmentAppearanceBinding.spinnerStyle.getSelectedItem().toString());
     }
 
-    protected void setColour() {
+    protected void setBackgroundColour() {
         setSpinner(
                 fragmentAppearanceBinding.spinnerColour,
-                new AppearanceColourSpinnerAdapter(getActivity().getBaseContext()),
+                new AppearanceBackgroundColourSpinnerAdapter(getActivity().getBaseContext()),
                 appearancePreferences.getAppearanceColour(),
-                1,
+                0,
                 R.array.fragment_appearance_colour_array
         );
+
+        appearancePreferences.setAppearanceColour(fragmentAppearanceBinding.spinnerColour.getSelectedItem().toString());
+    }
+
+    protected void setTextColour() {
+        setSpinner(
+                fragmentAppearanceBinding.spinnerTextColour,
+                new AppearanceTextColourSpinnerAdapter(getActivity().getBaseContext()),
+                appearancePreferences.getAppearanceTextColour(),
+                0,
+                R.array.fragment_appearance_text_colour_array
+        );
+
+        appearancePreferences.setAppearanceTextColour(fragmentAppearanceBinding.spinnerTextColour.getSelectedItem().toString());
+    }
+
+    protected void setToolbarColour() {
+        setSpinner(
+                fragmentAppearanceBinding.spinnerToolbarColour,
+                new AppearanceToolbarColourSpinnerAdapter(getActivity().getBaseContext()),
+                appearancePreferences.getAppearanceToolbarColour(),
+                0,
+                R.array.fragment_appearance_toolbar_colour_array
+        );
+
+        appearancePreferences.setAppearanceToolbarColour(fragmentAppearanceBinding.spinnerToolbarColour.getSelectedItem().toString());
     }
 
     private void setSpinner(

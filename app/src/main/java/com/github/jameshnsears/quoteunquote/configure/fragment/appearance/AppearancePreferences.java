@@ -16,6 +16,8 @@ public class AppearancePreferences extends PreferencesFacade {
     private static final String APPEARANCE_TEXT_FAMILY = "APPEARANCE_TEXT_FAMILY";
     private static final String APPEARANCE_TEXT_STYLE = "APPEARANCE_TEXT_STYLE";
     private static final String APPEARANCE_TEXT_SIZE = "APPEARANCE_TEXT_SIZE";
+    private static final String APPEARANCE_TEXT_COLOUR = "APPEARANCE_TEXT_COLOUR";
+    private static final String APPEARANCE_TOOLBAR_COLOUR = "APPEARANCE_TOOLBAR_COLOUR";
     private static final String APPEARANCE_TOOLBAR_FIRST = "APPEARANCE_TOOLBAR_FIRST";
     private static final String APPEARANCE_TOOLBAR_PREVIOUS = "APPEARANCE_TOOLBAR_PREVIOUS";
     private static final String APPEARANCE_TOOLBAR_REPORT = "APPEARANCE_TOOLBAR_REPORT";
@@ -63,6 +65,22 @@ public class AppearancePreferences extends PreferencesFacade {
 
     public void setAppearanceColour(@NonNull final String value) {
         preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_COLOUR), value);
+    }
+
+    public String getAppearanceToolbarColour() {
+        return preferenceHelper.getPreferenceString(getPreferenceKey(APPEARANCE_TOOLBAR_COLOUR));
+    }
+
+    public void setAppearanceToolbarColour(@NonNull  final String value) {
+        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TOOLBAR_COLOUR), value);
+    }
+
+    public String getAppearanceTextColour() {
+        return preferenceHelper.getPreferenceString(getPreferenceKey(APPEARANCE_TEXT_COLOUR));
+    }
+
+    public void setAppearanceTextColour(@NonNull  final String value) {
+        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TEXT_COLOUR), value);
     }
 
     public int getAppearanceTextSize() {

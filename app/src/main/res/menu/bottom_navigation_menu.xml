@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigationBarQuotations"
+        android:icon="@drawable/ic_navigation_bar_quotations_black_24"
+        android:textSize="15sp"
+        android:title="@string/configure_navigation_bar_quotations" />
+    <item
+        android:id="@+id/navigationBarSchedule"
+        android:icon="@drawable/ic_navigation_bar_schedule_black_24"
+        android:textSize="15sp"
+        android:title="@string/fragment_event_title" />
+    <item
+        android:id="@+id/navigationBarAppearance"
+        android:icon="@drawable/ic_navigation_bar_appearance_black_24"
+        android:textSize="15sp"
+        android:title="@string/configure_navigation_bar_appearance" />
+    <item
+        android:id="@+id/navigationBarAbout"
+        android:icon="@drawable/ic_navigation_bar_info_black_24"
+        android:textSize="15sp"
+        android:title="@string/configure_navigation_bar_about" />
+</menu>

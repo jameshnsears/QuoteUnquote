@@ -22,12 +22,6 @@
             android:text="@string/fragment_content_title"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             android:textSize="48sp" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="2dp"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary" />
     </LinearLayout>
 
     <RadioGroup
@@ -39,7 +33,7 @@
             android:id="@+id/radioButtonAll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:checked="true"
+            android:checked="false"
             android:paddingVertical="10dp"
             android:paddingStart="15dp"
             android:paddingEnd="0dp"
@@ -101,7 +95,9 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:paddingVertical="5dp">
+                android:paddingVertical="5dp"
+                android:paddingTop="0dp"
+                android:paddingBottom="30dp">
 
                 <EditText
                     android:id="@+id/editTextRemoteCodeValue"
@@ -120,6 +116,7 @@
                     android:id="@+id/buttonReceive"
                     android:layout_width="160dp"
                     android:layout_height="50dp"
+                    android:layout_gravity="center_vertical"
                     android:background="@drawable/corners_buttons"
                     android:text="@string/fragment_content_favourites_share_remote_receive"
                     android:textColor="@android:color/white"
@@ -160,6 +157,8 @@
             android:id="@+id/radioButtonSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_content_search_black_24"
+            android:drawablePadding="5dp"
             android:paddingVertical="10dp"
             android:paddingStart="15dp"
             android:paddingEnd="0dp"
