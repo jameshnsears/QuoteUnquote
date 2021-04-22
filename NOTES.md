@@ -42,9 +42,10 @@
 
 ---
 
-## 5. android.permission.REORDER_TASKS - F-Droid: https://www.virustotal.com/gui/
+## 5. Test new .apk over prior .apk via emulator / device
 
-* ./gradlew assembleRelease
-* build/outputs/logs/manifest-merger-fdroid-release-report.txt
-* ./gradlew :app:dependencies
-* search for fdroidReleaseRuntimeClasspath & then androidx.test:core
+* adb uninstall com.github.jameshnsears.quoteunquote
+* checkout prio version & build debug with prod db
+* adb install -r "app/build/outputs/apk/googleplay/release/app-googleplay-release.apk"
+* look at Logcat
+* checkout HEAD, and run debug with prod db

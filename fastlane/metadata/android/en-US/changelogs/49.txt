@@ -1,0 +1,4 @@
+&bull; Feature: tidy up layouts: make them more compact.
+&bull; Fix: force new quotations to appear.
+&bull; Fix: correct GitHub links on README.
+

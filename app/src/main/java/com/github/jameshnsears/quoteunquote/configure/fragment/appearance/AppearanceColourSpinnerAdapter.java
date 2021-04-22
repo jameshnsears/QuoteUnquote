@@ -24,8 +24,7 @@ class AppearanceColourSpinnerAdapter extends BaseAdapter {
     private final Context context;
 
     AppearanceColourSpinnerAdapter(@NonNull final Context activityContext) {
-        super();
-        this.context = activityContext;
+        context = activityContext;
         colours = new ArrayList<>();
         colours.addAll(Arrays.asList(activityContext.getResources().getStringArray(R.array.fragment_appearance_colour_array)));
     }

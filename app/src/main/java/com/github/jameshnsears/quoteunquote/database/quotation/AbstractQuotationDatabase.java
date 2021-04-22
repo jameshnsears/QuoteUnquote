@@ -12,7 +12,7 @@ import com.github.jameshnsears.quoteunquote.BuildConfig;
 
 @Database(
         entities = {QuotationEntity.class},
-        version = 2)
+        version = 3)
 public abstract class AbstractQuotationDatabase extends RoomDatabase {
     @Nullable
     public static AbstractQuotationDatabase quotationDatabase;

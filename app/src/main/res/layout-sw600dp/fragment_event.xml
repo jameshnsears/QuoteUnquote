@@ -43,18 +43,6 @@
             android:layout_weight="1">
 
             <RadioButton
-                android:id="@+id/radioButtonNextRandom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_toolbar_next_random_black_24"
-                android:drawablePadding="5dp"
-                android:paddingVertical="10dp"
-                android:paddingStart="15dp"
-                android:paddingEnd="0dp"
-                android:text="@string/fragment_appearance_instructions_next_random"
-                android:textSize="20sp" />
-
-            <RadioButton
                 android:id="@+id/radioButtonNextSequential"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -64,6 +52,18 @@
                 android:paddingStart="15dp"
                 android:paddingEnd="0dp"
                 android:text="@string/fragment_appearance_instructions_next_sequential"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:id="@+id/radioButtonNextRandom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_toolbar_next_random_black_24"
+                android:drawablePadding="5dp"
+                android:paddingVertical="10dp"
+                android:paddingStart="15dp"
+                android:paddingEnd="0dp"
+                android:text="@string/fragment_appearance_instructions_next_random"
                 android:textSize="20sp" />
         </RadioGroup>
 

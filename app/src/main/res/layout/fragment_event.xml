@@ -36,6 +36,18 @@
         android:layout_height="match_parent">
 
         <RadioButton
+            android:id="@+id/radioButtonNextSequential"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_toolbar_next_sequential_black_24dp"
+            android:drawablePadding="5dp"
+            android:paddingVertical="10dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="0dp"
+            android:text="@string/fragment_appearance_instructions_next_sequential"
+            android:textSize="15sp" />
+
+        <RadioButton
             android:id="@+id/radioButtonNextRandom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -48,17 +60,6 @@
             android:text="@string/fragment_appearance_instructions_next_random"
             android:textSize="15sp" />
 
-        <RadioButton
-            android:id="@+id/radioButtonNextSequential"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_toolbar_next_sequential_black_24dp"
-            android:drawablePadding="5dp"
-            android:paddingVertical="10dp"
-            android:paddingStart="12dp"
-            android:paddingEnd="0dp"
-            android:text="@string/fragment_appearance_instructions_next_sequential"
-            android:textSize="15sp" />
     </RadioGroup>
 
 
@@ -126,7 +127,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:drawableStart="@drawable/ic_event_unlock_black_24"
-            android:drawablePadding="5dp"
             android:paddingStart="12dp"
             android:paddingEnd="0dp"
             android:text="@string/fragment_event_device_unlock"
