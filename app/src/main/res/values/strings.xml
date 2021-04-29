@@ -3,8 +3,9 @@
 
     <string name="activity_configure_title">Quote&#8230; Unquote</string>
 
-    <string name="fragment_appearance_instruction_touch">Tap widget text to return here!</string>
     <string name="fragment_appearance_title">Appearance</string>
+    <string name="fragment_appearance_tab_style">Style</string>
+    <string name="fragment_appearance_tab_toolbar">Toolbar</string>
     <string name="fragment_appearance_transparency">Transparency %</string>
     <string name="fragment_appearance_text">Text</string>
     <string name="fragment_appearance_family">Family</string>
@@ -26,9 +27,8 @@
     <string name="fragment_appearance_background">Background</string>
     <string name="fragment_appearance_colour">Colour</string>
     <string-array name="fragment_appearance_colour_array">
-        <item>#FFEDD1B0</item>
         <item>#FFF8FD89</item>
-        <item>#FFEDDD6E</item>
+        <item>#FFEDD1B0</item>
         <item>#FFB987DC</item>
         <item>#FFFFFFFF</item>
         <item>#FF000000</item>
@@ -76,21 +76,21 @@
     <string name="fragment_content_title">Quotations</string>
     <string name="fragment_content_all">All: %d</string>
     <string name="fragment_content_favourites">Favourite: %d</string>
-    <string name="fragment_content_favourites_share_instructions">(Optional) Sync favourites with another device</string>
+    <string name="fragment_content_favourites_share_instructions">Sync favourites with another device</string>
     <string name="fragment_content_favourites_share_local_code_value">%s</string>
     <string name="fragment_content_favourites_share_local_code_send">Send</string>
     <string name="fragment_content_favourites_share_remove_code_value">Remote token</string>
     <string name="fragment_content_favourites_share_remote_receive">Receive</string>
-    <string name="fragment_content_favourites_share_sending">Sending favourites&#8230;</string>
+    <string name="fragment_content_favourites_share_sending">Sending favourites, please wait&#8230;</string>
     <string name="fragment_content_favourites_share_sent">Success - favourites sent</string>
     <string name="fragment_content_favourites_share_remote_code_general">Use token from other device</string>
-    <string name="fragment_content_favourites_share_receiving">Fetching favourites&#8230;</string>
-    <string name="fragment_content_favourites_share_received">Received - favourites appended</string>
+    <string name="fragment_content_favourites_share_receiving">Receiving favourites, please wait&#8230;</string>
+    <string name="fragment_content_favourites_share_received">Success - favourites appended</string>
     <string name="fragment_content_favourites_share_missing">Unable to locate remote token</string>
     <string name="fragment_content_favourites_share_comms">Check network connection</string>
     <string name="fragment_content_author">Author: %d</string>
     <string name="fragment_content_text">Search: %d</string>
-    <string name="fragment_content_text_instructions">Case-insensitive phrase search&#8230;</string>
+    <string name="fragment_content_text_instructions">Case-insensitive phrase search</string>
     <string name="fragment_content_text_no_search_results">No results found for search</string>
 
     <string name="fragment_event_title">Schedule</string>
@@ -117,7 +117,7 @@
         <item>Quality</item>
     </string-array>
     <string name="activity_report_reason">Reason:</string>
-    <string name="activity_report_notes">(Optional) Notes&#8230;</string>
+    <string name="activity_report_notes">(Optional) Notes</string>
     <string name="activity_report_instruction_01">Pressing OK will:</string>
     <string name="activity_report_instruction_02">\u2022 Strikethrough the quotation</string>
     <string name="activity_report_instruction_03">\u2022 Register the report in analytics</string>

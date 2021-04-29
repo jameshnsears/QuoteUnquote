@@ -12,25 +12,25 @@ import com.github.jameshnsears.quoteunquote.cloud.CloudServiceReceive;
 public class ContentCloud {
     @Nullable
     public CloudServiceReceive cloudServiceReceive;
-    public boolean isServiceReceiveBound = false;
+    public boolean isServiceReceiveBound;
 
     @NonNull
     public final ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
-        public void onServiceConnected(final ComponentName name, @Nullable final IBinder service) {
-            final CloudServiceReceive.LocalBinder binder = (CloudServiceReceive.LocalBinder) service;
+        public void onServiceConnected(ComponentName name, @Nullable IBinder service) {
+            CloudServiceReceive.LocalBinder binder = (CloudServiceReceive.LocalBinder) service;
 
             if (service != null) {
-                cloudServiceReceive = binder.getService();
-                isServiceReceiveBound = true;
+                ContentCloud.this.cloudServiceReceive = binder.getService();
+                ContentCloud.this.isServiceReceiveBound = true;
             } else {
-                isServiceReceiveBound = false;
+                ContentCloud.this.isServiceReceiveBound = false;
             }
         }
 
         @Override
-        public void onServiceDisconnected(final ComponentName name) {
-            isServiceReceiveBound = false;
+        public void onServiceDisconnected(ComponentName name) {
+            ContentCloud.this.isServiceReceiveBound = false;
         }
     };
 }

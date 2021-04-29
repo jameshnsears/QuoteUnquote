@@ -9,7 +9,7 @@ import androidx.room.TypeConverters;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 
 @Entity(tableName = "current")
-@TypeConverters({ContentSelection.class})
+@TypeConverters(ContentSelection.class)
 public class CurrentEntity {
     @PrimaryKey
     @ColumnInfo(name = "widget_id")
@@ -20,8 +20,8 @@ public class CurrentEntity {
     public final String digest;
 
     public CurrentEntity(
-            final int widgetId,
-            @NonNull final String digest) {
+            int widgetId,
+            @NonNull String digest) {
         this.widgetId = widgetId;
         this.digest = digest;
     }

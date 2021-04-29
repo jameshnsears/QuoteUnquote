@@ -11,9 +11,8 @@ import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
 public class QuoteUnquoteModelDouble extends QuoteUnquoteModel {
     public QuoteUnquoteModelDouble() {
-        super();
-        context = getApplicationContext();
-        databaseRepository = DatabaseRepositoryDouble.getInstance();
+        this.context = getApplicationContext();
+        this.databaseRepository = DatabaseRepositoryDouble.getInstance();
     }
 
     public int countReported() {
@@ -22,12 +21,12 @@ public class QuoteUnquoteModelDouble extends QuoteUnquoteModel {
 
     @NonNull
     public List<String> getFavourites() {
-        return databaseRepository.getFavourites();
+        return this.databaseRepository.getFavourites();
     }
 
-    public int countPrevious(final int widgetId) {
-        return databaseRepository.countPrevious(widgetId, ContentSelection.ALL)
-                + databaseRepository.countPrevious(widgetId, ContentSelection.AUTHOR)
-                + databaseRepository.countPrevious(widgetId, ContentSelection.SEARCH);
+    public int countPrevious(int widgetId) {
+        return this.databaseRepository.countPrevious(widgetId, ContentSelection.ALL)
+                + this.databaseRepository.countPrevious(widgetId, ContentSelection.AUTHOR)
+                + this.databaseRepository.countPrevious(widgetId, ContentSelection.SEARCH);
     }
 }

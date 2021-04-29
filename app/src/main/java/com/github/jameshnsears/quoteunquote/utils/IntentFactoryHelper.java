@@ -35,62 +35,62 @@ public class IntentFactoryHelper {
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     @NonNull
-    public static Intent createIntent(final int widgetId) {
-        final Intent resultValue = new Intent();
+    public static Intent createIntent(int widgetId) {
+        Intent resultValue = new Intent();
         resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
         return resultValue;
     }
 
     @NonNull
-    public static Intent createIntentShare(@NonNull final String subject, @NonNull final String quote) {
-        final Intent shareIntent = new Intent();
+    public static Intent createIntentShare(@NonNull String subject, @NonNull String quote) {
+        Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
         shareIntent.putExtra(Intent.EXTRA_TEXT, quote);
 
-        final Intent chooserIntent = Intent.createChooser(shareIntent, null);
+        Intent chooserIntent = Intent.createChooser(shareIntent, null);
         chooserIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         return chooserIntent;
     }
 
     @NonNull
     public static PendingIntent createIntentPending(
-            @NonNull final Context context,
-            final int widgetId,
-            @NonNull final String action) {
-        final Intent intent = createIntent(context, widgetId);
+            @NonNull Context context,
+            int widgetId,
+            @NonNull String action) {
+        Intent intent = IntentFactoryHelper.createIntent(context, widgetId);
         intent.setAction(action);
         return PendingIntent.getBroadcast(context, widgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     @NonNull
-    public static Intent createIntent(@NonNull final Context context, final int widgetId) {
-        final Intent intent = new Intent(context, QuoteUnquoteWidget.class);
+    public static Intent createIntent(@NonNull Context context, int widgetId) {
+        Intent intent = new Intent(context, QuoteUnquoteWidget.class);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
         return intent;
     }
 
     @NonNull
     public static Intent createIntent(
-            @NonNull final Context context,
-            @NonNull final Class cls,
-            final int widgetId) {
-        final Intent intent = new Intent(context, cls);
+            @NonNull Context context,
+            @NonNull Class cls,
+            int widgetId) {
+        Intent intent = new Intent(context, cls);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
 
         // support widgetId being sent to correct Widget instance!
-        intent.setData(Uri.fromParts("content", String.valueOf(SECURE_RANDOM.nextInt()), null));
+        intent.setData(Uri.fromParts("content", String.valueOf(IntentFactoryHelper.SECURE_RANDOM.nextInt()), null));
 
         return intent;
     }
 
     @NonNull
     public static Intent createIntentAction(
-            @NonNull final Context context,
-            final int widgetId,
-            @NonNull final String action) {
-        final Intent intent = new Intent(context, QuoteUnquoteWidget.class);
+            @NonNull Context context,
+            int widgetId,
+            @NonNull String action) {
+        Intent intent = new Intent(context, QuoteUnquoteWidget.class);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
         intent.setAction(action);
         return intent;
@@ -98,7 +98,7 @@ public class IntentFactoryHelper {
 
     @NonNull
     public static Intent createIntentActionView() {
-        final Intent intent = new Intent();
+        Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
         intent.addCategory(Intent.CATEGORY_BROWSABLE);
         intent.setData(Uri.parse("http://github.com/jameshnsears/quoteunquote"));

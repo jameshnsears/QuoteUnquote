@@ -27,152 +27,172 @@ public class AppearancePreferences extends PreferencesFacade {
     private static final String APPEARANCE_TOOLBAR_SEQUENTIAL = "APPEARANCE_TOOLBAR_SEQUENTIAL";
 
     public AppearancePreferences(
-            final int widgetId,
-            @NonNull final Context applicationContext) {
+            int widgetId,
+            @NonNull Context applicationContext) {
         super(widgetId, applicationContext);
     }
 
     public int getAppearanceTransparency() {
-        return preferenceHelper.getPreferenceInt(getPreferenceKey(APPEARANCE_TRANSPARENCY));
+        return this.preferenceHelper.getPreferenceInt(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TRANSPARENCY));
     }
 
-    public void setAppearanceTransparency(final int value) {
-        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TRANSPARENCY), value);
+    public void setAppearanceTransparency(int value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TRANSPARENCY), value);
     }
 
     @NonNull
     public String getAppearanceTextFamily() {
-        return preferenceHelper.getPreferenceString(getPreferenceKey(APPEARANCE_TEXT_FAMILY));
+        String textFamily = this.preferenceHelper.getPreferenceString(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TEXT_FAMILY));
+        if (textFamily.equals("")) {
+            textFamily = "Sans Serif";
+        }
+        return textFamily;
     }
 
-    public void setAppearanceTextFamily(@NonNull final String value) {
-        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TEXT_FAMILY), value);
+    public void setAppearanceTextFamily(@NonNull String value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TEXT_FAMILY), value);
     }
 
     @NonNull
     public String getAppearanceTextStyle() {
-        return preferenceHelper.getPreferenceString(getPreferenceKey(APPEARANCE_TEXT_STYLE));
+        String textStyle = this.preferenceHelper.getPreferenceString(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TEXT_STYLE));
+        if (textStyle.equals("")) {
+            textStyle = "Regular";
+        }
+        return textStyle;
     }
 
-    public void setAppearanceTextStyle(@NonNull final String value) {
-        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TEXT_STYLE), value);
+    public void setAppearanceTextStyle(@NonNull String value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TEXT_STYLE), value);
     }
 
     @NonNull
     public String getAppearanceColour() {
-        return preferenceHelper.getPreferenceString(getPreferenceKey(APPEARANCE_COLOUR));
+        String appearanceColour = this.preferenceHelper.getPreferenceString(this.getPreferenceKey(AppearancePreferences.APPEARANCE_COLOUR));
+        if (appearanceColour.equals("")) {
+            appearanceColour = "#FFF8FD89";
+        }
+        return appearanceColour;
     }
 
-    public void setAppearanceColour(@NonNull final String value) {
-        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_COLOUR), value);
+    public void setAppearanceColour(@NonNull String value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(AppearancePreferences.APPEARANCE_COLOUR), value);
     }
 
     public String getAppearanceToolbarColour() {
-        return preferenceHelper.getPreferenceString(getPreferenceKey(APPEARANCE_TOOLBAR_COLOUR));
+        return this.preferenceHelper.getPreferenceString(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TOOLBAR_COLOUR));
     }
 
-    public void setAppearanceToolbarColour(@NonNull  final String value) {
-        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TOOLBAR_COLOUR), value);
+    public void setAppearanceToolbarColour(@NonNull String value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TOOLBAR_COLOUR), value);
     }
 
     public String getAppearanceTextColour() {
-        return preferenceHelper.getPreferenceString(getPreferenceKey(APPEARANCE_TEXT_COLOUR));
+        String textColour = this.preferenceHelper.getPreferenceString(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TEXT_COLOUR));
+        if (textColour.equals("")) {
+            textColour = "#FF000000";
+        }
+        return textColour;
     }
 
-    public void setAppearanceTextColour(@NonNull  final String value) {
-        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TEXT_COLOUR), value);
+    public void setAppearanceTextColour(@NonNull String value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TEXT_COLOUR), value);
     }
 
     public int getAppearanceTextSize() {
-        return preferenceHelper.getPreferenceInt(getPreferenceKey(APPEARANCE_TEXT_SIZE));
+        int textSize = this.preferenceHelper.getPreferenceInt(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TEXT_SIZE));
+        if (textSize == -1) {
+            textSize = 16;
+        }
+        return textSize;
     }
 
-    public void setAppearanceTextSize(final int value) {
-        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TEXT_SIZE), value);
+    public void setAppearanceTextSize(int value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TEXT_SIZE), value);
     }
 
     public boolean getAppearanceToolbarFirst() {
-        return preferenceHelper.getPreferenceBoolean(getPreferenceKey(APPEARANCE_TOOLBAR_FIRST), false);
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TOOLBAR_FIRST), false);
     }
 
-    public void setAppearanceToolbarFirst(final boolean value) {
-        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TOOLBAR_FIRST), value);
+    public void setAppearanceToolbarFirst(boolean value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TOOLBAR_FIRST), value);
     }
 
     public boolean getAppearanceToolbarPrevious() {
-        return preferenceHelper.getPreferenceBoolean(getPreferenceKey(APPEARANCE_TOOLBAR_PREVIOUS), true);
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TOOLBAR_PREVIOUS), true);
     }
 
-    public void setAppearanceToolbarPrevious(final boolean value) {
-        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TOOLBAR_PREVIOUS), value);
+    public void setAppearanceToolbarPrevious(boolean value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TOOLBAR_PREVIOUS), value);
     }
 
     public boolean getAppearanceToolbarReport() {
-        return preferenceHelper.getPreferenceBoolean(getPreferenceKey(APPEARANCE_TOOLBAR_REPORT), false);
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TOOLBAR_REPORT), false);
     }
 
-    public void setAppearanceToolbarReport(final boolean value) {
-        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TOOLBAR_REPORT), value);
+    public void setAppearanceToolbarReport(boolean value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TOOLBAR_REPORT), value);
     }
 
     public boolean getAppearanceToolbarFavourite() {
-        return preferenceHelper.getPreferenceBoolean(getPreferenceKey(APPEARANCE_TOOLBAR_FAVOURITE), true);
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TOOLBAR_FAVOURITE), true);
     }
 
-    public void setAppearanceToolbarFavourite(final boolean value) {
-        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TOOLBAR_FAVOURITE), value);
+    public void setAppearanceToolbarFavourite(boolean value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TOOLBAR_FAVOURITE), value);
     }
 
     public boolean getAppearanceToolbarShare() {
-        return preferenceHelper.getPreferenceBoolean(getPreferenceKey(APPEARANCE_TOOLBAR_SHARE), false);
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TOOLBAR_SHARE), false);
     }
 
-    public void setAppearanceToolbarShare(final boolean value) {
-        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TOOLBAR_SHARE), value);
+    public void setAppearanceToolbarShare(boolean value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TOOLBAR_SHARE), value);
     }
 
     public boolean getAppearanceToolbarRandom() {
-        return preferenceHelper.getPreferenceBoolean(getPreferenceKey(APPEARANCE_TOOLBAR_RANDOM), true);
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TOOLBAR_RANDOM), true);
     }
 
-    public void setAppearanceToolbarRandom(final boolean value) {
-        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TOOLBAR_RANDOM), value);
+    public void setAppearanceToolbarRandom(boolean value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TOOLBAR_RANDOM), value);
     }
 
     public boolean getAppearanceToolbarSequential() {
-        return preferenceHelper.getPreferenceBoolean(getPreferenceKey(APPEARANCE_TOOLBAR_SEQUENTIAL), false);
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TOOLBAR_SEQUENTIAL), false);
     }
 
-    public void setAppearanceToolbarSequential(final boolean value) {
-        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TOOLBAR_SEQUENTIAL), value);
+    public void setAppearanceToolbarSequential(boolean value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TOOLBAR_SEQUENTIAL), value);
     }
 
     public void performMigration() {
-        final Map<String, ?> sharedPreferenceEntries
-                = applicationContext.getSharedPreferences("QuoteUnquote-Preferences", Context.MODE_PRIVATE).getAll();
+        Map<String, ?> sharedPreferenceEntries
+                = this.applicationContext.getSharedPreferences("QuoteUnquote-Preferences", Context.MODE_PRIVATE).getAll();
 
-        for (final Map.Entry<String, ?> entry : sharedPreferenceEntries.entrySet()) {
-            widgetId = Integer.parseInt(entry.getKey().substring(0, entry.getKey().indexOf(":")));
+        for (Map.Entry<String, ?> entry : sharedPreferenceEntries.entrySet()) {
+            this.widgetId = Integer.parseInt(entry.getKey().substring(0, entry.getKey().indexOf(":")));
 
             if (entry.getKey().contains("FragmentAppearance:seekBar")) {
-                int seekBar = (Integer) entry.getValue();
-                Timber.d("%d: seekBar=%d", widgetId, seekBar);
-                setAppearanceTransparency(seekBar);
+                final int seekBar = (Integer) entry.getValue();
+                Timber.d("%d: seekBar=%d", this.widgetId, seekBar);
+                this.setAppearanceTransparency(seekBar);
             }
 
             if (entry.getKey().contains("FragmentAppearance:spinnerColour")) {
-                String spinnerColour = (String) entry.getValue();
-                Timber.d("%d: spinnerColour=%s", widgetId, spinnerColour);
-                setAppearanceColour(spinnerColour);
+                final String spinnerColour = (String) entry.getValue();
+                Timber.d("%d: spinnerColour=%s", this.widgetId, spinnerColour);
+                this.setAppearanceColour(spinnerColour);
             }
 
             if (entry.getKey().contains("FragmentAppearance:spinnerSize")) {
-                int spinnerSize = (Integer) entry.getValue();
-                Timber.d("%d: spinnerSize=%d", widgetId, spinnerSize);
-                setAppearanceTextSize(spinnerSize);
+                final int spinnerSize = (Integer) entry.getValue();
+                Timber.d("%d: spinnerSize=%d", this.widgetId, spinnerSize);
+                this.setAppearanceTextSize(spinnerSize);
             }
         }
 
-        setAppearanceTransparency(0);
+        this.setAppearanceTransparency(0);
     }
 }

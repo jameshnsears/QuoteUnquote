@@ -16,15 +16,15 @@ public enum ContentSelection {
     @NonNull
     private final Integer code;
 
-    ContentSelection(@NonNull final Integer value) {
-        this.code = value;
+    ContentSelection(@NonNull Integer value) {
+        code = value;
     }
 
     @TypeConverter
     @Nullable
-    public static ContentSelection getContentSelection(@NonNull final Integer integer) {
+    public static ContentSelection getContentSelection(@NonNull Integer integer) {
         ContentSelection contentSelection = null;
-        for (final ContentSelection contentSelectionValue : values()) {
+        for (ContentSelection contentSelectionValue : ContentSelection.values()) {
             if (Objects.equals(contentSelectionValue.code, integer)) {
                 contentSelection = contentSelectionValue;
                 break;
@@ -35,12 +35,12 @@ public enum ContentSelection {
 
     @TypeConverter
     @NonNull
-    public static Integer getContentSelectionInt(@NonNull final ContentSelection contentSelection) {
+    public static Integer getContentSelectionInt(@NonNull ContentSelection contentSelection) {
         return contentSelection.code;
     }
 
     @NonNull
     public Integer getContentSelection() {
-        return code;
+        return this.code;
     }
 }

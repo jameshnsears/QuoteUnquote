@@ -17,88 +17,97 @@ public class ContentPreferences extends PreferencesFacade {
     private static final String CONTENT_AUTHOR_NAME = "CONTENT_AUTHOR_NAME";
     private static final String CONTENT_FAVOURITES = "CONTENT_FAVOURITES";
     private static final String CONTENT_SEARCH = "CONTENT_SEARCH";
+    private static final String CONTENT_SEARCH_COUNT = "CONTENT_SEARCH_COUNT";
     private static final String CONTENT_SEARCH_TEXT = "CONTENT_SEARCH_TEXT";
 
-    public ContentPreferences(@NonNull final Context applicationContext) {
+    public ContentPreferences(@NonNull Context applicationContext) {
         super(0, applicationContext);
     }
 
-    public ContentPreferences(final int widgetId, @NonNull final Context applicationContext) {
+    public ContentPreferences(int widgetId, @NonNull Context applicationContext) {
         super(widgetId, applicationContext);
     }
 
     @NonNull
     public String getContentSelectionAuthor() {
-        return preferenceHelper.getPreferenceString(getPreferenceKey(CONTENT_AUTHOR_NAME));
+        return this.preferenceHelper.getPreferenceString(this.getPreferenceKey(ContentPreferences.CONTENT_AUTHOR_NAME));
     }
 
-    public void setContentSelectionAuthor(@NonNull final String value) {
-        preferenceHelper.setPreference(getPreferenceKey(CONTENT_AUTHOR_NAME), value);
+    public void setContentSelectionAuthor(@NonNull String value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(ContentPreferences.CONTENT_AUTHOR_NAME), value);
     }
 
     @NonNull
     public String getContentFavouritesLocalCode() {
-        return preferenceHelper.getPreferenceString(getFavouritesLocalCode());
+        return this.preferenceHelper.getPreferenceString(this.getFavouritesLocalCode());
     }
 
-    public void setContentFavouritesLocalCode(@NonNull final String value) {
-        preferenceHelper.setPreference(getFavouritesLocalCode(), value);
+    public void setContentFavouritesLocalCode(@NonNull String value) {
+        this.preferenceHelper.setPreference(this.getFavouritesLocalCode(), value);
     }
 
     @NonNull
     public String getContentSelectionSearch() {
-        return preferenceHelper.getPreferenceString(getPreferenceKey(CONTENT_SEARCH_TEXT));
+        return this.preferenceHelper.getPreferenceString(this.getPreferenceKey(ContentPreferences.CONTENT_SEARCH_TEXT));
     }
 
-    public void setContentSelectionSearch(@NonNull final String value) {
-        preferenceHelper.setPreference(getPreferenceKey(CONTENT_SEARCH_TEXT), value);
+    public void setContentSelectionSearch(@NonNull String value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(ContentPreferences.CONTENT_SEARCH_TEXT), value);
+    }
+
+    public int getContentSelectionSearchCount() {
+        return this.preferenceHelper.getPreferenceInt(this.getPreferenceKey(ContentPreferences.CONTENT_SEARCH_COUNT));
+    }
+
+    public void setContentSelectionSearchCount(final int value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(ContentPreferences.CONTENT_SEARCH_COUNT), value);
     }
 
     @NonNull
     public ContentSelection getContentSelection() {
-        if (preferenceHelper.getPreferenceBoolean(getPreferenceKey(CONTENT_AUTHOR), false)) {
+        if (this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(ContentPreferences.CONTENT_AUTHOR), false)) {
             return ContentSelection.AUTHOR;
         }
 
-        if (preferenceHelper.getPreferenceBoolean(getPreferenceKey(CONTENT_FAVOURITES), false)) {
+        if (this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(ContentPreferences.CONTENT_FAVOURITES), false)) {
             return ContentSelection.FAVOURITES;
         }
 
-        if (preferenceHelper.getPreferenceBoolean(getPreferenceKey(CONTENT_SEARCH), false)) {
+        if (this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(ContentPreferences.CONTENT_SEARCH), false)) {
             return ContentSelection.SEARCH;
         }
 
         return ContentSelection.ALL;
     }
 
-    public void setContentSelection(@NonNull final ContentSelection contentSelection) {
+    public void setContentSelection(@NonNull ContentSelection contentSelection) {
         switch (contentSelection) {
             case ALL:
-                preferenceHelper.setPreference(getPreferenceKey(CONTENT_ALL), true);
-                preferenceHelper.setPreference(getPreferenceKey(CONTENT_AUTHOR), false);
-                preferenceHelper.setPreference(getPreferenceKey(CONTENT_FAVOURITES), false);
-                preferenceHelper.setPreference(getPreferenceKey(CONTENT_SEARCH), false);
+                this.preferenceHelper.setPreference(this.getPreferenceKey(ContentPreferences.CONTENT_ALL), true);
+                this.preferenceHelper.setPreference(this.getPreferenceKey(ContentPreferences.CONTENT_AUTHOR), false);
+                this.preferenceHelper.setPreference(this.getPreferenceKey(ContentPreferences.CONTENT_FAVOURITES), false);
+                this.preferenceHelper.setPreference(this.getPreferenceKey(ContentPreferences.CONTENT_SEARCH), false);
                 break;
 
             case AUTHOR:
-                preferenceHelper.setPreference(getPreferenceKey(CONTENT_ALL), false);
-                preferenceHelper.setPreference(getPreferenceKey(CONTENT_AUTHOR), true);
-                preferenceHelper.setPreference(getPreferenceKey(CONTENT_FAVOURITES), false);
-                preferenceHelper.setPreference(getPreferenceKey(CONTENT_SEARCH), false);
+                this.preferenceHelper.setPreference(this.getPreferenceKey(ContentPreferences.CONTENT_ALL), false);
+                this.preferenceHelper.setPreference(this.getPreferenceKey(ContentPreferences.CONTENT_AUTHOR), true);
+                this.preferenceHelper.setPreference(this.getPreferenceKey(ContentPreferences.CONTENT_FAVOURITES), false);
+                this.preferenceHelper.setPreference(this.getPreferenceKey(ContentPreferences.CONTENT_SEARCH), false);
                 break;
 
             case FAVOURITES:
-                preferenceHelper.setPreference(getPreferenceKey(CONTENT_ALL), false);
-                preferenceHelper.setPreference(getPreferenceKey(CONTENT_AUTHOR), false);
-                preferenceHelper.setPreference(getPreferenceKey(CONTENT_FAVOURITES), true);
-                preferenceHelper.setPreference(getPreferenceKey(CONTENT_SEARCH), false);
+                this.preferenceHelper.setPreference(this.getPreferenceKey(ContentPreferences.CONTENT_ALL), false);
+                this.preferenceHelper.setPreference(this.getPreferenceKey(ContentPreferences.CONTENT_AUTHOR), false);
+                this.preferenceHelper.setPreference(this.getPreferenceKey(ContentPreferences.CONTENT_FAVOURITES), true);
+                this.preferenceHelper.setPreference(this.getPreferenceKey(ContentPreferences.CONTENT_SEARCH), false);
                 break;
 
             case SEARCH:
-                preferenceHelper.setPreference(getPreferenceKey(CONTENT_ALL), false);
-                preferenceHelper.setPreference(getPreferenceKey(CONTENT_AUTHOR), false);
-                preferenceHelper.setPreference(getPreferenceKey(CONTENT_FAVOURITES), false);
-                preferenceHelper.setPreference(getPreferenceKey(CONTENT_SEARCH), true);
+                this.preferenceHelper.setPreference(this.getPreferenceKey(ContentPreferences.CONTENT_ALL), false);
+                this.preferenceHelper.setPreference(this.getPreferenceKey(ContentPreferences.CONTENT_AUTHOR), false);
+                this.preferenceHelper.setPreference(this.getPreferenceKey(ContentPreferences.CONTENT_FAVOURITES), false);
+                this.preferenceHelper.setPreference(this.getPreferenceKey(ContentPreferences.CONTENT_SEARCH), true);
                 break;
 
             default:
@@ -110,62 +119,62 @@ public class ContentPreferences extends PreferencesFacade {
     @NonNull
     @Override
     public String toString() {
-        return getContentSelection().toString();
+        return this.getContentSelection().toString();
     }
 
     public void performMigration() {
-        final Map<String, ?> sharedPreferenceEntries
-                = applicationContext.getSharedPreferences("QuoteUnquote-Preferences", Context.MODE_PRIVATE).getAll();
+        Map<String, ?> sharedPreferenceEntries
+                = this.applicationContext.getSharedPreferences("QuoteUnquote-Preferences", Context.MODE_PRIVATE).getAll();
 
-        for (final Map.Entry<String, ?> entry : sharedPreferenceEntries.entrySet()) {
-            widgetId = Integer.parseInt(entry.getKey().substring(0, entry.getKey().indexOf(":")));
+        for (Map.Entry<String, ?> entry : sharedPreferenceEntries.entrySet()) {
+            this.widgetId = Integer.parseInt(entry.getKey().substring(0, entry.getKey().indexOf(":")));
 
             if (entry.getKey().contains("FragmentContent:radioButtonAll")) {
-                boolean radioButtonAll = (Boolean) entry.getValue();
-                Timber.d("%d: radioButtonAll=%b", widgetId, radioButtonAll);
+                final boolean radioButtonAll = (Boolean) entry.getValue();
+                Timber.d("%d: radioButtonAll=%b", this.widgetId, radioButtonAll);
                 if (radioButtonAll) {
-                    setContentSelection(ContentSelection.ALL);
+                    this.setContentSelection(ContentSelection.ALL);
                 }
             }
 
             if (entry.getKey().contains("FragmentContent:radioButtonAuthor")) {
-                boolean radioButtonAuthor = (Boolean) entry.getValue();
-                Timber.d("%d: radioButtonAuthor=%b", widgetId, radioButtonAuthor);
+                final boolean radioButtonAuthor = (Boolean) entry.getValue();
+                Timber.d("%d: radioButtonAuthor=%b", this.widgetId, radioButtonAuthor);
                 if (radioButtonAuthor) {
-                    setContentSelection(ContentSelection.AUTHOR);
+                    this.setContentSelection(ContentSelection.AUTHOR);
                 }
             }
             if (entry.getKey().contains("FragmentContent:spinnerAuthors")) {
-                String spinnerAuthors = (String) entry.getValue();
-                Timber.d("%d: spinnerAuthors=%s", widgetId, spinnerAuthors);
-                setContentSelectionAuthor(spinnerAuthors);
+                final String spinnerAuthors = (String) entry.getValue();
+                Timber.d("%d: spinnerAuthors=%s", this.widgetId, spinnerAuthors);
+                this.setContentSelectionAuthor(spinnerAuthors);
             }
 
             if (entry.getKey().contains("FragmentContent:radioButtonFavourites")) {
-                boolean radioButtonFavourites = (Boolean) entry.getValue();
-                Timber.d("%d: radioButtonFavourites=%b", widgetId, radioButtonFavourites);
+                final boolean radioButtonFavourites = (Boolean) entry.getValue();
+                Timber.d("%d: radioButtonFavourites=%b", this.widgetId, radioButtonFavourites);
                 if (radioButtonFavourites) {
-                    setContentSelection(ContentSelection.FAVOURITES);
+                    this.setContentSelection(ContentSelection.FAVOURITES);
                 }
             }
 
             if (entry.getKey().equals("0:FragmentContent:textViewFavouritesCode")) {
-                String textViewFavouritesCode = (String) entry.getValue();
-                Timber.d("%d: textViewFavouritesCode=%s", widgetId, textViewFavouritesCode);
-                setContentFavouritesLocalCode(textViewFavouritesCode);
+                final String textViewFavouritesCode = (String) entry.getValue();
+                Timber.d("%d: textViewFavouritesCode=%s", this.widgetId, textViewFavouritesCode);
+                this.setContentFavouritesLocalCode(textViewFavouritesCode);
             }
 
             if (entry.getKey().contains("FragmentContent:radioButtonKeywords")) {
-                boolean radioButtonKeywords = (Boolean) entry.getValue();
-                Timber.d("%d: radioButtonKeywords=%b", widgetId, radioButtonKeywords);
+                final boolean radioButtonKeywords = (Boolean) entry.getValue();
+                Timber.d("%d: radioButtonKeywords=%b", this.widgetId, radioButtonKeywords);
                 if (radioButtonKeywords) {
-                    setContentSelection(ContentSelection.SEARCH);
+                    this.setContentSelection(ContentSelection.SEARCH);
                 }
             }
             if (entry.getKey().contains("FragmentContent:editTextKeywords")) {
-                String editTextKeywords = (String) entry.getValue();
-                Timber.d("%d: editTextKeywords=%s", widgetId, editTextKeywords);
-                setContentSelectionSearch(editTextKeywords);
+                final String editTextKeywords = (String) entry.getValue();
+                Timber.d("%d: editTextKeywords=%s", this.widgetId, editTextKeywords);
+                this.setContentSelectionSearch(editTextKeywords);
             }
         }
     }

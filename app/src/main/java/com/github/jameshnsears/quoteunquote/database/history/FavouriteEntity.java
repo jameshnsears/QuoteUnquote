@@ -14,7 +14,7 @@ public class FavouriteEntity {
     @PrimaryKey(autoGenerate = true)
     public int navigation;
 
-    public FavouriteEntity(@NonNull final String digest) {
+    public FavouriteEntity(@NonNull String digest) {
         this.digest = digest;
     }
 }

@@ -30,53 +30,53 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
     private final Context context;
     private final int widgetId;
     @Nullable
-    public QuoteUnquoteModel quoteUnquoteModel;
-    @Nullable
     private final QuotationEntity quotationEntity;
+    private final int textSize;
+    @Nullable
+    public QuoteUnquoteModel quoteUnquoteModel;
     @Nullable
     private String quotationPosition;
     private boolean isReported;
-    private final int textSize;
     @Nullable
-    private String textColour;
+    private final String textColour;
 
-    @Nullable
-    public QuoteUnquoteModel getQuoteUnquoteModel() {
-        return quoteUnquoteModel;
-    }
-
-    public void setQuoteUnquoteModel(@Nullable QuoteUnquoteModel quoteUnquoteModel) {
-        this.quoteUnquoteModel = quoteUnquoteModel;
-    }
-
-    ListViewProvider(@NonNull final Context context, @NonNull final Intent intent) {
+    ListViewProvider(@NonNull Context context, @NonNull Intent intent) {
         synchronized (this) {
             this.context = context;
 
-            widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
-            Timber.d("%d", widgetId);
+            this.widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
+            Timber.d("%d", this.widgetId);
 
-            AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, context);
-            textSize = appearancePreferences.getAppearanceTextSize();
-            textColour = appearancePreferences.getAppearanceTextColour();
+            final AppearancePreferences appearancePreferences = new AppearancePreferences(this.widgetId, context);
+            this.textSize = appearancePreferences.getAppearanceTextSize();
+            this.textColour = appearancePreferences.getAppearanceTextColour();
 
-            ContentPreferences contentPreferences = new ContentPreferences(widgetId, context);
+            final ContentPreferences contentPreferences = new ContentPreferences(this.widgetId, context);
 
-            setQuoteUnquoteModel(new QuoteUnquoteModel(context));
+            this.setQuoteUnquoteModel(new QuoteUnquoteModel(context));
 
-            quotationEntity = getQuoteUnquoteModel().getCurrentQuotation(
-                    widgetId);
+            this.quotationEntity = this.getQuoteUnquoteModel().getCurrentQuotation(
+                    this.widgetId);
 
-            if (quotationEntity != null) {
-                Timber.d("digest=%s", quotationEntity.digest);
+            if (this.quotationEntity != null) {
+                Timber.d("digest=%s", this.quotationEntity.digest);
 
-                quotationPosition = getQuoteUnquoteModel().getCurrentPosition(
-                        widgetId,
+                this.quotationPosition = this.getQuoteUnquoteModel().getCurrentPosition(
+                        this.widgetId,
                         contentPreferences);
 
-                isReported = getQuoteUnquoteModel().isReported(widgetId);
+                this.isReported = this.getQuoteUnquoteModel().isReported(this.widgetId);
             }
         }
+    }
+
+    @Nullable
+    public QuoteUnquoteModel getQuoteUnquoteModel() {
+        return this.quoteUnquoteModel;
+    }
+
+    public void setQuoteUnquoteModel(@Nullable final QuoteUnquoteModel quoteUnquoteModel) {
+        this.quoteUnquoteModel = quoteUnquoteModel;
     }
 
     @Override
@@ -86,17 +86,17 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
 
     @Override
     public void onDataSetChanged() {
-        Timber.d("%d", widgetId);
+        Timber.d("%d", this.widgetId);
 
         synchronized (this) {
-            if (quotationList.isEmpty()) {
+            if (this.quotationList.isEmpty()) {
                 // first time call
-                quotationList.add(getTheQuotation());
+                this.quotationList.add(this.getTheQuotation());
             } else {
                 // subsequent calls
-                if (!"".equals(getTheQuotation())) {
-                    if (!quotationList.get(0).equals(getTheQuotation())) {
-                        quotationList.set(0, getTheQuotation());
+                if (!"".equals(this.getTheQuotation())) {
+                    if (!this.quotationList.get(0).equals(this.getTheQuotation())) {
+                        this.quotationList.set(0, this.getTheQuotation());
                     }
                 }
             }
@@ -105,10 +105,10 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
 
     @NonNull
     public String getTheQuotation() {
-        if (quotationEntity == null) {
+        if (this.quotationEntity == null) {
             return "";
         } else {
-            return quotationEntity.theQuotation() + quotationPosition;
+            return this.quotationEntity.theQuotation() + this.quotationPosition;
         }
     }
 
@@ -124,21 +124,21 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
 
     @Override
     @NonNull
-    public RemoteViews getViewAt(final int position) {
-        final RemoteViews remoteViews = getRemoteViews(position);
+    public RemoteViews getViewAt(int position) {
+        RemoteViews remoteViews = this.getRemoteViews(position);
 
-        final Intent intent = new Intent();
-        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
+        Intent intent = new Intent();
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, this.widgetId);
         remoteViews.setOnClickFillInIntent(R.id.textViewRow, intent);
 
         return remoteViews;
     }
 
     private int getRowLayoutId() {
-        AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, context);
+        final AppearancePreferences appearancePreferences = new AppearancePreferences(this.widgetId, this.context);
 
-        String textFamily = appearancePreferences.getAppearanceTextFamily();
-        String textStyle = appearancePreferences.getAppearanceTextStyle();
+        final String textFamily = appearancePreferences.getAppearanceTextFamily();
+        final String textStyle = appearancePreferences.getAppearanceTextStyle();
         Timber.d("textFamily=%s; textStyle=%s", textFamily, textStyle);
 
         int layoutId = 0;
@@ -174,31 +174,27 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
     }
 
     @NonNull
-    private RemoteViews getRemoteViews(final int position) {
-        final RemoteViews remoteViews = new RemoteViews(context.getPackageName(), getRowLayoutId());
+    private RemoteViews getRemoteViews(int position) {
+        RemoteViews remoteViews = new RemoteViews(this.context.getPackageName(), this.getRowLayoutId());
 
-        remoteViews.setTextViewText(R.id.textViewRow, getTheQuotation());
+        remoteViews.setTextViewText(R.id.textViewRow, this.getTheQuotation());
 
         synchronized (this) {
-            if (!quotationList.isEmpty() && !"".equals(getTheQuotation())) {
-                remoteViews.setTextViewText(R.id.textViewRow, getTheQuotation());
+            if (!this.quotationList.isEmpty() && !"".equals(this.getTheQuotation())) {
+                remoteViews.setTextViewText(R.id.textViewRow, this.getTheQuotation());
 
-                if (textSize != -1) {
-                    remoteViews.setTextViewTextSize(
-                            R.id.textViewRow,
-                            TypedValue.COMPLEX_UNIT_DIP,
-                            (float) textSize);
-                }
+                remoteViews.setTextViewTextSize(
+                        R.id.textViewRow,
+                        TypedValue.COMPLEX_UNIT_DIP,
+                        (float) this.textSize);
 
-                if (!textColour.equals("")) {
-                    remoteViews.setTextColor(
-                            R.id.textViewRow,
-                            Color.parseColor(textColour));
-                }
+                remoteViews.setTextColor(
+                        R.id.textViewRow,
+                        Color.parseColor(this.textColour));
 
-                int paintFlags = Paint.ANTI_ALIAS_FLAG | Paint.FAKE_BOLD_TEXT_FLAG;
+                final int paintFlags = Paint.ANTI_ALIAS_FLAG | Paint.FAKE_BOLD_TEXT_FLAG;
 
-                if (isReported) {
+                if (this.isReported) {
                     remoteViews.setInt(R.id.textViewRow, "setPaintFlags",
                             paintFlags | Paint.STRIKE_THRU_TEXT_FLAG);
                 } else {
@@ -213,7 +209,7 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
     @NonNull
     @Override
     public RemoteViews getLoadingView() {
-        return getRemoteViews(0);
+        return this.getRemoteViews(0);
     }
 
     @Override
@@ -222,7 +218,7 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
     }
 
     @Override
-    public long getItemId(final int position) {
+    public long getItemId(int position) {
         return position;
     }
 

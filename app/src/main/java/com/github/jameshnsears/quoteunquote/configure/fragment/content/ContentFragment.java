@@ -43,10 +43,10 @@ import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class ContentFragment extends FragmentCommon {
-    @Nullable
-    public QuoteUnquoteModel quoteUnquoteModel;
     @NonNull
     private final CompositeDisposable disposables = new CompositeDisposable();
+    @Nullable
+    public QuoteUnquoteModel quoteUnquoteModel;
     @Nullable
     public FragmentContentBinding fragmentContentBinding;
     @NonNull
@@ -55,7 +55,6 @@ public class ContentFragment extends FragmentCommon {
     public CountDownLatch latchAuthor = new CountDownLatch(1);
     @NonNull
     public CountDownLatch latchFavouriteCount = new CountDownLatch(1);
-    public int countSearchResults;
     @Nullable
     protected ContentPreferences contentPreferences;
     @Nullable
@@ -63,119 +62,114 @@ public class ContentFragment extends FragmentCommon {
     @Nullable
     private DisposableObserver<Integer> disposableObserver;
 
-    protected ContentFragment(final int widgetId) {
+    public ContentFragment() {
+        // dark mode support
+    }
+
+    protected ContentFragment(int widgetId) {
         super(widgetId);
     }
 
     @NonNull
-    public static ContentFragment newInstance(final int widgetId) {
-        final ContentFragment fragment = new ContentFragment(widgetId);
+    public static ContentFragment newInstance(int widgetId) {
+        ContentFragment fragment = new ContentFragment(widgetId);
         fragment.setArguments(null);
         return fragment;
     }
 
+    public static void ensureFragmentContentSearchConsistency(
+            int widgetId,
+            @NonNull final Context context
+    ) {
+        ContentPreferences contentPreferences = new ContentPreferences(widgetId, context);
+
+        if (contentPreferences.getContentSelection() == ContentSelection.SEARCH
+                && contentPreferences.getContentSelectionSearchCount() == 0) {
+            contentPreferences.setContentSelection(ContentSelection.ALL);
+            ToastHelper.makeToast(context,
+                    context.getString(R.string.fragment_content_text_no_search_results), Toast.LENGTH_SHORT);
+        }
+    }
+
     @Override
-    public void onCreate(final Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        contentCloud = new ContentCloud();
-        quoteUnquoteModel = new QuoteUnquoteModel(getContext());
+        this.contentCloud = new ContentCloud();
+        this.quoteUnquoteModel = new QuoteUnquoteModel(this.getContext());
     }
 
     @Override
     @NonNull
     public View onCreateView(
-            @NonNull final LayoutInflater inflater,
-            final ViewGroup container,
-            final Bundle savedInstanceState) {
-        final Intent intent = new Intent(getContext(), CloudServiceReceive.class);
-        getContext().bindService(intent, contentCloud.serviceConnection, Context.BIND_AUTO_CREATE);
+            @NonNull LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {
+        Intent intent = new Intent(this.getContext(), CloudServiceReceive.class);
+        this.getContext().bindService(intent, this.contentCloud.serviceConnection, Context.BIND_AUTO_CREATE);
 
-        contentPreferences = new ContentPreferences(this.widgetId, this.getContext());
+        this.contentPreferences = new ContentPreferences(widgetId, getContext());
 
-        fragmentContentBinding = FragmentContentBinding.inflate(getLayoutInflater());
-        return fragmentContentBinding.getRoot();
+        this.fragmentContentBinding = FragmentContentBinding.inflate(this.getLayoutInflater());
+        return this.fragmentContentBinding.getRoot();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
 
-        ensureFragmentContentSearchConsistency();
+        ContentFragment.ensureFragmentContentSearchConsistency(this.widgetId, this.getContext());
 
-        fragmentContentBinding = null;
+        this.fragmentContentBinding = null;
 
-        shutdown();
+        this.shutdown();
 
-        getContext().unbindService(contentCloud.serviceConnection);
-        contentCloud.isServiceReceiveBound = false;
-    }
-
-    public void ensureFragmentContentSearchConsistency() {
-        if (isSearchSelectedButWithoutResults()) {
-            warnUserAboutSearchResults();
-            fragmentContentBinding.radioButtonAll.setChecked(true);
-            resetContentSelection();
-        }
-    }
-
-    private void resetContentSelection() {
-        final ContentPreferences contentPreferences = new ContentPreferences(widgetId, getContext());
-        contentPreferences.setContentSelection(ContentSelection.ALL);
-        contentPreferences.setContentSelectionSearch("");
-    }
-
-    private void warnUserAboutSearchResults() {
-        ToastHelper.makeToast(getContext(), this.getString(R.string.fragment_content_text_no_search_results), Toast.LENGTH_LONG);
-    }
-
-    private boolean isSearchSelectedButWithoutResults() {
-        return fragmentContentBinding.radioButtonSearch.isChecked()
-                && contentPreferences.getContentSelectionSearch().equals("");
+        this.getContext().unbindService(this.contentCloud.serviceConnection);
+        this.contentCloud.isServiceReceiveBound = false;
     }
 
     public void shutdown() {
-        disposables.clear();
-        disposables.dispose();
+        this.disposables.clear();
+        this.disposables.dispose();
 
-        if (disposableObserver != null) {
-            disposableObserver.dispose();
+        if (this.disposableObserver != null) {
+            this.disposableObserver.dispose();
         }
     }
 
     protected void setFavouriteLocalCode() {
-        if ("".equals(contentPreferences.getContentFavouritesLocalCode())) {
+        if ("".equals(this.contentPreferences.getContentFavouritesLocalCode())) {
             // possible that user wiped storage via OS settings
-            contentPreferences.setContentFavouritesLocalCode(CloudFavouritesHelper.getLocalCode());
+            this.contentPreferences.setContentFavouritesLocalCode(CloudFavouritesHelper.getLocalCode());
         }
 
-        fragmentContentBinding.textViewLocalCodeValue.setText(contentPreferences.getContentFavouritesLocalCode());
+        this.fragmentContentBinding.textViewLocalCodeValue.setText(this.contentPreferences.getContentFavouritesLocalCode());
     }
 
     protected void setSearch() {
-        setSearchObserver();
+        this.setSearchObserver();
 
-        final String editTextKeywords = contentPreferences.getContentSelectionSearch();
+        String editTextKeywords = this.contentPreferences.getContentSelectionSearch();
 
         if (editTextKeywords.length() > 0) {
-            final ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
+            ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
             properties.put("Text", editTextKeywords);
             AuditEventHelper.auditEvent("SEARCH", properties);
-            fragmentContentBinding.editTextSearchText.setText(editTextKeywords);
+            this.fragmentContentBinding.editTextSearchText.setText(editTextKeywords);
         }
     }
 
     protected void setSearchObserver() {
-        disposableObserver = new DisposableObserver<Integer>() {
+        this.disposableObserver = new DisposableObserver<Integer>() {
             @Override
-            public void onNext(@NonNull final Integer value) {
-                fragmentContentBinding.radioButtonSearch.setText(
-                        getResources().getString(R.string.fragment_content_text, value));
-                countSearchResults = value;
+            public void onNext(@NonNull Integer value) {
+                ContentFragment.this.fragmentContentBinding.radioButtonSearch.setText(
+                        ContentFragment.this.getResources().getString(R.string.fragment_content_text, value));
+                ContentFragment.this.contentPreferences.setContentSelectionSearchCount(value);
             }
 
             @Override
-            public void onError(@NonNull final Throwable throwable) {
+            public void onError(@NonNull Throwable throwable) {
                 Timber.d("onError=%s", throwable.getMessage());
             }
 
@@ -185,164 +179,164 @@ public class ContentFragment extends FragmentCommon {
             }
         };
 
-        RxTextView.textChanges(fragmentContentBinding.editTextSearchText)
+        RxTextView.textChanges(this.fragmentContentBinding.editTextSearchText)
                 .debounce(25, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .map(charSequence -> {
-                    final String keywords = charSequence.toString();
+                    String keywords = charSequence.toString();
 
                     if (!keywords.equals("")) {
                         Timber.d("%s", keywords);
 
-                        contentPreferences.setContentSelectionSearch(keywords);
+                        this.contentPreferences.setContentSelectionSearch(keywords);
 
-                        return quoteUnquoteModel.countQuotationWithSearchText(keywords);
+                        return this.quoteUnquoteModel.countQuotationWithSearchText(keywords);
                     } else {
-                        contentPreferences.setContentSelectionSearch("");
+                        this.contentPreferences.setContentSelectionSearch("");
                         return 0;
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(disposableObserver);
+                .subscribe(this.disposableObserver);
     }
 
     @Override
     public void onViewCreated(
-            @NonNull final View view, final Bundle savedInstanceState) {
-        fragmentContentBinding.radioButtonSearch.setText(
-                getResources().getString(R.string.fragment_content_text,
+            @NonNull View view, Bundle savedInstanceState) {
+        this.fragmentContentBinding.radioButtonSearch.setText(
+                this.getResources().getString(R.string.fragment_content_text,
                         0));
 
-        createListenerRadioGroup();
-        createListenerAuthor();
-        createListenerFavouriteButtonSend();
-        createListenerFavouriteButtonReceive();
+        this.createListenerRadioGroup();
+        this.createListenerAuthor();
+        this.createListenerFavouriteButtonSend();
+        this.createListenerFavouriteButtonReceive();
 
-        setSelection();
-        setAllCount();
-        setAuthor();
-        setFavouriteCount();
-        setFavouriteLocalCode();
-        setSearch();
+        this.setSelection();
+        this.setAllCount();
+        this.setAuthor();
+        this.setFavouriteCount();
+        this.setFavouriteLocalCode();
+        this.setSearch();
     }
 
     public void setAllCount() {
-        disposables.add(quoteUnquoteModel.countAll()
+        this.disposables.add(this.quoteUnquoteModel.countAll()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(
                         new DisposableSingleObserver<Integer>() {
                             @Override
-                            public void onSuccess(@NonNull final Integer value) {
-                                fragmentContentBinding.radioButtonAll.setText(
-                                        getResources().getString(R.string.fragment_content_all, value));
+                            public void onSuccess(@NonNull Integer value) {
+                                ContentFragment.this.fragmentContentBinding.radioButtonAll.setText(
+                                        ContentFragment.this.getResources().getString(R.string.fragment_content_all, value));
 
                                 synchronized (this) {
-                                    latchAllCount.countDown();
+                                    ContentFragment.this.latchAllCount.countDown();
                                 }
                             }
 
                             @Override
-                            public void onError(@NonNull final Throwable throwable) {
+                            public void onError(@NonNull Throwable throwable) {
                                 Timber.d("onError=%s", throwable.getMessage());
                             }
                         }));
     }
 
     protected void setAuthor() {
-        disposables.add(quoteUnquoteModel.authors()
+        this.disposables.add(this.quoteUnquoteModel.authors()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(
                         new DisposableSingleObserver<List<AuthorPOJO>>() {
                             @Override
-                            public void onSuccess(@NonNull final List<AuthorPOJO> authorPOJOList) {
-                                final List<String> authors
-                                        = quoteUnquoteModel.authorsSorted(authorPOJOList);
+                            public void onSuccess(@NonNull List<AuthorPOJO> authorPOJOList) {
+                                List<String> authors
+                                        = ContentFragment.this.quoteUnquoteModel.authorsSorted(authorPOJOList);
 
-                                final ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                                        getContext(),
+                                ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                                        ContentFragment.this.getContext(),
                                         R.layout.spinner_item,
                                         authors);
                                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                fragmentContentBinding.spinnerAuthors.setAdapter(adapter);
+                                ContentFragment.this.fragmentContentBinding.spinnerAuthors.setAdapter(adapter);
 
-                                if ("".equals(contentPreferences.getContentSelectionAuthor())) {
-                                    contentPreferences.setContentSelectionAuthor(authors.get(0));
+                                if ("".equals(ContentFragment.this.contentPreferences.getContentSelectionAuthor())) {
+                                    ContentFragment.this.contentPreferences.setContentSelectionAuthor(authors.get(0));
                                 }
 
-                                setAuthorName();
+                                ContentFragment.this.setAuthorName();
 
                                 synchronized (this) {
-                                    latchAuthor.countDown();
+                                    ContentFragment.this.latchAuthor.countDown();
                                 }
                             }
 
                             @Override
-                            public void onError(@NonNull final Throwable throwable) {
+                            public void onError(@NonNull Throwable throwable) {
                                 Timber.d("onError=%s", throwable.getMessage());
                             }
                         }));
     }
 
     protected void setAuthorName() {
-        final String authorPreference = contentPreferences.getContentSelectionAuthor();
+        String authorPreference = this.contentPreferences.getContentSelectionAuthor();
 
-        fragmentContentBinding.spinnerAuthors.setSelection(
-                quoteUnquoteModel.authorsIndex(authorPreference));
+        this.fragmentContentBinding.spinnerAuthors.setSelection(
+                this.quoteUnquoteModel.authorsIndex(authorPreference));
 
-        fragmentContentBinding.radioButtonAuthor.setText(
-                getResources().getString(
+        this.fragmentContentBinding.radioButtonAuthor.setText(
+                this.getResources().getString(
                         R.string.fragment_content_author,
-                        quoteUnquoteModel.countAuthorQuotations(authorPreference)));
+                        this.quoteUnquoteModel.countAuthorQuotations(authorPreference)));
 
     }
 
     public void setFavouriteCount() {
-        disposables.add(quoteUnquoteModel.countFavourites()
+        this.disposables.add(this.quoteUnquoteModel.countFavourites()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(
                         new DisposableSingleObserver<Integer>() {
                             @Override
-                            public void onSuccess(@NonNull final Integer value) {
-                                fragmentContentBinding.radioButtonFavourites.setEnabled(true);
+                            public void onSuccess(@NonNull Integer value) {
+                                ContentFragment.this.fragmentContentBinding.radioButtonFavourites.setEnabled(true);
                                 if (value == 0) {
-                                    fragmentContentBinding.radioButtonFavourites.setEnabled(false);
+                                    ContentFragment.this.fragmentContentBinding.radioButtonFavourites.setEnabled(false);
                                 }
 
-                                fragmentContentBinding.radioButtonFavourites.setText(
-                                        getResources().getString(R.string.fragment_content_favourites, value));
+                                ContentFragment.this.fragmentContentBinding.radioButtonFavourites.setText(
+                                        ContentFragment.this.getResources().getString(R.string.fragment_content_favourites, value));
 
                                 synchronized (this) {
-                                    latchFavouriteCount.countDown();
+                                    ContentFragment.this.latchFavouriteCount.countDown();
                                 }
                             }
 
                             @Override
-                            public void onError(@NonNull final Throwable throwable) {
+                            public void onError(@NonNull Throwable throwable) {
                                 Timber.d("onError=%s", throwable.getMessage());
                             }
                         }));
     }
 
     protected void setSelection() {
-        enableAuthor(false);
-        enableFavourites(false);
-        enableSearch(false);
+        this.enableAuthor(false);
+        this.enableFavourites(false);
+        this.enableSearch(false);
 
-        switch (contentPreferences.getContentSelection()) {
+        switch (this.contentPreferences.getContentSelection()) {
             case ALL:
-                setSelectionAll();
+                this.setSelectionAll();
                 break;
             case AUTHOR:
-                setSelectionAuthor();
+                this.setSelectionAuthor();
                 break;
             case FAVOURITES:
-                setSelectionFavourites();
+                this.setSelectionFavourites();
                 break;
             case SEARCH:
-                setSelectionSearch();
+                this.setSelectionSearch();
                 break;
             default:
                 Timber.e("unknown switch");
@@ -351,156 +345,156 @@ public class ContentFragment extends FragmentCommon {
     }
 
     private void setSelectionAll() {
-        fragmentContentBinding.radioButtonAll.setChecked(true);
+        this.fragmentContentBinding.radioButtonAll.setChecked(true);
     }
 
     private void setSelectionAuthor() {
-        fragmentContentBinding.radioButtonAuthor.setChecked(true);
-        enableAuthor(true);
+        this.fragmentContentBinding.radioButtonAuthor.setChecked(true);
+        this.enableAuthor(true);
     }
 
     private void setSelectionFavourites() {
-        fragmentContentBinding.radioButtonFavourites.setChecked(true);
-        enableFavourites(true);
+        this.fragmentContentBinding.radioButtonFavourites.setChecked(true);
+        this.enableFavourites(true);
     }
 
     private void setSelectionSearch() {
-        fragmentContentBinding.radioButtonSearch.setChecked(true);
-        enableSearch(true);
+        this.fragmentContentBinding.radioButtonSearch.setChecked(true);
+        this.enableSearch(true);
 
-        fragmentContentBinding.radioButtonSearch.requestFocus();
+        this.fragmentContentBinding.radioButtonSearch.requestFocus();
 
-        final String searchText = contentPreferences.getContentSelectionSearch();
+        String searchText = this.contentPreferences.getContentSelectionSearch();
 
-        if (!searchText.equals("") && !contentPreferences.getContentSelectionSearch().equals(searchText)) {
-            contentPreferences.setContentSelectionSearch(searchText);
+        if (!searchText.equals("") && !this.contentPreferences.getContentSelectionSearch().equals(searchText)) {
+            this.contentPreferences.setContentSelectionSearch(searchText);
 
-            final EditText editTextKeywordsSearch = fragmentContentBinding.editTextSearchText;
+            EditText editTextKeywordsSearch = this.fragmentContentBinding.editTextSearchText;
             editTextKeywordsSearch.setText(searchText);
         }
     }
 
     protected void createListenerRadioGroup() {
-        final RadioGroup radioGroupContent = fragmentContentBinding.radioGroupContent;
+        RadioGroup radioGroupContent = this.fragmentContentBinding.radioGroupContent;
         radioGroupContent.setOnCheckedChangeListener((group, checkedId) -> {
 
-            enableAuthor(false);
-            enableFavourites(false);
-            enableSearch(false);
+            this.enableAuthor(false);
+            this.enableFavourites(false);
+            this.enableSearch(false);
 
-            if (checkedId == fragmentContentBinding.radioButtonAll.getId()) {
-                contentPreferences.setContentSelection(ContentSelection.ALL);
+            if (checkedId == this.fragmentContentBinding.radioButtonAll.getId()) {
+                this.contentPreferences.setContentSelection(ContentSelection.ALL);
             }
 
-            if (checkedId == fragmentContentBinding.radioButtonAuthor.getId()) {
-                enableAuthor(true);
-                contentPreferences.setContentSelection(ContentSelection.AUTHOR);
+            if (checkedId == this.fragmentContentBinding.radioButtonAuthor.getId()) {
+                this.enableAuthor(true);
+                this.contentPreferences.setContentSelection(ContentSelection.AUTHOR);
             }
 
-            if (checkedId == fragmentContentBinding.radioButtonFavourites.getId()) {
-                enableFavourites(true);
-                contentPreferences.setContentSelection(ContentSelection.FAVOURITES);
+            if (checkedId == this.fragmentContentBinding.radioButtonFavourites.getId()) {
+                this.enableFavourites(true);
+                this.contentPreferences.setContentSelection(ContentSelection.FAVOURITES);
             }
 
-            if (checkedId == fragmentContentBinding.radioButtonSearch.getId()) {
-                enableSearch(true);
-                contentPreferences.setContentSelection(ContentSelection.SEARCH);
+            if (checkedId == this.fragmentContentBinding.radioButtonSearch.getId()) {
+                this.enableSearch(true);
+                this.contentPreferences.setContentSelection(ContentSelection.SEARCH);
             }
         });
     }
 
-    private void enableAuthor(final boolean enable) {
-        fragmentContentBinding.spinnerAuthors.setEnabled(enable);
+    private void enableAuthor(boolean enable) {
+        this.fragmentContentBinding.spinnerAuthors.setEnabled(enable);
     }
 
-    private void enableFavourites(final boolean enable) {
-        fragmentContentBinding.textViewLocalCodeValue.setEnabled(enable);
+    private void enableFavourites(boolean enable) {
+        this.fragmentContentBinding.textViewLocalCodeValue.setEnabled(enable);
 
-        fragmentContentBinding.buttonSend.setEnabled(enable);
-        makeButtonAlpha(fragmentContentBinding.buttonSend, enable);
-        fragmentContentBinding.buttonSend.setClickable(enable);
+        this.fragmentContentBinding.buttonSend.setEnabled(enable);
+        this.makeButtonAlpha(this.fragmentContentBinding.buttonSend, enable);
+        this.fragmentContentBinding.buttonSend.setClickable(enable);
     }
 
-    private void makeButtonAlpha(@NonNull final Button button, final boolean enable) {
+    private void makeButtonAlpha(@NonNull Button button, boolean enable) {
         button.setAlpha(enable ? 1 : 0.25f);
     }
 
-    private void enableSearch(final boolean enable) {
-        fragmentContentBinding.editTextSearchText.setEnabled(enable);
+    private void enableSearch(boolean enable) {
+        this.fragmentContentBinding.editTextSearchText.setEnabled(enable);
     }
 
     protected void createListenerAuthor() {
-        fragmentContentBinding.spinnerAuthors.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        this.fragmentContentBinding.spinnerAuthors.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(final AdapterView<?> parent, final View view, final int position, final long selectedItemId) {
-                final String author = fragmentContentBinding.spinnerAuthors.getSelectedItem().toString();
-                fragmentContentBinding.radioButtonAuthor.setText(
-                        getResources().getString(R.string.fragment_content_author,
-                                quoteUnquoteModel.countAuthorQuotations(author)));
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long selectedItemId) {
+                String author = ContentFragment.this.fragmentContentBinding.spinnerAuthors.getSelectedItem().toString();
+                ContentFragment.this.fragmentContentBinding.radioButtonAuthor.setText(
+                        ContentFragment.this.getResources().getString(R.string.fragment_content_author,
+                                ContentFragment.this.quoteUnquoteModel.countAuthorQuotations(author)));
 
-                if (!contentPreferences.getContentSelectionAuthor().equals(author)) {
+                if (!ContentFragment.this.contentPreferences.getContentSelectionAuthor().equals(author)) {
                     Timber.d("author=%s", author);
-                    final ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
+                    ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
                     properties.put("Author", author);
                     AuditEventHelper.auditEvent("AUTHOR", properties);
 
-                    contentPreferences.setContentSelectionAuthor(author);
+                    ContentFragment.this.contentPreferences.setContentSelectionAuthor(author);
                 }
             }
 
             @Override
-            public void onNothingSelected(final AdapterView<?> parent) {
+            public void onNothingSelected(AdapterView<?> parent) {
                 // do nothing
             }
         });
     }
 
     protected void createListenerFavouriteButtonSend() {
-        fragmentContentBinding.buttonSend.setOnClickListener(v -> {
-            if (fragmentContentBinding.buttonSend.isEnabled()) {
+        this.fragmentContentBinding.buttonSend.setOnClickListener(v -> {
+            if (this.fragmentContentBinding.buttonSend.isEnabled()) {
 
-                final Intent serviceIntent = new Intent(getContext(), CloudServiceSend.class);
-                serviceIntent.putExtra("savePayload", quoteUnquoteModel.getFavouritesToSend(getContext()));
+                Intent serviceIntent = new Intent(this.getContext(), CloudServiceSend.class);
+                serviceIntent.putExtra("savePayload", this.quoteUnquoteModel.getFavouritesToSend(this.getContext()));
                 serviceIntent.putExtra(
-                        "localCodeValue", fragmentContentBinding.textViewLocalCodeValue.getText().toString());
+                        "localCodeValue", this.fragmentContentBinding.textViewLocalCodeValue.getText().toString());
 
-                getContext().startService(serviceIntent);
+                this.getContext().startService(serviceIntent);
 
             }
         });
     }
 
     protected void createListenerFavouriteButtonReceive() {
-        fragmentContentBinding.buttonReceive.setOnClickListener(v -> {
-            if (fragmentContentBinding.buttonReceive.isEnabled()) {
-                Timber.d("remoteCode=%s", fragmentContentBinding.editTextRemoteCodeValue.getText().toString());
+        this.fragmentContentBinding.buttonReceive.setOnClickListener(v -> {
+            if (this.fragmentContentBinding.buttonReceive.isEnabled()) {
+                Timber.d("remoteCode=%s", this.fragmentContentBinding.editTextRemoteCodeValue.getText().toString());
 
                 // correct length?
-                if (fragmentContentBinding.editTextRemoteCodeValue.getText().toString().length() != 10) {
+                if (this.fragmentContentBinding.editTextRemoteCodeValue.getText().toString().length() != 10) {
                     ToastHelper.makeToast(
-                            getContext(), getContext().getString(R.string.fragment_content_favourites_share_remote_code_general), Toast.LENGTH_LONG);
+                            this.getContext(), this.getContext().getString(R.string.fragment_content_favourites_share_remote_code_general), Toast.LENGTH_SHORT);
                     return;
                 }
 
                 // crc wrong?
-                if (!CloudFavouritesHelper.isRemoteCodeValid(fragmentContentBinding.editTextRemoteCodeValue.getText().toString())) {
+                if (!CloudFavouritesHelper.isRemoteCodeValid(this.fragmentContentBinding.editTextRemoteCodeValue.getText().toString())) {
                     ToastHelper.makeToast(
-                            getContext(), getContext().getString(R.string.fragment_content_favourites_share_remote_code_general), Toast.LENGTH_LONG);
+                            this.getContext(), this.getContext().getString(R.string.fragment_content_favourites_share_remote_code_general), Toast.LENGTH_SHORT);
                     return;
                 }
 
                 // same as code on this device?
                 if (!BuildConfig.DEBUG
-                    && fragmentContentBinding.editTextRemoteCodeValue.getText().toString().equals(
-                            fragmentContentBinding.textViewLocalCodeValue.getText().toString())) {
+                        && this.fragmentContentBinding.editTextRemoteCodeValue.getText().toString().equals(
+                        this.fragmentContentBinding.textViewLocalCodeValue.getText().toString())) {
                     ToastHelper.makeToast(
-                            getContext(), getContext().getString(R.string.fragment_content_favourites_share_remote_code_general), Toast.LENGTH_LONG);
+                            this.getContext(), this.getContext().getString(R.string.fragment_content_favourites_share_remote_code_general), Toast.LENGTH_SHORT);
                     return;
                 }
 
 
-                if (contentCloud.isServiceReceiveBound) {
-                    contentCloud.cloudServiceReceive.receive(this, fragmentContentBinding.editTextRemoteCodeValue.getText().toString());
+                if (this.contentCloud.isServiceReceiveBound) {
+                    this.contentCloud.cloudServiceReceive.receive(this, this.fragmentContentBinding.editTextRemoteCodeValue.getText().toString());
                 }
             }
         });

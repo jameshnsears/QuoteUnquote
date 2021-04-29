@@ -1,6 +1,8 @@
-<!--?xml version="1.0" encoding="UTF-8"?-->
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FF000000</color>
-    <color name="colorAccent">#FF6A6767</color>
+    <color name="indigo_200">#ff9fa8da</color>
+    <color name="indigo_500">#ff3f51b5</color>
+    <color name="indigo_700">#ff303f9f</color>
+    <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

@@ -24,19 +24,19 @@ import java.util.concurrent.ConcurrentHashMap;
 import timber.log.Timber;
 
 public class CloudServiceReceive extends Service {
-    public boolean isRunning = false;
     @NonNull
     private final IBinder binder = new LocalBinder();
     @NonNull
-    private final Handler handler = getHandler();
+    private final Handler handler = this.getHandler();
     @NonNull
-    private final CloudFavourites cloudFavourites = getCloudFavourites();
+    private final CloudFavourites cloudFavourites = this.getCloudFavourites();
+    public boolean isRunning;
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        isRunning = false;
-        Timber.d("%b", isRunning);
+        this.isRunning = false;
+        Timber.d("%b", this.isRunning);
         CloudFavourites.shutdown();
     }
 
@@ -46,62 +46,62 @@ public class CloudServiceReceive extends Service {
     }
 
     @NonNull
-    protected DatabaseRepository getDatabaseRepository(@NonNull Context context) {
+    protected DatabaseRepository getDatabaseRepository(@NonNull final Context context) {
         return DatabaseRepository.getInstance(context);
     }
 
     @Override
     @NonNull
-    public IBinder onBind(@NonNull final Intent intent) {
-        return binder;
+    public IBinder onBind(@NonNull Intent intent) {
+        return this.binder;
     }
 
     public void receive(
-            @NonNull final ContentFragment contentFragment,
-            @NonNull final String remoteCodeValue) {
+            @NonNull ContentFragment contentFragment,
+            @NonNull String remoteCodeValue) {
 
-        if (!isRunning) {
-            isRunning = true;
+        if (!this.isRunning) {
+            this.isRunning = true;
 
-             new Thread(() -> {
-                Timber.d("isRunning=%b", isRunning);
+            new Thread(() -> {
+                Timber.d("isRunning=%b", this.isRunning);
 
-                final Context context = getServiceContext();
+                Context context = this.getServiceContext();
 
 
-                if (!cloudFavourites.isInternetAvailable()) {
-                    CloudServiceHelper.showNoNetworkToast(context, handler);
+                if (!this.cloudFavourites.isInternetAvailable()) {
+                    CloudServiceHelper.showNoNetworkToast(context, this.handler);
                 } else {
-                    handler.post(() -> ToastHelper.makeToast(
+                    this.handler.post(() -> ToastHelper.makeToast(
                             context,
                             context.getString(R.string.fragment_content_favourites_share_receiving),
-                            Toast.LENGTH_LONG));
+                            Toast.LENGTH_SHORT));
 
-                    final List<String> favouritesReceived = cloudFavourites.receive(
+                    List<String> favouritesReceived = this.cloudFavourites.receive(
                             CloudFavourites.TIMEOUT_SECONDS,
                             CloudFavouritesHelper.jsonReceiveRequest(remoteCodeValue)).digests;
 
                     if (favouritesReceived == null) {
-                        handler.post(() -> ToastHelper.makeToast(
-                                context, context.getString(R.string.fragment_content_favourites_share_missing), Toast.LENGTH_LONG));
+                        this.handler.post(() -> ToastHelper.makeToast(
+                                context, context.getString(R.string.fragment_content_favourites_share_missing), Toast.LENGTH_SHORT));
                     } else {
-                        handler.post(() -> ToastHelper.makeToast(
-                                context, context.getString(R.string.fragment_content_favourites_share_received), Toast.LENGTH_LONG));
+                        this.handler.post(() -> ToastHelper.makeToast(
+                                context, context.getString(R.string.fragment_content_favourites_share_received), Toast.LENGTH_SHORT));
 
-                        favouritesReceived.forEach(getDatabaseRepository(context)::markAsFavourite);
+                        favouritesReceived.forEach(this.getDatabaseRepository(context)::markAsFavourite);
 
                         if (contentFragment != null) {
                             contentFragment.setFavouriteCount();
                         }
 
-                        final ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
+                        ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
                         properties.put("code", remoteCodeValue);
                         AuditEventHelper.auditEvent("FAVOURITE_RECEIVE", properties);
                     }
                 }
 
-                isRunning = false;
-                Timber.d("isRunning=%b", isRunning);
+                this.isRunning = false;
+                Timber.d("isRunning=%b", this.isRunning);
 
             }).start();
         }
@@ -112,15 +112,15 @@ public class CloudServiceReceive extends Service {
         return new CloudFavourites();
     }
 
+    @Nullable
+    public Context getServiceContext() {
+        return getApplicationContext();
+    }
+
     public class LocalBinder extends Binder {
         @NonNull
         public CloudServiceReceive getService() {
             return CloudServiceReceive.this;
         }
-    }
-
-    @Nullable
-    public Context getServiceContext() {
-        return CloudServiceReceive.this.getApplicationContext();
     }
 }

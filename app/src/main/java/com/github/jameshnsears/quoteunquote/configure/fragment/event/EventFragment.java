@@ -22,13 +22,17 @@ public class EventFragment extends FragmentCommon {
     @Nullable
     public EventPreferences eventPreferences;
 
-    protected EventFragment(final int widgetId) {
+    public EventFragment() {
+        // dark mode support
+    }
+
+    protected EventFragment(int widgetId) {
         super(widgetId);
     }
 
     @NonNull
-    public static EventFragment newInstance(final int widgetId) {
-        final EventFragment fragment = new EventFragment(widgetId);
+    public static EventFragment newInstance(int widgetId) {
+        EventFragment fragment = new EventFragment(widgetId);
         fragment.setArguments(null);
         return fragment;
     }
@@ -36,45 +40,45 @@ public class EventFragment extends FragmentCommon {
     @Override
     @NonNull
     public View onCreateView(
-            @NonNull final LayoutInflater inflater,
-            final ViewGroup container,
-            final Bundle savedInstanceState) {
-        eventPreferences = new EventPreferences(this.widgetId, this.getContext());
+            @NonNull LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {
+        this.eventPreferences = new EventPreferences(widgetId, getContext());
 
-        fragmentEventBinding = FragmentEventBinding.inflate(getLayoutInflater());
-        return fragmentEventBinding.getRoot();
+        this.fragmentEventBinding = FragmentEventBinding.inflate(this.getLayoutInflater());
+        return this.fragmentEventBinding.getRoot();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        fragmentEventBinding = null;
+        this.fragmentEventBinding = null;
     }
 
     @Override
     public void onViewCreated(
-            @NonNull final View view, final Bundle savedInstanceState) {
-        setNext();
-        setDisplay();
-        setDeviceUnlock();
-        setDaily();
-        setDailyTime();
+            @NonNull View view, Bundle savedInstanceState) {
+        this.setNext();
+        this.setDisplay();
+        this.setDeviceUnlock();
+        this.setDaily();
+        this.setDailyTime();
 
-        createListenerNextRandom();
-        createListenerNextSequential();
-        createListenerDisplayWidget();
-        createListenerDisplayWidgetAndNotification();
-        createListenerDeviceUnlock();
-        createListenerDaily();
-        createListenerDailyTime();
+        this.createListenerNextRandom();
+        this.createListenerNextSequential();
+        this.createListenerDisplayWidget();
+        this.createListenerDisplayWidgetAndNotification();
+        this.createListenerDeviceUnlock();
+        this.createListenerDaily();
+        this.createListenerDailyTime();
     }
 
     private void setDaily() {
-        final boolean booleanDaily = eventPreferences.getEventDaily();
+        boolean booleanDaily = this.eventPreferences.getEventDaily();
 
-        fragmentEventBinding.checkBoxDailyAt.setChecked(booleanDaily);
+        this.fragmentEventBinding.checkBoxDailyAt.setChecked(booleanDaily);
 
-        final TimePicker timePicker = fragmentEventBinding.timePickerDailyAt;
+        TimePicker timePicker = this.fragmentEventBinding.timePickerDailyAt;
 
         timePicker.setEnabled(false);
         if (booleanDaily) {
@@ -83,72 +87,72 @@ public class EventFragment extends FragmentCommon {
     }
 
     private void setNext() {
-        fragmentEventBinding.radioButtonNextRandom.setChecked(eventPreferences.getEventNextRandom());
-        fragmentEventBinding.radioButtonNextSequential.setChecked(eventPreferences.getEventNextSequential());
+        this.fragmentEventBinding.radioButtonNextRandom.setChecked(this.eventPreferences.getEventNextRandom());
+        this.fragmentEventBinding.radioButtonNextSequential.setChecked(this.eventPreferences.getEventNextSequential());
     }
 
     private void setDisplay() {
-        fragmentEventBinding.radioButtonWhereInWidget.setChecked(eventPreferences.getEventDisplayWidget());
-        fragmentEventBinding.radioButtonWhereAsNotification.setChecked(eventPreferences.getEventDisplayWidgetAndNotification());
+        this.fragmentEventBinding.radioButtonWhereInWidget.setChecked(this.eventPreferences.getEventDisplayWidget());
+        this.fragmentEventBinding.radioButtonWhereAsNotification.setChecked(this.eventPreferences.getEventDisplayWidgetAndNotification());
     }
 
     private void setDeviceUnlock() {
-        fragmentEventBinding.checkBoxDeviceUnlock.setChecked(eventPreferences.getEventDeviceUnlock());
+        this.fragmentEventBinding.checkBoxDeviceUnlock.setChecked(this.eventPreferences.getEventDeviceUnlock());
     }
 
     private void createListenerNextRandom() {
-        final RadioButton radioButtonNextRandom = fragmentEventBinding.radioButtonNextRandom;
+        RadioButton radioButtonNextRandom = this.fragmentEventBinding.radioButtonNextRandom;
         radioButtonNextRandom.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (eventPreferences.getEventNextRandom() != isChecked) {
-                eventPreferences.setEventNextRandom(isChecked);
+            if (this.eventPreferences.getEventNextRandom() != isChecked) {
+                this.eventPreferences.setEventNextRandom(isChecked);
             }
         });
     }
 
     private void createListenerNextSequential() {
-        final RadioButton radioButtonNextSequential = fragmentEventBinding.radioButtonNextSequential;
+        RadioButton radioButtonNextSequential = this.fragmentEventBinding.radioButtonNextSequential;
         radioButtonNextSequential.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (eventPreferences.getEventNextSequential() != isChecked) {
-                eventPreferences.setEventNextSequential(isChecked);
+            if (this.eventPreferences.getEventNextSequential() != isChecked) {
+                this.eventPreferences.setEventNextSequential(isChecked);
             }
         });
     }
 
     private void createListenerDisplayWidget() {
-        final RadioButton radioButtonWhereInWidget = fragmentEventBinding.radioButtonWhereInWidget;
+        RadioButton radioButtonWhereInWidget = this.fragmentEventBinding.radioButtonWhereInWidget;
         radioButtonWhereInWidget.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (eventPreferences.getEventDisplayWidget() != isChecked) {
-                eventPreferences.setEventDisplayWidget(isChecked);
+            if (this.eventPreferences.getEventDisplayWidget() != isChecked) {
+                this.eventPreferences.setEventDisplayWidget(isChecked);
             }
         });
     }
 
     private void createListenerDisplayWidgetAndNotification() {
-        final RadioButton radioButtonWhereAsNotification = fragmentEventBinding.radioButtonWhereAsNotification;
+        RadioButton radioButtonWhereAsNotification = this.fragmentEventBinding.radioButtonWhereAsNotification;
         radioButtonWhereAsNotification.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (eventPreferences.getEventDisplayWidgetAndNotification() != isChecked) {
-                eventPreferences.setEventdisplayWidgetAndNotification(isChecked);
+            if (this.eventPreferences.getEventDisplayWidgetAndNotification() != isChecked) {
+                this.eventPreferences.setEventdisplayWidgetAndNotification(isChecked);
             }
         });
     }
 
     private void createListenerDeviceUnlock() {
-        final CheckBox checkBoxDeviceUnlock = fragmentEventBinding.checkBoxDeviceUnlock;
+        CheckBox checkBoxDeviceUnlock = this.fragmentEventBinding.checkBoxDeviceUnlock;
         checkBoxDeviceUnlock.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (eventPreferences.getEventDeviceUnlock() != isChecked) {
-                eventPreferences.setEventDeviceUnlock(isChecked);
+            if (this.eventPreferences.getEventDeviceUnlock() != isChecked) {
+                this.eventPreferences.setEventDeviceUnlock(isChecked);
             }
         });
     }
 
     private void createListenerDaily() {
-        final CheckBox checkBoxDailyAt = fragmentEventBinding.checkBoxDailyAt;
+        CheckBox checkBoxDailyAt = this.fragmentEventBinding.checkBoxDailyAt;
         checkBoxDailyAt.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (eventPreferences.getEventDaily() != isChecked) {
-                eventPreferences.setEventDaily(isChecked);
+            if (this.eventPreferences.getEventDaily() != isChecked) {
+                this.eventPreferences.setEventDaily(isChecked);
             }
 
-            final TimePicker timePicker = fragmentEventBinding.timePickerDailyAt;
+            TimePicker timePicker = this.fragmentEventBinding.timePickerDailyAt;
 
             timePicker.setEnabled(false);
             if (isChecked) {
@@ -158,35 +162,35 @@ public class EventFragment extends FragmentCommon {
     }
 
     private void createListenerDailyTime() {
-        final TimePicker timePicker = fragmentEventBinding.timePickerDailyAt;
+        TimePicker timePicker = this.fragmentEventBinding.timePickerDailyAt;
         timePicker.setOnTimeChangedListener((view1, hourOfDay, minute) -> {
-                    int h = timePicker.getHour();
-                    if (eventPreferences.getEventDailyTimeHour() != h) {
-                        eventPreferences.setEventDailyTimeHour(h);
+                    final int h = timePicker.getHour();
+                    if (this.eventPreferences.getEventDailyTimeHour() != h) {
+                        this.eventPreferences.setEventDailyTimeHour(h);
                     }
 
-                    int m = timePicker.getMinute();
-                    if (eventPreferences.getEventDailyTimeMinute() != m) {
-                        eventPreferences.setEventDailyTimeMinute(m);
+                    final int m = timePicker.getMinute();
+                    if (this.eventPreferences.getEventDailyTimeMinute() != m) {
+                        this.eventPreferences.setEventDailyTimeMinute(m);
                     }
                 }
         );
     }
 
     protected void setDailyTime() {
-        final TimePicker timePicker = fragmentEventBinding.timePickerDailyAt;
+        TimePicker timePicker = this.fragmentEventBinding.timePickerDailyAt;
 
-        final int hourOfDay = eventPreferences.getEventDailyTimeHour();
+        int hourOfDay = this.eventPreferences.getEventDailyTimeHour();
         if (hourOfDay == -1) {
-            eventPreferences.setEventDailyTimeHour(6);
+            this.eventPreferences.setEventDailyTimeHour(6);
             timePicker.setHour(6);
         } else {
             timePicker.setHour(hourOfDay);
         }
 
-        final int minute = eventPreferences.getEventDailyTimeMinute();
+        int minute = this.eventPreferences.getEventDailyTimeMinute();
         if (minute == -1) {
-            eventPreferences.setEventDailyTimeMinute(0);
+            this.eventPreferences.setEventDailyTimeMinute(0);
             timePicker.setMinute(0);
         } else {
             timePicker.setMinute(minute);

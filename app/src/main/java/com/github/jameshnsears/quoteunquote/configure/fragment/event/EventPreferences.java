@@ -20,103 +20,103 @@ public class EventPreferences extends PreferencesFacade {
     private static final String EVENT_DAILY_MINUTE = "EVENT_DAILY_MINUTE";
     private static final String EVENT_DAILY_HOUR = "EVENT_DAILY_HOUR";
 
-    public EventPreferences(final int widgetId, @NonNull final Context applicationContext) {
+    public EventPreferences(int widgetId, @NonNull Context applicationContext) {
         super(widgetId, applicationContext);
     }
 
     public boolean getEventNextRandom() {
-        return preferenceHelper.getPreferenceBoolean(getPreferenceKey(EVENT_NEXT_RANDOM), true);
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(EventPreferences.EVENT_NEXT_RANDOM), true);
     }
 
-    public void setEventNextRandom(final boolean value) {
-        preferenceHelper.setPreference(getPreferenceKey(EVENT_NEXT_RANDOM), value);
+    public void setEventNextRandom(boolean value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(EventPreferences.EVENT_NEXT_RANDOM), value);
     }
 
     public boolean getEventNextSequential() {
-        return preferenceHelper.getPreferenceBoolean(getPreferenceKey(EVENT_NEXT_SEQUENTIAL), false);
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(EventPreferences.EVENT_NEXT_SEQUENTIAL), false);
     }
 
-    public void setEventNextSequential(final boolean value) {
-        preferenceHelper.setPreference(getPreferenceKey(EVENT_NEXT_SEQUENTIAL), value);
+    public void setEventNextSequential(boolean value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(EventPreferences.EVENT_NEXT_SEQUENTIAL), value);
     }
 
     public boolean getEventDisplayWidget() {
-        return preferenceHelper.getPreferenceBoolean(getPreferenceKey(EVENT_DISPLAY_WIDGET), true);
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(EventPreferences.EVENT_DISPLAY_WIDGET), true);
     }
 
-    public void setEventDisplayWidget(final boolean value) {
-        preferenceHelper.setPreference(getPreferenceKey(EVENT_DISPLAY_WIDGET), value);
+    public void setEventDisplayWidget(boolean value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(EventPreferences.EVENT_DISPLAY_WIDGET), value);
     }
 
     public boolean getEventDisplayWidgetAndNotification() {
-        return preferenceHelper.getPreferenceBoolean(getPreferenceKey(EVENT_DISPLAY_WIDGET_AND_NOTIFICATION), false);
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(EventPreferences.EVENT_DISPLAY_WIDGET_AND_NOTIFICATION), false);
     }
 
-    public void setEventdisplayWidgetAndNotification(final boolean value) {
-        preferenceHelper.setPreference(getPreferenceKey(EVENT_DISPLAY_WIDGET_AND_NOTIFICATION), value);
+    public void setEventdisplayWidgetAndNotification(boolean value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(EventPreferences.EVENT_DISPLAY_WIDGET_AND_NOTIFICATION), value);
     }
 
     public boolean getEventDaily() {
-        return preferenceHelper.getPreferenceBoolean(getPreferenceKey(EVENT_DAILY), false);
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(EventPreferences.EVENT_DAILY), false);
     }
 
-    public void setEventDaily(final boolean value) {
-        preferenceHelper.setPreference(getPreferenceKey(EVENT_DAILY), value);
+    public void setEventDaily(boolean value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(EventPreferences.EVENT_DAILY), value);
     }
 
     public boolean getEventDeviceUnlock() {
-        return preferenceHelper.getPreferenceBoolean(getPreferenceKey(EVENT_DEVICE_UNLOCK), false);
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(EventPreferences.EVENT_DEVICE_UNLOCK), false);
     }
 
-    public void setEventDeviceUnlock(final boolean value) {
-        preferenceHelper.setPreference(getPreferenceKey(EVENT_DEVICE_UNLOCK), value);
+    public void setEventDeviceUnlock(boolean value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(EventPreferences.EVENT_DEVICE_UNLOCK), value);
     }
 
     public int getEventDailyTimeMinute() {
-        return preferenceHelper.getPreferenceInt(getPreferenceKey(EVENT_DAILY_MINUTE));
+        return this.preferenceHelper.getPreferenceInt(this.getPreferenceKey(EventPreferences.EVENT_DAILY_MINUTE));
     }
 
-    public void setEventDailyTimeMinute(final int value) {
-        preferenceHelper.setPreference(getPreferenceKey(EVENT_DAILY_MINUTE), value);
+    public void setEventDailyTimeMinute(int value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(EventPreferences.EVENT_DAILY_MINUTE), value);
     }
 
     public int getEventDailyTimeHour() {
-        return preferenceHelper.getPreferenceInt(getPreferenceKey(EVENT_DAILY_HOUR));
+        return this.preferenceHelper.getPreferenceInt(this.getPreferenceKey(EventPreferences.EVENT_DAILY_HOUR));
     }
 
-    public void setEventDailyTimeHour(final int value) {
-        preferenceHelper.setPreference(getPreferenceKey(EVENT_DAILY_HOUR), value);
+    public void setEventDailyTimeHour(int value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(EventPreferences.EVENT_DAILY_HOUR), value);
     }
 
     public void performMigration() {
-        final Map<String, ?> sharedPreferenceEntries
-                = applicationContext.getSharedPreferences("QuoteUnquote-Preferences", Context.MODE_PRIVATE).getAll();
+        Map<String, ?> sharedPreferenceEntries
+                = this.applicationContext.getSharedPreferences("QuoteUnquote-Preferences", Context.MODE_PRIVATE).getAll();
 
-        for (final Map.Entry<String, ?> entry : sharedPreferenceEntries.entrySet()) {
-            widgetId = Integer.parseInt(entry.getKey().substring(0, entry.getKey().indexOf(":")));
+        for (Map.Entry<String, ?> entry : sharedPreferenceEntries.entrySet()) {
+            this.widgetId = Integer.parseInt(entry.getKey().substring(0, entry.getKey().indexOf(":")));
 
             if (entry.getKey().contains("FragmentEvent:checkBoxDeviceUnlock")) {
-                boolean checkBoxDeviceUnlock = (Boolean) entry.getValue();
-                Timber.d("%d: checkBoxDeviceUnlock=%b", widgetId, checkBoxDeviceUnlock);
-                setEventDeviceUnlock(checkBoxDeviceUnlock);
+                final boolean checkBoxDeviceUnlock = (Boolean) entry.getValue();
+                Timber.d("%d: checkBoxDeviceUnlock=%b", this.widgetId, checkBoxDeviceUnlock);
+                this.setEventDeviceUnlock(checkBoxDeviceUnlock);
             }
 
             if (entry.getKey().contains("FragmentEvent:checkBoxDailyAt")) {
-                boolean checkBoxDailyAt = (Boolean) entry.getValue();
-                Timber.d("%d: checkBoxDailyAt=%b", widgetId, checkBoxDailyAt);
-                setEventDaily(checkBoxDailyAt);
+                final boolean checkBoxDailyAt = (Boolean) entry.getValue();
+                Timber.d("%d: checkBoxDailyAt=%b", this.widgetId, checkBoxDailyAt);
+                this.setEventDaily(checkBoxDailyAt);
             }
 
             if (entry.getKey().contains("FragmentEvent:timePickerDailyAt:hourOfDay")) {
-                int hourOfDay = (Integer) entry.getValue();
-                Timber.d("%d: hourOfDay=%d", widgetId, hourOfDay);
-                setEventDailyTimeHour(hourOfDay);
+                final int hourOfDay = (Integer) entry.getValue();
+                Timber.d("%d: hourOfDay=%d", this.widgetId, hourOfDay);
+                this.setEventDailyTimeHour(hourOfDay);
             }
 
             if (entry.getKey().contains("FragmentEvent:timePickerDailyAt:minute")) {
-                int minute = (Integer) entry.getValue();
-                Timber.d("%d: minute=%d", widgetId, minute);
-                setEventDailyTimeMinute(minute);
+                final int minute = (Integer) entry.getValue();
+                Timber.d("%d: minute=%d", this.widgetId, minute);
+                this.setEventDailyTimeMinute(minute);
             }
         }
     }

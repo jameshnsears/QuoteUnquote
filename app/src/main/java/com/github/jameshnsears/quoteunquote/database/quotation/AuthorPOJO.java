@@ -22,13 +22,13 @@ public class AuthorPOJO implements Comparable<AuthorPOJO> {
     @ColumnInfo(name = "QUOTATION_COUNT")
     public int count;
 
-    public AuthorPOJO(@NonNull final String author) {
+    public AuthorPOJO(@NonNull String author) {
         this.author = author;
-        this.key = FINAL_COLLATOR.getCollationKey(author);
+        key = AuthorPOJO.FINAL_COLLATOR.getCollationKey(author);
     }
 
     @Override
-    public int compareTo(@NonNull final AuthorPOJO authorPOJO) {
-        return this.key.compareTo(authorPOJO.key);
+    public int compareTo(@NonNull AuthorPOJO authorPOJO) {
+        return key.compareTo(authorPOJO.key);
     }
 }

@@ -14,34 +14,34 @@ import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 
 public class NotificationHelper {
-    private int notificationId = 0;
+    private int notificationId;
 
-    public void displayNotification(@NonNull Context context, @Nullable QuotationEntity quotationEntity) {
+    public void displayNotification(@NonNull final Context context, @Nullable final QuotationEntity quotationEntity) {
         if (quotationEntity != null) {
-            CharSequence author = restrictAuthorSize(quotationEntity.author);
+            final CharSequence author = this.restrictAuthorSize(quotationEntity.author);
 
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(
-                    context, createNotificationChannel(context))
+            final NotificationCompat.Builder builder = new NotificationCompat.Builder(
+                    context, this.createNotificationChannel(context))
                     .setSmallIcon(com.github.jameshnsears.quoteunquote.R.drawable.ic_notification_icon)
                     .setContentTitle(author)
-                    .setStyle(new NotificationCompat.BigTextStyle().bigText(restrictQuotationSize(quotationEntity.quotation)))
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(this.restrictQuotationSize(quotationEntity.quotation)))
                     .setPriority(NotificationCompat.PRIORITY_HIGH);
 
-            NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
+            final NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
 
-            notificationId += 1;
-            notificationManager.notify(notificationId, builder.build());
+            this.notificationId += 1;
+            notificationManager.notify(this.notificationId, builder.build());
         }
     }
 
     @NonNull
-    public String restrictAuthorSize(@NonNull String author) {
-        int notificationTitleMaxSize = 20;
+    public String restrictAuthorSize(@NonNull final String author) {
+        final int notificationTitleMaxSize = 20;
 
         String reducedAuthor = "";
         int cumlativeWordLength = 0;
 
-        for (String word : author.split(" ")) {
+        for (final String word : author.split(" ")) {
             cumlativeWordLength += word.length();
             if (cumlativeWordLength < notificationTitleMaxSize) {
                 reducedAuthor += word + " ";
@@ -55,13 +55,13 @@ public class NotificationHelper {
     }
 
     @NonNull
-    public CharSequence restrictQuotationSize(@NonNull String quotation) {
-        int notificationBodyMaxSize = 150;
+    public CharSequence restrictQuotationSize(@NonNull final String quotation) {
+        final int notificationBodyMaxSize = 150;
 
         String reducedQuotation = "";
         int cumlativeWordLength = 0;
 
-        for (String word : quotation.split(" ")) {
+        for (final String word : quotation.split(" ")) {
             cumlativeWordLength += word.length();
             if (cumlativeWordLength < notificationBodyMaxSize) {
                 reducedQuotation += word + " ";
@@ -75,11 +75,11 @@ public class NotificationHelper {
     }
 
     @Nullable
-    private String createNotificationChannel(@NonNull Context context) {
+    private String createNotificationChannel(@NonNull final Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            String notificationChannelId = context.getString(com.github.jameshnsears.quoteunquote.R.string.notification_channel_id);
+            final String notificationChannelId = context.getString(com.github.jameshnsears.quoteunquote.R.string.notification_channel_id);
 
-            NotificationChannel notificationChannel = new NotificationChannel(
+            final NotificationChannel notificationChannel = new NotificationChannel(
                     notificationChannelId,
                     context.getText(com.github.jameshnsears.quoteunquote.R.string.notification_channel_name),
                     NotificationManager.IMPORTANCE_HIGH);
@@ -87,7 +87,7 @@ public class NotificationHelper {
             notificationChannel.setDescription(context.getString(R.string.notification_channel_description));
             notificationChannel.enableVibration(true);
 
-            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            final NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.createNotificationChannel(notificationChannel);
 
             return notificationChannelId;

@@ -4,17 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_weight="1"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
     android:orientation="vertical"
     android:paddingStart="0dp"
     android:paddingEnd="5dp">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:text="@string/fragment_appearance_instruction_touch"
-        android:textSize="15sp"
-        android:textStyle="normal|italic" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -31,7 +25,7 @@
             android:paddingEnd="10dp"
             android:text="@string/fragment_content_title"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
 
     </LinearLayout>
 
@@ -42,24 +36,24 @@
 
         <RadioButton
             android:id="@+id/radioButtonAll"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="false"
             android:paddingVertical="10dp"
             android:paddingStart="12dp"
             android:paddingEnd="0dp"
             android:text="@string/fragment_content_all"
-            android:textSize="15sp" />
+            android:textSize="14sp" />
 
         <RadioButton
             android:id="@+id/radioButtonAuthor"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingVertical="10dp"
             android:paddingStart="12dp"
             android:paddingEnd="0dp"
             android:text="@string/fragment_content_author"
-            android:textSize="15sp" />
+            android:textSize="14sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -76,7 +70,7 @@
 
         <RadioButton
             android:id="@+id/radioButtonFavourites"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/ic_toolbar_favorite_red_24dp"
             android:drawablePadding="5dp"
@@ -84,7 +78,7 @@
             android:paddingStart="12dp"
             android:paddingEnd="0dp"
             android:text="@string/fragment_content_favourites"
-            android:textSize="15sp" />
+            android:textSize="14sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -99,7 +93,7 @@
                 android:paddingStart="5dp"
                 android:paddingEnd="0dp"
                 android:text="@string/fragment_content_favourites_share_instructions"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -115,7 +109,7 @@
                     android:hint="@string/fragment_content_favourites_share_remove_code_value"
                     android:inputType="textPersonName"
                     android:maxLength="10"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
                 <Button
                     android:id="@+id/buttonReceive"
@@ -124,7 +118,7 @@
                     android:background="@drawable/corners_buttons"
                     android:text="@string/fragment_content_favourites_share_remote_receive"
                     android:textColor="@android:color/white"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     app:backgroundTint="@null" />
 
             </LinearLayout>
@@ -144,7 +138,7 @@
                     android:paddingEnd="40dp"
                     android:text="@string/fragment_content_favourites_share_local_code_value"
                     android:textIsSelectable="true"
-                    android:textSize="15sp" />
+                    android:textSize="14sp" />
 
                 <Button
                     android:id="@+id/buttonSend"
@@ -153,7 +147,7 @@
                     android:background="@drawable/corners_buttons"
                     android:text="@string/fragment_content_favourites_share_local_code_send"
                     android:textColor="@android:color/white"
-                    android:textSize="15sp"
+                    android:textSize="14sp"
                     app:backgroundTint="@null" />
             </LinearLayout>
 
@@ -162,15 +156,15 @@
 
         <RadioButton
             android:id="@+id/radioButtonSearch"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_content_search_black_24"
+            android:drawableStart="@drawable/ic_content_search_24"
             android:drawablePadding="5dp"
             android:paddingVertical="10dp"
             android:paddingStart="12dp"
             android:paddingEnd="0dp"
             android:text="@string/fragment_content_text"
-            android:textSize="15sp" />
+            android:textSize="14sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -190,7 +184,7 @@
                 android:hint="@string/fragment_content_text_instructions"
                 android:inputType="text"
                 android:maxLength="50"
-                android:textSize="15sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 

@@ -9,8 +9,8 @@ public class PreferencesMigration extends PreferencesFacade {
     public static final String PREFERENCES_FILENAME = "QuoteUnquote-Preferences";
 
     public PreferencesMigration(
-            final int widgetId,
-            @NonNull final Context applicationContext) {
+            int widgetId,
+            @NonNull Context applicationContext) {
         super(widgetId, applicationContext);
     }
 }

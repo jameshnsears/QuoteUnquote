@@ -8,7 +8,7 @@ import androidx.room.TypeConverters;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 
 @Dao
-@TypeConverters({ContentSelection.class})
+@TypeConverters(ContentSelection.class)
 public interface CurrentDAO {
     @Insert
     void markAsCurrent(CurrentEntity currentEntity);

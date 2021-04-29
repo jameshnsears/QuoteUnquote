@@ -21,13 +21,17 @@ public final class FooterFragment extends FragmentCommon {
     @Nullable
     private FragmentFooterBinding fragmentFooterBinding;
 
-    private FooterFragment(final int widgetId) {
+    public FooterFragment() {
+        // dark mode support
+    }
+
+    private FooterFragment(int widgetId) {
         super(widgetId);
     }
 
     @NonNull
-    public static FooterFragment newInstance(final int widgetId) {
-        final FooterFragment fragment = new FooterFragment(widgetId);
+    public static FooterFragment newInstance(int widgetId) {
+        FooterFragment fragment = new FooterFragment(widgetId);
         fragment.setArguments(null);
         return fragment;
     }
@@ -35,27 +39,27 @@ public final class FooterFragment extends FragmentCommon {
     @Override
     @NonNull
     public View onCreateView(
-            @NonNull final LayoutInflater inflater,
-            final ViewGroup container,
-            final Bundle savedInstanceState) {
-        fragmentFooterBinding = FragmentFooterBinding.inflate(getLayoutInflater());
-        return fragmentFooterBinding.getRoot();
+            @NonNull LayoutInflater inflater,
+            ViewGroup container,
+            Bundle savedInstanceState) {
+        this.fragmentFooterBinding = FragmentFooterBinding.inflate(this.getLayoutInflater());
+        return this.fragmentFooterBinding.getRoot();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        fragmentFooterBinding = null;
+        this.fragmentFooterBinding = null;
     }
 
     @Override
     public void onViewCreated(
-            @NonNull final View view, final Bundle savedInstanceState) {
-        fragmentFooterBinding.textViewVersion.setText(
-                getResources().getString(R.string.fragment_footer_version,
+            @NonNull View view, Bundle savedInstanceState) {
+        this.fragmentFooterBinding.textViewVersion.setText(
+                this.getResources().getString(R.string.fragment_footer_version,
                         BuildConfig.VERSION_NAME, BuildConfig.GIT_HASH));
 
-        final LinearLayout layoutFooter = fragmentFooterBinding.layoutFooter;
-        layoutFooter.setOnClickListener(v -> startActivity(IntentFactoryHelper.createIntentActionView()));
+        LinearLayout layoutFooter = this.fragmentFooterBinding.layoutFooter;
+        layoutFooter.setOnClickListener(v -> this.startActivity(IntentFactoryHelper.createIntentActionView()));
     }
 }

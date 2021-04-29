@@ -20,74 +20,74 @@ import java.util.concurrent.ConcurrentHashMap;
 import timber.log.Timber;
 
 public class CloudServiceSend extends Service {
-    public static boolean isRunning = false;
+    public static boolean isRunning;
     @NonNull
     public final Handler handler = new Handler(Looper.getMainLooper());
     @Nullable
-    public final CloudFavourites cloudFavourites = getCloudFavourites();
+    public final CloudFavourites cloudFavourites = this.getCloudFavourites();
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Timber.d("%b", isRunning);
-        isRunning = false;
+        Timber.d("%b", CloudServiceSend.isRunning);
+        CloudServiceSend.isRunning = false;
         CloudFavourites.shutdown();
     }
 
     @Override
     @Nullable
-    public IBinder onBind(@NonNull final Intent intent) {
+    public IBinder onBind(@NonNull Intent intent) {
         return null;
     }
 
     @Override
     public int onStartCommand(
-            @NonNull final Intent intent,
-            final int flags,
-            final int startId) {
+            @NonNull Intent intent,
+            int flags,
+            int startId) {
 
-        if (!isRunning) {
-            isRunning = true;
+        if (!CloudServiceSend.isRunning) {
+            CloudServiceSend.isRunning = true;
 
             new Thread(() -> {
-                Timber.d("isRunning=%b", isRunning);
+                Timber.d("isRunning=%b", CloudServiceSend.isRunning);
 
-                final Context context = getServiceContext();
+                Context context = this.getServiceContext();
 
-                if (!cloudFavourites.isInternetAvailable()) {
-                    CloudServiceHelper.showNoNetworkToast(context, handler);
+                if (!this.cloudFavourites.isInternetAvailable()) {
+                    CloudServiceHelper.showNoNetworkToast(context, this.handler);
                 } else {
-                    handler.post(() -> ToastHelper.makeToast(
+                    this.handler.post(() -> ToastHelper.makeToast(
                             context,
                             context.getString(R.string.fragment_content_favourites_share_sending),
-                            Toast.LENGTH_LONG));
+                            Toast.LENGTH_SHORT));
 
-                    if (cloudFavourites.save(intent.getStringExtra("savePayload"))) {
+                    if (this.cloudFavourites.save(intent.getStringExtra("savePayload"))) {
 
-                        handler.post(() -> ToastHelper.makeToast(
+                        this.handler.post(() -> ToastHelper.makeToast(
                                 context,
                                 context.getString(R.string.fragment_content_favourites_share_sent),
-                                Toast.LENGTH_LONG));
+                                Toast.LENGTH_SHORT));
 
-                        auditSend(intent);
+                        this.auditSend(intent);
                     } else {
-                        CloudServiceHelper.showNoNetworkToast(context, handler);
+                        CloudServiceHelper.showNoNetworkToast(context, this.handler);
                     }
                 }
 
-                isRunning = false;
-                Timber.d("isRunning=%b", isRunning);
+                CloudServiceSend.isRunning = false;
+                Timber.d("isRunning=%b", CloudServiceSend.isRunning);
 
-                stopSelf();
+                this.stopSelf();
 
             }).start();
         }
 
-        return START_NOT_STICKY;
+        return Service.START_NOT_STICKY;
     }
 
-    protected void auditSend(@NonNull Intent intent) {
-        final ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
+    protected void auditSend(@NonNull final Intent intent) {
+        ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
         properties.put("code", intent.getStringExtra("localCodeValue"));
         AuditEventHelper.auditEvent("FAVOURITE_SEND", properties);
     }
@@ -99,6 +99,6 @@ public class CloudServiceSend extends Service {
 
     @Nullable
     public Context getServiceContext() {
-        return CloudServiceSend.this.getApplicationContext();
+        return getApplicationContext();
     }
 }

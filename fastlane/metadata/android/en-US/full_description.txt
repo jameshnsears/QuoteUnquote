@@ -1,14 +1,14 @@
 <b>Description</b>
 &bull; Discover carefully chosen quotations from a diverse range of famous people.
-&bull; Special, but not inclusive, focus on Inspirational; Philosophical; Business; and Shakespearean quotes.
-&bull; Increase your self-esteem and happiness with some of the best quotations available.
+&bull; Inspirational; Philosophical; Business; Shakespearean quotes; and more!
+&bull; Increase your self-esteem with some of the best quotations available.
 
 <b>Key features</b>
 &bull; 23,000+ quality quotations - compiled from reviewed sources with de-duplication.
-&bull; Minimalist, configurable, look &amp; feel.
-&bull; Advanced, easy, content navigation.
-&bull; A search feature to help you find inspiration.
-&bull; A notifications feature.
+&bull; Customisable look.
+&bull; Advanced navigation.
+&bull; Built in Search.
+&bull; Notifications.
 
 <b>Other items of interest</b>
 &bull; All quotations are in English.

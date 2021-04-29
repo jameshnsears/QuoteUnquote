@@ -2,11 +2,8 @@ package com.github.jameshnsears.quoteunquote.report;
 
 
 import android.appwidget.AppWidgetManager;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,77 +31,74 @@ public class ReportActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        finish();
+        this.finish();
         super.onPause();
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        activityReportBinding = null;
+        this.activityReportBinding = null;
 
-        broadcastFinishIntent();
-        finish();
+        this.broadcastFinishIntent();
+        this.finish();
     }
 
     public void broadcastFinishIntent() {
-        sendBroadcast(IntentFactoryHelper.createIntentAction(
+        this.sendBroadcast(IntentFactoryHelper.createIntentAction(
                 this,
-                widgetId,
+                this.widgetId,
                 IntentFactoryHelper.ACTIVITY_FINISHED_REPORT));
 
-        setResult(RESULT_OK, IntentFactoryHelper.createIntent(widgetId));
+        this.setResult(this.RESULT_OK, IntentFactoryHelper.createIntent(this.widgetId));
     }
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final Bundle extras = getIntent().getExtras();
+        Bundle extras = this.getIntent().getExtras();
         if (extras != null) {
-            widgetId = extras.getInt(
+            this.widgetId = extras.getInt(
                     AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
         }
 
-        if (widgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
-            finish();
+        if (this.widgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
+            this.finish();
         }
 
-        if (hasQuotationAlreadyBeenReported()) {
-            finish();
+        if (this.hasQuotationAlreadyBeenReported()) {
+            this.finish();
         }
 
-        activityReportBinding = ActivityReportBinding.inflate(getLayoutInflater());
-        final View view = activityReportBinding.getRoot();
+        this.activityReportBinding = ActivityReportBinding.inflate(this.getLayoutInflater());
+        View view = this.activityReportBinding.getRoot();
 
-        getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        this.setContentView(view);
 
-        setContentView(view);
-
-        createClickListeners();
+        this.createClickListeners();
     }
 
     private void createClickListeners() {
-        activityReportBinding.cancelButton.setOnClickListener(view1 -> finish());
+        this.activityReportBinding.cancelButton.setOnClickListener(view1 -> this.finish());
 
-        activityReportBinding.buttonOK.setOnClickListener(view1 -> {
-            AuditEventHelper.auditEvent("REPORT", getAuditProperties());
+        this.activityReportBinding.buttonOK.setOnClickListener(view1 -> {
+            AuditEventHelper.auditEvent("REPORT", this.getAuditProperties());
 
-            getQuoteUnquoteModel().markAsReported(widgetId);
+            this.getQuoteUnquoteModel().markAsReported(this.widgetId);
 
-            onBackPressed();
+            this.onBackPressed();
         });
     }
 
     @NonNull
     protected QuoteUnquoteModel getQuoteUnquoteModel() {
-        return new QuoteUnquoteModel(getApplicationContext());
+        return new QuoteUnquoteModel(this.getApplicationContext());
     }
 
     public boolean hasQuotationAlreadyBeenReported() {
-        if (getQuoteUnquoteModel().isReported(widgetId)) {
-            ToastHelper.makeToast(getApplicationContext(), getApplicationContext().getString(R.string.activity_report_warning), Toast.LENGTH_SHORT);
+        if (this.getQuoteUnquoteModel().isReported(this.widgetId)) {
+            ToastHelper.makeToast(this.getApplicationContext(), this.getApplicationContext().getString(R.string.activity_report_warning), Toast.LENGTH_SHORT);
             return true;
         }
 
@@ -113,20 +107,20 @@ public class ReportActivity extends AppCompatActivity {
 
     @NonNull
     public ConcurrentMap<String, String> getAuditProperties() {
-        final ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
+        ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
 
-        final QuotationEntity quotationToReport = getQuoteUnquoteModel().getCurrentQuotation(widgetId);
+        QuotationEntity quotationToReport = this.getQuoteUnquoteModel().getCurrentQuotation(this.widgetId);
 
         properties.put("Report", "digest="
                 + quotationToReport.digest
                 + "; author="
                 + quotationToReport.author
                 + "; reason="
-                + activityReportBinding.spinnerReason.getSelectedItem().toString()
+                + this.activityReportBinding.spinnerReason.getSelectedItem()
                 + "; notes="
-                + activityReportBinding.editTextNotes.getText().toString());
+                + this.activityReportBinding.editTextNotes.getText());
 
-        for (final Map.Entry<String, String> entry : properties.entrySet()) {
+        for (Map.Entry<String, String> entry : properties.entrySet()) {
             Timber.d(entry.getKey() + ":" + entry.getValue());
         }
 

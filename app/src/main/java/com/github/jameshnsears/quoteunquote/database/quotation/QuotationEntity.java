@@ -6,7 +6,7 @@ import androidx.room.Entity;
 import androidx.room.Index;
 
 @Entity(tableName = "quotations",
-        indices = {@Index("digest"), @Index(value = {"digest", "author"})},
+        indices = {@Index("digest"), @Index({"digest", "author"})},
         primaryKeys = {"author", "quotation"})
 public class QuotationEntity {
     @NonNull
@@ -22,9 +22,9 @@ public class QuotationEntity {
     public final String digest;
 
     public QuotationEntity(
-            @NonNull final String digest,
-            @NonNull final String author,
-            @NonNull final String quotation) {
+            @NonNull String digest,
+            @NonNull String author,
+            @NonNull String quotation) {
         this.author = author;
         this.quotation = quotation;
         this.digest = digest;
@@ -32,6 +32,6 @@ public class QuotationEntity {
 
     @NonNull
     public String theQuotation() {
-        return String.format("%s%n%n%s ", quotation, author);
+        return String.format("%s%n%n%s ", this.quotation, this.author);
     }
 }

@@ -3,7 +3,6 @@ package com.github.jameshnsears.quoteunquote.configure;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,101 +22,79 @@ public class ConfigureActivity extends AppCompatActivity {
     public int widgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
     public boolean broadcastFinishIntent = true;
+    private final BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
+            = item -> {
+        Fragment selectedFragment = null;
+        switch (item.getItemId()) {
+            case R.id.navigationBarAppearance:
+                selectedFragment = AppearanceFragment.newInstance(this.widgetId);
+                break;
+            case R.id.navigationBarQuotations:
+                selectedFragment = this.getFragmentContentNewInstance();
+                break;
+            case R.id.navigationBarSchedule:
+                selectedFragment = EventFragment.newInstance(this.widgetId);
+                break;
+            default:
+                selectedFragment = FooterFragment.newInstance(this.widgetId);
+                break;
+        }
 
-    private void scrollBarPositionRemember() {
-        ConfigurePreferences configurePreferences = new ConfigurePreferences(widgetId, getApplicationContext());
-        ScrollView scrollView = findViewById(R.id.configureScrollView);
-        configurePreferences.setScrollY(scrollView.getScrollY());
-    }
-
-    private void scrollsBarPositionRestore() {
-        ConfigurePreferences configurePreferences = new ConfigurePreferences(widgetId, getApplicationContext());
-        ScrollView scrollView = findViewById(R.id.configureScrollView);
-        scrollView.post(()
-                -> scrollView.scrollTo(scrollView.getScrollX(), configurePreferences.getScrollY()));
-    }
+        this.getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentPlaceholderContent, selectedFragment)
+                .commit();
+        return true;
+    };
 
     @Override
     public void finish() {
-        if (broadcastFinishIntent) {
-            broadcastTheFinishIntent();
+        if (this.broadcastFinishIntent) {
+            this.broadcastTheFinishIntent();
         }
 
         ToastHelper.toast = null;
 
-        finishAndRemoveTask();
+        this.finishAndRemoveTask();
     }
 
     public void broadcastTheFinishIntent() {
-        sendBroadcast(IntentFactoryHelper.createIntentAction(
+        this.sendBroadcast(IntentFactoryHelper.createIntentAction(
                 this, widgetId, IntentFactoryHelper.ACTIVITY_FINISHED_CONFIGURATION));
 
-        setResult(RESULT_OK, IntentFactoryHelper.createIntent(widgetId));
+        this.setResult(RESULT_OK, IntentFactoryHelper.createIntent(widgetId));
     }
 
     @Override
     public void onBackPressed() {
-        scrollBarPositionRemember();
+        ContentFragment.ensureFragmentContentSearchConsistency(this.widgetId, this.getApplicationContext());
 
         super.onBackPressed();
     }
 
-    @NonNull
-    public ContentFragment getFragmentContent() {
-        return (ContentFragment)
-                getSupportFragmentManager().findFragmentById(R.id.fragmentPlaceholderContent);
-    }
-
     @Override
-    public void onCreate(Bundle bundle) {
+    public void onCreate(final Bundle bundle) {
         super.onCreate(bundle);
 
-        final Intent intent = getIntent();
-        final Bundle extras = intent.getExtras();
+        Intent intent = this.getIntent();
+        Bundle extras = intent.getExtras();
         if (extras != null) {
-            widgetId = extras.getInt(
+            this.widgetId = extras.getInt(
                     AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-            broadcastFinishIntent = extras.getBoolean("broadcastFinishIntent", true);
+            this.broadcastFinishIntent = extras.getBoolean("broadcastFinishIntent", true);
         }
 
-        setContentView(R.layout.activity_configure);
+        this.setContentView(R.layout.activity_configure);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.configureNavigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
+        final BottomNavigationView bottomNavigationView = this.findViewById(R.id.configureNavigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this.navigationItemSelectedListener);
 
-        getSupportFragmentManager().beginTransaction().replace(
-                R.id.fragmentPlaceholderContent, getFragmentContentNewInstance()).commit();
-
-        scrollsBarPositionRestore();
+        this.getSupportFragmentManager().beginTransaction().replace(
+                R.id.fragmentPlaceholderContent, AppearanceFragment.newInstance(this.widgetId)).commit();
     }
-
-    private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
-            = item -> {
-                Fragment selectedFragment = null;
-                switch (item.getItemId()) {
-                    case R.id.navigationBarAppearance:
-                        selectedFragment = AppearanceFragment.newInstance(widgetId);
-                        break;
-                    case R.id.navigationBarQuotations:
-                        selectedFragment = getFragmentContentNewInstance();
-                        break;
-                    case R.id.navigationBarSchedule:
-                        selectedFragment = EventFragment.newInstance(widgetId);
-                        break;
-                    case R.id.navigationBarAbout:
-                        selectedFragment = FooterFragment.newInstance(widgetId);
-                        break;
-                }
-
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragmentPlaceholderContent, selectedFragment)
-                        .commit();
-                return true;
-            };
 
     @NonNull
     public ContentFragment getFragmentContentNewInstance() {
-        return ContentFragment.newInstance(widgetId);
+        return ContentFragment.newInstance(this.widgetId);
     }
 }

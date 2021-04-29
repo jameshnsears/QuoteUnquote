@@ -21,25 +21,25 @@ public final class EventDailyAlarm {
     private final int widgetId;
 
     public EventDailyAlarm(
-            @NonNull final Context widgetContext, final int theWidgetId) {
-        this.context = widgetContext;
-        this.widgetId = theWidgetId;
-        eventPreferences = new EventPreferences(theWidgetId, widgetContext);
+            @NonNull Context widgetContext, int theWidgetId) {
+        context = widgetContext;
+        widgetId = theWidgetId;
+        this.eventPreferences = new EventPreferences(theWidgetId, widgetContext);
     }
 
     public void setDailyAlarm() {
-        if (eventPreferences.getEventDaily()) {
+        if (this.eventPreferences.getEventDaily()) {
 
-            Timber.d("%d", widgetId);
+            Timber.d("%d", this.widgetId);
 
-            final Calendar calendar = Calendar.getInstance();
+            Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(System.currentTimeMillis());
             calendar.set(
                     Calendar.HOUR_OF_DAY,
-                    eventPreferences.getEventDailyTimeHour());
+                    this.eventPreferences.getEventDailyTimeHour());
             calendar.set(
                     Calendar.MINUTE,
-                    eventPreferences.getEventDailyTimeMinute());
+                    this.eventPreferences.getEventDailyTimeMinute());
             calendar.set(Calendar.SECOND, 0);
 
             // if user's time is < now then fire alarm tomorrow
@@ -47,11 +47,11 @@ public final class EventDailyAlarm {
                 calendar.add(Calendar.DAY_OF_YEAR, 1);
             }
 
-            final AlarmManager alarmManager =
-                    (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            AlarmManager alarmManager =
+                    (AlarmManager) this.context.getSystemService(Context.ALARM_SERVICE);
 
-            final PendingIntent alarmPendingIntent
-                    = IntentFactoryHelper.createIntentPending(context, widgetId, IntentFactoryHelper.DAILY_ALARM);
+            PendingIntent alarmPendingIntent
+                    = IntentFactoryHelper.createIntentPending(this.context, this.widgetId, IntentFactoryHelper.DAILY_ALARM);
 
             alarmManager.setExact(
                     AlarmManager.RTC_WAKEUP,
@@ -61,13 +61,13 @@ public final class EventDailyAlarm {
     }
 
     public void resetAnyExistingDailyAlarm() {
-        if (!eventPreferences.getEventDaily()) {
-            Timber.d("%d", widgetId);
+        if (!this.eventPreferences.getEventDaily()) {
+            Timber.d("%d", this.widgetId);
 
-            final PendingIntent alarmPendingIntent
-                    = IntentFactoryHelper.createIntentPending(context, widgetId, IntentFactoryHelper.DAILY_ALARM);
-            final AlarmManager alarmManager =
-                    (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            PendingIntent alarmPendingIntent
+                    = IntentFactoryHelper.createIntentPending(this.context, this.widgetId, IntentFactoryHelper.DAILY_ALARM);
+            AlarmManager alarmManager =
+                    (AlarmManager) this.context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
                 alarmManager.cancel(alarmPendingIntent);
             }

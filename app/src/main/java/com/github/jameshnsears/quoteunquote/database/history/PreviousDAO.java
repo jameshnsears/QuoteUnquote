@@ -10,7 +10,7 @@ import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 import java.util.List;
 
 @Dao
-@TypeConverters({ContentSelection.class})
+@TypeConverters(ContentSelection.class)
 public interface PreviousDAO {
     @Insert
     void markAsPrevious(PreviousEntity previousEntity);
