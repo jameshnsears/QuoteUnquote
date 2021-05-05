@@ -13,7 +13,7 @@ public class FragmentCommon extends Fragment {
         // ...
     }
 
-    protected FragmentCommon(int theWidgetId) {
+    public FragmentCommon(int theWidgetId) {
         this.widgetId = theWidgetId;
     }
 

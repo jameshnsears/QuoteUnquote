@@ -66,7 +66,7 @@ public class ContentFragment extends FragmentCommon {
         // dark mode support
     }
 
-    protected ContentFragment(int widgetId) {
+    public ContentFragment(int widgetId) {
         super(widgetId);
     }
 

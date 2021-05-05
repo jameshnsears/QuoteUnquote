@@ -26,7 +26,7 @@ public class EventFragment extends FragmentCommon {
         // dark mode support
     }
 
-    protected EventFragment(int widgetId) {
+    public EventFragment(int widgetId) {
         super(widgetId);
     }
 

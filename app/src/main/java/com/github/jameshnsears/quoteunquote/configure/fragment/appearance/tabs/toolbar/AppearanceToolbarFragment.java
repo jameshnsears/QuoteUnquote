@@ -27,7 +27,7 @@ public class AppearanceToolbarFragment extends FragmentCommon {
         // dark mode support
     }
 
-    protected AppearanceToolbarFragment(int widgetId) {
+    public AppearanceToolbarFragment(int widgetId) {
         super(widgetId);
     }
 

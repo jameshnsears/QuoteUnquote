@@ -26,7 +26,7 @@ public class AppearanceFragment extends FragmentCommon {
         // dark mode support
     }
 
-    protected AppearanceFragment(int widgetId) {
+    public AppearanceFragment(int widgetId) {
         super(widgetId);
     }
 

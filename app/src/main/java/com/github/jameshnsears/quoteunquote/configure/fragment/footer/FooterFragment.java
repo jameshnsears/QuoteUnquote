@@ -25,7 +25,7 @@ public final class FooterFragment extends FragmentCommon {
         // dark mode support
     }
 
-    private FooterFragment(int widgetId) {
+    public FooterFragment(int widgetId) {
         super(widgetId);
     }
 
