@@ -1,6 +1,5 @@
 package com.github.jameshnsears.quoteunquote.configure.fragment.event;
 
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,12 +8,14 @@ import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.TimePicker;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentEventBinding;
 
+@Keep
 public class EventFragment extends FragmentCommon {
     @Nullable
     public FragmentEventBinding fragmentEventBinding;

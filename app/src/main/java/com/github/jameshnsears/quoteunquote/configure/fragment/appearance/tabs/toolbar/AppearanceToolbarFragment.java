@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.ContextThemeWrapper;
@@ -17,6 +18,7 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentAppearanceTabToolbarBinding;
 
+@Keep
 public class AppearanceToolbarFragment extends FragmentCommon {
     @Nullable
     public FragmentAppearanceTabToolbarBinding fragmentAppearanceTabToolbarBinding;

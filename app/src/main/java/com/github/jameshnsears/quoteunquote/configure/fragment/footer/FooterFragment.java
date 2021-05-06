@@ -1,12 +1,12 @@
 package com.github.jameshnsears.quoteunquote.configure.fragment.footer;
 
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -16,7 +16,7 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentFooterBinding;
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
 
-
+@Keep
 public final class FooterFragment extends FragmentCommon {
     @Nullable
     private FragmentFooterBinding fragmentFooterBinding;

@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.ContextThemeWrapper;
@@ -26,6 +27,7 @@ import java.util.List;
 
 import timber.log.Timber;
 
+@Keep
 public class AppearanceStyleFragment extends FragmentCommon {
     @Nullable
     public FragmentAppearanceTabStyleBinding fragmentAppearanceTabStyleBinding;

@@ -29,9 +29,9 @@
     <string-array name="fragment_appearance_colour_array">
         <item>#FFF8FD89</item>
         <item>#FFEDD1B0</item>
-        <item>#FFB987DC</item>
-        <item>#FFFFFFFF</item>
         <item>#FF000000</item>
+        <item>#FFFFFFFF</item>
+        <item>#FFB987DC</item>
     </string-array>
     <string name="fragment_appearance_size">Size</string>
     <integer-array name="fragment_appearance_size_array">
@@ -81,11 +81,11 @@
     <string name="fragment_content_favourites_share_local_code_send">Send</string>
     <string name="fragment_content_favourites_share_remove_code_value">Remote token</string>
     <string name="fragment_content_favourites_share_remote_receive">Receive</string>
-    <string name="fragment_content_favourites_share_sending">Sending favourites, please wait&#8230;</string>
-    <string name="fragment_content_favourites_share_sent">Success - favourites sent</string>
+    <string name="fragment_content_favourites_share_sending">Sending favourite(s), please wait&#8230;</string>
+    <string name="fragment_content_favourites_share_sent">Success - favourite(s) sent</string>
     <string name="fragment_content_favourites_share_remote_code_general">Use token from other device</string>
-    <string name="fragment_content_favourites_share_receiving">Receiving favourites, please wait&#8230;</string>
-    <string name="fragment_content_favourites_share_received">Success - favourites appended</string>
+    <string name="fragment_content_favourites_share_receiving">Receiving favourite(s), please wait&#8230;</string>
+    <string name="fragment_content_favourites_share_received">Success - favourite(s) appended</string>
     <string name="fragment_content_favourites_share_missing">Unable to locate remote token</string>
     <string name="fragment_content_favourites_share_comms">Check network connection</string>
     <string name="fragment_content_author">Author: %d</string>

@@ -54,3 +54,9 @@
 * adb logcat -c
 * adb logcat > logcat &
 * checkout HEAD, build + install with above & observe after install
+
+---
+
+## 6. proguard mapping file
+
+* /app/build/outputs/mapping/googleplayRelease/mapping.txt

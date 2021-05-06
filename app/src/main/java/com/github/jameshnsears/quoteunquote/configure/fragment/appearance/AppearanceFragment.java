@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.ContextThemeWrapper;
@@ -16,6 +17,7 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentAppearanceBinding;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+@Keep
 public class AppearanceFragment extends FragmentCommon {
     @Nullable
     public FragmentAppearanceBinding fragmentAppearanceBinding;
