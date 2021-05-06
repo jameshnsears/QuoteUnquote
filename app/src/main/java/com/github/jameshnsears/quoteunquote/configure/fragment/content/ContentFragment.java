@@ -205,9 +205,12 @@ public class ContentFragment extends FragmentCommon {
     @Override
     public void onViewCreated(
             @NonNull View view, Bundle savedInstanceState) {
-        this.fragmentContentBinding.radioButtonSearch.setText(
-                this.getResources().getString(R.string.fragment_content_text,
-                        0));
+        this.setInitialCounts();
+
+        this.setAllCount();
+        this.setAuthor();
+        this.setFavouriteCount();
+        this.setSearch();
 
         this.createListenerRadioGroup();
         this.createListenerAuthor();
@@ -215,11 +218,25 @@ public class ContentFragment extends FragmentCommon {
         this.createListenerFavouriteButtonReceive();
 
         this.setSelection();
-        this.setAllCount();
-        this.setAuthor();
-        this.setFavouriteCount();
         this.setFavouriteLocalCode();
-        this.setSearch();
+    }
+
+    private void setInitialCounts() {
+        ContentFragment.this.fragmentContentBinding.radioButtonAll.setText(
+                ContentFragment.this.getResources().getString(R.string.fragment_content_all,
+                        0));
+
+        this.fragmentContentBinding.radioButtonAuthor.setText(
+                this.getResources().getString(R.string.fragment_content_author,
+                        0));
+
+        ContentFragment.this.fragmentContentBinding.radioButtonFavourites.setText(
+                ContentFragment.this.getResources().getString(R.string.fragment_content_favourites,
+                        0));
+
+        this.fragmentContentBinding.radioButtonSearch.setText(
+                this.getResources().getString(R.string.fragment_content_text,
+                        0));
     }
 
     public void setAllCount() {
@@ -407,6 +424,7 @@ public class ContentFragment extends FragmentCommon {
 
     private void enableAuthor(boolean enable) {
         this.fragmentContentBinding.spinnerAuthors.setEnabled(enable);
+        this.fragmentContentBinding.textViewAuthorInstructions.setEnabled(enable);
     }
 
     private void enableFavourites(boolean enable) {

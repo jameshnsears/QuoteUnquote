@@ -1,20 +1,21 @@
 <b>Description</b>
 &bull; Discover carefully chosen quotations from a diverse range of famous people.
-&bull; Inspirational; Philosophical; Business; Shakespearean quotes; and more!
+&bull; Inspirational; Philosophical; Business; Shakespearean; Art quotes; and more!
 &bull; Increase your self-esteem with some of the best quotations available.
 
 <b>Key features</b>
-&bull; 23,000+ quality quotations - compiled from reviewed sources with de-duplication.
-&bull; Customisable look.
+&bull; 21,000+ quality quotations - compiled from reviewed sources with de-duplication.
+&bull; Customisable minimalist look, with dark theme support.
 &bull; Advanced navigation.
 &bull; Built in Search.
 &bull; Notifications.
 
 <b>Other items of interest</b>
 &bull; All quotations are in English.
-&bull; Widget is resizeable.
+&bull; No pictures, just quotes.
 &bull; Works offline.
+&bull; Widget is resizeable.
 &bull; No ads.
 &bull; No analytics.
 &bull; No permissions required.
-&bull; Active <a href="https://github.com/jameshnsears/quoteunquote">Open Source</a> project.
+&bull; Supported <a href="https://github.com/jameshnsears/quoteunquote">Open Source</a> project.

@@ -13,7 +13,7 @@ import androidx.annotation.NonNull
 import com.github.jameshnsears.quoteunquote.R
 
 class AppearanceTextStyleSpinnerAdapter(@NonNull private val context: Context) : BaseAdapter() {
-    var style = context.resources.getStringArray(R.array.fragment_appearance_style_array)
+    var style: Array<String> = context.resources.getStringArray(R.array.fragment_appearance_style_array)
 
     override fun getCount(): Int {
         return style.size

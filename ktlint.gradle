@@ -1,4 +1,10 @@
-configurations.create("ktlint")
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    ktlint
+}
 
 dependencies {
     ktlint 'com.pinterest:ktlint:0.41.0'

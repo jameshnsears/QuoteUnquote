@@ -60,3 +60,9 @@
 ## 6. proguard mapping file
 
 * /app/build/outputs/mapping/googleplayRelease/mapping.txt
+
+---
+
+## 7. Release Checklist
+
+* 

@@ -89,6 +89,8 @@
     <string name="fragment_content_favourites_share_missing">Unable to locate remote token</string>
     <string name="fragment_content_favourites_share_comms">Check network connection</string>
     <string name="fragment_content_author">Author: %d</string>
+    <string name="fragment_content_author_instructions">With five or more quotations</string>
+
     <string name="fragment_content_text">Search: %d</string>
     <string name="fragment_content_text_instructions">Case-insensitive phrase search</string>
     <string name="fragment_content_text_no_search_results">No results found for search</string>

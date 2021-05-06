@@ -6,13 +6,13 @@ import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade
 class ConfigurePreferences(widgetId: Int, applicationContext: Context) :
     PreferencesFacade(widgetId, applicationContext) {
 
-    private val configureScrollY = "CONFIGURE_SCROLLY"
+    private val activeFragment = "CONFIGURE_ACTIVE_FRAGMENT"
 
-    fun getScrollY(): Int? {
-        return preferenceHelper?.getPreferenceInt(getPreferenceKey(configureScrollY))
+    fun getActiveFragment(): String? {
+        return preferenceHelper?.getPreferenceString(getPreferenceKey(activeFragment))
     }
 
-    fun setScrollY(value: Int) {
-        preferenceHelper?.setPreference(getPreferenceKey(configureScrollY), value)
+    fun setActiveFragment(value: String) {
+        preferenceHelper?.setPreference(getPreferenceKey(activeFragment), value)
     }
 }

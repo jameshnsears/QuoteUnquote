@@ -89,7 +89,6 @@ public class AppearanceStyleFragment extends FragmentCommon {
         this.setTextColour();
     }
 
-
     private void createListenerTransparency() {
         this.fragmentAppearanceTabStyleBinding.seekBarTransparency.addOnSliderTouchListener(
                 new Slider.OnSliderTouchListener() {

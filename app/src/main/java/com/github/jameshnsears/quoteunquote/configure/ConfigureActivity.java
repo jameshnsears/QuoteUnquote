@@ -17,6 +17,7 @@ import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
 import com.github.jameshnsears.quoteunquote.utils.ui.ToastHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import timber.log.Timber;
 
 public class ConfigureActivity extends AppCompatActivity {
     public int widgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
@@ -24,9 +25,10 @@ public class ConfigureActivity extends AppCompatActivity {
     public boolean broadcastFinishIntent = true;
     private final BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
             = item -> {
-        Fragment selectedFragment = null;
+        Fragment selectedFragment;
+
         switch (item.getItemId()) {
-            case R.id.navigationBarAppearance:
+            default:
                 selectedFragment = AppearanceFragment.newInstance(this.widgetId);
                 break;
             case R.id.navigationBarQuotations:
@@ -35,10 +37,18 @@ public class ConfigureActivity extends AppCompatActivity {
             case R.id.navigationBarSchedule:
                 selectedFragment = EventFragment.newInstance(this.widgetId);
                 break;
-            default:
+            case R.id.navigationBarAbout:
                 selectedFragment = FooterFragment.newInstance(this.widgetId);
                 break;
         }
+
+        String activeFragment = selectedFragment.getClass().getSimpleName();
+
+        Timber.d("activeFragment=%s", activeFragment);
+
+        ConfigurePreferences configurePreferences
+                = new ConfigurePreferences(widgetId, getApplicationContext());
+        configurePreferences.setActiveFragment(activeFragment);
 
         this.getSupportFragmentManager()
                 .beginTransaction()
@@ -54,6 +64,10 @@ public class ConfigureActivity extends AppCompatActivity {
         }
 
         ToastHelper.toast = null;
+
+        ConfigurePreferences configurePreferences
+                = new ConfigurePreferences(widgetId, getApplicationContext());
+        configurePreferences.setActiveFragment("AppearanceFragment");
 
         this.finishAndRemoveTask();
     }
@@ -74,6 +88,8 @@ public class ConfigureActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(final Bundle bundle) {
+        Timber.d("onCreate");
+
         super.onCreate(bundle);
 
         Intent intent = this.getIntent();
@@ -89,8 +105,35 @@ public class ConfigureActivity extends AppCompatActivity {
         final BottomNavigationView bottomNavigationView = this.findViewById(R.id.configureNavigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(this.navigationItemSelectedListener);
 
+        setActiveFragment();
+    }
+
+    private void setActiveFragment() {
+        // when switching to dark mode, remember which fragment we're on
+        ConfigurePreferences configurePreferences
+                = new ConfigurePreferences(widgetId, getApplicationContext());
+
+        String activeFragment = configurePreferences.getActiveFragment();
+        Timber.d("activeFragment=%s", activeFragment);
+
+        Fragment fragment;
+        switch (activeFragment) {
+            default:
+                fragment = AppearanceFragment.newInstance(this.widgetId);
+                break;
+            case "ContentFragment":
+                fragment = getFragmentContentNewInstance();
+                break;
+            case "EventFragment":
+                fragment = EventFragment.newInstance(this.widgetId);
+                break;
+            case "FooterFragment":
+                fragment = FooterFragment.newInstance(this.widgetId);
+                break;
+        }
+
         this.getSupportFragmentManager().beginTransaction().replace(
-                R.id.fragmentPlaceholderContent, AppearanceFragment.newInstance(this.widgetId)).commit();
+                R.id.fragmentPlaceholderContent, fragment).commit();
     }
 
     @NonNull

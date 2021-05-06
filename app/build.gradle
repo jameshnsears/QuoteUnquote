@@ -43,8 +43,8 @@ android {
         applicationId "com.github.jameshnsears.quoteunquote"
         minSdkVersion 24
         targetSdkVersion 29
-        versionCode 55
-        versionName "2.3.2"
+        versionCode 59
+        versionName "2.4.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments clearPackageData: 'true'
@@ -82,8 +82,8 @@ android {
         }
 
         release {
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
             buildConfigField("String", "GIT_HASH", "\"$gitHash\"")
