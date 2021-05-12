@@ -12,7 +12,6 @@ import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearanceFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.content.ContentFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.event.EventFragment;
-import com.github.jameshnsears.quoteunquote.configure.fragment.footer.FooterFragment;
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
 import com.github.jameshnsears.quoteunquote.utils.ui.ToastHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -37,9 +36,6 @@ public class ConfigureActivity extends AppCompatActivity {
             case R.id.navigationBarSchedule:
                 selectedFragment = EventFragment.newInstance(this.widgetId);
                 break;
-            case R.id.navigationBarAbout:
-                selectedFragment = FooterFragment.newInstance(this.widgetId);
-                break;
         }
 
         String activeFragment = selectedFragment.getClass().getSimpleName();
@@ -59,6 +55,7 @@ public class ConfigureActivity extends AppCompatActivity {
 
     @Override
     public void finish() {
+        // back pressed
         if (this.broadcastFinishIntent) {
             this.broadcastTheFinishIntent();
         }
@@ -70,6 +67,12 @@ public class ConfigureActivity extends AppCompatActivity {
         configurePreferences.setActiveFragment("AppearanceFragment");
 
         this.finishAndRemoveTask();
+    }
+
+    @Override
+    public void onDestroy() {
+        // back pressed | swipe up | theme change
+        super.onDestroy();
     }
 
     public void broadcastTheFinishIntent() {
@@ -102,7 +105,7 @@ public class ConfigureActivity extends AppCompatActivity {
 
         this.setContentView(R.layout.activity_configure);
 
-        final BottomNavigationView bottomNavigationView = this.findViewById(R.id.configureNavigation);
+        BottomNavigationView bottomNavigationView = this.findViewById(R.id.configureNavigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(this.navigationItemSelectedListener);
 
         setActiveFragment();
@@ -116,19 +119,21 @@ public class ConfigureActivity extends AppCompatActivity {
         String activeFragment = configurePreferences.getActiveFragment();
         Timber.d("activeFragment=%s", activeFragment);
 
+        BottomNavigationView bottomNavigationView = this.findViewById(R.id.configureNavigation);
+
         Fragment fragment;
         switch (activeFragment) {
             default:
                 fragment = AppearanceFragment.newInstance(this.widgetId);
+                bottomNavigationView.setSelectedItemId(R.id.navigationBarAppearance);
                 break;
             case "ContentFragment":
                 fragment = getFragmentContentNewInstance();
+                bottomNavigationView.setSelectedItemId(R.id.navigationBarQuotations);
                 break;
             case "EventFragment":
                 fragment = EventFragment.newInstance(this.widgetId);
-                break;
-            case "FooterFragment":
-                fragment = FooterFragment.newInstance(this.widgetId);
+                bottomNavigationView.setSelectedItemId(R.id.navigationBarSchedule);
                 break;
         }
 

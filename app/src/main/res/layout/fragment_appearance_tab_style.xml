@@ -81,7 +81,7 @@
                 android:max="10"
                 android:paddingVertical="5dp"
                 android:stepSize="10"
-                android:theme="@style/Theme.MyApplication"
+                android:theme="@style/Theme.QuoteUnquote"
                 android:value="false"
                 android:valueFrom="0"
                 android:valueTo="100" />

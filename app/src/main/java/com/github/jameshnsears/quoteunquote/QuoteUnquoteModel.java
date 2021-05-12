@@ -459,8 +459,6 @@ public class QuoteUnquoteModel {
         }
     }
 
-    //////////////////////
-
     public boolean isReported(int widgetId) {
         Future<Boolean> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
             final QuotationEntity quotationEntity = this.getCurrentQuotation(
@@ -563,5 +561,82 @@ public class QuoteUnquoteModel {
     protected String localCode(@NonNull Context context) {
         final ContentPreferences contentPreferences = new ContentPreferences(0, context);
         return contentPreferences.getContentFavouritesLocalCode();
+    }
+
+    @NonNull
+    public ArrayList<String> exportFavourites() {
+        Future<ArrayList<String>> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+            ArrayList<String> exportedFavourites = new ArrayList<String>();
+
+            for (String favouriteDigest : this.databaseRepository.getFavourites()) {
+                QuotationEntity quotationEntity
+                        = this.databaseRepository.getQuotation(favouriteDigest);
+
+                if (quotationEntity != null) {
+                    exportedFavourites.add(
+                            quotationEntity.quotation + "\n" + quotationEntity.author + "\n");
+                } else {
+                    Timber.w("misaligned:%s", favouriteDigest);
+                }
+            }
+
+            return exportedFavourites;
+        });
+
+        ArrayList<String> exportedFavourites = null;
+
+        try {
+            exportedFavourites = future.get();
+        } catch (@NonNull final ExecutionException | InterruptedException e) {
+            Timber.w(e.toString());
+            Thread.currentThread().interrupt();
+        }
+
+        return exportedFavourites;
+    }
+
+    public void alignHistoryWithQuotations(int widgetId) {
+        Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+            List<String> history = new ArrayList<>();
+            history.addAll(this.databaseRepository.getPrevious(widgetId, ContentSelection.ALL));
+            history.addAll(this.databaseRepository.getPrevious(widgetId, ContentSelection.AUTHOR));
+            history.addAll(this.databaseRepository.getPrevious(widgetId, ContentSelection.SEARCH));
+
+            int misalignedCount = 1;
+            for (String digest: history) {
+                if (this.databaseRepository.getQuotation(digest) == null) {
+                    Timber.w("misaligned, previous: %d=%s", misalignedCount, digest);
+                    this.databaseRepository.erasePrevious(widgetId, digest);
+                    misalignedCount++;
+                }
+            }
+        });
+
+        try {
+            future.get();
+        } catch (@NonNull final ExecutionException | InterruptedException e) {
+            Timber.w(e.toString());
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    public void alignFavouritesWithQuotations(int widgetId) {
+        Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+            int misalignedCount = 1;
+            for (String digest: this.databaseRepository.getFavourites()) {
+                if (this.databaseRepository.getQuotation(digest) == null) {
+                    Timber.w("misaligned, favourite: %d=%s", misalignedCount, digest);
+                    this.databaseRepository.eraseFavourite(widgetId, digest);
+                    misalignedCount++;
+                }
+            }
+        });
+
+        try {
+            future.get();
+        } catch (@NonNull final ExecutionException | InterruptedException e) {
+            Timber.w(e.toString());
+            Thread.currentThread().interrupt();
+        }
     }
 }

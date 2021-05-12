@@ -65,4 +65,10 @@
 
 ## 7. Release Checklist
 
-* 
+1. delete development and extract production app/src/googleplay\google-services.json
+2. update versionCode + versionName in app/build.gradle
+3. make sure changelogs/xx.txt matches versionCode
+4. update app/schemas/com.github.jameshnsears.quoteunquote.database.quotation.AbstractQuotationDatabase/xx.json to match AbstractQuotationDatabase.java
+5. deploy app-googleplay-release.aab
+6. tag the release
+7. delete production and extract development google-services.json

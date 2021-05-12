@@ -6,9 +6,9 @@
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/Theme.MyApplication.AppBarOverlay">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/Theme.QuoteUnquote.AppBarOverlay">
 
         <TextView
             android:layout_width="wrap_content"
@@ -33,9 +33,9 @@
         android:paddingEnd="0dp">
 
         <FrameLayout
-            android:id="@+id/fragmentPlaceholderContent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                android:id="@+id/fragmentPlaceholderContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
     </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

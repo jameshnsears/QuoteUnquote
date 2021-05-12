@@ -48,8 +48,8 @@ class AbstractHistoryDatabaseMigrationTest {
             AbstractHistoryDatabase.MIGRATION_1_2
         )
 
-        // the migration wipes `previous`
+        // the migration keeps `previous`
         val databaseRepository = DatabaseRepository.getInstance(getApplicationContext())
-        assertEquals(0, databaseRepository.countPrevious(1, ContentSelection.ALL))
+        assertEquals(1, databaseRepository.countPrevious(1, ContentSelection.ALL))
     }
 }

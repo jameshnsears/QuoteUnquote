@@ -1,8 +1,10 @@
 package com.github.jameshnsears.quoteunquote.configure.fragment.content;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,8 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,6 +35,10 @@ import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
 import com.github.jameshnsears.quoteunquote.utils.ui.ToastHelper;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
@@ -63,6 +71,8 @@ public class ContentFragment extends FragmentCommon {
     protected ContentCloud contentCloud;
     @Nullable
     private DisposableObserver<Integer> disposableObserver;
+    @Nullable
+    private ActivityResultLauncher<Intent> activityResultLauncher;
 
     public ContentFragment() {
         // dark mode support
@@ -214,8 +224,11 @@ public class ContentFragment extends FragmentCommon {
 
         this.createListenerRadioGroup();
         this.createListenerAuthor();
+        this.createListenerFavouriteButtonExport();
         this.createListenerFavouriteButtonSend();
         this.createListenerFavouriteButtonReceive();
+
+        this.handleStorageAccessFrameworkResult();
 
         this.setSelection();
         this.setFavouriteLocalCode();
@@ -424,12 +437,14 @@ public class ContentFragment extends FragmentCommon {
 
     private void enableAuthor(boolean enable) {
         this.fragmentContentBinding.spinnerAuthors.setEnabled(enable);
-        this.fragmentContentBinding.textViewAuthorInstructions.setEnabled(enable);
     }
 
     private void enableFavourites(boolean enable) {
-        this.fragmentContentBinding.textViewLocalCodeValue.setEnabled(enable);
+        this.fragmentContentBinding.buttonExport.setEnabled(enable);
+        this.makeButtonAlpha(this.fragmentContentBinding.buttonExport, enable);
+        this.fragmentContentBinding.textViewLocalStorageInstructions.setEnabled(enable);
 
+        this.fragmentContentBinding.textViewLocalCodeValue.setEnabled(enable);
         this.fragmentContentBinding.buttonSend.setEnabled(enable);
         this.makeButtonAlpha(this.fragmentContentBinding.buttonSend, enable);
         this.fragmentContentBinding.buttonSend.setClickable(enable);
@@ -467,6 +482,57 @@ public class ContentFragment extends FragmentCommon {
                 // do nothing
             }
         });
+    }
+
+    protected void createListenerFavouriteButtonExport() {
+        // invoke Storage Access Framework
+        this.fragmentContentBinding.buttonExport.setOnClickListener(v -> {
+            if (this.fragmentContentBinding.buttonExport.isEnabled()) {
+                Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TITLE, "Favourites.txt");
+                this.activityResultLauncher.launch(intent);
+            }
+        });
+    }
+
+    protected final void handleStorageAccessFrameworkResult() {
+        // default: /storage/emulated/0/Download/Favourites.txt
+        this.activityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                activityResult -> {
+                    if (activityResult.getResultCode() == Activity.RESULT_OK) {
+
+                        try {
+                            ParcelFileDescriptor parcelFileDescriptor
+                                    = this.getContext().getContentResolver().openFileDescriptor(
+                                    activityResult.getData().getData(), "w");
+                            FileOutputStream fileOutputStream
+                                    = new FileOutputStream(parcelFileDescriptor.getFileDescriptor());
+
+                            ArrayList<String> exportableFavourites = quoteUnquoteModel.exportFavourites();
+                            Collections.reverse(exportableFavourites);
+
+                            int favouriteIndex = 1;
+                            for (String exportFavourite : exportableFavourites) {
+                                String exportableString = "" + favouriteIndex + "\n" + exportFavourite;
+                                fileOutputStream.write(exportableString.getBytes());
+                                favouriteIndex++;
+                            }
+
+                            fileOutputStream.close();
+                            parcelFileDescriptor.close();
+
+                            ToastHelper.makeToast(
+                                    this.getContext(),
+                                    this.getContext().getString(R.string.fragment_content_favourites_export_success),
+                                    Toast.LENGTH_SHORT);
+                        } catch (IOException e) {
+                            Timber.e(e.getMessage());
+                        }
+                    }
+                });
     }
 
     protected void createListenerFavouriteButtonSend() {
@@ -511,7 +577,6 @@ public class ContentFragment extends FragmentCommon {
                             this.getContext(), this.getContext().getString(R.string.fragment_content_favourites_share_remote_code_general), Toast.LENGTH_SHORT);
                     return;
                 }
-
 
                 if (this.contentCloud.isServiceReceiveBound) {
                     this.contentCloud.cloudServiceReceive.receive(this, this.fragmentContentBinding.editTextRemoteCodeValue.getText().toString());

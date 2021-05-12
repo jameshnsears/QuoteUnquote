@@ -11,12 +11,12 @@
     android:paddingTop="10dp"
     android:paddingEnd="10dp"
     android:paddingBottom="10dp"
-    android:theme="@style/Theme.MyApplication">
+    android:theme="@style/Theme.QuoteUnquote">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.MyApplication.AppBarOverlay">
+        android:theme="@style/Theme.QuoteUnquote.AppBarOverlay">
 
         <TextView
             android:layout_width="wrap_content"

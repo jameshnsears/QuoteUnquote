@@ -23,9 +23,6 @@ public abstract class AbstractHistoryDatabase extends RoomDatabase {
         public void migrate(@NonNull final SupportSQLiteDatabase database) {
             Timber.d(AbstractHistoryDatabase.DATABASE_NAME);
             database.execSQL("CREATE TABLE IF NOT EXISTS `current` (`widget_id` INTEGER NOT NULL, `digest` TEXT NOT NULL, PRIMARY KEY(`widget_id`))");
-
-            database.execSQL("DELETE FROM `previous`");
-
             database.execSQL("CREATE INDEX IF NOT EXISTS `index_previous_digest` ON `previous` (`digest`)");
             database.execSQL("CREATE INDEX IF NOT EXISTS `index_previous_widget_id_content_type_digest` ON `previous` (`widget_id`, `content_type`, `digest`)");
         }
@@ -40,7 +37,6 @@ public abstract class AbstractHistoryDatabase extends RoomDatabase {
             if (AbstractHistoryDatabase.historyDatabase == null) {
                 AbstractHistoryDatabase.historyDatabase = Room.databaseBuilder(context,
                         AbstractHistoryDatabase.class, AbstractHistoryDatabase.DATABASE_NAME)
-//                        .createFromAsset(DATABASE_NAME)
                         .addMigrations(AbstractHistoryDatabase.MIGRATION_1_2)
                         .fallbackToDestructiveMigration()
                         .build();

@@ -1,6 +1,25 @@
 <resources>
     <string name="app_name">Quote&#8230; Unquote</string>
 
+    <string name="activity_instructions_title">Instructions</string>
+    <string name="activity_instructions_into"><b>Quote&#8230; Unquote</b> is a Home screen widget.</string>
+    <string name="activity_instructions_placement">Home screen placement</string>
+    <string name="activity_instructions_different_ways">There are different ways to place a widget onto your Home screen, the most common being:</string>
+    <string name="activity_instructions_1">1. On a Home screen, touch and hold an empty space.</string>
+    <string name="activity_instructions_2">2. Tap </string>
+    <string name="activity_instructions_3">3. Scroll though the widgets until you find the <b>Quote&#8230; Unquote</b> widget.</string>
+    <string name="activity_instructions_4">4. Touch and slide the widget to where you want it. Lift your finger.</string>
+    <string name="activity_instructions_configure">Once the widget is on the home screen, tap the quotation text to configure the widget.</string>
+    <string name="activity_instructions_resize">Resize the widget</string>
+    <string name="activity_instructions_resize_instruction_1">1. Touch and hold the widget on your Home screen.</string>
+    <string name="activity_instructions_resize_instruction_2">2. Lift your finger. You\'ll find an outline with dots on the sides.</string>
+    <string name="activity_instructions_resize_instruction_3">3. To resize the widget, drag the dots.</string>
+    <string name="activity_instructions_resize_instruction_4">4. When you\'re done, tap outside the widget.</string>
+    <string name="activity_instructions_os_warning">Some devices require Battery Saver settings to be configured for this App.</string>
+    <string name="activity_instructions_version">%1$s/%2$s</string>
+    <string name="activity_instructions_oss">Open-source software</string>
+    <string name="activity_instructions_github">GitHub</string>
+
     <string name="activity_configure_title">Quote&#8230; Unquote</string>
 
     <string name="fragment_appearance_title">Appearance</string>
@@ -76,7 +95,10 @@
     <string name="fragment_content_title">Quotations</string>
     <string name="fragment_content_all">All: %d</string>
     <string name="fragment_content_favourites">Favourite: %d</string>
-    <string name="fragment_content_favourites_share_instructions">Sync favourites with another device</string>
+    <string name="fragment_content_favourites_export_instructions">to storage</string>
+    <string name="fragment_content_favourites_export_button">Export</string>
+    <string name="fragment_content_favourites_export_success">Success - favourite(s) exported</string>
+    <string name="fragment_content_favourites_share_instructions">Sync with another device</string>
     <string name="fragment_content_favourites_share_local_code_value">%s</string>
     <string name="fragment_content_favourites_share_local_code_send">Send</string>
     <string name="fragment_content_favourites_share_remove_code_value">Remote token</string>
@@ -89,7 +111,6 @@
     <string name="fragment_content_favourites_share_missing">Unable to locate remote token</string>
     <string name="fragment_content_favourites_share_comms">Check network connection</string>
     <string name="fragment_content_author">Author: %d</string>
-    <string name="fragment_content_author_instructions">With five or more quotations</string>
 
     <string name="fragment_content_text">Search: %d</string>
     <string name="fragment_content_text_instructions">Case-insensitive phrase search</string>
@@ -102,12 +123,6 @@
     <string name="fragment_event">Event</string>
     <string name="fragment_event_device_unlock">Screen unlock</string>
     <string name="fragment_event_daily">Time</string>
-
-    <string name="fragment_footer_title">About</string>
-    <string name="fragment_footer_os_warning">Some devices require Battery Saver settings to be configured for this App.</string>
-    <string name="fragment_footer_version">%1$s/%2$s</string>
-    <string name="fragment_footer_oss">Open-source software</string>
-    <string name="fragment_footer_github">GitHub</string>
 
     <string name="activity_report_title">Report Quotation?</string>
     <string-array name="activity_report_reason_array">

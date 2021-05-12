@@ -29,3 +29,5 @@ local.properties
 /app/src/googleplay/google-services.json
 /app/google-services.json
 /app/googleplay/release/
+app/.classpath
+app/.classpath

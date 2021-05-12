@@ -183,7 +183,7 @@ public class AppearancePreferences extends PreferencesFacade {
             if (entry.getKey().contains("FragmentAppearance:spinnerColour")) {
                 final String spinnerColour = (String) entry.getValue();
                 Timber.d("%d: spinnerColour=%s", this.widgetId, spinnerColour);
-                this.setAppearanceColour(spinnerColour);
+                this.setAppearanceTextColour(spinnerColour);
             }
 
             if (entry.getKey().contains("FragmentAppearance:spinnerSize")) {

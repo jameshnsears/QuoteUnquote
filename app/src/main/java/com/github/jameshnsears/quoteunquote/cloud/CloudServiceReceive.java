@@ -85,10 +85,15 @@ public class CloudServiceReceive extends Service {
                         this.handler.post(() -> ToastHelper.makeToast(
                                 context, context.getString(R.string.fragment_content_favourites_share_missing), Toast.LENGTH_SHORT));
                     } else {
+                        DatabaseRepository databaseRepository = getDatabaseRepository(context);
+                        for (String digest: favouritesReceived) {
+                            if (databaseRepository.getQuotation(digest) != null) {
+                                databaseRepository.markAsFavourite(digest);
+                            }
+                        }
+
                         this.handler.post(() -> ToastHelper.makeToast(
                                 context, context.getString(R.string.fragment_content_favourites_share_received), Toast.LENGTH_SHORT));
-
-                        favouritesReceived.forEach(this.getDatabaseRepository(context)::markAsFavourite);
 
                         if (contentFragment != null) {
                             contentFragment.setFavouriteCount();

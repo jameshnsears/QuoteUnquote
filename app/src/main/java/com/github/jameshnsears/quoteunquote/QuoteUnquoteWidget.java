@@ -261,19 +261,13 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
 
         this.startDatabaseConnectivity(context);
 
-        final AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, context);
-        appearancePreferences.performMigration();
-
-        final ContentPreferences contentPreferences = new ContentPreferences(widgetId, context);
-        contentPreferences.performMigration();
-
-        final EventPreferences eventPreferences = new EventPreferences(widgetId, context);
-        eventPreferences.performMigration();
-
         for (final int id : appWidgetManager.getAppWidgetIds(new ComponentName(context, QuoteUnquoteWidget.class))) {
             Timber.d("%d", id);
-            this.getQuoteUnquoteModel(context).resetPrevious(id, new ContentPreferences(id, context).getContentSelection());
-            this.getQuoteUnquoteModel(context).markAsCurrentDefault(id);
+            if (id != 0) {
+                PackageReplacedHelper packageReplacedHelper = new PackageReplacedHelper(id, context);
+                packageReplacedHelper.alignHistoryWithQuotations(this.getQuoteUnquoteModel(context));
+                packageReplacedHelper.migratePreferences();
+            }
             appWidgetManager.notifyAppWidgetViewDataChanged(id, R.id.listViewQuotation);
         }
     }

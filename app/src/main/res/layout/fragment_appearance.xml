@@ -31,7 +31,7 @@
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.MyApplication"/>
+        android:theme="@style/Theme.QuoteUnquote"/>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager2"

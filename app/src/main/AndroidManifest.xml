@@ -15,7 +15,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MyApplication">
+        android:theme="@style/Theme.QuoteUnquote">
 
         <receiver
             android:name=".QuoteUnquoteWidget"
@@ -31,6 +31,13 @@
                 android:resource="@xml/quote_unquote_widget_info" />
         </receiver>
 
+        <activity android:name=".QuoteUnquoteInstructions">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".configure.ConfigureActivity"
             android:configChanges="keyboardHidden|orientation|screenSize">
@@ -41,7 +48,7 @@
 
         <activity
             android:name=".report.ReportActivity"
-            android:theme="@style/ActivityReportTheme" />
+            android:theme="@style/Theme.QuoteUnquote.ActivityReport" />
 
         <service
             android:name=".listview.ListViewService"

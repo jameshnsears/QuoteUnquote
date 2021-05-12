@@ -306,6 +306,13 @@ public class DatabaseRepository {
         return this.secureRandom.nextInt(availableNextQuotations.size());
     }
 
+    public void erasePrevious(int widgetId, @NonNull String digest) {
+        Timber.d("digest=%s", digest);
+        this.previousDAO.erase(widgetId, ContentSelection.ALL, digest);
+        this.previousDAO.erase(widgetId, ContentSelection.AUTHOR, digest);
+        this.previousDAO.erase(widgetId, ContentSelection.SEARCH, digest);
+    }
+
     public void eraseFavourite(int widgetId, @NonNull String digest) {
         Timber.d("digest=%s", digest);
         this.favouriteDAO.deleteFavourite(digest);

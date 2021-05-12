@@ -1,0 +1,6 @@
+&bull; Favourites export.
+&bull; Launcher App icon.
+&bull; Align variants for favourites.
+&bull; Fix: Preserve history for database migrations.
+&bull; Fix: Cope with digests that got misaligned.
+&bull; Fix: Improve dark theme support.
