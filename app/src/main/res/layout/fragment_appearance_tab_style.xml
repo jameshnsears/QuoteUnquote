@@ -44,6 +44,7 @@
                 android:layout_gravity="center_vertical"
                 android:paddingStart="20dp"
                 android:paddingEnd="5dp"
+                android:background="@null"
                 android:spinnerMode="dropdown" />
         </LinearLayout>
 
@@ -130,6 +131,7 @@
             android:layout_weight="1"
             android:paddingStart="20dp"
             android:paddingEnd="5dp"
+            android:background="@null"
             android:spinnerMode="dropdown" />
 
     </LinearLayout>
