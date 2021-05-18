@@ -202,6 +202,9 @@ public class ContentFragment extends FragmentCommon {
 
                         this.contentPreferences.setContentSelectionSearch(keywords);
 
+                        // remove any prior search results in the history
+                        this.quoteUnquoteModel.resetPrevious(widgetId, ContentSelection.SEARCH);
+
                         return this.quoteUnquoteModel.countQuotationWithSearchText(keywords);
                     } else {
                         this.contentPreferences.setContentSelectionSearch("");

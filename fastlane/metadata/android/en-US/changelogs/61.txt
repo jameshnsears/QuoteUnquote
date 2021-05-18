@@ -1,0 +1,1 @@
+&bull; Fix: Stop search remembering prior searches.
