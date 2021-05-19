@@ -26,6 +26,6 @@ class ExportTest : QuoteUnquoteModelUtility() {
 
         val exportedFavourites = quoteUnquoteModelDouble.exportFavourites()
 
-        assertEquals(3, exportedFavourites.size)
+        assertEquals(3, exportedFavourites?.size)
     }
 }

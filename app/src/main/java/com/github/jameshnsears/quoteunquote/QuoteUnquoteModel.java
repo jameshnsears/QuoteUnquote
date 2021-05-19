@@ -563,7 +563,7 @@ public class QuoteUnquoteModel {
         return contentPreferences.getContentFavouritesLocalCode();
     }
 
-    @NonNull
+    @Nullable
     public ArrayList<String> exportFavourites() {
         Future<ArrayList<String>> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
             ArrayList<String> exportedFavourites = new ArrayList<String>();
