@@ -59,17 +59,25 @@ class AppearanceTextFamilySpinnerAdapter(@NonNull private val context: Context) 
 
         when (getItem(position)) {
             "Cursive"
-            -> view.typeface = Typeface.createFromFile("/system/fonts/DancingScript-Regular.ttf")
+            -> view.typeface =
+                Typeface.createFromAsset(context.assets, "font/DancingScript_Regular.ttf")
             "Monospace"
-            -> view.typeface = Typeface.createFromFile("/system/fonts/DroidSansMono.ttf")
+            -> view.typeface =
+                Typeface.createFromAsset(context.assets, "font/DroidSansMono.ttf")
             "Sans Serif"
-            -> view.typeface = Typeface.createFromFile("/system/fonts/Roboto-Regular.ttf")
+            -> view.typeface =
+                Typeface.createFromAsset(context.assets, "font/Roboto_Regular.ttf")
             "Sans Serif Condensed"
-            -> view.typeface = Typeface.createFromFile("/system/fonts/RobotoCondensed-Regular.ttf")
+            -> view.typeface = Typeface.createFromAsset(
+                context.assets,
+                "font/RobotoCondensed_Regular.ttf"
+            )
             "Sans Serif Medium"
-            -> view.typeface = Typeface.createFromFile("/system/fonts/Roboto-Medium.ttf")
+            -> view.typeface =
+                Typeface.createFromAsset(context.assets, "font/Roboto_Medium.ttf")
             "Serif"
-            -> view.typeface = Typeface.createFromFile("/system/fonts/NotoSerif-Regular.ttf")
+            -> view.typeface =
+                Typeface.createFromAsset(context.assets, "font/NotoSerif_Regular.ttf")
         }
 
         return view

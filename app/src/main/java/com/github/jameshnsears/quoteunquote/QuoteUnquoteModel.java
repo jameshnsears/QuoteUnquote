@@ -322,8 +322,23 @@ public class QuoteUnquoteModel {
                 this.getContentPreferences(widgetId).getContentSelectionSearch());
     }
 
-    public int toggleFavourite(int widgetId, @NonNull String digest) {
+    public int countFavouritesWithoutRx() {
+        Future<Integer> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+            return this.databaseRepository.countFavourites().blockingGet();
+        });
 
+        int favouritesCount = 0;
+        try {
+            favouritesCount = future.get();
+        } catch (@NonNull final ExecutionException | InterruptedException e) {
+            Timber.e(e);
+            Thread.currentThread().interrupt();
+        }
+
+        return favouritesCount;
+    }
+
+    public int toggleFavourite(int widgetId, @NonNull String digest) {
         Future<Integer> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
             final List<String> favourites = this.databaseRepository.getFavourites();
             for (final String favourite : favourites
@@ -563,7 +578,7 @@ public class QuoteUnquoteModel {
         return contentPreferences.getContentFavouritesLocalCode();
     }
 
-    @NonNull
+    @Nullable
     public ArrayList<String> exportFavourites() {
         Future<ArrayList<String>> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
             ArrayList<String> exportedFavourites = new ArrayList<String>();

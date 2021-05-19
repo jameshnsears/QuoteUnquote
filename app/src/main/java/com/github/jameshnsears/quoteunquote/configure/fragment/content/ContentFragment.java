@@ -220,9 +220,9 @@ public class ContentFragment extends FragmentCommon {
             @NonNull View view, Bundle savedInstanceState) {
         this.setInitialCounts();
 
+        this.setFavouriteCount();
         this.setAllCount();
         this.setAuthor();
-        this.setFavouriteCount();
         this.setSearch();
 
         this.createListenerRadioGroup();
@@ -233,8 +233,8 @@ public class ContentFragment extends FragmentCommon {
 
         this.handleStorageAccessFrameworkResult();
 
-        this.setSelection();
         this.setFavouriteLocalCode();
+        this.setSelection();
     }
 
     private void setInitialCounts() {
@@ -338,6 +338,18 @@ public class ContentFragment extends FragmentCommon {
                                 ContentFragment.this.fragmentContentBinding.radioButtonFavourites.setEnabled(true);
                                 if (value == 0) {
                                     ContentFragment.this.fragmentContentBinding.radioButtonFavourites.setEnabled(false);
+
+                                    ContentFragment.this.fragmentContentBinding.buttonExport.setEnabled(false);
+                                    ContentFragment.this.makeButtonAlpha(ContentFragment.this.fragmentContentBinding.buttonExport, false);
+
+
+                                    // in case another widget instance chnages favourites
+                                    if (contentPreferences.getContentSelection().equals(ContentSelection.FAVOURITES)) {
+                                        contentPreferences.setContentSelection(ContentSelection.ALL);
+                                    }
+                                } else {
+                                    ContentFragment.this.fragmentContentBinding.buttonExport.setEnabled(true);
+                                    ContentFragment.this.makeButtonAlpha(ContentFragment.this.fragmentContentBinding.buttonExport, true);
                                 }
 
                                 ContentFragment.this.fragmentContentBinding.radioButtonFavourites.setText(
@@ -443,8 +455,6 @@ public class ContentFragment extends FragmentCommon {
     }
 
     private void enableFavourites(boolean enable) {
-        this.fragmentContentBinding.buttonExport.setEnabled(enable);
-        this.makeButtonAlpha(this.fragmentContentBinding.buttonExport, enable);
         this.fragmentContentBinding.textViewLocalStorageInstructions.setEnabled(enable);
 
         this.fragmentContentBinding.textViewLocalCodeValue.setEnabled(enable);

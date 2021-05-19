@@ -24,6 +24,9 @@ public class IntentFactoryHelper {
     @NonNull
     public static final String TOOLBAR_PRESSED_FAVOURITE = "TOOLBAR_PRESSED_FAVOURITE";
     @NonNull
+    public static final String ALL_WIDGET_INSTANCES_FAVOURITE_NOTIFICATION
+            = "ALL_WIDGET_INSTANCES_FAVOURITE_NOTIFICATION";
+    @NonNull
     public static final String TOOLBAR_PRESSED_SHARE = "TOOLBAR_PRESSED_SHARE";
     @NonNull
     public static final String TOOLBAR_PRESSED_NEXT_RANDOM = "TOOLBAR_PRESSED_NEXT_RANDOM";

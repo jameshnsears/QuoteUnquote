@@ -223,6 +223,11 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
 
                 case IntentFactoryHelper.TOOLBAR_PRESSED_FAVOURITE:
                     this.onReceiveToolbarPressedFavourite(context, widgetId, appWidgetManager);
+                    this.sendAllInstancesFavouriteNotification(context, widgetId, appWidgetManager);
+                    break;
+
+                case IntentFactoryHelper.ALL_WIDGET_INSTANCES_FAVOURITE_NOTIFICATION:
+                    onReceiveAllWidgetInstancesFavouriteNotification(context, widgetId, appWidgetManager);
                     break;
 
                 case IntentFactoryHelper.TOOLBAR_PRESSED_SHARE:
@@ -245,6 +250,31 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
                     || !intent.getAction().equals(AppWidgetManager.ACTION_APPWIDGET_ENABLED)) {
                 this.onUpdate(context, appWidgetManager, new int[]{widgetId});
             }
+        }
+    }
+
+    private void onReceiveAllWidgetInstancesFavouriteNotification(
+            @NonNull Context context,
+            int widgetId,
+            AppWidgetManager appWidgetManager) {
+        Timber.d("allInstancesFavouriteNotification: receive=%d", widgetId);
+        this.setHeartColour(
+                context,
+                widgetId,
+                new RemoteViews(context.getPackageName(), R.layout.quote_unquote_widget));
+
+        ContentPreferences contentPreferences = new ContentPreferences(widgetId, context);
+
+        final int favouritesCount = this.getQuoteUnquoteModel(context).countFavouritesWithoutRx();
+
+        if (contentPreferences.getContentSelection() == ContentSelection.FAVOURITES) {
+            if (favouritesCount == 0) {
+                this.noFavouritesSoMoveToAll(context, widgetId, contentPreferences);
+            } else {
+                this.getQuoteUnquoteModel(context).markAsCurrentDefault(widgetId);
+            }
+
+            appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
         }
     }
 
@@ -325,6 +355,20 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             }
 
             appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
+        }
+    }
+
+    private void sendAllInstancesFavouriteNotification(
+            @NonNull Context context,
+            int widgetId,
+            @NonNull AppWidgetManager appWidgetManager) {
+        for (final int id : appWidgetManager.getAppWidgetIds(new ComponentName(context, QuoteUnquoteWidget.class))) {
+            if (id != widgetId) {
+                Timber.d("allInstancesFavouriteNotification: from=%d; send=%d", widgetId, id);
+                Intent instancesIntent = IntentFactoryHelper.createIntent(context, id);
+                instancesIntent.setAction(IntentFactoryHelper.ALL_WIDGET_INSTANCES_FAVOURITE_NOTIFICATION);
+                context.sendBroadcast(instancesIntent);
+            }
         }
     }
 
@@ -455,7 +499,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
                 break;
 
             case "#FF000000":
-                transparencyMask = (int) (transparency * 0xFF) << 24 | 0x000000;
+                transparencyMask = (int) (transparency * 0xFF) << 24;
                 break;
 
             default:
