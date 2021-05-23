@@ -23,7 +23,7 @@ class PackageReplacedHelperTest : QuoteUnquoteModelUtility() {
 
     private fun confirmPreviousIsEmpty() {
         assertFalse(
-            databaseRepositoryDouble.getPrevious(
+            databaseRepositoryDouble.getPreviousDigests(
                 WidgetIdHelper.WIDGET_ID_01,
                 ContentSelection.ALL
             ).contains("all-0")

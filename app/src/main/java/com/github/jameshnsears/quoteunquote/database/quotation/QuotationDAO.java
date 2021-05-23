@@ -25,20 +25,20 @@ public interface QuotationDAO {
     @Query("SELECT AUTHOR, COUNT(*) AS QUOTATION_COUNT FROM QUOTATIONS GROUP BY AUTHOR HAVING QUOTATION_COUNT >= :quotationCount ORDER BY AUTHOR ASC")
     Single<List<AuthorPOJO>> getAuthorsAndQuotationCounts(int quotationCount);
 
-    @Query("SELECT DIGEST FROM QUOTATIONS WHERE AUTHOR = :author AND DIGEST NOT IN (:digests) ORDER BY AUTHOR ASC, ROWID ASC")
-    List<String> getNextAuthorDigest(String author, List<String> digests);
+    @Query("SELECT DIGEST FROM QUOTATIONS WHERE AUTHOR = :author ORDER BY AUTHOR ASC, ROWID ASC")
+    List<String> getNextAuthorDigest(String author);
 
     @Query("SELECT COUNT(QUOTATION) FROM QUOTATIONS WHERE (QUOTATION LIKE :text OR AUTHOR LIKE :text)")
     Integer countSearchText(String text);
 
-    @Query("SELECT DIGEST FROM QUOTATIONS WHERE DIGEST NOT IN (:digests) ORDER BY AUTHOR ASC, ROWID ASC")
-    List<String> getNextAllDigests(List<String> digests);
+    @Query("SELECT DIGEST FROM QUOTATIONS ORDER BY AUTHOR ASC, ROWID ASC")
+    List<String> getNextAllDigests();
 
     @Query("SELECT DIGEST FROM QUOTATIONS WHERE (QUOTATION LIKE :text OR AUTHOR LIKE :text) ORDER BY AUTHOR ASC, ROWID ASC")
     List<String> getSearchTextDigests(String text);
 
-    @Query("SELECT DIGEST FROM QUOTATIONS WHERE (QUOTATION LIKE :text OR AUTHOR LIKE :text) AND DIGEST NOT IN (:digests) ORDER BY AUTHOR ASC, ROWID ASC")
-    List<String> getNextSearchTextDigests(String text, List<String> digests);
+    @Query("SELECT DIGEST FROM QUOTATIONS WHERE (QUOTATION LIKE :text OR AUTHOR LIKE :text) ORDER BY AUTHOR ASC, ROWID ASC")
+    List<String> getNextSearchTextDigests(String text);
 
     @Query("DELETE FROM QUOTATIONS")
     void erase();

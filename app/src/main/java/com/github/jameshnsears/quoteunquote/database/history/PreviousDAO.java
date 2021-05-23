@@ -19,7 +19,7 @@ public interface PreviousDAO {
     int countPrevious(int widgetId, ContentSelection contentType);
 
     @Query("SELECT DIGEST FROM PREVIOUS WHERE WIDGET_ID = :widgetId AND CONTENT_TYPE = :contentType ORDER BY NAVIGATION DESC")
-    List<String> getAllPrevious(int widgetId, ContentSelection contentType);
+    List<String> getPreviousDigests(int widgetId, ContentSelection contentType);
 
     @Query("SELECT * FROM PREVIOUS WHERE WIDGET_ID = :widgetId AND CONTENT_TYPE = :contentType ORDER BY NAVIGATION DESC LIMIT 1")
     PreviousEntity getPrevious(int widgetId, ContentSelection contentType);

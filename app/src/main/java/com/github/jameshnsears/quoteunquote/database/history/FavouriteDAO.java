@@ -22,8 +22,8 @@ public interface FavouriteDAO {
     @Query("SELECT DIGEST FROM FAVOURITE ORDER BY NAVIGATION DESC")
     List<String> getFavouriteDigests();
 
-    @Query("SELECT DIGEST FROM FAVOURITE WHERE DIGEST NOT IN (:digests)")
-    List<String> getNextFavouriteDigests(List<String> digests);
+    @Query("SELECT DIGEST FROM FAVOURITE")
+    List<String> getNextFavouriteDigests();
 
     @Query("DELETE FROM FAVOURITE WHERE DIGEST = :digest")
     void deleteFavourite(String digest);

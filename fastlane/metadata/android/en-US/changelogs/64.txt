@@ -1,0 +1,1 @@
+&bull; Fix: GitHub issue #5; remove NOT IN (:digests)

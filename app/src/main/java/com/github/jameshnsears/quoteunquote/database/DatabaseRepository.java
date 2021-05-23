@@ -90,7 +90,7 @@ public class DatabaseRepository {
             int widgetId,
             @NonNull ContentPreferences contentPreferences) {
 
-        final List<String> allPrevious = this.getPrevious(widgetId, contentPreferences.getContentSelection());
+        final List<String> allPrevious = this.getPreviousDigests(widgetId, contentPreferences.getContentSelection());
         Collections.reverse(allPrevious);
 
         int position = 0;
@@ -135,10 +135,10 @@ public class DatabaseRepository {
         final List<String> availableDigests;
 
         if (contentSelection == ContentSelection.AUTHOR) {
-            digestsPrevious = this.previousDAO.getAllPrevious(widgetId, ContentSelection.AUTHOR);
+            digestsPrevious = this.previousDAO.getPreviousDigests(widgetId, ContentSelection.AUTHOR);
             availableDigests = this.quotationDAO.getDigestsForAuthor(criteria);
         } else {
-            digestsPrevious = this.previousDAO.getAllPrevious(widgetId, ContentSelection.SEARCH);
+            digestsPrevious = this.previousDAO.getPreviousDigests(widgetId, ContentSelection.SEARCH);
             availableDigests = this.quotationDAO.getSearchTextDigests("%" + criteria + "%");
         }
 
@@ -163,8 +163,8 @@ public class DatabaseRepository {
     }
 
     @NonNull
-    public List<String> getPrevious(int widgetId, @NonNull ContentSelection contentSelection) {
-        return this.previousDAO.getAllPrevious(widgetId, contentSelection);
+    public List<String> getPreviousDigests(int widgetId, @NonNull ContentSelection contentSelection) {
+        return this.previousDAO.getPreviousDigests(widgetId, contentSelection);
     }
 
     @NonNull
@@ -239,7 +239,7 @@ public class DatabaseRepository {
         final QuotationEntity nextQuotation;
 
         if (!randomNext) {
-            final List<String> previousQuotations = this.getPrevious(widgetId, contentSelection);
+            final List<String> previousQuotations = this.getPreviousDigests(widgetId, contentSelection);
 
             if (previousQuotations.isEmpty()) {
                 nextQuotation = this.getQuotation(nextQuotationDigests.get(0));
@@ -274,29 +274,35 @@ public class DatabaseRepository {
 
     private List<String> getNextQuotationDigests(final int widgetId, @NonNull final ContentSelection contentSelection, @Nullable final String searchString) {
         final List<String> nextQuotationDigests;
+
+        List<String> previousDigests = this.getPreviousDigests(widgetId, contentSelection);
+
         switch (contentSelection) {
             case FAVOURITES:
                 nextQuotationDigests
-                        = this.favouriteDAO.getNextFavouriteDigests(this.getPrevious(widgetId, contentSelection));
+                        = this.favouriteDAO.getNextFavouriteDigests();
+                nextQuotationDigests.removeAll(previousDigests);
                 break;
 
             case AUTHOR:
-                nextQuotationDigests
-                        = this.quotationDAO.getNextAuthorDigest(
-                        searchString, this.getPrevious(widgetId, contentSelection));
+                List<String> authorDigests
+                        = this.quotationDAO.getNextAuthorDigest(searchString);
+                authorDigests.removeAll(previousDigests);
+                nextQuotationDigests = authorDigests;
                 break;
 
             case SEARCH:
-                nextQuotationDigests
-                        = this.quotationDAO.getNextSearchTextDigests(
-                        "%" + searchString + "%", this.getPrevious(widgetId, contentSelection));
+                List<String> searchDigests
+                        = this.quotationDAO.getNextSearchTextDigests("%" + searchString + "%");
+                searchDigests.removeAll(previousDigests);
+                nextQuotationDigests = searchDigests;
                 break;
 
             default:
                 // ALL:
-                nextQuotationDigests
-                        = this.quotationDAO.getNextAllDigests(
-                        this.getPrevious(widgetId, contentSelection));
+                List<String> allDigests = this.quotationDAO.getNextAllDigests();
+                allDigests.removeAll(previousDigests);
+                nextQuotationDigests = allDigests;
                 break;
         }
         return nextQuotationDigests;

@@ -59,14 +59,14 @@ public class QuoteUnquoteModel {
     }
 
     @Nullable
-    public QuotationEntity getPrevious(
+    public QuotationEntity getPreviouDigests(
             int widgetId,
             @NonNull ContentSelection contentSelection,
             @NonNull String digest) {
 
         Future<QuotationEntity> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
 
-            final List<String> previousDigests = this.getPrevious(widgetId, contentSelection);
+            final List<String> previousDigests = this.getPreviouDigests(widgetId, contentSelection);
 
             int priorDigestIndex = previousDigests.indexOf(digest) + 1;
             if (priorDigestIndex == previousDigests.size()) {
@@ -147,7 +147,7 @@ public class QuoteUnquoteModel {
         Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
             QuotationEntity nextQuotation = this.getNextQuotation(widgetId, randomNext);
 
-            final List<String> previous = this.getPrevious(widgetId, contentPreferences.getContentSelection());
+            final List<String> previous = this.getPreviouDigests(widgetId, contentPreferences.getContentSelection());
 
             if (!previous.contains(nextQuotation.digest)) {
                 this.databaseRepository.markAsPrevious(
@@ -257,11 +257,11 @@ public class QuoteUnquoteModel {
         }
     }
 
-    public List<String> getPrevious(
+    public List<String> getPreviouDigests(
             int widgetId,
             @NonNull ContentSelection contentSelection) {
         Future<List<String>> future = QuoteUnquoteWidget.getExecutorService().submit(() ->
-                this.databaseRepository.getPrevious(widgetId, contentSelection));
+                this.databaseRepository.getPreviousDigests(widgetId, contentSelection));
 
         List<String> allPreviousDigests = new ArrayList<>();
 
@@ -272,9 +272,6 @@ public class QuoteUnquoteModel {
             Thread.currentThread().interrupt();
         }
 
-        for (final String previousDigest : allPreviousDigests) {
-            Timber.d(previousDigest);
-        }
         Timber.d("%d", allPreviousDigests.size());
 
         return allPreviousDigests;
@@ -341,10 +338,7 @@ public class QuoteUnquoteModel {
     public int toggleFavourite(int widgetId, @NonNull String digest) {
         Future<Integer> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
             final List<String> favourites = this.databaseRepository.getFavourites();
-            for (final String favourite : favourites
-            ) {
-                Timber.d(favourite);
-            }
+
             Timber.d("%d", favourites.size());
 
             final boolean isFavourite = favourites.contains(digest);
@@ -441,7 +435,7 @@ public class QuoteUnquoteModel {
 
     public void markAsReported(int widgetId) {
         Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
-            final List<String> previousQuotations = this.databaseRepository.getPrevious(
+            final List<String> previousQuotations = this.databaseRepository.getPreviousDigests(
                     widgetId, this.getContentPreferences(widgetId).getContentSelection());
 
             this.databaseRepository.markAsReported(previousQuotations.get(0));
@@ -458,7 +452,7 @@ public class QuoteUnquoteModel {
     public void markAsCurrentPrevious(
             int widgetId) {
         Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
-            final QuotationEntity previousQuotation = this.getPrevious(
+            final QuotationEntity previousQuotation = this.getPreviouDigests(
                     widgetId,
                     this.getContentPreferences(widgetId).getContentSelection(),
                     this.getCurrentQuotation(widgetId).digest);
@@ -613,9 +607,9 @@ public class QuoteUnquoteModel {
     public void alignHistoryWithQuotations(int widgetId) {
         Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
             List<String> history = new ArrayList<>();
-            history.addAll(this.databaseRepository.getPrevious(widgetId, ContentSelection.ALL));
-            history.addAll(this.databaseRepository.getPrevious(widgetId, ContentSelection.AUTHOR));
-            history.addAll(this.databaseRepository.getPrevious(widgetId, ContentSelection.SEARCH));
+            history.addAll(this.databaseRepository.getPreviousDigests(widgetId, ContentSelection.ALL));
+            history.addAll(this.databaseRepository.getPreviousDigests(widgetId, ContentSelection.AUTHOR));
+            history.addAll(this.databaseRepository.getPreviousDigests(widgetId, ContentSelection.SEARCH));
 
             int misalignedCount = 1;
             for (String digest: history) {
