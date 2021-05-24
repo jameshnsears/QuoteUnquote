@@ -8,7 +8,7 @@ assignees: ''
 ---
 
 **Version of the app**
-Version: [e.g.  2.4.1-googleplay]
+Version: [e.g.  1.1.1-googleplay]
 
 **Describe the bug**
 A clear and concise description of what the bug is.

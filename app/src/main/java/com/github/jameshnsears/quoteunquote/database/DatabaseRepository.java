@@ -23,7 +23,10 @@ import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 import io.reactivex.Single;
@@ -272,40 +275,47 @@ public class DatabaseRepository {
         return nextQuotation;
     }
 
-    private List<String> getNextQuotationDigests(final int widgetId, @NonNull final ContentSelection contentSelection, @Nullable final String searchString) {
-        final List<String> nextQuotationDigests;
+    private synchronized List<String> getNextQuotationDigests(
+            final int widgetId,
+            @NonNull final ContentSelection contentSelection,
+            @Nullable final String searchString) {
+        // insertion order required
+        LinkedHashSet<String> nextQuotationDigests;
 
-        List<String> previousDigests = this.getPreviousDigests(widgetId, contentSelection);
+        // no order needed
+        HashSet<String> previousDigests
+                =  new HashSet<>(this.getPreviousDigests(widgetId, contentSelection));
 
         switch (contentSelection) {
             case FAVOURITES:
                 nextQuotationDigests
-                        = this.favouriteDAO.getNextFavouriteDigests();
+                        = new LinkedHashSet<>(this.favouriteDAO.getNextFavouriteDigests());
                 nextQuotationDigests.removeAll(previousDigests);
                 break;
 
             case AUTHOR:
-                List<String> authorDigests
-                        = this.quotationDAO.getNextAuthorDigest(searchString);
+                LinkedHashSet<String> authorDigests
+                        = new LinkedHashSet<>(this.quotationDAO.getNextAuthorDigest(searchString));
                 authorDigests.removeAll(previousDigests);
                 nextQuotationDigests = authorDigests;
                 break;
 
             case SEARCH:
-                List<String> searchDigests
-                        = this.quotationDAO.getNextSearchTextDigests("%" + searchString + "%");
+                LinkedHashSet<String> searchDigests
+                        = new LinkedHashSet<>(this.quotationDAO.getNextSearchTextDigests("%" + searchString + "%"));
                 searchDigests.removeAll(previousDigests);
                 nextQuotationDigests = searchDigests;
                 break;
 
             default:
                 // ALL:
-                List<String> allDigests = this.quotationDAO.getNextAllDigests();
+                LinkedHashSet<String> allDigests = new LinkedHashSet<>(this.quotationDAO.getNextAllDigests());
                 allDigests.removeAll(previousDigests);
                 nextQuotationDigests = allDigests;
                 break;
         }
-        return nextQuotationDigests;
+
+        return new ArrayList<>(nextQuotationDigests);
     }
 
     public int getRandomIndex(@NonNull List<String> availableNextQuotations) {
