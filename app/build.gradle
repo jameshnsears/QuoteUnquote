@@ -43,8 +43,8 @@ android {
         applicationId "com.github.jameshnsears.quoteunquote"
         minSdkVersion 24
         targetSdkVersion 30
-        versionCode 66
-        versionName "2.4.7"
+        versionCode 67
+        versionName "2.4.8"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments clearPackageData: 'true'

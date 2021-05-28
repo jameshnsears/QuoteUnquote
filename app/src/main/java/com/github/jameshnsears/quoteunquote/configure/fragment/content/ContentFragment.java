@@ -343,7 +343,9 @@ public class ContentFragment extends FragmentCommon {
 
                                     ContentFragment.this.fragmentContentBinding.buttonExport.setEnabled(false);
                                     ContentFragment.this.makeButtonAlpha(ContentFragment.this.fragmentContentBinding.buttonExport, false);
+                                    ContentFragment.this.fragmentContentBinding.textViewLocalStorageInstructions.setEnabled(false);
 
+                                    ContentFragment.this.fragmentContentBinding.textViewLocalCodeValue.setEnabled(false);
                                     ContentFragment.this.fragmentContentBinding.buttonSend.setEnabled(false);
                                     ContentFragment.this.makeButtonAlpha(ContentFragment.this.fragmentContentBinding.buttonSend, false);
 
@@ -354,7 +356,9 @@ public class ContentFragment extends FragmentCommon {
                                 } else {
                                     ContentFragment.this.fragmentContentBinding.buttonExport.setEnabled(true);
                                     ContentFragment.this.makeButtonAlpha(ContentFragment.this.fragmentContentBinding.buttonExport, true);
+                                    ContentFragment.this.fragmentContentBinding.textViewLocalStorageInstructions.setEnabled(true);
 
+                                    ContentFragment.this.fragmentContentBinding.textViewLocalCodeValue.setEnabled(true);
                                     ContentFragment.this.fragmentContentBinding.buttonSend.setEnabled(true);
                                     ContentFragment.this.makeButtonAlpha(ContentFragment.this.fragmentContentBinding.buttonSend, true);
                                 }
@@ -376,7 +380,6 @@ public class ContentFragment extends FragmentCommon {
 
     protected void setSelection() {
         this.enableAuthor(false);
-        this.enableFavourites(false);
         this.enableSearch(false);
 
         switch (this.contentPreferences.getContentSelection()) {
@@ -409,7 +412,6 @@ public class ContentFragment extends FragmentCommon {
 
     private void setSelectionFavourites() {
         this.fragmentContentBinding.radioButtonFavourites.setChecked(true);
-        this.enableFavourites(true);
     }
 
     private void setSelectionSearch() {
@@ -433,7 +435,6 @@ public class ContentFragment extends FragmentCommon {
         radioGroupContent.setOnCheckedChangeListener((group, checkedId) -> {
 
             this.enableAuthor(false);
-            this.enableFavourites(false);
             this.enableSearch(false);
 
             if (checkedId == this.fragmentContentBinding.radioButtonAll.getId()) {
@@ -446,7 +447,6 @@ public class ContentFragment extends FragmentCommon {
             }
 
             if (checkedId == this.fragmentContentBinding.radioButtonFavourites.getId()) {
-                this.enableFavourites(true);
                 this.contentPreferences.setContentSelection(ContentSelection.FAVOURITES);
             }
 
@@ -459,12 +459,6 @@ public class ContentFragment extends FragmentCommon {
 
     private void enableAuthor(boolean enable) {
         this.fragmentContentBinding.spinnerAuthors.setEnabled(enable);
-    }
-
-    private void enableFavourites(boolean enable) {
-        this.fragmentContentBinding.textViewLocalStorageInstructions.setEnabled(enable);
-
-        this.fragmentContentBinding.textViewLocalCodeValue.setEnabled(enable);
     }
 
     private void makeButtonAlpha(@NonNull Button button, boolean enable) {

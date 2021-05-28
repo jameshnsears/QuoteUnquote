@@ -1,3 +1,2 @@
 &bull; Cosmetic improvements.
 &bull; Prior search history kept if search unchanged.
-&bull; Quotes database content improvements.

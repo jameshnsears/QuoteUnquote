@@ -1,0 +1,2 @@
+&bull; Cosmetic improvements.
+&bull; Quotes database content improvements.
