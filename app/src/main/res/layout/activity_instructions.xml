@@ -253,7 +253,7 @@
 
             <ImageView
                     android:layout_width="85dp"
-                    android:layout_height="40dp"
+                    android:layout_height="35dp"
                     android:contentDescription="@string/activity_instructions_oss"
                     android:gravity="bottom"
                     android:paddingStart="0dp"

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -12,6 +13,7 @@ import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearanceFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.content.ContentFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.event.EventFragment;
+import com.github.jameshnsears.quoteunquote.databinding.ActivityConfigureBinding;
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
 import com.github.jameshnsears.quoteunquote.utils.ui.ToastHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -20,7 +22,8 @@ import timber.log.Timber;
 
 public class ConfigureActivity extends AppCompatActivity {
     public int widgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
-
+    @Nullable
+    public ActivityConfigureBinding activityConfigureBinding;
     public boolean broadcastFinishIntent = true;
     private final BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
             = item -> {
@@ -50,6 +53,9 @@ public class ConfigureActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.fragmentPlaceholderContent, selectedFragment)
                 .commit();
+
+        this.activityConfigureBinding.scrollView.scrollTo(0, 0);
+
         return true;
     };
 
@@ -92,7 +98,6 @@ public class ConfigureActivity extends AppCompatActivity {
     @Override
     public void onCreate(final Bundle bundle) {
         Timber.d("onCreate");
-
         super.onCreate(bundle);
 
         Intent intent = this.getIntent();
@@ -103,7 +108,8 @@ public class ConfigureActivity extends AppCompatActivity {
             this.broadcastFinishIntent = extras.getBoolean("broadcastFinishIntent", true);
         }
 
-        this.setContentView(R.layout.activity_configure);
+        this.activityConfigureBinding = ActivityConfigureBinding.inflate(getLayoutInflater());
+        setContentView(this.activityConfigureBinding.getRoot());
 
         BottomNavigationView bottomNavigationView = this.findViewById(R.id.configureNavigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(this.navigationItemSelectedListener);
@@ -139,6 +145,8 @@ public class ConfigureActivity extends AppCompatActivity {
 
         this.getSupportFragmentManager().beginTransaction().replace(
                 R.id.fragmentPlaceholderContent, fragment).commit();
+
+        this.activityConfigureBinding.scrollView.scrollTo(0, 0);
     }
 
     @NonNull

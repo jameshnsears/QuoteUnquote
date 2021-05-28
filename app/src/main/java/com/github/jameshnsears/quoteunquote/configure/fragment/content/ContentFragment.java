@@ -200,10 +200,12 @@ public class ContentFragment extends FragmentCommon {
                     if (!keywords.equals("")) {
                         Timber.d("%s", keywords);
 
-                        this.contentPreferences.setContentSelectionSearch(keywords);
+                        // remove any prior, different, search results in the history
+                        if (!keywords.equals(this.contentPreferences.getContentSelectionSearch())) {
+                            this.quoteUnquoteModel.resetPrevious(widgetId, ContentSelection.SEARCH);
+                        }
 
-                        // remove any prior search results in the history
-                        this.quoteUnquoteModel.resetPrevious(widgetId, ContentSelection.SEARCH);
+                        this.contentPreferences.setContentSelectionSearch(keywords);
 
                         return this.quoteUnquoteModel.countQuotationWithSearchText(keywords);
                     } else {
@@ -342,14 +344,19 @@ public class ContentFragment extends FragmentCommon {
                                     ContentFragment.this.fragmentContentBinding.buttonExport.setEnabled(false);
                                     ContentFragment.this.makeButtonAlpha(ContentFragment.this.fragmentContentBinding.buttonExport, false);
 
+                                    ContentFragment.this.fragmentContentBinding.buttonSend.setEnabled(false);
+                                    ContentFragment.this.makeButtonAlpha(ContentFragment.this.fragmentContentBinding.buttonSend, false);
 
-                                    // in case another widget instance chnages favourites
+                                    // in case another widget instance changes favourites
                                     if (contentPreferences.getContentSelection().equals(ContentSelection.FAVOURITES)) {
                                         contentPreferences.setContentSelection(ContentSelection.ALL);
                                     }
                                 } else {
                                     ContentFragment.this.fragmentContentBinding.buttonExport.setEnabled(true);
                                     ContentFragment.this.makeButtonAlpha(ContentFragment.this.fragmentContentBinding.buttonExport, true);
+
+                                    ContentFragment.this.fragmentContentBinding.buttonSend.setEnabled(true);
+                                    ContentFragment.this.makeButtonAlpha(ContentFragment.this.fragmentContentBinding.buttonSend, true);
                                 }
 
                                 ContentFragment.this.fragmentContentBinding.radioButtonFavourites.setText(
@@ -458,9 +465,6 @@ public class ContentFragment extends FragmentCommon {
         this.fragmentContentBinding.textViewLocalStorageInstructions.setEnabled(enable);
 
         this.fragmentContentBinding.textViewLocalCodeValue.setEnabled(enable);
-        this.fragmentContentBinding.buttonSend.setEnabled(enable);
-        this.makeButtonAlpha(this.fragmentContentBinding.buttonSend, enable);
-        this.fragmentContentBinding.buttonSend.setClickable(enable);
     }
 
     private void makeButtonAlpha(@NonNull Button button, boolean enable) {

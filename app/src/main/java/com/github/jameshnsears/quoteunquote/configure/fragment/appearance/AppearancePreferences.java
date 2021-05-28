@@ -192,7 +192,5 @@ public class AppearancePreferences extends PreferencesFacade {
                 this.setAppearanceTextSize(spinnerSize);
             }
         }
-
-        this.setAppearanceTransparency(0);
     }
 }
