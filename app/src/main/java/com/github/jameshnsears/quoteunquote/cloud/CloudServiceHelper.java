@@ -14,6 +14,6 @@ public class CloudServiceHelper {
         handler.post(() -> ToastHelper.makeToast(
                 context,
                 context.getString(R.string.fragment_content_favourites_share_comms),
-                Toast.LENGTH_SHORT));
+                Toast.LENGTH_LONG));
     }
 }

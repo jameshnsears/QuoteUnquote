@@ -28,6 +28,7 @@ import com.github.jameshnsears.quoteunquote.report.ReportActivity;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
 import com.github.jameshnsears.quoteunquote.utils.NotificationHelper;
+import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
 import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade;
 
 import java.util.concurrent.ExecutorService;

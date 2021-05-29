@@ -25,8 +25,8 @@ public class DatabaseNextQuotationPerformanceTest {
 
     static Random random = new Random();
     static List<String> initDigests;
-    static int maxPreviousDigests = 30000;
-    static int maxAllDigests = 30000;
+    static int maxPreviousDigests = 1000;
+    static int maxAllDigests = 2000;
 
     static List<String> getInitDigests() {
         if (initDigests == null) {
@@ -130,6 +130,32 @@ public class DatabaseNextQuotationPerformanceTest {
         System.out.println((endTime - startTime) + "ms - guava:iterator");
 
         assertAllMinusPrevious(allDigests, previousDigests);
+    }
+
+    @Test
+    public void countPrevious() {
+        // DatabaseRepository, 132
+        HashSet<String> digestsPrevious = new HashSet<>();
+        digestsPrevious.add("e");
+        digestsPrevious.add("x");
+        digestsPrevious.add("c");
+        digestsPrevious.add("z");
+
+        HashSet<String> availableDigests = new HashSet<>();
+        availableDigests.add("a");
+        availableDigests.add("b");
+        availableDigests.add("c");
+        availableDigests.add("d");
+        availableDigests.add("e");
+
+        int countPrevious = 0;
+        for (String digest : availableDigests) {
+            if (digestsPrevious.contains(digest)) {
+                countPrevious++;
+            }
+        }
+
+        assertEquals(2, countPrevious);
     }
 
     private void assertAllMinusPrevious(LinkedHashSet<String> allDigests, HashSet<String> previousDigests) {

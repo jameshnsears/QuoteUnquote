@@ -109,7 +109,7 @@
     <string name="fragment_content_favourites_share_receiving">Receiving favourite(s), please wait&#8230;</string>
     <string name="fragment_content_favourites_share_received">Success - favourite(s) appended</string>
     <string name="fragment_content_favourites_share_missing">Unable to locate remote token</string>
-    <string name="fragment_content_favourites_share_comms">Check network connection / please try again</string>
+    <string name="fragment_content_favourites_share_comms">Check network connection/retry</string>
     <string name="fragment_content_author">Author: %d</string>
 
     <string name="fragment_content_text">Search: %d</string>

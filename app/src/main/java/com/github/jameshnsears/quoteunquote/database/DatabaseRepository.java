@@ -134,20 +134,20 @@ public class DatabaseRepository {
             int widgetId,
             @NonNull ContentSelection contentSelection,
             @NonNull String criteria) {
-        final List<String> digestsPrevious;
-        final List<String> availableDigests;
+        final HashSet<String> previousDigests;
+        final HashSet<String> availableDigests;
 
         if (contentSelection == ContentSelection.AUTHOR) {
-            digestsPrevious = this.previousDAO.getPreviousDigests(widgetId, ContentSelection.AUTHOR);
-            availableDigests = this.quotationDAO.getDigestsForAuthor(criteria);
+            previousDigests = new HashSet<>(this.getPreviousDigests(widgetId, ContentSelection.AUTHOR));
+            availableDigests = new HashSet<>(this.quotationDAO.getDigestsForAuthor(criteria));
         } else {
-            digestsPrevious = this.previousDAO.getPreviousDigests(widgetId, ContentSelection.SEARCH);
-            availableDigests = this.quotationDAO.getSearchTextDigests("%" + criteria + "%");
+            previousDigests = new HashSet<>(this.getPreviousDigests(widgetId, ContentSelection.SEARCH));
+            availableDigests = new HashSet<>(this.quotationDAO.getSearchTextDigests("%" + criteria + "%"));
         }
 
         int countPrevious = 0;
         for (String digest : availableDigests) {
-            if (digestsPrevious.contains(digest)) {
+            if (previousDigests.contains(digest)) {
                 countPrevious++;
             }
         }

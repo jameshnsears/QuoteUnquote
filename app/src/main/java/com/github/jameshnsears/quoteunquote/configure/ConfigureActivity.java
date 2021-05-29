@@ -15,6 +15,7 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.content.ContentFr
 import com.github.jameshnsears.quoteunquote.configure.fragment.event.EventFragment;
 import com.github.jameshnsears.quoteunquote.databinding.ActivityConfigureBinding;
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
+import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
 import com.github.jameshnsears.quoteunquote.utils.ui.ToastHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -99,6 +100,8 @@ public class ConfigureActivity extends AppCompatActivity {
     public void onCreate(final Bundle bundle) {
         Timber.d("onCreate");
         super.onCreate(bundle);
+
+        AuditEventHelper.createInstance(getApplication());
 
         Intent intent = this.getIntent();
         Bundle extras = intent.getExtras();

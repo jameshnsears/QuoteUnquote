@@ -1,0 +1,3 @@
+&bull; Send/receive failure message improvement.
+&bull; Improve Auditing (non fdroid).
+&bull; Quotes database content deduplication.
