@@ -1,5 +1,0 @@
-&bull; Dark theme support.
-&bull; Improve look of some layouts.
-&bull; Fix rotation defect.
-&bull; Fix empty search value defect.
-&bull; Fix default Appearance preferences defect.

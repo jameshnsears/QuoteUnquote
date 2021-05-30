@@ -1,6 +1,0 @@
-&bull; Feature: Switch to Bottom navigation view.
-&bull; Feature: Toolbar colour.
-&bull; Feature: Occupy toolbar space when there are no buttons.
-&bull; Fix: Bring back text colours.
-&bull; Fix: Increase quality of quotations, by having fewer.
-&bull; Feature: Simplify fastlane assets.

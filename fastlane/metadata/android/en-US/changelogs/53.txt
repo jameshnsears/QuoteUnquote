@@ -1,2 +1,0 @@
-&bull; Fix to dark theme support.
-&bull; Two new fastlane image assets.

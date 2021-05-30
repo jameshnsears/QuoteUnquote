@@ -1,7 +1,0 @@
-&bull; Fix: ~100 author citations.
-&bull; Fix: remove ~7 duplicate quotations.
-&bull; Fix: ensure correct default time at startup.
-&bull; Feature: support for dyslexia (text + colours).
-&bull; Feature: added more quotations mostly for existing authors.
-&bull; Feature: lowered minSdkVersion.
-&bull; Feature: added Firebase analytics to googleplay variant.

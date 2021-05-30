@@ -1,6 +1,0 @@
-* Fix: remember prior Author name in spinner.
-* Fix: remove some dupes from quotations database.
-* Align full_description.txt with F-Droid variant.
-* Move GPS assets into parallel fastlane folder.
-* Re-introduce android:excludeFromRecents.
-* Update README to include f-droid logo.
