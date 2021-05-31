@@ -120,7 +120,7 @@
     <string name="fragment_event_where">Display</string>
     <string name="fragment_event_in_widget">Widget</string>
     <string name="fragment_event_as_notification">Notification &amp; Widget</string>
-    <string name="fragment_event">Event</string>
+    <string name="fragment_event">Event (recurring)</string>
     <string name="fragment_event_device_unlock">Screen unlock</string>
     <string name="fragment_event_daily">Time</string>
 
@@ -148,4 +148,10 @@
     <string name="notification_channel_id">quote_unquote_channel_01</string>
     <string name="notification_channel_name">Quotations</string>
     <string name="notification_channel_description">Quotation Notifications</string>
+
+    <string name="preview_description">A simple App Widget featuring quality quotes.</string>
+    <string-array name="preview_quotations">
+        <item>Nothing matters very much and very few things matter at all.</item>
+        <item>Arthur Balfour @ 1/21494</item>
+    </string-array>
 </resources>

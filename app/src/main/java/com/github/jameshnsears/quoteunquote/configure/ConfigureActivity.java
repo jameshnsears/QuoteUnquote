@@ -25,20 +25,21 @@ public class ConfigureActivity extends AppCompatActivity {
     public int widgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
     @Nullable
     public ActivityConfigureBinding activityConfigureBinding;
+    private boolean finishedCalled = false;
     public boolean broadcastFinishIntent = true;
     private final BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
             = item -> {
         Fragment selectedFragment;
 
         switch (item.getItemId()) {
-            default:
-                selectedFragment = AppearanceFragment.newInstance(this.widgetId);
-                break;
             case R.id.navigationBarQuotations:
                 selectedFragment = this.getFragmentContentNewInstance();
                 break;
             case R.id.navigationBarSchedule:
                 selectedFragment = EventFragment.newInstance(this.widgetId);
+                break;
+            default:
+                selectedFragment = AppearanceFragment.newInstance(this.widgetId);
                 break;
         }
 
@@ -73,13 +74,19 @@ public class ConfigureActivity extends AppCompatActivity {
                 = new ConfigurePreferences(widgetId, getApplicationContext());
         configurePreferences.setActiveFragment("AppearanceFragment");
 
-        this.finishAndRemoveTask();
+        finishedCalled = true;
+
+        super.finish();
     }
 
     @Override
-    public void onDestroy() {
-        // back pressed | swipe up | theme change
-        super.onDestroy();
+    public void onPause() {
+        // back pressed | swipe up
+        if (!finishedCalled) {
+            finish();
+        }
+
+        super.onPause();
     }
 
     public void broadcastTheFinishIntent() {
@@ -132,10 +139,6 @@ public class ConfigureActivity extends AppCompatActivity {
 
         Fragment fragment;
         switch (activeFragment) {
-            default:
-                fragment = AppearanceFragment.newInstance(this.widgetId);
-                bottomNavigationView.setSelectedItemId(R.id.navigationBarAppearance);
-                break;
             case "ContentFragment":
                 fragment = getFragmentContentNewInstance();
                 bottomNavigationView.setSelectedItemId(R.id.navigationBarQuotations);
@@ -143,6 +146,10 @@ public class ConfigureActivity extends AppCompatActivity {
             case "EventFragment":
                 fragment = EventFragment.newInstance(this.widgetId);
                 bottomNavigationView.setSelectedItemId(R.id.navigationBarSchedule);
+                break;
+            default:
+                fragment = AppearanceFragment.newInstance(this.widgetId);
+                bottomNavigationView.setSelectedItemId(R.id.navigationBarAppearance);
                 break;
         }
 

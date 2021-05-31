@@ -15,4 +15,14 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="Theme.QuoteUnquote.PreviewQuotation" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:listViewStyle">@style/PreviewQuotation.ListViewStyle</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="PreviewQuotation.ListViewStyle" parent="android:style/Widget.ListView">
+        <item name="android:background">@color/yellow</item>
+    </style>
 </resources>

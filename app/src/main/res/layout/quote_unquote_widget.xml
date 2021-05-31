@@ -9,7 +9,7 @@
         android:id="@+id/listViewQuotation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="2dp"
         android:layout_weight="1"
         android:divider="@null"
         android:dividerHeight="0dp"

@@ -64,7 +64,11 @@ public class IntentFactoryHelper {
             @NonNull String action) {
         Intent intent = IntentFactoryHelper.createIntent(context, widgetId);
         intent.setAction(action);
-        return PendingIntent.getBroadcast(context, widgetId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        // S: needs PendingIntent.FLAG_MUTABLE
+        int pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE;
+
+        return PendingIntent.getBroadcast(context, widgetId, intent, pendingIntentFlags);
     }
 
     @NonNull

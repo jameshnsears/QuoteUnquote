@@ -1,4 +1,12 @@
 /app/build/
+app/.classpath
+/app/googleplay/debug/
+/app/googleplay/release/
+/app/googleplay/release/app-googleplay-release.aab
+/app/google-services.json
+/app/keystore.jks
+/app/src/googleplay/google-services.json
+/app/src/google-services.json
 /build
 /captures
 .cxx
@@ -15,18 +23,11 @@
 .idea/QuoteUnquote.iml
 .idea/shelf/
 .idea/sonarlint/issuestore/
-.idea/sonarlint.xml
 .idea/sonarlint-state.xml
+.idea/sonarlint.xml
 .idea/vcs.xml
 .idea/workspace.xml
-.scannerwork
 local.properties
 /Quote, Unquote.vpp.*
 /.Quote, Unquote.vpp.lck
-/app/keystore.jks
-/app/googleplay/debug/
-/app/googleplay/release/app-googleplay-release.aab
-/app/src/googleplay/google-services.json
-/app/google-services.json
-/app/googleplay/release/
-app/.classpath
+.scannerwork
