@@ -65,8 +65,9 @@ public class IntentFactoryHelper {
         Intent intent = IntentFactoryHelper.createIntent(context, widgetId);
         intent.setAction(action);
 
-        // S: needs PendingIntent.FLAG_MUTABLE
-        int pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE;
+        // S: needs, and only S has, PendingIntent.FLAG_MUTABLE
+        // int pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE;
+        int pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT;
 
         return PendingIntent.getBroadcast(context, widgetId, intent, pendingIntentFlags);
     }

@@ -74,3 +74,15 @@
 . deploy app-googleplay-release.aab
 . tag the release
 . delete production and extract development google-services.json
+
+---
+
+## 8. Useful git commands - align submodules / tags
+
+* git submodule
+* git checkout --recurse-submodules 3c71c28cc0252be7eda87f42b337ca2b5c225b39
+
+* git checkout origin
+* git submodule update --recursive
+
+* git fetch --prune --prune-tags
