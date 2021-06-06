@@ -32,6 +32,8 @@
 
 ## 3. Build Instructions
 
+After cloning extract .gpg files = BuildConfig / GitHub Action Secrets values.
+
 ### 3.1. CLI
 
 ```text
@@ -57,8 +59,6 @@ VCS > Git > Branches...
 
 git submodule update --remote
 
-extract/overwrite local.properties from .gpg files for :app + modules = BuildConfig / GitHub Action Secrets values
-
 git remote add cloudLib https://github.com/jameshnsears/QuoteUnquote.cloudLib
 git remote add cloudLib.functions https://github.com/jameshnsears/QuoteUnquote.cloudLib.functions
 git remote add utilsLib https://github.com/jameshnsears/QuoteUnquote.utilsLib
@@ -82,8 +82,6 @@ File > Settings > Project:
 Virtualenv Terminal > 
  > python -m pip install -r requirements-test.txt
  > python -m pip install -r src/requirements.txt
-
-extract three .gpg files = BuildConfig / GitHub Action Secrets values
 
 run a Run/Debug Configuration 
  > setting Python Intepreter to Virtualenv Environment

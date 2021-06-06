@@ -47,8 +47,8 @@ android {
 
         applicationId "com.github.jameshnsears.quoteunquote"
 
-        versionCode 72
-        versionName "2.5.1"
+        versionCode 73
+        versionName "2.5.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments clearPackageData: 'true'

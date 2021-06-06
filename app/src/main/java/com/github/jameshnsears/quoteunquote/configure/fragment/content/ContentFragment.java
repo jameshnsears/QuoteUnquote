@@ -27,6 +27,7 @@ import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.cloud.CloudFavouritesHelper;
 import com.github.jameshnsears.quoteunquote.cloud.CloudServiceReceive;
 import com.github.jameshnsears.quoteunquote.cloud.CloudServiceSend;
+import com.github.jameshnsears.quoteunquote.configure.ConfigureActivity;
 import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
 import com.github.jameshnsears.quoteunquote.database.quotation.AuthorPOJO;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentContentBinding;
@@ -499,6 +500,8 @@ public class ContentFragment extends FragmentCommon {
         // invoke Storage Access Framework
         this.fragmentContentBinding.buttonExport.setOnClickListener(v -> {
             if (this.fragmentContentBinding.buttonExport.isEnabled()) {
+                ConfigureActivity.exportCalled = true;
+
                 Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 intent.setType("text/plain");
@@ -543,6 +546,8 @@ public class ContentFragment extends FragmentCommon {
                             Timber.e(e.getMessage());
                         }
                     }
+
+                    ConfigureActivity.exportCalled = false;
                 });
     }
 

@@ -25,7 +25,8 @@ public class ConfigureActivity extends AppCompatActivity {
     public int widgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
     @Nullable
     public ActivityConfigureBinding activityConfigureBinding;
-    private boolean finishedCalled = false;
+    private boolean finishCalled;
+    public static boolean exportCalled;
     public boolean broadcastFinishIntent = true;
     private final BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
             = item -> {
@@ -74,15 +75,15 @@ public class ConfigureActivity extends AppCompatActivity {
                 = new ConfigurePreferences(widgetId, getApplicationContext());
         configurePreferences.setActiveFragment("AppearanceFragment");
 
-        finishedCalled = true;
+        finishCalled = true;
 
         super.finish();
     }
 
     @Override
     public void onPause() {
-        // back pressed | swipe up
-        if (!finishedCalled) {
+        // back pressed | swipe up | export activity started
+        if (!finishCalled && !exportCalled) {
             finish();
         }
 

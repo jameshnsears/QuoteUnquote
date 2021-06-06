@@ -85,4 +85,6 @@
 * git checkout origin
 * git submodule update --recursive
 
+* cd into submodule; checkout main; cd ..; git commmit .
+
 * git fetch --prune --prune-tags
