@@ -71,6 +71,7 @@
 . update app/schemas/com.github.jameshnsears.quoteunquote.database.quotation.AbstractQuotationDatabase/xx.json to match AbstractQuotationDatabase.java
 . ensure fastlane images match app - i.e. database count
 . ensure <string-array name="preview_quotations"> strings.xml matches database count
+. examine merged manifest, especially for sdk version and permissions
 . deploy app-googleplay-release.aab
 . tag the release
 . delete production and extract development google-services.json

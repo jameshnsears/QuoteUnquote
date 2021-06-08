@@ -1,1 +1,0 @@
-&bull; Improve colour spinners look.

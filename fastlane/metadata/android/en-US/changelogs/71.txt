@@ -1,3 +1,0 @@
-&bull; Fix configuration back / swipe up inconsistency.
-&bull; Update quotes database - remove some similarities.
-&bull; Support for Android S - widget preview.

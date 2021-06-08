@@ -28,29 +28,31 @@ public class ConfigureActivity extends AppCompatActivity {
     private boolean finishCalled;
     public static boolean exportCalled;
     public boolean broadcastFinishIntent = true;
+    private Fragment fragmentContent;
+    private Fragment fragmentSchedule;
     private final BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
             = item -> {
         Fragment selectedFragment;
 
         switch (item.getItemId()) {
             case R.id.navigationBarQuotations:
-                selectedFragment = this.getFragmentContentNewInstance();
+                selectedFragment = fragmentContent;
+                fragmentSchedule = EventFragment.newInstance(this.widgetId);
                 break;
             case R.id.navigationBarSchedule:
-                selectedFragment = EventFragment.newInstance(this.widgetId);
+                selectedFragment = fragmentSchedule;
+                fragmentContent = this.getFragmentContentNewInstance();
                 break;
             default:
                 selectedFragment = AppearanceFragment.newInstance(this.widgetId);
+                fragmentContent = this.getFragmentContentNewInstance();
+                fragmentSchedule = EventFragment.newInstance(this.widgetId);
                 break;
         }
 
         String activeFragment = selectedFragment.getClass().getSimpleName();
 
         Timber.d("activeFragment=%s", activeFragment);
-
-        ConfigurePreferences configurePreferences
-                = new ConfigurePreferences(widgetId, getApplicationContext());
-        configurePreferences.setActiveFragment(activeFragment);
 
         this.getSupportFragmentManager()
                 .beginTransaction()
@@ -70,10 +72,6 @@ public class ConfigureActivity extends AppCompatActivity {
         }
 
         ToastHelper.toast = null;
-
-        ConfigurePreferences configurePreferences
-                = new ConfigurePreferences(widgetId, getApplicationContext());
-        configurePreferences.setActiveFragment("AppearanceFragment");
 
         finishCalled = true;
 
@@ -125,39 +123,7 @@ public class ConfigureActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = this.findViewById(R.id.configureNavigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(this.navigationItemSelectedListener);
 
-        setActiveFragment();
-    }
-
-    private void setActiveFragment() {
-        // when switching to dark mode, remember which fragment we're on
-        ConfigurePreferences configurePreferences
-                = new ConfigurePreferences(widgetId, getApplicationContext());
-
-        String activeFragment = configurePreferences.getActiveFragment();
-        Timber.d("activeFragment=%s", activeFragment);
-
-        BottomNavigationView bottomNavigationView = this.findViewById(R.id.configureNavigation);
-
-        Fragment fragment;
-        switch (activeFragment) {
-            case "ContentFragment":
-                fragment = getFragmentContentNewInstance();
-                bottomNavigationView.setSelectedItemId(R.id.navigationBarQuotations);
-                break;
-            case "EventFragment":
-                fragment = EventFragment.newInstance(this.widgetId);
-                bottomNavigationView.setSelectedItemId(R.id.navigationBarSchedule);
-                break;
-            default:
-                fragment = AppearanceFragment.newInstance(this.widgetId);
-                bottomNavigationView.setSelectedItemId(R.id.navigationBarAppearance);
-                break;
-        }
-
-        this.getSupportFragmentManager().beginTransaction().replace(
-                R.id.fragmentPlaceholderContent, fragment).commit();
-
-        this.activityConfigureBinding.scrollView.scrollTo(0, 0);
+        bottomNavigationView.setSelectedItemId(R.id.navigationBarAppearance);
     }
 
     @NonNull

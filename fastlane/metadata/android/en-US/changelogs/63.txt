@@ -1,4 +1,0 @@
-&bull; Support android S: embedded fonts.
-&bull; Improve multi widget instance favourite behaviour.
-&bull; Reduce width of selectable Quotations radios.
-&bull; Simplify favourites export enablement.
