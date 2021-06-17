@@ -14,7 +14,7 @@ class ExportTest : QuoteUnquoteModelUtility() {
 
         assertTrue(quoteUnquoteModelDouble.countFavourites().blockingGet() == 0)
 
-        databaseRepositoryDouble.markAsFavourite(DatabaseRepository.DEFAULT_QUOTATION_DIGEST)
+        databaseRepositoryDouble.markAsFavourite(DatabaseRepository.getDefaultQuotationDigest())
 
         // a digest that doesn't exist - i.e. quotation db migration deleted it
         databaseRepositoryDouble.markAsFavourite("xx")

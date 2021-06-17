@@ -20,7 +20,7 @@ class WidgetToolbarFavouriteTest : QuoteUnquoteModelUtility() {
         assertTrue(quoteUnquoteModelDouble.countFavourites().blockingGet() == 1)
 
         quoteUnquoteModelDouble.toggleFavourite(
-            WidgetIdHelper.WIDGET_ID_01, DatabaseRepository.DEFAULT_QUOTATION_DIGEST
+            WidgetIdHelper.WIDGET_ID_01, DatabaseRepository.getDefaultQuotationDigest()
         )
 
         assertTrue(quoteUnquoteModelDouble.countFavourites().blockingGet() == 0)

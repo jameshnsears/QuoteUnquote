@@ -33,8 +33,6 @@ import io.reactivex.Single;
 import timber.log.Timber;
 
 public class DatabaseRepository {
-    @NonNull
-    public static final String DEFAULT_QUOTATION_DIGEST = "1624c314";
     private static DatabaseRepository databaseRepository;
     @NonNull
     protected final SecureRandom secureRandom = new SecureRandom();
@@ -79,6 +77,14 @@ public class DatabaseRepository {
         }
 
         return DatabaseRepository.databaseRepository;
+    }
+
+    @NonNull
+    public static String getDefaultQuotationDigest() {
+        if (BuildConfig.FLAVOR.equals("emanuelkebede")) {
+            return "e8fa8bc3";
+        }
+        return "1624c314";
     }
 
     public Single<Integer> countAll() {

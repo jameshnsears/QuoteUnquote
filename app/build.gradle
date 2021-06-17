@@ -130,6 +130,10 @@ android {
             dimension 'Version'
             versionNameSuffix "-fdroid-S"
         }
+        'emanuelkebede' {
+            dimension 'Version'
+            versionNameSuffix "-emanuelkebede"
+        }
     }
 
     sourceSets {
@@ -151,6 +155,10 @@ android {
         googleplayS {
             assets.srcDirs = ['src/main/assets']
             java.srcDirs = ['src/main/java']
+        }
+        emanuelkebede {
+            assets.srcDirs = ['src/emanuelkebede/assets']
+            java.srcDirs = ['src/main/java', 'src/fdroid/java']
         }
     }
 

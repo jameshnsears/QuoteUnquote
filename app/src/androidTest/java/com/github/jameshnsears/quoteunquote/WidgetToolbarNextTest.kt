@@ -89,7 +89,7 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
 
         assertEquals(
-            DatabaseRepository.DEFAULT_QUOTATION_DIGEST,
+            DatabaseRepository.getDefaultQuotationDigest(),
             quoteUnquoteModelDouble.getCurrentQuotation(
                 WidgetIdHelper.WIDGET_ID_01
             )?.digest

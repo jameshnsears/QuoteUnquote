@@ -300,7 +300,7 @@ public class QuoteUnquoteModel {
     private void setDefaultAll(int widgetId) {
         if (this.countPrevious(widgetId, ContentSelection.ALL) == 0) {
             this.databaseRepository.markAsPrevious(
-                    widgetId, ContentSelection.ALL, DatabaseRepository.DEFAULT_QUOTATION_DIGEST);
+                    widgetId, ContentSelection.ALL, DatabaseRepository.getDefaultQuotationDigest());
         }
     }
 
