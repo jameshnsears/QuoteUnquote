@@ -17,7 +17,7 @@
                 android:drawablePadding="10dp"
                 android:gravity="center"
                 android:minHeight="?actionBarSize"
-                android:padding="@dimen/appbar_padding"
+                android:padding="10dp"
                 android:text="@string/app_name"
                 android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
 
@@ -220,7 +220,7 @@
                         android:paddingBottom="5dp"
                         android:text="@string/activity_instructions_os_warning"
                         android:textSize="14sp"
-                        app:drawableStartCompat="@drawable/ic_footer_warning_24dp" />
+                        app:drawableStartCompat="@drawable/ic_footer_warning_24" />
             </LinearLayout>
 
         </LinearLayout>

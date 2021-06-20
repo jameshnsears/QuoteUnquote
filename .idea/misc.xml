@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/drawable/animated_selector_navigation_bar_appearance.xml" value="0.20885416666666667" />
+        <entry key="app/src/main/res/drawable/animated_selector_navigation_bar_quotations.xml" value="0.20885416666666667" />
+        <entry key="app/src/main/res/drawable/animated_selector_navigation_bar_schedule.xml" value="0.171875" />
+        <entry key="app/src/main/res/drawable/animatorvectordrawable.xml" value="0.21770833333333334" />
+        <entry key="app/src/main/res/drawable/avd_anim_next_plan.xml" value="0.1953125" />
+        <entry key="app/src/main/res/drawable/avd_navigation_bar_schedule.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/corners_buttons.xml" value="0.21770833333333334" />
+        <entry key="app/src/main/res/drawable/ic_navigation_bar_appearance_24.xml" value="0.21770833333333334" />
+        <entry key="app/src/main/res/drawable/ic_navigation_bar_schedule24.xml" value="0.20885416666666667" />
+        <entry key="app/src/main/res/drawable/ic_navigation_bar_schedule_24.xml" value="0.1328125" />
+        <entry key="app/src/main/res/drawable/ic_navigation_bar_schedule_avd_24.xml" value="0.1328125" />
+        <entry key="app/src/main/res/drawable/next_plan_avd_anim.xml" value="0.1953125" />
+        <entry key="app/src/main/res/drawable/vectordrawable.xml" value="0.21770833333333334" />
+        <entry key="app/src/main/res/layout/activity_configure.xml" value="0.5653382761816497" />
+        <entry key="app/src/main/res/layout/anim_settings.xml" value="0.17916666666666667" />
+        <entry key="app/src/main/res/layout/listvew_row_4_sans_serif_medium_bold_italic.xml" value="0.17916666666666667" />
+        <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.14130434782608695" />
+      </map>
+    </option>
+  </component>
   <component name="NullableNotNullManager">
     <option name="myDefaultNullable" value="androidx.annotation.Nullable" />
     <option name="myDefaultNotNull" value="androidx.annotation.NonNull" />
@@ -26,7 +49,7 @@
     </option>
     <option name="myNotNulls">
       <value>
-        <list size="14">
+        <list size="15">
           <item index="0" class="java.lang.String" itemvalue="org.jetbrains.annotations.NotNull" />
           <item index="1" class="java.lang.String" itemvalue="javax.annotation.Nonnull" />
           <item index="2" class="java.lang.String" itemvalue="edu.umd.cs.findbugs.annotations.NonNull" />
@@ -41,6 +64,7 @@
           <item index="11" class="java.lang.String" itemvalue="org.eclipse.jdt.annotation.NonNull" />
           <item index="12" class="java.lang.String" itemvalue="io.reactivex.annotations.NonNull" />
           <item index="13" class="java.lang.String" itemvalue="io.reactivex.rxjava3.annotations.NonNull" />
+          <item index="14" class="java.lang.String" itemvalue="lombok.NonNull" />
         </list>
       </value>
     </option>

@@ -33,7 +33,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/white"
                 android:contentDescription="@string/fragment_appearance_instructions_first"
-                android:src="@drawable/ic_toolbar_first_ff000000_24dp"
+                android:src="@drawable/ic_toolbar_first_ff000000_24"
                 android:visibility="gone" />
 
         <ImageButton
@@ -52,7 +52,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/white"
                 android:contentDescription="@string/fragment_appearance_instructions_report"
-                android:src="@drawable/ic_toolbar_report_ff000000_24dp"
+                android:src="@drawable/ic_toolbar_report_ff000000_24"
                 android:visibility="gone" />
 
         <ImageButton
@@ -62,7 +62,7 @@
                 android:layout_weight="1"
                 android:background="#FFF8FD89"
                 android:contentDescription="@string/fragment_appearance_instructions_favourite"
-                android:src="@drawable/ic_toolbar_favorite_ff000000_24dp" />
+                android:src="@drawable/ic_toolbar_favorite_ff000000_24" />
 
         <ImageButton
                 android:id="@+id/imageButtonShare"
@@ -71,7 +71,7 @@
                 android:layout_weight="1"
                 android:background="#FFF8FD89"
                 android:contentDescription="@string/fragment_appearance_instructions_share"
-                android:src="@drawable/ic_toolbar_share_ff000000_24dp"
+                android:src="@drawable/ic_toolbar_share_ff000000_24"
                 android:visibility="gone" />
 
         <ImageButton
@@ -81,7 +81,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/white"
                 android:contentDescription="@string/fragment_appearance_instructions_next_sequential"
-                android:src="@drawable/ic_toolbar_next_sequential_ff000000_24dp"
+                android:src="@drawable/ic_toolbar_next_sequential_ff000000_24"
                 android:visibility="gone" />
 
         <ImageButton

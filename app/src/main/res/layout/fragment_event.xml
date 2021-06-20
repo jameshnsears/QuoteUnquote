@@ -35,7 +35,7 @@
             android:id="@+id/radioButtonNextSequential"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_toolbar_next_sequential_24dp"
+            android:drawableStart="@drawable/ic_toolbar_next_sequential_24"
             android:drawablePadding="5dp"
             android:paddingVertical="10dp"
             android:paddingStart="12dp"

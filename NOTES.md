@@ -89,3 +89,10 @@
 * cd into submodule; checkout main; cd ..; git commmit .
 
 * git fetch --prune --prune-tags
+
+---
+
+## 9. Animation
+
+* download .svg via https://fonts.google.com/icons?selected=Material+Icons&icon.query=draw
+* load into inkscape & produce end result, getting path's for https://shapeshifter.design/

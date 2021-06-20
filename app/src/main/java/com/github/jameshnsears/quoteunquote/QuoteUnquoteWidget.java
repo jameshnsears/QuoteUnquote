@@ -592,23 +592,23 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
 
         switch (appearancePreferences.getAppearanceToolbarColour()) {
             case "#FFFFFFFF":
-                remoteViews.setImageViewResource(R.id.imageButtonFirst, R.drawable.ic_toolbar_first_ffffffff_24dp);
+                remoteViews.setImageViewResource(R.id.imageButtonFirst, R.drawable.ic_toolbar_first_ffffffff_24);
                 remoteViews.setImageViewResource(R.id.imageButtonPrevious, R.drawable.ic_toolbar_previous_ffffffff_24);
-                remoteViews.setImageViewResource(R.id.imageButtonReport, R.drawable.ic_toolbar_report_ffffffff_24dp);
-                remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_toolbar_favorite_ffffffff_24dp);
-                remoteViews.setImageViewResource(R.id.imageButtonShare, R.drawable.ic_toolbar_share_ffffffff_24dp);
-                remoteViews.setImageViewResource(R.id.imageButtonNextSequential, R.drawable.ic_toolbar_next_sequential_ffffffff_24dp);
+                remoteViews.setImageViewResource(R.id.imageButtonReport, R.drawable.ic_toolbar_report_ffffffff_24);
+                remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_toolbar_favorite_ffffffff_24);
+                remoteViews.setImageViewResource(R.id.imageButtonShare, R.drawable.ic_toolbar_share_ffffffff_24);
+                remoteViews.setImageViewResource(R.id.imageButtonNextSequential, R.drawable.ic_toolbar_next_sequential_ffffffff_24);
                 remoteViews.setImageViewResource(R.id.imageButtonNextRandom, R.drawable.ic_toolbar_next_random_ffffffff_24);
                 break;
 
             default:
                 // case "#FF000000":
-                remoteViews.setImageViewResource(R.id.imageButtonFirst, R.drawable.ic_toolbar_first_ff000000_24dp);
+                remoteViews.setImageViewResource(R.id.imageButtonFirst, R.drawable.ic_toolbar_first_ff000000_24);
                 remoteViews.setImageViewResource(R.id.imageButtonPrevious, R.drawable.ic_toolbar_previous_ff000000_24);
-                remoteViews.setImageViewResource(R.id.imageButtonReport, R.drawable.ic_toolbar_report_ff000000_24dp);
-                remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_toolbar_favorite_ff000000_24dp);
-                remoteViews.setImageViewResource(R.id.imageButtonShare, R.drawable.ic_toolbar_share_ff000000_24dp);
-                remoteViews.setImageViewResource(R.id.imageButtonNextSequential, R.drawable.ic_toolbar_next_sequential_ff000000_24dp);
+                remoteViews.setImageViewResource(R.id.imageButtonReport, R.drawable.ic_toolbar_report_ff000000_24);
+                remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_toolbar_favorite_ff000000_24);
+                remoteViews.setImageViewResource(R.id.imageButtonShare, R.drawable.ic_toolbar_share_ff000000_24);
+                remoteViews.setImageViewResource(R.id.imageButtonNextSequential, R.drawable.ic_toolbar_next_sequential_ff000000_24);
                 remoteViews.setImageViewResource(R.id.imageButtonNextRandom, R.drawable.ic_toolbar_next_random_ff000000_24);
                 break;
         }
@@ -638,7 +638,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
                 widgetId);
 
         if (quotationEntity != null && this.getQuoteUnquoteModel(context).isFavourite(quotationEntity.digest)) {
-            remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_toolbar_favorite_red_24dp);
+            remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_toolbar_favorite_red_24);
         }
     }
 

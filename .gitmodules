@@ -7,3 +7,6 @@
 [submodule "QuoteUnquote.cloudLib.functions"]
 	path = QuoteUnquote.cloudLib.functions
 	url = https://github.com/jameshnsears/QuoteUnquote.cloudLib.functions
+[submodule "ShapeShifter"]
+	path = ShapeShifter
+	url = https://github.com/alexjlockwood/ShapeShifter
