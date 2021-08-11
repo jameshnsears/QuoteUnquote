@@ -1,2 +1,0 @@
-&bull; Improved dark theme support.
-&bull; Updated quotes database: improved quality/removed some quotes.

@@ -17,6 +17,11 @@ jobs:
           fetch-depth: 0
           submodules: true
 
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
       - name: gradle cache
         uses: actions/cache@v2
         with:
@@ -53,6 +58,11 @@ jobs:
         with:
           fetch-depth: 0
           submodules: true
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
 
       - name: gradle cache
         uses: actions/cache@v2
@@ -92,6 +102,11 @@ jobs:
           fetch-depth: 0
           submodules: true
 
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
       - name: Lint Code Base
         uses: github/super-linter@v3
         env:
@@ -109,6 +124,11 @@ jobs:
         with:
           fetch-depth: 0
           submodules: true
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
 
       - name: gradle cache
         uses: actions/cache@v2
@@ -147,6 +167,11 @@ jobs:
         with:
           fetch-depth: 0
           submodules: true
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
 
       - name: gradle cache
         uses: actions/cache@v2
@@ -191,6 +216,11 @@ jobs:
           fetch-depth: 0
           submodules: true
 
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
       - name: gradle cache
         uses: actions/cache@v2
         with:
@@ -228,6 +258,11 @@ jobs:
         with:
           fetch-depth: 0
           submodules: true
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
 
       - name: gradle cache
         uses: actions/cache@v2
@@ -285,6 +320,11 @@ jobs:
         with:
           fetch-depth: 0
           submodules: true
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
 
       - name: gradle cache
         uses: actions/cache@v2

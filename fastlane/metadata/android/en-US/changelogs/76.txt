@@ -1,0 +1,2 @@
+&bull; Fix: quotations - uniform apostrophe.
+&bull; Update to Android Studio Arctic Fox | 2020.3.1
