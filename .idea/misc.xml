@@ -18,6 +18,9 @@
         <entry key="app/src/main/res/drawable/vectordrawable.xml" value="0.21770833333333334" />
         <entry key="app/src/main/res/layout/activity_configure.xml" value="0.5653382761816497" />
         <entry key="app/src/main/res/layout/anim_settings.xml" value="0.17916666666666667" />
+        <entry key="app/src/main/res/layout/fragment_appearance_tab_style.xml" value="0.1921875" />
+        <entry key="app/src/main/res/layout/fragment_appearance_tab_toolbar.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_content.xml" value="0.1958762886597938" />
         <entry key="app/src/main/res/layout/listvew_row_4_sans_serif_medium_bold_italic.xml" value="0.17916666666666667" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.14130434782608695" />
       </map>

@@ -94,6 +94,7 @@
     </string-array>
     <string name="fragment_content_title">Quotations</string>
     <string name="fragment_content_all">All: %d</string>
+    <string name="fragment_content_add_to_previous_count">Add displayed Author / Search to Previous</string>
     <string name="fragment_content_favourites">Favourite: %d</string>
     <string name="fragment_content_favourites_export_instructions">to storage</string>
     <string name="fragment_content_favourites_export_button">Export</string>
@@ -113,7 +114,7 @@
     <string name="fragment_content_author">Author: %d</string>
 
     <string name="fragment_content_text">Search: %d</string>
-    <string name="fragment_content_text_instructions">Case-insensitive - quotation / author</string>
+    <string name="fragment_content_text_instructions">Quotation / Author</string>
     <string name="fragment_content_text_no_search_results">No results found for search</string>
 
     <string name="fragment_event_title">Schedule</string>

@@ -19,6 +19,7 @@ public class ContentPreferences extends PreferencesFacade {
     private static final String CONTENT_SEARCH = "CONTENT_SEARCH";
     private static final String CONTENT_SEARCH_COUNT = "CONTENT_SEARCH_COUNT";
     private static final String CONTENT_SEARCH_TEXT = "CONTENT_SEARCH_TEXT";
+    private static final String CONTENT_ADD_TO_PREVIOUS_ALL = "CONTENT_ADD_TO_PREVIOUS_ALL";
 
     public ContentPreferences(@NonNull Context applicationContext) {
         super(0, applicationContext);
@@ -35,6 +36,15 @@ public class ContentPreferences extends PreferencesFacade {
 
     public void setContentSelectionAuthor(@NonNull String value) {
         this.preferenceHelper.setPreference(this.getPreferenceKey(ContentPreferences.CONTENT_AUTHOR_NAME), value);
+    }
+
+    @NonNull
+    public boolean getContentAddToPreviousAll() {
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(ContentPreferences.CONTENT_ADD_TO_PREVIOUS_ALL), false);
+    }
+
+    public void setContentAddToPreviousAll(@NonNull boolean value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(ContentPreferences.CONTENT_ADD_TO_PREVIOUS_ALL), value);
     }
 
     @NonNull

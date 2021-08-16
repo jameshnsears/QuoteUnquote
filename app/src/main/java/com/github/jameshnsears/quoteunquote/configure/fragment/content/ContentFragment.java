@@ -225,10 +225,12 @@ public class ContentFragment extends FragmentCommon {
 
         this.setFavouriteCount();
         this.setAllCount();
+        this.setAddToPreviousAll();
         this.setAuthor();
         this.setSearch();
 
         this.createListenerRadioGroup();
+        this.createListenerAddToPreviousAll();
         this.createListenerAuthor();
         this.createListenerFavouriteButtonExport();
         this.createListenerFavouriteButtonSend();
@@ -256,6 +258,10 @@ public class ContentFragment extends FragmentCommon {
         this.fragmentContentBinding.radioButtonSearch.setText(
                 this.getResources().getString(R.string.fragment_content_text,
                         0));
+    }
+
+    protected void setAddToPreviousAll() {
+        this.fragmentContentBinding.switchAddToPreviousAll.setChecked(this.contentPreferences.getContentAddToPreviousAll());
     }
 
     public void setAllCount() {
@@ -494,6 +500,12 @@ public class ContentFragment extends FragmentCommon {
                 // do nothing
             }
         });
+    }
+
+    protected void createListenerAddToPreviousAll() {
+        this.fragmentContentBinding.switchAddToPreviousAll.setOnCheckedChangeListener((buttonView, isChecked) ->
+                this.contentPreferences.setContentAddToPreviousAll(isChecked)
+        );
     }
 
     protected void createListenerFavouriteButtonExport() {

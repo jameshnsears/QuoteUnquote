@@ -59,14 +59,14 @@ public class QuoteUnquoteModel {
     }
 
     @Nullable
-    public QuotationEntity getPreviouDigests(
+    public QuotationEntity getPreviousDigests(
             int widgetId,
             @NonNull ContentSelection contentSelection,
             @NonNull String digest) {
 
         Future<QuotationEntity> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
 
-            final List<String> previousDigests = this.getPreviouDigests(widgetId, contentSelection);
+            final List<String> previousDigests = this.getPreviousDigests(widgetId, contentSelection);
 
             int priorDigestIndex = previousDigests.indexOf(digest) + 1;
             if (priorDigestIndex == previousDigests.size()) {
@@ -147,7 +147,7 @@ public class QuoteUnquoteModel {
         Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
             QuotationEntity nextQuotation = this.getNextQuotation(widgetId, randomNext);
 
-            final List<String> previous = this.getPreviouDigests(widgetId, contentPreferences.getContentSelection());
+            final List<String> previous = this.getPreviousDigests(widgetId, contentPreferences.getContentSelection());
 
             if (!previous.contains(nextQuotation.digest)) {
                 this.databaseRepository.markAsPrevious(
@@ -160,6 +160,8 @@ public class QuoteUnquoteModel {
                 }
             }
 
+            this.addToPreviousAll(widgetId, nextQuotation);
+
             this.databaseRepository.markAsCurrent(
                     widgetId,
                     nextQuotation.digest);
@@ -170,6 +172,17 @@ public class QuoteUnquoteModel {
         } catch (@NonNull final ExecutionException | InterruptedException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
+        }
+    }
+
+    private void addToPreviousAll(int widgetId, @NonNull QuotationEntity quotationEntity) {
+        if (this.getContentPreferences(widgetId).getContentAddToPreviousAll()) {
+            if (!this.getPreviousDigests(widgetId, ContentSelection.ALL).contains(quotationEntity.digest)) {
+                this.databaseRepository.markAsPrevious(
+                        widgetId,
+                        ContentSelection.ALL,
+                        quotationEntity.digest);
+            }
         }
     }
 
@@ -223,6 +236,8 @@ public class QuoteUnquoteModel {
             final QuotationEntity quotationEntity
                     = this.databaseRepository.getNextQuotation(widgetId, contentSelection);
 
+            this.addToPreviousAll(widgetId, quotationEntity);
+
             this.databaseRepository.markAsCurrent(
                     widgetId,
                     quotationEntity.digest);
@@ -257,7 +272,7 @@ public class QuoteUnquoteModel {
         }
     }
 
-    public List<String> getPreviouDigests(
+    public List<String> getPreviousDigests(
             int widgetId,
             @NonNull ContentSelection contentSelection) {
         Future<List<String>> future = QuoteUnquoteWidget.getExecutorService().submit(() ->
@@ -452,7 +467,7 @@ public class QuoteUnquoteModel {
     public void markAsCurrentPrevious(
             int widgetId) {
         Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
-            final QuotationEntity previousQuotation = this.getPreviouDigests(
+            final QuotationEntity previousQuotation = this.getPreviousDigests(
                     widgetId,
                     this.getContentPreferences(widgetId).getContentSelection(),
                     this.getCurrentQuotation(widgetId).digest);

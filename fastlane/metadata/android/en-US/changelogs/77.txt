@@ -1,0 +1,3 @@
+&bull; Fix: consistent Shakespeare case.
+&bull; Add displayed Author / Search to Previous.
+&bull; Debian 11 support for .xcf assets.

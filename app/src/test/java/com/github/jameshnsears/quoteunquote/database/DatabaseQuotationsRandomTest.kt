@@ -16,7 +16,7 @@ import timber.log.Timber
 class DatabaseQuotationsRandomTest : ShadowLoggingHelper() {
     @Test
     fun getRandomIndex() {
-        if (Timber.treeCount() == 0) {
+        if (Timber.treeCount == 0) {
             Timber.plant(MethodLineLoggingTree())
         }
 
