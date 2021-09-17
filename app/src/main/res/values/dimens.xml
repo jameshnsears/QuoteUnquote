@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="appbar_padding">10dp</dimen>
-    <dimen name="dialog_padding">10dp</dimen>
-</resources>

@@ -1,13 +1,12 @@
 <b>Description</b>
 &bull; Discover carefully chosen high quality quotations from a diverse range of authors:
 &bull; <i>/r/quotes/top</i> to <i>Shakespeare</i> to <i>Zsa Zsa Gabor</i>
-&bull; ...and many, many more!
 &bull; Increase your self-esteem with some of the best quotations available.
 
 <b>Key features</b>
 &bull; Twenty thousand reviewed, unique, high quality quotations.
 &bull; Easy to use, configurable, navigation.
-&bull; Favourites - share; export; sync across devices.
+&bull; Favorites - share; export; sync across devices.
 &bull; Search text - quotation / author.
 &bull; Notifications.
 &bull; Dark theme support.
@@ -17,5 +16,4 @@
 &bull; No analytics.
 &bull; No unusual permissions.
 &bull; All quotations are in English.
-&bull; Stable; supported <a href="https://github.com/jameshnsears/quoteunquote">Open Source</a> software.
-&bull; Production of bespoke .apk, featuring user supplied content, possible upon request.
+&bull; Supported <a href="https://github.com/jameshnsears/quoteunquote">Open Source</a> software.

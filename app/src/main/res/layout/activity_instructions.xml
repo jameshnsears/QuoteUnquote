@@ -16,10 +16,8 @@
                 android:drawableStart="@drawable/ic_action_bar_icon"
                 android:drawablePadding="10dp"
                 android:gravity="center"
-                android:minHeight="?actionBarSize"
                 android:padding="10dp"
-                android:text="@string/app_name"
-                android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
+                android:text="@string/app_name" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -126,6 +124,16 @@
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
                     android:text="@string/activity_instructions_4"
+                    android:textSize="14sp" />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="0dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="@string/activity_instructions_5"
                     android:textSize="14sp" />
 
             <TextView

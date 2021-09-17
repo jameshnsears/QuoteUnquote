@@ -24,8 +24,7 @@
             android:drawablePadding="5dp"
             android:gravity="center"
             android:padding="10dp"
-            android:text="@string/activity_report_title"
-            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
+            android:text="@string/activity_report_title"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

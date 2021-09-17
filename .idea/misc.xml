@@ -16,7 +16,9 @@
         <entry key="app/src/main/res/drawable/ic_navigation_bar_schedule_avd_24.xml" value="0.1328125" />
         <entry key="app/src/main/res/drawable/next_plan_avd_anim.xml" value="0.1953125" />
         <entry key="app/src/main/res/drawable/vectordrawable.xml" value="0.21770833333333334" />
-        <entry key="app/src/main/res/layout/activity_configure.xml" value="0.5653382761816497" />
+        <entry key="app/src/main/res/layout/activity_configure.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_instructions.xml" value="0.4119047619047619" />
+        <entry key="app/src/main/res/layout/activity_report.xml" value="0.33" />
         <entry key="app/src/main/res/layout/anim_settings.xml" value="0.17916666666666667" />
         <entry key="app/src/main/res/layout/fragment_appearance_tab_style.xml" value="0.1921875" />
         <entry key="app/src/main/res/layout/fragment_appearance_tab_toolbar.xml" value="0.5" />

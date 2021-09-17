@@ -17,10 +17,8 @@
             android:drawableStart="@drawable/ic_action_bar_icon"
             android:drawablePadding="10dp"
             android:gravity="center"
-            android:minHeight="?actionBarSize"
             android:padding="10dp"
-            android:text="@string/app_name"
-            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
+            android:text="@string/app_name"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
