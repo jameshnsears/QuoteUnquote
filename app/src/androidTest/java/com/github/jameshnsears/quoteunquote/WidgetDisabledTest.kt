@@ -6,6 +6,7 @@ import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import io.mockk.every
 import io.mockk.spyk
 import junit.framework.TestCase.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -27,7 +28,8 @@ open class WidgetDisabledTest : QuoteUnquoteModelUtility() {
 
     private fun assertSharedPreferences(contentPreferences: ContentPreferences) {
         assertEquals(0, PreferencesFacade.countPreferences(context, WidgetIdHelper.WIDGET_ID_01))
-        assertTrue(contentPreferences.contentFavouritesLocalCode.isEmpty())
+        // key exist's we jave haven't defined a value
+        assertFalse(contentPreferences.contentFavouritesLocalCode.isEmpty())
     }
 
     private fun setupDatabase() {

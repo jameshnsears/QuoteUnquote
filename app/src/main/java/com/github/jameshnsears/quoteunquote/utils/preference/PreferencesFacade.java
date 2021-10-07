@@ -43,6 +43,4 @@ public class PreferencesFacade {
     public String getFavouritesLocalCode() {
         return "0:CONTENT_FAVOURITES_LOCAL_CODE";
     }
-
-
 }

@@ -1,5 +1,7 @@
 package com.github.jameshnsears.quoteunquote;
 
+import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_ENABLED;
+
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -97,7 +99,10 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
     @Override
     public void onEnabled(@NonNull Context context) {
         ContentPreferences contentPreferences = new ContentPreferences(context);
-        contentPreferences.setContentFavouritesLocalCode(CloudFavouritesHelper.getLocalCode());
+        if (contentPreferences.getContentFavouritesLocalCode().equals("")) {
+            Timber.d("setting LocalCode");
+            contentPreferences.setContentFavouritesLocalCode(CloudFavouritesHelper.getLocalCode());
+        }
         this.startDatabaseConnectivity(context);
     }
 
@@ -245,14 +250,27 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
                     this.onReceiveToolbarPressedNextSequential(context, widgetId, appWidgetManager);
                     break;
 
+                case ACTION_APPWIDGET_ENABLED:
+                    onReceiveActionAppwidgetEnabled(context, appWidgetManager);
+                    break;
+
                 default:
                     break;
             }
         } finally {
-            if (!intent.getAction().equals(AppWidgetManager.ACTION_APPWIDGET_DISABLED)
-                    || !intent.getAction().equals(AppWidgetManager.ACTION_APPWIDGET_ENABLED)) {
+            if (!intent.getAction().equals(AppWidgetManager.ACTION_APPWIDGET_DISABLED)) {
                 this.onUpdate(context, appWidgetManager, new int[]{widgetId});
             }
+        }
+    }
+
+    private void onReceiveActionAppwidgetEnabled(@NonNull Context context, AppWidgetManager appWidgetManager) {
+        EventDailyAlarm eventDailyAlarm;
+        final int[] widgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, QuoteUnquoteWidget.class));
+        for (int widgetId : widgetIds) {
+            Timber.d("setDailyAlarm: %d", widgetId);
+            eventDailyAlarm = new EventDailyAlarm(context, widgetId);
+            eventDailyAlarm.setDailyAlarm();
         }
     }
 
@@ -453,6 +471,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull Context context,
             int widgetId,
             @NonNull EventDailyAlarm eventDailyAlarm) {
+        Timber.d("%d", widgetId);
         this.getQuoteUnquoteModel(context).markAsCurrentDefault(widgetId);
         eventDailyAlarm.setDailyAlarm();
     }
@@ -667,7 +686,11 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
 
         try {
             this.getQuoteUnquoteModel(context).disable();
+            ContentPreferences contentPreferences = new ContentPreferences(context);
+            String localCode = contentPreferences.getContentFavouritesLocalCode();
             PreferencesFacade.disable(context);
+            Timber.d("setting LocalCode");
+            contentPreferences.setContentFavouritesLocalCode(localCode);
 
             if (CloudServiceSend.isRunning) {
                 context.stopService(new Intent(context, CloudServiceSend.class));

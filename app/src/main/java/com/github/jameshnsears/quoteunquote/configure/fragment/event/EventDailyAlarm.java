@@ -29,7 +29,6 @@ public final class EventDailyAlarm {
 
     public void setDailyAlarm() {
         if (this.eventPreferences.getEventDaily()) {
-
             Timber.d("%d", this.widgetId);
 
             Calendar calendar = Calendar.getInstance();
