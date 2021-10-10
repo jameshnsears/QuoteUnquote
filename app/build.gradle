@@ -47,8 +47,8 @@ android {
 
         applicationId "com.github.jameshnsears.quoteunquote"
 
-        versionCode 79
-        versionName "2.6.4"
+        versionCode 80
+        versionName "2.6.5"
 
         vectorDrawables.useSupportLibrary = true
 

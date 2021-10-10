@@ -84,6 +84,14 @@
                 android:orientation="vertical"
                 android:paddingBottom="5dp">
 
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="0dp"
+                    android:text="@string/fragment_content_author_count"/>
+
             <Spinner
                     android:id="@+id/spinnerAuthors"
                     android:layout_width="match_parent"

@@ -12,6 +12,12 @@
     <style name="Theme.QuoteUnquote.AppBarOverlay" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">20sp</item>
+        <item name="colorPrimary">@color/indigo_500</item>
+        <item name="colorPrimaryVariant">@color/indigo_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorSecondary">@color/indigo_500</item>
+        <item name="colorSecondaryVariant">@color/indigo_700</item>
+        <item name="colorOnSecondary">@color/black</item>
     </style>
 
     <style name="Theme.QuoteUnquote.ActivityReport" parent="Theme.MaterialComponents.DayNight.Dialog">
