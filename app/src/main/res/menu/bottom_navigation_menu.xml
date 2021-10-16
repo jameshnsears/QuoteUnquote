@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+            android:id="@+id/navigationBarQuotations"
+            android:icon="@drawable/animated_selector_navigation_bar_quotations"
+            android:title="@string/configure_navigation_bar_quotations" />
+    <item
         android:id="@+id/navigationBarAppearance"
         android:icon="@drawable/animated_selector_navigation_bar_appearance"
         android:title="@string/configure_navigation_bar_appearance" />
-    <item
-        android:id="@+id/navigationBarQuotations"
-        android:icon="@drawable/animated_selector_navigation_bar_quotations"
-        android:title="@string/configure_navigation_bar_quotations" />
     <item
         android:id="@+id/navigationBarSchedule"
         android:icon="@drawable/animated_selector_navigation_bar_schedule"

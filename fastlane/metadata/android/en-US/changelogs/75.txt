@@ -1,4 +1,0 @@
-&bull; Navigation animation.
-&bull; De-duplication SequenceMatcher ratio at 70%.
-&bull; f-droid: https://gitlab.com/fdroid/fdroidserver/-/issues/490
-&bull; Fix: Error inflating class TextView

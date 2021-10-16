@@ -24,8 +24,7 @@ project.afterEvaluate {
                     '**/BuildConfig.*',
                     '**/*_Impl*.*',
                     '**/*Double.*',
-                    '**/*Binding.*',
-                    '**/*Test.*'
+                    '**/*Binding.*'
             ]
 
             def classKotlin = fileTree(dir: "$project.buildDir/tmp/kotlin-classes/${sourceName}UnitTest", excludes: excludes)
@@ -35,8 +34,8 @@ project.afterEvaluate {
             def javaSrc = "$project.projectDir/src/main/java"
             def flavourSrc = "$project.projectDir/src/$productFlavorName/java"
 
-            task "test${sourceName.capitalize()}CoverageCombined"(type: JacocoReport, dependsOn: ["$testTaskName", "connected${sourceName.capitalize()}AndroidTest"]) {
-                group = "QuoteUnquote"
+            task "test${sourceName.capitalize()}CombinedCoverage"(type: JacocoReport, dependsOn: ["$testTaskName", "connected${sourceName.capitalize()}AndroidTest"]) {
+                group = "coverage"
                 description = "Generate Jacoco /test + combined (if avail.) /andoidTest coverage report from ${sourceName.capitalize()}"
 
                 classDirectories.setFrom(files([classKotlin, classJava]))
@@ -44,7 +43,7 @@ project.afterEvaluate {
                 sourceDirectories.setFrom(files([javaSrc, kotlinSrc, flavourSrc]))
 
                 executionData.from = fileTree(dir: "${project.buildDir}", includes: [
-                        "jacoco/${testTaskName}.exec",
+                        "outputs/unit_test_code_coverage/${sourceName}UnitTest/${testTaskName}.exec",
                         "outputs/code_coverage/$productFlavorName${buildTypeName.capitalize()}AndroidTest/connected/**/*.ec"
                 ])
 
@@ -57,15 +56,17 @@ project.afterEvaluate {
             }
 
             task "test${sourceName.capitalize()}Coverage"(type: JacocoReport, dependsOn: ["$testTaskName"]) {
-                group = "QuoteUnquote"
+                group = "coverage"
                 description = "Generate Jacoco /test coverage report from ${sourceName.capitalize()}"
 
                 classDirectories.setFrom(files([classKotlin, classJava]))
 
                 sourceDirectories.setFrom(files([javaSrc, kotlinSrc, flavourSrc]))
 
+                println "$sourceName"
+
                 executionData.from = fileTree(dir: "${project.buildDir}", includes: [
-                        "jacoco/${testTaskName}.exec"
+                        "outputs/unit_test_code_coverage/${sourceName}UnitTest/${testTaskName}.exec"
                 ])
 
                 reports {

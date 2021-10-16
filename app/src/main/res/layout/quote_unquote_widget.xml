@@ -48,7 +48,8 @@
             android:layout_weight="1"
             android:background="@android:color/white"
             android:contentDescription="@string/fragment_appearance_instructions_report"
-            android:src="@drawable/ic_toolbar_report_ff000000_24" />
+            android:src="@drawable/ic_toolbar_report_ff000000_24"
+            android:visibility="gone" />
 
         <ImageButton
             android:id="@+id/imageButtonFavourite"

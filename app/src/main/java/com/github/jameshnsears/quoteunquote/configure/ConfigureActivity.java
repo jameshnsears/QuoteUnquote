@@ -28,25 +28,21 @@ public class ConfigureActivity extends AppCompatActivity {
     private boolean finishCalled;
     public static boolean exportCalled;
     public boolean broadcastFinishIntent = true;
-    private Fragment fragmentContent;
-    private Fragment fragmentSchedule;
     private final BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
             = item -> {
-        Fragment selectedFragment;
+        Fragment selectedFragment = this.getFragmentContentNewInstance();
 
         switch (item.getItemId()) {
             case R.id.navigationBarQuotations:
-                selectedFragment = fragmentContent;
-                fragmentSchedule = EventFragment.newInstance(this.widgetId);
+                selectedFragment = this.getFragmentContentNewInstance();
                 break;
-            case R.id.navigationBarSchedule:
-                selectedFragment = fragmentSchedule;
-                fragmentContent = this.getFragmentContentNewInstance();
-                break;
-            default:
+
+            case R.id.navigationBarAppearance:
                 selectedFragment = AppearanceFragment.newInstance(this.widgetId);
-                fragmentContent = this.getFragmentContentNewInstance();
-                fragmentSchedule = EventFragment.newInstance(this.widgetId);
+                break;
+
+            case R.id.navigationBarSchedule:
+                selectedFragment = EventFragment.newInstance(this.widgetId);
                 break;
         }
 
@@ -123,7 +119,7 @@ public class ConfigureActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = this.findViewById(R.id.configureNavigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(this.navigationItemSelectedListener);
 
-        bottomNavigationView.setSelectedItemId(R.id.navigationBarAppearance);
+        bottomNavigationView.setSelectedItemId(R.id.navigationBarQuotations);
     }
 
     @NonNull
