@@ -1,4 +1,0 @@
-- Update instructions re: using "Back" button on settings, not "Home" button.
-- Quotations DB update, improved quality: removed several quotes.
-- Fix: remove AppCompat theme usage: Error inflating class TextView.
-- Fix: F-Droid app bullet support / fastlane tidy-up.

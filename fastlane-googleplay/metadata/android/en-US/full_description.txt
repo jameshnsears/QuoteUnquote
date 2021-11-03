@@ -6,7 +6,7 @@
 <b>Key features</b>
 &bull; Twenty thousand reviewed, unique, high quality quotations.
 &bull; Easy to use, configurable, navigation.
-&bull; Favorites - share; export; sync across devices.
+&bull; Favourites - share; export; sync across devices.
 &bull; Search text - quotation / author.
 &bull; Notifications.
 &bull; Dark theme support.

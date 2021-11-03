@@ -44,6 +44,9 @@ public class ConfigureActivity extends AppCompatActivity {
             case R.id.navigationBarSchedule:
                 selectedFragment = EventFragment.newInstance(this.widgetId);
                 break;
+
+            default:
+                Timber.e("%d", item.getItemId());
         }
 
         String activeFragment = selectedFragment.getClass().getSimpleName();
