@@ -1,3 +1,0 @@
-- Remove dependency on apache-commons
-- Fix: make local code "sticky"
-- Fix: alarm to survive reboot

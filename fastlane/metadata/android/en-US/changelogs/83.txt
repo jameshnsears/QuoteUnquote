@@ -1,0 +1,5 @@
+- Create Android 12 branch / release (Google Play Store).
+- Remove some low quality quotations.
+- Fix F-Droid images.
+- Improve versioning for Amazon Appstore.
+- Bump dependency versions.

@@ -1,6 +1,6 @@
 <b>Description</b>
 &bull; Discover carefully chosen high quality quotations from a diverse range of authors:
-&bull; <i>/r/quotes/top</i> to <i>Shakespeare</i> to <i>Zsa Zsa Gabor</i>
+&bull; /r/quotes/top to Shakespeare to Zsa Zsa Gabor
 &bull; Increase your self-esteem with some of the best quotations available.
 
 <b>Key features</b>
@@ -15,6 +15,6 @@
 &bull; Free &amp; without Ads.
 &bull; Works offline.
 &bull; Anonymous analytics.
-&bull; No unusual permissions.
+&bull; Minimal permissions.
 &bull; All quotations are in English.
 &bull; Supported <a href="https://github.com/jameshnsears/quoteunquote">Open Source</a> software.

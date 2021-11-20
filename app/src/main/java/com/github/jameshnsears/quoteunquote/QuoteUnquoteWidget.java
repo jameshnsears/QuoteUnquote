@@ -122,7 +122,6 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
                     R.id.listViewQuotation,
                     IntentFactoryHelper.createIntent(context, ListViewService.class, widgetId));
 
-            // S: needs PendingIntent.FLAG_IMMUTABLE
             int pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE;
 
             remoteViews.setPendingIntentTemplate(

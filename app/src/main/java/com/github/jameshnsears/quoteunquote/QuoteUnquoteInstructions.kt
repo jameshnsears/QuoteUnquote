@@ -15,9 +15,12 @@ class QuoteUnquoteInstructions : AppCompatActivity() {
         val view = activityInstructionsBinding.root
         setContentView(view)
 
+        // better support for Amazon Appstore
+        val buildconfigVersion = BuildConfig.VERSION_NAME.replace("-googleplay", "")
+
         this.activityInstructionsBinding.textViewVersion.text = this.resources.getString(
             R.string.activity_instructions_version,
-            BuildConfig.VERSION_NAME, BuildConfig.GIT_HASH
+            buildconfigVersion, BuildConfig.GIT_HASH
         )
 
         val layoutFooter: LinearLayout = this.activityInstructionsBinding.layoutFooter

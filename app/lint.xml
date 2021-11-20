@@ -3,9 +3,9 @@
     <issue id="InvalidPackage">
         <ignore path="**/bcprov-jdk15on-1.68.jar" />
         <ignore path="**/mockito-core*.jar" />
-        <ignore path="**/resources-4.6.1.jar" />
-        <ignore path="**/shadows-framework-4.6.1.jar" />
-        <ignore path="**/utils-4.6.1.jar" />
+        <ignore path="**/resources-4.7.2.jar" />
+        <ignore path="**/shadows-framework-4.7.2.jar" />
+        <ignore path="**/utils-4.7.2.jar" />
         <ignore path="**/byte-buddy-agent-1.10.19.jar" />
         <ignore path="**/org.jacoco.agent-0.8.3-runtime.jar" />
     </issue>

@@ -151,10 +151,4 @@
     <string name="notification_channel_id">quote_unquote_channel_01</string>
     <string name="notification_channel_name">Quotations</string>
     <string name="notification_channel_description">Quotation Notifications</string>
-
-    <string name="preview_description">A simple App Widget featuring quality quotes.</string>
-    <string-array name="preview_quotations">
-        <item>Nothing matters very much and very few things matter at all.</item>
-        <item>Arthur Balfour @ 1/20861</item>
-    </string-array>
 </resources>
