@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -26,7 +27,7 @@
                 android:paddingEnd="10dp"
                 android:text="@string/fragment_content_title"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
     </LinearLayout>
@@ -59,14 +60,6 @@
                 android:text="@string/fragment_content_add_to_previous_count"
                 android:textSize="14sp" />
 
-        <View
-                android:id="@+id/dividerAll"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="5dp"
-                android:background="?android:attr/listDivider" />
-
         <RadioButton
                 android:id="@+id/radioButtonAuthor"
                 android:layout_width="200dp"
@@ -96,17 +89,11 @@
                     android:id="@+id/spinnerAuthors"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="10dp" />
+                    android:minHeight="48dp"
+                    android:paddingVertical="10dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
         </LinearLayout>
-
-        <View
-                android:id="@+id/dividerAuthor"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="5dp"
-                android:background="?android:attr/listDivider" />
 
         <RadioButton
                 android:id="@+id/radioButtonFavourites"
@@ -138,7 +125,7 @@
                 <Button
                         android:id="@+id/buttonExport"
                         android:layout_width="110dp"
-                        android:layout_height="40dp"
+                        android:layout_height="48dp"
                         android:background="@drawable/corners_buttons"
                         android:text="@string/fragment_content_favourites_export_button"
                         android:textColor="@android:color/white"
@@ -182,12 +169,14 @@
                         android:importantForAutofill="no"
                         android:inputType="textPersonName"
                         android:maxLength="10"
-                        android:textSize="14sp" />
+                        android:minHeight="48dp"
+                        android:textSize="14sp"
+                        tools:ignore="TextContrastCheck" />
 
                 <Button
                         android:id="@+id/buttonReceive"
                         android:layout_width="110dp"
-                        android:layout_height="40dp"
+                        android:layout_height="48dp"
                         android:background="@drawable/corners_buttons"
                         android:text="@string/fragment_content_favourites_share_remote_receive"
                         android:textColor="@android:color/white"
@@ -202,15 +191,17 @@
                     android:paddingStart="20dp"
                     android:paddingTop="10dp"
                     android:paddingEnd="0dp"
+                    android:gravity="center_vertical"
                     android:paddingBottom="15dp">
 
                 <TextView
                         android:id="@+id/textViewLocalCodeValue"
                         android:layout_width="160dp"
                         android:layout_height="wrap_content"
+                        android:minHeight="48dp"
                         android:paddingVertical="10dp"
                         android:paddingStart="5dp"
-                        android:paddingEnd="40dp"
+                        android:paddingEnd="48dp"
                         android:text="@string/fragment_content_favourites_share_local_code_value"
                         android:textIsSelectable="true"
                         android:textSize="14sp" />
@@ -218,7 +209,7 @@
                 <Button
                         android:id="@+id/buttonSend"
                         android:layout_width="110dp"
-                        android:layout_height="40dp"
+                        android:layout_height="48dp"
                         android:background="@drawable/corners_buttons"
                         android:text="@string/fragment_content_favourites_share_local_code_send"
                         android:textColor="@android:color/white"
@@ -228,14 +219,6 @@
 
 
         </LinearLayout>
-
-        <View
-                android:id="@+id/dividerFavourite"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="5dp"
-                android:background="?android:attr/listDivider" />
 
         <RadioButton
                 android:id="@+id/radioButtonSearch"
@@ -265,10 +248,11 @@
                     android:ems="10"
                     android:gravity="start|top"
                     android:hint="@string/fragment_content_text_instructions"
+                    android:importantForAutofill="no"
                     android:inputType="text"
                     android:maxLength="50"
                     android:textSize="14sp"
-                    android:importantForAutofill="no" />
+                    tools:ignore="TouchTargetSizeCheck" />
 
         </LinearLayout>
 

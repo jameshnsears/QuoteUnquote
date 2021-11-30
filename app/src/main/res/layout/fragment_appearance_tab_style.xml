@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
@@ -38,14 +39,15 @@
                 android:textSize="14sp" />
 
             <Spinner
-                android:id="@+id/spinnerColour"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:paddingStart="20dp"
-                android:paddingEnd="5dp"
-                android:background="@null"
-                android:spinnerMode="dropdown" />
+                    android:id="@+id/spinnerColour"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@null"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="5dp"
+                    android:spinnerMode="dropdown"
+                    tools:ignore="SpeakableTextPresentCheck" />
         </LinearLayout>
 
     </LinearLayout>
@@ -75,17 +77,18 @@
             android:paddingEnd="10dp">
 
             <com.google.android.material.slider.Slider
-                android:id="@+id/seekBarTransparency"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/fragment_appearance_transparency"
-                android:max="10"
-                android:paddingVertical="5dp"
-                android:stepSize="10"
-                android:theme="@style/Theme.QuoteUnquote"
-                android:value="false"
-                android:valueFrom="0"
-                android:valueTo="100" />
+                    android:id="@+id/seekBarTransparency"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/fragment_appearance_transparency"
+                    android:max="10"
+                    android:paddingVertical="5dp"
+                    android:stepSize="10"
+                    android:theme="@style/Theme.QuoteUnquote"
+                    android:value="false"
+                    android:valueFrom="0"
+                    android:valueTo="100"
+                    tools:ignore="DuplicateSpeakableTextCheck" />
         </LinearLayout>
 
     </LinearLayout>
@@ -124,15 +127,16 @@
             android:textSize="14sp" />
 
         <Spinner
-            android:id="@+id/spinnerTextColour"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:paddingStart="20dp"
-            android:paddingEnd="5dp"
-            android:background="@null"
-            android:spinnerMode="dropdown" />
+                android:id="@+id/spinnerTextColour"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@null"
+                android:paddingStart="20dp"
+                android:paddingEnd="5dp"
+                android:spinnerMode="dropdown"
+                tools:ignore="SpeakableTextPresentCheck" />
 
     </LinearLayout>
 
@@ -156,7 +160,7 @@
         <Spinner
             android:id="@+id/spinnerFamily"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_gravity="center_vertical"
             android:entries="@array/fragment_appearance_family_array"
             android:paddingStart="20dp"
@@ -184,7 +188,7 @@
         <Spinner
             android:id="@+id/spinnerStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_gravity="center_vertical"
             android:entries="@array/fragment_appearance_style_array"
             android:paddingStart="20dp"
@@ -213,7 +217,7 @@
         <Spinner
             android:id="@+id/spinnerSize"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_gravity="center_vertical"
             android:entries="@array/fragment_appearance_size_array"
             android:paddingStart="20dp"

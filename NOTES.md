@@ -65,15 +65,16 @@
 
 ## 7. Release Checklist
 
-. delete development and extract production app/google-services.json
-. update versionCode + versionName in app/build.gradle
-. make sure changelogs/xx.txt matches versionCode
-. update app/schemas/com.github.jameshnsears.quoteunquote.database.quotation.AbstractQuotationDatabase/xx.json to match AbstractQuotationDatabase.java
-. ensure fastlane images match app - i.e. database count
-. examine merged manifest, especially for sdk version and permissions
-. deploy app-googleplay-release.aab
-. tag the release
-. delete production and extract development google-services.json
+* 25: get latest /sdcard/Download/Quote_Unquote_ori_portrait.png for featureGraphic.png
+* 30: take latest screenshots  
+* delete development and extract production app/google-services.json
+* update versionCode + versionName in app/build.gradle
+* make sure changelogs/xx.txt matches versionCode
+* update app/schemas/com.github.jameshnsears.quoteunquote.database.quotation.AbstractQuotationDatabase/xx.json to match AbstractQuotationDatabase.java
+* examine merged manifest, especially for sdk version and permissions
+* deploy app-googleplay-release.aab
+* tag the release
+* delete production and extract development google-services.json
 
 ---
 

@@ -1,7 +1,5 @@
 package com.github.jameshnsears.quoteunquote;
 
-import static android.appwidget.AppWidgetManager.ACTION_APPWIDGET_ENABLED;
-
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -26,12 +24,12 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.event.EventPrefer
 import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 import com.github.jameshnsears.quoteunquote.listview.ListViewService;
-import com.github.jameshnsears.quoteunquote.report.ReportActivity;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
 import com.github.jameshnsears.quoteunquote.utils.NotificationHelper;
 import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade;
 
+import java.math.BigInteger;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -141,14 +139,6 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
                     IntentFactoryHelper.createIntentPending(context, widgetId, IntentFactoryHelper.TOOLBAR_PRESSED_PREVIOUS));
 
             remoteViews.setOnClickPendingIntent(
-                    R.id.imageButtonReport,
-                    PendingIntent.getActivity(
-                            context,
-                            widgetId,
-                            IntentFactoryHelper.createIntent(context, ReportActivity.class, widgetId),
-                            pendingIntentFlags));
-
-            remoteViews.setOnClickPendingIntent(
                     R.id.imageButtonFavourite,
                     IntentFactoryHelper.createIntentPending(context, widgetId, IntentFactoryHelper.TOOLBAR_PRESSED_FAVOURITE));
 
@@ -249,7 +239,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
                     this.onReceiveToolbarPressedNextSequential(context, widgetId, appWidgetManager);
                     break;
 
-                case ACTION_APPWIDGET_ENABLED:
+                case AppWidgetManager.ACTION_APPWIDGET_ENABLED:
                     onReceiveActionAppwidgetEnabled(context, appWidgetManager);
                     break;
 
@@ -481,55 +471,35 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull RemoteViews remoteViews) {
         Timber.d("%d", widgetId);
 
-        int seekBarValue = new AppearancePreferences(widgetId, context).getAppearanceTransparency();
+        int seekBarValue = getAppearancePreferences(context, widgetId).getAppearanceTransparency();
         seekBarValue = seekBarValue / 10;
 
+        String appearanceColour = getAppearancePreferences(context, widgetId).getAppearanceColour();
+
+        int transparencyMask = getTransparencyMask(seekBarValue, appearanceColour);
+
         final String setBackgroundColor = "setBackgroundColor";
-        remoteViews.setInt(R.id.listViewQuotation, setBackgroundColor, this.getTransparencyMask(context, widgetId, seekBarValue));
-        remoteViews.setInt(R.id.imageButtonFirst, setBackgroundColor, this.getTransparencyMask(context, widgetId, seekBarValue));
-        remoteViews.setInt(R.id.imageButtonPrevious, setBackgroundColor, this.getTransparencyMask(context, widgetId, seekBarValue));
-        remoteViews.setInt(R.id.imageButtonReport, setBackgroundColor, this.getTransparencyMask(context, widgetId, seekBarValue));
-        remoteViews.setInt(R.id.imageButtonFavourite, setBackgroundColor, this.getTransparencyMask(context, widgetId, seekBarValue));
-        remoteViews.setInt(R.id.imageButtonShare, setBackgroundColor, this.getTransparencyMask(context, widgetId, seekBarValue));
-        remoteViews.setInt(R.id.imageButtonNextRandom, setBackgroundColor, this.getTransparencyMask(context, widgetId, seekBarValue));
-        remoteViews.setInt(R.id.imageButtonNextSequential, setBackgroundColor, this.getTransparencyMask(context, widgetId, seekBarValue));
+        remoteViews.setInt(R.id.listViewQuotation, setBackgroundColor, transparencyMask);
+        remoteViews.setInt(R.id.imageButtonFirst, setBackgroundColor, transparencyMask);
+        remoteViews.setInt(R.id.imageButtonPrevious, setBackgroundColor, transparencyMask);
+        remoteViews.setInt(R.id.imageButtonReport, setBackgroundColor, transparencyMask);
+        remoteViews.setInt(R.id.imageButtonFavourite, setBackgroundColor, transparencyMask);
+        remoteViews.setInt(R.id.imageButtonShare, setBackgroundColor, transparencyMask);
+        remoteViews.setInt(R.id.imageButtonNextRandom, setBackgroundColor, transparencyMask);
+        remoteViews.setInt(R.id.imageButtonNextSequential, setBackgroundColor, transparencyMask);
     }
 
-    private int getTransparencyMask(
-            @NonNull Context context,
-            int widgetId,
-            int seekBarValue) {
+    public int getTransparencyMask(
+            int seekBarValue,
+            @NonNull String appearanceColour) {
+
         float transparency = 1;
         if (seekBarValue != -1) {
             transparency -= seekBarValue * .1f;
         }
 
-        int transparencyMask = 0;
-
-        switch (new AppearancePreferences(widgetId, context).getAppearanceColour()) {
-            case "#FFEDD1B0":
-                transparencyMask = (int) (transparency * 0xFF) << 24 | 0xEDD1B0;
-                break;
-
-            case "#FFFFFFFF":
-                transparencyMask = (int) (transparency * 0xFF) << 24 | 0xFFFFFF;
-                break;
-
-            case "#FFB987DC":
-                transparencyMask = (int) (transparency * 0xFF) << 24 | 0xB987DC;
-                break;
-
-            case "#FF000000":
-                transparencyMask = (int) (transparency * 0xFF) << 24;
-                break;
-
-            default:
-                //"#FFF8FD89":
-                transparencyMask = (int) (transparency * 0xFF) << 24 | 0xF8FD89;
-                break;
-        }
-
-        return transparencyMask;
+        String hex = appearanceColour.replace("#FF", "");
+        return (int) (transparency * 0xFF) << 24 | (int) Long.parseLong(hex, 16);
     }
 
     private void setToolbarButtonsVisibility(
@@ -538,7 +508,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull RemoteViews remoteViews) {
         Timber.d("%d", widgetId);
 
-        AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, context);
+        AppearancePreferences appearancePreferences = getAppearancePreferences(context, widgetId);
 
         if (!appearancePreferences.getAppearanceToolbarFirst()
                 && !appearancePreferences.getAppearanceToolbarPrevious()
@@ -606,9 +576,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull RemoteViews remoteViews) {
         Timber.d("%d", widgetId);
 
-        final AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, context);
-
-        switch (appearancePreferences.getAppearanceToolbarColour()) {
+        switch (getAppearancePreferences(context, widgetId).getAppearanceToolbarColour()) {
             case "#FFFFFFFF":
                 remoteViews.setImageViewResource(R.id.imageButtonFirst, R.drawable.ic_toolbar_first_ffffffff_24);
                 remoteViews.setImageViewResource(R.id.imageButtonPrevious, R.drawable.ic_toolbar_previous_ffffffff_24);
@@ -632,6 +600,11 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         }
 
         this.setHeartColour(context, widgetId, remoteViews);
+    }
+
+    @NonNull
+    public AppearancePreferences getAppearancePreferences(@NonNull Context context, int widgetId) {
+        return new AppearancePreferences(widgetId, context);
     }
 
     private void setToolbarButtonVisibility(

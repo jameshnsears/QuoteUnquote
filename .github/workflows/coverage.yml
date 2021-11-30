@@ -91,32 +91,30 @@ jobs:
           set -x
           ./gradlew detekt
 
-  super-linter:
-    name: super-linter
-    needs: [checkstyle, detekt]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-          submodules: true
-
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11
-
-      - name: Lint Code Base
-        uses: github/super-linter@v3
-        env:
-          VALIDATE_ALL_CODEBASE: false
-          DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#  super-linter:
+#    name: super-linter
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout Code
+#        uses: actions/checkout@v2
+#        with:
+#          fetch-depth: 0
+#          submodules: true
+#
+#      - name: Set up JDK 11
+#        uses: actions/setup-java@v1
+#        with:
+#          java-version: 11
+#
+#      - name: Lint Code Base
+#        uses: github/super-linter@v3
+#        env:
+#          VALIDATE_ALL_CODEBASE: false
+#          DEFAULT_BRANCH: main
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   ktlint:
     name: ktlint
-    needs: [checkstyle, detekt]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -159,7 +157,7 @@ jobs:
 
   lintGooglePlayDebug:
     name: lintGooglePlayDebug
-    needs: [checkstyle, detekt]
+    needs: [checkstyle, detekt, ktlint]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -207,7 +205,7 @@ jobs:
 
   lintFdroidDebug:
     name: lintFdroidDebug
-    needs: [checkstyle, detekt]
+    needs: [checkstyle, detekt, ktlint]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -250,7 +248,7 @@ jobs:
 
   coverage-fdroid:
     name: coverage-fdroid
-    needs: [ktlint, super-linter, lintFdroidDebug]
+    needs: [lintFdroidDebug]
     runs-on: macos-latest
     steps:
       - name: checkout
@@ -288,16 +286,24 @@ jobs:
           target: default
           script: |
             adb logcat -c
-            adb logcat &
+            adb logcat > logcat.txt &
             ./gradlew :app:testFdroidDebugCombinedCoverage --stacktrace
 
-      - name: show error report
-        run: |
-          set -x
-          ERROR_REPORT_FILE=/Users/runner/work/QuoteUnquote/QuoteUnquote/app/build/reports/androidTests/connected/flavors/fdroidDebugAndroidTest/index.html
-          if [ -f "$ERROR_REPORT_FILE" ]; then
-            cat $ERROR_REPORT_FILE
-          fi
+      - name: artifact logcat
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-fdroid-logcat
+          path: logcat.txt
+
+      - name: artifact
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-fdroid
+          path: |
+            **/build/reports/*
+            **/build/outputs/*/connected/*
 
       - name: show .gradle size
         run: |
@@ -312,7 +318,7 @@ jobs:
 
   coverage-googleplay:
     name: coverage-googleplay
-    needs: [ktlint, super-linter, lintGooglePlayDebug]
+    needs: [lintGooglePlayDebug]
     runs-on: macos-latest
     steps:
       - name: checkout
@@ -355,16 +361,24 @@ jobs:
           target: default
           script: |
             adb logcat -c
-            adb logcat &
+            adb logcat > logcat.txt &
             ./gradlew :app:testGoogleplayDebugCombinedCoverage --stacktrace
 
-      - name: show error report
-        run: |
-          set -x
-          ERROR_REPORT_FILE=/Users/runner/work/QuoteUnquote/QuoteUnquote/app/build/reports/androidTests/connected/flavors/googleplayDebugAndroidTest/index.html
-          if [ -f "$ERROR_REPORT_FILE" ]; then
-            cat $ERROR_REPORT_FILE
-          fi
+      - name: artifact logcat
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-googleplay-logcat
+          path: logcat.txt
+
+      - name: artifact
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-googleplay
+          path: |
+            **/build/reports/*
+            **/build/outputs/*/connected/*
 
       - name: show .gradle size
         run: |

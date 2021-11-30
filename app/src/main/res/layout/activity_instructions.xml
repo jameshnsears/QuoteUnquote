@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -13,9 +14,9 @@
         <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawablePadding="10dp"
+                android:drawablePadding="16dp"
                 android:gravity="center"
-                android:padding="10dp"
+                android:padding="16dp"
                 android:text="@string/app_name"
                 app:drawableStartCompat="@drawable/ic_action_bar_icon" />
 
@@ -23,7 +24,7 @@
 
     <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:fillViewport="true"
             android:orientation="vertical"
@@ -40,30 +41,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/activity_instructions_title"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                    android:textSize="20sp"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
-
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:text="@string/activity_instructions_into"
-                    android:textSize="14sp" />
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingTop="5dp">
-
-                <View
-                        android:layout_width="match_parent"
-                        android:layout_height="2dp"
-                        android:background="?android:attr/listDivider"
-                        android:paddingTop="10dp"/>
-
-            </LinearLayout>
 
             <TextView
                     android:layout_width="match_parent"
@@ -148,7 +127,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingTop="5dp">
+                    android:paddingVertical="6dp">
 
                 <View
                         android:layout_width="match_parent"
@@ -212,7 +191,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:paddingTop="5dp">
+                    android:paddingVertical="6dp">
 
                 <View
                         android:layout_width="match_parent"
@@ -246,12 +225,13 @@
 
         <TextView
                 android:id="@+id/textViewVersion"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="clip_horizontal|center"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:textIsSelectable="true" />
+                android:textIsSelectable="true"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         <LinearLayout
                 android:id="@+id/layoutFooter"

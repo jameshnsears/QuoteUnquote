@@ -2,7 +2,6 @@
     <string name="app_name">Quote Unquote</string>
 
     <string name="activity_instructions_title">Instructions</string>
-    <string name="activity_instructions_into"><b>Quote Unquote</b> is a Home screen widget.</string>
     <string name="activity_instructions_placement">Home screen placement</string>
     <string name="activity_instructions_different_ways">There are different ways to place a widget onto your Home screen, the most common being:</string>
     <string name="activity_instructions_1">1. On a Home screen, touch and hold an empty space.</string>
@@ -47,11 +46,22 @@
     <string name="fragment_appearance_background">Background</string>
     <string name="fragment_appearance_colour">Colour</string>
     <string-array name="fragment_appearance_colour_array">
-        <item>#FFF8FD89</item>
-        <item>#FFEDD1B0</item>
-        <item>#FF000000</item>
         <item>#FFFFFFFF</item>
+        <item>#FFF8FD89</item>
+        <item>#FFFFFF00</item>
+        <item>#FFFFD700</item>
+        <item>#FFFF9355</item>
+        <item>#FFFF8D91</item>
+        <item>#FFFF1493</item>
+        <item>#FFEDD1B0</item>
+        <item>#FFC0C0C0</item>
         <item>#FFB987DC</item>
+        <item>#FF9370DB</item>
+        <item>#FF800080</item>
+        <item>#FF79C47D</item>
+        <item>#FF65D6DB</item>
+        <item>#FF55C3E5</item>
+        <item>#FF000000</item>
     </string-array>
     <string name="fragment_appearance_size">Size</string>
     <integer-array name="fragment_appearance_size_array">
@@ -64,21 +74,21 @@
         <item>28</item>
     </integer-array>
     <string-array name="fragment_appearance_text_colour_array">
-        <item>#FF000000</item>
         <item>#FFFFFFFF</item>
-        <item>#FF0000FF</item>
-        <item>#FF00008B</item>
-        <item>#FFFF0000</item>
-        <item>#FF8B0000</item>
-        <item>#FF00FF00</item>
-        <item>#FF008000</item>
-        <item>#FF800080</item>
-        <item>#FF9370DB</item>
         <item>#FFFFFF00</item>
         <item>#FFFFD700</item>
-        <item>#FFFF1493</item>
         <item>#FFFF69B4</item>
+        <item>#FFFF1493</item>
+        <item>#FFFF0000</item>
         <item>#FFC0C0C0</item>
+        <item>#FF9370DB</item>
+        <item>#FF8B0000</item>
+        <item>#FF800080</item>
+        <item>#FF00FF00</item>
+        <item>#FF008000</item>
+        <item>#FF0000FF</item>
+        <item>#FF00008B</item>
+        <item>#FF000000</item>
     </string-array>
     <string name="fragment_appearance_display_toolbar">Toolbar</string>
     <string name="fragment_appearance_instructions_first">First, clears Previous</string>
@@ -88,7 +98,6 @@
     <string name="fragment_appearance_instructions_share">Share</string>
     <string name="fragment_appearance_instructions_next_random">Next, random</string>
     <string name="fragment_appearance_instructions_next_sequential">Next, sequential</string>
-    <string name="fragment_appearance_toolbar_colour">Colour</string>
     <string-array name="fragment_appearance_toolbar_colour_array">
         <item>#FF000000</item>
         <item>#FFFFFFFF</item>
@@ -96,20 +105,20 @@
     <string name="fragment_content_title">Quotations</string>
     <string name="fragment_content_all">All: %d</string>
     <string name="fragment_content_add_to_previous_count">Add displayed Author / Search to Previous</string>
-    <string name="fragment_content_favourites">Favourite: %d</string>
+    <string name="fragment_content_favourites">Favourites: %d</string>
     <string name="fragment_content_favourites_export_instructions">to storage</string>
     <string name="fragment_content_favourites_export_button">Export</string>
-    <string name="fragment_content_favourites_export_success">Success - favourite(s) exported</string>
+    <string name="fragment_content_favourites_export_success">Success - favourites exported</string>
     <string name="fragment_content_favourites_share_instructions">Sync with another device</string>
     <string name="fragment_content_favourites_share_local_code_value">%s</string>
     <string name="fragment_content_favourites_share_local_code_send">Send</string>
     <string name="fragment_content_favourites_share_remove_code_value">Remote token</string>
     <string name="fragment_content_favourites_share_remote_receive">Receive</string>
-    <string name="fragment_content_favourites_share_sending">Sending favourite(s), please wait&#8230;</string>
-    <string name="fragment_content_favourites_share_sent">Success - favourite(s) sent</string>
+    <string name="fragment_content_favourites_share_sending">Sending, please wait&#8230;</string>
+    <string name="fragment_content_favourites_share_sent">Success - favourites sent</string>
     <string name="fragment_content_favourites_share_remote_code_general">Use token from remote device</string>
-    <string name="fragment_content_favourites_share_receiving">Receiving favourite(s), please wait&#8230;</string>
-    <string name="fragment_content_favourites_share_received">Success - favourite(s) appended</string>
+    <string name="fragment_content_favourites_share_receiving">Receiving, please wait&#8230;</string>
+    <string name="fragment_content_favourites_share_received">Success - favourites appended</string>
     <string name="fragment_content_favourites_share_missing">Unable to locate remote token</string>
     <string name="fragment_content_favourites_share_comms">Check network connection / retry</string>
     <string name="fragment_content_author_count">Authors with &lt; 5 quotations are not shown</string>
@@ -127,26 +136,9 @@
     <string name="fragment_event_device_unlock">Screen unlock</string>
     <string name="fragment_event_daily">Time</string>
 
-    <string name="activity_report_title">Report Quotation?</string>
-    <string-array name="activity_report_reason_array">
-        <item>Attribution</item>
-        <item>Duplication</item>
-        <item>Formatting / Spelling</item>
-        <item>Other</item>
-        <item>Profanity</item>
-        <item>Quality</item>
-    </string-array>
-    <string name="activity_report_reason">Reason:</string>
-    <string name="activity_report_notes">(Optional) Notes</string>
-    <string name="activity_report_instruction_01">Pressing OK will:</string>
-    <string name="activity_report_instruction_02">\u2022 Strikethrough the quotation</string>
-    <string name="activity_report_instruction_03">\u2022 Register the report in analytics</string>
-    <string name="activity_report_warning">Quotation already reported</string>
-
     <string name="configure_navigation_bar_appearance">Appearance</string>
     <string name="configure_navigation_bar_quotations">Quotations</string>
     <string name="configure_navigation_bar_event">Schedule</string>
-    <string name="configure_navigation_bar_about">About</string>
 
     <string name="notification_channel_id">quote_unquote_channel_01</string>
     <string name="notification_channel_name">Quotations</string>

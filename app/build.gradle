@@ -39,14 +39,14 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 26
+        minSdkVersion 25
         targetSdkVersion 30
 
         applicationId "com.github.jameshnsears.quoteunquote"
 
-        // min sdk | actual unique version
-        versionCode 2683
-        versionName "2.7.2"
+        // min sdk 0 changelog version
+        versionCode 25084
+        versionName "2.7.3"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -68,11 +68,12 @@ android {
     }
 
     lintOptions {
-        abortOnError true
-        warningsAsErrors false
+        abortOnError false
+        warningsAsErrors true
         checkAllWarnings = true
-        xmlReport false
+        xmlReport true
         htmlReport true
+        baseline file("${project.rootDir}/config/lint/baseline.xml")
     }
 
     buildTypes {
@@ -92,6 +93,10 @@ android {
 
             buildConfigField("String", "GIT_HASH", "\"$gitHash\"")
             buildConfigField("String", "DATABASE_QUOTATIONS", "\"quotations.db.prod\"")
+
+            ndk {
+                debugSymbolLevel = 'full'
+            }
         }
         debug {
             testCoverageEnabled true
@@ -170,16 +175,16 @@ android {
 
 dependencies {
     androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
-    androidTestImplementation 'androidx.room:room-testing:2.3.0'
+    androidTestImplementation 'androidx.room:room-testing:2.4.0'
     androidTestImplementation 'androidx.test:core:1.4.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test:rules:1.4.0'
     androidTestImplementation 'androidx.test:runner:1.4.0'
     androidTestImplementation 'io.mockk:mockk-android:1.12.1'
 
-    annotationProcessor 'androidx.room:room-compiler:2.3.0'
+    annotationProcessor 'androidx.room:room-compiler:2.4.0'
 
-    debugImplementation 'androidx.fragment:fragment-testing:1.3.6'
+    debugImplementation 'androidx.fragment:fragment-testing:1.4.0'
     debugImplementation 'androidx.test:core:1.4.0'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
 
@@ -188,17 +193,17 @@ dependencies {
     googleplayImplementation 'com.google.firebase:firebase-analytics'
 
     implementation 'androidx.activity:activity-ktx:1.4.0'
-    implementation 'androidx.fragment:fragment-ktx:1.3.6'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
+    implementation 'androidx.fragment:fragment-ktx:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-common-java8:2.4.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'androidx.room:room-guava:2.3.0'
-    implementation 'androidx.room:room-runtime:2.3.0'
-    implementation 'androidx.room:room-rxjava2:2.3.0'
+    implementation 'androidx.room:room-guava:2.4.0'
+    implementation 'androidx.room:room-runtime:2.4.0'
+    implementation 'androidx.room:room-rxjava2:2.4.0'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.2.0'
     implementation 'com.jakewharton.timber:timber:5.0.1'
@@ -211,14 +216,14 @@ dependencies {
     implementation project(path: ':utilsLib')
 
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
-    testImplementation 'androidx.room:room-testing:2.3.0'
+    testImplementation 'androidx.room:room-testing:2.4.0'
     testImplementation 'androidx.test:core-ktx:1.4.0'
     testImplementation 'androidx.test.ext:junit:1.1.3'
     testImplementation 'androidx.test:rules:1.4.0'
     testImplementation 'com.google.guava:guava:31.0.1-jre'
     testImplementation 'io.mockk:mockk:1.12.1'
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.robolectric:robolectric:4.7.2'
+    testImplementation 'org.robolectric:robolectric:4.7.3'
 }
 
 repositories {

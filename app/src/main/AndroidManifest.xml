@@ -15,7 +15,8 @@
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher"
             android:supportsRtl="true"
-            android:theme="@style/Theme.QuoteUnquote">
+            android:theme="@style/Theme.QuoteUnquote"
+            android:allowBackup="true">
 
         <receiver
                 android:name=".QuoteUnquoteWidget"
@@ -48,10 +49,6 @@
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
-
-        <activity
-                android:name=".report.ReportActivity"
-                android:theme="@style/Theme.QuoteUnquote.ActivityReport" />
 
         <service
                 android:name=".listview.ListViewService"

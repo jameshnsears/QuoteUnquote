@@ -1,6 +1,6 @@
 # Quote Unquote
 
-<a href="https://play.google.com/store/apps/details?id=com.github.jameshnsears.quoteunquote&hl=en"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_gb/badges/images/generic/en_badge_web_generic.png" height="75"/></a> [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" height="75" alt="Get it on F-Droid">](https://f-droid.org/packages/com.github.jameshnsears.quoteunquote/)
+<a href="https://play.google.com/store/apps/details?id=com.github.jameshnsears.quoteunquote&hl=en"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_gb/badges/images/generic/en_badge_web_generic.png" height="75"/></a> [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" height="75" alt="Get it on F-Droid">](https://f-droid.org/packages/com.github.jameshnsears.quoteunquote/) [<img src="https://images-na.ssl-images-amazon.com/images/G/01/mobile-apps/devportal2/res/images/amazon-appstore-badge-english-black.png" height="66" alt="Available at Amazon AppStore">](https://www.amazon.com/gp/product/B09L2FMYF1/ref=sr_1_2)
 
 ---
 
@@ -44,7 +44,7 @@ git submodule foreach git pull origin main
 git submodule
 ```
 
-### 3.2. Android Studio Arctic Fox | 2020.3.1
+### 3.2. Android Studio Arctic Fox
 
 ```text
 Android Studio > Get from Version Control
@@ -69,7 +69,7 @@ Choose a Build Variant
  > run a Run/Debug Configuration
 ```
 
-### 3.3. PyCharm 2021.n (Community Edition)
+### 3.3. PyCharm
 
 ```text
 After a clone...

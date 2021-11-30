@@ -79,7 +79,7 @@ class ContentFragmentTest : ShadowLoggingHelper() {
             if (BuildConfig.DEBUG) {
                 assertEquals("All: 7", fragment.fragmentContentBinding?.radioButtonAll?.text.toString())
                 assertEquals("Author: 1", fragment.fragmentContentBinding?.radioButtonAuthor?.text.toString())
-                assertEquals("Favourite: 0", fragment.fragmentContentBinding?.radioButtonFavourites?.text.toString())
+                assertEquals("Favourites: 0", fragment.fragmentContentBinding?.radioButtonFavourites?.text.toString())
             }
 
             assertEquals("", fragment.fragmentContentBinding?.editTextSearchText?.text.toString())

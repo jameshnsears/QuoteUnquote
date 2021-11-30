@@ -73,7 +73,7 @@ public class AppearanceStyleFragment extends FragmentCommon {
     public void onViewCreated(
             @NonNull View view, Bundle savedInstanceState) {
         this.createListenerTransparency();
-        this.createListenerColour();
+        this.createListenerBackgroundColour();
 
         this.createListenerTextFamily();
         this.createListenerTextStyle();
@@ -141,7 +141,7 @@ public class AppearanceStyleFragment extends FragmentCommon {
         });
     }
 
-    private void createListenerColour() {
+    private void createListenerBackgroundColour() {
         Spinner spinner = this.fragmentAppearanceTabStyleBinding.spinnerColour;
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -315,7 +315,7 @@ public class AppearanceStyleFragment extends FragmentCommon {
                 this.fragmentAppearanceTabStyleBinding.spinnerTextColour,
                 new AppearanceTextColourSpinnerAdapter(this.getActivity().getBaseContext()),
                 this.appearancePreferences.getAppearanceTextColour(),
-                0,
+                14,
                 R.array.fragment_appearance_text_colour_array
         );
 
