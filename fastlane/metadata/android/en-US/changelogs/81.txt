@@ -1,4 +1,0 @@
-- Remove similar quotes from same author.
-- Reposition navigation order.
-- Remove Report functionality.
-- Bump dependencies.
