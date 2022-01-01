@@ -16,7 +16,7 @@
             android:roundIcon="@mipmap/ic_launcher"
             android:supportsRtl="true"
             android:theme="@style/Theme.QuoteUnquote"
-            android:allowBackup="true">
+            android:allowBackup="false">
 
         <receiver
                 android:name=".QuoteUnquoteWidget"

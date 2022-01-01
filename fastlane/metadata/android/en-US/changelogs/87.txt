@@ -1,0 +1,1 @@
+- Stop Android backup for App.
