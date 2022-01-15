@@ -61,4 +61,8 @@ public final class DatabaseRepositoryDouble extends DatabaseRepository {
     public int countCurrent(int widgetId) {
         return this.currentDAO.countCurrent(widgetId);
     }
+
+    public List<String> getNextAllDigests() {
+        return this.quotationDAO.getNextAllDigests();
+    }
 }

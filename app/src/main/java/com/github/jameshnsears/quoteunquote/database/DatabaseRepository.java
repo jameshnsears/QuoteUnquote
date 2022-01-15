@@ -84,6 +84,11 @@ public class DatabaseRepository {
         if (BuildConfig.FLAVOR.equals("emanuelkebede")) {
             return "e8fa8bc3";
         }
+
+        if (BuildConfig.DEBUG) {
+            return "7a36e553";
+        }
+
         return "1624c314";
     }
 
@@ -192,6 +197,11 @@ public class DatabaseRepository {
     @NonNull
     public Integer countSearchText(@NonNull String text) {
         return this.quotationDAO.countSearchText("%" + text + "%");
+    }
+
+    @NonNull
+    public List<QuotationEntity> getAllQuotations() {
+        return this.quotationDAO.getAllQuotations();
     }
 
     public QuotationEntity getQuotation(String digest) {

@@ -3,6 +3,7 @@ package com.github.jameshnsears.quoteunquote;
 import androidx.annotation.NonNull;
 
 import com.github.jameshnsears.quoteunquote.database.DatabaseRepositoryDouble;
+import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 
 import java.util.List;
@@ -28,5 +29,9 @@ public class QuoteUnquoteModelDouble extends QuoteUnquoteModel {
         return this.databaseRepository.countPrevious(widgetId, ContentSelection.ALL)
                 + this.databaseRepository.countPrevious(widgetId, ContentSelection.AUTHOR)
                 + this.databaseRepository.countPrevious(widgetId, ContentSelection.SEARCH);
+    }
+
+    public List<QuotationEntity> getAllQuotations() {
+        return databaseRepository.getAllQuotations();
     }
 }

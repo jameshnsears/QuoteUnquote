@@ -1,3 +1,0 @@
-- Minor cosmetic improvements.
-- Remove a handful of quotations.
-- Bump 3rd party versions.

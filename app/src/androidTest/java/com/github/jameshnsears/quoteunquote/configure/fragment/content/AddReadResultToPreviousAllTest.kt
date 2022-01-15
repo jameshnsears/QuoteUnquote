@@ -19,7 +19,7 @@ class AddReadResultToPreviousAllTest : QuoteUnquoteModelUtility() {
         )
 
         TestCase.assertEquals(
-            "1624c314",
+            "7a36e553",
             databaseRepositoryDouble.getPreviousDigests(
                 WidgetIdHelper.WIDGET_ID_01,
                 ContentSelection.ALL
@@ -45,7 +45,7 @@ class AddReadResultToPreviousAllTest : QuoteUnquoteModelUtility() {
         )
 
         TestCase.assertEquals(
-            "1624c314",
+            "7a36e553",
             databaseRepositoryDouble.getPreviousDigests(
                 WidgetIdHelper.WIDGET_ID_01,
                 ContentSelection.ALL

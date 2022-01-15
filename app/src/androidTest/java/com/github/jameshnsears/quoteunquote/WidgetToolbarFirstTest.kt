@@ -61,7 +61,7 @@ class WidgetToolbarFirstTest : QuoteUnquoteModelUtility() {
 
         onReceiveToolbarPressedFirst(quoteUnquoteWidget, appWidgetManager)
         assertEquals(
-            "1624c314",
+            "7a36e553",
             databaseRepositoryDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01).digest
         )
     }
@@ -76,7 +76,7 @@ class WidgetToolbarFirstTest : QuoteUnquoteModelUtility() {
 
         onReceiveToolbarPressedFirst(quoteUnquoteWidget, appWidgetManager)
         assertEquals(
-            "1624c314",
+            "7a36e553",
             databaseRepositoryDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01).digest
         )
     }

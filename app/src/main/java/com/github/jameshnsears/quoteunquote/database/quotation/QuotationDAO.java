@@ -10,6 +10,9 @@ import io.reactivex.Single;
 
 @Dao
 public interface QuotationDAO {
+    @Query("SELECT AUTHOR, QUOTATION, DIGEST FROM QUOTATIONS")
+    List<QuotationEntity> getAllQuotations();
+
     @Insert
     void insertQuotation(QuotationEntity quotationEntity);
 
@@ -31,7 +34,7 @@ public interface QuotationDAO {
     @Query("SELECT COUNT(QUOTATION) FROM QUOTATIONS WHERE (QUOTATION LIKE :text OR AUTHOR LIKE :text)")
     Integer countSearchText(String text);
 
-    @Query("SELECT DIGEST FROM QUOTATIONS ORDER BY AUTHOR ASC, ROWID ASC")
+    @Query("SELECT DIGEST FROM QUOTATIONS ORDER BY ROWID ASC")
     List<String> getNextAllDigests();
 
     @Query("SELECT DIGEST FROM QUOTATIONS WHERE (QUOTATION LIKE :text OR AUTHOR LIKE :text) ORDER BY AUTHOR ASC, ROWID ASC")

@@ -39,7 +39,7 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
             )
         )
 
-        databaseRepositoryDouble.markAsCurrent(WidgetIdHelper.WIDGET_ID_01, "1624c314")
+        databaseRepositoryDouble.markAsCurrent(WidgetIdHelper.WIDGET_ID_01, "7a36e553")
 
         assertEquals(
             1,

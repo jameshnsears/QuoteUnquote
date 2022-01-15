@@ -29,7 +29,6 @@ import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
 import com.github.jameshnsears.quoteunquote.utils.NotificationHelper;
 import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade;
 
-import java.math.BigInteger;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
