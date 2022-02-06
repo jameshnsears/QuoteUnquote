@@ -5,14 +5,14 @@
         id="ObsoleteLintCustomCheck"
         message="Lint found an issue registry (`androidx.fragment.lint.FragmentIssueRegistry`) which requires a newer API level. That means that the custom lint checks are intended for a newer lint version; please upgrade.">
         <location
-            file="../../../.gradle/caches/transforms-3/1cb11c4c99a0e6b7e50627c5584d8b34/transformed/fragment-1.4.0/jars/lint.jar"/>
+            file="../../../.gradle/caches/transforms-3/3e4a9bfb85f5779f15cb89aacde89b32/transformed/fragment-1.4.1/jars/lint.jar"/>
     </issue>
 
     <issue
         id="ObsoleteLintCustomCheck"
         message="Lint found an issue registry (`androidx.fragment.lint.FragmentIssueRegistry`) which requires a newer API level. That means that the custom lint checks are intended for a newer lint version; please upgrade.">
         <location
-            file="../../../.gradle/caches/transforms-3/1cb11c4c99a0e6b7e50627c5584d8b34/transformed/fragment-1.4.0/jars/lint.jar"/>
+            file="../../../.gradle/caches/transforms-3/3e4a9bfb85f5779f15cb89aacde89b32/transformed/fragment-1.4.1/jars/lint.jar"/>
     </issue>
 
     <issue
@@ -119,17 +119,6 @@
         message="Invalid package reference in library; not included in Android: `javax.inject`. Referenced from `org.robolectric.util.inject.Injector`.">
         <location
             file="../../../.gradle/caches/modules-2/files-2.1/org.robolectric/utils/4.7.3/580c8ed0e92508df69c8dc97e8cbc12b1052ef10/utils-4.7.3.jar"/>
-    </issue>
-
-    <issue
-        id="OldTargetApi"
-        message="Not targeting the latest versions of Android; compatibility modes apply. Consider testing and updating this version. Consult the android.os.Build.VERSION_CODES javadoc for details."
-        errorLine1="        targetSdkVersion 30"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="build.gradle"
-            line="43"
-            column="9"/>
     </issue>
 
     <issue
@@ -249,7 +238,7 @@
         errorLine2="                                                                     ~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/utils/IntentFactoryHelper.java"
-            line="70"
+            line="75"
             column="70"/>
     </issue>
 
@@ -260,7 +249,7 @@
         errorLine2="                                                                     ~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/utils/IntentFactoryHelper.java"
-            line="70"
+            line="75"
             column="70"/>
     </issue>
 
@@ -298,6 +287,28 @@
     </issue>
 
     <issue
+        id="InefficientWeight"
+        message="Use a `layout_height` of `0dp` instead of `match_parent` for better performance"
+        errorLine1="            android:layout_height=&quot;match_parent&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/quote_unquote_widget_preview.xml"
+            line="13"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="Overdraw"
+        message="Possible overdraw: Root element paints background `#00000000` with a theme that also paints a background (inferred theme is `@style/Theme.QuoteUnquote`)"
+        errorLine1="        android:background=&quot;#00000000&quot;"
+        errorLine2="        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/quote_unquote_widget_preview.xml"
+            line="5"
+            column="9"/>
+    </issue>
+
+    <issue
         id="UnusedResources"
         message="The resource `R.xml.backup_descriptor` appears to be unused"
         errorLine1="&lt;full-backup-content />"
@@ -306,17 +317,6 @@
             file="src/main/res/xml/backup_descriptor.xml"
             line="2"
             column="1"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.color.yellow` appears to be unused"
-        errorLine1="    &lt;color name=&quot;yellow&quot;>#FFF8FD89&lt;/color>"
-        errorLine2="           ~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values/colors.xml"
-            line="8"
-            column="12"/>
     </issue>
 
     <issue
@@ -404,28 +404,6 @@
         <location
             file="src/main/res/values/themes.xml"
             line="23"
-            column="12"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.style.Theme_QuoteUnquote_PreviewQuotation` appears to be unused"
-        errorLine1="    &lt;style name=&quot;Theme.QuoteUnquote.PreviewQuotation&quot; parent=&quot;Theme.MaterialComponents.DayNight.NoActionBar&quot;>"
-        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values/themes.xml"
-            line="28"
-            column="12"/>
-    </issue>
-
-    <issue
-        id="UnusedResources"
-        message="The resource `R.style.PreviewQuotation_ListViewStyle` appears to be unused"
-        errorLine1="    &lt;style name=&quot;PreviewQuotation.ListViewStyle&quot; parent=&quot;android:style/Widget.ListView&quot;>"
-        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/res/values/themes.xml"
-            line="34"
             column="12"/>
     </issue>
 
@@ -1025,6 +1003,17 @@
 
     <issue
         id="UnusedIds"
+        message="The resource `R.id.listViewPreviewQuotation` appears to be unused"
+        errorLine1="            android:id=&quot;@+id/listViewPreviewQuotation&quot;"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/res/layout/quote_unquote_widget_preview.xml"
+            line="10"
+            column="13"/>
+    </issue>
+
+    <issue
+        id="UnusedIds"
         message="The resource `R.id.spinnerItemTextView` appears to be unused"
         errorLine1="    android:id=&quot;@+id/spinnerItemTextView&quot;"
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
@@ -1138,7 +1127,7 @@
     <issue
         id="TypographyQuotes"
         message="Replace straight quotes (&quot;) with directional quotes (“”, &amp;#8220; and &amp;#8221;) ?"
-        errorLine1="    &lt;string name=&quot;activity_instructions_5&quot;>5. &lt;b>IMPORTANT:&lt;/b> use Android\&apos;s \&quot;Back\&quot; button / gesture to successfully leave the configuration screen and place the widget on your Home screen.&lt;/string>"
+        errorLine1="    &lt;string name=&quot;activity_instructions_5&quot;>5. &lt;b>IMPORTANT:&lt;/b> use Android\&apos;s \&quot;Back\&quot; button / gesture to successfully leave the configuration screen and place the widget on your home screen.&lt;/string>"
         errorLine2="                                                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
@@ -2115,7 +2104,7 @@
         errorLine2="           ~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
-            line="90"
+            line="95"
             column="12"/>
     </issue>
 
@@ -2126,7 +2115,7 @@
         errorLine2="           ~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
-            line="90"
+            line="95"
             column="12"/>
     </issue>
 
@@ -2137,7 +2126,7 @@
         errorLine2="           ~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
-            line="197"
+            line="207"
             column="12"/>
     </issue>
 
@@ -2148,7 +2137,7 @@
         errorLine2="           ~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
-            line="197"
+            line="207"
             column="12"/>
     </issue>
 
@@ -2159,7 +2148,7 @@
         errorLine2="                                        ~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
-            line="197"
+            line="207"
             column="41"/>
     </issue>
 
@@ -2170,7 +2159,7 @@
         errorLine2="                                        ~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
-            line="197"
+            line="207"
             column="41"/>
     </issue>
 
@@ -2181,7 +2170,7 @@
         errorLine2="           ~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
-            line="229"
+            line="239"
             column="12"/>
     </issue>
 
@@ -2192,7 +2181,7 @@
         errorLine2="           ~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
-            line="229"
+            line="239"
             column="12"/>
     </issue>
 
@@ -2617,11 +2606,33 @@
     <issue
         id="UnknownNullness"
         message="Unknown nullability; explicitly declare as `@Nullable` or `@NonNull` to improve Kotlin interoperability; see https://android.github.io/kotlin-guides/interop.html#nullability-annotations"
+        errorLine1="    List&lt;QuotationEntity> getAllQuotations();"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
+            line="14"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="UnknownNullness"
+        message="Unknown nullability; explicitly declare as `@Nullable` or `@NonNull` to improve Kotlin interoperability; see https://android.github.io/kotlin-guides/interop.html#nullability-annotations"
+        errorLine1="    List&lt;QuotationEntity> getAllQuotations();"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
+            line="14"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="UnknownNullness"
+        message="Unknown nullability; explicitly declare as `@Nullable` or `@NonNull` to improve Kotlin interoperability; see https://android.github.io/kotlin-guides/interop.html#nullability-annotations"
         errorLine1="    void insertQuotation(QuotationEntity quotationEntity);"
         errorLine2="                         ~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
-            line="14"
+            line="17"
             column="26"/>
     </issue>
 
@@ -2632,7 +2643,7 @@
         errorLine2="                         ~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
-            line="14"
+            line="17"
             column="26"/>
     </issue>
 
@@ -2643,7 +2654,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
-            line="17"
+            line="20"
             column="5"/>
     </issue>
 
@@ -2651,39 +2662,6 @@
         id="UnknownNullness"
         message="Unknown nullability; explicitly declare as `@Nullable` or `@NonNull` to improve Kotlin interoperability; see https://android.github.io/kotlin-guides/interop.html#nullability-annotations"
         errorLine1="    QuotationEntity getQuotation(String digest);"
-        errorLine2="    ~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
-            line="17"
-            column="5"/>
-    </issue>
-
-    <issue
-        id="UnknownNullness"
-        message="Unknown nullability; explicitly declare as `@Nullable` or `@NonNull` to improve Kotlin interoperability; see https://android.github.io/kotlin-guides/interop.html#nullability-annotations"
-        errorLine1="    QuotationEntity getQuotation(String digest);"
-        errorLine2="                                 ~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
-            line="17"
-            column="34"/>
-    </issue>
-
-    <issue
-        id="UnknownNullness"
-        message="Unknown nullability; explicitly declare as `@Nullable` or `@NonNull` to improve Kotlin interoperability; see https://android.github.io/kotlin-guides/interop.html#nullability-annotations"
-        errorLine1="    QuotationEntity getQuotation(String digest);"
-        errorLine2="                                 ~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
-            line="17"
-            column="34"/>
-    </issue>
-
-    <issue
-        id="UnknownNullness"
-        message="Unknown nullability; explicitly declare as `@Nullable` or `@NonNull` to improve Kotlin interoperability; see https://android.github.io/kotlin-guides/interop.html#nullability-annotations"
-        errorLine1="    Single&lt;Integer> countAll();"
         errorLine2="    ~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
@@ -2694,19 +2672,41 @@
     <issue
         id="UnknownNullness"
         message="Unknown nullability; explicitly declare as `@Nullable` or `@NonNull` to improve Kotlin interoperability; see https://android.github.io/kotlin-guides/interop.html#nullability-annotations"
+        errorLine1="    QuotationEntity getQuotation(String digest);"
+        errorLine2="                                 ~~~~~~">
+        <location
+            file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
+            line="20"
+            column="34"/>
+    </issue>
+
+    <issue
+        id="UnknownNullness"
+        message="Unknown nullability; explicitly declare as `@Nullable` or `@NonNull` to improve Kotlin interoperability; see https://android.github.io/kotlin-guides/interop.html#nullability-annotations"
+        errorLine1="    QuotationEntity getQuotation(String digest);"
+        errorLine2="                                 ~~~~~~">
+        <location
+            file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
+            line="20"
+            column="34"/>
+    </issue>
+
+    <issue
+        id="UnknownNullness"
+        message="Unknown nullability; explicitly declare as `@Nullable` or `@NonNull` to improve Kotlin interoperability; see https://android.github.io/kotlin-guides/interop.html#nullability-annotations"
         errorLine1="    Single&lt;Integer> countAll();"
         errorLine2="    ~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
-            line="20"
+            line="23"
             column="5"/>
     </issue>
 
     <issue
         id="UnknownNullness"
         message="Unknown nullability; explicitly declare as `@Nullable` or `@NonNull` to improve Kotlin interoperability; see https://android.github.io/kotlin-guides/interop.html#nullability-annotations"
-        errorLine1="    List&lt;String> getDigestsForAuthor(String author);"
-        errorLine2="    ~~~~~~~~~~~~">
+        errorLine1="    Single&lt;Integer> countAll();"
+        errorLine2="    ~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
             line="23"
@@ -2720,7 +2720,18 @@
         errorLine2="    ~~~~~~~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
-            line="23"
+            line="26"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="UnknownNullness"
+        message="Unknown nullability; explicitly declare as `@Nullable` or `@NonNull` to improve Kotlin interoperability; see https://android.github.io/kotlin-guides/interop.html#nullability-annotations"
+        errorLine1="    List&lt;String> getDigestsForAuthor(String author);"
+        errorLine2="    ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
+            line="26"
             column="5"/>
     </issue>
 
@@ -2731,7 +2742,7 @@
         errorLine2="                                     ~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
-            line="23"
+            line="26"
             column="38"/>
     </issue>
 
@@ -2742,7 +2753,7 @@
         errorLine2="                                     ~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
-            line="23"
+            line="26"
             column="38"/>
     </issue>
 
@@ -2753,7 +2764,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
-            line="26"
+            line="29"
             column="5"/>
     </issue>
 
@@ -2764,17 +2775,6 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
-            line="26"
-            column="5"/>
-    </issue>
-
-    <issue
-        id="UnknownNullness"
-        message="Unknown nullability; explicitly declare as `@Nullable` or `@NonNull` to improve Kotlin interoperability; see https://android.github.io/kotlin-guides/interop.html#nullability-annotations"
-        errorLine1="    List&lt;String> getNextAuthorDigest(String author);"
-        errorLine2="    ~~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
             line="29"
             column="5"/>
     </issue>
@@ -2786,7 +2786,18 @@
         errorLine2="    ~~~~~~~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
-            line="29"
+            line="32"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="UnknownNullness"
+        message="Unknown nullability; explicitly declare as `@Nullable` or `@NonNull` to improve Kotlin interoperability; see https://android.github.io/kotlin-guides/interop.html#nullability-annotations"
+        errorLine1="    List&lt;String> getNextAuthorDigest(String author);"
+        errorLine2="    ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
+            line="32"
             column="5"/>
     </issue>
 
@@ -2797,7 +2808,7 @@
         errorLine2="                                     ~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
-            line="29"
+            line="32"
             column="38"/>
     </issue>
 
@@ -2808,7 +2819,7 @@
         errorLine2="                                     ~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
-            line="29"
+            line="32"
             column="38"/>
     </issue>
 
@@ -2819,7 +2830,7 @@
         errorLine2="    ~~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
-            line="32"
+            line="35"
             column="5"/>
     </issue>
 
@@ -2830,7 +2841,7 @@
         errorLine2="    ~~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
-            line="32"
+            line="35"
             column="5"/>
     </issue>
 
@@ -2841,7 +2852,7 @@
         errorLine2="                            ~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
-            line="32"
+            line="35"
             column="29"/>
     </issue>
 
@@ -2852,7 +2863,7 @@
         errorLine2="                            ~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
-            line="32"
+            line="35"
             column="29"/>
     </issue>
 
@@ -2863,7 +2874,7 @@
         errorLine2="    ~~~~~~~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
-            line="35"
+            line="38"
             column="5"/>
     </issue>
 
@@ -2874,17 +2885,6 @@
         errorLine2="    ~~~~~~~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
-            line="35"
-            column="5"/>
-    </issue>
-
-    <issue
-        id="UnknownNullness"
-        message="Unknown nullability; explicitly declare as `@Nullable` or `@NonNull` to improve Kotlin interoperability; see https://android.github.io/kotlin-guides/interop.html#nullability-annotations"
-        errorLine1="    List&lt;String> getSearchTextDigests(String text);"
-        errorLine2="    ~~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
             line="38"
             column="5"/>
     </issue>
@@ -2893,39 +2893,6 @@
         id="UnknownNullness"
         message="Unknown nullability; explicitly declare as `@Nullable` or `@NonNull` to improve Kotlin interoperability; see https://android.github.io/kotlin-guides/interop.html#nullability-annotations"
         errorLine1="    List&lt;String> getSearchTextDigests(String text);"
-        errorLine2="    ~~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
-            line="38"
-            column="5"/>
-    </issue>
-
-    <issue
-        id="UnknownNullness"
-        message="Unknown nullability; explicitly declare as `@Nullable` or `@NonNull` to improve Kotlin interoperability; see https://android.github.io/kotlin-guides/interop.html#nullability-annotations"
-        errorLine1="    List&lt;String> getSearchTextDigests(String text);"
-        errorLine2="                                      ~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
-            line="38"
-            column="39"/>
-    </issue>
-
-    <issue
-        id="UnknownNullness"
-        message="Unknown nullability; explicitly declare as `@Nullable` or `@NonNull` to improve Kotlin interoperability; see https://android.github.io/kotlin-guides/interop.html#nullability-annotations"
-        errorLine1="    List&lt;String> getSearchTextDigests(String text);"
-        errorLine2="                                      ~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
-            line="38"
-            column="39"/>
-    </issue>
-
-    <issue
-        id="UnknownNullness"
-        message="Unknown nullability; explicitly declare as `@Nullable` or `@NonNull` to improve Kotlin interoperability; see https://android.github.io/kotlin-guides/interop.html#nullability-annotations"
-        errorLine1="    List&lt;String> getNextSearchTextDigests(String text);"
         errorLine2="    ~~~~~~~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
@@ -2936,11 +2903,55 @@
     <issue
         id="UnknownNullness"
         message="Unknown nullability; explicitly declare as `@Nullable` or `@NonNull` to improve Kotlin interoperability; see https://android.github.io/kotlin-guides/interop.html#nullability-annotations"
-        errorLine1="    List&lt;String> getNextSearchTextDigests(String text);"
+        errorLine1="    List&lt;String> getSearchTextDigests(String text);"
         errorLine2="    ~~~~~~~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
             line="41"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="UnknownNullness"
+        message="Unknown nullability; explicitly declare as `@Nullable` or `@NonNull` to improve Kotlin interoperability; see https://android.github.io/kotlin-guides/interop.html#nullability-annotations"
+        errorLine1="    List&lt;String> getSearchTextDigests(String text);"
+        errorLine2="                                      ~~~~~~">
+        <location
+            file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
+            line="41"
+            column="39"/>
+    </issue>
+
+    <issue
+        id="UnknownNullness"
+        message="Unknown nullability; explicitly declare as `@Nullable` or `@NonNull` to improve Kotlin interoperability; see https://android.github.io/kotlin-guides/interop.html#nullability-annotations"
+        errorLine1="    List&lt;String> getSearchTextDigests(String text);"
+        errorLine2="                                      ~~~~~~">
+        <location
+            file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
+            line="41"
+            column="39"/>
+    </issue>
+
+    <issue
+        id="UnknownNullness"
+        message="Unknown nullability; explicitly declare as `@Nullable` or `@NonNull` to improve Kotlin interoperability; see https://android.github.io/kotlin-guides/interop.html#nullability-annotations"
+        errorLine1="    List&lt;String> getNextSearchTextDigests(String text);"
+        errorLine2="    ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
+            line="44"
+            column="5"/>
+    </issue>
+
+    <issue
+        id="UnknownNullness"
+        message="Unknown nullability; explicitly declare as `@Nullable` or `@NonNull` to improve Kotlin interoperability; see https://android.github.io/kotlin-guides/interop.html#nullability-annotations"
+        errorLine1="    List&lt;String> getNextSearchTextDigests(String text);"
+        errorLine2="    ~~~~~~~~~~~~">
+        <location
+            file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
+            line="44"
             column="5"/>
     </issue>
 
@@ -2951,7 +2962,7 @@
         errorLine2="                                          ~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
-            line="41"
+            line="44"
             column="43"/>
     </issue>
 
@@ -2962,7 +2973,7 @@
         errorLine2="                                          ~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/database/quotation/QuotationDAO.java"
-            line="41"
+            line="44"
             column="43"/>
     </issue>
 

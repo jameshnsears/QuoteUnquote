@@ -1,5 +1,6 @@
 package com.github.jameshnsears.quoteunquote.utils;
 
+import android.annotation.SuppressLint;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
@@ -57,6 +58,7 @@ public class IntentFactoryHelper {
         return chooserIntent;
     }
 
+    @SuppressLint("UnspecifiedImmutableFlag")
     @NonNull
     public static PendingIntent createIntentPending(
             @NonNull Context context,
@@ -65,7 +67,12 @@ public class IntentFactoryHelper {
         Intent intent = IntentFactoryHelper.createIntent(context, widgetId);
         intent.setAction(action);
 
-        int pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT;
+        int pendingIntentFlags = 0;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE;
+        } else {
+            pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT;
+        }
 
         return PendingIntent.getBroadcast(context, widgetId, intent, pendingIntentFlags);
     }
