@@ -1,9 +1,21 @@
 <b>Description</b>
-&bull; Discover carefully chosen high quality quotes from a diverse range of authors.
-&bull; Increase your self-esteem with some of the best quotes available.
+&bull; Discover high quality quotations from:
+&bull; Artists
+&bull; Coaches - Business; Life; Sports
+&bull; Engineers
+&bull; Entertainers
+&bull; Entrepreneurs
+&bull; Novelists
+&bull; Philosophers
+&bull; Playwrights (especially Shakespeare)
+&bull; Poets
+&bull; Politicians
+&bull; Psychotherapists
+&bull; ...
 
 <b>Key features</b>
 &bull; Twenty thousand reviewed, unique, high quality quotations.
+&bull; Author links with Wikipedia (where possible).
 &bull; Favourites - share; export; sync across devices.
 &bull; Search text - quotation / author.
 &bull; Easy to use, configurable, navigation.
@@ -11,8 +23,9 @@
 &bull; Dark theme support.
 
 <b>Other items of interest</b>
-&bull; Works offline.
+&bull; Core functionality works offline.
 &bull; No analytics.
 &bull; Minimal permissions.
 &bull; All quotations are in English.
 &bull; Supported <a href="https://github.com/jameshnsears/quoteunquote">Open-source</a> software.
+
