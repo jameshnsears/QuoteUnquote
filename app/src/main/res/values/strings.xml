@@ -120,7 +120,7 @@
     <string name="fragment_content_favourites_share_receiving">Receiving, please wait&#8230;</string>
     <string name="fragment_content_favourites_share_received">Success - favourites appended</string>
     <string name="fragment_content_favourites_share_missing">Unable to locate remote token</string>
-    <string name="fragment_content_favourites_share_comms">Check network connection / retry</string>
+    <string name="fragment_content_favourites_share_comms">Check network / Retry later</string>
     <string name="fragment_content_author_count">Authors with &lt; 5 quotations are not listed</string>
     <string name="fragment_content_author">Author: %d</string>
 
