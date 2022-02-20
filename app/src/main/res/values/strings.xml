@@ -6,10 +6,10 @@
     <string name="activity_instructions_different_ways">There are different ways to place a widget onto your home screen, the most common being:</string>
     <string name="activity_instructions_1">1. On a home screen, touch and hold an empty space.</string>
     <string name="activity_instructions_2">2. Tap </string>
-    <string name="activity_instructions_3">3. Scroll though the widgets until you find the <b>Quote Unquote</b> widget.</string>
+    <string name="activity_instructions_3">3. Scroll though the widgets until you find the Quote Unquote widget.</string>
     <string name="activity_instructions_4">4. Touch and slide the widget to where you want it. Lift your finger.</string>
-    <string name="activity_instructions_5">5. <b>IMPORTANT:</b> use Android\'s \"Back\" button / gesture to successfully leave the configuration screen and place the widget on your home screen.</string>
-    <string name="activity_instructions_configure">Once the widget is on the home screen, tap the quotation text to re-configure the widget.</string>
+    <string name="activity_instructions_5">5. <b>IMPORTANT:</b> use Android\'s \"Back\" button / Gesture to successfully leave the configuration screen and place the widget on your home screen.</string>
+    <string name="activity_instructions_configure">Once the widget is on the home screen, tap the text to re-configure the widget. Tap an <u>underlined</u> author for Wikipedia entry.</string>
     <string name="activity_instructions_resize">Resize the widget</string>
     <string name="activity_instructions_resize_instruction_1">1. Touch and hold the widget on your home screen.</string>
     <string name="activity_instructions_resize_instruction_2">2. Lift your finger. You\'ll find an outline with dots on the sides.</string>
@@ -144,9 +144,8 @@
     <string name="notification_channel_name">Quotations</string>
     <string name="notification_channel_description">Quotation Notifications</string>
 
-    <string name="preview_description">A simple App Widget featuring quality quotes.</string>
-    <string-array name="preview_quotations">
-        <item>Nothing matters very much and very few things matter at all.</item>
-        <item>Arthur Balfour @ 1/20799</item>
-    </string-array>
+    <string name="preview_description">Discover high quality quotations!</string>
+    <string name="preview_quotation">Nothing matters very much and very few things matter at all.\n</string>
+    <string name="preview_author"><u>Arthur Balfour\n</u></string>
+    <string name="preview_position">1/20699</string>
 </resources>

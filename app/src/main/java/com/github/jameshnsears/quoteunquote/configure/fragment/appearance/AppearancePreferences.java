@@ -20,7 +20,6 @@ public class AppearancePreferences extends PreferencesFacade {
     private static final String APPEARANCE_TOOLBAR_COLOUR = "APPEARANCE_TOOLBAR_COLOUR";
     private static final String APPEARANCE_TOOLBAR_FIRST = "APPEARANCE_TOOLBAR_FIRST";
     private static final String APPEARANCE_TOOLBAR_PREVIOUS = "APPEARANCE_TOOLBAR_PREVIOUS";
-    private static final String APPEARANCE_TOOLBAR_REPORT = "APPEARANCE_TOOLBAR_REPORT";
     private static final String APPEARANCE_TOOLBAR_FAVOURITE = "APPEARANCE_TOOLBAR_FAVOURITE";
     private static final String APPEARANCE_TOOLBAR_SHARE = "APPEARANCE_TOOLBAR_SHARE";
     private static final String APPEARANCE_TOOLBAR_RANDOM = "APPEARANCE_TOOLBAR_RANDOM";
@@ -79,6 +78,7 @@ public class AppearancePreferences extends PreferencesFacade {
         this.preferenceHelper.setPreference(this.getPreferenceKey(AppearancePreferences.APPEARANCE_COLOUR), value);
     }
 
+    @NonNull
     public String getAppearanceToolbarColour() {
         return this.preferenceHelper.getPreferenceString(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TOOLBAR_COLOUR));
     }
@@ -87,6 +87,7 @@ public class AppearancePreferences extends PreferencesFacade {
         this.preferenceHelper.setPreference(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TOOLBAR_COLOUR), value);
     }
 
+    @NonNull
     public String getAppearanceTextColour() {
         String textColour = this.preferenceHelper.getPreferenceString(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TEXT_COLOUR));
         if (textColour.equals("")) {
@@ -127,14 +128,6 @@ public class AppearancePreferences extends PreferencesFacade {
         this.preferenceHelper.setPreference(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TOOLBAR_PREVIOUS), value);
     }
 
-    public boolean getAppearanceToolbarReport() {
-        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TOOLBAR_REPORT), false);
-    }
-
-    public void setAppearanceToolbarReport(boolean value) {
-        this.preferenceHelper.setPreference(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TOOLBAR_REPORT), value);
-    }
-
     public boolean getAppearanceToolbarFavourite() {
         return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TOOLBAR_FAVOURITE), true);
     }
@@ -144,7 +137,7 @@ public class AppearancePreferences extends PreferencesFacade {
     }
 
     public boolean getAppearanceToolbarShare() {
-        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TOOLBAR_SHARE), false);
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TOOLBAR_SHARE), true);
     }
 
     public void setAppearanceToolbarShare(boolean value) {

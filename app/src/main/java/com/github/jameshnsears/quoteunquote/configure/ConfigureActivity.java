@@ -1,9 +1,12 @@
 package com.github.jameshnsears.quoteunquote.configure;
 
+import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +16,7 @@ import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearanceFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.content.ContentFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.event.EventFragment;
+import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
 import com.github.jameshnsears.quoteunquote.databinding.ActivityConfigureBinding;
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
 import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
@@ -23,11 +27,16 @@ import timber.log.Timber;
 
 public class ConfigureActivity extends AppCompatActivity {
     public int widgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
+
     @Nullable
     public ActivityConfigureBinding activityConfigureBinding;
+
     private boolean finishCalled;
+
     public static boolean exportCalled;
+
     public boolean broadcastFinishIntent = true;
+
     private final BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
             = item -> {
         Fragment selectedFragment = this.getFragmentContentNewInstance();
@@ -102,27 +111,63 @@ public class ConfigureActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onCreate(final Bundle bundle) {
+    public void onCreate(final @NonNull Bundle bundle) {
         Timber.d("onCreate");
         super.onCreate(bundle);
 
         AuditEventHelper.createInstance(getApplication());
-
         Intent intent = this.getIntent();
         Bundle extras = intent.getExtras();
-        if (extras != null) {
+
+
+        String wikipedia = extras.getString("wikipedia");
+        if (wikipedia != null && !wikipedia.equals("?") && !wikipedia.equals("")) {
+            linkToWikipedia(wikipedia);
+        } else {
             this.widgetId = extras.getInt(
                     AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
             this.broadcastFinishIntent = extras.getBoolean("broadcastFinishIntent", true);
+
+            this.activityConfigureBinding = ActivityConfigureBinding.inflate(getLayoutInflater());
+            setContentView(this.activityConfigureBinding.getRoot());
+
+            BottomNavigationView bottomNavigationView = this.findViewById(R.id.configureNavigation);
+            bottomNavigationView.setOnNavigationItemSelectedListener(this.navigationItemSelectedListener);
+
+            bottomNavigationView.setSelectedItemId(R.id.navigationBarQuotations);
         }
+    }
 
-        this.activityConfigureBinding = ActivityConfigureBinding.inflate(getLayoutInflater());
-        setContentView(this.activityConfigureBinding.getRoot());
+    private void linkToWikipedia(@NonNull String wikipedia) {
+        Timber.d("wikipedia=%s", wikipedia);
 
-        BottomNavigationView bottomNavigationView = this.findViewById(R.id.configureNavigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(this.navigationItemSelectedListener);
+        if (wikipedia.equals("r/quotes/")) {
+            wikipediaActivityLancher.launch(
+                    IntentFactoryHelper.createIntentActionView("https://www.reddit.com/" + wikipedia));
+        } else {
+            wikipediaActivityLancher.launch(
+                    IntentFactoryHelper.createIntentActionView("https://en.wikipedia.org/wiki/" + wikipedia));
+        }
+    }
 
-        bottomNavigationView.setSelectedItemId(R.id.navigationBarQuotations);
+    ActivityResultLauncher<Intent> wikipediaActivityLancher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    finish();
+                }
+            });
+
+    @Override
+    public void onDestroy() {
+        Timber.d("onDestroy");
+
+        ToastHelper.toast = null;
+
+        DatabaseRepository.close(getApplicationContext());
+        DatabaseRepository.databaseRepository = null;
+
+        super.onDestroy();
     }
 
     @NonNull

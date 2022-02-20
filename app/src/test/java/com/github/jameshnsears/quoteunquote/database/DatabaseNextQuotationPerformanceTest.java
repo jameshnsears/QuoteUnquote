@@ -1,5 +1,8 @@
 package com.github.jameshnsears.quoteunquote.database;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import androidx.annotation.NonNull;
 
 import com.google.common.collect.Iterables;
@@ -13,9 +16,6 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Random;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 public class DatabaseNextQuotationPerformanceTest {
     // https://javarevisited.blogspot.com/2012/11/difference-between-treeset-hashset-vs-linkedhashset-java.html?m=1

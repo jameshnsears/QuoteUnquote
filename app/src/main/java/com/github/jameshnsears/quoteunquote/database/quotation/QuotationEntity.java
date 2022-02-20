@@ -18,20 +18,31 @@ public class QuotationEntity {
     public final String quotation;
 
     @NonNull
+    @ColumnInfo(name = "wikipedia", collate = ColumnInfo.NOCASE)
+    public final String wikipedia;
+
+    @NonNull
     @ColumnInfo(name = "digest")
     public final String digest;
 
     public QuotationEntity(
             @NonNull String digest,
+            @NonNull String wikipedia,
             @NonNull String author,
             @NonNull String quotation) {
         this.author = author;
+        this.wikipedia = wikipedia;
         this.quotation = quotation;
         this.digest = digest;
     }
 
     @NonNull
     public String theQuotation() {
-        return String.format("%s%n%n%s ", this.quotation, this.author);
+        return this.quotation + "\n";
+    }
+
+    @NonNull
+    public String theAuthor() {
+        return this.author + "\n";
     }
 }

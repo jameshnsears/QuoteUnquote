@@ -33,17 +33,18 @@ import io.reactivex.Single;
 import timber.log.Timber;
 
 public class DatabaseRepository {
-    private static DatabaseRepository databaseRepository;
+    @NonNull
+    public static DatabaseRepository databaseRepository;
     @NonNull
     protected final SecureRandom secureRandom = new SecureRandom();
     @Nullable
     public PreviousDAO previousDAO;
     @Nullable
-    protected AbstractQuotationDatabase abstractQuotationDatabase;
+    public AbstractQuotationDatabase abstractQuotationDatabase;
     @Nullable
     protected QuotationDAO quotationDAO;
     @Nullable
-    protected AbstractHistoryDatabase abstractHistoryDatabase;
+    public AbstractHistoryDatabase abstractHistoryDatabase;
     @Nullable
     protected FavouriteDAO favouriteDAO;
     @Nullable
@@ -71,12 +72,21 @@ public class DatabaseRepository {
         getInstance(context);
     }
 
+    public static void close(@NonNull Context context) {
+        AbstractQuotationDatabase.getDatabase(context).close();
+        AbstractQuotationDatabase.quotationDatabase = null;
+
+        AbstractHistoryDatabase.getDatabase(context).close();
+        AbstractHistoryDatabase.historyDatabase = null;
+    }
+
+    @NonNull
     public static synchronized DatabaseRepository getInstance(@NonNull Context context) {
-        if (DatabaseRepository.databaseRepository == null) {
-            DatabaseRepository.databaseRepository = new DatabaseRepository(context);
+        if (databaseRepository == null) {
+            databaseRepository = new DatabaseRepository(context);
         }
 
-        return DatabaseRepository.databaseRepository;
+        return databaseRepository;
     }
 
     @NonNull
@@ -92,6 +102,7 @@ public class DatabaseRepository {
         return "1624c314";
     }
 
+    @NonNull
     public Single<Integer> countAll() {
         return this.quotationDAO.countAll();
     }
@@ -204,7 +215,8 @@ public class DatabaseRepository {
         return this.quotationDAO.getAllQuotations();
     }
 
-    public QuotationEntity getQuotation(String digest) {
+    @NonNull
+    public QuotationEntity getQuotation(@NonNull String digest) {
         return this.quotationDAO.getQuotation(digest);
     }
 
@@ -236,6 +248,7 @@ public class DatabaseRepository {
         this.currentDAO.markAsCurrent(new CurrentEntity(widgetId, digest));
     }
 
+    @NonNull
     public QuotationEntity getCurrentQuotation(int widgetId) {
         final QuotationEntity quotationEntity = this.getQuotation(this.currentDAO.getCurrentDigest(widgetId));
         if (quotationEntity != null) {

@@ -3,7 +3,6 @@ package com.github.jameshnsears.quoteunquote.cloud;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Binder;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
@@ -25,19 +24,33 @@ import timber.log.Timber;
 
 public class CloudServiceReceive extends Service {
     @NonNull
-    private final IBinder binder = new LocalBinder();
+    private IBinder binder;
     @NonNull
-    private final Handler handler = this.getHandler();
+    private Handler handler = getHandler();
     @NonNull
-    private final CloudFavourites cloudFavourites = this.getCloudFavourites();
+    private CloudFavourites cloudFavourites = getCloudFavourites();
     public boolean isRunning;
 
     @Override
+    public void onCreate() {
+        super.onCreate();
+        binder = new CloudServiceReceiveLocalBinder(this);
+    }
+
+    @Override
     public void onDestroy() {
-        super.onDestroy();
-        this.isRunning = false;
-        Timber.d("%b", this.isRunning);
+        Timber.d("%b", isRunning);
+
+        isRunning = false;
+
+        handler = null;
+
+        binder = null;
+
         CloudFavourites.shutdown();
+        cloudFavourites = null;
+
+        super.onDestroy();
     }
 
     @NonNull
@@ -53,36 +66,36 @@ public class CloudServiceReceive extends Service {
     @Override
     @NonNull
     public IBinder onBind(@NonNull Intent intent) {
-        return this.binder;
+        return binder;
     }
 
     public void receive(
             @NonNull ContentFragment contentFragment,
             @NonNull String remoteCodeValue) {
 
-        if (!this.isRunning) {
-            this.isRunning = true;
+        if (!isRunning) {
+            isRunning = true;
 
             new Thread(() -> {
-                Timber.d("isRunning=%b", this.isRunning);
+                Timber.d("isRunning=%b", isRunning);
 
-                Context context = this.getServiceContext();
+                Context context = getServiceContext();
 
 
-                if (!this.cloudFavourites.isInternetAvailable()) {
-                    CloudServiceHelper.showNoNetworkToast(context, this.handler);
+                if (!cloudFavourites.isInternetAvailable()) {
+                    CloudServiceHelper.showNoNetworkToast(context, handler);
                 } else {
-                    this.handler.post(() -> ToastHelper.makeToast(
+                    handler.post(() -> ToastHelper.makeToast(
                             context,
                             context.getString(R.string.fragment_content_favourites_share_receiving),
                             Toast.LENGTH_SHORT));
 
-                    List<String> favouritesReceived = this.cloudFavourites.receive(
+                    List<String> favouritesReceived = cloudFavourites.receive(
                             CloudFavourites.TIMEOUT_SECONDS,
                             CloudFavouritesHelper.jsonReceiveRequest(remoteCodeValue)).digests;
 
                     if (favouritesReceived == null) {
-                        this.handler.post(() -> ToastHelper.makeToast(
+                        handler.post(() -> ToastHelper.makeToast(
                                 context, context.getString(R.string.fragment_content_favourites_share_missing), Toast.LENGTH_SHORT));
                     } else {
                         DatabaseRepository databaseRepository = getDatabaseRepository(context);
@@ -92,7 +105,7 @@ public class CloudServiceReceive extends Service {
                             }
                         }
 
-                        this.handler.post(() -> ToastHelper.makeToast(
+                        handler.post(() -> ToastHelper.makeToast(
                                 context, context.getString(R.string.fragment_content_favourites_share_received), Toast.LENGTH_SHORT));
 
                         if (contentFragment != null) {
@@ -105,8 +118,8 @@ public class CloudServiceReceive extends Service {
                     }
                 }
 
-                this.isRunning = false;
-                Timber.d("isRunning=%b", this.isRunning);
+                isRunning = false;
+                Timber.d("isRunning=%b", isRunning);
 
             }).start();
         }
@@ -122,10 +135,4 @@ public class CloudServiceReceive extends Service {
         return getApplicationContext();
     }
 
-    public class LocalBinder extends Binder {
-        @NonNull
-        public CloudServiceReceive getService() {
-            return CloudServiceReceive.this;
-        }
-    }
 }

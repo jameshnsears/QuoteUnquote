@@ -69,14 +69,14 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
         val contentPreferences = ContentPreferences(WidgetIdHelper.WIDGET_ID_01, context)
         contentPreferences.contentSelection = ContentSelection.ALL
 
-        pressNext(contentPreferences, "d2", "@ 1/3", false)
-        pressNext(contentPreferences, "d3", "@ 2/3", false)
-        pressPrevious(contentPreferences, "d2", "@ 1/3")
-        pressNext(contentPreferences, "d3", "@ 2/3", false)
-        pressNext(contentPreferences, "d4", "@ 3/3", false)
+        pressNext(contentPreferences, "d2", "1/3", false)
+        pressNext(contentPreferences, "d3", "2/3", false)
+        pressPrevious(contentPreferences, "d2", "1/3")
+        pressNext(contentPreferences, "d3", "2/3", false)
+        pressNext(contentPreferences, "d4", "3/3", false)
 
-        pressNext(contentPreferences, "d4", "@ 3/3", false)
-        pressPrevious(contentPreferences, "d3", "@ 2/3")
+        pressNext(contentPreferences, "d4", "3/3", false)
+        pressPrevious(contentPreferences, "d3", "2/3")
     }
 
     private fun pressPrevious(
@@ -132,12 +132,12 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
         val contentPreferences = ContentPreferences(WidgetIdHelper.WIDGET_ID_01, context)
         contentPreferences.contentSelection = ContentSelection.ALL
 
-        pressNext(contentPreferences, "", "@ 1/3", true)
-        pressNext(contentPreferences, "", "@ 2/3", true)
-        pressPrevious(contentPreferences, "", "@ 1/3")
-        pressNext(contentPreferences, "", "@ 3/3", true)
-        pressPrevious(contentPreferences, "", "@ 2/3")
-        pressNext(contentPreferences, "", "@ 3/3", true)
-        pressNext(contentPreferences, "", "@ 3/3", true)
+        pressNext(contentPreferences, "", "1/3", true)
+        pressNext(contentPreferences, "", "2/3", true)
+        pressPrevious(contentPreferences, "", "1/3")
+        pressNext(contentPreferences, "", "3/3", true)
+        pressPrevious(contentPreferences, "", "2/3")
+        pressNext(contentPreferences, "", "3/3", true)
+        pressNext(contentPreferences, "", "3/3", true)
     }
 }

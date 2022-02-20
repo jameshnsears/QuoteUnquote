@@ -62,11 +62,10 @@ public class AppearanceToolbarFragment extends FragmentCommon {
 
     @Override
     public void onViewCreated(
-            @NonNull View view, Bundle savedInstanceState) {
+            @NonNull View view, @NonNull Bundle savedInstanceState) {
         this.createListenerToolbarColour();
         this.createListenerToolbarFirst();
         this.createListenerToolbarPrevious();
-        this.createListenerToolbarReport();
         this.createListenerToolbarToggleFavourite();
         this.createListenerToolbarShare();
         this.createListenerToolbarNextRandom();
@@ -79,7 +78,6 @@ public class AppearanceToolbarFragment extends FragmentCommon {
     public void setToolbar() {
         this.fragmentAppearanceTabToolbarBinding.toolbarSwitchFirst.setChecked(this.appearancePreferences.getAppearanceToolbarFirst());
         this.fragmentAppearanceTabToolbarBinding.toolbarSwitchPrevious.setChecked(this.appearancePreferences.getAppearanceToolbarPrevious());
-        this.fragmentAppearanceTabToolbarBinding.toolbarSwitchReport.setChecked(this.appearancePreferences.getAppearanceToolbarReport());
         this.fragmentAppearanceTabToolbarBinding.toolbarSwitchToggleFavourite.setChecked(this.appearancePreferences.getAppearanceToolbarFavourite());
         this.fragmentAppearanceTabToolbarBinding.toolbarSwitchShare.setChecked(this.appearancePreferences.getAppearanceToolbarShare());
         this.fragmentAppearanceTabToolbarBinding.toolbarSwitchNextRandom.setChecked(this.appearancePreferences.getAppearanceToolbarRandom());
@@ -110,12 +108,6 @@ public class AppearanceToolbarFragment extends FragmentCommon {
     private void createListenerToolbarPrevious() {
         this.fragmentAppearanceTabToolbarBinding.toolbarSwitchPrevious.setOnCheckedChangeListener((buttonView, isChecked) ->
                 this.appearancePreferences.setAppearanceToolbarPrevious(isChecked)
-        );
-    }
-
-    private void createListenerToolbarReport() {
-        this.fragmentAppearanceTabToolbarBinding.toolbarSwitchReport.setOnCheckedChangeListener((buttonView, isChecked) ->
-                this.appearancePreferences.setAppearanceToolbarReport(isChecked)
         );
     }
 

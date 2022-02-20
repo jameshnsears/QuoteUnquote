@@ -6,10 +6,13 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteWidget;
+import com.github.jameshnsears.quoteunquote.configure.ConfigureActivity;
 
 import java.security.SecureRandom;
 
@@ -60,7 +63,30 @@ public class IntentFactoryHelper {
 
     @SuppressLint("UnspecifiedImmutableFlag")
     @NonNull
-    public static PendingIntent createIntentPending(
+    public static PendingIntent createPendingIntentTemplate(@NonNull Context context) {
+        Intent pendingIntent = new Intent(context, ConfigureActivity.class);
+
+        PendingIntent clickPendingIntent = null;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            clickPendingIntent = PendingIntent
+                    .getActivity(context, 0,
+                            pendingIntent ,
+                            PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
+        } else {
+            clickPendingIntent = PendingIntent
+                    .getActivity(context, 0,
+                            pendingIntent ,
+                            PendingIntent.FLAG_UPDATE_CURRENT);
+
+        }
+
+        return clickPendingIntent;
+    }
+
+    @SuppressLint("UnspecifiedImmutableFlag")
+    @NonNull
+    public static PendingIntent createClickPendingIntent(
             @NonNull Context context,
             int widgetId,
             @NonNull String action) {
@@ -75,6 +101,19 @@ public class IntentFactoryHelper {
         }
 
         return PendingIntent.getBroadcast(context, widgetId, intent, pendingIntentFlags);
+    }
+
+    @NonNull
+    public static Intent createClickFillInIntent(@NonNull String key, @NonNull String value, int widgetId) {
+        Intent clickFillInIntent = new Intent();
+
+        Bundle extras = new Bundle();
+        extras.putString(key, value);
+        extras.putInt(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
+
+        clickFillInIntent.putExtras(extras);
+
+        return clickFillInIntent;
     }
 
     @NonNull
@@ -110,11 +149,13 @@ public class IntentFactoryHelper {
     }
 
     @NonNull
-    public static Intent createIntentActionView() {
+    public static Intent createIntentActionView(@NonNull final String url) {
         Intent intent = new Intent();
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
         intent.setAction(Intent.ACTION_VIEW);
         intent.addCategory(Intent.CATEGORY_BROWSABLE);
-        intent.setData(Uri.parse("http://github.com/jameshnsears/quoteunquote"));
+        intent.setData(Uri.parse(url));
         return intent;
     }
 }

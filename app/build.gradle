@@ -45,8 +45,8 @@ android {
         applicationId "com.github.jameshnsears.quoteunquote"
 
         // changelog version | min sdk | target sdk
-        versionCode 902431
-        versionName "2.8.3"
+        versionCode 912431
+        versionName "2.9.0"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -94,9 +94,9 @@ android {
             buildConfigField("String", "GIT_HASH", "\"$gitHash\"")
             buildConfigField("String", "DATABASE_QUOTATIONS", "\"quotations.db.prod\"")
 
-//            ndk {
-//                debugSymbolLevel = 'full'
-//            }
+            ndk {
+                debugSymbolLevel = 'full'
+            }
         }
         debug {
             testCoverageEnabled true

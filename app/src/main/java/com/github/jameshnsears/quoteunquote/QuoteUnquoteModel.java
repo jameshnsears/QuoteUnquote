@@ -118,7 +118,7 @@ public class QuoteUnquoteModel {
                 positionInPrevious += 1;
             }
 
-            return String.format("@ %d/%d",
+            return String.format("%d/%d",
                     positionInPrevious,
                     this.databaseRepository.countNext(contentPreferences));
         });
@@ -448,22 +448,6 @@ public class QuoteUnquoteModel {
         }
     }
 
-    public void markAsReported(int widgetId) {
-        Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
-            final List<String> previousQuotations = this.databaseRepository.getPreviousDigests(
-                    widgetId, this.getContentPreferences(widgetId).getContentSelection());
-
-            this.databaseRepository.markAsReported(previousQuotations.get(0));
-        });
-
-        try {
-            future.get();
-        } catch (@NonNull final ExecutionException | InterruptedException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
-    }
-
     public void markAsCurrentPrevious(
             int widgetId) {
         Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
@@ -481,26 +465,6 @@ public class QuoteUnquoteModel {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
-    }
-
-    public boolean isReported(int widgetId) {
-        Future<Boolean> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
-            final QuotationEntity quotationEntity = this.getCurrentQuotation(
-                    widgetId);
-
-            return this.databaseRepository.isReported(quotationEntity.digest);
-        });
-
-        boolean isReported = false;
-        try {
-            isReported = future.get();
-        } catch (@NonNull final ExecutionException | InterruptedException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
-        Timber.d("%b", isReported);
-
-        return isReported;
     }
 
     @NonNull

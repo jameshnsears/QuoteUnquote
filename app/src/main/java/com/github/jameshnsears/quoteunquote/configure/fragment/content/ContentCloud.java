@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.github.jameshnsears.quoteunquote.cloud.CloudServiceReceive;
+import com.github.jameshnsears.quoteunquote.cloud.CloudServiceReceiveLocalBinder;
 
 public class ContentCloud {
     @Nullable
@@ -18,7 +19,7 @@ public class ContentCloud {
     public final ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, @Nullable IBinder service) {
-            CloudServiceReceive.LocalBinder binder = (CloudServiceReceive.LocalBinder) service;
+            CloudServiceReceiveLocalBinder binder = (CloudServiceReceiveLocalBinder) service;
 
             if (service != null) {
                 ContentCloud.this.cloudServiceReceive = binder.getService();

@@ -51,9 +51,8 @@ class AppearanceFragmentPreferencesTest : ShadowLoggingHelper() {
                 fragment.setToolbar()
                 assertTrue(fragment.appearancePreferences?.appearanceToolbarFirst == false)
                 assertTrue(fragment.appearancePreferences?.appearanceToolbarPrevious == true)
-                assertTrue(fragment.appearancePreferences?.appearanceToolbarReport == false)
                 assertTrue(fragment.appearancePreferences?.appearanceToolbarFavourite == true)
-                assertTrue(fragment.appearancePreferences?.appearanceToolbarShare == false)
+                assertTrue(fragment.appearancePreferences?.appearanceToolbarShare == true)
                 assertTrue(fragment.appearancePreferences?.appearanceToolbarRandom == true)
                 assertTrue(fragment.appearancePreferences?.appearanceToolbarSequential == false)
             }
@@ -69,9 +68,6 @@ class AppearanceFragmentPreferencesTest : ShadowLoggingHelper() {
 
                 fragment.fragmentAppearanceTabToolbarBinding?.toolbarSwitchPrevious?.isChecked = false
                 assertTrue(fragment.appearancePreferences?.appearanceToolbarPrevious == false)
-
-                fragment.fragmentAppearanceTabToolbarBinding?.toolbarSwitchReport?.isChecked = false
-                assertTrue(fragment.appearancePreferences?.appearanceToolbarReport == false)
 
                 fragment.fragmentAppearanceTabToolbarBinding?.toolbarSwitchToggleFavourite?.isChecked = false
                 assertTrue(fragment.appearancePreferences?.appearanceToolbarFavourite == false)

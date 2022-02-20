@@ -17,6 +17,9 @@
         <entry key="app/src/main/res/drawable/ic_navigation_bar_schedule24.xml" value="0.20885416666666667" />
         <entry key="app/src/main/res/drawable/ic_navigation_bar_schedule_24.xml" value="0.1328125" />
         <entry key="app/src/main/res/drawable/ic_navigation_bar_schedule_avd_24.xml" value="0.1328125" />
+        <entry key="app/src/main/res/drawable/ic_toolbar_report_24.xml" value="0.1734375" />
+        <entry key="app/src/main/res/drawable/ic_toolbar_report_ff000000_24.xml" value="0.1734375" />
+        <entry key="app/src/main/res/drawable/ic_toolbar_report_ffffffff_24.xml" value="0.1734375" />
         <entry key="app/src/main/res/drawable/next_plan_avd_anim.xml" value="0.1953125" />
         <entry key="app/src/main/res/drawable/vectordrawable.xml" value="0.21770833333333334" />
         <entry key="app/src/main/res/layout/activity_configure.xml" value="0.33" />
@@ -25,11 +28,38 @@
         <entry key="app/src/main/res/layout/anim_settings.xml" value="0.17916666666666667" />
         <entry key="app/src/main/res/layout/fragment_appearance.xml" value="0.13068181818181818" />
         <entry key="app/src/main/res/layout/fragment_appearance_tab_style.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/fragment_appearance_tab_toolbar.xml" value="0.5" />
-        <entry key="app/src/main/res/layout/fragment_content.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_appearance_tab_toolbar.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_content.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_event.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/listvew_row_0_cursive.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/listvew_row_0_cursive_bold.xml" value="0.18703703703703703" />
+        <entry key="app/src/main/res/layout/listvew_row_0_cursive_bold_italic.xml" value="0.18703703703703703" />
+        <entry key="app/src/main/res/layout/listvew_row_0_cursive_italic.xml" value="0.18703703703703703" />
+        <entry key="app/src/main/res/layout/listvew_row_1_monospace.xml" value="0.18385416666666668" />
+        <entry key="app/src/main/res/layout/listvew_row_1_monospace_bold.xml" value="0.18703703703703703" />
+        <entry key="app/src/main/res/layout/listvew_row_1_monospace_bold_italic.xml" value="0.18703703703703703" />
+        <entry key="app/src/main/res/layout/listvew_row_1_monospace_italic.xml" value="0.18703703703703703" />
+        <entry key="app/src/main/res/layout/listvew_row_2_sans_serif.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/listvew_row_2_sans_serif_author.xml" value="0.18385416666666668" />
+        <entry key="app/src/main/res/layout/listvew_row_2_sans_serif_bold.xml" value="0.18703703703703703" />
+        <entry key="app/src/main/res/layout/listvew_row_2_sans_serif_bold_italic.xml" value="0.18703703703703703" />
+        <entry key="app/src/main/res/layout/listvew_row_2_sans_serif_italic.xml" value="0.18703703703703703" />
+        <entry key="app/src/main/res/layout/listvew_row_2_sans_serif_position.xml" value="0.18385416666666668" />
+        <entry key="app/src/main/res/layout/listvew_row_2_sans_serif_quotation.xml" value="0.18385416666666668" />
+        <entry key="app/src/main/res/layout/listvew_row_3_sans_serif_condensed.xml" value="0.18703703703703703" />
+        <entry key="app/src/main/res/layout/listvew_row_3_sans_serif_condensed_bold.xml" value="0.18703703703703703" />
+        <entry key="app/src/main/res/layout/listvew_row_3_sans_serif_condensed_bold_italic.xml" value="0.18703703703703703" />
+        <entry key="app/src/main/res/layout/listvew_row_3_sans_serif_condensed_italic.xml" value="0.18703703703703703" />
+        <entry key="app/src/main/res/layout/listvew_row_4_sans_serif_medium.xml" value="0.18703703703703703" />
+        <entry key="app/src/main/res/layout/listvew_row_4_sans_serif_medium_bold.xml" value="0.18703703703703703" />
         <entry key="app/src/main/res/layout/listvew_row_4_sans_serif_medium_bold_italic.xml" value="0.17916666666666667" />
-        <entry key="app/src/main/res/layout/quote_unquote_widget_preview.xml" value="0.19270833333333334" />
+        <entry key="app/src/main/res/layout/listvew_row_4_sans_serif_medium_italic.xml" value="0.18703703703703703" />
+        <entry key="app/src/main/res/layout/listvew_row_5_serif.xml" value="0.18703703703703703" />
+        <entry key="app/src/main/res/layout/listvew_row_5_serif_bold.xml" value="0.18703703703703703" />
+        <entry key="app/src/main/res/layout/listvew_row_5_serif_bold_italic.xml" value="0.18703703703703703" />
+        <entry key="app/src/main/res/layout/listvew_row_5_serif_italic.xml" value="0.18703703703703703" />
+        <entry key="app/src/main/res/layout/quote_unquote_widget.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/quote_unquote_widget_preview.xml" value="0.4138309549945115" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.14130434782608695" />
       </map>
     </option>

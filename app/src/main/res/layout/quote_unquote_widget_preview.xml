@@ -6,19 +6,50 @@
         android:orientation="vertical"
         tools:viewBindingIgnore="true">
 
-    <ListView
-            android:id="@+id/listViewPreviewQuotation"
-            style="@style/PreviewQuotation.ListViewStyle"
+
+    <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="2dp"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:divider="@null"
-            android:dividerHeight="0dp"
-            android:drawSelectorOnTop="false"
-            android:entries="@array/preview_quotations"
-            android:paddingVertical="2dp"
-            android:theme="@style/Theme.QuoteUnquote.PreviewQuotation" />
+            android:orientation="vertical"
+            android:layout_marginBottom="2dp"
+            android:background="#FFF8FD89">
+
+        <TextView
+                android:id="@+id/textViewRowQuotation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+                android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
+                android:text="@string/preview_quotation"
+                android:textAllCaps="false"
+                android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+        <TextView
+                android:id="@+id/textViewRowAuthor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+                android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
+                android:text="@string/preview_author"
+                android:textAllCaps="false"
+                android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+        <TextView
+                android:id="@+id/textViewRowPosition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:gravity="end"
+                android:minHeight="10.dp"
+                android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+                android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
+                android:text="@string/preview_position"
+                android:textAllCaps="false"
+                android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+    </LinearLayout>
 
     <LinearLayout
             android:id="@+id/linearLayoutToolbar"
@@ -46,16 +77,6 @@
                 android:src="@drawable/ic_toolbar_previous_ff000000_24" />
 
         <ImageButton
-                android:id="@+id/imageButtonReport"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/white"
-                android:contentDescription="@string/fragment_appearance_instructions_report"
-                android:src="@drawable/ic_toolbar_report_ff000000_24"
-                android:visibility="gone" />
-
-        <ImageButton
                 android:id="@+id/imageButtonFavourite"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -71,15 +92,14 @@
                 android:layout_weight="1"
                 android:background="#FFF8FD89"
                 android:contentDescription="@string/fragment_appearance_instructions_share"
-                android:src="@drawable/ic_toolbar_share_ff000000_24"
-                android:visibility="gone" />
+                android:src="@drawable/ic_toolbar_share_ff000000_24" />
 
         <ImageButton
                 android:id="@+id/imageButtonNextSequential"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@android:color/white"
+                android:background="#FFF8FD89"
                 android:contentDescription="@string/fragment_appearance_instructions_next_sequential"
                 android:src="@drawable/ic_toolbar_next_sequential_ff000000_24"
                 android:visibility="gone" />

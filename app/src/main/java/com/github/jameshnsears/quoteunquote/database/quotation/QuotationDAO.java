@@ -10,13 +10,13 @@ import io.reactivex.Single;
 
 @Dao
 public interface QuotationDAO {
-    @Query("SELECT AUTHOR, QUOTATION, DIGEST FROM QUOTATIONS")
+    @Query("SELECT AUTHOR, QUOTATION, WIKIPEDIA, DIGEST FROM QUOTATIONS")
     List<QuotationEntity> getAllQuotations();
 
     @Insert
     void insertQuotation(QuotationEntity quotationEntity);
 
-    @Query("SELECT AUTHOR, QUOTATION, DIGEST FROM QUOTATIONS WHERE DIGEST = :digest ORDER BY AUTHOR ASC")
+    @Query("SELECT AUTHOR, QUOTATION, WIKIPEDIA, DIGEST FROM QUOTATIONS WHERE DIGEST = :digest ORDER BY AUTHOR ASC")
     QuotationEntity getQuotation(String digest);
 
     @Query("SELECT COUNT(QUOTATION) AS QUOTATION_COUNT FROM QUOTATIONS")

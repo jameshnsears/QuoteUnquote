@@ -50,7 +50,7 @@ public final class EventDailyAlarm {
                     (AlarmManager) this.context.getSystemService(Context.ALARM_SERVICE);
 
             PendingIntent alarmPendingIntent
-                    = IntentFactoryHelper.createIntentPending(this.context, this.widgetId, IntentFactoryHelper.DAILY_ALARM);
+                    = IntentFactoryHelper.createClickPendingIntent(this.context, this.widgetId, IntentFactoryHelper.DAILY_ALARM);
 
             alarmManager.setExact(
                     AlarmManager.RTC_WAKEUP,
@@ -64,7 +64,7 @@ public final class EventDailyAlarm {
             Timber.d("%d", this.widgetId);
 
             PendingIntent alarmPendingIntent
-                    = IntentFactoryHelper.createIntentPending(this.context, this.widgetId, IntentFactoryHelper.DAILY_ALARM);
+                    = IntentFactoryHelper.createClickPendingIntent(this.context, this.widgetId, IntentFactoryHelper.DAILY_ALARM);
             AlarmManager alarmManager =
                     (AlarmManager) this.context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {

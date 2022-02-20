@@ -1,1 +1,1 @@
-A Home screen quotes widget.
+A quotes widget.

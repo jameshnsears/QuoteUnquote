@@ -53,7 +53,7 @@ class IntentFactoryHelperTest {
 
     @Test
     fun createIntentActionView() {
-        val intent = IntentFactoryHelper.createIntentActionView()
+        val intent = IntentFactoryHelper.createIntentActionView("wikipedia.com")
 
         assertNotNull(intent.data)
     }

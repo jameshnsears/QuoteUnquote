@@ -9,6 +9,6 @@ public class ListViewService extends RemoteViewsService {
     @Override
     @NonNull
     public RemoteViewsFactory onGetViewFactory(@NonNull Intent intent) {
-        return new ListViewProvider(this, intent);
+        return new ListViewProvider(this.getApplicationContext(), intent);
     }
 }

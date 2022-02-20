@@ -1,6 +1,5 @@
 package com.github.jameshnsears.quoteunquote;
 
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
@@ -16,7 +15,6 @@ import androidx.annotation.Nullable;
 
 import com.github.jameshnsears.quoteunquote.cloud.CloudFavouritesHelper;
 import com.github.jameshnsears.quoteunquote.cloud.CloudServiceSend;
-import com.github.jameshnsears.quoteunquote.configure.ConfigureActivity;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences;
 import com.github.jameshnsears.quoteunquote.configure.fragment.content.ContentPreferences;
 import com.github.jameshnsears.quoteunquote.configure.fragment.event.EventDailyAlarm;
@@ -119,39 +117,32 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
                     R.id.listViewQuotation,
                     IntentFactoryHelper.createIntent(context, ListViewService.class, widgetId));
 
-            int pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE;
-
-            remoteViews.setPendingIntentTemplate(
-                    R.id.listViewQuotation,
-                    PendingIntent.getActivity(
-                            context,
-                            widgetId,
-                            IntentFactoryHelper.createIntent(context, ConfigureActivity.class, widgetId),
-                            pendingIntentFlags));
+            remoteViews.setPendingIntentTemplate(R.id.listViewQuotation,
+                    IntentFactoryHelper.createPendingIntentTemplate(context));
 
             remoteViews.setOnClickPendingIntent(
                     R.id.imageButtonFirst,
-                    IntentFactoryHelper.createIntentPending(context, widgetId, IntentFactoryHelper.TOOLBAR_PRESSED_FIRST));
+                    IntentFactoryHelper.createClickPendingIntent(context, widgetId, IntentFactoryHelper.TOOLBAR_PRESSED_FIRST));
 
             remoteViews.setOnClickPendingIntent(
                     R.id.imageButtonPrevious,
-                    IntentFactoryHelper.createIntentPending(context, widgetId, IntentFactoryHelper.TOOLBAR_PRESSED_PREVIOUS));
+                    IntentFactoryHelper.createClickPendingIntent(context, widgetId, IntentFactoryHelper.TOOLBAR_PRESSED_PREVIOUS));
 
             remoteViews.setOnClickPendingIntent(
                     R.id.imageButtonFavourite,
-                    IntentFactoryHelper.createIntentPending(context, widgetId, IntentFactoryHelper.TOOLBAR_PRESSED_FAVOURITE));
+                    IntentFactoryHelper.createClickPendingIntent(context, widgetId, IntentFactoryHelper.TOOLBAR_PRESSED_FAVOURITE));
 
             remoteViews.setOnClickPendingIntent(
                     R.id.imageButtonShare,
-                    IntentFactoryHelper.createIntentPending(context, widgetId, IntentFactoryHelper.TOOLBAR_PRESSED_SHARE));
+                    IntentFactoryHelper.createClickPendingIntent(context, widgetId, IntentFactoryHelper.TOOLBAR_PRESSED_SHARE));
 
             remoteViews.setOnClickPendingIntent(
                     R.id.imageButtonNextRandom,
-                    IntentFactoryHelper.createIntentPending(context, widgetId, IntentFactoryHelper.TOOLBAR_PRESSED_NEXT_RANDOM));
+                    IntentFactoryHelper.createClickPendingIntent(context, widgetId, IntentFactoryHelper.TOOLBAR_PRESSED_NEXT_RANDOM));
 
             remoteViews.setOnClickPendingIntent(
                     R.id.imageButtonNextSequential,
-                    IntentFactoryHelper.createIntentPending(context, widgetId, IntentFactoryHelper.TOOLBAR_PRESSED_NEXT_SEQUENTIAL));
+                    IntentFactoryHelper.createClickPendingIntent(context, widgetId, IntentFactoryHelper.TOOLBAR_PRESSED_NEXT_SEQUENTIAL));
 
             if (widgetId != 0) {
                 this.setTransparency(context, widgetId, remoteViews);
@@ -164,7 +155,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             appWidgetManager.updateAppWidget(widgetId, remoteViews);
         }
 
-        // at end, so that onReceive get's called first
+        // at end, so that onReceive gets called first
         super.onUpdate(context, appWidgetManager, widgetIds);
     }
 
@@ -481,7 +472,6 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         remoteViews.setInt(R.id.listViewQuotation, setBackgroundColor, transparencyMask);
         remoteViews.setInt(R.id.imageButtonFirst, setBackgroundColor, transparencyMask);
         remoteViews.setInt(R.id.imageButtonPrevious, setBackgroundColor, transparencyMask);
-        remoteViews.setInt(R.id.imageButtonReport, setBackgroundColor, transparencyMask);
         remoteViews.setInt(R.id.imageButtonFavourite, setBackgroundColor, transparencyMask);
         remoteViews.setInt(R.id.imageButtonShare, setBackgroundColor, transparencyMask);
         remoteViews.setInt(R.id.imageButtonNextRandom, setBackgroundColor, transparencyMask);
@@ -511,7 +501,6 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
 
         if (!appearancePreferences.getAppearanceToolbarFirst()
                 && !appearancePreferences.getAppearanceToolbarPrevious()
-                && !appearancePreferences.getAppearanceToolbarReport()
                 && !appearancePreferences.getAppearanceToolbarFavourite()
                 && !appearancePreferences.getAppearanceToolbarShare()
                 && !appearancePreferences.getAppearanceToolbarRandom()
@@ -529,11 +518,6 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
                     remoteViews,
                     appearancePreferences.getAppearanceToolbarPrevious(),
                     R.id.imageButtonPrevious);
-
-            this.setToolbarButtonVisibility(
-                    remoteViews,
-                    appearancePreferences.getAppearanceToolbarReport(),
-                    R.id.imageButtonReport);
 
             this.setToolbarButtonVisibility(
                     remoteViews,
@@ -579,7 +563,6 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
             case "#FFFFFFFF":
                 remoteViews.setImageViewResource(R.id.imageButtonFirst, R.drawable.ic_toolbar_first_ffffffff_24);
                 remoteViews.setImageViewResource(R.id.imageButtonPrevious, R.drawable.ic_toolbar_previous_ffffffff_24);
-                remoteViews.setImageViewResource(R.id.imageButtonReport, R.drawable.ic_toolbar_report_ffffffff_24);
                 remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_toolbar_favorite_ffffffff_24);
                 remoteViews.setImageViewResource(R.id.imageButtonShare, R.drawable.ic_toolbar_share_ffffffff_24);
                 remoteViews.setImageViewResource(R.id.imageButtonNextSequential, R.drawable.ic_toolbar_next_sequential_ffffffff_24);
@@ -590,7 +573,6 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
                 // case "#FF000000":
                 remoteViews.setImageViewResource(R.id.imageButtonFirst, R.drawable.ic_toolbar_first_ff000000_24);
                 remoteViews.setImageViewResource(R.id.imageButtonPrevious, R.drawable.ic_toolbar_previous_ff000000_24);
-                remoteViews.setImageViewResource(R.id.imageButtonReport, R.drawable.ic_toolbar_report_ff000000_24);
                 remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_toolbar_favorite_ff000000_24);
                 remoteViews.setImageViewResource(R.id.imageButtonShare, R.drawable.ic_toolbar_share_ff000000_24);
                 remoteViews.setImageViewResource(R.id.imageButtonNextSequential, R.drawable.ic_toolbar_next_sequential_ff000000_24);

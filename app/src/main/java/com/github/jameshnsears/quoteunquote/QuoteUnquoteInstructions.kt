@@ -29,7 +29,7 @@ class QuoteUnquoteInstructions : AppCompatActivity() {
         val layoutFooter: LinearLayout = this.activityInstructionsBinding.layoutFooter
         layoutFooter.setOnClickListener {
             this.startActivity(
-                IntentFactoryHelper.createIntentActionView()
+                IntentFactoryHelper.createIntentActionView("http://github.com/jameshnsears/quoteunquote")
             )
         }
     }
