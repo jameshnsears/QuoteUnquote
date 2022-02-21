@@ -552,9 +552,9 @@ public class QuoteUnquoteModel {
     }
 
     @Nullable
-    public ArrayList<String> exportFavourites() {
+    public List<String> exportFavourites() {
         Future<ArrayList<String>> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
-            ArrayList<String> exportedFavourites = new ArrayList<String>();
+            ArrayList<String> exportedFavourites = new ArrayList<>();
 
             for (String favouriteDigest : this.databaseRepository.getFavourites()) {
                 QuotationEntity quotationEntity

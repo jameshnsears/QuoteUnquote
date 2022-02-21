@@ -111,7 +111,7 @@ public class ConfigureActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onCreate(final @NonNull Bundle bundle) {
+    public void onCreate(final @Nullable Bundle bundle) {
         Timber.d("onCreate");
         super.onCreate(bundle);
 

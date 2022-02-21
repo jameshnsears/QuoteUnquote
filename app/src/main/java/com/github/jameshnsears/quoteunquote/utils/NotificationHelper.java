@@ -16,7 +16,7 @@ import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 public class NotificationHelper {
     private int notificationId;
 
-    public void displayNotification(@NonNull final Context context, @Nullable final QuotationEntity quotationEntity) {
+    public void displayNotification(@Nullable final Context context, @Nullable final QuotationEntity quotationEntity) {
         if (quotationEntity != null) {
             final CharSequence author = this.restrictAuthorSize(quotationEntity.author);
 

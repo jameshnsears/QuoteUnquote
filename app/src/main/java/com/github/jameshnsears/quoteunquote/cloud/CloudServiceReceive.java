@@ -23,11 +23,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import timber.log.Timber;
 
 public class CloudServiceReceive extends Service {
-    @NonNull
     private IBinder binder;
-    @NonNull
     private Handler handler = getHandler();
-    @NonNull
     private CloudFavourites cloudFavourites = getCloudFavourites();
     public boolean isRunning;
 
@@ -80,7 +77,6 @@ public class CloudServiceReceive extends Service {
                 Timber.d("isRunning=%b", isRunning);
 
                 Context context = getServiceContext();
-
 
                 if (!cloudFavourites.isInternetAvailable()) {
                     CloudServiceHelper.showNoNetworkToast(context, handler);

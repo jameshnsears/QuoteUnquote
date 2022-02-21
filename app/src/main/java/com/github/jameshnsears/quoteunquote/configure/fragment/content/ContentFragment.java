@@ -537,7 +537,7 @@ public class ContentFragment extends FragmentCommon {
                             FileOutputStream fileOutputStream
                                     = new FileOutputStream(parcelFileDescriptor.getFileDescriptor());
 
-                            ArrayList<String> exportableFavourites = quoteUnquoteModel.exportFavourites();
+                        ArrayList<String> exportableFavourites = (ArrayList) quoteUnquoteModel.exportFavourites();
                             Collections.reverse(exportableFavourites);
 
                             int favouriteIndex = 1;

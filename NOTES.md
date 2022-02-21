@@ -66,7 +66,7 @@
 ## 7. Release Checklist
 
 * 25: get latest /sdcard/Download/Quote_Unquote_ori_portrait.png for featureGraphic.png
-* 30: take latest screenshots  
+* test application install on top of prior version, see step 5. above
 * delete development and extract production app/google-services.json
 * update versionCode + versionName in app/build.gradle
 * make sure changelogs/xx.txt matches versionCode

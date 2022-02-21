@@ -97,25 +97,17 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
         synchronized (this) {
             if (this.quotationList.isEmpty()) {
                 // first time call
-
-                if (quotationEntity.theQuotation() == null) {
-                    this.quotationList.add("");
-                    this.quotationList.add("");
-                    this.quotationList.add("");
-                }
-                else {
-                    this.quotationList.add(this.quotationEntity.theQuotation());
-                    this.quotationList.add(this.quotationEntity.theAuthor());
-                    this.quotationList.add(this.quotationPosition);
-                }
+                this.quotationList.add(this.quotationEntity.theQuotation());
+                this.quotationList.add(this.quotationEntity.theAuthor());
+                this.quotationList.add(this.quotationPosition);
             } else {
                 // subsequent calls
-                if (!"".equals(this.quotationEntity.theQuotation())) {
-                    if (!this.quotationList.get(0).equals(this.quotationEntity.theQuotation())) {
-                        this.quotationList.set(0, this.quotationEntity.theQuotation());
-                        this.quotationList.set(1, this.quotationEntity.theAuthor());
-                        this.quotationList.set(2, this.quotationPosition);
-                    }
+                if (!"".equals(this.quotationEntity.theQuotation())
+                        &&
+                        !this.quotationList.get(0).equals(this.quotationEntity.theQuotation())) {
+                    this.quotationList.set(0, this.quotationEntity.theQuotation());
+                    this.quotationList.set(1, this.quotationEntity.theAuthor());
+                    this.quotationList.set(2, this.quotationPosition);
                 }
             }
         }
@@ -235,15 +227,16 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
                         R.id.textViewRowPosition,
                         Color.parseColor(this.textColour));
 
-                final int paintFlags = Paint.ANTI_ALIAS_FLAG; // | Paint.FAKE_BOLD_TEXT_FLAG;
+                final int paintFlags = Paint.ANTI_ALIAS_FLAG;
+                final String methodName = "setPaintFlags";
 
                 if (!this.quotationEntity.wikipedia.equals("?")) {
-                    remoteViews.setInt(R.id.textViewRowAuthor, "setPaintFlags",
+                    remoteViews.setInt(R.id.textViewRowAuthor, methodName,
                             paintFlags | Paint.UNDERLINE_TEXT_FLAG);
                 } else {
-                    remoteViews.setInt(R.id.textViewRowQuotation, "setPaintFlags", paintFlags);
-                    remoteViews.setInt(R.id.textViewRowAuthor, "setPaintFlags", paintFlags);
-                    remoteViews.setInt(R.id.textViewRowPosition, "setPaintFlags", paintFlags);
+                    remoteViews.setInt(R.id.textViewRowQuotation, methodName, paintFlags);
+                    remoteViews.setInt(R.id.textViewRowAuthor, methodName, paintFlags);
+                    remoteViews.setInt(R.id.textViewRowPosition, methodName, paintFlags);
                 }
             }
         }
