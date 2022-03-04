@@ -15,12 +15,12 @@
         android:paddingVertical="5dp">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="5dp"
-            android:text="@string/fragment_appearance_background"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="5dp"
+                android:text="@string/fragment_appearance_background"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,14 +29,14 @@
             android:paddingTop="5dp">
 
             <TextView
-                android:layout_width="90dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:paddingVertical="5dp"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:text="@string/fragment_appearance_colour"
-                android:textSize="14sp" />
+                    android:layout_width="90dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingVertical="5dp"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="10dp"
+                    android:text="@string/fragment_appearance_colour"
+                    android:textSize="14sp" />
 
             <Spinner
                     android:id="@+id/spinnerColour"
@@ -44,7 +44,7 @@
                     android:layout_height="48dp"
                     android:layout_gravity="center_vertical"
                     android:background="@null"
-                    android:paddingStart="20dp"
+                    android:paddingStart="0dp"
                     android:paddingEnd="5dp"
                     android:spinnerMode="dropdown"
                     tools:ignore="SpeakableTextPresentCheck" />
@@ -60,14 +60,14 @@
         android:paddingTop="5dp">
 
         <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="5dp"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:text="@string/fragment_appearance_transparency"
-            android:textSize="14sp" />
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="5dp"
+                android:paddingStart="0dp"
+                android:paddingEnd="20dp"
+                android:text="@string/fragment_appearance_transparency"
+                android:textSize="14sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -99,12 +99,12 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="5dp"
-            android:text="@string/fragment_appearance_text"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="5dp"
+                android:text="@string/fragment_appearance_text"
+                android:textSize="18sp"
+                android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
@@ -114,17 +114,17 @@
         android:paddingTop="5dp">
 
         <TextView
-            android:id="@+id/textViewTextColour"
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:paddingVertical="5dp"
-            android:paddingStart="20dp"
-            android:paddingTop="0dp"
-            android:paddingEnd="0dp"
-            android:paddingBottom="5dp"
-            android:text="@string/fragment_appearance_colour"
-            android:textSize="14sp" />
+                android:id="@+id/textViewTextColour"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingVertical="5dp"
+                android:paddingStart="0dp"
+                android:paddingTop="0dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="5dp"
+                android:text="@string/fragment_appearance_colour"
+                android:textSize="14sp" />
 
         <Spinner
                 android:id="@+id/spinnerTextColour"
@@ -133,7 +133,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:background="@null"
-                android:paddingStart="20dp"
+                android:paddingStart="0dp"
                 android:paddingEnd="5dp"
                 android:spinnerMode="dropdown"
                 tools:ignore="SpeakableTextPresentCheck" />
@@ -147,25 +147,25 @@
         android:paddingTop="5dp">
 
         <TextView
-            android:id="@+id/textViewFamily"
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:paddingVertical="5dp"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:text="@string/fragment_appearance_family"
-            android:textSize="14sp" />
+                android:id="@+id/textViewFamily"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingVertical="5dp"
+                android:paddingStart="0dp"
+                android:paddingEnd="10dp"
+                android:text="@string/fragment_appearance_family"
+                android:textSize="14sp" />
 
         <Spinner
-            android:id="@+id/spinnerFamily"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_gravity="center_vertical"
-            android:entries="@array/fragment_appearance_family_array"
-            android:paddingStart="20dp"
-            android:paddingEnd="5dp"
-            android:spinnerMode="dropdown" />
+                android:id="@+id/spinnerFamily"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical"
+                android:entries="@array/fragment_appearance_family_array"
+                android:paddingStart="0dp"
+                android:paddingEnd="5dp"
+                android:spinnerMode="dropdown" />
     </LinearLayout>
 
     <LinearLayout
@@ -175,25 +175,25 @@
         android:paddingTop="5dp">
 
         <TextView
-            android:id="@+id/textViewStyle"
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:paddingVertical="5dp"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:text="@string/fragment_appearance_style"
-            android:textSize="14sp" />
+                android:id="@+id/textViewStyle"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingVertical="5dp"
+                android:paddingStart="0dp"
+                android:paddingEnd="10dp"
+                android:text="@string/fragment_appearance_style"
+                android:textSize="14sp" />
 
         <Spinner
-            android:id="@+id/spinnerStyle"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_gravity="center_vertical"
-            android:entries="@array/fragment_appearance_style_array"
-            android:paddingStart="20dp"
-            android:paddingEnd="5dp"
-            android:spinnerMode="dropdown" />
+                android:id="@+id/spinnerStyle"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical"
+                android:entries="@array/fragment_appearance_style_array"
+                android:paddingStart="0dp"
+                android:paddingEnd="5dp"
+                android:spinnerMode="dropdown" />
 
     </LinearLayout>
 
@@ -204,25 +204,25 @@
         android:paddingTop="5dp">
 
         <TextView
-            android:id="@+id/textViewSize"
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:paddingVertical="5dp"
-            android:paddingStart="20dp"
-            android:paddingEnd="0dp"
-            android:text="@string/fragment_appearance_size"
-            android:textSize="14sp" />
+                android:id="@+id/textViewSize"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingVertical="5dp"
+                android:paddingStart="0dp"
+                android:paddingEnd="10dp"
+                android:text="@string/fragment_appearance_size"
+                android:textSize="14sp" />
 
         <Spinner
-            android:id="@+id/spinnerSize"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_gravity="center_vertical"
-            android:entries="@array/fragment_appearance_size_array"
-            android:paddingStart="20dp"
-            android:paddingEnd="5dp"
-            android:spinnerMode="dropdown" />
+                android:id="@+id/spinnerSize"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical"
+                android:entries="@array/fragment_appearance_size_array"
+                android:paddingStart="0dp"
+                android:paddingEnd="5dp"
+                android:spinnerMode="dropdown" />
 
     </LinearLayout>
 

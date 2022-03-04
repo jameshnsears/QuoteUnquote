@@ -17,6 +17,8 @@
         <entry key="app/src/main/res/drawable/ic_navigation_bar_schedule24.xml" value="0.20885416666666667" />
         <entry key="app/src/main/res/drawable/ic_navigation_bar_schedule_24.xml" value="0.1328125" />
         <entry key="app/src/main/res/drawable/ic_navigation_bar_schedule_avd_24.xml" value="0.1328125" />
+        <entry key="app/src/main/res/drawable/ic_toolbar_favorite_ff000000_24.xml" value="0.1985" />
+        <entry key="app/src/main/res/drawable/ic_toolbar_favorite_ffffffff_24.xml" value="0.1985" />
         <entry key="app/src/main/res/drawable/ic_toolbar_report_24.xml" value="0.1734375" />
         <entry key="app/src/main/res/drawable/ic_toolbar_report_ff000000_24.xml" value="0.1734375" />
         <entry key="app/src/main/res/drawable/ic_toolbar_report_ffffffff_24.xml" value="0.1734375" />
@@ -28,7 +30,7 @@
         <entry key="app/src/main/res/layout/anim_settings.xml" value="0.17916666666666667" />
         <entry key="app/src/main/res/layout/fragment_appearance.xml" value="0.13068181818181818" />
         <entry key="app/src/main/res/layout/fragment_appearance_tab_style.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/fragment_appearance_tab_toolbar.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_appearance_tab_toolbar.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_content.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_event.xml" value="0.5" />
         <entry key="app/src/main/res/layout/listvew_row_0_cursive.xml" value="0.1" />

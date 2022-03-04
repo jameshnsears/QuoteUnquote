@@ -1,5 +1,6 @@
 package com.github.jameshnsears.quoteunquote
 
+import android.os.Build
 import com.github.jameshnsears.quoteunquote.configure.fragment.content.ContentPreferences
 import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
@@ -13,17 +14,19 @@ import org.junit.Test
 open class WidgetDisabledTest : QuoteUnquoteModelUtility() {
     @Test
     fun widgetDisabled() {
-        setupDatabase()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            setupDatabase()
 
-        val quoteUnquoteWidget = spyk<QuoteUnquoteWidget>()
-        every { quoteUnquoteWidget.getQuoteUnquoteModel(any()) } returns quoteUnquoteModelDouble
+            val quoteUnquoteWidget = spyk<QuoteUnquoteWidget>()
+            every { quoteUnquoteWidget.getQuoteUnquoteModel(any()) } returns quoteUnquoteModelDouble
 
-        quoteUnquoteWidget.onEnabled(context)
-        val contentPreferences = ContentPreferences(context)
-        assertTrue(contentPreferences.contentFavouritesLocalCode.length == 10)
-        quoteUnquoteWidget.onDisabled(context)
+            quoteUnquoteWidget.onEnabled(context)
+            val contentPreferences = ContentPreferences(context)
+            assertTrue(contentPreferences.contentFavouritesLocalCode.length == 10)
+            quoteUnquoteWidget.onDisabled(context)
 
-        assertSharedPreferences(contentPreferences)
+            assertSharedPreferences(contentPreferences)
+        }
     }
 
     private fun assertSharedPreferences(contentPreferences: ContentPreferences) {

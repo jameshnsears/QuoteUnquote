@@ -1,5 +1,6 @@
 package com.github.jameshnsears.quoteunquote
 
+import android.os.Build
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences
 import com.github.jameshnsears.quoteunquote.configure.fragment.content.ContentPreferences
 import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade
@@ -14,19 +15,21 @@ import org.junit.Test
 class WidgetDeletedTest : QuoteUnquoteModelUtility() {
     @Test
     fun widgetDeleted() {
-        setupDatabase()
-        setupSharedPreferences()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            setupDatabase()
+            setupSharedPreferences()
 
-        val quoteUnquoteWidget = spyk<QuoteUnquoteWidget>()
-        every { quoteUnquoteWidget.getQuoteUnquoteModel(any()) } returns quoteUnquoteModelDouble
+            val quoteUnquoteWidget = spyk<QuoteUnquoteWidget>()
+            every { quoteUnquoteWidget.getQuoteUnquoteModel(any()) } returns quoteUnquoteModelDouble
 
-        quoteUnquoteWidget.onEnabled(context)
-        val contentPreferences = ContentPreferences(context)
-        assertTrue(contentPreferences.contentFavouritesLocalCode.length == 10)
-        quoteUnquoteWidget.onDeleted(context, intArrayOf(WidgetIdHelper.WIDGET_ID_01))
+            quoteUnquoteWidget.onEnabled(context)
+            val contentPreferences = ContentPreferences(context)
+            assertTrue(contentPreferences.contentFavouritesLocalCode.length == 10)
+            quoteUnquoteWidget.onDeleted(context, intArrayOf(WidgetIdHelper.WIDGET_ID_01))
 
-        assertDatabase()
-        assertSharedPreferences(contentPreferences)
+            assertDatabase()
+            assertSharedPreferences(contentPreferences)
+        }
     }
 
     private fun assertSharedPreferences(contentPreferences: ContentPreferences) {

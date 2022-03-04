@@ -1,2 +1,0 @@
-- Incorporate Android 12 support.
-- Explicit permission for favourites sync (F-Droid).

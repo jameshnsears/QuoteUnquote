@@ -45,15 +45,15 @@
         android:orientation="vertical">
 
         <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/toolbarSwitchFirst"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:drawableStart="@drawable/ic_toolbar_first_24"
-            android:drawablePadding="5dp"
-            android:paddingVertical="10dp"
-            android:text="@string/fragment_appearance_instructions_first"
-            android:textSize="14sp" />
+                android:id="@+id/toolbarSwitchFirst"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:drawableStart="@drawable/ic_toolbar_first_24"
+                android:drawablePadding="20dp"
+                android:paddingVertical="10dp"
+                android:text="@string/fragment_appearance_instructions_first"
+                android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:drawableStart="@drawable/ic_toolbar_previous_24"
-                android:drawablePadding="5dp"
+                android:drawablePadding="20dp"
                 android:paddingVertical="10dp"
                 android:text="@string/fragment_appearance_instructions_previous"
                 android:textSize="14sp"
@@ -85,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:drawableStart="@drawable/ic_toolbar_favorite_red_24"
-                android:drawablePadding="5dp"
+                android:drawablePadding="20dp"
                 android:paddingVertical="10dp"
                 android:text="@string/fragment_appearance_instructions_favourite"
                 android:textSize="14sp"
@@ -98,15 +98,15 @@
         android:orientation="vertical">
 
         <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/toolbarSwitchShare"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:drawableStart="@drawable/ic_toolbar_share_24"
-            android:drawablePadding="5dp"
-            android:paddingVertical="10dp"
-            android:text="@string/fragment_appearance_instructions_share"
-            android:textSize="14sp"/>
+                android:id="@+id/toolbarSwitchShare"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:drawableStart="@drawable/ic_toolbar_share_24"
+                android:drawablePadding="20dp"
+                android:paddingVertical="10dp"
+                android:text="@string/fragment_appearance_instructions_share"
+                android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -115,14 +115,14 @@
         android:orientation="vertical">
 
         <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/toolbarSwitchNextSequential"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableStart="@drawable/ic_toolbar_next_sequential_24"
-            android:drawablePadding="5dp"
-            android:paddingVertical="10dp"
-            android:text="@string/fragment_appearance_instructions_next_sequential"
-            android:textSize="14sp"/>
+                android:id="@+id/toolbarSwitchNextSequential"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_toolbar_next_sequential_24"
+                android:drawablePadding="20dp"
+                android:paddingVertical="10dp"
+                android:text="@string/fragment_appearance_instructions_next_sequential"
+                android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -136,7 +136,7 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:drawableStart="@drawable/ic_toolbar_next_random_24"
-                android:drawablePadding="5dp"
+                android:drawablePadding="20dp"
                 android:paddingVertical="10dp"
                 android:text="@string/fragment_appearance_instructions_next_random"
                 android:textSize="14sp"

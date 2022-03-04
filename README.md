@@ -44,7 +44,7 @@ git submodule foreach git pull origin main
 git submodule
 ```
 
-### 3.2. Android Studio Arctic Fox
+### 3.2. Android Studio
 
 ```text
 Android Studio > Get from Version Control

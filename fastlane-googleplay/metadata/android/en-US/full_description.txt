@@ -29,5 +29,5 @@ Discover high quality quotations from:
 &bull; Core functionality works offline
 &bull; Anonymous analytics
 &bull; Minimal permissions
-&bull; All quotations are in English.
-&bull; Supported <a href="https://github.com/jameshnsears/quoteunquote">Open-source</a> software.
+&bull; All quotations are in English
+&bull; Supported <a href="https://github.com/jameshnsears/quoteunquote">Open-source</a> software
