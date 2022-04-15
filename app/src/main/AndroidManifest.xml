@@ -46,8 +46,7 @@
         <activity
                 android:name=".configure.ConfigureActivity"
                 android:configChanges="keyboardHidden|orientation|screenSize"
-                android:exported="true"
-                android:noHistory="true">
+                android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>

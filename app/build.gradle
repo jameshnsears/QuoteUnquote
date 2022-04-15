@@ -45,8 +45,8 @@ android {
         applicationId "com.github.jameshnsears.quoteunquote"
 
         // changelog version | min sdk | target sdk
-        versionCode 932431
-        versionName "2.9.2"
+        versionCode 942431
+        versionName "2.9.3"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -162,6 +162,7 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
     lint {
         abortOnError false
         baseline file("$rootDir/config/lint/baseline.xml")

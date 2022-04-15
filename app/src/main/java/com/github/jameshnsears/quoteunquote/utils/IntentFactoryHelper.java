@@ -49,12 +49,12 @@ public class IntentFactoryHelper {
     }
 
     @NonNull
-    public static Intent createIntentShare(@NonNull String subject, @NonNull String quote) {
+    public static Intent createIntentShare(@NonNull String subject, @NonNull String quoteAndAuthor) {
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
-        shareIntent.putExtra(Intent.EXTRA_TEXT, quote);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, quoteAndAuthor);
 
         Intent chooserIntent = Intent.createChooser(shareIntent, null);
         chooserIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

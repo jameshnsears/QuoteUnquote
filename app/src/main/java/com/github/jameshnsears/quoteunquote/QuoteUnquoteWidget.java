@@ -70,7 +70,6 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
         if (QuoteUnquoteWidget.executorService == null) {
             QuoteUnquoteWidget.executorService = Executors.newFixedThreadPool(5);
         }
-        Timber.d(QuoteUnquoteWidget.executorService.toString());
         return QuoteUnquoteWidget.executorService;
     }
 
@@ -332,7 +331,7 @@ public final class QuoteUnquoteWidget extends AppWidgetProvider {
     public void onReceiveToolbarPressedShare(@NonNull Context context, int widgetId) {
         context.startActivity(IntentFactoryHelper.createIntentShare(
                 context.getResources().getString(R.string.app_name),
-                this.getQuoteUnquoteModel(context).getCurrentQuotation(widgetId).theQuotation()));
+                this.getQuoteUnquoteModel(context).getCurrentQuotation(widgetId).theShareContent()));
     }
 
     private void onReceiveToolbarPressedFavourite(

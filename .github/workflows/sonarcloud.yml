@@ -2,7 +2,7 @@ name: sonarcloud
 
 on:
   push:
-    branches:
+    branches: [ main, qa ]
   pull_request:
     branches:
 

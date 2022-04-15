@@ -24,11 +24,11 @@ class IntentFactoryHelperTest {
 
     @Test
     fun createIntentShare() {
-        val shareIntent = IntentFactoryHelper.createIntentShare("s", "q")
+        val shareIntent = IntentFactoryHelper.createIntentShare("s", "q\na\n")
         val bundle = (shareIntent.extras?.get("android.intent.extra.INTENT") as Intent).extras
 
         assertEquals("s", bundle?.get("android.intent.extra.SUBJECT"))
-        assertEquals("q", bundle?.get("android.intent.extra.TEXT"))
+        assertEquals("q\na\n", bundle?.get("android.intent.extra.TEXT"))
     }
 
     @Test

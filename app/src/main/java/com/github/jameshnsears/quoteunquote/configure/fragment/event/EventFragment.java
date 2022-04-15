@@ -42,8 +42,8 @@ public class EventFragment extends FragmentCommon {
     @NonNull
     public View onCreateView(
             @NonNull LayoutInflater inflater,
-            ViewGroup container,
-            Bundle savedInstanceState) {
+            @NonNull ViewGroup container,
+            @NonNull Bundle savedInstanceState) {
         this.eventPreferences = new EventPreferences(widgetId, getContext());
 
         this.fragmentEventBinding = FragmentEventBinding.inflate(this.getLayoutInflater());
@@ -58,7 +58,7 @@ public class EventFragment extends FragmentCommon {
 
     @Override
     public void onViewCreated(
-            @NonNull View view, Bundle savedInstanceState) {
+            @NonNull View view, @NonNull Bundle savedInstanceState) {
         this.setNext();
         this.setDisplay();
         this.setDeviceUnlock();

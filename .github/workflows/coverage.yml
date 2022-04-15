@@ -3,6 +3,8 @@ name: coverage
 on:
   push:
     branches: [ main, qa ]
+  pull_request:
+    branches:
 
 env:
   # Increment this to manually invalidate the cache.
