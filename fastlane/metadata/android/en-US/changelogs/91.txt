@@ -1,4 +1,0 @@
-- Author Wikipedia link (where known)
-- Reduce apk size
-- Improve quality of quotations: remove some similar quotations
-- Improve F-Droid image assets, now consistent with Google Play

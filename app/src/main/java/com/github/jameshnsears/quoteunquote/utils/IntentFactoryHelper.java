@@ -42,41 +42,41 @@ public class IntentFactoryHelper {
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     @NonNull
-    public static Intent createIntent(int widgetId) {
-        Intent resultValue = new Intent();
+    public static Intent createIntent(final int widgetId) {
+        final Intent resultValue = new Intent();
         resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
         return resultValue;
     }
 
     @NonNull
-    public static Intent createIntentShare(@NonNull String subject, @NonNull String quoteAndAuthor) {
-        Intent shareIntent = new Intent();
+    public static Intent createIntentShare(@NonNull final String subject, @NonNull final String quoteAndAuthor) {
+        final Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
         shareIntent.putExtra(Intent.EXTRA_TEXT, quoteAndAuthor);
 
-        Intent chooserIntent = Intent.createChooser(shareIntent, null);
+        final Intent chooserIntent = Intent.createChooser(shareIntent, null);
         chooserIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         return chooserIntent;
     }
 
     @SuppressLint("UnspecifiedImmutableFlag")
     @NonNull
-    public static PendingIntent createPendingIntentTemplate(@NonNull Context context) {
-        Intent pendingIntent = new Intent(context, ConfigureActivity.class);
+    public static PendingIntent createPendingIntentTemplate(@NonNull final Context context) {
+        final Intent pendingIntent = new Intent(context, ConfigureActivity.class);
 
         PendingIntent clickPendingIntent = null;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             clickPendingIntent = PendingIntent
                     .getActivity(context, 0,
-                            pendingIntent ,
+                            pendingIntent,
                             PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
         } else {
             clickPendingIntent = PendingIntent
                     .getActivity(context, 0,
-                            pendingIntent ,
+                            pendingIntent,
                             PendingIntent.FLAG_UPDATE_CURRENT);
 
         }
@@ -87,10 +87,10 @@ public class IntentFactoryHelper {
     @SuppressLint("UnspecifiedImmutableFlag")
     @NonNull
     public static PendingIntent createClickPendingIntent(
-            @NonNull Context context,
-            int widgetId,
-            @NonNull String action) {
-        Intent intent = IntentFactoryHelper.createIntent(context, widgetId);
+            @NonNull final Context context,
+            final int widgetId,
+            @NonNull final String action) {
+        final Intent intent = createIntent(context, widgetId);
         intent.setAction(action);
 
         int pendingIntentFlags = 0;
@@ -104,10 +104,10 @@ public class IntentFactoryHelper {
     }
 
     @NonNull
-    public static Intent createClickFillInIntent(@NonNull String key, @NonNull String value, int widgetId) {
-        Intent clickFillInIntent = new Intent();
+    public static Intent createClickFillInIntent(@NonNull final String key, @NonNull final String value, final int widgetId) {
+        final Intent clickFillInIntent = new Intent();
 
-        Bundle extras = new Bundle();
+        final Bundle extras = new Bundle();
         extras.putString(key, value);
         extras.putInt(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
 
@@ -117,40 +117,40 @@ public class IntentFactoryHelper {
     }
 
     @NonNull
-    public static Intent createIntent(@NonNull Context context, int widgetId) {
-        Intent intent = new Intent(context, QuoteUnquoteWidget.class);
+    public static Intent createIntent(@NonNull final Context context, final int widgetId) {
+        final Intent intent = new Intent(context, QuoteUnquoteWidget.class);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
         return intent;
     }
 
     @NonNull
     public static Intent createIntent(
-            @NonNull Context context,
-            @NonNull Class cls,
-            int widgetId) {
-        Intent intent = new Intent(context, cls);
+            @NonNull final Context context,
+            @NonNull final Class cls,
+            final int widgetId) {
+        final Intent intent = new Intent(context, cls);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
 
         // support widgetId being sent to correct Widget instance!
-        intent.setData(Uri.fromParts("content", String.valueOf(IntentFactoryHelper.SECURE_RANDOM.nextInt()), null));
+        intent.setData(Uri.fromParts("content", String.valueOf(SECURE_RANDOM.nextInt()), null));
 
         return intent;
     }
 
     @NonNull
     public static Intent createIntentAction(
-            @NonNull Context context,
-            int widgetId,
-            @NonNull String action) {
-        Intent intent = new Intent(context, QuoteUnquoteWidget.class);
+            @NonNull final Context context,
+            final int widgetId,
+            @NonNull final String action) {
+        final Intent intent = new Intent(context, QuoteUnquoteWidget.class);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
         intent.setAction(action);
         return intent;
     }
 
     @NonNull
-    public static Intent createIntentActionView(@NonNull final String url) {
-        Intent intent = new Intent();
+    public static Intent createIntentActionView(@NonNull String url) {
+        final Intent intent = new Intent();
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         intent.setAction(Intent.ACTION_VIEW);

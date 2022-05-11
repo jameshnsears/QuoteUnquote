@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="UnknownNullness" severity="ignore" />
+    <issue id="NonConstantResourceId" severity="ignore" />
+    <issue id="TimberExceptionLogging" severity="ignore" />
+    <issue id="InefficientWeight" severity="ignore" />
+    <issue id="Overdraw" severity="ignore" />
+    <issue id="SelectableText" severity="ignore" />
+    <issue id="ConvertToWebp" severity="ignore" />
+    <issue id="UnusedIds" severity="ignore" />
+    <issue id="DuplicateStrings" severity="ignore" />
+</lint>

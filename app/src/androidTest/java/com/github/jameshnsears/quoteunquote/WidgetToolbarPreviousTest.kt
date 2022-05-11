@@ -1,6 +1,6 @@
 package com.github.jameshnsears.quoteunquote
 
-import com.github.jameshnsears.quoteunquote.configure.fragment.content.ContentPreferences
+import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import junit.framework.TestCase.assertEquals
@@ -30,12 +30,16 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
 
         databaseRepositoryDouble.markAsCurrent(WidgetIdHelper.WIDGET_ID_01, "d3")
 
-        val contentPreferences = ContentPreferences(WidgetIdHelper.WIDGET_ID_01, context)
+        val quotationsPreferences =
+            QuotationsPreferences(
+                WidgetIdHelper.WIDGET_ID_01,
+                context
+            )
 
         assertEquals(
             4,
             databaseRepositoryDouble.positionInPrevious(
-                WidgetIdHelper.WIDGET_ID_01, contentPreferences
+                WidgetIdHelper.WIDGET_ID_01, quotationsPreferences
             )
         )
 
@@ -44,7 +48,7 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
         assertEquals(
             1,
             databaseRepositoryDouble.positionInPrevious(
-                WidgetIdHelper.WIDGET_ID_01, contentPreferences
+                WidgetIdHelper.WIDGET_ID_01, quotationsPreferences
             )
         )
     }
@@ -66,21 +70,25 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
     fun noMoreNext() {
         insertQuotationTestData02()
 
-        val contentPreferences = ContentPreferences(WidgetIdHelper.WIDGET_ID_01, context)
-        contentPreferences.contentSelection = ContentSelection.ALL
+        val quotationsPreferences =
+            QuotationsPreferences(
+                WidgetIdHelper.WIDGET_ID_01,
+                context
+            )
+        quotationsPreferences.contentSelection = ContentSelection.ALL
 
-        pressNext(contentPreferences, "d2", "1/3", false)
-        pressNext(contentPreferences, "d3", "2/3", false)
-        pressPrevious(contentPreferences, "d2", "1/3")
-        pressNext(contentPreferences, "d3", "2/3", false)
-        pressNext(contentPreferences, "d4", "3/3", false)
+        pressNext(quotationsPreferences, "d2", "1/3", false)
+        pressNext(quotationsPreferences, "d3", "2/3", false)
+        pressPrevious(quotationsPreferences, "d2", "1/3")
+        pressNext(quotationsPreferences, "d3", "2/3", false)
+        pressNext(quotationsPreferences, "d4", "3/3", false)
 
-        pressNext(contentPreferences, "d4", "3/3", false)
-        pressPrevious(contentPreferences, "d3", "2/3")
+        pressNext(quotationsPreferences, "d4", "3/3", false)
+        pressPrevious(quotationsPreferences, "d3", "2/3")
     }
 
     private fun pressPrevious(
-        contentPreferences: ContentPreferences,
+        quotationsPreferences: QuotationsPreferences,
         digestIfExpected: String,
         expectedPosition: String,
     ) {
@@ -97,12 +105,15 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             expectedPosition,
-            quoteUnquoteModelDouble.getCurrentPosition(WidgetIdHelper.WIDGET_ID_01, contentPreferences)
+            quoteUnquoteModelDouble.getCurrentPosition(
+                WidgetIdHelper.WIDGET_ID_01,
+                quotationsPreferences
+            )
         )
     }
 
     private fun pressNext(
-        contentPreferences: ContentPreferences,
+        quotationsPreferences: QuotationsPreferences,
         digestIfExpected: String,
         expectedPosition: String,
         random: Boolean
@@ -120,7 +131,7 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
         assertEquals(
             expectedPosition,
             quoteUnquoteModelDouble.getCurrentPosition(
-                WidgetIdHelper.WIDGET_ID_01, contentPreferences
+                WidgetIdHelper.WIDGET_ID_01, quotationsPreferences
             )
         )
     }
@@ -129,15 +140,19 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
     fun lastNextRandom() {
         insertQuotationTestData02()
 
-        val contentPreferences = ContentPreferences(WidgetIdHelper.WIDGET_ID_01, context)
-        contentPreferences.contentSelection = ContentSelection.ALL
+        val quotationsPreferences =
+            QuotationsPreferences(
+                WidgetIdHelper.WIDGET_ID_01,
+                context
+            )
+        quotationsPreferences.contentSelection = ContentSelection.ALL
 
-        pressNext(contentPreferences, "", "1/3", true)
-        pressNext(contentPreferences, "", "2/3", true)
-        pressPrevious(contentPreferences, "", "1/3")
-        pressNext(contentPreferences, "", "3/3", true)
-        pressPrevious(contentPreferences, "", "2/3")
-        pressNext(contentPreferences, "", "3/3", true)
-        pressNext(contentPreferences, "", "3/3", true)
+        pressNext(quotationsPreferences, "", "1/3", true)
+        pressNext(quotationsPreferences, "", "2/3", true)
+        pressPrevious(quotationsPreferences, "", "1/3")
+        pressNext(quotationsPreferences, "", "3/3", true)
+        pressPrevious(quotationsPreferences, "", "2/3")
+        pressNext(quotationsPreferences, "", "3/3", true)
+        pressNext(quotationsPreferences, "", "3/3", true)
     }
 }

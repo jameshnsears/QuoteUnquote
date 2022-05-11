@@ -3,10 +3,6 @@ package com.github.jameshnsears.quoteunquote.listview
 import com.github.jameshnsears.quoteunquote.R
 
 class ListViewLayoutIdHelper {
-    private constructor() {
-        // ...
-    }
-
     companion object {
         fun layoutIdForCursive(
             textSize: String

@@ -10,19 +10,30 @@ import java.util.Locale;
 public class PreferencesFacade {
     @NonNull
     public static final String PREFERENCES_FILENAME = "QuoteUnquote";
-    @NonNull
-    protected final Context applicationContext;
+
     @Nullable
-    protected final PreferenceHelper preferenceHelper;
+    public PreferenceHelper preferenceHelper;
+
+    @NonNull
+    protected Context applicationContext;
+
     protected int widgetId;
 
-    public PreferencesFacade(int theWidgetId, @NonNull Context applicationContext) {
-        widgetId = theWidgetId;
+    public PreferencesFacade(@NonNull Context applicationContext) {
+        init(applicationContext);
+    }
+
+    private void init(@NonNull Context applicationContext) {
         this.applicationContext = applicationContext;
         preferenceHelper = new PreferenceHelper(PreferencesFacade.PREFERENCES_FILENAME, applicationContext);
     }
 
-    public static void disable(@NonNull Context context) {
+    public PreferencesFacade(int theWidgetId, @NonNull Context applicationContext) {
+        widgetId = theWidgetId;
+        init(applicationContext);
+    }
+
+    public static void erase(@NonNull Context context) {
         PreferenceHelper.empty(PreferencesFacade.PREFERENCES_FILENAME, context);
     }
 
@@ -35,12 +46,12 @@ public class PreferencesFacade {
     }
 
     @NonNull
-    protected String getPreferenceKey(@NonNull String key) {
+    public String getPreferenceKey(@NonNull String key) {
         return String.format(Locale.ENGLISH, "%d:%s", this.widgetId, key);
     }
 
     @NonNull
-    public String getFavouritesLocalCode() {
+    public String getLocalCode() {
         return "0:CONTENT_FAVOURITES_LOCAL_CODE";
     }
 }

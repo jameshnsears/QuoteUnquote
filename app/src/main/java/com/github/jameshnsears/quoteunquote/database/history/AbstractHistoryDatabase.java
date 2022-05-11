@@ -20,8 +20,8 @@ public abstract class AbstractHistoryDatabase extends RoomDatabase {
     public static final String DATABASE_NAME = "history.db";
     static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
-        public void migrate(@NonNull final SupportSQLiteDatabase database) {
-            Timber.d(AbstractHistoryDatabase.DATABASE_NAME);
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            Timber.d(DATABASE_NAME);
             database.execSQL("CREATE TABLE IF NOT EXISTS `current` (`widget_id` INTEGER NOT NULL, `digest` TEXT NOT NULL, PRIMARY KEY(`widget_id`))");
             database.execSQL("CREATE INDEX IF NOT EXISTS `index_previous_digest` ON `previous` (`digest`)");
             database.execSQL("CREATE INDEX IF NOT EXISTS `index_previous_widget_id_content_type_digest` ON `previous` (`widget_id`, `content_type`, `digest`)");
@@ -31,18 +31,18 @@ public abstract class AbstractHistoryDatabase extends RoomDatabase {
     public static AbstractHistoryDatabase historyDatabase;
 
     @NonNull
-    public static AbstractHistoryDatabase getDatabase(@NonNull Context context) {
+    public static AbstractHistoryDatabase getDatabase(@NonNull final Context context) {
         synchronized (AbstractHistoryDatabase.class) {
-            Timber.d("%b", AbstractHistoryDatabase.historyDatabase == null);
-            if (AbstractHistoryDatabase.historyDatabase == null) {
-                AbstractHistoryDatabase.historyDatabase = Room.databaseBuilder(context,
-                        AbstractHistoryDatabase.class, AbstractHistoryDatabase.DATABASE_NAME)
-                        .addMigrations(AbstractHistoryDatabase.MIGRATION_1_2)
+            Timber.d("%b", historyDatabase == null);
+            if (historyDatabase == null) {
+                historyDatabase = Room.databaseBuilder(context,
+                        AbstractHistoryDatabase.class, DATABASE_NAME)
+                        .addMigrations(MIGRATION_1_2)
                         .fallbackToDestructiveMigration()
                         .build();
             }
 
-            return AbstractHistoryDatabase.historyDatabase;
+            return historyDatabase;
         }
     }
 

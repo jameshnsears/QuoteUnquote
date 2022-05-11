@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/emanuelkebede/res/layout/fragment_appearance_tab_toolbar.xml" value="0.19635416666666666" />
+        <entry key="app/src/emanuelkebede/res/layout/quote_unquote_widget.xml" value="0.19479166666666667" />
         <entry key="app/src/fdroid/res/layout/fragment_appearance_tab_toolbar.xml" value="0.19270833333333334" />
         <entry key="app/src/main/res/drawable/animated_selector_navigation_bar_appearance.xml" value="0.20885416666666667" />
         <entry key="app/src/main/res/drawable/animated_selector_navigation_bar_quotations.xml" value="0.20885416666666667" />
@@ -11,12 +13,18 @@
         <entry key="app/src/main/res/drawable/avd_anim_next_plan.xml" value="0.1953125" />
         <entry key="app/src/main/res/drawable/avd_navigation_bar_schedule.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/corners_buttons.xml" value="0.21770833333333334" />
+        <entry key="app/src/main/res/drawable/ic_content_search_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_event_campaign_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_event_notifications_none_24.xml" value="0.1" />
-        <entry key="app/src/main/res/drawable/ic_event_widgets_24.xml" value="0.17777777777777778" />
+        <entry key="app/src/main/res/drawable/ic_event_unlock_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_event_widgets_24.xml" value="0.2" />
+        <entry key="app/src/main/res/drawable/ic_footer_github_logo.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_navigation_bar_appearance_24.xml" value="0.21770833333333334" />
         <entry key="app/src/main/res/drawable/ic_navigation_bar_schedule24.xml" value="0.20885416666666667" />
         <entry key="app/src/main/res/drawable/ic_navigation_bar_schedule_24.xml" value="0.1328125" />
         <entry key="app/src/main/res/drawable/ic_navigation_bar_schedule_avd_24.xml" value="0.1328125" />
+        <entry key="app/src/main/res/drawable/ic_selector_navigation_bar_appearance_24.xml" value="0.15" />
+        <entry key="app/src/main/res/drawable/ic_selector_navigation_bar_backup_restore_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_toolbar_favorite_ff000000_24.xml" value="0.1985" />
         <entry key="app/src/main/res/drawable/ic_toolbar_favorite_ffffffff_24.xml" value="0.1985" />
         <entry key="app/src/main/res/drawable/ic_toolbar_report_24.xml" value="0.1734375" />
@@ -28,11 +36,16 @@
         <entry key="app/src/main/res/layout/activity_instructions.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_report.xml" value="0.33" />
         <entry key="app/src/main/res/layout/anim_settings.xml" value="0.17916666666666667" />
-        <entry key="app/src/main/res/layout/fragment_appearance.xml" value="0.13068181818181818" />
+        <entry key="app/src/main/res/layout/fragment_appearance.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_appearance_tab_style.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_appearance_tab_toolbar.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_content.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_archive.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_backup_restore.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_content.xml" value="0.4165103189493433" />
         <entry key="app/src/main/res/layout/fragment_event.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_quotations.xml" value="0.10625" />
+        <entry key="app/src/main/res/layout/fragment_schedule.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_transfer.xml" value="0.42964352720450283" />
         <entry key="app/src/main/res/layout/listvew_row_0_cursive.xml" value="0.1" />
         <entry key="app/src/main/res/layout/listvew_row_0_cursive_bold.xml" value="0.18703703703703703" />
         <entry key="app/src/main/res/layout/listvew_row_0_cursive_bold_italic.xml" value="0.18703703703703703" />
@@ -62,7 +75,8 @@
         <entry key="app/src/main/res/layout/listvew_row_5_serif_italic.xml" value="0.18703703703703703" />
         <entry key="app/src/main/res/layout/quote_unquote_widget.xml" value="0.25" />
         <entry key="app/src/main/res/layout/quote_unquote_widget_preview.xml" value="0.4138309549945115" />
-        <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.14130434782608695" />
+        <entry key="app/src/main/res/layout/spinner_item.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.1" />
       </map>
     </option>
   </component>
@@ -136,5 +150,12 @@
   </component>
   <component name="SuppressionsComponent">
     <option name="suppComments" value="[]" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.5" />
+      </ProjectState>
+    </option>
   </component>
 </project>

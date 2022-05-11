@@ -39,18 +39,21 @@
 
 * Checkstyle-IDE - Jamie Shiell
 * SonarLint - SonarSource
+* MetricsReloaded - https://plugins.jetbrains.com/plugin/93-metricsreloaded
+* ADB Idea - https://plugins.jetbrains.com/plugin/7380-adb-idea
+* JSON To Kotlin Class (JsonToKotlinClass) - https://plugins.jetbrains.com/plugin/9960-json-to-kotlin-class-jsontokotlinclass-
 
 ---
 
 ## 5. Test new .apk over prior .apk via emulator / device
 
 * adb uninstall com.github.jameshnsears.quoteunquote
-* checkout prior version
+* checkout prior version + git submodule update
 * clean + googleplayDebug + with quotations.db.prod + gradle sync
 * Build > Build Bundle(s) / APK(s) > > Build APK(s)
-* adb install -r app/build/outputs/apk/googleplay/debug/app-googleplay-debug.apk
+* adb install -r app/build/intermediates/apk/googleplay/debug/app-googleplay-debug.apk
 * or
-* adb install -r 2.1.1-4f4b8b28-app-googleplay-debug.apk
+* adb install -r 94-app-googleplay-debug.apk
 * adb logcat -c
 * adb logcat > logcat &
 * checkout HEAD, build + install with above & observe after install

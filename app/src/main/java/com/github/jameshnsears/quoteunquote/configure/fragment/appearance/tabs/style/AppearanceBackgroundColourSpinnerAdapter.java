@@ -23,37 +23,37 @@ class AppearanceBackgroundColourSpinnerAdapter extends BaseAdapter {
     @NonNull
     private final Context context;
 
-    AppearanceBackgroundColourSpinnerAdapter(@NonNull Context activityContext) {
-        this.context = activityContext;
-        this.colours = new ArrayList<>();
-        this.colours.addAll(Arrays.asList(activityContext.getResources().getStringArray(R.array.fragment_appearance_colour_array)));
+    AppearanceBackgroundColourSpinnerAdapter(@NonNull final Context activityContext) {
+        context = activityContext;
+        colours = new ArrayList<>();
+        colours.addAll(Arrays.asList(activityContext.getResources().getStringArray(R.array.fragment_appearance_colour_array)));
     }
 
     @Override
     public int getCount() {
-        return this.colours.size();
+        return colours.size();
     }
 
     @Override
-    public Object getItem(int arg0) {
-        return this.colours.get(arg0);
+    public Object getItem(final int arg0) {
+        return colours.get(arg0);
     }
 
     @Override
-    public long getItemId(int arg0) {
+    public long getItemId(final int arg0) {
         return arg0;
     }
 
     @Override
-    public View getView(int position, final View convertView, ViewGroup viewGroup) {
+    public View getView(final int position, View convertView, final ViewGroup viewGroup) {
         View view = convertView;
 
         if (view == null) {
-            view = LayoutInflater.from(this.context).inflate(android.R.layout.simple_spinner_dropdown_item, null);
+            view = LayoutInflater.from(context).inflate(android.R.layout.simple_spinner_dropdown_item, null);
         }
 
-        TextView textView = view.findViewById(android.R.id.text1);
-        textView.setBackgroundColor(Color.parseColor(this.colours.get(position)));
+        final TextView textView = view.findViewById(android.R.id.text1);
+        textView.setBackgroundColor(Color.parseColor(colours.get(position)));
         textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
         textView.setText(" ");
 

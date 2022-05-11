@@ -17,8 +17,8 @@ abstract class DatabaseTestHelper {
 
     @After
     fun after() {
-        databaseRepositoryDouble.erase()
-        PreferencesFacade.disable(context)
+        databaseRepositoryDouble.eraseEverything()
+        PreferencesFacade.erase(context)
     }
 
     fun insertQuotationTestData01() {

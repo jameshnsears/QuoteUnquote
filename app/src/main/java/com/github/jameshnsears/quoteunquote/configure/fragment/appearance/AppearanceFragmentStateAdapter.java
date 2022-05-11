@@ -10,19 +10,20 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.t
 public class AppearanceFragmentStateAdapter extends FragmentStateAdapter {
     private final int widgetId;
 
-    public AppearanceFragmentStateAdapter(@NonNull AppearanceFragment fa, int widgetId) {
+    public AppearanceFragmentStateAdapter(@NonNull final AppearanceFragment fa, final int widgetId) {
         super(fa);
         this.widgetId = widgetId;
     }
 
+    @NonNull
     @Override
-    public Fragment createFragment(int pos) {
+    public Fragment createFragment(final int pos) {
         switch (pos) {
             case 0:
-                return AppearanceStyleFragment.newInstance(this.widgetId);
+                return AppearanceStyleFragment.newInstance(widgetId);
 
             default:
-                return AppearanceToolbarFragment.newInstance(this.widgetId);
+                return AppearanceToolbarFragment.newInstance(widgetId);
         }
     }
 

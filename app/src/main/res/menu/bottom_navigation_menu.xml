@@ -2,14 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
             android:id="@+id/navigationBarQuotations"
-            android:icon="@drawable/animated_selector_navigation_bar_quotations"
+            android:icon="@drawable/ic_selector_navigation_bar_quote_24"
             android:title="@string/configure_navigation_bar_quotations" />
     <item
-        android:id="@+id/navigationBarAppearance"
-        android:icon="@drawable/animated_selector_navigation_bar_appearance"
-        android:title="@string/configure_navigation_bar_appearance" />
+            android:id="@+id/navigationBarAppearance"
+            android:icon="@drawable/ic_selector_navigation_bar_appearance_24"
+            android:title="@string/configure_navigation_bar_appearance" />
     <item
-        android:id="@+id/navigationBarSchedule"
-        android:icon="@drawable/animated_selector_navigation_bar_schedule"
-        android:title="@string/fragment_event_title" />
+            android:id="@+id/navigationBarSchedule"
+            android:icon="@drawable/ic_selector_navigation_bar_update_24"
+            android:title="@string/fragment_schedule_title" />
+    <item
+            android:id="@+id/navigationBarBackupRestore"
+            android:icon="@drawable/ic_selector_navigation_bar_backup_restore_24"
+            android:title="@string/fragment_transfer_title" />
 </menu>

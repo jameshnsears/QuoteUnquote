@@ -1,1 +1,1 @@
-A quotes widget.
+A quotations widget.

@@ -26,10 +26,10 @@ public class QuotationEntity {
     public final String digest;
 
     public QuotationEntity(
-            @NonNull String digest,
-            @NonNull String wikipedia,
-            @NonNull String author,
-            @NonNull String quotation) {
+            @NonNull final String digest,
+            @NonNull final String wikipedia,
+            @NonNull final String author,
+            @NonNull final String quotation) {
         this.author = author;
         this.wikipedia = wikipedia;
         this.quotation = quotation;
@@ -38,16 +38,16 @@ public class QuotationEntity {
 
     @NonNull
     public String theQuotation() {
-        return this.quotation + "\n";
+        return quotation + "\n";
     }
 
     @NonNull
     public String theAuthor() {
-        return this.author + "\n";
+        return author + "\n";
     }
 
     @NonNull
     public String theShareContent() {
-        return theQuotation() + "\n" + theAuthor();
+        return this.theQuotation() + "\n" + this.theAuthor();
     }
 }

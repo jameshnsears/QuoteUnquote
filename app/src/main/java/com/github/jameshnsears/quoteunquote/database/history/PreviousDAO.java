@@ -18,11 +18,17 @@ public interface PreviousDAO {
     @Query("SELECT COUNT(*) FROM PREVIOUS WHERE WIDGET_ID = :widgetId AND CONTENT_TYPE = :contentType")
     int countPrevious(int widgetId, ContentSelection contentType);
 
+    @Query("SELECT COUNT(*) FROM PREVIOUS WHERE WIDGET_ID = :widgetId")
+    int countPrevious(int widgetId);
+
     @Query("SELECT DIGEST FROM PREVIOUS WHERE WIDGET_ID = :widgetId AND CONTENT_TYPE = :contentType ORDER BY NAVIGATION DESC")
     List<String> getPreviousDigests(int widgetId, ContentSelection contentType);
 
     @Query("SELECT * FROM PREVIOUS WHERE WIDGET_ID = :widgetId AND CONTENT_TYPE = :contentType ORDER BY NAVIGATION DESC LIMIT 1")
     PreviousEntity getPrevious(int widgetId, ContentSelection contentType);
+
+    @Query("SELECT * FROM PREVIOUS ORDER BY NAVIGATION DESC")
+    List<PreviousEntity> getPrevious();
 
     @Query("DELETE FROM PREVIOUS")
     void erase();

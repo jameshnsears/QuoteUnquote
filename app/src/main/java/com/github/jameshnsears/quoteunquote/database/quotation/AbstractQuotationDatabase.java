@@ -10,23 +10,23 @@ import androidx.room.RoomDatabase;
 
 import com.github.jameshnsears.quoteunquote.BuildConfig;
 
-@Database(entities = QuotationEntity.class, version = 23)
+@Database(entities = QuotationEntity.class, version = 24)
 public abstract class AbstractQuotationDatabase extends RoomDatabase {
     @Nullable
     public static AbstractQuotationDatabase quotationDatabase;
 
     @NonNull
-    public static AbstractQuotationDatabase getDatabase(@NonNull Context context) {
+    public static AbstractQuotationDatabase getDatabase(@NonNull final Context context) {
         synchronized (AbstractQuotationDatabase.class) {
-            if (AbstractQuotationDatabase.quotationDatabase == null) {
-                AbstractQuotationDatabase.quotationDatabase = Room.databaseBuilder(context,
+            if (quotationDatabase == null) {
+                quotationDatabase = Room.databaseBuilder(context,
                         AbstractQuotationDatabase.class, BuildConfig.DATABASE_QUOTATIONS)
                         .createFromAsset(BuildConfig.DATABASE_QUOTATIONS)
                         // indexes added
                         .fallbackToDestructiveMigration()
                         .build();
             }
-            return AbstractQuotationDatabase.quotationDatabase;
+            return quotationDatabase;
         }
     }
 

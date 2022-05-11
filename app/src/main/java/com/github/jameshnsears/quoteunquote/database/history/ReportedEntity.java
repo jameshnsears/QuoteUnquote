@@ -12,7 +12,7 @@ public class ReportedEntity {
     @ColumnInfo(name = "digest")
     public final String digest;
 
-    public ReportedEntity(@NonNull String digest) {
+    public ReportedEntity(@NonNull final String digest) {
         this.digest = digest;
     }
 }

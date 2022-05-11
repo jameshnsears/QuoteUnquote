@@ -8,7 +8,8 @@
     <string name="activity_instructions_2">2. Tap </string>
     <string name="activity_instructions_3">3. Scroll though the widgets until you find the Quote Unquote widget.</string>
     <string name="activity_instructions_4">4. Touch and slide the widget to where you want it. Lift your finger.</string>
-    <string name="activity_instructions_5">5. <b>IMPORTANT:</b> use Android\'s \"Back\" button / Gesture to successfully leave the configuration screen and place the widget on your home screen.</string>
+    <string name="activity_instructions_5">5. Use Android\'s Back button / Gesture to successfully leave the configuration screen and place the widget on your home screen.</string>
+    <string name="activity_instructions_usage">Widget usage</string>
     <string name="activity_instructions_configure">Once the widget is on the home screen, tap the text to re-configure the widget. Tap an <u>underlined</u> author for Wikipedia entry.</string>
     <string name="activity_instructions_resize">Resize the widget</string>
     <string name="activity_instructions_resize_instruction_1">1. Touch and hold the widget on your home screen.</string>
@@ -20,29 +21,27 @@
     <string name="activity_instructions_oss">Open-source software</string>
     <string name="activity_instructions_github">GitHub</string>
 
-    <string name="activity_configure_title">Quote Unquote</string>
+    <string name="configure_navigation_bar_quotations">Quotations</string>
+    <string name="configure_navigation_bar_appearance">Appearance</string>
+    <string name="configure_navigation_bar_schedule">Schedule</string>
+    <string name="configure_navigation_bar_transfer">Transfer</string>
+
+    <string name="settings">Configuration</string>
+
+    <string name="fragment_quotations_title">Quotations</string>
+    <string name="fragment_quotations_all">All: %d</string>
+    <string name="fragment_quotations_add_to_previous_count">Add displayed Author / Search results to Previous</string>
+    <string name="fragment_quotations_author">Author: %d</string>
+    <string name="fragment_quotations_not_listed">Authors with &lt; 5 quotations are not listed</string>
+    <string name="fragment_quotations_favourites">Favourites: %d</string>
+    <string name="fragment_quotations_favourites_export_button">Export</string>
+    <string name="fragment_quotations_favourites_export_instructions">to storage</string>
+    <string name="fragment_quotations_search">Search: %d</string>
+    <string name="fragment_quotations_search_instructions">Case insensitive search…</string>
+    <string name="fragment_quotations_search_no_results">No results found for search</string>
 
     <string name="fragment_appearance_title">Appearance</string>
     <string name="fragment_appearance_tab_style">Style</string>
-    <string name="fragment_appearance_tab_toolbar">Toolbar</string>
-    <string name="fragment_appearance_transparency">Transparency %</string>
-    <string name="fragment_appearance_text">Text</string>
-    <string name="fragment_appearance_family">Family</string>
-    <string-array name="fragment_appearance_family_array">
-        <item>Cursive</item>
-        <item>Monospace</item>
-        <item>Sans Serif</item>
-        <item>Sans Serif Condensed</item>
-        <item>Sans Serif Medium</item>
-        <item>Serif</item>
-    </string-array>
-    <string name="fragment_appearance_style">Style</string>
-    <string-array name="fragment_appearance_style_array">
-        <item>Bold</item>
-        <item>Bold Italic</item>
-        <item>Italic</item>
-        <item>Regular</item>
-    </string-array>
     <string name="fragment_appearance_background">Background</string>
     <string name="fragment_appearance_colour">Colour</string>
     <string-array name="fragment_appearance_colour_array">
@@ -63,16 +62,8 @@
         <item>#FF55C3E5</item>
         <item>#FF000000</item>
     </string-array>
-    <string name="fragment_appearance_size">Size</string>
-    <integer-array name="fragment_appearance_size_array">
-        <item>12</item>
-        <item>14</item>
-        <item>16</item>
-        <item>18</item>
-        <item>20</item>
-        <item>24</item>
-        <item>28</item>
-    </integer-array>
+    <string name="fragment_appearance_transparency">Transparency %</string>
+    <string name="fragment_appearance_text">Text</string>
     <string-array name="fragment_appearance_text_colour_array">
         <item>#FFFFFFFF</item>
         <item>#FFFFFF00</item>
@@ -90,55 +81,66 @@
         <item>#FF00008B</item>
         <item>#FF000000</item>
     </string-array>
-    <string name="fragment_appearance_display_toolbar">Toolbar</string>
-    <string name="fragment_appearance_instructions_first">First, clears Previous</string>
-    <string name="fragment_appearance_instructions_previous">Previous</string>>
-    <string name="fragment_appearance_instructions_report">Report</string>
-    <string name="fragment_appearance_instructions_favourite">Favourite, toggle</string>
-    <string name="fragment_appearance_instructions_share">Share</string>
-    <string name="fragment_appearance_instructions_next_random">Next, random</string>
-    <string name="fragment_appearance_instructions_next_sequential">Next, sequential</string>
+    <string name="fragment_appearance_family">Family</string>
+    <string-array name="fragment_appearance_family_array">
+        <item>Cursive</item>
+        <item>Monospace</item>
+        <item>Sans Serif</item>
+        <item>Sans Serif Condensed</item>
+        <item>Sans Serif Medium</item>
+        <item>Serif</item>
+    </string-array>
+    <string name="fragment_appearance_style">Style</string>
+    <string-array name="fragment_appearance_style_array">
+        <item>Bold</item>
+        <item>Bold Italic</item>
+        <item>Italic</item>
+        <item>Regular</item>
+    </string-array>
+    <string name="fragment_appearance_size">Size</string>
+    <integer-array name="fragment_appearance_size_array">
+        <item>12</item>
+        <item>14</item>
+        <item>16</item>
+        <item>18</item>
+        <item>20</item>
+        <item>24</item>
+        <item>28</item>
+    </integer-array>
+    <string name="fragment_appearance_toolbar">Toolbar</string>
     <string-array name="fragment_appearance_toolbar_colour_array">
         <item>#FF000000</item>
         <item>#FFFFFFFF</item>
     </string-array>
-    <string name="fragment_content_title">Quotations</string>
-    <string name="fragment_content_all">All: %d</string>
-    <string name="fragment_content_add_to_previous_count">Add displayed Author / Search to Previous</string>
-    <string name="fragment_content_favourites">Favourites: %d</string>
-    <string name="fragment_content_favourites_export_instructions">to storage</string>
-    <string name="fragment_content_favourites_export_button">Export</string>
-    <string name="fragment_content_favourites_export_success">Success - favourites exported</string>
-    <string name="fragment_content_favourites_share_instructions">Sync with another device</string>
-    <string name="fragment_content_favourites_share_local_code_value">%s</string>
-    <string name="fragment_content_favourites_share_local_code_send">Send</string>
-    <string name="fragment_content_favourites_share_remove_code_value">Remote token</string>
-    <string name="fragment_content_favourites_share_remote_receive">Receive</string>
-    <string name="fragment_content_favourites_share_sending">Sending, please wait&#8230;</string>
-    <string name="fragment_content_favourites_share_sent">Success - favourites sent</string>
-    <string name="fragment_content_favourites_share_remote_code_general">Use token from remote device</string>
-    <string name="fragment_content_favourites_share_receiving">Receiving, please wait&#8230;</string>
-    <string name="fragment_content_favourites_share_received">Success - favourites appended</string>
-    <string name="fragment_content_favourites_share_missing">Unable to locate remote token</string>
-    <string name="fragment_content_favourites_share_comms">Check network / Retry later</string>
-    <string name="fragment_content_author_count">Authors with &lt; 5 quotations are not listed</string>
-    <string name="fragment_content_author">Author: %d</string>
+    <string name="fragment_appearance_toolbar_first">First, clears Previous</string>
+    <string name="fragment_appearance_toolbar_previous">Previous</string>>
+    <string name="fragment_appearance_toolbar_favourite">Favourite, toggle</string>
+    <string name="fragment_appearance_toolbar_share">Share</string>
+    <string name="fragment_appearance_toolbar_next_sequential">Next, sequential</string>
+    <string name="fragment_appearance_toolbar_next_random">Next, random</string>
 
-    <string name="fragment_content_text">Search: %d</string>
-    <string name="fragment_content_text_instructions">Quotation / Author</string>
-    <string name="fragment_content_text_no_search_results">No results found for search</string>
+    <string name="fragment_schedule_title">Notifications</string>
+    <string name="fragment_schedule_where">Display</string>
+    <string name="fragment_schedule_widget">Widget</string>
+    <string name="fragment_schedule_widget_and_notification">Notification &amp; Widget</string>
+    <string name="fragment_schedule_recurring_event">Recurring Event</string>
+    <string name="fragment_schedule_screen_unlock">Screen unlock</string>
+    <string name="fragment_schedule_time">Time</string>
 
-    <string name="fragment_event_title">Schedule</string>
-    <string name="fragment_event_where">Display</string>
-    <string name="fragment_event_in_widget">Widget</string>
-    <string name="fragment_event_as_notification">Notification &amp; Widget</string>
-    <string name="fragment_event">Recurring Event</string>
-    <string name="fragment_event_device_unlock">Screen unlock</string>
-    <string name="fragment_event_daily">Time</string>
-
-    <string name="configure_navigation_bar_appearance">Appearance</string>
-    <string name="configure_navigation_bar_quotations">Quotations</string>
-    <string name="configure_navigation_bar_event">Schedule</string>
+    <string name="fragment_transfer_title">Backup &amp; Restore</string>
+    <string name="fragment_transfer_instructions">Use the Cloud to backup and restore. The process is anonymous, and includes: Configuration; Previous and Favourites.</string>
+    <string name="fragment_transfer_backup_local_code_value">%s</string>
+    <string name="fragment_transfer_backup">Backup</string>
+    <string name="fragment_transfer_backup_sending">Backup - please wait&#8230;</string>
+    <string name="fragment_transfer_backup_success">Success - backup completed</string>
+    <string name="fragment_transfer_restore_remote_code_value">Transfer token</string>
+    <string name="fragment_transfer_restore">Restore</string>
+    <string name="fragment_transfer_restore_token_missing">Please enter transfer token</string>
+    <string name="fragment_transfer_restore_token_invalid">Please enter a valid token</string>
+    <string name="fragment_transfer_restore_receiving">Restore - please wait&#8230;</string>
+    <string name="fragment_transfer_restore_missing_code">Unable to find token in cloud</string>
+    <string name="fragment_transfer_restore_success">Success - restore completed</string>
+    <string name="fragment_transfer_internet_missing">Check network / wait &amp; retry later</string>
 
     <string name="notification_channel_id">quote_unquote_channel_01</string>
     <string name="notification_channel_name">Quotations</string>
@@ -147,5 +149,5 @@
     <string name="preview_description">Discover high quality quotations!</string>
     <string name="preview_quotation">Nothing matters very much and very few things matter at all.\n</string>
     <string name="preview_author"><u>Arthur Balfour\n</u></string>
-    <string name="preview_position">1/20674</string>
+    <string name="preview_position">1/20658</string>
 </resources>

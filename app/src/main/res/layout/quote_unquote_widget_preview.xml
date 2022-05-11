@@ -63,7 +63,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@android:color/white"
-                android:contentDescription="@string/fragment_appearance_instructions_first"
+                android:contentDescription="@string/fragment_appearance_toolbar_first"
                 android:src="@drawable/ic_toolbar_first_ff000000_24"
                 android:visibility="gone" />
 
@@ -73,7 +73,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="#FFF8FD89"
-                android:contentDescription="@string/fragment_appearance_instructions_previous"
+                android:contentDescription="@string/fragment_appearance_toolbar_previous"
                 android:src="@drawable/ic_toolbar_previous_ff000000_24" />
 
         <ImageButton
@@ -82,7 +82,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="#FFF8FD89"
-                android:contentDescription="@string/fragment_appearance_instructions_favourite"
+                android:contentDescription="@string/fragment_appearance_toolbar_favourite"
                 android:src="@drawable/ic_toolbar_favorite_ff000000_24" />
 
         <ImageButton
@@ -91,7 +91,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="#FFF8FD89"
-                android:contentDescription="@string/fragment_appearance_instructions_share"
+                android:contentDescription="@string/fragment_appearance_toolbar_share"
                 android:src="@drawable/ic_toolbar_share_ff000000_24" />
 
         <ImageButton
@@ -100,7 +100,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="#FFF8FD89"
-                android:contentDescription="@string/fragment_appearance_instructions_next_sequential"
+                android:contentDescription="@string/fragment_appearance_toolbar_next_sequential"
                 android:src="@drawable/ic_toolbar_next_sequential_ff000000_24"
                 android:visibility="gone" />
 
@@ -110,7 +110,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="#FFF8FD89"
-                android:contentDescription="@string/fragment_appearance_instructions_next_random"
+                android:contentDescription="@string/fragment_appearance_toolbar_next_random"
                 android:src="@drawable/ic_toolbar_next_random_ff000000_24" />
 
     </LinearLayout>

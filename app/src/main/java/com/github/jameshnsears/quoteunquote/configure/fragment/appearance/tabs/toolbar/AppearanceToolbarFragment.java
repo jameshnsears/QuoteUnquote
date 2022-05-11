@@ -29,13 +29,13 @@ public class AppearanceToolbarFragment extends FragmentCommon {
         // dark mode support
     }
 
-    public AppearanceToolbarFragment(int widgetId) {
+    public AppearanceToolbarFragment(final int widgetId) {
         super(widgetId);
     }
 
     @NonNull
-    public static AppearanceToolbarFragment newInstance(int widgetId) {
-        AppearanceToolbarFragment fragment = new AppearanceToolbarFragment(widgetId);
+    public static AppearanceToolbarFragment newInstance(final int widgetId) {
+        final AppearanceToolbarFragment fragment = new AppearanceToolbarFragment(widgetId);
         fragment.setArguments(null);
         return fragment;
     }
@@ -43,107 +43,107 @@ public class AppearanceToolbarFragment extends FragmentCommon {
     @Override
     @NonNull
     public View onCreateView(
-            @NonNull LayoutInflater inflater,
-            ViewGroup container,
-            Bundle savedInstanceState) {
-        Context context = new ContextThemeWrapper(this.getActivity(), R.style.Theme_MaterialComponents_DayNight);
+            @NonNull final LayoutInflater inflater,
+            final @NonNull ViewGroup container,
+            final @NonNull Bundle savedInstanceState) {
+        final Context context = new ContextThemeWrapper(getActivity(), R.style.Theme_MaterialComponents_DayNight);
 
-        this.appearancePreferences = new AppearancePreferences(widgetId, this.getContext());
+        appearancePreferences = new AppearancePreferences(this.widgetId, getContext());
 
-        this.fragmentAppearanceTabToolbarBinding = FragmentAppearanceTabToolbarBinding.inflate(inflater.cloneInContext(context));
-        return this.fragmentAppearanceTabToolbarBinding.getRoot();
+        fragmentAppearanceTabToolbarBinding = FragmentAppearanceTabToolbarBinding.inflate(inflater.cloneInContext(context));
+        return fragmentAppearanceTabToolbarBinding.getRoot();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        this.fragmentAppearanceTabToolbarBinding = null;
+        fragmentAppearanceTabToolbarBinding = null;
     }
 
     @Override
     public void onViewCreated(
-            @NonNull View view, @NonNull Bundle savedInstanceState) {
-        this.createListenerToolbarColour();
-        this.createListenerToolbarFirst();
-        this.createListenerToolbarPrevious();
-        this.createListenerToolbarToggleFavourite();
-        this.createListenerToolbarShare();
-        this.createListenerToolbarNextRandom();
-        this.createListenerToolbarNextSequential();
+            @NonNull final View view, @NonNull final Bundle savedInstanceState) {
+        createListenerToolbarColour();
+        createListenerToolbarFirst();
+        createListenerToolbarPrevious();
+        createListenerToolbarToggleFavourite();
+        createListenerToolbarShare();
+        createListenerToolbarNextRandom();
+        createListenerToolbarNextSequential();
 
-        this.setToolbarColour();
-        this.setToolbar();
+        setToolbarColour();
+        setToolbar();
     }
 
     public void setToolbar() {
-        this.fragmentAppearanceTabToolbarBinding.toolbarSwitchFirst.setChecked(this.appearancePreferences.getAppearanceToolbarFirst());
-        this.fragmentAppearanceTabToolbarBinding.toolbarSwitchPrevious.setChecked(this.appearancePreferences.getAppearanceToolbarPrevious());
-        this.fragmentAppearanceTabToolbarBinding.toolbarSwitchToggleFavourite.setChecked(this.appearancePreferences.getAppearanceToolbarFavourite());
-        this.fragmentAppearanceTabToolbarBinding.toolbarSwitchShare.setChecked(this.appearancePreferences.getAppearanceToolbarShare());
-        this.fragmentAppearanceTabToolbarBinding.toolbarSwitchNextRandom.setChecked(this.appearancePreferences.getAppearanceToolbarRandom());
-        this.fragmentAppearanceTabToolbarBinding.toolbarSwitchNextSequential.setChecked(this.appearancePreferences.getAppearanceToolbarSequential());
+        fragmentAppearanceTabToolbarBinding.toolbarSwitchFirst.setChecked(appearancePreferences.getAppearanceToolbarFirst());
+        fragmentAppearanceTabToolbarBinding.toolbarSwitchPrevious.setChecked(appearancePreferences.getAppearanceToolbarPrevious());
+        fragmentAppearanceTabToolbarBinding.toolbarSwitchToggleFavourite.setChecked(appearancePreferences.getAppearanceToolbarFavourite());
+        fragmentAppearanceTabToolbarBinding.toolbarSwitchShare.setChecked(appearancePreferences.getAppearanceToolbarShare());
+        fragmentAppearanceTabToolbarBinding.toolbarSwitchNextRandom.setChecked(appearancePreferences.getAppearanceToolbarRandom());
+        fragmentAppearanceTabToolbarBinding.toolbarSwitchNextSequential.setChecked(appearancePreferences.getAppearanceToolbarSequential());
     }
 
     private void createListenerToolbarColour() {
-        Spinner spinner = this.fragmentAppearanceTabToolbarBinding.spinnerToolbarColour;
+        final Spinner spinner = fragmentAppearanceTabToolbarBinding.spinnerToolbarColour;
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long selectedItemId) {
-                AppearanceToolbarFragment.this.appearancePreferences.setAppearanceToolbarColour(spinner.getSelectedItem().toString());
+            public void onItemSelected(final AdapterView<?> parent, final View view, final int position, final long selectedItemId) {
+                appearancePreferences.setAppearanceToolbarColour(spinner.getSelectedItem().toString());
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onNothingSelected(final AdapterView<?> parent) {
                 // do nothing
             }
         });
     }
 
     private void createListenerToolbarFirst() {
-        this.fragmentAppearanceTabToolbarBinding.toolbarSwitchFirst.setOnCheckedChangeListener((buttonView, isChecked) ->
-                this.appearancePreferences.setAppearanceToolbarFirst(isChecked)
+        fragmentAppearanceTabToolbarBinding.toolbarSwitchFirst.setOnCheckedChangeListener((buttonView, isChecked) ->
+                appearancePreferences.setAppearanceToolbarFirst(isChecked)
         );
     }
 
     private void createListenerToolbarPrevious() {
-        this.fragmentAppearanceTabToolbarBinding.toolbarSwitchPrevious.setOnCheckedChangeListener((buttonView, isChecked) ->
-                this.appearancePreferences.setAppearanceToolbarPrevious(isChecked)
+        fragmentAppearanceTabToolbarBinding.toolbarSwitchPrevious.setOnCheckedChangeListener((buttonView, isChecked) ->
+                appearancePreferences.setAppearanceToolbarPrevious(isChecked)
         );
     }
 
     private void createListenerToolbarToggleFavourite() {
-        this.fragmentAppearanceTabToolbarBinding.toolbarSwitchToggleFavourite.setOnCheckedChangeListener((buttonView, isChecked) ->
-                this.appearancePreferences.setAppearanceToolbarFavourite(isChecked)
+        fragmentAppearanceTabToolbarBinding.toolbarSwitchToggleFavourite.setOnCheckedChangeListener((buttonView, isChecked) ->
+                appearancePreferences.setAppearanceToolbarFavourite(isChecked)
         );
     }
 
     private void createListenerToolbarShare() {
-        this.fragmentAppearanceTabToolbarBinding.toolbarSwitchShare.setOnCheckedChangeListener((buttonView, isChecked) ->
-                this.appearancePreferences.setAppearanceToolbarShare(isChecked)
+        fragmentAppearanceTabToolbarBinding.toolbarSwitchShare.setOnCheckedChangeListener((buttonView, isChecked) ->
+                appearancePreferences.setAppearanceToolbarShare(isChecked)
         );
     }
 
     private void createListenerToolbarNextRandom() {
-        this.fragmentAppearanceTabToolbarBinding.toolbarSwitchNextRandom.setOnCheckedChangeListener((buttonView, isChecked) ->
-                this.appearancePreferences.setAppearanceToolbarRandom(isChecked)
+        fragmentAppearanceTabToolbarBinding.toolbarSwitchNextRandom.setOnCheckedChangeListener((buttonView, isChecked) ->
+                appearancePreferences.setAppearanceToolbarRandom(isChecked)
         );
     }
 
     private void createListenerToolbarNextSequential() {
-        this.fragmentAppearanceTabToolbarBinding.toolbarSwitchNextSequential.setOnCheckedChangeListener((buttonView, isChecked) ->
-                this.appearancePreferences.setAppearanceToolbarSequential(isChecked)
+        fragmentAppearanceTabToolbarBinding.toolbarSwitchNextSequential.setOnCheckedChangeListener((buttonView, isChecked) ->
+                appearancePreferences.setAppearanceToolbarSequential(isChecked)
         );
     }
 
     public void setToolbarColour() {
-        this.setSpinner(
-                this.fragmentAppearanceTabToolbarBinding.spinnerToolbarColour,
-                new AppearanceToolbarColourSpinnerAdapter(this.getActivity().getBaseContext()),
-                this.appearancePreferences.getAppearanceToolbarColour(),
+        setSpinner(
+                fragmentAppearanceTabToolbarBinding.spinnerToolbarColour,
+                new AppearanceToolbarColourSpinnerAdapter(getActivity().getBaseContext()),
+                appearancePreferences.getAppearanceToolbarColour(),
                 0,
                 R.array.fragment_appearance_toolbar_colour_array
         );
 
-        this.appearancePreferences.setAppearanceToolbarColour(this.fragmentAppearanceTabToolbarBinding.spinnerToolbarColour.getSelectedItem().toString());
+        appearancePreferences.setAppearanceToolbarColour(fragmentAppearanceTabToolbarBinding.spinnerToolbarColour.getSelectedItem().toString());
     }
 }

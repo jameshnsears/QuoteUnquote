@@ -13,16 +13,16 @@ public class FragmentCommon extends Fragment {
         // ...
     }
 
-    public FragmentCommon(int theWidgetId) {
-        this.widgetId = theWidgetId;
+    public FragmentCommon(final int theWidgetId) {
+        widgetId = theWidgetId;
     }
 
     protected void setSpinner(
-            @NonNull Spinner spinner,
-            @NonNull BaseAdapter spinnerAdapter,
-            @NonNull String preference,
-            final int defaultSelection,
-            final int resourceArrayId) {
+            @NonNull final Spinner spinner,
+            @NonNull final BaseAdapter spinnerAdapter,
+            @NonNull final String preference,
+            int defaultSelection,
+            int resourceArrayId) {
 
         spinner.setAdapter(spinnerAdapter);
 
@@ -30,7 +30,7 @@ public class FragmentCommon extends Fragment {
             spinner.setSelection(defaultSelection);
         } else {
             int selectionIndex = 0;
-            for (String spinnerRow : this.getActivity().getBaseContext().getResources().getStringArray(resourceArrayId)) {
+            for (final String spinnerRow : getActivity().getBaseContext().getResources().getStringArray(resourceArrayId)) {
                 if (spinnerRow.equals(preference)) {
                     spinner.setSelection(selectionIndex);
                     break;

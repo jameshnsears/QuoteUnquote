@@ -8,7 +8,8 @@ import org.junit.Test
 class AppearanceTextStyleSpinnerAdapterTest {
     @Test
     fun howManyFonts() {
-        val appearanceStyleSpinnerAdapter = AppearanceTextStyleSpinnerAdapter(getApplicationContext())
+        val appearanceStyleSpinnerAdapter =
+            AppearanceTextStyleSpinnerAdapter(getApplicationContext())
 
         assertEquals(4, appearanceStyleSpinnerAdapter.count)
     }

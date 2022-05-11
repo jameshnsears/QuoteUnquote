@@ -109,7 +109,7 @@ class AppearanceFragmentPreferencesTest : ShadowLoggingHelper() {
                 fragment.setTransparency()
                 assertEquals(5, fragment.appearancePreferences?.appearanceTransparency)
 
-                AppearancePreferences.disable(getApplicationContext())
+                AppearancePreferences.erase(getApplicationContext())
                 assertEquals(-1, fragment.appearancePreferences?.appearanceTransparency)
             }
         }

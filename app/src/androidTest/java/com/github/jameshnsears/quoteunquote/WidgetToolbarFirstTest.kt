@@ -2,7 +2,7 @@ package com.github.jameshnsears.quoteunquote
 
 import android.appwidget.AppWidgetManager
 import android.os.Build
-import com.github.jameshnsears.quoteunquote.configure.fragment.content.ContentPreferences
+import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import io.mockk.every
@@ -20,7 +20,12 @@ class WidgetToolbarFirstTest : QuoteUnquoteModelUtility() {
 
         every { quoteUnquoteWidget.getQuoteUnquoteModel(any()) } returns quoteUnquoteModelDouble
 
-        every { appWidgetManager.notifyAppWidgetViewDataChanged(WidgetIdHelper.WIDGET_ID_01, any()) } returns Unit
+        every {
+            appWidgetManager.notifyAppWidgetViewDataChanged(
+                WidgetIdHelper.WIDGET_ID_01,
+                any()
+            )
+        } returns Unit
 
         quoteUnquoteWidget.onEnabled(context)
     }
@@ -35,8 +40,12 @@ class WidgetToolbarFirstTest : QuoteUnquoteModelUtility() {
                 getDefaultQuotation().digest
             )
 
-            val contentPreferences = ContentPreferences(WidgetIdHelper.WIDGET_ID_01, context)
-            contentPreferences.contentSelection = ContentSelection.ALL
+            val quotationsPreferences =
+                QuotationsPreferences(
+                    WidgetIdHelper.WIDGET_ID_01,
+                    context
+                )
+            quotationsPreferences.contentSelection = ContentSelection.ALL
 
             onReceiveToolbarPressedFirst(quoteUnquoteWidget, appWidgetManager)
             assertEquals(
@@ -51,8 +60,12 @@ class WidgetToolbarFirstTest : QuoteUnquoteModelUtility() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             setup()
 
-            val contentPreferences = ContentPreferences(WidgetIdHelper.WIDGET_ID_01, context)
-            contentPreferences.contentSelection = ContentSelection.FAVOURITES
+            val quotationsPreferences =
+                QuotationsPreferences(
+                    WidgetIdHelper.WIDGET_ID_01,
+                    context
+                )
+            quotationsPreferences.contentSelection = ContentSelection.FAVOURITES
 
             databaseRepositoryDouble.markAsFavourite(getDefaultQuotation().digest)
             onReceiveToolbarPressedFirst(quoteUnquoteWidget, appWidgetManager)
@@ -64,9 +77,13 @@ class WidgetToolbarFirstTest : QuoteUnquoteModelUtility() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             setup()
 
-            val contentPreferences = ContentPreferences(WidgetIdHelper.WIDGET_ID_01, context)
-            contentPreferences.contentSelection = ContentSelection.AUTHOR
-            contentPreferences.contentSelectionAuthor = "a0"
+            val quotationsPreferences =
+                QuotationsPreferences(
+                    WidgetIdHelper.WIDGET_ID_01,
+                    context
+                )
+            quotationsPreferences.contentSelection = ContentSelection.AUTHOR
+            quotationsPreferences.contentSelectionAuthor = "a0"
 
             onReceiveToolbarPressedFirst(quoteUnquoteWidget, appWidgetManager)
             assertEquals(
@@ -81,9 +98,13 @@ class WidgetToolbarFirstTest : QuoteUnquoteModelUtility() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             setup()
 
-            val contentPreferences = ContentPreferences(WidgetIdHelper.WIDGET_ID_01, context)
-            contentPreferences.contentSelection = ContentSelection.AUTHOR
-            contentPreferences.contentSelectionAuthor = "a0"
+            val quotationsPreferences =
+                QuotationsPreferences(
+                    WidgetIdHelper.WIDGET_ID_01,
+                    context
+                )
+            quotationsPreferences.contentSelection = ContentSelection.AUTHOR
+            quotationsPreferences.contentSelectionAuthor = "a0"
 
             onReceiveToolbarPressedFirst(quoteUnquoteWidget, appWidgetManager)
             assertEquals(

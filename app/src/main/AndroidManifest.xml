@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        package="com.github.jameshnsears.quoteunquote">
+        xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission
             android:name="android.permission.REORDER_TASKS"
@@ -26,7 +25,6 @@
                 android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>
 
             <meta-data
@@ -56,7 +54,8 @@
                 android:name=".listview.ListViewService"
                 android:permission="android.permission.BIND_REMOTEVIEWS" />
 
-        <service android:name=".cloud.CloudServiceSend" />
-        <service android:name=".cloud.CloudServiceReceive" />
+        <service android:name=".cloud.CloudService" />
+        <service android:name=".cloud.CloudServiceBackup" />
+        <service android:name=".cloud.CloudServiceRestore" />
     </application>
 </manifest>

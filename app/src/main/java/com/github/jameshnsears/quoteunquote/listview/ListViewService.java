@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 public class ListViewService extends RemoteViewsService {
     @Override
     @NonNull
-    public RemoteViewsFactory onGetViewFactory(@NonNull Intent intent) {
-        return new ListViewProvider(this.getApplicationContext(), intent);
+    public RemoteViewsFactory onGetViewFactory(@NonNull final Intent intent) {
+        return new ListViewProvider(getApplicationContext(), intent);
     }
 }

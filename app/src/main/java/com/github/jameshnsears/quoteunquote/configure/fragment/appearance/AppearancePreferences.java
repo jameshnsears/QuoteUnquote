@@ -6,24 +6,20 @@ import androidx.annotation.NonNull;
 
 import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade;
 
-import java.util.Map;
-
-import timber.log.Timber;
-
 public class AppearancePreferences extends PreferencesFacade {
-    private static final String APPEARANCE_TRANSPARENCY = "APPEARANCE_TRANSPARENCY";
-    private static final String APPEARANCE_COLOUR = "APPEARANCE_COLOUR";
-    private static final String APPEARANCE_TEXT_FAMILY = "APPEARANCE_TEXT_FAMILY";
-    private static final String APPEARANCE_TEXT_STYLE = "APPEARANCE_TEXT_STYLE";
-    private static final String APPEARANCE_TEXT_SIZE = "APPEARANCE_TEXT_SIZE";
-    private static final String APPEARANCE_TEXT_COLOUR = "APPEARANCE_TEXT_COLOUR";
-    private static final String APPEARANCE_TOOLBAR_COLOUR = "APPEARANCE_TOOLBAR_COLOUR";
-    private static final String APPEARANCE_TOOLBAR_FIRST = "APPEARANCE_TOOLBAR_FIRST";
-    private static final String APPEARANCE_TOOLBAR_PREVIOUS = "APPEARANCE_TOOLBAR_PREVIOUS";
-    private static final String APPEARANCE_TOOLBAR_FAVOURITE = "APPEARANCE_TOOLBAR_FAVOURITE";
-    private static final String APPEARANCE_TOOLBAR_SHARE = "APPEARANCE_TOOLBAR_SHARE";
-    private static final String APPEARANCE_TOOLBAR_RANDOM = "APPEARANCE_TOOLBAR_RANDOM";
-    private static final String APPEARANCE_TOOLBAR_SEQUENTIAL = "APPEARANCE_TOOLBAR_SEQUENTIAL";
+    public static final String APPEARANCE_TRANSPARENCY = "APPEARANCE_TRANSPARENCY";
+    public static final String APPEARANCE_COLOUR = "APPEARANCE_COLOUR";
+    public static final String APPEARANCE_TEXT_FAMILY = "APPEARANCE_TEXT_FAMILY";
+    public static final String APPEARANCE_TEXT_STYLE = "APPEARANCE_TEXT_STYLE";
+    public static final String APPEARANCE_TEXT_SIZE = "APPEARANCE_TEXT_SIZE";
+    public static final String APPEARANCE_TEXT_COLOUR = "APPEARANCE_TEXT_COLOUR";
+    public static final String APPEARANCE_TOOLBAR_COLOUR = "APPEARANCE_TOOLBAR_COLOUR";
+    public static final String APPEARANCE_TOOLBAR_FIRST = "APPEARANCE_TOOLBAR_FIRST";
+    public static final String APPEARANCE_TOOLBAR_PREVIOUS = "APPEARANCE_TOOLBAR_PREVIOUS";
+    public static final String APPEARANCE_TOOLBAR_FAVOURITE = "APPEARANCE_TOOLBAR_FAVOURITE";
+    public static final String APPEARANCE_TOOLBAR_SHARE = "APPEARANCE_TOOLBAR_SHARE";
+    public static final String APPEARANCE_TOOLBAR_RANDOM = "APPEARANCE_TOOLBAR_RANDOM";
+    public static final String APPEARANCE_TOOLBAR_SEQUENTIAL = "APPEARANCE_TOOLBAR_SEQUENTIAL";
 
     public AppearancePreferences(
             int widgetId,
@@ -158,32 +154,5 @@ public class AppearancePreferences extends PreferencesFacade {
 
     public void setAppearanceToolbarSequential(boolean value) {
         this.preferenceHelper.setPreference(this.getPreferenceKey(AppearancePreferences.APPEARANCE_TOOLBAR_SEQUENTIAL), value);
-    }
-
-    public void performMigration() {
-        Map<String, ?> sharedPreferenceEntries
-                = this.applicationContext.getSharedPreferences("QuoteUnquote-Preferences", Context.MODE_PRIVATE).getAll();
-
-        for (Map.Entry<String, ?> entry : sharedPreferenceEntries.entrySet()) {
-            this.widgetId = Integer.parseInt(entry.getKey().substring(0, entry.getKey().indexOf(":")));
-
-            if (entry.getKey().contains("FragmentAppearance:seekBar")) {
-                final int seekBar = (Integer) entry.getValue();
-                Timber.d("%d: seekBar=%d", this.widgetId, seekBar);
-                this.setAppearanceTransparency(seekBar);
-            }
-
-            if (entry.getKey().contains("FragmentAppearance:spinnerColour")) {
-                final String spinnerColour = (String) entry.getValue();
-                Timber.d("%d: spinnerColour=%s", this.widgetId, spinnerColour);
-                this.setAppearanceTextColour(spinnerColour);
-            }
-
-            if (entry.getKey().contains("FragmentAppearance:spinnerSize")) {
-                final int spinnerSize = (Integer) entry.getValue();
-                Timber.d("%d: spinnerSize=%d", this.widgetId, spinnerSize);
-                this.setAppearanceTextSize(spinnerSize);
-            }
-        }
     }
 }

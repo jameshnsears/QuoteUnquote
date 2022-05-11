@@ -8,7 +8,8 @@ import org.junit.Test
 class AppearanceTextFamilySpinnerAdapterTest {
     @Test
     fun howManyFonts() {
-        val appearanceFontSpinnerAdapter = AppearanceTextFamilySpinnerAdapter(getApplicationContext())
+        val appearanceFontSpinnerAdapter =
+            AppearanceTextFamilySpinnerAdapter(getApplicationContext())
 
         // https://www.cs.cmu.edu/~jbigham/pubs/pdfs/2017/colors.pdf
 

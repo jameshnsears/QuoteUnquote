@@ -14,7 +14,9 @@ class WidgetToolbarFavouriteTest : QuoteUnquoteModelUtility() {
         assertTrue(quoteUnquoteModelDouble.countFavourites().blockingGet() == 0)
         assertFalse(databaseRepositoryDouble.isFavourite(getDefaultQuotation().digest))
 
-        markDefaultQuotationAsFavourite()
+        quoteUnquoteModelDouble.toggleFavourite(
+            WidgetIdHelper.WIDGET_ID_01, DatabaseRepository.getDefaultQuotationDigest()
+        )
 
         assertTrue(databaseRepositoryDouble.isFavourite(getDefaultQuotation().digest))
         assertTrue(quoteUnquoteModelDouble.countFavourites().blockingGet() == 1)
@@ -22,7 +24,5 @@ class WidgetToolbarFavouriteTest : QuoteUnquoteModelUtility() {
         quoteUnquoteModelDouble.toggleFavourite(
             WidgetIdHelper.WIDGET_ID_01, DatabaseRepository.getDefaultQuotationDigest()
         )
-
-        assertTrue(quoteUnquoteModelDouble.countFavourites().blockingGet() == 0)
     }
 }

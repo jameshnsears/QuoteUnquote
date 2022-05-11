@@ -14,55 +14,54 @@ public final class DatabaseRepositoryDouble extends DatabaseRepository {
     private static DatabaseRepositoryDouble databaseRepositoryDouble;
 
     private DatabaseRepositoryDouble() {
-        this.abstractQuotationDatabase = Room.inMemoryDatabaseBuilder(
+        abstractQuotationDatabase = Room.inMemoryDatabaseBuilder(
                 ApplicationProvider.getApplicationContext(),
                 AbstractQuotationDatabase.class)
                 .allowMainThreadQueries()
                 .build();
 
-        this.quotationDAO = this.abstractQuotationDatabase.quotationsDAO();
+        quotationDAO = abstractQuotationDatabase.quotationsDAO();
 
-        this.abstractHistoryDatabase = Room.inMemoryDatabaseBuilder(
+        abstractHistoryDatabase = Room.inMemoryDatabaseBuilder(
                 ApplicationProvider.getApplicationContext(),
                 AbstractHistoryDatabase.class)
                 .allowMainThreadQueries()
                 .build();
 
-        this.previousDAO = this.abstractHistoryDatabase.previousDAO();
-        this.favouriteDAO = this.abstractHistoryDatabase.favouritesDAO();
-        this.reportedDAO = this.abstractHistoryDatabase.reportedDAO();
-        this.currentDAO = this.abstractHistoryDatabase.currentDAO();
+        previousDAO = abstractHistoryDatabase.previousDAO();
+        favouriteDAO = abstractHistoryDatabase.favouritesDAO();
+        reportedDAO = abstractHistoryDatabase.reportedDAO();
+        currentDAO = abstractHistoryDatabase.currentDAO();
     }
 
     public static synchronized DatabaseRepositoryDouble getInstance() {
-        if (DatabaseRepositoryDouble.databaseRepositoryDouble == null) {
-            DatabaseRepositoryDouble.databaseRepositoryDouble = new DatabaseRepositoryDouble();
+        if (databaseRepositoryDouble == null) {
+            databaseRepositoryDouble = new DatabaseRepositoryDouble();
         }
 
-        return DatabaseRepositoryDouble.databaseRepositoryDouble;
+        return databaseRepositoryDouble;
     }
 
-    @Override
-    public void erase() {
-        DatabaseRepositoryDouble.databaseRepositoryDouble.abstractQuotationDatabase.quotationsDAO().erase();
+    public void eraseEverything() {
+        databaseRepositoryDouble.abstractQuotationDatabase.quotationsDAO().erase();
         super.erase();
     }
 
-    public void insertQuotations(@NonNull List<QuotationEntity> quotationEntityList) {
-        for (QuotationEntity quotationEntity : quotationEntityList) {
-            this.quotationDAO.insertQuotation(quotationEntity);
+    public void insertQuotations(@NonNull final List<QuotationEntity> quotationEntityList) {
+        for (final QuotationEntity quotationEntity : quotationEntityList) {
+            quotationDAO.insertQuotation(quotationEntity);
         }
     }
 
     public int countReported() {
-        return this.reportedDAO.countReported();
+        return reportedDAO.countReported();
     }
 
-    public int countCurrent(int widgetId) {
-        return this.currentDAO.countCurrent(widgetId);
+    public int countCurrent(final int widgetId) {
+        return currentDAO.countCurrent(widgetId);
     }
 
     public List<String> getNextAllDigests() {
-        return this.quotationDAO.getNextAllDigests();
+        return quotationDAO.getNextAllDigests();
     }
 }

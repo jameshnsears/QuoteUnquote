@@ -4,8 +4,8 @@ import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 import com.github.jameshnsears.quoteunquote.utils.logging.MethodLineLoggingTree
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import junit.framework.TestCase.assertEquals
-import junit.framework.TestCase.assertTrue
 import junit.framework.TestCase.assertFalse
+import junit.framework.TestCase.assertTrue
 import org.junit.Before
 import org.junit.Test
 import timber.log.Timber
@@ -27,7 +27,7 @@ class WidgetToolbarRandomizationTest : QuoteUnquoteModelUtility() {
             Timber.plant(MethodLineLoggingTree())
         }
 
-        databaseRepositoryDouble.erase()
+        databaseRepositoryDouble.eraseEverything()
         insertQuotationTestData01()
         insertQuotationTestData02()
         insertQuotationTestData03()
@@ -50,7 +50,7 @@ class WidgetToolbarRandomizationTest : QuoteUnquoteModelUtility() {
             quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
         }
 
-        var actualPreviousOrder = quoteUnquoteModelDouble.databaseRepository?.getPreviousDigests(
+        val actualPreviousOrder = quoteUnquoteModelDouble.databaseRepository?.getPreviousDigests(
             WidgetIdHelper.WIDGET_ID_01,
             ContentSelection.ALL
         )
@@ -60,7 +60,7 @@ class WidgetToolbarRandomizationTest : QuoteUnquoteModelUtility() {
     }
 
     private fun assertInsertionOrder(expectedAllQuotationsOrder: MutableList<String>) {
-        var actualAllQuotationsOrder = mutableListOf<String>()
+        val actualAllQuotationsOrder = mutableListOf<String>()
         for (quotationEntity in quoteUnquoteModelDouble.allQuotations) {
             actualAllQuotationsOrder.add(quotationEntity.digest)
         }
@@ -77,7 +77,7 @@ class WidgetToolbarRandomizationTest : QuoteUnquoteModelUtility() {
             quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, true)
         }
 
-        var actualPreviousOrder = quoteUnquoteModelDouble.databaseRepository?.getPreviousDigests(
+        val actualPreviousOrder = quoteUnquoteModelDouble.databaseRepository?.getPreviousDigests(
             WidgetIdHelper.WIDGET_ID_01,
             ContentSelection.ALL
         )
@@ -85,16 +85,4 @@ class WidgetToolbarRandomizationTest : QuoteUnquoteModelUtility() {
 
         assertFalse(expectedAllSequentialOrder == actualPreviousOrder)
     }
-
-    /*
-    "the randomize button stopped randomizing and instead behaves identical to the sequential button"
-
-    Adam Smith @ 1/6 + Sequential button presses:
-    1. Man
-    2. Labour
-    3. The
-    4. It
-    5. People
-    6. There
-     */
 }

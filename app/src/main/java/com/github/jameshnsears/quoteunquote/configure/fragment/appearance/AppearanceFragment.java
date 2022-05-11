@@ -28,13 +28,13 @@ public class AppearanceFragment extends FragmentCommon {
         // dark mode support
     }
 
-    public AppearanceFragment(int widgetId) {
+    public AppearanceFragment(final int widgetId) {
         super(widgetId);
     }
 
     @NonNull
-    public static AppearanceFragment newInstance(int widgetId) {
-        AppearanceFragment fragment = new AppearanceFragment(widgetId);
+    public static AppearanceFragment newInstance(final int widgetId) {
+        final AppearanceFragment fragment = new AppearanceFragment(widgetId);
         fragment.setArguments(null);
         return fragment;
     }
@@ -42,26 +42,26 @@ public class AppearanceFragment extends FragmentCommon {
     @Override
     @NonNull
     public View onCreateView(
-            @NonNull LayoutInflater inflater,
-            ViewGroup container,
-            Bundle savedInstanceState) {
-        Context context = new ContextThemeWrapper(this.getActivity(), R.style.Theme_MaterialComponents_DayNight);
+            @NonNull final LayoutInflater inflater,
+            final @NonNull ViewGroup container,
+            final @NonNull Bundle savedInstanceState) {
+        final Context context = new ContextThemeWrapper(getActivity(), R.style.Theme_MaterialComponents_DayNight);
 
-        this.fragmentAppearanceBinding = FragmentAppearanceBinding.inflate(inflater.cloneInContext(context));
-        return this.fragmentAppearanceBinding.getRoot();
+        fragmentAppearanceBinding = FragmentAppearanceBinding.inflate(inflater.cloneInContext(context));
+        return fragmentAppearanceBinding.getRoot();
     }
 
     @Override
     public void onViewCreated(
-            @NonNull View view, Bundle savedInstanceState) {
+            @NonNull final View view, final @NonNull Bundle savedInstanceState) {
 
-        this.pagerAdapter = new AppearanceFragmentStateAdapter(this, this.widgetId);
-        this.fragmentAppearanceBinding.viewPager2.setAdapter(this.pagerAdapter);
+        pagerAdapter = new AppearanceFragmentStateAdapter(this, widgetId);
+        fragmentAppearanceBinding.viewPager2.setAdapter(pagerAdapter);
 
-        final String[] tabs = {"Style", "Toolbar"};
+        String[] tabs = {"Style", "Toolbar"};
         new TabLayoutMediator(
-                this.fragmentAppearanceBinding.tabLayout,
-                this.fragmentAppearanceBinding.viewPager2,
+                fragmentAppearanceBinding.tabLayout,
+                fragmentAppearanceBinding.viewPager2,
                 true,
                 false,
                 (tab, position) -> tab.setText(tabs[position])).attach();
@@ -70,6 +70,6 @@ public class AppearanceFragment extends FragmentCommon {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        this.fragmentAppearanceBinding = null;
+        fragmentAppearanceBinding = null;
     }
 }

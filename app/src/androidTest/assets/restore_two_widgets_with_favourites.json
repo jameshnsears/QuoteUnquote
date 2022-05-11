@@ -1,0 +1,141 @@
+{
+    "code": "DuirnChs1f",
+    "current": [
+        {
+            "digest": "d1",
+            "widget_id": 2
+        },
+        {
+            "digest": "d2",
+            "widget_id": 3
+        }
+    ],
+    "favourite": [
+        {
+            "digest": "d5",
+            "navigation": 4
+        },
+        {
+            "digest": "d2",
+            "navigation": 3
+        },
+        {
+            "digest": "d4",
+            "navigation": 2
+        },
+        {
+            "digest": "d1",
+            "navigation": 1
+        }
+    ],
+    "previous": [
+        {
+            "content_type": 1,
+            "digest": "d2",
+            "navigation": 5,
+            "widget_id": 3
+        },
+        {
+            "content_type": 1,
+            "digest": "d5",
+            "navigation": 4,
+            "widget_id": 2
+        },
+        {
+            "content_type": 1,
+            "digest": "d3",
+            "navigation": 3,
+            "widget_id": 3
+        },
+        {
+            "content_type": 1,
+            "digest": "d4",
+            "navigation": 2,
+            "widget_id": 3
+        },
+        {
+            "content_type": 1,
+            "digest": "d6",
+            "navigation": 1,
+            "widget_id": 2
+        }
+    ],
+    "settings": [
+        {
+            "appearance": {
+                "APPEARANCE_COLOUR": "#FFF8FD89",
+                "APPEARANCE_TEXT_COLOUR": "#FF000000",
+                "APPEARANCE_TEXT_FAMILY": "Sans Serif",
+                "APPEARANCE_TEXT_SIZE": 16,
+                "APPEARANCE_TEXT_STYLE": "Regular",
+                "APPEARANCE_TOOLBAR_COLOUR": "",
+                "APPEARANCE_TOOLBAR_FAVOURITE": true,
+                "APPEARANCE_TOOLBAR_FIRST": false,
+                "APPEARANCE_TOOLBAR_PREVIOUS": true,
+                "APPEARANCE_TOOLBAR_RANDOM": true,
+                "APPEARANCE_TOOLBAR_SEQUENTIAL": false,
+                "APPEARANCE_TOOLBAR_SHARE": true,
+                "APPEARANCE_TRANSPARENCY": -1
+            },
+            "quotations": {
+                "CONTENT_ADD_TO_PREVIOUS_ALL": true,
+                "CONTENT_ALL": false,
+                "CONTENT_AUTHOR": true,
+                "CONTENT_AUTHOR_NAME": "a0",
+                "CONTENT_FAVOURITES": false,
+                "CONTENT_SEARCH": false,
+                "CONTENT_SEARCH_COUNT": 0,
+                "CONTENT_SEARCH_TEXT": ""
+            },
+            "schedule": {
+                "EVENT_DAILY": false,
+                "EVENT_DAILY_HOUR": -1,
+                "EVENT_DAILY_MINUTE": -1,
+                "EVENT_DEVICE_UNLOCK": false,
+                "EVENT_DISPLAY_WIDGET_AND_NOTIFICATION": false,
+                "EVENT_DISPLAY_WIDGET": true,
+                "EVENT_NEXT_RANDOM": true,
+                "EVENT_NEXT_SEQUENTIAL": false
+            },
+            "widget_id": 2
+        },
+        {
+            "appearance": {
+                "APPEARANCE_COLOUR": "#FFF8FD89",
+                "APPEARANCE_TEXT_COLOUR": "#FF000000",
+                "APPEARANCE_TEXT_FAMILY": "Sans Serif",
+                "APPEARANCE_TEXT_SIZE": 12,
+                "APPEARANCE_TEXT_STYLE": "Bold",
+                "APPEARANCE_TOOLBAR_COLOUR": "",
+                "APPEARANCE_TOOLBAR_FAVOURITE": true,
+                "APPEARANCE_TOOLBAR_FIRST": false,
+                "APPEARANCE_TOOLBAR_PREVIOUS": true,
+                "APPEARANCE_TOOLBAR_RANDOM": true,
+                "APPEARANCE_TOOLBAR_SEQUENTIAL": false,
+                "APPEARANCE_TOOLBAR_SHARE": true,
+                "APPEARANCE_TRANSPARENCY": -1
+            },
+            "quotations": {
+                "CONTENT_ADD_TO_PREVIOUS_ALL": true,
+                "CONTENT_ALL": false,
+                "CONTENT_AUTHOR": false,
+                "CONTENT_AUTHOR_NAME": "a1",
+                "CONTENT_FAVOURITES": true,
+                "CONTENT_SEARCH": false,
+                "CONTENT_SEARCH_COUNT": 0,
+                "CONTENT_SEARCH_TEXT": ""
+            },
+            "schedule": {
+                "EVENT_DAILY": false,
+                "EVENT_DAILY_HOUR": -1,
+                "EVENT_DAILY_MINUTE": -1,
+                "EVENT_DEVICE_UNLOCK": false,
+                "EVENT_DISPLAY_WIDGET_AND_NOTIFICATION": false,
+                "EVENT_DISPLAY_WIDGET": true,
+                "EVENT_NEXT_RANDOM": true,
+                "EVENT_NEXT_SEQUENTIAL": false
+            },
+            "widget_id": 3
+        }
+    ]
+}

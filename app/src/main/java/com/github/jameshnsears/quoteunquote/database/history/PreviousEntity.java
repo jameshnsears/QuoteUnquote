@@ -28,9 +28,9 @@ public class PreviousEntity {
     public int navigation;
 
     public PreviousEntity(
-            int widgetId,
-            @NonNull ContentSelection contentType,
-            @NonNull String digest) {
+            final int widgetId,
+            @NonNull final ContentSelection contentType,
+            @NonNull final String digest) {
         this.widgetId = widgetId;
         this.contentType = contentType;
         this.digest = digest;
