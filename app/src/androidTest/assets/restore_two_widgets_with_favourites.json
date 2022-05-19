@@ -32,8 +32,14 @@
         {
             "content_type": 1,
             "digest": "d2",
-            "navigation": 5,
+            "navigation": 6,
             "widget_id": 3
+        },
+        {
+            "content_type": 1,
+            "digest": "d2",
+            "navigation": 5,
+            "widget_id": 2
         },
         {
             "content_type": 1,
@@ -70,11 +76,11 @@
                 "APPEARANCE_TEXT_STYLE": "Regular",
                 "APPEARANCE_TOOLBAR_COLOUR": "",
                 "APPEARANCE_TOOLBAR_FAVOURITE": true,
-                "APPEARANCE_TOOLBAR_FIRST": false,
+                "APPEARANCE_TOOLBAR_FIRST": true,
                 "APPEARANCE_TOOLBAR_PREVIOUS": true,
                 "APPEARANCE_TOOLBAR_RANDOM": true,
-                "APPEARANCE_TOOLBAR_SEQUENTIAL": false,
-                "APPEARANCE_TOOLBAR_SHARE": true,
+                "APPEARANCE_TOOLBAR_SEQUENTIAL": true,
+                "APPEARANCE_TOOLBAR_SHARE": false,
                 "APPEARANCE_TRANSPARENCY": -1
             },
             "quotations": {
@@ -107,10 +113,10 @@
                 "APPEARANCE_TEXT_SIZE": 12,
                 "APPEARANCE_TEXT_STYLE": "Bold",
                 "APPEARANCE_TOOLBAR_COLOUR": "",
-                "APPEARANCE_TOOLBAR_FAVOURITE": true,
+                "APPEARANCE_TOOLBAR_FAVOURITE": false,
                 "APPEARANCE_TOOLBAR_FIRST": false,
-                "APPEARANCE_TOOLBAR_PREVIOUS": true,
-                "APPEARANCE_TOOLBAR_RANDOM": true,
+                "APPEARANCE_TOOLBAR_PREVIOUS": false,
+                "APPEARANCE_TOOLBAR_RANDOM": false,
                 "APPEARANCE_TOOLBAR_SEQUENTIAL": false,
                 "APPEARANCE_TOOLBAR_SHARE": true,
                 "APPEARANCE_TRANSPARENCY": -1

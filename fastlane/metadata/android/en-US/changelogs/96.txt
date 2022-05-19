@@ -1,0 +1,4 @@
+- Fix: Backup and Restore
+- Fix: Next, sequential: iteration based on order in Authors list
+- Improve: Instructions "Widget usage"
+- Improve: Configuration > Quotations page layout

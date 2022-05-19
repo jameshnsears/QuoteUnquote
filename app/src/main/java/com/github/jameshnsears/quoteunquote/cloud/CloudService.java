@@ -37,7 +37,7 @@ public class CloudService extends Service {
         return this.getApplicationContext();
     }
 
-    protected void broadcastButtonEnabledEvent(@NonNull String event) {
+    protected void broadcastEvent(@NonNull String event) {
         LocalBroadcastManager broadcaster = LocalBroadcastManager.getInstance(this);
         broadcaster.sendBroadcast(new Intent(event));
     }

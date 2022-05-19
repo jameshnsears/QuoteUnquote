@@ -47,7 +47,6 @@ class WidgetDeletedTest : QuoteUnquoteModelUtility() {
 
         assertTrue(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_02) == 3)
         assertTrue(quoteUnquoteModelDouble.countFavourites().blockingGet() == 1)
-        assertTrue(quoteUnquoteModelDouble.countReported() == 1)
     }
 
     private fun setupDatabase() {
@@ -69,13 +68,6 @@ class WidgetDeletedTest : QuoteUnquoteModelUtility() {
         // double check only 1 still a favourite
         markDefaultQuotationAsFavourite()
         assertTrue(quoteUnquoteModelDouble.countFavourites().blockingGet() == 1)
-
-        markDefaultQuotationAsReported()
-        assertTrue(quoteUnquoteModelDouble.countReported() == 1)
-
-        // double check only 1 still reported
-        markDefaultQuotationAsReported()
-        assertTrue(quoteUnquoteModelDouble.countReported() == 1)
     }
 
     private fun setupSharedPreferences() {

@@ -2,12 +2,18 @@
   "code": "DuirnChs1f",
   "current": [
     {
-      "digest": "7a36e553",
+      "digest": "d1",
       "widget_id": 40
     }
   ],
   "favourite": [],
   "previous": [
+    {
+      "content_type": 1,
+      "digest": "d1",
+      "navigation": 2,
+      "widget_id": 40
+    },
     {
       "content_type": 1,
       "digest": "7a36e553",

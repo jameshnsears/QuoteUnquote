@@ -43,6 +43,10 @@ open class TransferRestoreUtility : QuoteUnquoteModelUtility() {
         insertQuotationTestData02()
         insertQuotationTestData03()
 
+        for (widgetId in widgetIds) {
+            setDefaultQuotationAll(widgetId)
+        }
+
         mockkObject(TransferUtility)
         every { TransferUtility.getWidgetIds(context) } returns widgetIds
     }

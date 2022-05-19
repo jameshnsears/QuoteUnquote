@@ -111,6 +111,13 @@ public class DatabaseRepository {
         return previousDAO.countPrevious(widgetId, contentSelection);
     }
 
+    public int countPreviousDigest(
+            final int widgetId,
+            @NonNull final ContentSelection contentSelection,
+            @NonNull String digest) {
+        return previousDAO.countPreviousDigest(widgetId, contentSelection, digest);
+    }
+
     public int countPrevious(final int widgetId) {
         return previousDAO.countPrevious(widgetId);
     }

@@ -43,7 +43,8 @@
         <entry key="app/src/main/res/layout/fragment_backup_restore.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_content.xml" value="0.4165103189493433" />
         <entry key="app/src/main/res/layout/fragment_event.xml" value="0.5" />
-        <entry key="app/src/main/res/layout/fragment_quotations.xml" value="0.10625" />
+        <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.29080675422138835" />
+        <entry key="app/src/main/res/layout/fragment_quotations.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_schedule.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_transfer.xml" value="0.42964352720450283" />
         <entry key="app/src/main/res/layout/listvew_row_0_cursive.xml" value="0.1" />
@@ -73,6 +74,11 @@
         <entry key="app/src/main/res/layout/listvew_row_5_serif_bold.xml" value="0.18703703703703703" />
         <entry key="app/src/main/res/layout/listvew_row_5_serif_bold_italic.xml" value="0.18703703703703703" />
         <entry key="app/src/main/res/layout/listvew_row_5_serif_italic.xml" value="0.18703703703703703" />
+        <entry key="app/src/main/res/layout/notification.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/notification_collapsed.xml" value="0.19583333333333333" />
+        <entry key="app/src/main/res/layout/notification_exapanded.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/notification_large.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/notification_small.xml" value="0.1" />
         <entry key="app/src/main/res/layout/quote_unquote_widget.xml" value="0.25" />
         <entry key="app/src/main/res/layout/quote_unquote_widget_preview.xml" value="0.4138309549945115" />
         <entry key="app/src/main/res/layout/spinner_item.xml" value="0.1" />

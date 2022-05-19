@@ -8,14 +8,16 @@ open class TransferBackupPrevious {
         val previousList = mutableListOf<Previous>()
 
         for (previous in databaseRepository.previous) {
-            previousList.add(
-                Previous(
-                    previous.contentType.contentSelection,
-                    previous.digest,
-                    previous.navigation,
-                    previous.widgetId
+            if (previous.widgetId != 0) {
+                previousList.add(
+                    Previous(
+                        previous.contentType.contentSelection,
+                        previous.digest,
+                        previous.navigation,
+                        previous.widgetId
+                    )
                 )
-            )
+            }
         }
 
         return previousList

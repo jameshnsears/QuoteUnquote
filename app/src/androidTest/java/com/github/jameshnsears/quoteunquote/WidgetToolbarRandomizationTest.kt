@@ -11,7 +11,7 @@ import org.junit.Test
 import timber.log.Timber
 
 class WidgetToolbarRandomizationTest : QuoteUnquoteModelUtility() {
-    val expectedAllSequentialOrder = mutableListOf(
+    val expectedAllInsertionOrder = mutableListOf(
         "7a36e553",
         "d1",
         "d2",
@@ -41,9 +41,19 @@ class WidgetToolbarRandomizationTest : QuoteUnquoteModelUtility() {
 
     @Test
     fun traverseContentSelectionSequentially() {
-        assertInsertionOrder(expectedAllSequentialOrder)
+        assertInsertionOrder(expectedAllInsertionOrder)
 
-        assertNextOrder(expectedAllSequentialOrder)
+        val expectedNextNextOrder = mutableListOf(
+            "7a36e553",
+            "d1",
+            "d2",
+            "d3",
+            "d6",
+            "d4",
+            "d5"
+        )
+
+        assertNextOrder(expectedNextNextOrder)
 
         // use the Next quotations
         for (i in 1..quoteUnquoteModelDouble.countAll().blockingGet()) {
@@ -56,7 +66,7 @@ class WidgetToolbarRandomizationTest : QuoteUnquoteModelUtility() {
         )
         actualPreviousOrder?.reverse()
 
-        assertTrue(expectedAllSequentialOrder == actualPreviousOrder)
+        assertTrue(expectedNextNextOrder == actualPreviousOrder)
     }
 
     private fun assertInsertionOrder(expectedAllQuotationsOrder: MutableList<String>) {
@@ -83,6 +93,6 @@ class WidgetToolbarRandomizationTest : QuoteUnquoteModelUtility() {
         )
         actualPreviousOrder?.reverse()
 
-        assertFalse(expectedAllSequentialOrder == actualPreviousOrder)
+        assertFalse(expectedAllInsertionOrder == actualPreviousOrder)
     }
 }

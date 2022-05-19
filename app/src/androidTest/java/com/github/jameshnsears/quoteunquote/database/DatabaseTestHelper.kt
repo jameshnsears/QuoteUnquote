@@ -80,10 +80,6 @@ abstract class DatabaseTestHelper {
         databaseRepositoryDouble.markAsFavourite(getDefaultQuotation().digest)
     }
 
-    fun markDefaultQuotationAsReported() {
-        databaseRepositoryDouble.markAsReported(getDefaultQuotation().digest)
-    }
-
     fun getDefaultQuotation(): QuotationEntity {
         return databaseRepositoryDouble.getQuotation(DatabaseRepository.getDefaultQuotationDigest())
     }

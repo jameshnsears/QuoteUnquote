@@ -45,8 +45,8 @@ android {
         applicationId "com.github.jameshnsears.quoteunquote"
 
         // changelog version | min sdk | target sdk
-        versionCode 952431
-        versionName "3.0.0"
+        versionCode 962431
+        versionName "3.0.1"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -192,7 +192,7 @@ dependencies {
     debugImplementation 'androidx.test:core:1.4.0'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'
 
-    implementation platform('com.google.firebase:firebase-bom:30.0.0')
+    implementation platform('com.google.firebase:firebase-bom:30.0.1')
     googleplayImplementation 'com.google.firebase:firebase-crashlytics'
     googleplayImplementation 'com.google.firebase:firebase-analytics'
 

@@ -47,8 +47,6 @@ open class WidgetDisabledTest : QuoteUnquoteModelUtility() {
         assertTrue(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01) == 3)
 
         markDefaultQuotationAsFavourite()
-        markDefaultQuotationAsReported()
         assertTrue(quoteUnquoteModelDouble.countFavourites().blockingGet() == 1)
-        assertTrue(quoteUnquoteModelDouble.countReported() == 1)
     }
 }

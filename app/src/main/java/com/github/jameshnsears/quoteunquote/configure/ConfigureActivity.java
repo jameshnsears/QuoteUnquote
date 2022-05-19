@@ -2,6 +2,7 @@ package com.github.jameshnsears.quoteunquote.configure;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -12,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.github.jameshnsears.quoteunquote.QuoteUnquoteWidget;
 import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearanceFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsFragment;
@@ -108,8 +110,12 @@ public class ConfigureActivity extends AppCompatActivity {
     }
 
     public void broadcastTheFinishIntent() {
-        sendBroadcast(IntentFactoryHelper.createIntentAction(
-                this, this.widgetId, IntentFactoryHelper.ACTIVITY_FINISHED_CONFIGURATION));
+        // to all widget's in case a restore happened
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+        for (int id : appWidgetManager.getAppWidgetIds(new ComponentName(this, QuoteUnquoteWidget.class))) {
+            sendBroadcast(IntentFactoryHelper.createIntentAction(
+                    this, id, IntentFactoryHelper.ACTIVITY_FINISHED_CONFIGURATION));
+        }
 
         setResult(Activity.RESULT_OK, IntentFactoryHelper.createIntent(this.widgetId));
     }

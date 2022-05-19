@@ -1,2 +1,0 @@
-- Update F-Droid image assets.
-- Fix various sonarcloud issues.

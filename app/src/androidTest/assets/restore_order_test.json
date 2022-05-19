@@ -1,0 +1,404 @@
+{
+  "code": "6000000061",
+  "current": [
+    {
+      "digest": "e6f5c0d5",
+      "widget_id": 3
+    }
+  ],
+  "favourite": [
+    {
+      "digest": "7849c19b",
+      "navigation": 8
+    },
+    {
+      "digest": "30cf69c2",
+      "navigation": 7
+    },
+    {
+      "digest": "6ab08937",
+      "navigation": 6
+    },
+    {
+      "digest": "afafff19",
+      "navigation": 5
+    },
+    {
+      "digest": "0bc647a3",
+      "navigation": 4
+    },
+    {
+      "digest": "26b7cb04",
+      "navigation": 3
+    },
+    {
+      "digest": "54b6cfa6",
+      "navigation": 2
+    },
+    {
+      "digest": "007e9918",
+      "navigation": 1
+    }
+  ],
+  "now": 1652881590.618718,
+  "previous": [
+    {
+      "content_type": 1,
+      "digest": "e6f5c0d5",
+      "navigation": 53,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "445ff2e8",
+      "navigation": 52,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "bfb48131",
+      "navigation": 51,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "8f8565d3",
+      "navigation": 50,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "2d2180f0",
+      "navigation": 49,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "02900bc1",
+      "navigation": 48,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "3b57face",
+      "navigation": 47,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "9d75125d",
+      "navigation": 46,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "07282765",
+      "navigation": 45,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "53d8cc79",
+      "navigation": 44,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "1624c314",
+      "navigation": 43,
+      "widget_id": 0
+    },
+    {
+      "content_type": 1,
+      "digest": "8c8ce844",
+      "navigation": 42,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "e89d646b",
+      "navigation": 41,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "efe11658",
+      "navigation": 40,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "7849c19b",
+      "navigation": 39,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "af966628",
+      "navigation": 38,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "9533c9a2",
+      "navigation": 37,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "0fdabbb4",
+      "navigation": 36,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "08549bb7",
+      "navigation": 35,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "e658d3ab",
+      "navigation": 34,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "30cf69c2",
+      "navigation": 33,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "763354e7",
+      "navigation": 32,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "a2dc4edd",
+      "navigation": 31,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "c33f1799",
+      "navigation": 30,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "6ab08937",
+      "navigation": 29,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "6e0fae6b",
+      "navigation": 28,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "bcf19705",
+      "navigation": 27,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "b76454a1",
+      "navigation": 26,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "be35c14f",
+      "navigation": 25,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "77a212e1",
+      "navigation": 24,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "c96c77a0",
+      "navigation": 23,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "8665324a",
+      "navigation": 22,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "83872af0",
+      "navigation": 21,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "f538676e",
+      "navigation": 20,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "afafff19",
+      "navigation": 19,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "7bb5e24a",
+      "navigation": 18,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "0bc647a3",
+      "navigation": 17,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "26b7cb04",
+      "navigation": 16,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "70a00666",
+      "navigation": 15,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "b9301236",
+      "navigation": 14,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "843d378d",
+      "navigation": 13,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "bbeaf10d",
+      "navigation": 12,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "012554fe",
+      "navigation": 11,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "6895cd14",
+      "navigation": 10,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "0bcf9605",
+      "navigation": 9,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "c2708f6f",
+      "navigation": 8,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "54b6cfa6",
+      "navigation": 7,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "8ac070bd",
+      "navigation": 6,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "007e9918",
+      "navigation": 5,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "b10e4f4d",
+      "navigation": 4,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "6c32ff46",
+      "navigation": 3,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "5f8cf9ea",
+      "navigation": 2,
+      "widget_id": 3
+    },
+    {
+      "content_type": 1,
+      "digest": "1624c314",
+      "navigation": 1,
+      "widget_id": 3
+    }
+  ],
+  "settings": [
+    {
+      "appearance": {
+        "APPEARANCE_COLOUR": "#FF000000",
+        "APPEARANCE_TEXT_COLOUR": "#FFFFFFFF",
+        "APPEARANCE_TEXT_FAMILY": "Sans Serif",
+        "APPEARANCE_TEXT_SIZE": 18,
+        "APPEARANCE_TEXT_STYLE": "Regular",
+        "APPEARANCE_TOOLBAR_COLOUR": "#FFFFFFFF",
+        "APPEARANCE_TOOLBAR_FAVOURITE": true,
+        "APPEARANCE_TOOLBAR_FIRST": false,
+        "APPEARANCE_TOOLBAR_PREVIOUS": true,
+        "APPEARANCE_TOOLBAR_RANDOM": true,
+        "APPEARANCE_TOOLBAR_SEQUENTIAL": true,
+        "APPEARANCE_TOOLBAR_SHARE": true,
+        "APPEARANCE_TRANSPARENCY": 60
+      },
+      "quotations": {
+        "CONTENT_ADD_TO_PREVIOUS_ALL": true,
+        "CONTENT_ALL": true,
+        "CONTENT_AUTHOR": false,
+        "CONTENT_AUTHOR_NAME": "/r/quotes/top",
+        "CONTENT_FAVOURITES": false,
+        "CONTENT_SEARCH": false,
+        "CONTENT_SEARCH_COUNT": 0,
+        "CONTENT_SEARCH_TEXT": ""
+      },
+      "schedule": {
+        "EVENT_DAILY": true,
+        "EVENT_DAILY_HOUR": 6,
+        "EVENT_DAILY_MINUTE": 0,
+        "EVENT_DEVICE_UNLOCK": false,
+        "EVENT_DISPLAY_WIDGET": true,
+        "EVENT_DISPLAY_WIDGET_AND_NOTIFICATION": false,
+        "EVENT_NEXT_RANDOM": true,
+        "EVENT_NEXT_SEQUENTIAL": false
+      },
+      "widget_id": 3
+    }
+  ]
+}

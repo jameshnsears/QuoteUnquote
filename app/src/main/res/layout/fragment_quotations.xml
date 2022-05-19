@@ -64,11 +64,13 @@
                 android:id="@+id/dividerAll"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:background="?android:attr/listDivider"
                 android:paddingStart="0dp"
-                android:paddingEnd="5dp"
                 android:paddingTop="10dp"
-                android:paddingBottom="10dp"/>
+                android:paddingEnd="5dp"
+                android:paddingBottom="10dp" />
 
         <RadioButton
                 android:id="@+id/radioButtonAuthor"
@@ -111,10 +113,12 @@
                 android:id="@+id/dividerAuthor"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:background="?android:attr/listDivider"
                 android:paddingStart="0dp"
-                android:paddingEnd="5dp"
                 android:paddingTop="10dp"
+                android:paddingEnd="5dp"
                 android:paddingBottom="10dp" />
 
         <RadioButton
@@ -171,10 +175,12 @@
                 android:id="@+id/dividerFavourites"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:background="?android:attr/listDivider"
                 android:paddingStart="0dp"
-                android:paddingEnd="5dp"
                 android:paddingTop="10dp"
+                android:paddingEnd="5dp"
                 android:paddingBottom="10dp" />
 
         <RadioButton

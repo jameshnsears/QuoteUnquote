@@ -134,9 +134,31 @@
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="0dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="0dp"
+                    android:paddingTop="5dp"
                     android:paddingBottom="5dp"
-                    android:text="@string/activity_instructions_configure"
+                    android:text="@string/activity_instructions_configure_1"
+                    android:textSize="14sp" />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="0dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="@string/activity_instructions_configure_2"
+                    android:textSize="14sp" />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="0dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="@string/activity_instructions_configure_3"
                     android:textSize="14sp" />
 
             <LinearLayout

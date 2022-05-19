@@ -8,9 +8,11 @@
     <string name="activity_instructions_2">2. Tap </string>
     <string name="activity_instructions_3">3. Scroll though the widgets until you find the Quote Unquote widget.</string>
     <string name="activity_instructions_4">4. Touch and slide the widget to where you want it. Lift your finger.</string>
-    <string name="activity_instructions_5">5. Use Android\'s Back button / Gesture to successfully leave the configuration screen and place the widget on your home screen.</string>
+    <string name="activity_instructions_5">5. Use Android\'s Back button / Gesture to exit the Configuration screen and place the widget on your home screen.</string>
     <string name="activity_instructions_usage">Widget usage</string>
-    <string name="activity_instructions_configure">Once the widget is on the home screen, tap the text to re-configure the widget. Tap an <u>underlined</u> author for Wikipedia entry.</string>
+    <string name="activity_instructions_configure_1">\u2022 Once the widget is on the home screen, tap the quotation text to re-configure the widget.</string>
+    <string name="activity_instructions_configure_2">\u2022 Tap an <u>underlined</u> author for Wikipedia entry.</string>
+    <string name="activity_instructions_configure_3">\u2022 Configuration changes are only recognised when the Configuration screen is exited with the Back button / Gesture.</string>
     <string name="activity_instructions_resize">Resize the widget</string>
     <string name="activity_instructions_resize_instruction_1">1. Touch and hold the widget on your home screen.</string>
     <string name="activity_instructions_resize_instruction_2">2. Lift your finger. You\'ll find an outline with dots on the sides.</string>
@@ -127,18 +129,17 @@
     <string name="fragment_schedule_screen_unlock">Screen unlock</string>
     <string name="fragment_schedule_time">Time</string>
 
-    <string name="fragment_transfer_title">Backup &amp; Restore</string>
-    <string name="fragment_transfer_instructions">Use the Cloud to backup and restore. The process is anonymous, and includes: Configuration; Previous and Favourites.</string>
+    <string name="fragment_transfer_title">Archive</string>
+    <string name="fragment_transfer_instructions">Use the Cloud to anonymously backup and restore Configuration; Previous and Favourites</string>
     <string name="fragment_transfer_backup_local_code_value">%s</string>
     <string name="fragment_transfer_backup">Backup</string>
     <string name="fragment_transfer_backup_sending">Backup - please wait&#8230;</string>
     <string name="fragment_transfer_backup_success">Success - backup completed</string>
-    <string name="fragment_transfer_restore_remote_code_value">Transfer token</string>
     <string name="fragment_transfer_restore">Restore</string>
-    <string name="fragment_transfer_restore_token_missing">Please enter transfer token</string>
-    <string name="fragment_transfer_restore_token_invalid">Please enter a valid token</string>
+    <string name="fragment_transfer_restore_token_missing">Please enter 10 character code</string>
+    <string name="fragment_transfer_restore_token_invalid">Please enter a valid code</string>
     <string name="fragment_transfer_restore_receiving">Restore - please wait&#8230;</string>
-    <string name="fragment_transfer_restore_missing_code">Unable to find token in cloud</string>
+    <string name="fragment_transfer_restore_missing_code">Unable to find code in cloud</string>
     <string name="fragment_transfer_restore_success">Success - restore completed</string>
     <string name="fragment_transfer_internet_missing">Check network / wait &amp; retry later</string>
 

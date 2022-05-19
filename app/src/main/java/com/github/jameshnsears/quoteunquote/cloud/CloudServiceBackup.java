@@ -59,8 +59,8 @@ public class CloudServiceBackup extends CloudService {
                 CloudService.isRunning = false;
                 Timber.d("isRunning=%b", CloudService.isRunning);
 
-                this.broadcastButtonEnabledEvent(TransferFragment.ENABLE_BUTTON_RESTORE);
-                this.broadcastButtonEnabledEvent(TransferFragment.ENABLE_BUTTON_BACKUP);
+                this.broadcastEvent(TransferFragment.ENABLE_BUTTON_RESTORE);
+                this.broadcastEvent(TransferFragment.ENABLE_BUTTON_BACKUP);
 
                 stopSelf();
 

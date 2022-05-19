@@ -16,9 +16,12 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.Appear
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences
 import com.github.jameshnsears.quoteunquote.configure.fragment.schedule.SchedulePreferences
 import com.github.jameshnsears.quoteunquote.database.DatabaseRepository
+import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade
 import com.google.gson.GsonBuilder
+import org.apache.commons.codec.digest.DigestUtils.digest
+import timber.log.Timber
 
 class TransferRestore : TransferCommon() {
     fun requestJson(remoteCodeValue: String): String {
@@ -42,35 +45,21 @@ class TransferRestore : TransferCommon() {
         emptySharedPreferencesExceptLocalCode(context)
         databaseRepository.erase()
 
-        restoreCurrent(context, databaseRepository, transfer.current)
         restoreFavourite(databaseRepository, transfer.favourites)
+
+        /*
+        restore 1 widget into 1 widget -> widgets identical
+        restore 1 widget into 2 widgets -> both widgets same as 1
+
+        restore 2 widgets into 1 widget
+            -> widget same as 1 except all unique previous from 1 and 2 also in 1
+        restore 2 widgets into 2 widgets
+            -> widgets identical except all unique previous from 1 and 2 also in both
+        */
+
+        restoreCurrent(context, databaseRepository, transfer.current)
         restorePrevious(context, databaseRepository, transfer.previous)
         restoreSettings(context, transfer.settings)
-    }
-
-    private fun restoreCurrent(
-        context: Context,
-        databaseRepository: DatabaseRepository,
-        currentList: List<Current>
-    ) {
-        /*
-        restore 1 widget into 1 widget = current aligned
-
-        restore 1 widget into 2 widgets = current duplicated
-
-        restore 2 widgets into 1 widget = only first restore picked up
-        */
-        for (widgetId in TransferUtility.getWidgetIds(context)) {
-            for (index in (currentList.size - 1) downTo 0 step 1) {
-                val current = currentList[index]
-                var digest = current.digest
-                if (databaseRepository.getQuotation(current.digest) == null) {
-                    digest = DatabaseRepository.getDefaultQuotationDigest()
-                }
-
-                databaseRepository.markAsCurrent(widgetId, digest)
-            }
-        }
     }
 
     private fun restoreFavourite(
@@ -85,18 +74,42 @@ class TransferRestore : TransferCommon() {
         }
     }
 
-    fun restorePrevious(
+    private fun restoreCurrent(
+        context: Context,
+        databaseRepository: DatabaseRepository,
+        currentList: List<Current>
+    ) {
+        for (widgetId in TransferUtility.getWidgetIds(context)) {
+
+            for (currentIndex in (currentList.size - 1) downTo 0 step 1) {
+                val current = currentList[currentIndex]
+                var digest = current.digest
+
+                if (databaseRepository.getQuotation(current.digest) == null) {
+                    digest = DatabaseRepository.getDefaultQuotationDigest()
+                }
+
+                val currentQuotation: QuotationEntity? = databaseRepository.getCurrentQuotation(widgetId)
+                if (currentQuotation == null || currentQuotation.digest != digest) {
+                    databaseRepository.markAsCurrent(widgetId, digest)
+                }
+            }
+        }
+    }
+
+    private fun restorePrevious(
         context: Context,
         databaseRepository: DatabaseRepository,
         previousList: List<Previous>
     ) {
-        val favourites = 2
-        val author = 3
-        val search = 4
+        val favourites = ContentSelection.FAVOURITES.contentSelection
+        val author = ContentSelection.AUTHOR.contentSelection
+        val search = ContentSelection.SEARCH.contentSelection
 
-        for (widgetId in TransferUtility.getWidgetIds(context)) {
-            for (index in (previousList.size - 1) downTo 0 step 1) {
-                val previous = previousList[index]
+        for (previousIndex in (previousList.size - 1) downTo 0 step 1) {
+            for (widgetId in TransferUtility.getWidgetIds(context)) {
+                val previous = previousList[previousIndex]
+
                 if (databaseRepository.getQuotation(previous.digest) != null) {
                     var contentSelection = ContentSelection.ALL
                     when (previous.contentType) {
@@ -104,18 +117,52 @@ class TransferRestore : TransferCommon() {
                         author -> contentSelection = ContentSelection.AUTHOR
                         search -> contentSelection = ContentSelection.SEARCH
                     }
-                    databaseRepository.markAsPrevious(widgetId, contentSelection, previous.digest)
+
+                    if (databaseRepository.countPreviousDigest(
+                            widgetId,
+                            contentSelection,
+                            previous.digest
+                        ) == 0
+                    ) {
+                        databaseRepository.markAsPrevious(
+                            widgetId,
+                            contentSelection,
+                            previous.digest
+                        )
+                    } else {
+                        Timber.d("digest already present: digest=%s", previous.digest)
+                    }
+                } else {
+                    Timber.d("unknown digest: digest=%s", previous.digest)
                 }
             }
         }
     }
 
     private fun restoreSettings(context: Context, settingsList: List<Settings>) {
+        var settingsListIndex = 0
         for (widgetId in TransferUtility.getWidgetIds(context)) {
-            for (setting in settingsList) {
-                restoreSettingsAppearance(widgetId, context, setting.appearance)
-                restoreSettingsQuotations(widgetId, context, setting.quotations)
-                restoreSettingsSchedules(widgetId, context, setting.schedule)
+            val settings = settingsList[settingsListIndex]
+
+            restoreSettingsAppearance(
+                widgetId,
+                context,
+                settings.appearance
+            )
+            restoreSettingsQuotations(
+                widgetId,
+                context,
+                settings.quotations
+            )
+            restoreSettingsSchedules(
+                widgetId,
+                context,
+                settings.schedule
+            )
+
+            // move to next settingsList if it's available, else reuse last one
+            if (settingsListIndex < settingsList.size - 1) {
+                settingsListIndex++
             }
         }
     }

@@ -1,19 +1,21 @@
 package com.github.jameshnsears.quoteunquote.cloud;
 
 import android.app.Service;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.github.jameshnsears.quoteunquote.QuoteUnquoteModel;
+import com.github.jameshnsears.quoteunquote.QuoteUnquoteWidget;
 import com.github.jameshnsears.quoteunquote.R;
-import com.github.jameshnsears.quoteunquote.cloud.transfer.Transfer;
 import com.github.jameshnsears.quoteunquote.cloud.transfer.TransferRestoreResponse;
 import com.github.jameshnsears.quoteunquote.cloud.transfer.restore.TransferRestore;
 import com.github.jameshnsears.quoteunquote.configure.fragment.transfer.TransferFragment;
 import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
+import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
 import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
 
 import java.util.concurrent.ConcurrentHashMap;
@@ -79,8 +81,8 @@ public class CloudServiceRestore extends CloudService {
                                 Toast.LENGTH_SHORT).show());
                     }
 
-                    broadcastButtonEnabledEvent(TransferFragment.ENABLE_BUTTON_RESTORE);
-                    broadcastButtonEnabledEvent(TransferFragment.ENABLE_BUTTON_BACKUP);
+                    broadcastEvent(TransferFragment.ENABLE_BUTTON_RESTORE);
+                    broadcastEvent(TransferFragment.ENABLE_BUTTON_BACKUP);
                 }
 
                 CloudService.isRunning = false;

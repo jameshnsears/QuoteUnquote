@@ -15,6 +15,9 @@ public interface PreviousDAO {
     @Insert
     void markAsPrevious(PreviousEntity previousEntity);
 
+    @Query("SELECT COUNT(*) FROM PREVIOUS WHERE WIDGET_ID = :widgetId AND CONTENT_TYPE = :contentType AND DIGEST = :digest")
+    int countPreviousDigest(int widgetId, ContentSelection contentType, String digest);
+
     @Query("SELECT COUNT(*) FROM PREVIOUS WHERE WIDGET_ID = :widgetId AND CONTENT_TYPE = :contentType")
     int countPrevious(int widgetId, ContentSelection contentType);
 

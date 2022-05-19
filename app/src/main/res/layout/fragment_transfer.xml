@@ -96,7 +96,6 @@
                     android:layout_width="180dp"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="@string/fragment_transfer_restore_remote_code_value"
                     android:importantForAutofill="no"
                     android:inputType="textPersonName"
                     android:maxLength="10"

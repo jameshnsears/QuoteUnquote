@@ -213,7 +213,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                     break;
 
                 case IntentFactoryHelper.ALL_WIDGET_INSTANCES_FAVOURITE_NOTIFICATION:
-                    this.onReceiveAllWidgetInstancesFavouriteNotification(context, widgetId, appWidgetManager);
+                    onReceiveAllWidgetInstancesFavouriteNotification(context, widgetId, appWidgetManager);
                     break;
 
                 case IntentFactoryHelper.TOOLBAR_PRESSED_SHARE:
@@ -256,7 +256,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull final Context context,
             final int widgetId,
             final AppWidgetManager appWidgetManager) {
-        Timber.d("allInstancesFavouriteNotification: receive=%d", widgetId);
+        Timber.d("%d", widgetId);
         setHeartColour(
                 context,
                 widgetId,

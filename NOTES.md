@@ -83,6 +83,9 @@
 
 ## 8. Useful git commands - align submodules / tags
 
+* git submodule add https://github.com/jameshnsears/QuoteUnquote.cloudLib
+* more .gitmodules
+
 * git submodule
 * git checkout --recurse-submodules 3c71c28cc0252be7eda87f42b337ca2b5c225b39
 
