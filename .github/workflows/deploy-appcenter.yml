@@ -2,9 +2,7 @@ name: deploy-appcenter
 
 on:
   push:
-    branches:
-      - main
-      - development
+    branches: [ main, qa ]
   pull_request:
     branches:
 

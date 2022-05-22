@@ -11,8 +11,9 @@
     <string name="activity_instructions_5">5. Use Android\'s Back button / Gesture to exit the Configuration screen and place the widget on your home screen.</string>
     <string name="activity_instructions_usage">Widget usage</string>
     <string name="activity_instructions_configure_1">\u2022 Once the widget is on the home screen, tap the quotation text to re-configure the widget.</string>
-    <string name="activity_instructions_configure_2">\u2022 Tap an <u>underlined</u> author for Wikipedia entry.</string>
-    <string name="activity_instructions_configure_3">\u2022 Configuration changes are only recognised when the Configuration screen is exited with the Back button / Gesture.</string>
+    <string name="activity_instructions_configure_2">\u2022 Configuration changes are only recognised when the Configuration screen is exited with the Back button / Gesture.</string>
+    <string name="activity_instructions_configure_3">\u2022 Tap an <u>underlined</u> author for Wikipedia entry.</string>
+    <string name="activity_instructions_configure_4">\u2022 The \u2316 icon, next to the quotation position count, denotes most recent seen quotation.</string>
     <string name="activity_instructions_resize">Resize the widget</string>
     <string name="activity_instructions_resize_instruction_1">1. Touch and hold the widget on your home screen.</string>
     <string name="activity_instructions_resize_instruction_2">2. Lift your finger. You\'ll find an outline with dots on the sides.</string>
@@ -121,28 +122,30 @@
     <string name="fragment_appearance_toolbar_next_sequential">Next, sequential</string>
     <string name="fragment_appearance_toolbar_next_random">Next, random</string>
 
-    <string name="fragment_schedule_title">Notifications</string>
-    <string name="fragment_schedule_where">Display</string>
-    <string name="fragment_schedule_widget">Widget</string>
-    <string name="fragment_schedule_widget_and_notification">Notification &amp; Widget</string>
-    <string name="fragment_schedule_recurring_event">Recurring Event</string>
-    <string name="fragment_schedule_screen_unlock">Screen unlock</string>
-    <string name="fragment_schedule_time">Time</string>
+    <string name="fragment_notifications_title">Notifications</string>
+    <string name="fragment_notifications_where">Display</string>
+    <string name="fragment_notifications_widget">Widget</string>
+    <string name="fragment_notifications_widget_and_notification">Notification &amp; Widget</string>
+    <string name="fragment_notifications_notification_warning">A notification is size restricted, some quotations might not show in their entirety</string>
+    <string name="fragment_notifications_recurring_event">Recurring Event</string>
+    <string name="fragment_notifications_screen_unlock">Screen unlock</string>
+    <string name="fragment_notifications_time">Time</string>
 
-    <string name="fragment_transfer_title">Archive</string>
-    <string name="fragment_transfer_instructions">Use the Cloud to anonymously backup and restore Configuration; Previous and Favourites</string>
-    <string name="fragment_transfer_backup_local_code_value">%s</string>
-    <string name="fragment_transfer_backup">Backup</string>
-    <string name="fragment_transfer_backup_sending">Backup - please wait&#8230;</string>
-    <string name="fragment_transfer_backup_success">Success - backup completed</string>
-    <string name="fragment_transfer_restore">Restore</string>
-    <string name="fragment_transfer_restore_token_missing">Please enter 10 character code</string>
-    <string name="fragment_transfer_restore_token_invalid">Please enter a valid code</string>
-    <string name="fragment_transfer_restore_receiving">Restore - please wait&#8230;</string>
-    <string name="fragment_transfer_restore_missing_code">Unable to find code in cloud</string>
-    <string name="fragment_transfer_restore_success">Success - restore completed</string>
-    <string name="fragment_transfer_internet_missing">Check network / wait &amp; retry later</string>
+    <string name="fragment_archive_title">Archive</string>
+    <string name="fragment_archive_instructions">Use the Cloud to anonymously backup and restore Configuration; Previous and Favourites</string>
+    <string name="fragment_archive_backup_local_code_value">%s</string>
+    <string name="fragment_archive_backup">Backup</string>
+    <string name="fragment_archive_backup_sending">Backup - please wait&#8230;</string>
+    <string name="fragment_archive_backup_success">Success - backup completed</string>
+    <string name="fragment_archive_restore">Restore</string>
+    <string name="fragment_archive_restore_token_missing">Please enter 10 character code</string>
+    <string name="fragment_archive_restore_token_invalid">Please enter a valid code</string>
+    <string name="fragment_archive_restore_receiving">Restore - please wait&#8230;</string>
+    <string name="fragment_archive_restore_missing_code">Unable to find code in cloud</string>
+    <string name="fragment_archive_restore_success">Success - restore completed</string>
+    <string name="fragment_archive_internet_missing">Check network / wait &amp; retry later</string>
 
+    <string name="notification_action_favourite">Favourite, toggle</string>
     <string name="notification_channel_id">quote_unquote_channel_01</string>
     <string name="notification_channel_name">Quotations</string>
     <string name="notification_channel_description">Quotation Notifications</string>
@@ -150,5 +153,5 @@
     <string name="preview_description">Discover high quality quotations!</string>
     <string name="preview_quotation">Nothing matters very much and very few things matter at all.\n</string>
     <string name="preview_author"><u>Arthur Balfour\n</u></string>
-    <string name="preview_position">1/20658</string>
+    <string name="preview_position">\u2316 1/20603</string>
 </resources>

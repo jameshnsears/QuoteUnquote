@@ -28,10 +28,10 @@ public interface PreviousDAO {
     List<String> getPreviousDigests(int widgetId, ContentSelection contentType);
 
     @Query("SELECT * FROM PREVIOUS WHERE WIDGET_ID = :widgetId AND CONTENT_TYPE = :contentType ORDER BY NAVIGATION DESC LIMIT 1")
-    PreviousEntity getPrevious(int widgetId, ContentSelection contentType);
+    PreviousEntity getLastPrevious(int widgetId, ContentSelection contentType);
 
     @Query("SELECT * FROM PREVIOUS ORDER BY NAVIGATION DESC")
-    List<PreviousEntity> getPrevious();
+    List<PreviousEntity> getLastPrevious();
 
     @Query("DELETE FROM PREVIOUS")
     void erase();

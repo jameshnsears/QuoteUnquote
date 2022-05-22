@@ -13,12 +13,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
-import com.github.jameshnsears.quoteunquote.databinding.FragmentScheduleBinding;
+import com.github.jameshnsears.quoteunquote.databinding.FragmentNotificationsBinding;
 
 @Keep
 public class ScheduleFragment extends FragmentCommon {
     @Nullable
-    public FragmentScheduleBinding fragmentScheduleBinding;
+    public FragmentNotificationsBinding fragmentNotificationsBinding;
 
     @Nullable
     public SchedulePreferences schedulePreferences;
@@ -46,14 +46,14 @@ public class ScheduleFragment extends FragmentCommon {
             @NonNull final Bundle savedInstanceState) {
         schedulePreferences = new SchedulePreferences(this.widgetId, this.getContext());
 
-        fragmentScheduleBinding = FragmentScheduleBinding.inflate(getLayoutInflater());
-        return fragmentScheduleBinding.getRoot();
+        fragmentNotificationsBinding = FragmentNotificationsBinding.inflate(getLayoutInflater());
+        return fragmentNotificationsBinding.getRoot();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        fragmentScheduleBinding = null;
+        fragmentNotificationsBinding = null;
     }
 
     @Override
@@ -77,9 +77,9 @@ public class ScheduleFragment extends FragmentCommon {
     private void setDaily() {
         final boolean booleanDaily = schedulePreferences.getEventDaily();
 
-        fragmentScheduleBinding.checkBoxDailyAt.setChecked(booleanDaily);
+        fragmentNotificationsBinding.checkBoxDailyAt.setChecked(booleanDaily);
 
-        final TimePicker timePicker = fragmentScheduleBinding.timePickerDailyAt;
+        final TimePicker timePicker = fragmentNotificationsBinding.timePickerDailyAt;
 
         timePicker.setEnabled(false);
         if (booleanDaily) {
@@ -88,21 +88,21 @@ public class ScheduleFragment extends FragmentCommon {
     }
 
     private void setNext() {
-        fragmentScheduleBinding.radioButtonNextRandom.setChecked(schedulePreferences.getEventNextRandom());
-        fragmentScheduleBinding.radioButtonNextSequential.setChecked(schedulePreferences.getEventNextSequential());
+        fragmentNotificationsBinding.radioButtonNextRandom.setChecked(schedulePreferences.getEventNextRandom());
+        fragmentNotificationsBinding.radioButtonNextSequential.setChecked(schedulePreferences.getEventNextSequential());
     }
 
     private void setDisplay() {
-        fragmentScheduleBinding.radioButtonWhereInWidget.setChecked(schedulePreferences.getEventDisplayWidget());
-        fragmentScheduleBinding.radioButtonWhereAsNotification.setChecked(schedulePreferences.getEventDisplayWidgetAndNotification());
+        fragmentNotificationsBinding.radioButtonWhereInWidget.setChecked(schedulePreferences.getEventDisplayWidget());
+        fragmentNotificationsBinding.radioButtonWhereAsNotification.setChecked(schedulePreferences.getEventDisplayWidgetAndNotification());
     }
 
     private void setDeviceUnlock() {
-        fragmentScheduleBinding.checkBoxDeviceUnlock.setChecked(schedulePreferences.getEventDeviceUnlock());
+        fragmentNotificationsBinding.checkBoxDeviceUnlock.setChecked(schedulePreferences.getEventDeviceUnlock());
     }
 
     private void createListenerNextRandom() {
-        final RadioButton radioButtonNextRandom = fragmentScheduleBinding.radioButtonNextRandom;
+        final RadioButton radioButtonNextRandom = fragmentNotificationsBinding.radioButtonNextRandom;
         radioButtonNextRandom.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (schedulePreferences.getEventNextRandom() != isChecked) {
                 schedulePreferences.setEventNextRandom(isChecked);
@@ -111,7 +111,7 @@ public class ScheduleFragment extends FragmentCommon {
     }
 
     private void createListenerNextSequential() {
-        final RadioButton radioButtonNextSequential = fragmentScheduleBinding.radioButtonNextSequential;
+        final RadioButton radioButtonNextSequential = fragmentNotificationsBinding.radioButtonNextSequential;
         radioButtonNextSequential.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (schedulePreferences.getEventNextSequential() != isChecked) {
                 schedulePreferences.setEventNextSequential(isChecked);
@@ -120,7 +120,7 @@ public class ScheduleFragment extends FragmentCommon {
     }
 
     private void createListenerDisplayWidget() {
-        final RadioButton radioButtonWhereInWidget = fragmentScheduleBinding.radioButtonWhereInWidget;
+        final RadioButton radioButtonWhereInWidget = fragmentNotificationsBinding.radioButtonWhereInWidget;
         radioButtonWhereInWidget.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (schedulePreferences.getEventDisplayWidget() != isChecked) {
                 schedulePreferences.setEventDisplayWidget(isChecked);
@@ -129,7 +129,7 @@ public class ScheduleFragment extends FragmentCommon {
     }
 
     private void createListenerDisplayWidgetAndNotification() {
-        final RadioButton radioButtonWhereAsNotification = fragmentScheduleBinding.radioButtonWhereAsNotification;
+        final RadioButton radioButtonWhereAsNotification = fragmentNotificationsBinding.radioButtonWhereAsNotification;
         radioButtonWhereAsNotification.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (schedulePreferences.getEventDisplayWidgetAndNotification() != isChecked) {
                 schedulePreferences.setEventdisplayWidgetAndNotification(isChecked);
@@ -138,7 +138,7 @@ public class ScheduleFragment extends FragmentCommon {
     }
 
     private void createListenerDeviceUnlock() {
-        final CheckBox checkBoxDeviceUnlock = fragmentScheduleBinding.checkBoxDeviceUnlock;
+        final CheckBox checkBoxDeviceUnlock = fragmentNotificationsBinding.checkBoxDeviceUnlock;
         checkBoxDeviceUnlock.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (schedulePreferences.getEventDeviceUnlock() != isChecked) {
                 schedulePreferences.setEventDeviceUnlock(isChecked);
@@ -147,13 +147,13 @@ public class ScheduleFragment extends FragmentCommon {
     }
 
     private void createListenerDaily() {
-        final CheckBox checkBoxDailyAt = fragmentScheduleBinding.checkBoxDailyAt;
+        final CheckBox checkBoxDailyAt = fragmentNotificationsBinding.checkBoxDailyAt;
         checkBoxDailyAt.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (schedulePreferences.getEventDaily() != isChecked) {
                 schedulePreferences.setEventDaily(isChecked);
             }
 
-            final TimePicker timePicker = fragmentScheduleBinding.timePickerDailyAt;
+            final TimePicker timePicker = fragmentNotificationsBinding.timePickerDailyAt;
 
             timePicker.setEnabled(false);
             if (isChecked) {
@@ -163,7 +163,7 @@ public class ScheduleFragment extends FragmentCommon {
     }
 
     private void createListenerDailyTime() {
-        final TimePicker timePicker = fragmentScheduleBinding.timePickerDailyAt;
+        final TimePicker timePicker = fragmentNotificationsBinding.timePickerDailyAt;
         timePicker.setOnTimeChangedListener((view1, hourOfDay, minute) -> {
                     int h = timePicker.getHour();
                     if (schedulePreferences.getEventDailyTimeHour() != h) {
@@ -179,7 +179,7 @@ public class ScheduleFragment extends FragmentCommon {
     }
 
     protected void setDailyTime() {
-        final TimePicker timePicker = fragmentScheduleBinding.timePickerDailyAt;
+        final TimePicker timePicker = fragmentNotificationsBinding.timePickerDailyAt;
 
         final int hourOfDay = schedulePreferences.getEventDailyTimeHour();
         if (hourOfDay == -1) {

@@ -520,7 +520,7 @@ public class QuotationsFragment extends FragmentCommon {
 
                             Toast.makeText(
                                     this.getContext(),
-                                    this.getContext().getString(R.string.fragment_transfer_backup_success),
+                                    this.getContext().getString(R.string.fragment_archive_backup_success),
                                     Toast.LENGTH_SHORT).show();
                         } catch (IOException e) {
                             Timber.e(e.getMessage());

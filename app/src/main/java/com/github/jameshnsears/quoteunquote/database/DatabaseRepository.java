@@ -195,7 +195,12 @@ public class DatabaseRepository {
 
     @NonNull
     public QuotationEntity getNextQuotation(final int widgetId, @NonNull final ContentSelection contentSelection) {
-        return getQuotation(previousDAO.getPrevious(widgetId, contentSelection).digest);
+        return getQuotation(previousDAO.getLastPrevious(widgetId, contentSelection).digest);
+    }
+
+    @NonNull
+    public String getLastPreviousDigest(final int widgetId, @NonNull final ContentSelection contentSelection) {
+        return previousDAO.getLastPrevious(widgetId, contentSelection).digest;
     }
 
     @NonNull
@@ -205,7 +210,7 @@ public class DatabaseRepository {
 
     @NonNull
     public List<PreviousEntity> getPrevious() {
-        return previousDAO.getPrevious();
+        return previousDAO.getLastPrevious();
     }
 
     @NonNull

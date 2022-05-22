@@ -68,6 +68,12 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
                 quotationPosition = getQuoteUnquoteModel().getCurrentPosition(
                         widgetId,
                         quotationsPreferences);
+                if (quotationEntity.digest.equals(
+                        getQuoteUnquoteModel().getLastPreviousDigest(
+                                widgetId, quotationsPreferences.getContentSelection()))) {
+
+                    quotationPosition = "\u2316 " + quotationPosition;
+                }
             }
         }
     }

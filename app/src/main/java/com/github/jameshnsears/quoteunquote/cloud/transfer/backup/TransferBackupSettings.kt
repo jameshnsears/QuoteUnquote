@@ -1,10 +1,10 @@
 package com.github.jameshnsears.quoteunquote.cloud.transfer.backup
 
 import android.content.Context
-import com.github.jameshnsears.quoteunquote.cloud.transfer.Schedule
-import com.github.jameshnsears.quoteunquote.cloud.transfer.Settings
 import com.github.jameshnsears.quoteunquote.cloud.transfer.Appearance
 import com.github.jameshnsears.quoteunquote.cloud.transfer.Quotations
+import com.github.jameshnsears.quoteunquote.cloud.transfer.Schedule
+import com.github.jameshnsears.quoteunquote.cloud.transfer.Settings
 import com.github.jameshnsears.quoteunquote.cloud.transfer.TransferUtility
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences

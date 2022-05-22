@@ -22,14 +22,14 @@ import com.github.jameshnsears.quoteunquote.cloud.CloudServiceBackup;
 import com.github.jameshnsears.quoteunquote.cloud.CloudServiceRestore;
 import com.github.jameshnsears.quoteunquote.cloud.CloudTransferHelper;
 import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
-import com.github.jameshnsears.quoteunquote.databinding.FragmentTransferBinding;
+import com.github.jameshnsears.quoteunquote.databinding.FragmentArchiveBinding;
 
 import timber.log.Timber;
 
 @Keep
 public class TransferFragment extends FragmentCommon {
     @Nullable
-    public FragmentTransferBinding fragmentTransferBinding;
+    public FragmentArchiveBinding fragmentArchiveBinding;
 
     @Nullable
     public QuoteUnquoteModel quoteUnquoteModel;
@@ -90,7 +90,7 @@ public class TransferFragment extends FragmentCommon {
                     enableButtonBackupDependingUponDatabaseState();
                 }
                 if (intent.getAction().equals(ENABLE_BUTTON_RESTORE)) {
-                    enableButton(fragmentTransferBinding.buttonRestore, true);
+                    enableButton(fragmentArchiveBinding.buttonRestore, true);
                 }
             }
         };
@@ -106,8 +106,8 @@ public class TransferFragment extends FragmentCommon {
 
         transferPreferences = new TransferPreferences(getContext());
 
-        fragmentTransferBinding = FragmentTransferBinding.inflate(getLayoutInflater());
-        return fragmentTransferBinding.getRoot();
+        fragmentArchiveBinding = FragmentArchiveBinding.inflate(getLayoutInflater());
+        return fragmentArchiveBinding.getRoot();
     }
 
     @Override
@@ -126,19 +126,19 @@ public class TransferFragment extends FragmentCommon {
 
     void enableButtonBackupDependingUponDatabaseState() {
         if (quoteUnquoteModel.countPrevious(widgetId) == 0) {
-            enableButton(fragmentTransferBinding.buttonBackup, false);
+            enableButton(fragmentArchiveBinding.buttonBackup, false);
         } else {
-            enableButton(fragmentTransferBinding.buttonBackup, true);
+            enableButton(fragmentArchiveBinding.buttonBackup, true);
         }
     }
 
     private void enableButtonsDependingUponServiceState() {
         if (CloudServiceBackup.isRunning) {
-            enableButton(fragmentTransferBinding.buttonBackup, false);
+            enableButton(fragmentArchiveBinding.buttonBackup, false);
         }
 
         if (CloudServiceRestore.isRunning) {
-            enableButton(fragmentTransferBinding.buttonRestore, false);
+            enableButton(fragmentArchiveBinding.buttonRestore, false);
         }
     }
 
@@ -150,7 +150,7 @@ public class TransferFragment extends FragmentCommon {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        fragmentTransferBinding = null;
+        fragmentArchiveBinding = null;
     }
 
     protected void setTransferLocalCode() {
@@ -159,20 +159,20 @@ public class TransferFragment extends FragmentCommon {
             transferPreferences.setTransferLocalCode(CloudTransferHelper.getLocalCode());
         }
 
-        fragmentTransferBinding.textViewLocalCodeValue.setText(transferPreferences.getTransferLocalCode());
+        fragmentArchiveBinding.textViewLocalCodeValue.setText(transferPreferences.getTransferLocalCode());
     }
 
     protected void createListenerFavouriteButtonBackup() {
-        fragmentTransferBinding.buttonBackup.setOnClickListener(v -> {
-            if (fragmentTransferBinding.buttonBackup.isEnabled()) {
+        fragmentArchiveBinding.buttonBackup.setOnClickListener(v -> {
+            if (fragmentArchiveBinding.buttonBackup.isEnabled()) {
 
-                enableButton(fragmentTransferBinding.buttonBackup, false);
-                enableButton(fragmentTransferBinding.buttonRestore, false);
+                enableButton(fragmentArchiveBinding.buttonBackup, false);
+                enableButton(fragmentArchiveBinding.buttonRestore, false);
 
                 Intent serviceIntent = new Intent(getContext(), CloudServiceBackup.class);
                 serviceIntent.putExtra("asJson", quoteUnquoteModel.transferBackup(getContext()));
                 serviceIntent.putExtra(
-                        "localCodeValue", fragmentTransferBinding.textViewLocalCodeValue.getText().toString());
+                        "localCodeValue", fragmentArchiveBinding.textViewLocalCodeValue.getText().toString());
 
                 getContext().startService(serviceIntent);
             }
@@ -180,34 +180,34 @@ public class TransferFragment extends FragmentCommon {
     }
 
     protected void createListenerFavouriteButtonRestore() {
-        fragmentTransferBinding.buttonRestore.setOnClickListener(v -> {
-            if (fragmentTransferBinding.buttonRestore.isEnabled()) {
-                Timber.d("remoteCode=%s", fragmentTransferBinding.editTextRemoteCodeValue.getText().toString());
+        fragmentArchiveBinding.buttonRestore.setOnClickListener(v -> {
+            if (fragmentArchiveBinding.buttonRestore.isEnabled()) {
+                Timber.d("remoteCode=%s", fragmentArchiveBinding.editTextRemoteCodeValue.getText().toString());
 
                 // correct length?
-                if (fragmentTransferBinding.editTextRemoteCodeValue.getText().toString().length() != 10) {
+                if (fragmentArchiveBinding.editTextRemoteCodeValue.getText().toString().length() != 10) {
                     Toast.makeText(
                             getContext(),
-                            getContext().getString(R.string.fragment_transfer_restore_token_missing),
+                            getContext().getString(R.string.fragment_archive_restore_token_missing),
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 // crc wrong?
-                if (!CloudTransferHelper.isRemoteCodeValid(fragmentTransferBinding.editTextRemoteCodeValue.getText().toString())) {
+                if (!CloudTransferHelper.isRemoteCodeValid(fragmentArchiveBinding.editTextRemoteCodeValue.getText().toString())) {
                     Toast.makeText(
                             getContext(),
-                            getContext().getString(R.string.fragment_transfer_restore_token_invalid),
+                            getContext().getString(R.string.fragment_archive_restore_token_invalid),
                             Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                enableButton(fragmentTransferBinding.buttonBackup, false);
-                enableButton(fragmentTransferBinding.buttonRestore, false);
+                enableButton(fragmentArchiveBinding.buttonBackup, false);
+                enableButton(fragmentArchiveBinding.buttonRestore, false);
 
                 Intent serviceIntent = new Intent(getContext(), CloudServiceRestore.class);
                 serviceIntent.putExtra(
-                        "remoteCodeValue", fragmentTransferBinding.editTextRemoteCodeValue.getText().toString());
+                        "remoteCodeValue", fragmentArchiveBinding.editTextRemoteCodeValue.getText().toString());
 
                 getContext().startService(serviceIntent);
 

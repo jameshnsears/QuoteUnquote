@@ -1,0 +1,4 @@
+- Improve: Notifications with action buttons
+- Add: Position Indicator, in widget, showing last seen quotation
+- Update quotations database: remove some similar quotes
+- Tidy up: F-Droid superfluous image assets

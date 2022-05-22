@@ -15,11 +15,7 @@ class QuoteUnquoteInstructions : AppCompatActivity() {
         val view = activityInstructionsBinding.root
         setContentView(view)
 
-        // better support for Amazon Appstore
         val buildconfigVersion = BuildConfig.VERSION_NAME
-            .replace("-googleplay", "")
-            .replace("-fdroid", "")
-            .replace("-emanuelkebede", "")
 
         this.activityInstructionsBinding.textViewVersion.text = this.resources.getString(
             R.string.activity_instructions_version,

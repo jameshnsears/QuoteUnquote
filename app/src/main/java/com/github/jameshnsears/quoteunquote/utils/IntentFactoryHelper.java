@@ -20,13 +20,17 @@ public class IntentFactoryHelper {
     @NonNull
     public static final String ACTIVITY_FINISHED_CONFIGURATION = "ACTIVITY_FINISHED_CONFIGURATION";
     @NonNull
-    public static final String ACTIVITY_FINISHED_REPORT = "ACTIVITY_FINISHED_REPORT";
-    @NonNull
     public static final String TOOLBAR_PRESSED_FIRST = "TOOLBAR_PRESSED_FIRST";
     @NonNull
     public static final String TOOLBAR_PRESSED_PREVIOUS = "TOOLBAR_PRESSED_PREVIOUS";
     @NonNull
     public static final String TOOLBAR_PRESSED_FAVOURITE = "TOOLBAR_PRESSED_FAVOURITE";
+    @NonNull
+    public static final String TOOLBAR_PRESSED_NOTIFICATION_FAVOURITE = "TOOLBAR_PRESSED_NOTIFICATION_FAVOURITE";
+    @NonNull
+    public static final String TOOLBAR_PRESSED_NOTIFICATION_NEXT = "TOOLBAR_PRESSED_NOTIFICATION_NEXT";
+    @NonNull
+    public static final String TOOLBAR_PRESSED_NOTIFICATION_DELETED = "TOOLBAR_PRESSED_NOTIFICATION_DELETED";
     @NonNull
     public static final String ALL_WIDGET_INSTANCES_FAVOURITE_NOTIFICATION
             = "ALL_WIDGET_INSTANCES_FAVOURITE_NOTIFICATION";
@@ -92,6 +96,27 @@ public class IntentFactoryHelper {
             @NonNull final String action) {
         final Intent intent = createIntent(context, widgetId);
         intent.setAction(action);
+
+        int pendingIntentFlags = 0;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE;
+        } else {
+            pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT;
+        }
+
+        return PendingIntent.getBroadcast(context, widgetId, intent, pendingIntentFlags);
+    }
+
+    @SuppressLint("UnspecifiedImmutableFlag")
+    @NonNull
+    public static PendingIntent createClickPendingIntent(
+            @NonNull final Context context,
+            final int widgetId,
+            @NonNull final String action,
+            @NonNull Bundle bundle) {
+        final Intent intent = createIntent(context, widgetId);
+        intent.setAction(action);
+        intent.putExtras(bundle);
 
         int pendingIntentFlags = 0;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {

@@ -5,10 +5,98 @@ import com.github.jameshnsears.quoteunquote.database.DatabaseRepository
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import junit.framework.TestCase.assertEquals
+import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
 
 class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
+    @Test
+    fun positionIndicatorNext() {
+        insertQuotationTestData01()
+        insertQuotationTestData02()
+        insertQuotationTestData03()
+
+        val quotationsPreferences =
+            QuotationsPreferences(
+                WidgetIdHelper.WIDGET_ID_01,
+                context
+            )
+        quotationsPreferences.contentSelection = ContentSelection.ALL
+
+        /*
+        > next > next > next : 7a36e553 > D1 > D2
+        < back : D1
+        > next = show position indicator : D2
+        > next (digest never seen before)
+         */
+
+        assertEquals(
+            0,
+            quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL)
+        )
+
+        // next
+        quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
+        assertEquals(
+            "7a36e553",
+            quoteUnquoteModelDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01)?.digest
+        )
+
+        // next
+        quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
+        assertEquals(
+            "d1",
+            quoteUnquoteModelDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01)?.digest
+        )
+
+        assertEquals(
+            "d1",
+            quoteUnquoteModelDouble.getLastPreviousDigest(
+                WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL
+            )
+        )
+
+        // next
+        quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
+        assertEquals(
+            "d2",
+            quoteUnquoteModelDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01)?.digest
+        )
+
+        assertEquals(
+            "d2",
+            quoteUnquoteModelDouble.getLastPreviousDigest(
+                WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL
+            )
+        )
+
+        quoteUnquoteModelDouble.markAsCurrentPrevious(WidgetIdHelper.WIDGET_ID_01)
+        assertEquals(
+            "d1",
+            quoteUnquoteModelDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01)?.digest
+        )
+        assertNotEquals(
+            quoteUnquoteModelDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01)?.digest,
+            quoteUnquoteModelDouble.getLastPreviousDigest(
+                WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL
+            )
+        )
+
+        quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
+        assertEquals(
+            "d2",
+            quoteUnquoteModelDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01)?.digest
+        )
+
+        // if current quotation == last previous digest then we can show indicator
+        assertEquals(
+            quoteUnquoteModelDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01)?.digest,
+            quoteUnquoteModelDouble.getLastPreviousDigest(
+                WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL
+            )
+        )
+    }
+
     @Test
     fun deadDigestFromFavouriteReceive() {
         assertNull(quoteUnquoteModelDouble.databaseRepository?.getQuotation("blah"))

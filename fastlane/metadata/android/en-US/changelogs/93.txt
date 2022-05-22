@@ -1,5 +1,0 @@
-- Remove some lower quality quotations.
-- Improve spacing between icons.
-- Support Android Studio Bumblebee.
-- Bump 3rd party libs.
-- Improve compatibility with mockk and API level 24 in CI matrix.

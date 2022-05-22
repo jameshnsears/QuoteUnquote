@@ -12,7 +12,9 @@ import android.widget.RemoteViews;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationManagerCompat;
 
+import com.github.jameshnsears.quoteunquote.cloud.CloudService;
 import com.github.jameshnsears.quoteunquote.cloud.CloudServiceBackup;
 import com.github.jameshnsears.quoteunquote.cloud.CloudServiceRestore;
 import com.github.jameshnsears.quoteunquote.cloud.CloudTransferHelper;
@@ -24,9 +26,11 @@ import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 import com.github.jameshnsears.quoteunquote.listview.ListViewService;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
-import com.github.jameshnsears.quoteunquote.utils.NotificationHelper;
+import com.github.jameshnsears.quoteunquote.utils.notification.NotificationHelper;
 import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -181,18 +185,26 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                     onReceiveDeviceUnlock(context, appWidgetManager);
                     break;
 
-                case Intent.ACTION_BOOT_COMPLETED:
-                case Intent.ACTION_REBOOT:
+                case IntentFactoryHelper.TOOLBAR_PRESSED_NOTIFICATION_FAVOURITE:
+                    onReceiveNotificationFavourite(context, widgetId, intent, appWidgetManager);
+                    break;
+
+                case IntentFactoryHelper.TOOLBAR_PRESSED_NOTIFICATION_NEXT:
+                    onReceiveNotificationNext(context, widgetId, intent, appWidgetManager);
+                    break;
+
+                case IntentFactoryHelper.TOOLBAR_PRESSED_NOTIFICATION_DELETED:
+                    onReceiveNotificationDismissed(context, widgetId, intent, appWidgetManager);
+                    break;
+
                 /*
                 adb shell
                 am broadcast -a android.intent.action.BOOT_COMPLETED
-                 */
+                */
+                case Intent.ACTION_BOOT_COMPLETED:
+                case Intent.ACTION_REBOOT:
                 case IntentFactoryHelper.ACTIVITY_FINISHED_CONFIGURATION:
                     onReceiveActivityFinishedConfiguration(context, widgetId, scheduleDailyAlarm);
-                    break;
-
-                case IntentFactoryHelper.ACTIVITY_FINISHED_REPORT:
-                    onReceiveActivityFinishedReport(widgetId, appWidgetManager);
                     break;
 
                 case IntentFactoryHelper.DAILY_ALARM:
@@ -208,8 +220,11 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                     break;
 
                 case IntentFactoryHelper.TOOLBAR_PRESSED_FAVOURITE:
-                    onReceiveToolbarPressedFavourite(context, widgetId, appWidgetManager);
-                    sendAllInstancesFavouriteNotification(context, widgetId, appWidgetManager);
+                    onReceiveToolbarPressedFavourite(
+                            context,
+                            widgetId,
+                            getQuoteUnquoteModel(context).getCurrentQuotation(widgetId).digest,
+                            appWidgetManager);
                     break;
 
                 case IntentFactoryHelper.ALL_WIDGET_INSTANCES_FAVOURITE_NOTIFICATION:
@@ -229,7 +244,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                     break;
 
                 case AppWidgetManager.ACTION_APPWIDGET_ENABLED:
-                    this.onReceiveActionAppwidgetEnabled(context, appWidgetManager);
+                    onReceiveActionAppwidgetEnabled(context, appWidgetManager);
                     break;
 
                 default:
@@ -285,11 +300,6 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
         quoteUnquoteModel = null;
     }
 
-    private void onReceiveActivityFinishedReport(
-            final int widgetId, @NonNull final AppWidgetManager appWidgetManager) {
-        appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
-    }
-
     private void onReceiveDeviceUnlock(
             @NonNull final Context context,
             @NonNull final AppWidgetManager appWidgetManager) {
@@ -313,14 +323,11 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
     private void onReceiveToolbarPressedFavourite(
             @NonNull final Context context,
             final int widgetId,
+            @NonNull String digest,
             @NonNull final AppWidgetManager appWidgetManager) {
         final QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, context);
 
-        QuotationEntity currentQuotation = getQuoteUnquoteModel(context).getCurrentQuotation(
-                widgetId);
-
-        int favouritesCount = getQuoteUnquoteModel(context).toggleFavourite(
-                widgetId, currentQuotation.digest);
+        int favouritesCount = getQuoteUnquoteModel(context).toggleFavourite(widgetId, digest);
 
         if (quotationsPreferences.getContentSelection() == ContentSelection.FAVOURITES) {
             if (favouritesCount == 0) {
@@ -331,9 +338,16 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
 
             appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
         }
+
+        sendAllWidgetInstancesFavouriteNotification(context, widgetId, appWidgetManager);
+
+        updateNotificationIfShowingFavouriteDigest(
+                context,
+                widgetId,
+                getQuoteUnquoteModel(context).getCurrentQuotation(widgetId).digest);
     }
 
-    private void sendAllInstancesFavouriteNotification(
+    private void sendAllWidgetInstancesFavouriteNotification(
             @NonNull final Context context,
             final int widgetId,
             @NonNull final AppWidgetManager appWidgetManager) {
@@ -368,6 +382,8 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
         getQuoteUnquoteModel(context).markAsCurrentDefault(widgetId);
 
         appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
+
+        updateNotificationIfExists(context, widgetId);
     }
 
     private void onReceiveToolbarPressedPrevious(
@@ -375,6 +391,8 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
         getQuoteUnquoteModel(context).markAsCurrentPrevious(widgetId);
 
         appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
+
+        updateNotificationIfExists(context, widgetId);
     }
 
     private void onReceiveToolbarPressedNextRandom(
@@ -398,6 +416,8 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             final boolean randomNext) {
         getQuoteUnquoteModel(context).markAsCurrentNext(widgetId, randomNext);
         appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
+
+        updateNotificationIfExists(context, widgetId);
     }
 
     private void onReceiveDailyAlarm(
@@ -414,12 +434,129 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
         getQuoteUnquoteModel(context).markAsCurrentNext(widgetId, schedulePreferences.getEventNextRandom());
 
         if (schedulePreferences.getEventDisplayWidgetAndNotification()) {
-            QuotationEntity currentQuotation = getQuoteUnquoteModel(context).getCurrentQuotation(
-                    widgetId);
-
-            notificationHelper.displayNotification(context, currentQuotation);
+            displayNotification(context, widgetId);
         }
     }
+
+    @NonNull
+    static Map<Integer, String> widgetIdToDigestNotificationMap = new HashMap();
+
+    private void displayNotification(@NonNull Context context, int widgetId) {
+        QuotationEntity currentQuotation
+                = getQuoteUnquoteModel(context).getCurrentQuotation(widgetId);
+
+        if (currentQuotation != null){
+            SchedulePreferences schedulePreferences = new SchedulePreferences(widgetId, context);
+
+            notificationHelper.displayNotification(
+                    context,
+                    widgetId,
+                    currentQuotation.author,
+                    markNotificationAsFavourite(
+                            context, currentQuotation.digest, currentQuotation.quotation),
+                    currentQuotation.digest,
+                    getQuoteUnquoteModel(context).isFavourite(currentQuotation.digest),
+                    schedulePreferences.getEventNextSequential(),
+                    widgetId);
+
+            // each widget only ever displays one notification, the notificationId is the widgetId
+            // the widgetId is mapped to a digest so we can handle Favourite appropriately
+            widgetIdToDigestNotificationMap.put(widgetId, currentQuotation.digest);
+        }
+    }
+
+    private void onReceiveNotificationDismissed(
+            @NonNull Context context, int widgetId, @NonNull Intent intent,
+            @NonNull AppWidgetManager appWidgetManager) {
+
+        widgetIdToDigestNotificationMap.remove(widgetId);
+    }
+
+    private void onReceiveNotificationNext(
+            @NonNull Context context, int widgetId, @NonNull Intent intent,
+            @NonNull AppWidgetManager appWidgetManager) {
+        // update the widget
+        SchedulePreferences schedulePreferences = new SchedulePreferences(widgetId, context);
+        if (schedulePreferences.getEventNextSequential()) {
+            onReceiveToolbarPressedNextSequential(context, widgetId, appWidgetManager);
+        } else {
+            onReceiveToolbarPressedNextRandom(context, widgetId, appWidgetManager);
+        }
+
+        displayNotification(context, widgetId);
+    }
+
+    private void onReceiveNotificationFavourite(
+            @NonNull Context context, int widgetId, @NonNull Intent intent,
+            @NonNull AppWidgetManager appWidgetManager) {
+
+        String digestFromIntent = intent.getStringExtra("digest");
+
+        // toggle Favourite in widgets, whether digest visible or not in widgets
+        onReceiveToolbarPressedFavourite(
+                context,
+                widgetId,
+                digestFromIntent,
+                appWidgetManager);
+
+        sendAllWidgetInstancesFavouriteNotification(context, widgetId, appWidgetManager);
+
+        // update the Notification
+        SchedulePreferences schedulePreferences = new SchedulePreferences(widgetId, context);
+
+        QuotationEntity quotationEntity
+                = getQuoteUnquoteModel(context).getQuotation(digestFromIntent);
+
+        notificationHelper.displayNotification(
+                context,
+                widgetId,
+                quotationEntity.author,
+                markNotificationAsFavourite(context, digestFromIntent, quotationEntity.quotation),
+                digestFromIntent,
+                getQuoteUnquoteModel(context).isFavourite(digestFromIntent),
+                schedulePreferences.getEventNextSequential(),
+                widgetId);
+    }
+
+    private String markNotificationAsFavourite(
+            @NonNull Context context, @NonNull String digest, String quotation) {
+         if (getQuoteUnquoteModel(context).isFavourite(digest)) {
+            quotation = "\u2764 " + quotation;
+            return quotation;
+        }
+
+        return quotation;
+    }
+
+    private void updateNotificationIfExists(@NonNull Context context, int widgetId) {
+        if (!widgetIdToDigestNotificationMap.isEmpty()) {
+            displayNotification(context, widgetId);
+        }
+    }
+
+    private void updateNotificationIfShowingFavouriteDigest(
+            @NonNull Context context, int widgetId, @NonNull String digestMadeFavouriteInWidget) {
+
+        // only update a notification if there is a notification to update!
+        if (!widgetIdToDigestNotificationMap.isEmpty()
+                && widgetIdToDigestNotificationMap.get(widgetId).equals(digestMadeFavouriteInWidget)) {
+
+            SchedulePreferences schedulePreferences = new SchedulePreferences(widgetId, context);
+
+            QuotationEntity quotationEntity
+                    = getQuoteUnquoteModel(context).getQuotation(digestMadeFavouriteInWidget);
+
+            notificationHelper.displayNotification(
+                    context,
+                    widgetId,
+                    quotationEntity.author,
+                    markNotificationAsFavourite(context, digestMadeFavouriteInWidget, quotationEntity.quotation),
+                    digestMadeFavouriteInWidget,
+                    getQuoteUnquoteModel(context).isFavourite(digestMadeFavouriteInWidget),
+                    schedulePreferences.getEventNextSequential(),
+                    widgetId);
+        }
+}
 
     private void onReceiveActivityFinishedConfiguration(
             @NonNull final Context context,
@@ -428,6 +565,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
         Timber.d("%d", widgetId);
         getQuoteUnquoteModel(context).markAsCurrentDefault(widgetId);
         scheduleDailyAlarm.setDailyAlarm();
+        updateNotificationIfExists(context, widgetId);
     }
 
     private void setTransparency(
@@ -595,6 +733,8 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
         for (final int widgetId : widgetIds) {
             Timber.d("%d", widgetId);
 
+            NotificationManagerCompat.from(context).cancel(widgetId);
+
             getQuoteUnquoteModel(context).delete(widgetId);
             PreferencesFacade.delete(context, widgetId);
 
@@ -616,11 +756,11 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             Timber.d("setting LocalCode");
             quotationsPreferences.setContentLocalCode(localCode);
 
-            if (CloudServiceBackup.isRunning) {
+            if (CloudService.isRunning) {
                 context.stopService(new Intent(context, CloudServiceBackup.class));
             }
 
-            if (CloudServiceRestore.isRunning) {
+            if (CloudService.isRunning) {
                 context.stopService(new Intent(context, CloudServiceRestore.class));
             }
         } finally {

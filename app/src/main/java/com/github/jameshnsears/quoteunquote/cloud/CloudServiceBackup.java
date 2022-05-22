@@ -33,25 +33,25 @@ public class CloudServiceBackup extends CloudService {
                 if (!cloudTransfer.isInternetAvailable()) {
                     handler.post(() -> Toast.makeText(
                             context,
-                            context.getString(R.string.fragment_transfer_internet_missing),
+                            context.getString(R.string.fragment_archive_internet_missing),
                             Toast.LENGTH_SHORT).show());
                 } else {
                     handler.post(() -> Toast.makeText(
                             context,
-                            context.getString(R.string.fragment_transfer_backup_sending),
+                            context.getString(R.string.fragment_archive_backup_sending),
                             Toast.LENGTH_SHORT).show());
 
                     if (cloudTransfer.backup(intent.getStringExtra("asJson"))) {
                         handler.post(() -> Toast.makeText(
                                 context,
-                                context.getString(R.string.fragment_transfer_backup_success),
+                                context.getString(R.string.fragment_archive_backup_success),
                                 Toast.LENGTH_SHORT).show());
 
                         auditBackup(intent);
                     } else {
                         handler.post(() -> Toast.makeText(
                                 context,
-                                context.getString(R.string.fragment_transfer_internet_missing),
+                                context.getString(R.string.fragment_archive_internet_missing),
                                 Toast.LENGTH_SHORT).show());
                     }
                 }

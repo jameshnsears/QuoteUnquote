@@ -11,9 +11,9 @@
     <item
             android:id="@+id/navigationBarSchedule"
             android:icon="@drawable/ic_selector_navigation_bar_update_24"
-            android:title="@string/fragment_schedule_title" />
+            android:title="@string/fragment_notifications_title" />
     <item
             android:id="@+id/navigationBarBackupRestore"
             android:icon="@drawable/ic_selector_navigation_bar_backup_restore_24"
-            android:title="@string/fragment_transfer_title" />
+            android:title="@string/fragment_archive_title" />
 </menu>
