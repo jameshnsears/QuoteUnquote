@@ -1,5 +1,6 @@
 package com.github.jameshnsears.quoteunquote.configure.fragment.schedule;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -27,6 +28,7 @@ public final class ScheduleDailyAlarm {
         schedulePreferences = new SchedulePreferences(theWidgetId, widgetContext);
     }
 
+    @SuppressLint("MissingPermission")
     public void setDailyAlarm() {
         if (schedulePreferences.getEventDaily()) {
             Timber.d("%d", widgetId);

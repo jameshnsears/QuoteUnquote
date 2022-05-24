@@ -20,7 +20,7 @@ Improve your self-esteem with high quality quotations! Authors include:
 &bull; Backup &amp; Restore
 
 <b>Other items of interest</b>
-&bull; Free &amp; without Ads.
+&bull; Free &amp; without Ads
 &bull; Core functionality works offline
 &bull; Anonymous analytics
 &bull; Minimal permissions

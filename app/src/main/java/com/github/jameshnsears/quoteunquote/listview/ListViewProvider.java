@@ -72,7 +72,7 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
                         getQuoteUnquoteModel().getLastPreviousDigest(
                                 widgetId, quotationsPreferences.getContentSelection()))) {
 
-                    quotationPosition = "\u2316 " + quotationPosition;
+                    quotationPosition = "\u2316  " + quotationPosition;
                 }
             }
         }
@@ -97,7 +97,7 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
         Timber.d("%d", widgetId);
 
         synchronized (this) {
-            if (quotationList.isEmpty()) {
+            if (quotationList.isEmpty() && quotationEntity != null) {
                 // first time call
                 quotationList.add(quotationEntity.theQuotation());
                 quotationList.add(quotationEntity.theAuthor());

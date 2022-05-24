@@ -13,7 +13,7 @@
     <string name="activity_instructions_configure_1">\u2022 Once the widget is on the home screen, tap the quotation text to re-configure the widget.</string>
     <string name="activity_instructions_configure_2">\u2022 Configuration changes are only recognised when the Configuration screen is exited with the Back button / Gesture.</string>
     <string name="activity_instructions_configure_3">\u2022 Tap an <u>underlined</u> author for Wikipedia entry.</string>
-    <string name="activity_instructions_configure_4">\u2022 The \u2316 icon, next to the quotation position count, denotes most recent seen quotation.</string>
+    <string name="activity_instructions_configure_4">\u2022 The \u2316 icon, next to the quotation position count, denotes the last seen previous quotation.</string>
     <string name="activity_instructions_resize">Resize the widget</string>
     <string name="activity_instructions_resize_instruction_1">1. Touch and hold the widget on your home screen.</string>
     <string name="activity_instructions_resize_instruction_2">2. Lift your finger. You\'ll find an outline with dots on the sides.</string>
@@ -153,5 +153,5 @@
     <string name="preview_description">Discover high quality quotations!</string>
     <string name="preview_quotation">Nothing matters very much and very few things matter at all.\n</string>
     <string name="preview_author"><u>Arthur Balfour\n</u></string>
-    <string name="preview_position">\u2316 1/20603</string>
+    <string name="preview_position">\u2316  1/20603</string>
 </resources>

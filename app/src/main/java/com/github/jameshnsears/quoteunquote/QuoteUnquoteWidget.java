@@ -182,6 +182,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
         try {
             switch (intent.getAction()) {
                 case Intent.ACTION_USER_PRESENT:
+                    startDatabaseConnectivity(context);
                     onReceiveDeviceUnlock(context, appWidgetManager);
                     break;
 
@@ -303,10 +304,14 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
     private void onReceiveDeviceUnlock(
             @NonNull final Context context,
             @NonNull final AppWidgetManager appWidgetManager) {
+        Timber.d("onReceiveDeviceUnlock");
+
         int[] widgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, QuoteUnquoteWidget.class));
 
         for (final int widgetId : widgetIds) {
-            if (new SchedulePreferences(widgetId, context).getEventDeviceUnlock()) {
+            SchedulePreferences schedulePreferences = new SchedulePreferences(widgetId, context);
+            Timber.d("%d: getEventDeviceUnlock=%b", widgetId, schedulePreferences.getEventDeviceUnlock());
+            if (schedulePreferences.getEventDeviceUnlock()) {
                 scheduleEvent(context, widgetId);
             }
         }

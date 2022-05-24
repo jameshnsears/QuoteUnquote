@@ -1,3 +1,0 @@
-- Fix regression on Share - Quotation now includes Author.
-- Fix regression on Export.
-- Improve CI re. branches built.

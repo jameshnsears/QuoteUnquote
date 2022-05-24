@@ -83,7 +83,7 @@ public class ConfigureActivity extends AppCompatActivity {
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {
-                    this.finish();
+                   finish();
                 }
             });
 
@@ -94,7 +94,7 @@ public class ConfigureActivity extends AppCompatActivity {
             broadcastTheFinishIntent();
         }
 
-        this.finishCalled = true;
+       finishCalled = true;
 
         super.finish();
     }
@@ -103,7 +103,7 @@ public class ConfigureActivity extends AppCompatActivity {
     public void onPause() {
         // back pressed | swipe up | export activity started
         if (!this.finishCalled && !ConfigureActivity.exportCalled) {
-            this.finish();
+           finish();
         }
 
         super.onPause();
@@ -138,14 +138,14 @@ public class ConfigureActivity extends AppCompatActivity {
 
         final String wikipedia = extras.getString("wikipedia");
         if (wikipedia != null && !wikipedia.equals("?") && !wikipedia.equals("")) {
-            this.linkToWikipedia(wikipedia);
+           linkToWikipedia(wikipedia);
         } else {
             widgetId = extras.getInt(
                     AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
             broadcastFinishIntent = extras.getBoolean("broadcastFinishIntent", true);
 
             activityConfigureBinding = ActivityConfigureBinding.inflate(this.getLayoutInflater());
-            this.setContentView(activityConfigureBinding.getRoot());
+            setContentView(activityConfigureBinding.getRoot());
 
             final BottomNavigationView bottomNavigationView = findViewById(R.id.configureNavigation);
             bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
@@ -158,10 +158,10 @@ public class ConfigureActivity extends AppCompatActivity {
         Timber.d("wikipedia=%s", wikipedia);
 
         if (wikipedia.equals("r/quotes/")) {
-            this.wikipediaActivityLancher.launch(
+           wikipediaActivityLancher.launch(
                     IntentFactoryHelper.createIntentActionView("https://www.reddit.com/" + wikipedia));
         } else {
-            this.wikipediaActivityLancher.launch(
+           wikipediaActivityLancher.launch(
                     IntentFactoryHelper.createIntentActionView("https://en.wikipedia.org/wiki/" + wikipedia));
         }
     }
