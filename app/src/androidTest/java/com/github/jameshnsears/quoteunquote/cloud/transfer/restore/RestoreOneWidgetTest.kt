@@ -12,6 +12,7 @@ class RestoreOneWidgetTest : TransferRestoreUtility() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             // set up
             setupWidgets(intArrayOf(1))
+            markDefaultQuotationAsFavourite()
 
             // restore
             val restoreTransfer = getTransferAsset("restore_one_widget.json")
@@ -25,7 +26,7 @@ class RestoreOneWidgetTest : TransferRestoreUtility() {
             assertEquals(getLocalCode(), backupTransfer.code)
 
             assertTrue(backupTransfer.current.size == 1)
-            assertTrue(backupTransfer.favourites.isEmpty())
+            assertTrue(backupTransfer.favourites.size == 1)
             assertTrue(backupTransfer.previous.size == 2)
 
             assertTrue(backupTransfer.settings.size == 1)

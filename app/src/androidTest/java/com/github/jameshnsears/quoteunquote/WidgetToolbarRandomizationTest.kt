@@ -13,12 +13,12 @@ import timber.log.Timber
 class WidgetToolbarRandomizationTest : QuoteUnquoteModelUtility() {
     val expectedAllInsertionOrder = mutableListOf(
         "7a36e553",
-        "d1",
-        "d2",
-        "d3",
-        "d4",
-        "d5",
-        "d6"
+        "d1234567",
+        "d2345678",
+        "d3456789",
+        "d4567890",
+        "d5678901",
+        "d6789012"
     )
 
     @Before
@@ -45,12 +45,12 @@ class WidgetToolbarRandomizationTest : QuoteUnquoteModelUtility() {
 
         val expectedNextNextOrder = mutableListOf(
             "7a36e553",
-            "d1",
-            "d2",
-            "d3",
-            "d6",
-            "d4",
-            "d5"
+            "d1234567",
+            "d2345678",
+            "d3456789",
+            "d6789012",
+            "d4567890",
+            "d5678901"
         )
 
         assertNextOrder(expectedNextNextOrder)

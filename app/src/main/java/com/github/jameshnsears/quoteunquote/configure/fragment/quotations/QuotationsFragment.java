@@ -72,22 +72,22 @@ public class QuotationsFragment extends FragmentCommon {
         // dark mode support
     }
 
-    public QuotationsFragment(int widgetId) {
+    public QuotationsFragment(final int widgetId) {
         super(widgetId);
     }
 
     @NonNull
-    public static QuotationsFragment newInstance(int widgetId) {
-        QuotationsFragment fragment = new QuotationsFragment(widgetId);
+    public static QuotationsFragment newInstance(final int widgetId) {
+        final QuotationsFragment fragment = new QuotationsFragment(widgetId);
         fragment.setArguments(null);
         return fragment;
     }
 
     public static void ensureFragmentContentSearchConsistency(
-            int widgetId,
-            @NonNull final Context context
+            final int widgetId,
+            @NonNull Context context
     ) {
-        QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, context);
+        final QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, context);
 
         if (quotationsPreferences.getContentSelection() == ContentSelection.SEARCH
                 && quotationsPreferences.getContentSelectionSearchCount() == 0) {
@@ -100,68 +100,68 @@ public class QuotationsFragment extends FragmentCommon {
     }
 
     @Override
-    public void onCreate(@NonNull Bundle savedInstanceState) {
+    public void onCreate(@NonNull final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        quoteUnquoteModel = new QuoteUnquoteModel(getContext());
+        this.quoteUnquoteModel = new QuoteUnquoteModel(this.getContext());
     }
 
     @Override
     @NonNull
     public View onCreateView(
-            @NonNull LayoutInflater inflater,
-            @NonNull ViewGroup container,
-            @NonNull Bundle savedInstanceState) {
-        quotationsPreferences = new QuotationsPreferences(widgetId, getContext());
+            @NonNull final LayoutInflater inflater,
+            @NonNull final ViewGroup container,
+            @NonNull final Bundle savedInstanceState) {
+        this.quotationsPreferences = new QuotationsPreferences(this.widgetId, this.getContext());
 
-        fragmentQuotationsBinding = FragmentQuotationsBinding.inflate(getLayoutInflater());
-        return fragmentQuotationsBinding.getRoot();
+        this.fragmentQuotationsBinding = FragmentQuotationsBinding.inflate(this.getLayoutInflater());
+        return this.fragmentQuotationsBinding.getRoot();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
 
-        QuotationsFragment.ensureFragmentContentSearchConsistency(widgetId, getContext());
+        ensureFragmentContentSearchConsistency(this.widgetId, this.getContext());
 
-        fragmentQuotationsBinding = null;
+        this.fragmentQuotationsBinding = null;
 
-        shutdown();
+        this.shutdown();
     }
 
     public void shutdown() {
-        disposables.clear();
-        disposables.dispose();
+        this.disposables.clear();
+        this.disposables.dispose();
 
-        if (disposableObserver != null) {
-            disposableObserver.dispose();
+        if (this.disposableObserver != null) {
+            this.disposableObserver.dispose();
         }
     }
 
     protected void setSearch() {
-        setSearchObserver();
+        this.setSearchObserver();
 
-        String editTextKeywords = quotationsPreferences.getContentSelectionSearch();
+        final String editTextKeywords = this.quotationsPreferences.getContentSelectionSearch();
 
         if (editTextKeywords.length() > 0) {
-            ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
+            final ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
             properties.put("Text", editTextKeywords);
             AuditEventHelper.auditEvent("SEARCH", properties);
-            fragmentQuotationsBinding.editTextSearchText.setText(editTextKeywords);
+            this.fragmentQuotationsBinding.editTextSearchText.setText(editTextKeywords);
         }
     }
 
     protected void setSearchObserver() {
-        disposableObserver = new DisposableObserver<Integer>() {
+        this.disposableObserver = new DisposableObserver<Integer>() {
             @Override
-            public void onNext(@NonNull Integer value) {
-                QuotationsFragment.this.fragmentQuotationsBinding.radioButtonSearch.setText(
-                        QuotationsFragment.this.getResources().getString(R.string.fragment_quotations_search, value));
-                QuotationsFragment.this.quotationsPreferences.setContentSelectionSearchCount(value);
+            public void onNext(@NonNull final Integer value) {
+                fragmentQuotationsBinding.radioButtonSearch.setText(
+                        getResources().getString(R.string.fragment_quotations_search, value));
+                quotationsPreferences.setContentSelectionSearchCount(value);
             }
 
             @Override
-            public void onError(@NonNull Throwable throwable) {
+            public void onError(@NonNull final Throwable throwable) {
                 Timber.d("onError=%s", throwable.getMessage());
             }
 
@@ -171,204 +171,204 @@ public class QuotationsFragment extends FragmentCommon {
             }
         };
 
-        RxTextView.textChanges(this.fragmentQuotationsBinding.editTextSearchText)
+        RxTextView.textChanges(fragmentQuotationsBinding.editTextSearchText)
                 .debounce(25, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .map(charSequence -> {
-                    String keywords = charSequence.toString();
+                    final String keywords = charSequence.toString();
 
                     if (!keywords.equals("")) {
                         Timber.d("%s", keywords);
 
                         // remove any prior, different, search results in the history
-                        if (!keywords.equals(this.quotationsPreferences.getContentSelectionSearch())) {
-                            this.quoteUnquoteModel.resetPrevious(widgetId, ContentSelection.SEARCH);
+                        if (!keywords.equals(quotationsPreferences.getContentSelectionSearch())) {
+                            quoteUnquoteModel.resetPrevious(this.widgetId, ContentSelection.SEARCH);
                         }
 
-                        this.quotationsPreferences.setContentSelectionSearch(keywords);
+                        quotationsPreferences.setContentSelectionSearch(keywords);
 
-                        return this.quoteUnquoteModel.countQuotationWithSearchText(keywords);
+                        return quoteUnquoteModel.countQuotationWithSearchText(keywords);
                     } else {
-                        this.quotationsPreferences.setContentSelectionSearch("");
+                        quotationsPreferences.setContentSelectionSearch("");
                         return 0;
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this.disposableObserver);
+                .subscribe(disposableObserver);
     }
 
     @Override
     public void onViewCreated(
-            @NonNull View view, @NonNull Bundle savedInstanceState) {
-        this.setInitialCounts();
+            @NonNull final View view, @NonNull final Bundle savedInstanceState) {
+        setInitialCounts();
 
-        this.setFavouriteCount();
-        this.setAllCount();
-        this.setAddToPreviousAll();
-        this.setAuthor();
-        this.setSearch();
+        setFavouriteCount();
+        setAllCount();
+        setAddToPreviousAll();
+        setAuthor();
+        setSearch();
 
-        this.createListenerRadioGroup();
-        this.createListenerAddToPreviousAll();
-        this.createListenerAuthor();
-        this.createListenerFavouriteButtonExport();
+        createListenerRadioGroup();
+        createListenerAddToPreviousAll();
+        createListenerAuthor();
+        createListenerFavouriteButtonExport();
 
-        this.handleStorageAccessFrameworkResult();
+        handleStorageAccessFrameworkResult();
 
-        this.setSelection();
+        setSelection();
     }
 
     private void setInitialCounts() {
-        QuotationsFragment.this.fragmentQuotationsBinding.radioButtonAll.setText(
-                QuotationsFragment.this.getResources().getString(R.string.fragment_quotations_all,
+        fragmentQuotationsBinding.radioButtonAll.setText(
+                getResources().getString(R.string.fragment_quotations_all,
                         0));
 
-        this.fragmentQuotationsBinding.radioButtonAuthor.setText(
-                this.getResources().getString(R.string.fragment_quotations_author,
+        fragmentQuotationsBinding.radioButtonAuthor.setText(
+                getResources().getString(R.string.fragment_quotations_author,
                         0));
 
-        QuotationsFragment.this.fragmentQuotationsBinding.radioButtonFavourites.setText(
-                QuotationsFragment.this.getResources().getString(R.string.fragment_quotations_favourites,
+        fragmentQuotationsBinding.radioButtonFavourites.setText(
+                getResources().getString(R.string.fragment_quotations_favourites,
                         0));
 
-        this.fragmentQuotationsBinding.radioButtonSearch.setText(
-                this.getResources().getString(R.string.fragment_quotations_search,
+        fragmentQuotationsBinding.radioButtonSearch.setText(
+                getResources().getString(R.string.fragment_quotations_search,
                         0));
     }
 
     protected void setAddToPreviousAll() {
-        this.fragmentQuotationsBinding.switchAddToPreviousAll.setChecked(this.quotationsPreferences.getContentAddToPreviousAll());
+        fragmentQuotationsBinding.switchAddToPreviousAll.setChecked(quotationsPreferences.getContentAddToPreviousAll());
     }
 
     public void setAllCount() {
-        this.disposables.add(this.quoteUnquoteModel.countAll()
+        disposables.add(quoteUnquoteModel.countAll()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(
                         new DisposableSingleObserver<Integer>() {
                             @Override
-                            public void onSuccess(@NonNull Integer value) {
-                                QuotationsFragment.this.fragmentQuotationsBinding.radioButtonAll.setText(
-                                        QuotationsFragment.this.getResources().getString(R.string.fragment_quotations_all, value));
+                            public void onSuccess(@NonNull final Integer value) {
+                                fragmentQuotationsBinding.radioButtonAll.setText(
+                                        getResources().getString(R.string.fragment_quotations_all, value));
 
                                 synchronized (this) {
-                                    QuotationsFragment.this.latchAllCount.countDown();
+                                    latchAllCount.countDown();
                                 }
                             }
 
                             @Override
-                            public void onError(@NonNull Throwable throwable) {
+                            public void onError(@NonNull final Throwable throwable) {
                                 Timber.d("onError=%s", throwable.getMessage());
                             }
                         }));
     }
 
     protected void setAuthor() {
-        this.disposables.add(this.quoteUnquoteModel.authors()
+        disposables.add(quoteUnquoteModel.authors()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(
                         new DisposableSingleObserver<List<AuthorPOJO>>() {
                             @Override
-                            public void onSuccess(@NonNull List<AuthorPOJO> authorPOJOList) {
-                                List<String> authors
-                                        = QuotationsFragment.this.quoteUnquoteModel.authorsSorted(authorPOJOList);
+                            public void onSuccess(@NonNull final List<AuthorPOJO> authorPOJOList) {
+                                final List<String> authors
+                                        = quoteUnquoteModel.authorsSorted(authorPOJOList);
 
-                                ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                                        QuotationsFragment.this.getContext(),
+                                final ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                                        getContext(),
                                         R.layout.spinner_item,
                                         authors);
                                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                QuotationsFragment.this.fragmentQuotationsBinding.spinnerAuthors.setAdapter(adapter);
+                                fragmentQuotationsBinding.spinnerAuthors.setAdapter(adapter);
 
-                                if ("".equals(QuotationsFragment.this.quotationsPreferences.getContentSelectionAuthor())) {
-                                    QuotationsFragment.this.quotationsPreferences.setContentSelectionAuthor(authors.get(0));
+                                if ("".equals(quotationsPreferences.getContentSelectionAuthor())) {
+                                    quotationsPreferences.setContentSelectionAuthor(authors.get(0));
                                 }
 
-                                QuotationsFragment.this.setAuthorName();
+                                setAuthorName();
 
                                 synchronized (this) {
-                                    QuotationsFragment.this.latchAuthor.countDown();
+                                    latchAuthor.countDown();
                                 }
                             }
 
                             @Override
-                            public void onError(@NonNull Throwable throwable) {
+                            public void onError(@NonNull final Throwable throwable) {
                                 Timber.d("onError=%s", throwable.getMessage());
                             }
                         }));
     }
 
     protected void setAuthorName() {
-        String authorPreference = this.quotationsPreferences.getContentSelectionAuthor();
+        final String authorPreference = quotationsPreferences.getContentSelectionAuthor();
 
-        this.fragmentQuotationsBinding.spinnerAuthors.setSelection(
-                this.quoteUnquoteModel.authorsIndex(authorPreference));
+        fragmentQuotationsBinding.spinnerAuthors.setSelection(
+                quoteUnquoteModel.authorsIndex(authorPreference));
 
-        this.fragmentQuotationsBinding.radioButtonAuthor.setText(
-                this.getResources().getString(
+        fragmentQuotationsBinding.radioButtonAuthor.setText(
+                getResources().getString(
                         R.string.fragment_quotations_author,
-                        this.quoteUnquoteModel.countAuthorQuotations(authorPreference)));
+                        quoteUnquoteModel.countAuthorQuotations(authorPreference)));
 
     }
 
     public void setFavouriteCount() {
-        this.disposables.add(this.quoteUnquoteModel.countFavourites()
+        disposables.add(quoteUnquoteModel.countFavourites()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(
                         new DisposableSingleObserver<Integer>() {
                             @Override
-                            public void onSuccess(@NonNull Integer value) {
-                                QuotationsFragment.this.fragmentQuotationsBinding.radioButtonFavourites.setEnabled(true);
+                            public void onSuccess(@NonNull final Integer value) {
+                                fragmentQuotationsBinding.radioButtonFavourites.setEnabled(true);
                                 if (value == 0) {
-                                    QuotationsFragment.this.fragmentQuotationsBinding.radioButtonFavourites.setEnabled(false);
+                                    fragmentQuotationsBinding.radioButtonFavourites.setEnabled(false);
 
-                                    QuotationsFragment.this.fragmentQuotationsBinding.buttonExport.setEnabled(false);
-                                    makeButtonAlpha(QuotationsFragment.this.fragmentQuotationsBinding.buttonExport, false);
-                                    QuotationsFragment.this.fragmentQuotationsBinding.textViewLocalStorageInstructions.setEnabled(false);
+                                    fragmentQuotationsBinding.buttonExport.setEnabled(false);
+                                    QuotationsFragment.this.makeButtonAlpha(fragmentQuotationsBinding.buttonExport, false);
+                                    fragmentQuotationsBinding.textViewLocalStorageInstructions.setEnabled(false);
 
                                     // in case another widget instance changes favourites
-                                    if (quotationsPreferences.getContentSelection().equals(ContentSelection.FAVOURITES)) {
-                                        quotationsPreferences.setContentSelection(ContentSelection.ALL);
+                                    if (QuotationsFragment.this.quotationsPreferences.getContentSelection().equals(ContentSelection.FAVOURITES)) {
+                                        QuotationsFragment.this.quotationsPreferences.setContentSelection(ContentSelection.ALL);
                                     }
                                 } else {
-                                    QuotationsFragment.this.fragmentQuotationsBinding.buttonExport.setEnabled(true);
-                                    makeButtonAlpha(QuotationsFragment.this.fragmentQuotationsBinding.buttonExport, true);
-                                    QuotationsFragment.this.fragmentQuotationsBinding.textViewLocalStorageInstructions.setEnabled(true);
+                                    fragmentQuotationsBinding.buttonExport.setEnabled(true);
+                                    QuotationsFragment.this.makeButtonAlpha(fragmentQuotationsBinding.buttonExport, true);
+                                    fragmentQuotationsBinding.textViewLocalStorageInstructions.setEnabled(true);
                                 }
 
-                                QuotationsFragment.this.fragmentQuotationsBinding.radioButtonFavourites.setText(
-                                        QuotationsFragment.this.getResources().getString(R.string.fragment_quotations_favourites, value));
+                                fragmentQuotationsBinding.radioButtonFavourites.setText(
+                                        getResources().getString(R.string.fragment_quotations_favourites, value));
 
                                 synchronized (this) {
-                                    QuotationsFragment.this.latchFavouriteCount.countDown();
+                                    latchFavouriteCount.countDown();
                                 }
                             }
 
                             @Override
-                            public void onError(@NonNull Throwable throwable) {
+                            public void onError(@NonNull final Throwable throwable) {
                                 Timber.d("onError=%s", throwable.getMessage());
                             }
                         }));
     }
 
     protected void setSelection() {
-        this.enableAuthor(false);
-        this.enableSearch(false);
+        enableAuthor(false);
+        enableSearch(false);
 
-        switch (this.quotationsPreferences.getContentSelection()) {
+        switch (quotationsPreferences.getContentSelection()) {
             case ALL:
-                this.setSelectionAll();
+                setSelectionAll();
                 break;
             case AUTHOR:
-                this.setSelectionAuthor();
+                setSelectionAuthor();
                 break;
             case FAVOURITES:
-                this.setSelectionFavourites();
+                setSelectionFavourites();
                 break;
             case SEARCH:
-                this.setSelectionSearch();
+                setSelectionSearch();
                 break;
             default:
                 Timber.e("unknown switch");
@@ -377,140 +377,140 @@ public class QuotationsFragment extends FragmentCommon {
     }
 
     private void setSelectionAll() {
-        this.fragmentQuotationsBinding.radioButtonAll.setChecked(true);
+        fragmentQuotationsBinding.radioButtonAll.setChecked(true);
     }
 
     private void setSelectionAuthor() {
-        this.fragmentQuotationsBinding.radioButtonAuthor.setChecked(true);
-        this.enableAuthor(true);
+        fragmentQuotationsBinding.radioButtonAuthor.setChecked(true);
+        enableAuthor(true);
     }
 
     private void setSelectionFavourites() {
-        this.fragmentQuotationsBinding.radioButtonFavourites.setChecked(true);
+        fragmentQuotationsBinding.radioButtonFavourites.setChecked(true);
     }
 
     private void setSelectionSearch() {
-        this.fragmentQuotationsBinding.radioButtonSearch.setChecked(true);
-        this.enableSearch(true);
+        fragmentQuotationsBinding.radioButtonSearch.setChecked(true);
+        enableSearch(true);
 
-        this.fragmentQuotationsBinding.radioButtonSearch.requestFocus();
+        fragmentQuotationsBinding.radioButtonSearch.requestFocus();
 
-        String searchText = this.quotationsPreferences.getContentSelectionSearch();
+        final String searchText = quotationsPreferences.getContentSelectionSearch();
 
-        if (!searchText.equals("") && !this.quotationsPreferences.getContentSelectionSearch().equals(searchText)) {
-            this.quotationsPreferences.setContentSelectionSearch(searchText);
+        if (!searchText.equals("") && !quotationsPreferences.getContentSelectionSearch().equals(searchText)) {
+            quotationsPreferences.setContentSelectionSearch(searchText);
 
-            EditText editTextKeywordsSearch = this.fragmentQuotationsBinding.editTextSearchText;
+            final EditText editTextKeywordsSearch = fragmentQuotationsBinding.editTextSearchText;
             editTextKeywordsSearch.setText(searchText);
         }
     }
 
     protected void createListenerRadioGroup() {
-        RadioGroup radioGroupContent = this.fragmentQuotationsBinding.radioGroupContent;
+        final RadioGroup radioGroupContent = fragmentQuotationsBinding.radioGroupContent;
         radioGroupContent.setOnCheckedChangeListener((group, checkedId) -> {
 
-            this.enableAuthor(false);
-            this.enableSearch(false);
+            enableAuthor(false);
+            enableSearch(false);
 
-            if (checkedId == this.fragmentQuotationsBinding.radioButtonAll.getId()) {
-                this.quotationsPreferences.setContentSelection(ContentSelection.ALL);
+            if (checkedId == fragmentQuotationsBinding.radioButtonAll.getId()) {
+                quotationsPreferences.setContentSelection(ContentSelection.ALL);
             }
 
-            if (checkedId == this.fragmentQuotationsBinding.radioButtonAuthor.getId()) {
-                this.enableAuthor(true);
-                this.quotationsPreferences.setContentSelection(ContentSelection.AUTHOR);
+            if (checkedId == fragmentQuotationsBinding.radioButtonAuthor.getId()) {
+                enableAuthor(true);
+                quotationsPreferences.setContentSelection(ContentSelection.AUTHOR);
             }
 
-            if (checkedId == this.fragmentQuotationsBinding.radioButtonFavourites.getId()) {
-                this.quotationsPreferences.setContentSelection(ContentSelection.FAVOURITES);
+            if (checkedId == fragmentQuotationsBinding.radioButtonFavourites.getId()) {
+                quotationsPreferences.setContentSelection(ContentSelection.FAVOURITES);
             }
 
-            if (checkedId == this.fragmentQuotationsBinding.radioButtonSearch.getId()) {
-                this.enableSearch(true);
-                this.quotationsPreferences.setContentSelection(ContentSelection.SEARCH);
+            if (checkedId == fragmentQuotationsBinding.radioButtonSearch.getId()) {
+                enableSearch(true);
+                quotationsPreferences.setContentSelection(ContentSelection.SEARCH);
             }
         });
     }
 
-    private void enableAuthor(boolean enable) {
-        this.fragmentQuotationsBinding.spinnerAuthors.setEnabled(enable);
+    private void enableAuthor(final boolean enable) {
+        fragmentQuotationsBinding.spinnerAuthors.setEnabled(enable);
     }
 
-    public void makeButtonAlpha(@NonNull Button button, boolean enable) {
+    public void makeButtonAlpha(@NonNull final Button button, final boolean enable) {
         button.setAlpha(enable ? 1 : 0.25f);
     }
 
-    private void enableSearch(boolean enable) {
-        this.fragmentQuotationsBinding.editTextSearchText.setEnabled(enable);
+    private void enableSearch(final boolean enable) {
+        fragmentQuotationsBinding.editTextSearchText.setEnabled(enable);
     }
 
     protected void createListenerAuthor() {
-        this.fragmentQuotationsBinding.spinnerAuthors.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        fragmentQuotationsBinding.spinnerAuthors.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long selectedItemId) {
-                String author = QuotationsFragment.this.fragmentQuotationsBinding.spinnerAuthors.getSelectedItem().toString();
-                QuotationsFragment.this.fragmentQuotationsBinding.radioButtonAuthor.setText(
-                        QuotationsFragment.this.getResources().getString(R.string.fragment_quotations_author,
-                                QuotationsFragment.this.quoteUnquoteModel.countAuthorQuotations(author)));
+            public void onItemSelected(final AdapterView<?> parent, final View view, final int position, final long selectedItemId) {
+                final String author = fragmentQuotationsBinding.spinnerAuthors.getSelectedItem().toString();
+                fragmentQuotationsBinding.radioButtonAuthor.setText(
+                        getResources().getString(R.string.fragment_quotations_author,
+                                quoteUnquoteModel.countAuthorQuotations(author)));
 
-                if (!QuotationsFragment.this.quotationsPreferences.getContentSelectionAuthor().equals(author)) {
+                if (!quotationsPreferences.getContentSelectionAuthor().equals(author)) {
                     Timber.d("author=%s", author);
-                    ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
+                    final ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
                     properties.put("Author", author);
                     AuditEventHelper.auditEvent("AUTHOR", properties);
 
-                    QuotationsFragment.this.quotationsPreferences.setContentSelectionAuthor(author);
+                    quotationsPreferences.setContentSelectionAuthor(author);
                 }
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onNothingSelected(final AdapterView<?> parent) {
                 // do nothing
             }
         });
     }
 
     protected void createListenerAddToPreviousAll() {
-        this.fragmentQuotationsBinding.switchAddToPreviousAll.setOnCheckedChangeListener((buttonView, isChecked) ->
-                this.quotationsPreferences.setContentAddToPreviousAll(isChecked)
+        fragmentQuotationsBinding.switchAddToPreviousAll.setOnCheckedChangeListener((buttonView, isChecked) ->
+                quotationsPreferences.setContentAddToPreviousAll(isChecked)
         );
     }
 
     protected void createListenerFavouriteButtonExport() {
         // invoke Storage Access Framework
-        this.fragmentQuotationsBinding.buttonExport.setOnClickListener(v -> {
-            if (this.fragmentQuotationsBinding.buttonExport.isEnabled()) {
-                ConfigureActivity.exportCalled = true;
+        fragmentQuotationsBinding.buttonExport.setOnClickListener(v -> {
+            if (fragmentQuotationsBinding.buttonExport.isEnabled()) {
+                ConfigureActivity.safCalled = true;
 
-                Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+                final Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_TITLE, "Favourites.txt");
-                this.activityResultLauncher.launch(intent);
+                activityResultLauncher.launch(intent);
             }
         });
     }
 
     protected final void handleStorageAccessFrameworkResult() {
         // default: /storage/emulated/0/Download/Favourites.txt
-        this.activityResultLauncher = registerForActivityResult(
+        activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 activityResult -> {
                     if (activityResult.getResultCode() == Activity.RESULT_OK) {
 
                         try {
-                            ParcelFileDescriptor parcelFileDescriptor
-                                    = this.getContext().getContentResolver().openFileDescriptor(
+                            final ParcelFileDescriptor parcelFileDescriptor
+                                    = getContext().getContentResolver().openFileDescriptor(
                                     activityResult.getData().getData(), "w");
-                            FileOutputStream fileOutputStream
+                            final FileOutputStream fileOutputStream
                                     = new FileOutputStream(parcelFileDescriptor.getFileDescriptor());
 
-                            ArrayList<String> exportableFavourites = (ArrayList) quoteUnquoteModel.exportFavourites();
+                            final ArrayList<String> exportableFavourites = (ArrayList) this.quoteUnquoteModel.exportFavourites();
                             Collections.reverse(exportableFavourites);
 
                             int favouriteIndex = 1;
-                            for (String exportFavourite : exportableFavourites) {
-                                String exportableString = "" + favouriteIndex + "\n" + exportFavourite;
+                            for (final String exportFavourite : exportableFavourites) {
+                                final String exportableString = "" + favouriteIndex + "\n" + exportFavourite;
                                 fileOutputStream.write(exportableString.getBytes());
                                 favouriteIndex++;
                             }
@@ -519,15 +519,15 @@ public class QuotationsFragment extends FragmentCommon {
                             parcelFileDescriptor.close();
 
                             Toast.makeText(
-                                    this.getContext(),
-                                    this.getContext().getString(R.string.fragment_archive_backup_success),
+                                    getContext(),
+                                    getContext().getString(R.string.fragment_quotations_favourites_export_success),
                                     Toast.LENGTH_SHORT).show();
-                        } catch (IOException e) {
+                        } catch (final IOException e) {
                             Timber.e(e.getMessage());
                         }
                     }
 
-                    ConfigureActivity.exportCalled = false;
+                    ConfigureActivity.safCalled = false;
                 });
     }
 }

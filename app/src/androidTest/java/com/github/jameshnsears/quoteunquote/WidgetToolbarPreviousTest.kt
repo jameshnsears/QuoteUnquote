@@ -14,7 +14,7 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
             databaseRepositoryDouble.countCurrent(WidgetIdHelper.WIDGET_ID_01)
         )
 
-        databaseRepositoryDouble.markAsCurrent(WidgetIdHelper.WIDGET_ID_01, "d3")
+        databaseRepositoryDouble.markAsCurrent(WidgetIdHelper.WIDGET_ID_01, "d3456789")
 
         databaseRepositoryDouble.erase(WidgetIdHelper.WIDGET_ID_01)
 
@@ -28,7 +28,7 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
     fun getQuotationPositionInPrevious() {
         pressNextSequentialFourTimes()
 
-        databaseRepositoryDouble.markAsCurrent(WidgetIdHelper.WIDGET_ID_01, "d3")
+        databaseRepositoryDouble.markAsCurrent(WidgetIdHelper.WIDGET_ID_01, "d3456789")
 
         val quotationsPreferences =
             QuotationsPreferences(
@@ -77,14 +77,14 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
             )
         quotationsPreferences.contentSelection = ContentSelection.ALL
 
-        pressNext(quotationsPreferences, "d2", "1/3", false)
-        pressNext(quotationsPreferences, "d3", "2/3", false)
-        pressPrevious(quotationsPreferences, "d2", "1/3")
-        pressNext(quotationsPreferences, "d3", "2/3", false)
-        pressNext(quotationsPreferences, "d4", "3/3", false)
+        pressNext(quotationsPreferences, "d2345678", "1/3", false)
+        pressNext(quotationsPreferences, "d3456789", "2/3", false)
+        pressPrevious(quotationsPreferences, "d2345678", "1/3")
+        pressNext(quotationsPreferences, "d3456789", "2/3", false)
+        pressNext(quotationsPreferences, "d4567890", "3/3", false)
 
-        pressNext(quotationsPreferences, "d4", "3/3", false)
-        pressPrevious(quotationsPreferences, "d3", "2/3")
+        pressNext(quotationsPreferences, "d4567890", "3/3", false)
+        pressPrevious(quotationsPreferences, "d3456789", "2/3")
     }
 
     private fun pressPrevious(

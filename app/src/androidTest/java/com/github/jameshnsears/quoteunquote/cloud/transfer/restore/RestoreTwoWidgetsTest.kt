@@ -60,8 +60,8 @@ class RestoreTwoWidgetsTest : TransferRestoreUtility() {
 
             // assert
             val backupTransfer = TransferBackup(context).transfer(databaseRepositoryDouble)
-//            val restoreJson = TransferRestore().asJson(restoreTransfer)
-//            val backupJson = TransferBackup(context).asJson(backupTransfer)
+            val restoreJson = TransferRestore().asJson(restoreTransfer)
+            val backupJson = TransferBackup(context).asJson(backupTransfer)
 
             Assert.assertEquals(getLocalCode(), backupTransfer.code)
 

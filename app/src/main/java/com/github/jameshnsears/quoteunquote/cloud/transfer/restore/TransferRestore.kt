@@ -14,13 +14,12 @@ import com.github.jameshnsears.quoteunquote.cloud.transfer.TransferRestoreReques
 import com.github.jameshnsears.quoteunquote.cloud.transfer.TransferUtility
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences
-import com.github.jameshnsears.quoteunquote.configure.fragment.schedule.SchedulePreferences
+import com.github.jameshnsears.quoteunquote.configure.fragment.notifications.NotificationsPreferences
 import com.github.jameshnsears.quoteunquote.database.DatabaseRepository
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade
 import com.google.gson.GsonBuilder
-import org.apache.commons.codec.digest.DigestUtils.digest
 import timber.log.Timber
 
 class TransferRestore : TransferCommon() {
@@ -30,10 +29,11 @@ class TransferRestore : TransferCommon() {
         return builder.create().toJson(TransferRestoreRequest(remoteCodeValue))
     }
 
-    private fun emptySharedPreferencesExceptLocalCode(context: Context) {
+    private fun emptySharedPreferencesExceptArchive(context: Context) {
         val preferencesFacade = PreferencesFacade(context)
         val localCode =
             preferencesFacade.preferenceHelper!!.getPreferenceString(preferencesFacade.localCode)
+
         PreferencesFacade.erase(context)
         preferencesFacade.preferenceHelper!!.setPreference(
             "0:CONTENT_FAVOURITES_LOCAL_CODE",
@@ -42,8 +42,8 @@ class TransferRestore : TransferCommon() {
     }
 
     fun restore(context: Context, databaseRepository: DatabaseRepository, transfer: Transfer) {
-        emptySharedPreferencesExceptLocalCode(context)
-        databaseRepository.erase()
+        emptySharedPreferencesExceptArchive(context)
+        databaseRepository.eraseForRestore()
 
         restoreFavourite(databaseRepository, transfer.favourites)
 
@@ -172,15 +172,19 @@ class TransferRestore : TransferCommon() {
         context: Context,
         schedule: Schedule
     ) {
-        val schedulePreferences = SchedulePreferences(widgetId, context)
-        schedulePreferences.eventDaily = schedule.eventDaily
-        schedulePreferences.eventDailyTimeHour = schedule.eventDailyHour
-        schedulePreferences.eventDailyTimeMinute = schedule.eventDailyMinute
-        schedulePreferences.eventDeviceUnlock = schedule.eventDeviceUnlock
-        schedulePreferences.setEventdisplayWidgetAndNotification(schedule.eventDisplayAidgetAndNotification)
-        schedulePreferences.eventDisplayWidget = schedule.eventDisplayWidget
-        schedulePreferences.eventNextRandom = schedule.eventNextRandom
-        schedulePreferences.eventNextSequential = schedule.eventNextSequential
+        val notificationsPreferences =
+            NotificationsPreferences(
+                widgetId,
+                context
+            )
+        notificationsPreferences.eventDaily = schedule.eventDaily
+        notificationsPreferences.eventDailyTimeHour = schedule.eventDailyHour
+        notificationsPreferences.eventDailyTimeMinute = schedule.eventDailyMinute
+        notificationsPreferences.eventDeviceUnlock = schedule.eventDeviceUnlock
+        notificationsPreferences.setEventdisplayWidgetAndNotification(schedule.eventDisplayAidgetAndNotification)
+        notificationsPreferences.eventDisplayWidget = schedule.eventDisplayWidget
+        notificationsPreferences.eventNextRandom = schedule.eventNextRandom
+        notificationsPreferences.eventNextSequential = schedule.eventNextSequential
     }
 
     private fun restoreSettingsQuotations(

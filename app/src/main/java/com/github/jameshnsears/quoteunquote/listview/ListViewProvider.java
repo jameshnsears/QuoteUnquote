@@ -104,7 +104,7 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
                 quotationList.add(quotationPosition);
             } else {
                 // subsequent calls
-                if (!"".equals(quotationEntity.theQuotation())
+                if (quotationEntity != null && !"".equals(quotationEntity.theQuotation())
                         &&
                         !quotationList.get(0).equals(quotationEntity.theQuotation())) {
                     quotationList.set(0, quotationEntity.theQuotation());

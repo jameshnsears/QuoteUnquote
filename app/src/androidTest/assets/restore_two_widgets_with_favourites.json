@@ -2,66 +2,66 @@
     "code": "DuirnChs1f",
     "current": [
         {
-            "digest": "d1",
+            "digest": "d1234567",
             "widget_id": 2
         },
         {
-            "digest": "d2",
+            "digest": "d2345678",
             "widget_id": 3
         }
     ],
     "favourite": [
         {
-            "digest": "d5",
+            "digest": "d5678901",
             "navigation": 4
         },
         {
-            "digest": "d2",
+            "digest": "d2345678",
             "navigation": 3
         },
         {
-            "digest": "d4",
+            "digest": "d4567890",
             "navigation": 2
         },
         {
-            "digest": "d1",
+            "digest": "d1234567",
             "navigation": 1
         }
     ],
     "previous": [
         {
             "content_type": 1,
-            "digest": "d2",
+            "digest": "d2345678",
             "navigation": 6,
             "widget_id": 3
         },
         {
             "content_type": 1,
-            "digest": "d2",
+            "digest": "d2345678",
             "navigation": 5,
             "widget_id": 2
         },
         {
             "content_type": 1,
-            "digest": "d5",
+            "digest": "d5678901",
             "navigation": 4,
             "widget_id": 2
         },
         {
             "content_type": 1,
-            "digest": "d3",
+            "digest": "d3456789",
             "navigation": 3,
             "widget_id": 3
         },
         {
             "content_type": 1,
-            "digest": "d4",
+            "digest": "d4567890",
             "navigation": 2,
             "widget_id": 3
         },
         {
             "content_type": 1,
-            "digest": "d6",
+            "digest": "d6789012",
             "navigation": 1,
             "widget_id": 2
         }

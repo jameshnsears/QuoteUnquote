@@ -1,0 +1,2 @@
+- Add: Backup / Restore to device.
+- Remove: some similar quotations from database.

@@ -19,18 +19,18 @@ class TransferBackupPreviousTest : DatabaseTestHelper() {
             val previousList = TransferBackupPrevious().previous(databaseRepositoryDouble)
             assertTrue(previousList.size == 4)
             assertEquals(previousList[0].contentType, 4)
-            assertEquals(previousList[0].digest, "d3")
+            assertEquals(previousList[0].digest, "d3456789")
             assertEquals(previousList[0].widgetId, 13)
             assertEquals(previousList[1].contentType, 3)
-            assertEquals(previousList[1].digest, "d1")
+            assertEquals(previousList[1].digest, "d1234567")
             assertEquals(previousList[1].widgetId, 12)
         }
     }
 
     fun setupTestData() {
-        databaseRepositoryDouble.markAsPrevious(12, ContentSelection.ALL, "d4")
-        databaseRepositoryDouble.markAsPrevious(13, ContentSelection.FAVOURITES, "d2")
-        databaseRepositoryDouble.markAsPrevious(12, ContentSelection.AUTHOR, "d1")
-        databaseRepositoryDouble.markAsPrevious(13, ContentSelection.SEARCH, "d3")
+        databaseRepositoryDouble.markAsPrevious(12, ContentSelection.ALL, "d4567890")
+        databaseRepositoryDouble.markAsPrevious(13, ContentSelection.FAVOURITES, "d2345678")
+        databaseRepositoryDouble.markAsPrevious(12, ContentSelection.AUTHOR, "d1234567")
+        databaseRepositoryDouble.markAsPrevious(13, ContentSelection.SEARCH, "d3456789")
     }
 }

@@ -261,11 +261,6 @@ public class DatabaseRepository {
         }
     }
 
-    public void markAsReported(@NonNull final String digest) {
-        Timber.d("digest=%s", digest);
-        reportedDAO.markAsReported(new ReportedEntity(digest));
-    }
-
     public void markAsCurrent(
             final int widgetId,
             @NonNull final String digest) {
@@ -377,13 +372,6 @@ public class DatabaseRepository {
         return secureRandom.nextInt(availableNextQuotations.size());
     }
 
-    public void erasePrevious(final int widgetId, @NonNull final String digest) {
-        Timber.d("digest=%s", digest);
-        previousDAO.erase(widgetId, ContentSelection.ALL, digest);
-        previousDAO.erase(widgetId, ContentSelection.AUTHOR, digest);
-        previousDAO.erase(widgetId, ContentSelection.SEARCH, digest);
-    }
-
     public void eraseFavourite(final int widgetId, @NonNull final String digest) {
         Timber.d("digest=%s", digest);
         favouriteDAO.deleteFavourite(digest);
@@ -395,6 +383,11 @@ public class DatabaseRepository {
         currentDAO.erase();
         favouriteDAO.erase();
         reportedDAO.erase();
+    }
+
+    public void eraseForRestore() {
+        previousDAO.erase();
+        currentDAO.erase();
     }
 
     public void erase(final int widgetId) {

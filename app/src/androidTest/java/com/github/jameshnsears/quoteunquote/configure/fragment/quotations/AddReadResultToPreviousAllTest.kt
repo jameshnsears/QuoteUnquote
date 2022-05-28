@@ -37,7 +37,7 @@ class AddReadResultToPreviousAllTest : QuoteUnquoteModelUtility() {
         )
 
         TestCase.assertEquals(
-            "d2",
+            "d2345678",
             databaseRepositoryDouble.getPreviousDigests(
                 WidgetIdHelper.WIDGET_ID_01,
                 ContentSelection.ALL
@@ -60,7 +60,7 @@ class AddReadResultToPreviousAllTest : QuoteUnquoteModelUtility() {
         )
 
         TestCase.assertEquals(
-            "d3",
+            "d3456789",
             databaseRepositoryDouble.getPreviousDigests(
                 WidgetIdHelper.WIDGET_ID_01,
                 ContentSelection.ALL

@@ -13,6 +13,8 @@
         <entry key="app/src/main/res/drawable/avd_anim_next_plan.xml" value="0.1953125" />
         <entry key="app/src/main/res/drawable/avd_navigation_bar_schedule.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/corners_buttons.xml" value="0.21770833333333334" />
+        <entry key="app/src/main/res/drawable/ic_archive_cloud_24.xml" value="0.167" />
+        <entry key="app/src/main/res/drawable/ic_archive_folder_24.xml" value="0.167" />
         <entry key="app/src/main/res/drawable/ic_content_search_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_event_campaign_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_event_notifications_none_24.xml" value="0.1" />
@@ -39,12 +41,12 @@
         <entry key="app/src/main/res/layout/fragment_appearance.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_appearance_tab_style.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_appearance_tab_toolbar.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_archive.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_archive.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_backup_restore.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_content.xml" value="0.4165103189493433" />
         <entry key="app/src/main/res/layout/fragment_event.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.29080675422138835" />
-        <entry key="app/src/main/res/layout/fragment_quotations.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_quotations.xml" value="0.26988636363636365" />
         <entry key="app/src/main/res/layout/fragment_schedule.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_transfer.xml" value="0.42964352720450283" />
         <entry key="app/src/main/res/layout/listvew_row_0_cursive.xml" value="0.1" />

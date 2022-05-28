@@ -1,4 +1,0 @@
-- New: Backup and Restore.
-- Removed several lower quality quotations.
-- Made appearance more consistent.
-- Simplified codebase; moved to Android Studio Chipmunk.

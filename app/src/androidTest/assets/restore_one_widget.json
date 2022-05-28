@@ -2,7 +2,7 @@
   "code": "DuirnChs1f",
   "current": [
     {
-      "digest": "d1",
+      "digest": "d1234567",
       "widget_id": 40
     }
   ],
@@ -10,7 +10,7 @@
   "previous": [
     {
       "content_type": 1,
-      "digest": "d1",
+      "digest": "d1234567",
       "navigation": 2,
       "widget_id": 40
     },

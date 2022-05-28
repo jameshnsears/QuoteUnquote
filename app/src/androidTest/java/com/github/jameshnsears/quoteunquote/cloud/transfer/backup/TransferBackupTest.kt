@@ -104,25 +104,25 @@ class TransferBackupTest : DatabaseTestHelper() {
       "previous": [
         {
           "content_type": 4,
-          "digest": "d3",
+          "digest": "d3456789",
           "navigation": 6,
           "widget_id": 13
         },
         {
           "content_type": 3,
-          "digest": "d1",
+          "digest": "d1234567",
           "navigation": 5,
           "widget_id": 12
         },
         {
           "content_type": 2,
-          "digest": "d2",
+          "digest": "d2345678",
           "navigation": 4,
           "widget_id": 13
         },
         {
           "content_type": 1,
-          "digest": "d4",
+          "digest": "d4567890",
           "navigation": 3,
           "widget_id": 12
         },
@@ -141,11 +141,11 @@ class TransferBackupTest : DatabaseTestHelper() {
       ],
       "favourite": [
         {
-          "digest": "d4",
+          "digest": "d4567890",
           "navigation": 2
         },
         {
-          "digest": "d2",
+          "digest": "d2345678",
           "navigation": 1
         }
       ]

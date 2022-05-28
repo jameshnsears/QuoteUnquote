@@ -20,8 +20,8 @@ import com.github.jameshnsears.quoteunquote.cloud.CloudServiceRestore;
 import com.github.jameshnsears.quoteunquote.cloud.CloudTransferHelper;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
-import com.github.jameshnsears.quoteunquote.configure.fragment.schedule.ScheduleDailyAlarm;
-import com.github.jameshnsears.quoteunquote.configure.fragment.schedule.SchedulePreferences;
+import com.github.jameshnsears.quoteunquote.configure.fragment.notifications.NotificationsDailyAlarm;
+import com.github.jameshnsears.quoteunquote.configure.fragment.notifications.NotificationsPreferences;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 import com.github.jameshnsears.quoteunquote.listview.ListViewService;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
@@ -177,7 +177,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
 
         final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
 
-        final ScheduleDailyAlarm scheduleDailyAlarm = new ScheduleDailyAlarm(context, widgetId);
+        final NotificationsDailyAlarm notificationsDailyAlarm = new NotificationsDailyAlarm(context, widgetId);
 
         try {
             switch (intent.getAction()) {
@@ -205,11 +205,11 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                 case Intent.ACTION_BOOT_COMPLETED:
                 case Intent.ACTION_REBOOT:
                 case IntentFactoryHelper.ACTIVITY_FINISHED_CONFIGURATION:
-                    onReceiveActivityFinishedConfiguration(context, widgetId, scheduleDailyAlarm);
+                    onReceiveActivityFinishedConfiguration(context, widgetId, notificationsDailyAlarm);
                     break;
 
                 case IntentFactoryHelper.DAILY_ALARM:
-                    onReceiveDailyAlarm(context, widgetId, scheduleDailyAlarm);
+                    onReceiveDailyAlarm(context, widgetId, notificationsDailyAlarm);
                     break;
 
                 case IntentFactoryHelper.TOOLBAR_PRESSED_FIRST:
@@ -259,12 +259,12 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
     }
 
     private void onReceiveActionAppwidgetEnabled(@NonNull final Context context, final AppWidgetManager appWidgetManager) {
-        ScheduleDailyAlarm scheduleDailyAlarm;
+        NotificationsDailyAlarm notificationsDailyAlarm;
         int[] widgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, QuoteUnquoteWidget.class));
         for (final int widgetId : widgetIds) {
             Timber.d("setDailyAlarm: %d", widgetId);
-            scheduleDailyAlarm = new ScheduleDailyAlarm(context, widgetId);
-            scheduleDailyAlarm.setDailyAlarm();
+            notificationsDailyAlarm = new NotificationsDailyAlarm(context, widgetId);
+            notificationsDailyAlarm.setDailyAlarm();
         }
     }
 
@@ -309,9 +309,9 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
         int[] widgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, QuoteUnquoteWidget.class));
 
         for (final int widgetId : widgetIds) {
-            SchedulePreferences schedulePreferences = new SchedulePreferences(widgetId, context);
-            Timber.d("%d: getEventDeviceUnlock=%b", widgetId, schedulePreferences.getEventDeviceUnlock());
-            if (schedulePreferences.getEventDeviceUnlock()) {
+            NotificationsPreferences notificationsPreferences = new NotificationsPreferences(widgetId, context);
+            Timber.d("%d: getEventDeviceUnlock=%b", widgetId, notificationsPreferences.getEventDeviceUnlock());
+            if (notificationsPreferences.getEventDeviceUnlock()) {
                 scheduleEvent(context, widgetId);
             }
         }
@@ -428,17 +428,17 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
     private void onReceiveDailyAlarm(
             @NonNull final Context context,
             final int widgetId,
-            @NonNull final ScheduleDailyAlarm scheduleDailyAlarm) {
-        scheduleDailyAlarm.setDailyAlarm();
+            @NonNull final NotificationsDailyAlarm notificationsDailyAlarm) {
+        notificationsDailyAlarm.setDailyAlarm();
         scheduleEvent(context, widgetId);
     }
 
     private void scheduleEvent(@NonNull Context context, int widgetId) {
-        SchedulePreferences schedulePreferences = new SchedulePreferences(widgetId, context);
+        NotificationsPreferences notificationsPreferences = new NotificationsPreferences(widgetId, context);
 
-        getQuoteUnquoteModel(context).markAsCurrentNext(widgetId, schedulePreferences.getEventNextRandom());
+        getQuoteUnquoteModel(context).markAsCurrentNext(widgetId, notificationsPreferences.getEventNextRandom());
 
-        if (schedulePreferences.getEventDisplayWidgetAndNotification()) {
+        if (notificationsPreferences.getEventDisplayWidgetAndNotification()) {
             displayNotification(context, widgetId);
         }
     }
@@ -451,7 +451,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                 = getQuoteUnquoteModel(context).getCurrentQuotation(widgetId);
 
         if (currentQuotation != null){
-            SchedulePreferences schedulePreferences = new SchedulePreferences(widgetId, context);
+            NotificationsPreferences notificationsPreferences = new NotificationsPreferences(widgetId, context);
 
             notificationHelper.displayNotification(
                     context,
@@ -461,7 +461,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                             context, currentQuotation.digest, currentQuotation.quotation),
                     currentQuotation.digest,
                     getQuoteUnquoteModel(context).isFavourite(currentQuotation.digest),
-                    schedulePreferences.getEventNextSequential(),
+                    notificationsPreferences.getEventNextSequential(),
                     widgetId);
 
             // each widget only ever displays one notification, the notificationId is the widgetId
@@ -481,8 +481,8 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull Context context, int widgetId, @NonNull Intent intent,
             @NonNull AppWidgetManager appWidgetManager) {
         // update the widget
-        SchedulePreferences schedulePreferences = new SchedulePreferences(widgetId, context);
-        if (schedulePreferences.getEventNextSequential()) {
+        NotificationsPreferences notificationsPreferences = new NotificationsPreferences(widgetId, context);
+        if (notificationsPreferences.getEventNextSequential()) {
             onReceiveToolbarPressedNextSequential(context, widgetId, appWidgetManager);
         } else {
             onReceiveToolbarPressedNextRandom(context, widgetId, appWidgetManager);
@@ -507,7 +507,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
         sendAllWidgetInstancesFavouriteNotification(context, widgetId, appWidgetManager);
 
         // update the Notification
-        SchedulePreferences schedulePreferences = new SchedulePreferences(widgetId, context);
+        NotificationsPreferences notificationsPreferences = new NotificationsPreferences(widgetId, context);
 
         QuotationEntity quotationEntity
                 = getQuoteUnquoteModel(context).getQuotation(digestFromIntent);
@@ -519,7 +519,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                 markNotificationAsFavourite(context, digestFromIntent, quotationEntity.quotation),
                 digestFromIntent,
                 getQuoteUnquoteModel(context).isFavourite(digestFromIntent),
-                schedulePreferences.getEventNextSequential(),
+                notificationsPreferences.getEventNextSequential(),
                 widgetId);
     }
 
@@ -546,7 +546,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
         if (!widgetIdToDigestNotificationMap.isEmpty()
                 && widgetIdToDigestNotificationMap.get(widgetId).equals(digestMadeFavouriteInWidget)) {
 
-            SchedulePreferences schedulePreferences = new SchedulePreferences(widgetId, context);
+            NotificationsPreferences notificationsPreferences = new NotificationsPreferences(widgetId, context);
 
             QuotationEntity quotationEntity
                     = getQuoteUnquoteModel(context).getQuotation(digestMadeFavouriteInWidget);
@@ -558,7 +558,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                     markNotificationAsFavourite(context, digestMadeFavouriteInWidget, quotationEntity.quotation),
                     digestMadeFavouriteInWidget,
                     getQuoteUnquoteModel(context).isFavourite(digestMadeFavouriteInWidget),
-                    schedulePreferences.getEventNextSequential(),
+                    notificationsPreferences.getEventNextSequential(),
                     widgetId);
         }
 }
@@ -566,10 +566,10 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
     private void onReceiveActivityFinishedConfiguration(
             @NonNull final Context context,
             final int widgetId,
-            @NonNull final ScheduleDailyAlarm scheduleDailyAlarm) {
+            @NonNull final NotificationsDailyAlarm notificationsDailyAlarm) {
         Timber.d("%d", widgetId);
         getQuoteUnquoteModel(context).markAsCurrentDefault(widgetId);
-        scheduleDailyAlarm.setDailyAlarm();
+        notificationsDailyAlarm.setDailyAlarm();
         updateNotificationIfExists(context, widgetId);
     }
 
@@ -743,8 +743,8 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             getQuoteUnquoteModel(context).delete(widgetId);
             PreferencesFacade.delete(context, widgetId);
 
-            final ScheduleDailyAlarm scheduleDailyAlarm = new ScheduleDailyAlarm(context, widgetId);
-            scheduleDailyAlarm.resetAnyExistingDailyAlarm();
+            final NotificationsDailyAlarm notificationsDailyAlarm = new NotificationsDailyAlarm(context, widgetId);
+            notificationsDailyAlarm.resetAnyExistingDailyAlarm();
         }
     }
 

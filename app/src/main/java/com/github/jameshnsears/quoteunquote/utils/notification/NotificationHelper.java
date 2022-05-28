@@ -61,7 +61,7 @@ public class NotificationHelper {
     }
 
     private NotificationCompat.Action getActionFavourite(
-            @Nullable Context context,
+            @NonNull Context context,
             final int widgetId,
             @NonNull String digest,
             final int notificationId,
@@ -89,7 +89,7 @@ public class NotificationHelper {
     }
 
     private NotificationCompat.Action getActionNext(
-            @Nullable Context context,
+            @NonNull Context context,
             final int widgetId,
             @NonNull String digest,
             final int notificationId,

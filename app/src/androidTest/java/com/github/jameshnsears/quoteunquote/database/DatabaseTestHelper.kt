@@ -28,22 +28,22 @@ abstract class DatabaseTestHelper {
                 DatabaseRepository.getDefaultQuotationDigest(), "w1", "a0", "q0"
             )
         )
-        quotationEntityList.add(QuotationEntity("d1", "w1", "a1", "q1"))
+        quotationEntityList.add(QuotationEntity("d1234567", "w1", "a1", "q1"))
         databaseRepositoryDouble.insertQuotations(quotationEntityList)
     }
 
     fun insertQuotationTestData02() {
         val quotationEntityList: MutableList<QuotationEntity> = ArrayList()
-        quotationEntityList.add(QuotationEntity("d2", "w1", "a2", "q1"))
-        quotationEntityList.add(QuotationEntity("d3", "w1", "a2", "q3"))
-        quotationEntityList.add(QuotationEntity("d4", "w1", "a4", "q1"))
+        quotationEntityList.add(QuotationEntity("d2345678", "w1", "a2", "q1"))
+        quotationEntityList.add(QuotationEntity("d3456789", "w1", "a2", "q3"))
+        quotationEntityList.add(QuotationEntity("d4567890", "w1", "a4", "q1"))
         databaseRepositoryDouble.insertQuotations(quotationEntityList)
     }
 
     fun insertQuotationTestData03() {
         val quotationEntityList: MutableList<QuotationEntity> = ArrayList()
-        quotationEntityList.add(QuotationEntity("d5", "w1", "a5", "q1"))
-        quotationEntityList.add(QuotationEntity("d6", "w1", "a2", "q6"))
+        quotationEntityList.add(QuotationEntity("d5678901", "w1", "a5", "q1"))
+        quotationEntityList.add(QuotationEntity("d6789012", "w1", "a2", "q6"))
         databaseRepositoryDouble.insertQuotations(quotationEntityList)
     }
 

@@ -17,8 +17,8 @@ import com.github.jameshnsears.quoteunquote.QuoteUnquoteWidget;
 import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearanceFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsFragment;
-import com.github.jameshnsears.quoteunquote.configure.fragment.schedule.ScheduleFragment;
-import com.github.jameshnsears.quoteunquote.configure.fragment.transfer.TransferFragment;
+import com.github.jameshnsears.quoteunquote.configure.fragment.notifications.NotificationsFragment;
+import com.github.jameshnsears.quoteunquote.configure.fragment.archive.ArchiveFragment;
 import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
 import com.github.jameshnsears.quoteunquote.databinding.ActivityConfigureBinding;
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
@@ -28,7 +28,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import timber.log.Timber;
 
 public class ConfigureActivity extends AppCompatActivity {
-    public static boolean exportCalled;
+    public static boolean safCalled;
 
     public int widgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
@@ -49,11 +49,11 @@ public class ConfigureActivity extends AppCompatActivity {
                 break;
 
             case R.id.navigationBarSchedule:
-                selectedFragment = ScheduleFragment.newInstance(widgetId);
+                selectedFragment = NotificationsFragment.newInstance(widgetId);
                 break;
 
             case R.id.navigationBarBackupRestore:
-                selectedFragment = TransferFragment.newInstance(widgetId);
+                selectedFragment = ArchiveFragment.newInstance(widgetId);
                 break;
 
             default:
@@ -102,7 +102,7 @@ public class ConfigureActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         // back pressed | swipe up | export activity started
-        if (!this.finishCalled && !ConfigureActivity.exportCalled) {
+        if (!this.finishCalled && !ConfigureActivity.safCalled) {
            finish();
         }
 

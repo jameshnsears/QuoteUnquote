@@ -8,7 +8,7 @@ import com.github.jameshnsears.quoteunquote.cloud.transfer.Settings
 import com.github.jameshnsears.quoteunquote.cloud.transfer.TransferUtility
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences
-import com.github.jameshnsears.quoteunquote.configure.fragment.schedule.SchedulePreferences
+import com.github.jameshnsears.quoteunquote.configure.fragment.notifications.NotificationsPreferences
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 
 // Settings are set on demand in the UI; the settings listed here define all possible
@@ -81,17 +81,21 @@ open class TransferBackupSettings(val context: Context) {
     }
 
     fun settingsSchedule(widgetId: Int, context: Context): Schedule {
-        val schedulePreferences = SchedulePreferences(widgetId, context)
+        val notificationsPreferences =
+            NotificationsPreferences(
+                widgetId,
+                context
+            )
 
         return Schedule(
-            schedulePreferences.eventNextRandom,
-            schedulePreferences.eventNextSequential,
-            schedulePreferences.eventDisplayWidget,
-            schedulePreferences.eventDisplayWidgetAndNotification,
-            schedulePreferences.eventDaily,
-            schedulePreferences.eventDeviceUnlock,
-            schedulePreferences.eventDailyTimeMinute,
-            schedulePreferences.eventDailyTimeHour
+            notificationsPreferences.eventNextRandom,
+            notificationsPreferences.eventNextSequential,
+            notificationsPreferences.eventDisplayWidget,
+            notificationsPreferences.eventDisplayWidgetAndNotification,
+            notificationsPreferences.eventDaily,
+            notificationsPreferences.eventDeviceUnlock,
+            notificationsPreferences.eventDailyTimeMinute,
+            notificationsPreferences.eventDailyTimeHour
         )
     }
 }

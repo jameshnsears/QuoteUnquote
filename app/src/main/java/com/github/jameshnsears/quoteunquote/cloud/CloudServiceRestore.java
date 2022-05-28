@@ -10,7 +10,8 @@ import androidx.annotation.NonNull;
 import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.cloud.transfer.TransferRestoreResponse;
 import com.github.jameshnsears.quoteunquote.cloud.transfer.restore.TransferRestore;
-import com.github.jameshnsears.quoteunquote.configure.fragment.transfer.TransferFragment;
+import com.github.jameshnsears.quoteunquote.configure.fragment.archive.ArchiveFragment;
+import com.github.jameshnsears.quoteunquote.configure.fragment.archive.ArchivePreferences;
 import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
 import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
 
@@ -40,6 +41,11 @@ public class CloudServiceRestore extends CloudService {
                             Toast.LENGTH_SHORT).show());
                 } else {
                     auditRestore(intent);
+
+                    ArchivePreferences archivePreferences
+                            = new ArchivePreferences(intent.getIntExtra("widgetId", 0), context);
+                    boolean googleCloudRadio = archivePreferences.getArchiveGoogleCloud();
+                    boolean sharedStorageRadio = archivePreferences.getArchiveSharedStorage();
 
                     handler.post(() -> Toast.makeText(
                             context,
@@ -77,8 +83,11 @@ public class CloudServiceRestore extends CloudService {
                                 Toast.LENGTH_SHORT).show());
                     }
 
-                    broadcastEvent(TransferFragment.ENABLE_BUTTON_RESTORE);
-                    broadcastEvent(TransferFragment.ENABLE_BUTTON_BACKUP);
+                    archivePreferences.setArchiveGoogleCloud(googleCloudRadio);
+                    archivePreferences.setArchiveSharedStorage(sharedStorageRadio);
+
+                    broadcastEvent(ArchiveFragment.ENABLE_BUTTON_RESTORE);
+                    broadcastEvent(ArchiveFragment.ENABLE_BUTTON_BACKUP);
                 }
 
                 CloudService.isRunning = false;

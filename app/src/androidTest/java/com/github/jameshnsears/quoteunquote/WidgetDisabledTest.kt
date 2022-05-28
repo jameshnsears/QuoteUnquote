@@ -1,7 +1,7 @@
 package com.github.jameshnsears.quoteunquote
 
 import android.os.Build
-import com.github.jameshnsears.quoteunquote.configure.fragment.transfer.TransferPreferences
+import com.github.jameshnsears.quoteunquote.configure.fragment.archive.ArchivePreferences
 import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import io.mockk.every
@@ -22,7 +22,8 @@ open class WidgetDisabledTest : QuoteUnquoteModelUtility() {
 
             quoteUnquoteWidget.onEnabled(context)
             val contentPreferences =
-                TransferPreferences(
+                ArchivePreferences(
+                    0,
                     context
                 )
             assertTrue(contentPreferences.transferLocalCode.length == 10)
@@ -32,7 +33,7 @@ open class WidgetDisabledTest : QuoteUnquoteModelUtility() {
         }
     }
 
-    private fun assertSharedPreferences(quotationsPreferences: TransferPreferences) {
+    private fun assertSharedPreferences(quotationsPreferences: ArchivePreferences) {
         assertEquals(0, PreferencesFacade.countPreferences(context, WidgetIdHelper.WIDGET_ID_01))
         // key exist's we jave haven't defined a value
         assertFalse(quotationsPreferences.transferLocalCode.isEmpty())

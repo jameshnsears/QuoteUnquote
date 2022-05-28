@@ -1,0 +1,73 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 26,
+    "identityHash": "4576f076a1896260b13b26d1a0d40a61",
+    "entities": [
+      {
+        "tableName": "quotations",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`author` TEXT NOT NULL COLLATE NOCASE, `quotation` TEXT NOT NULL COLLATE NOCASE, `wikipedia` TEXT NOT NULL COLLATE NOCASE, `digest` TEXT NOT NULL, PRIMARY KEY(`author`, `quotation`))",
+        "fields": [
+          {
+            "fieldPath": "author",
+            "columnName": "author",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "quotation",
+            "columnName": "quotation",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wikipedia",
+            "columnName": "wikipedia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "digest",
+            "columnName": "digest",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "author",
+            "quotation"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_quotations_digest",
+            "unique": false,
+            "columnNames": [
+              "digest"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_quotations_digest` ON `${TABLE_NAME}` (`digest`)"
+          },
+          {
+            "name": "index_quotations_digest_author",
+            "unique": false,
+            "columnNames": [
+              "digest",
+              "author"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_quotations_digest_author` ON `${TABLE_NAME}` (`digest`, `author`)"
+          }
+        ],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4576f076a1896260b13b26d1a0d40a61')"
+    ]
+  }
+}

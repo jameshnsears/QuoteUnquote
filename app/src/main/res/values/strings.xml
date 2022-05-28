@@ -39,6 +39,7 @@
     <string name="fragment_quotations_favourites">Favourites: %d</string>
     <string name="fragment_quotations_favourites_export_button">Export</string>
     <string name="fragment_quotations_favourites_export_instructions">to storage</string>
+    <string name="fragment_quotations_favourites_export_success">Success - export completed</string>
     <string name="fragment_quotations_search">Search: %d</string>
     <string name="fragment_quotations_search_instructions">Case insensitive search…</string>
     <string name="fragment_quotations_search_no_results">No results found for search</string>
@@ -126,13 +127,15 @@
     <string name="fragment_notifications_where">Display</string>
     <string name="fragment_notifications_widget">Widget</string>
     <string name="fragment_notifications_widget_and_notification">Notification &amp; Widget</string>
-    <string name="fragment_notifications_notification_warning">A notification is size restricted, some quotations might not show in their entirety</string>
+    <string name="fragment_notifications_notification_warning">Notification\'s are size restricted, some quotations might not show in their entirety</string>
     <string name="fragment_notifications_recurring_event">Recurring Event</string>
     <string name="fragment_notifications_screen_unlock">Screen unlock</string>
     <string name="fragment_notifications_time">Time</string>
-
     <string name="fragment_archive_title">Archive</string>
-    <string name="fragment_archive_instructions">Use the Cloud to anonymously backup and restore Configuration; Previous and Favourites</string>
+    <string name="fragment_archive_instructions_1">\u2022 Backup &amp; Restore your Configuration; Previous and Favourites</string>
+    <string name="fragment_archive_instructions_2">\u2022 Favourites are appended during a Restore; everything else is replaced</string>
+    <string name="fragment_archive_select_cloud">Cloud</string>
+    <string name="fragment_archive_select_filesystem">Device</string>
     <string name="fragment_archive_backup_local_code_value">%s</string>
     <string name="fragment_archive_backup">Backup</string>
     <string name="fragment_archive_backup_sending">Backup - please wait&#8230;</string>
@@ -140,10 +143,11 @@
     <string name="fragment_archive_restore">Restore</string>
     <string name="fragment_archive_restore_token_missing">Please enter 10 character code</string>
     <string name="fragment_archive_restore_token_invalid">Please enter a valid code</string>
+    <string name="fragment_archive_restore_saf_invalid">Invalid file contents</string>
     <string name="fragment_archive_restore_receiving">Restore - please wait&#8230;</string>
     <string name="fragment_archive_restore_missing_code">Unable to find code in cloud</string>
     <string name="fragment_archive_restore_success">Success - restore completed</string>
-    <string name="fragment_archive_internet_missing">Check network / wait &amp; retry later</string>
+    <string name="fragment_archive_internet_missing">Check network / wait &amp; retry</string>
 
     <string name="notification_action_favourite">Favourite, toggle</string>
     <string name="notification_channel_id">quote_unquote_channel_01</string>
@@ -153,5 +157,5 @@
     <string name="preview_description">Discover high quality quotations!</string>
     <string name="preview_quotation">Nothing matters very much and very few things matter at all.\n</string>
     <string name="preview_author"><u>Arthur Balfour\n</u></string>
-    <string name="preview_position">\u2316  1/20603</string>
+    <string name="preview_position">\u2316  1/20568</string>
 </resources>

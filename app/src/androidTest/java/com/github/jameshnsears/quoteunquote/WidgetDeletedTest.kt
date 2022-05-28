@@ -2,7 +2,7 @@ package com.github.jameshnsears.quoteunquote
 
 import android.os.Build
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences
-import com.github.jameshnsears.quoteunquote.configure.fragment.transfer.TransferPreferences
+import com.github.jameshnsears.quoteunquote.configure.fragment.archive.ArchivePreferences
 import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import io.mockk.every
@@ -23,23 +23,24 @@ class WidgetDeletedTest : QuoteUnquoteModelUtility() {
             every { quoteUnquoteWidget.getQuoteUnquoteModel(any()) } returns quoteUnquoteModelDouble
 
             quoteUnquoteWidget.onEnabled(context)
-            val transferPreferences =
-                TransferPreferences(
+            val archivePreferences =
+                ArchivePreferences(
+                    0,
                     context
                 )
-            assertTrue(transferPreferences.transferLocalCode.length == 10)
+            assertTrue(archivePreferences.transferLocalCode.length == 10)
             quoteUnquoteWidget.onDeleted(context, intArrayOf(WidgetIdHelper.WIDGET_ID_01))
 
             assertDatabase()
-            assertSharedPreferences(transferPreferences)
+            assertSharedPreferences(archivePreferences)
         }
     }
 
-    private fun assertSharedPreferences(transferPreferences: TransferPreferences) {
+    private fun assertSharedPreferences(archivePreferences: ArchivePreferences) {
         assertEquals(0, PreferencesFacade.countPreferences(context, WidgetIdHelper.WIDGET_ID_01))
         assertEquals(1, PreferencesFacade.countPreferences(context, WidgetIdHelper.WIDGET_ID_02))
 
-        assertFalse(transferPreferences.transferLocalCode.isEmpty())
+        assertFalse(archivePreferences.transferLocalCode.isEmpty())
     }
 
     private fun assertDatabase() {
