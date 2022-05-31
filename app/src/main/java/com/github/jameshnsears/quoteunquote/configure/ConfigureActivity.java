@@ -48,11 +48,11 @@ public class ConfigureActivity extends AppCompatActivity {
                 selectedFragment = AppearanceFragment.newInstance(widgetId);
                 break;
 
-            case R.id.navigationBarSchedule:
+            case R.id.navigationBarNotification:
                 selectedFragment = NotificationsFragment.newInstance(widgetId);
                 break;
 
-            case R.id.navigationBarBackupRestore:
+            case R.id.navigationBarArchive:
                 selectedFragment = ArchiveFragment.newInstance(widgetId);
                 break;
 

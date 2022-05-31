@@ -1,0 +1,3 @@
+- Add: Colour pickers: Background; Text; Toolbar.
+- Fix: Airplane mode recognition for Archive to Cloud.
+- Remove: some similar quotations from database.

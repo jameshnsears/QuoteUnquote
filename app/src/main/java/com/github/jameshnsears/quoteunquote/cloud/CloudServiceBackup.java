@@ -30,7 +30,7 @@ public class CloudServiceBackup extends CloudService {
 
                 final Context context = getServiceContext();
 
-                if (!cloudTransfer.isInternetAvailable()) {
+                if (!cloudTransfer.isInternetAvailable(context)) {
                     handler.post(() -> Toast.makeText(
                             context,
                             context.getString(R.string.fragment_archive_internet_missing),

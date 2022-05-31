@@ -37,10 +37,13 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
     private final QuotationEntity quotationEntity;
 
     private final int textSize;
+
     @Nullable
     private final String textColour;
+
     @Nullable
     public QuoteUnquoteModel quoteUnquoteModel;
+
     @Nullable
     private String quotationPosition;
 
@@ -63,16 +66,19 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
                     widgetId);
 
             if (quotationEntity != null) {
-                Timber.d("digest=%s", quotationEntity.digest);
-
                 quotationPosition = getQuoteUnquoteModel().getCurrentPosition(
                         widgetId,
                         quotationsPreferences);
-                if (quotationEntity.digest.equals(
-                        getQuoteUnquoteModel().getLastPreviousDigest(
-                                widgetId, quotationsPreferences.getContentSelection()))) {
 
-                    quotationPosition = "\u2316  " + quotationPosition;
+                if (quotationEntity.digest != null) {
+                    Timber.d("digest=%s", quotationEntity.digest);
+
+                    if (quotationEntity.digest.equals(
+                            getQuoteUnquoteModel().getLastPreviousDigest(
+                                    widgetId, quotationsPreferences.getContentSelection()))) {
+
+                        quotationPosition = "\u2316  " + quotationPosition;
+                    }
                 }
             }
         }

@@ -1,2 +1,0 @@
-- Fix: Power on / off detection.
-- Improve: Slightly reposition Last Previous indicator.

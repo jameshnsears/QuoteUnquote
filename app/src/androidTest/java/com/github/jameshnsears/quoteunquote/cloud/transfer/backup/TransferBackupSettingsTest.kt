@@ -96,7 +96,7 @@ class TransferBackupSettingsTest : GsonTestHelper() {
         "Regular",
         16,
         "#FF000000",
-        "",
+        "#FF000000",
         false,
         true,
         true,

@@ -12,37 +12,58 @@
     android:theme="@style/Theme.QuoteUnquote">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingVertical="5dp">
-
-        <TextView
-            android:id="@+id/textViewToolbarColour"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:text="@string/fragment_appearance_colour"
-            android:textSize="14sp" />
-
-        <Spinner
-            android:id="@+id/spinnerToolbarColour"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:paddingStart="20dp"
-            android:paddingEnd="5dp"
-            android:background="@null"
-            android:spinnerMode="dropdown" />
+            android:orientation="vertical">
 
+        <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/toolbarSwitchRemoveSpaceAboveToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/fragment_appearance_toolbar_hide_separator"
+                android:paddingVertical="10dp"
+                android:textSize="14sp"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="5dp"
+                android:text="@string/fragment_appearance_toolbar_buttons"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingVertical="5dp">
+
+            <TextView
+                    android:id="@+id/textViewToolbarColour"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="@string/fragment_appearance_colour"
+                    android:textSize="14sp" />
+
+            <Button
+                    android:id="@+id/toolbarColourPickerButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="5dp"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+        </LinearLayout>
 
         <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/toolbarSwitchFirst"
@@ -101,11 +122,27 @@
                 android:id="@+id/toolbarSwitchShare"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:checked="false"
+                android:checked="true"
                 android:drawableStart="@drawable/ic_toolbar_share_24"
                 android:drawablePadding="20dp"
                 android:paddingVertical="10dp"
                 android:text="@string/fragment_appearance_toolbar_share"
+                android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/toolbar_switch_jump"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_toolbar_jump_24"
+                android:drawablePadding="20dp"
+                android:paddingVertical="10dp"
+                android:text="@string/fragment_appearance_toolbar_position_indicator"
                 android:textSize="14sp" />
     </LinearLayout>
 
@@ -126,9 +163,9 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
         <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/toolbarSwitchNextRandom"

@@ -60,6 +60,16 @@
             android:src="@drawable/ic_toolbar_share_ff000000_24" />
 
         <ImageButton
+                android:id="@+id/imageButtonJump"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:contentDescription="@string/fragment_appearance_toolbar_position_indicator"
+                android:src="@drawable/ic_toolbar_jump_ff000000_24"
+                android:visibility="gone" />
+
+        <ImageButton
             android:id="@+id/imageButtonNextSequential"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

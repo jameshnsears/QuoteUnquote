@@ -6,7 +6,7 @@
         <item name="colorSecondary">@color/indigo_500</item>
         <item name="colorSecondaryVariant">@color/indigo_700</item>
         <item name="colorOnSecondary">@color/black</item>
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
     </style>
 
     <style name="Theme.QuoteUnquote.AppBarOverlay" parent="Theme.MaterialComponents.DayNight.NoActionBar">

@@ -37,6 +37,8 @@ public class IntentFactoryHelper {
     @NonNull
     public static final String TOOLBAR_PRESSED_SHARE = "TOOLBAR_PRESSED_SHARE";
     @NonNull
+    public static final String TOOLBAR_PRESSED_JUMP = "TOOLBAR_PRESSED_JUMP";
+    @NonNull
     public static final String TOOLBAR_PRESSED_NEXT_RANDOM = "TOOLBAR_PRESSED_NEXT_RANDOM";
     @NonNull
     public static final String TOOLBAR_PRESSED_NEXT_SEQUENTIAL = "TOOLBAR_PRESSED_NEXT_SEQUENTIAL";

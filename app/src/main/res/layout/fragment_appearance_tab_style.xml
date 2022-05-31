@@ -2,17 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:focusableInTouchMode="true"
-    android:orientation="vertical"
-    android:paddingStart="0dp"
-    android:paddingEnd="5dp">
+        android:layout_height="match_parent"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:paddingStart="0dp"
+        android:paddingEnd="5dp"
+        android:theme="@style/Theme.QuoteUnquote">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingVertical="5dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingVertical="5dp">
 
         <TextView
                 android:layout_width="match_parent"
@@ -23,10 +24,10 @@
                 android:textStyle="bold" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:paddingTop="5dp">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingTop="5dp">
 
             <TextView
                     android:layout_width="90dp"
@@ -38,26 +39,26 @@
                     android:text="@string/fragment_appearance_colour"
                     android:textSize="14sp" />
 
-            <Spinner
-                    android:id="@+id/spinnerColour"
-                    android:layout_width="match_parent"
+            <Button
+                    android:id="@+id/backgroundColourPickerButton"
+                    android:layout_width="wrap_content"
                     android:layout_height="48dp"
-                    android:layout_gravity="center_vertical"
-                    android:background="@null"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
                     android:paddingStart="0dp"
                     android:paddingEnd="5dp"
-                    android:spinnerMode="dropdown"
                     tools:ignore="SpeakableTextPresentCheck" />
+
         </LinearLayout>
 
     </LinearLayout>
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="5dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="5dp">
 
         <TextView
                 android:id="@+id/textView"
@@ -70,11 +71,11 @@
                 android:textSize="14sp" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp">
 
             <com.google.android.material.slider.Slider
                     android:id="@+id/seekBarTransparency"
@@ -94,9 +95,9 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
         <TextView
                 android:layout_width="match_parent"
@@ -108,10 +109,10 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="5dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="5dp">
 
         <TextView
                 android:id="@+id/textViewTextColour"
@@ -126,25 +127,22 @@
                 android:text="@string/fragment_appearance_colour"
                 android:textSize="14sp" />
 
-        <Spinner
-                android:id="@+id/spinnerTextColour"
-                android:layout_width="0dp"
+        <Button
+                android:id="@+id/textColourPickerButton"
+                android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:background="@null"
+                android:layout_gravity="center"
                 android:paddingStart="0dp"
                 android:paddingEnd="5dp"
-                android:spinnerMode="dropdown"
                 tools:ignore="SpeakableTextPresentCheck" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="5dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="5dp">
 
         <TextView
                 android:id="@+id/textViewFamily"
@@ -169,10 +167,10 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="5dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="5dp">
 
         <TextView
                 android:id="@+id/textViewStyle"
@@ -198,10 +196,10 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="5dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="5dp">
 
         <TextView
                 android:id="@+id/textViewSize"

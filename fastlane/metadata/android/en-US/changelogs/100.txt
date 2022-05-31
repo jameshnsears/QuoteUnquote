@@ -1,0 +1,4 @@
+- Add: Jump, to last Previous toolbar button.
+- Add: Removing space above toolbar on widget.
+- Change: make Text Colour Black more obvious.
+- Use Android API 32.

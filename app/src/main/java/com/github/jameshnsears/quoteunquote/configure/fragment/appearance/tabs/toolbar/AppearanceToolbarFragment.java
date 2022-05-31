@@ -17,6 +17,9 @@ import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentAppearanceTabToolbarBinding;
+import com.skydoves.colorpickerview.ColorPickerDialog;
+import com.skydoves.colorpickerview.ColorPickerView;
+import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
 
 @Keep
 public class AppearanceToolbarFragment extends FragmentCommon {
@@ -63,15 +66,18 @@ public class AppearanceToolbarFragment extends FragmentCommon {
     @Override
     public void onViewCreated(
             @NonNull final View view, @NonNull final Bundle savedInstanceState) {
-        createListenerToolbarColour();
+        createListenerToolbarColourPicker();
+        createListenerRemoveSpaceAboveToolbar();
         createListenerToolbarFirst();
         createListenerToolbarPrevious();
         createListenerToolbarToggleFavourite();
         createListenerToolbarShare();
+        createListenerToolbarJump();
         createListenerToolbarNextRandom();
         createListenerToolbarNextSequential();
 
         setToolbarColour();
+        setRemoveSpaceAboveToolbar();
         setToolbar();
     }
 
@@ -80,23 +86,51 @@ public class AppearanceToolbarFragment extends FragmentCommon {
         fragmentAppearanceTabToolbarBinding.toolbarSwitchPrevious.setChecked(appearancePreferences.getAppearanceToolbarPrevious());
         fragmentAppearanceTabToolbarBinding.toolbarSwitchToggleFavourite.setChecked(appearancePreferences.getAppearanceToolbarFavourite());
         fragmentAppearanceTabToolbarBinding.toolbarSwitchShare.setChecked(appearancePreferences.getAppearanceToolbarShare());
+        fragmentAppearanceTabToolbarBinding.toolbarSwitchJump.setChecked(appearancePreferences.getAppearanceToolbarJump());
         fragmentAppearanceTabToolbarBinding.toolbarSwitchNextRandom.setChecked(appearancePreferences.getAppearanceToolbarRandom());
         fragmentAppearanceTabToolbarBinding.toolbarSwitchNextSequential.setChecked(appearancePreferences.getAppearanceToolbarSequential());
     }
 
-    private void createListenerToolbarColour() {
-        final Spinner spinner = fragmentAppearanceTabToolbarBinding.spinnerToolbarColour;
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(final AdapterView<?> parent, final View view, final int position, final long selectedItemId) {
-                appearancePreferences.setAppearanceToolbarColour(spinner.getSelectedItem().toString());
-            }
+    private void createListenerToolbarColourPicker() {
+        fragmentAppearanceTabToolbarBinding.toolbarColourPickerButton.setOnClickListener(v -> {
+            ColorPickerDialog.Builder builder = new ColorPickerDialog.Builder(getContext())
+                    .setTitle(getString(R.string.fragment_appearance_toolbar_colour_dialog_title))
+                    .setPositiveButton(getString(R.string.fragment_appearance_ok),
+                            (ColorEnvelopeListener) (envelope, fromUser) -> {
 
-            @Override
-            public void onNothingSelected(final AdapterView<?> parent) {
-                // do nothing
-            }
+                                fragmentAppearanceTabToolbarBinding
+                                        .toolbarColourPickerButton
+                                        .setBackgroundColor(envelope.getColor());
+
+                                appearancePreferences.setAppearanceToolbarColour("#" + envelope.getHexCode());
+                            }
+
+                    )
+                    .setNegativeButton(getString(R.string.fragment_appearance_cancel),
+                            (dialogInterface, i) -> dialogInterface.dismiss())
+                    .attachAlphaSlideBar(false)
+                    .attachBrightnessSlideBar(true);
+
+            ColorPickerView colorPickerView = builder.getColorPickerView();
+
+            String appearanceToolbarColour = appearancePreferences.getAppearanceToolbarColour();
+            appearanceToolbarColour = appearanceToolbarColour.replace("#", "");
+            int appearanceColourUnsignedInt = Integer.parseUnsignedInt(appearanceToolbarColour, 16);
+            colorPickerView.setInitialColor(appearanceColourUnsignedInt);
+
+            colorPickerView.getBrightnessSlider().invalidate();
+            builder.show();
         });
+    }
+
+    public void setRemoveSpaceAboveToolbar() {
+        fragmentAppearanceTabToolbarBinding.toolbarSwitchRemoveSpaceAboveToolbar.setChecked(appearancePreferences.getAppearanceRemoveSpaceAboveToolbar());
+    }
+
+    private void createListenerRemoveSpaceAboveToolbar() {
+        fragmentAppearanceTabToolbarBinding.toolbarSwitchRemoveSpaceAboveToolbar.setOnCheckedChangeListener((buttonView, isChecked) ->
+                appearancePreferences.setAppearanceRemoveSpaceAboveToolbar(isChecked)
+        );
     }
 
     private void createListenerToolbarFirst() {
@@ -123,6 +157,12 @@ public class AppearanceToolbarFragment extends FragmentCommon {
         );
     }
 
+    private void createListenerToolbarJump() {
+        fragmentAppearanceTabToolbarBinding.toolbarSwitchJump.setOnCheckedChangeListener((buttonView, isChecked) ->
+                appearancePreferences.setAppearanceToolbarJump(isChecked)
+        );
+    }
+
     private void createListenerToolbarNextRandom() {
         fragmentAppearanceTabToolbarBinding.toolbarSwitchNextRandom.setOnCheckedChangeListener((buttonView, isChecked) ->
                 appearancePreferences.setAppearanceToolbarRandom(isChecked)
@@ -136,14 +176,10 @@ public class AppearanceToolbarFragment extends FragmentCommon {
     }
 
     public void setToolbarColour() {
-        setSpinner(
-                fragmentAppearanceTabToolbarBinding.spinnerToolbarColour,
-                new AppearanceToolbarColourSpinnerAdapter(getActivity().getBaseContext()),
-                appearancePreferences.getAppearanceToolbarColour(),
-                0,
-                R.array.fragment_appearance_toolbar_colour_array
-        );
-
-        appearancePreferences.setAppearanceToolbarColour(fragmentAppearanceTabToolbarBinding.spinnerToolbarColour.getSelectedItem().toString());
+        String appearanceToolbarColour = appearancePreferences.getAppearanceToolbarColour();
+        appearanceToolbarColour = appearanceToolbarColour.replace("#", "");
+        int appearanceColourUnsignedInt = Integer.parseUnsignedInt(appearanceToolbarColour, 16);
+        fragmentAppearanceTabToolbarBinding
+                .toolbarColourPickerButton.setBackgroundColor(appearanceColourUnsignedInt);
     }
 }

@@ -75,7 +75,7 @@
                     android:text="@string/activity_instructions_2"
                     android:textAlignment="center"
                     android:textSize="14sp"
-                    app:drawableEndCompat="@drawable/ic_schedule_widgets_24" />
+                    app:drawableEndCompat="@drawable/ic_notifications_widgets_24" />
 
             <TextView
                     android:layout_width="match_parent"

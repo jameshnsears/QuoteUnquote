@@ -6,14 +6,14 @@
             android:title="@string/configure_navigation_bar_quotations" />
     <item
             android:id="@+id/navigationBarAppearance"
-            android:icon="@drawable/ic_selector_navigation_bar_appearance_24"
+            android:icon="@drawable/ic_selector_navigation_bar_brush_24"
             android:title="@string/configure_navigation_bar_appearance" />
     <item
-            android:id="@+id/navigationBarSchedule"
+            android:id="@+id/navigationBarNotification"
             android:icon="@drawable/ic_selector_navigation_bar_update_24"
             android:title="@string/fragment_notifications_title" />
     <item
-            android:id="@+id/navigationBarBackupRestore"
-            android:icon="@drawable/ic_selector_navigation_bar_backup_restore_24"
+            android:id="@+id/navigationBarArchive"
+            android:icon="@drawable/ic_selector_navigation_bar_sync_alt_24"
             android:title="@string/fragment_archive_title" />
 </menu>

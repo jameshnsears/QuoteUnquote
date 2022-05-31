@@ -91,8 +91,6 @@ public class QuoteUnquoteModel {
         return quotationEntity;
     }
 
-
-
     @Nullable
     public String getLastPreviousDigest(
             final int widgetId,
@@ -251,8 +249,7 @@ public class QuoteUnquoteModel {
         return nextQuotation;
     }
 
-    public void markAsCurrentDefault(
-            final int widgetId) {
+    public void markAsCurrentDefault(final int widgetId) {
         final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
             ContentSelection contentSelection = getContentPreferences(widgetId).getContentSelection();
 
@@ -507,6 +504,22 @@ public class QuoteUnquoteModel {
                     getCurrentQuotation(widgetId).digest);
 
             databaseRepository.markAsCurrent(widgetId, previousQuotation.digest);
+        });
+
+        try {
+            future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    public void markAsCurrentLastPrevious(final int widgetId) {
+        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+            ContentSelection contentSelection = getContentPreferences(widgetId).getContentSelection();
+            databaseRepository.markAsCurrent(
+                    widgetId,
+                    databaseRepository.getLastPreviousDigest(widgetId, contentSelection));
         });
 
         try {

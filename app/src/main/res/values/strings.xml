@@ -13,7 +13,7 @@
     <string name="activity_instructions_configure_1">\u2022 Once the widget is on the home screen, tap the quotation text to re-configure the widget.</string>
     <string name="activity_instructions_configure_2">\u2022 Configuration changes are only recognised when the Configuration screen is exited with the Back button / Gesture.</string>
     <string name="activity_instructions_configure_3">\u2022 Tap an <u>underlined</u> author for Wikipedia entry.</string>
-    <string name="activity_instructions_configure_4">\u2022 The \u2316 icon, next to the quotation position count, denotes the last seen previous quotation.</string>
+    <string name="activity_instructions_configure_4">\u2022 The \u2316 icon, next to the quotation position count, denotes last previous quotation.</string>
     <string name="activity_instructions_resize">Resize the widget</string>
     <string name="activity_instructions_resize_instruction_1">1. Touch and hold the widget on your home screen.</string>
     <string name="activity_instructions_resize_instruction_2">2. Lift your finger. You\'ll find an outline with dots on the sides.</string>
@@ -48,43 +48,12 @@
     <string name="fragment_appearance_tab_style">Style</string>
     <string name="fragment_appearance_background">Background</string>
     <string name="fragment_appearance_colour">Colour</string>
-    <string-array name="fragment_appearance_colour_array">
-        <item>#FFFFFFFF</item>
-        <item>#FFF8FD89</item>
-        <item>#FFFFFF00</item>
-        <item>#FFFFD700</item>
-        <item>#FFFF9355</item>
-        <item>#FFFF8D91</item>
-        <item>#FFFF1493</item>
-        <item>#FFEDD1B0</item>
-        <item>#FFC0C0C0</item>
-        <item>#FFB987DC</item>
-        <item>#FF9370DB</item>
-        <item>#FF800080</item>
-        <item>#FF79C47D</item>
-        <item>#FF65D6DB</item>
-        <item>#FF55C3E5</item>
-        <item>#FF000000</item>
-    </string-array>
+    <string name="fragment_appearance_background_colour_dialog_title">Background Colour</string>
+    <string name="fragment_appearance_cancel">Cancel</string>
+    <string name="fragment_appearance_ok">OK</string>
     <string name="fragment_appearance_transparency">Transparency %</string>
     <string name="fragment_appearance_text">Text</string>
-    <string-array name="fragment_appearance_text_colour_array">
-        <item>#FFFFFFFF</item>
-        <item>#FFFFFF00</item>
-        <item>#FFFFD700</item>
-        <item>#FFFF69B4</item>
-        <item>#FFFF1493</item>
-        <item>#FFFF0000</item>
-        <item>#FFC0C0C0</item>
-        <item>#FF9370DB</item>
-        <item>#FF8B0000</item>
-        <item>#FF800080</item>
-        <item>#FF00FF00</item>
-        <item>#FF008000</item>
-        <item>#FF0000FF</item>
-        <item>#FF00008B</item>
-        <item>#FF000000</item>
-    </string-array>
+    <string name="fragment_appearance_text_colour_dialog_title">Text Colour</string>
     <string name="fragment_appearance_family">Family</string>
     <string-array name="fragment_appearance_family_array">
         <item>Cursive</item>
@@ -112,15 +81,15 @@
         <item>28</item>
     </integer-array>
     <string name="fragment_appearance_toolbar">Toolbar</string>
-    <string-array name="fragment_appearance_toolbar_colour_array">
-        <item>#FF000000</item>
-        <item>#FFFFFFFF</item>
-    </string-array>
+    <string name="fragment_appearance_toolbar_buttons">Buttons</string>
+    <string name="fragment_appearance_toolbar_hide_separator">Hide separator</string>
+    <string name="fragment_appearance_toolbar_colour_dialog_title">Button Colour</string>
     <string name="fragment_appearance_toolbar_first">First, clears Previous</string>
     <string name="fragment_appearance_toolbar_previous">Previous</string>>
     <string name="fragment_appearance_toolbar_favourite">Favourite, toggle</string>
     <string name="fragment_appearance_toolbar_share">Share</string>
     <string name="fragment_appearance_toolbar_next_sequential">Next, sequential</string>
+    <string name="fragment_appearance_toolbar_position_indicator">Jump, last Previous</string>
     <string name="fragment_appearance_toolbar_next_random">Next, random</string>
 
     <string name="fragment_notifications_title">Notifications</string>
@@ -131,8 +100,9 @@
     <string name="fragment_notifications_recurring_event">Recurring Event</string>
     <string name="fragment_notifications_screen_unlock">Screen unlock</string>
     <string name="fragment_notifications_time">Time</string>
-    <string name="fragment_archive_title">Archive</string>
-    <string name="fragment_archive_instructions_1">\u2022 Backup &amp; Restore your Configuration; Previous and Favourites</string>
+
+    <string name="fragment_archive_title">Sync</string>
+    <string name="fragment_archive_instructions_1">\u2022 Sync your Configuration; Previous and Favourites</string>
     <string name="fragment_archive_instructions_2">\u2022 Favourites are appended during a Restore; everything else is replaced</string>
     <string name="fragment_archive_select_cloud">Cloud</string>
     <string name="fragment_archive_select_filesystem">Device</string>
@@ -157,5 +127,6 @@
     <string name="preview_description">Discover high quality quotations!</string>
     <string name="preview_quotation">Nothing matters very much and very few things matter at all.\n</string>
     <string name="preview_author"><u>Arthur Balfour\n</u></string>
-    <string name="preview_position">\u2316  1/20568</string>
+    <string name="preview_position">\u2316  1/20550</string>
+
 </resources>

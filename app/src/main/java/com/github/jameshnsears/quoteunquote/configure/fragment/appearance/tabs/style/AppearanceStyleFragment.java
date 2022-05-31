@@ -21,6 +21,11 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentAppearanceTabStyleBinding;
 import com.google.android.material.slider.Slider;
+import com.skydoves.colorpickerview.ColorPickerDialog;
+import com.skydoves.colorpickerview.ColorPickerView;
+import com.skydoves.colorpickerview.flag.BubbleFlag;
+import com.skydoves.colorpickerview.flag.FlagMode;
+import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,8 +58,8 @@ public class AppearanceStyleFragment extends FragmentCommon {
     @NonNull
     public View onCreateView(
             @NonNull final LayoutInflater inflater,
-            final @NonNull ViewGroup container,
-            final @NonNull Bundle savedInstanceState) {
+            @NonNull ViewGroup container,
+            @NonNull Bundle savedInstanceState) {
         final Context context = new ContextThemeWrapper(getActivity(), R.style.Theme_MaterialComponents_DayNight);
 
         appearancePreferences = new AppearancePreferences(this.widgetId, getContext());
@@ -71,22 +76,62 @@ public class AppearanceStyleFragment extends FragmentCommon {
 
     @Override
     public void onViewCreated(
-            @NonNull final View view, final @NonNull Bundle savedInstanceState) {
+            @NonNull final View view, @NonNull Bundle savedInstanceState) {
+        createListenerBackgroundColourPicker();
         createListenerTransparency();
-        createListenerBackgroundColour();
 
+        createListenerTextColourPicker();
         createListenerTextFamily();
         createListenerTextStyle();
         createListenerTextSize();
-        createListenerTextColour();
 
-        setTransparency();
         setBackgroundColour();
+        setTransparency();
 
+        setTextColour();
         setTextFamily();
         setTextStyle();
         setTextSize();
-        setTextColour();
+    }
+
+    private void setBackgroundColour() {
+        String appearanceColour = appearancePreferences.getAppearanceColour();
+        appearanceColour = appearanceColour.replace("#", "");
+        int appearanceColourUnsignedInt = Integer.parseUnsignedInt(appearanceColour, 16);
+        fragmentAppearanceTabStyleBinding
+                .backgroundColourPickerButton.setBackgroundColor(appearanceColourUnsignedInt);
+    }
+
+    private void createListenerBackgroundColourPicker() {
+        fragmentAppearanceTabStyleBinding.backgroundColourPickerButton.setOnClickListener(v -> {
+            ColorPickerDialog.Builder builder = new ColorPickerDialog.Builder(getContext())
+                    .setTitle(getString(R.string.fragment_appearance_background_colour_dialog_title))
+                    .setPositiveButton(getString(R.string.fragment_appearance_ok),
+                            (ColorEnvelopeListener) (envelope, fromUser) -> {
+
+                                fragmentAppearanceTabStyleBinding
+                                        .backgroundColourPickerButton
+                                        .setBackgroundColor(envelope.getColor());
+
+                                appearancePreferences.setAppearanceColour("#" + envelope.getHexCode());
+                            }
+
+                    )
+                    .setNegativeButton(getString(R.string.fragment_appearance_cancel),
+                            (dialogInterface, i) -> dialogInterface.dismiss())
+                    .attachAlphaSlideBar(false)
+                    .attachBrightnessSlideBar(true);
+
+            ColorPickerView colorPickerView = builder.getColorPickerView();
+
+            String appearanceColour = appearancePreferences.getAppearanceColour();
+            appearanceColour = appearanceColour.replace("#", "");
+            int appearanceColourUnsignedInt = Integer.parseUnsignedInt(appearanceColour, 16);
+            colorPickerView.setInitialColor(appearanceColourUnsignedInt);
+
+             colorPickerView.getBrightnessSlider().invalidate();
+            builder.show();
+        });
     }
 
     private void createListenerTransparency() {
@@ -141,21 +186,6 @@ public class AppearanceStyleFragment extends FragmentCommon {
         });
     }
 
-    private void createListenerBackgroundColour() {
-        final Spinner spinner = fragmentAppearanceTabStyleBinding.spinnerColour;
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(final AdapterView<?> parent, final View view, final int position, final long selectedItemId) {
-                appearancePreferences.setAppearanceColour(spinner.getSelectedItem().toString());
-            }
-
-            @Override
-            public void onNothingSelected(final AdapterView<?> parent) {
-                // do nothing
-            }
-        });
-    }
-
     private void createListenerTextSize() {
         final Spinner spinner = fragmentAppearanceTabStyleBinding.spinnerSize;
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -171,18 +201,35 @@ public class AppearanceStyleFragment extends FragmentCommon {
         });
     }
 
-    private void createListenerTextColour() {
-        final Spinner spinner = fragmentAppearanceTabStyleBinding.spinnerTextColour;
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(final AdapterView<?> parent, final View view, final int position, final long selectedItemId) {
-                appearancePreferences.setAppearanceTextColour(spinner.getSelectedItem().toString());
-            }
+    private void createListenerTextColourPicker() {
+        fragmentAppearanceTabStyleBinding.textColourPickerButton.setOnClickListener(v -> {
+            ColorPickerDialog.Builder builder = new ColorPickerDialog.Builder(getContext())
+                    .setTitle(getString(R.string.fragment_appearance_text_colour_dialog_title))
+                    .setPositiveButton(getString(R.string.fragment_appearance_ok),
+                            (ColorEnvelopeListener) (envelope, fromUser) -> {
 
-            @Override
-            public void onNothingSelected(final AdapterView<?> parent) {
-                // do nothing
-            }
+                                fragmentAppearanceTabStyleBinding
+                                        .textColourPickerButton
+                                        .setBackgroundColor(envelope.getColor());
+
+                                appearancePreferences.setAppearanceTextColour("#" + envelope.getHexCode());
+                            }
+
+                    )
+                    .setNegativeButton(getString(R.string.fragment_appearance_cancel),
+                            (dialogInterface, i) -> dialogInterface.dismiss())
+                    .attachAlphaSlideBar(false)
+                    .attachBrightnessSlideBar(true);
+
+            ColorPickerView colorPickerView = builder.getColorPickerView();
+
+            String appearanceTextColour = appearancePreferences.getAppearanceTextColour();
+            appearanceTextColour = appearanceTextColour.replace("#", "");
+            int appearanceColourUnsignedInt = Integer.parseUnsignedInt(appearanceTextColour, 16);
+            colorPickerView.setInitialColor(appearanceColourUnsignedInt);
+
+            colorPickerView.getBrightnessSlider().invalidate();
+            builder.show();
         });
     }
 
@@ -298,27 +345,11 @@ public class AppearanceStyleFragment extends FragmentCommon {
         appearancePreferences.setAppearanceTextStyle(fragmentAppearanceTabStyleBinding.spinnerStyle.getSelectedItem().toString());
     }
 
-    public void setBackgroundColour() {
-        setSpinner(
-                this.fragmentAppearanceTabStyleBinding.spinnerColour,
-                new AppearanceBackgroundColourSpinnerAdapter(getActivity().getBaseContext()),
-                appearancePreferences.getAppearanceColour(),
-                1,
-                R.array.fragment_appearance_colour_array
-        );
-
-        appearancePreferences.setAppearanceColour(fragmentAppearanceTabStyleBinding.spinnerColour.getSelectedItem().toString());
-    }
-
     public void setTextColour() {
-        setSpinner(
-                fragmentAppearanceTabStyleBinding.spinnerTextColour,
-                new AppearanceTextColourSpinnerAdapter(getActivity().getBaseContext()),
-                appearancePreferences.getAppearanceTextColour(),
-                14,
-                R.array.fragment_appearance_text_colour_array
-        );
-
-        appearancePreferences.setAppearanceTextColour(fragmentAppearanceTabStyleBinding.spinnerTextColour.getSelectedItem().toString());
+        String appearanceTextColour = appearancePreferences.getAppearanceTextColour();
+        appearanceTextColour = appearanceTextColour.replace("#", "");
+        fragmentAppearanceTabStyleBinding
+                .textColourPickerButton.setBackgroundColor(
+                        Integer.parseUnsignedInt(appearanceTextColour, 16));
     }
 }

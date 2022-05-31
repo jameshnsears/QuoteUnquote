@@ -172,6 +172,8 @@ public class ArchiveFragment extends FragmentCommon {
             if (archivePreferences.getArchiveSharedStorage() != isChecked) {
                 archivePreferences.setArchiveGoogleCloud(false);
                 archivePreferences.setArchiveSharedStorage(true);
+                fragmentArchiveBinding.editTextRemoteCodeValue.setEnabled(false);
+                fragmentArchiveBinding.editTextRemoteCodeValue.setText("");
             }
         });
     }
@@ -181,13 +183,22 @@ public class ArchiveFragment extends FragmentCommon {
         radioButtonGoogleCloud.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (archivePreferences.getArchiveGoogleCloud() != isChecked) {
                 archivePreferences.setArchiveGoogleCloud(true);
-                archivePreferences.setArchiveSharedStorage(false);            }
+                archivePreferences.setArchiveSharedStorage(false);
+                fragmentArchiveBinding.editTextRemoteCodeValue.setEnabled(true);
+            }
         });
     }
 
     private void setSelectedArchive() {
         fragmentArchiveBinding.radioButtonCloud.setChecked(archivePreferences.getArchiveGoogleCloud());
         fragmentArchiveBinding.radioButtonSharedStorage.setChecked(archivePreferences.getArchiveSharedStorage());
+
+        if (archivePreferences.getArchiveSharedStorage()) {
+            fragmentArchiveBinding.editTextRemoteCodeValue.setEnabled(false);
+            fragmentArchiveBinding.editTextRemoteCodeValue.setText("");
+        } else {
+            fragmentArchiveBinding.editTextRemoteCodeValue.setEnabled(true);
+        }
     }
 
     public void enableButtonBackupDependingUponDatabaseState() {
