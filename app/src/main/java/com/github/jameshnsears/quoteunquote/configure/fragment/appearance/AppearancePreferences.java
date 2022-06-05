@@ -1,7 +1,6 @@
 package com.github.jameshnsears.quoteunquote.configure.fragment.appearance;
 
 import android.content.Context;
-import android.graphics.Color;
 
 import androidx.annotation.NonNull;
 

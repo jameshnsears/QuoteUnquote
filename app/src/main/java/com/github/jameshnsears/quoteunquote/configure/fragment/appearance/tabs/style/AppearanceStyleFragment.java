@@ -23,8 +23,6 @@ import com.github.jameshnsears.quoteunquote.databinding.FragmentAppearanceTabSty
 import com.google.android.material.slider.Slider;
 import com.skydoves.colorpickerview.ColorPickerDialog;
 import com.skydoves.colorpickerview.ColorPickerView;
-import com.skydoves.colorpickerview.flag.BubbleFlag;
-import com.skydoves.colorpickerview.flag.FlagMode;
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
 
 import java.util.ArrayList;
@@ -94,7 +92,7 @@ public class AppearanceStyleFragment extends FragmentCommon {
         setTextSize();
     }
 
-    private void setBackgroundColour() {
+    public void setBackgroundColour() {
         String appearanceColour = appearancePreferences.getAppearanceColour();
         appearanceColour = appearanceColour.replace("#", "");
         int appearanceColourUnsignedInt = Integer.parseUnsignedInt(appearanceColour, 16);

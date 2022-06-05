@@ -21,6 +21,7 @@ class WidgetHeartColourTest : QuoteUnquoteModelUtility() {
 
             val remoteViews = mockk<RemoteViews>()
             every { remoteViews.setImageViewResource(any(), any()) } returns Unit
+            every { remoteViews.setInt(any(), any(), any()) } returns Unit
 
             quoteUnquoteWidget.onEnabled(context)
             quoteUnquoteWidget.setHeartColour(
