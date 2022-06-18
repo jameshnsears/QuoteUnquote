@@ -1,4 +1,4 @@
-package com.github.jameshnsears.quoteunquote.configure.fragment.archive;
+package com.github.jameshnsears.quoteunquote.configure.fragment.sync;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.os.ParcelFileDescriptor;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,12 +49,9 @@ import java.util.concurrent.Future;
 import timber.log.Timber;
 
 @Keep
-public class ArchiveFragment extends FragmentCommon {
+public class SyncFragment extends FragmentCommon {
     @NonNull
-    public static String ENABLE_BUTTON_BACKUP = "ENABLE_BUTTON_BACKUP";
-
-    @NonNull
-    public static String ENABLE_BUTTON_RESTORE = "ENABLE_BUTTON_RESTORE";
+    public static String CLOUD_SERVICE_COMPLETED = "CLOUD_SERVICE_COMPLETED";
 
     @Nullable
     public FragmentArchiveBinding fragmentArchiveBinding;
@@ -65,7 +60,7 @@ public class ArchiveFragment extends FragmentCommon {
     public QuoteUnquoteModel quoteUnquoteModel;
 
     @Nullable
-    protected ArchivePreferences archivePreferences;
+    protected SyncPreferences syncPreferences;
 
     @Nullable
     private BroadcastReceiver receiver;
@@ -76,20 +71,17 @@ public class ArchiveFragment extends FragmentCommon {
     @Nullable
     private ActivityResultLauncher<Intent> storageAccessFrameworkActivityResultRestore;
 
-    @NonNull
-    public Handler handler = new Handler(Looper.getMainLooper());
-
-    public ArchiveFragment() {
+    public SyncFragment() {
         // dark mode support
     }
 
-    public ArchiveFragment(final int widgetId) {
+    public SyncFragment(final int widgetId) {
         super(widgetId);
     }
 
     @NonNull
-    public static ArchiveFragment newInstance(final int widgetId) {
-        final ArchiveFragment fragment = new ArchiveFragment(widgetId);
+    public static SyncFragment newInstance(final int widgetId) {
+        final SyncFragment fragment = new SyncFragment(widgetId);
         fragment.setArguments(null);
         return fragment;
     }
@@ -103,8 +95,7 @@ public class ArchiveFragment extends FragmentCommon {
 
     private void registerButtonIntentReceiver() {
         IntentFilter filterRefreshUpdate = new IntentFilter();
-        filterRefreshUpdate.addAction(ENABLE_BUTTON_BACKUP);
-        filterRefreshUpdate.addAction(ENABLE_BUTTON_RESTORE);
+        filterRefreshUpdate.addAction(CLOUD_SERVICE_COMPLETED);
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(receiver, filterRefreshUpdate);
     }
 
@@ -120,14 +111,15 @@ public class ArchiveFragment extends FragmentCommon {
 
         quoteUnquoteModel = new QuoteUnquoteModel(getContext());
 
+        if (quoteUnquoteModel.countPrevious(widgetId) == 0) {
+            quoteUnquoteModel.markAsCurrentDefault(widgetId);
+        }
+
         receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                if (intent.getAction().equals(ENABLE_BUTTON_BACKUP)) {
-                    enableButtonBackupDependingUponDatabaseState();
-                }
-                if (intent.getAction().equals(ENABLE_BUTTON_RESTORE)) {
-                    enableButton(fragmentArchiveBinding.buttonRestore, true);
+                if (intent.getAction().equals(CLOUD_SERVICE_COMPLETED)) {
+                    enableUI(true);
                 }
             }
         };
@@ -139,7 +131,7 @@ public class ArchiveFragment extends FragmentCommon {
             @NonNull final LayoutInflater inflater,
             @NonNull final ViewGroup container,
             @NonNull final Bundle savedInstanceState) {
-        archivePreferences = new ArchivePreferences(widgetId, getContext());
+        syncPreferences = new SyncPreferences(widgetId, getContext());
 
         fragmentArchiveBinding = FragmentArchiveBinding.inflate(getLayoutInflater());
         return fragmentArchiveBinding.getRoot();
@@ -148,71 +140,17 @@ public class ArchiveFragment extends FragmentCommon {
     @Override
     public void onViewCreated(
             @NonNull final View view, @NonNull final Bundle savedInstanceState) {
-        setSelectedArchive();
+        setSyncFields();
 
-        createListenerGoogleCloud();
-        createListenerSharedStorage();
+        setLocalCode();
 
-        createListenerFavouriteButtonBackup();
-        createListenerFavouriteButtonRestore();
+        createListenerRadioGoogleCloud();
+        createListenerRadioDevice();
+        createListenerButtonBackup();
+        createListenerButtonRestore();
 
-        setTransferLocalCode();
-
-        enableButtonBackupDependingUponDatabaseState();
-
-        enableButtonsDependingUponServiceState();
-
-        storageAccessFrameworkBackupResult();
-        storageAccessFrameworkRestoreResult();
-    }
-
-    private void createListenerSharedStorage() {
-        RadioButton radioButtonSharedStorage = fragmentArchiveBinding.radioButtonSharedStorage;
-        radioButtonSharedStorage.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (archivePreferences.getArchiveSharedStorage() != isChecked) {
-                archivePreferences.setArchiveGoogleCloud(false);
-                archivePreferences.setArchiveSharedStorage(true);
-                fragmentArchiveBinding.editTextRemoteCodeValue.setEnabled(false);
-                fragmentArchiveBinding.editTextRemoteCodeValue.setText("");
-            }
-        });
-    }
-
-    private void createListenerGoogleCloud() {
-        RadioButton radioButtonGoogleCloud = fragmentArchiveBinding.radioButtonCloud;
-        radioButtonGoogleCloud.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (archivePreferences.getArchiveGoogleCloud() != isChecked) {
-                archivePreferences.setArchiveGoogleCloud(true);
-                archivePreferences.setArchiveSharedStorage(false);
-                fragmentArchiveBinding.editTextRemoteCodeValue.setEnabled(true);
-            }
-        });
-    }
-
-    private void setSelectedArchive() {
-        fragmentArchiveBinding.radioButtonCloud.setChecked(archivePreferences.getArchiveGoogleCloud());
-        fragmentArchiveBinding.radioButtonSharedStorage.setChecked(archivePreferences.getArchiveSharedStorage());
-
-        if (archivePreferences.getArchiveSharedStorage()) {
-            fragmentArchiveBinding.editTextRemoteCodeValue.setEnabled(false);
-            fragmentArchiveBinding.editTextRemoteCodeValue.setText("");
-        } else {
-            fragmentArchiveBinding.editTextRemoteCodeValue.setEnabled(true);
-        }
-    }
-
-    public void enableButtonBackupDependingUponDatabaseState() {
-        enableButton(fragmentArchiveBinding.buttonBackup, quoteUnquoteModel.countPrevious(widgetId) != 0);
-    }
-
-    private void enableButtonsDependingUponServiceState() {
-        if (CloudService.isRunning) {
-            enableButton(fragmentArchiveBinding.buttonBackup, false);
-        }
-
-        if (CloudService.isRunning) {
-            enableButton(fragmentArchiveBinding.buttonRestore, false);
-        }
+        handleDeviceBackupResult();
+        handleDeviceRestoreResult();
     }
 
     @Override
@@ -221,24 +159,69 @@ public class ArchiveFragment extends FragmentCommon {
         fragmentArchiveBinding = null;
     }
 
-    protected void setTransferLocalCode() {
-        if ("".equals(archivePreferences.getTransferLocalCode())) {
-            // possible that user wiped storage via App Info settings
-            archivePreferences.setTransferLocalCode(CloudTransferHelper.getLocalCode());
+    private void setSyncFields() {
+        if (CloudService.isRunning) {
+            enableUI(false);
+            return;
         }
 
-        fragmentArchiveBinding.textViewLocalCodeValue.setText(archivePreferences.getTransferLocalCode());
+        if (syncPreferences.getArchiveGoogleCloud()) {
+            fragmentArchiveBinding.radioButtonGoogleCloud.setChecked(true);
+            fragmentArchiveBinding.radioButtonDevice.setChecked(false);
+            fragmentArchiveBinding.editTextRemoteCodeValue.setEnabled(true);
+            fragmentArchiveBinding.editTextRemoteCodeValue.setText("");
+        } else {
+            fragmentArchiveBinding.radioButtonGoogleCloud.setChecked(false);
+            fragmentArchiveBinding.radioButtonDevice.setChecked(true);
+            fragmentArchiveBinding.editTextRemoteCodeValue.setEnabled(false);
+            fragmentArchiveBinding.editTextRemoteCodeValue.setText("");
+        }
     }
 
-    protected void createListenerFavouriteButtonBackup() {
-        fragmentArchiveBinding.buttonBackup.setOnClickListener(v -> {
-            if (fragmentArchiveBinding.buttonBackup.isEnabled()) {
+    private void createListenerRadioGoogleCloud() {
+        RadioButton radioButtonGoogleCloud = fragmentArchiveBinding.radioButtonGoogleCloud;
+        radioButtonGoogleCloud.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                syncPreferences.setArchiveGoogleCloud(true);
+                syncPreferences.setArchiveSharedStorage(false);
 
-                if (archivePreferences.getArchiveGoogleCloud()) {
-                    backupGoogleCloud();
-                } else {
-                    backupSharedStorage();
-                }
+                fragmentArchiveBinding.editTextRemoteCodeValue.setEnabled(true);
+                fragmentArchiveBinding.editTextRemoteCodeValue.setText("");
+            }
+        });
+    }
+
+    private void createListenerRadioDevice() {
+        RadioButton radioButtonDevice = fragmentArchiveBinding.radioButtonDevice;
+        radioButtonDevice.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                syncPreferences.setArchiveGoogleCloud(false);
+                syncPreferences.setArchiveSharedStorage(true);
+
+                fragmentArchiveBinding.editTextRemoteCodeValue.setEnabled(false);
+                fragmentArchiveBinding.editTextRemoteCodeValue.setText("");
+            }
+        });
+    }
+
+    protected void setLocalCode() {
+        if ("".equals(syncPreferences.getTransferLocalCode())) {
+            // possible that user wiped storage via App Info settings
+            syncPreferences.setTransferLocalCode(CloudTransferHelper.getLocalCode());
+        }
+
+        fragmentArchiveBinding.textViewLocalCodeValue.setText(syncPreferences.getTransferLocalCode());
+    }
+
+    protected void createListenerButtonBackup() {
+        fragmentArchiveBinding.buttonBackup.setOnClickListener(v -> {
+            enableUI(false);
+
+            if (syncPreferences.getArchiveGoogleCloud()) {
+                fragmentArchiveBinding.editTextRemoteCodeValue.setEnabled(false);
+                backupGoogleCloud();
+            } else {
+                backupSharedStorage();
             }
         });
     }
@@ -248,12 +231,15 @@ public class ArchiveFragment extends FragmentCommon {
 
         final Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
+
+        // API 25 doesn't save the extension!
         intent.setType("application/json");
+
         intent.putExtra(Intent.EXTRA_TITLE, fragmentArchiveBinding.textViewLocalCodeValue.getText().toString());
         storageAccessFrameworkActivityResultBackup.launch(intent);
     }
 
-    protected final void storageAccessFrameworkBackupResult() {
+    private final void handleDeviceBackupResult() {
         // default: /storage/emulated/0/Download/<10 character code>.json
         storageAccessFrameworkActivityResultBackup = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -279,15 +265,14 @@ public class ArchiveFragment extends FragmentCommon {
                         } catch (final IOException e) {
                             Timber.e(e.getMessage());
                         }
-
-                        ConfigureActivity.safCalled = false;
-
-                        enableButtons(true);
                     }
+
+                    enableUI(true);
+                    ConfigureActivity.safCalled = false;
                 });
     }
 
-    private void restoreSharedStorage() {
+    private void restoreDevice() {
         ConfigureActivity.safCalled = true;
 
         final Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
@@ -297,51 +282,55 @@ public class ArchiveFragment extends FragmentCommon {
         storageAccessFrameworkActivityResultRestore.launch(intent);
     }
 
-    private void storageAccessFrameworkRestoreResult() {
+    private void handleDeviceRestoreResult() {
         // default: /storage/emulated/0/Download/<10 character code>
         storageAccessFrameworkActivityResultRestore = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 activityResult -> {
                     Timber.d("%d", activityResult.getResultCode());
 
-                    if (activityResult.getResultCode() == Activity.RESULT_OK) {
-                        try {
-                            final String jsonString = getJsonRestore(activityResult);
+                    if (activityResult.getResultCode() == Activity.RESULT_CANCELED) {
+                        Timber.d("cancelled");
+                    } else {
 
-                            Boolean isJsonValid = isJsonRestoreValid(jsonString);
+                        if (activityResult.getResultCode() == Activity.RESULT_OK) {
+                            try {
+                                final String jsonString = getRestoreJson(activityResult);
 
-                            final Transfer transfer
-                                    = new Gson().fromJson(jsonString, Transfer.class);
+                                Boolean isJsonValid = isRestoreJsonValid(jsonString);
 
-                            if (isJsonValid && transfer != null) {
-                                restoreJsonSaf(transfer);
+                                final Transfer transfer
+                                        = new Gson().fromJson(jsonString, Transfer.class);
 
-                                Toast.makeText(
-                                        getContext(),
-                                        getContext().getString(R.string.fragment_archive_restore_success),
-                                        Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(
-                                        getContext(),
-                                        getContext().getString(R.string.fragment_archive_restore_saf_invalid),
-                                        Toast.LENGTH_SHORT).show();
+                                if (isJsonValid && transfer != null) {
+                                    restoreDeviceJson(transfer);
+
+                                    Toast.makeText(
+                                            getContext(),
+                                            getContext().getString(R.string.fragment_archive_restore_success),
+                                            Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(
+                                            getContext(),
+                                            getContext().getString(R.string.fragment_archive_restore_saf_invalid),
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (final IOException e) {
+                                Timber.e(e.getMessage());
                             }
-                        } catch (final IOException e) {
-                            Timber.e(e.getMessage());
                         }
                     }
 
                     ConfigureActivity.safCalled = false;
-
-                    enableButtons(true);
+                    enableUI(true);
                 });
     }
 
-    private void restoreJsonSaf(Transfer transfer) {
+    private void restoreDeviceJson(Transfer transfer) {
         final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
-            ArchivePreferences archivePreferences = new ArchivePreferences(widgetId, getContext());
-            boolean googleCloudRadio = archivePreferences.getArchiveGoogleCloud();
-            boolean sharedStorageRadio = archivePreferences.getArchiveSharedStorage();
+            SyncPreferences syncPreferences = new SyncPreferences(widgetId, getContext());
+            boolean googleCloudRadio = syncPreferences.getArchiveGoogleCloud();
+            boolean sharedStorageRadio = syncPreferences.getArchiveSharedStorage();
 
             TransferRestore transferRestore = new TransferRestore();
             transferRestore.restore(
@@ -349,8 +338,8 @@ public class ArchiveFragment extends FragmentCommon {
                     DatabaseRepository.getInstance(getContext()),
                     transfer);
 
-            archivePreferences.setArchiveGoogleCloud(googleCloudRadio);
-            archivePreferences.setArchiveSharedStorage(sharedStorageRadio);
+            syncPreferences.setArchiveGoogleCloud(googleCloudRadio);
+            syncPreferences.setArchiveSharedStorage(sharedStorageRadio);
         });
 
         try {
@@ -362,9 +351,9 @@ public class ArchiveFragment extends FragmentCommon {
     }
 
     @NonNull
-    private Boolean isJsonRestoreValid(String jsonString) {
+    private Boolean isRestoreJsonValid(String jsonString) {
         final Future<Boolean> future = QuoteUnquoteWidget.getExecutorService().submit(()
-                -> ArchiveJsonSchemaValidation.Companion.isJsonValid(getContext(), jsonString));
+                -> SyncJsonSchemaValidation.Companion.isJsonValid(getContext(), jsonString));
 
         boolean isValid = false;
 
@@ -380,27 +369,34 @@ public class ArchiveFragment extends FragmentCommon {
     }
 
     @NonNull
-    private String getJsonRestore(ActivityResult activityResult) throws IOException {
-        final ParcelFileDescriptor parcelFileDescriptor
-                = getContext().getContentResolver().openFileDescriptor(
-                activityResult.getData().getData(), "r");
+    private String getRestoreJson(ActivityResult activityResult) throws IOException {
+        ParcelFileDescriptor parcelFileDescriptor = null;
+        FileInputStream fileInputStream = null;
+        String jsonString = "";
 
-        final FileInputStream fileInputStream
-                = new FileInputStream(parcelFileDescriptor.getFileDescriptor());
+        try {
+            parcelFileDescriptor
+                    = getContext().getContentResolver().openFileDescriptor(
+                    activityResult.getData().getData(), "r");
 
-        final String jsonString = CharStreams.toString(new InputStreamReader(
-                fileInputStream, Charsets.UTF_8));
+            fileInputStream
+                    = new FileInputStream(parcelFileDescriptor.getFileDescriptor());
 
-        fileInputStream.close();
-        parcelFileDescriptor.close();
+            jsonString = CharStreams.toString(new InputStreamReader(
+                    fileInputStream, Charsets.UTF_8));
+        } finally {
+            if (parcelFileDescriptor != null) {
+                parcelFileDescriptor.close();
+            }
+
+            if (fileInputStream != null) {
+                fileInputStream.close();
+            }
+        }
         return jsonString;
     }
 
     private void backupGoogleCloud() {
-        Timber.d("ArchiveGoogleCloud");
-
-        enableButtons(false);
-
         final Intent serviceIntent = new Intent(getContext(), CloudServiceBackup.class);
         serviceIntent.putExtra("asJson", quoteUnquoteModel.transferBackup(getContext()));
         serviceIntent.putExtra(
@@ -409,16 +405,39 @@ public class ArchiveFragment extends FragmentCommon {
         getContext().startService(serviceIntent);
     }
 
-    protected void createListenerFavouriteButtonRestore() {
+    protected void createListenerButtonRestore() {
         fragmentArchiveBinding.buttonRestore.setOnClickListener(v -> {
-            if (fragmentArchiveBinding.buttonRestore.isEnabled()) {
-                if (archivePreferences.getArchiveGoogleCloud()) {
-                    restoreGoogleCloud();
-                } else {
-                    restoreSharedStorage();
-                }
+            enableUI(false);
+
+            if (syncPreferences.getArchiveGoogleCloud()) {
+                fragmentArchiveBinding.editTextRemoteCodeValue.setEnabled(false);
+                restoreGoogleCloud();
+            } else {
+                ConfigureActivity.safCalled = true;
+                restoreDevice();
             }
         });
+    }
+
+    public void enableUI(boolean enableUI) {
+        fragmentArchiveBinding.radioButtonGoogleCloud.setEnabled(enableUI);
+        fragmentArchiveBinding.radioButtonDevice.setEnabled(enableUI);
+        fragmentArchiveBinding.editTextRemoteCodeValue.setEnabled(enableUI);
+        enableButton(fragmentArchiveBinding.buttonBackup, enableUI);
+        enableButton(fragmentArchiveBinding.buttonRestore, enableUI);
+
+        if (syncPreferences.getArchiveGoogleCloud()) {
+            fragmentArchiveBinding.radioButtonGoogleCloud.setChecked(true);
+            fragmentArchiveBinding.editTextRemoteCodeValue.setEnabled(true);
+        } else {
+            fragmentArchiveBinding.radioButtonDevice.setChecked(true);
+            fragmentArchiveBinding.editTextRemoteCodeValue.setEnabled(false);
+        }
+
+        if (quoteUnquoteModel.countPrevious(widgetId) == 0) {
+            fragmentArchiveBinding.buttonBackup.setEnabled(false);
+            enableButton(fragmentArchiveBinding.buttonBackup, false);
+        }
     }
 
     private void restoreGoogleCloud() {
@@ -430,6 +449,7 @@ public class ArchiveFragment extends FragmentCommon {
                     getContext(),
                     getContext().getString(R.string.fragment_archive_restore_token_missing),
                     Toast.LENGTH_SHORT).show();
+            enableUI(true);
             return;
         }
 
@@ -439,10 +459,12 @@ public class ArchiveFragment extends FragmentCommon {
                     getContext(),
                     getContext().getString(R.string.fragment_archive_restore_token_invalid),
                     Toast.LENGTH_SHORT).show();
+            enableUI(true);
             return;
         }
 
-        enableButtons(false);
+        fragmentArchiveBinding.radioButtonDevice.setEnabled(false);
+        fragmentArchiveBinding.editTextRemoteCodeValue.setEnabled(false);
 
         final Intent serviceIntent = new Intent(getContext(), CloudServiceRestore.class);
         serviceIntent.putExtra(
@@ -450,11 +472,6 @@ public class ArchiveFragment extends FragmentCommon {
         serviceIntent.putExtra("widgetId", widgetId);
 
         getContext().startService(serviceIntent);
-    }
-
-    private void enableButtons(@NonNull final Boolean enabled) {
-        enableButton(fragmentArchiveBinding.buttonBackup, enabled);
-        enableButton(fragmentArchiveBinding.buttonRestore, enabled);
     }
 
     public void enableButton(@NonNull final Button button, @NonNull final Boolean enabled) {

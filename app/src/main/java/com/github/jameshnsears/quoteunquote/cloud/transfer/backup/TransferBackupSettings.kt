@@ -7,9 +7,10 @@ import com.github.jameshnsears.quoteunquote.cloud.transfer.Schedule
 import com.github.jameshnsears.quoteunquote.cloud.transfer.Settings
 import com.github.jameshnsears.quoteunquote.cloud.transfer.TransferUtility
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences
-import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences
 import com.github.jameshnsears.quoteunquote.configure.fragment.notifications.NotificationsPreferences
+import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
+import timber.log.Timber
 
 // Settings are set on demand in the UI; the settings listed here define all possible
 // keys but not accurate values.
@@ -46,6 +47,7 @@ open class TransferBackupSettings(val context: Context) {
             ContentSelection.AUTHOR -> author = true
             ContentSelection.FAVOURITES -> favourites = true
             ContentSelection.SEARCH -> search = true
+            else -> Timber.e("unknown contentSelection")
         }
 
         return Quotations(
@@ -68,8 +70,20 @@ open class TransferBackupSettings(val context: Context) {
             appearancePreferences.appearanceColour,
             appearancePreferences.appearanceTextFamily,
             appearancePreferences.appearanceTextStyle,
-            appearancePreferences.appearanceTextSize,
-            appearancePreferences.appearanceTextColour,
+            appearancePreferences.appearanceTextForceItalicRegular,
+
+            appearancePreferences.appearanceQuotationTextSize,
+            appearancePreferences.appearanceQuotationTextColour,
+
+            appearancePreferences.appearanceAuthorTextSize,
+            appearancePreferences.appearanceAuthorTextColour,
+            appearancePreferences.appearanceAuthorTextHide,
+
+            appearancePreferences.appearancePositionTextSize,
+            appearancePreferences.appearancePositionTextColour,
+            appearancePreferences.appearancePositionTextHide,
+
+            appearancePreferences.appearanceToolbarHideSeparator,
             appearancePreferences.appearanceToolbarColour,
             appearancePreferences.appearanceToolbarFirst,
             appearancePreferences.appearanceToolbarPrevious,

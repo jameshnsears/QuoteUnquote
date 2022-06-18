@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -7,6 +8,8 @@
         android:orientation="vertical"
         android:paddingStart="0dp"
         android:paddingEnd="5dp"
+        android:paddingTop="0dp"
+        android:paddingBottom="15dp"
         android:theme="@style/Theme.QuoteUnquote">
 
     <LinearLayout
@@ -115,36 +118,6 @@
             android:paddingTop="5dp">
 
         <TextView
-                android:id="@+id/textViewTextColour"
-                android:layout_width="90dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:paddingVertical="5dp"
-                android:paddingStart="0dp"
-                android:paddingTop="0dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="5dp"
-                android:text="@string/fragment_appearance_colour"
-                android:textSize="14sp" />
-
-        <Button
-                android:id="@+id/textColourPickerButton"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_gravity="center"
-                android:paddingStart="0dp"
-                android:paddingEnd="5dp"
-                tools:ignore="SpeakableTextPresentCheck" />
-
-    </LinearLayout>
-
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="5dp">
-
-        <TextView
                 android:id="@+id/textViewFamily"
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
@@ -198,29 +171,112 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchForceItalicRegular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:paddingVertical="10dp"
+                android:text="@string/fragment_appearance_force"
+                android:textSize="14sp"
+                tools:ignore="TextContrastCheck" />
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingTop="5dp">
 
         <TextView
-                android:id="@+id/textViewSize"
-                android:layout_width="90dp"
+                android:id="@+id/textViewCurrentQuotation"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:paddingVertical="5dp"
-                android:paddingStart="0dp"
-                android:paddingEnd="10dp"
-                android:text="@string/fragment_appearance_size"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:text="@string/fragment_appearance_button_quotation"
                 android:textSize="14sp" />
 
-        <Spinner
-                android:id="@+id/spinnerSize"
-                android:layout_width="match_parent"
+        <Button
+                android:id="@+id/buttonQuotation"
+                android:layout_width="160dp"
                 android:layout_height="48dp"
+                android:background="@drawable/corners_buttons"
+                android:text="@string/fragment_appearance_button_quotation"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                app:backgroundTint="@null" />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="20dp">
+
+        <TextView
+                android:id="@+id/textViewCurrentAuthor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:entries="@array/fragment_appearance_size_array"
-                android:paddingStart="0dp"
-                android:paddingEnd="5dp"
-                android:spinnerMode="dropdown" />
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:padding="5dp"
+                android:text="@string/fragment_appearance_button_author"
+                android:textSize="14sp" />
+
+        <Button
+                android:id="@+id/buttonAuthor"
+                android:layout_width="160dp"
+                android:layout_height="48dp"
+                android:background="@drawable/corners_buttons"
+                android:text="@string/fragment_appearance_button_author"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                app:backgroundTint="@null"
+                app:icon="@drawable/ic_appearance_visibility_off_24" />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="20dp">
+
+        <TextView
+                android:id="@+id/textViewCurrentPosition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:gravity="right|center_vertical"
+                android:padding="5dp"
+                android:text="@string/fragment_appearance_button_position"
+                android:textSize="14sp" />
+
+        <Button
+                android:id="@+id/buttonPosition"
+                android:layout_width="160dp"
+                android:layout_height="48dp"
+                android:background="@drawable/corners_buttons"
+                android:text="@string/fragment_appearance_button_position"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                app:backgroundTint="@null"
+                app:icon="@drawable/ic_appearance_visibility_off_24" />
 
     </LinearLayout>
 

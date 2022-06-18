@@ -50,6 +50,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+                android:name=".configure.ConfigureActivityDouble"
+                android:exported="true">
+        </activity>
+
         <service
                 android:name=".listview.ListViewService"
                 android:permission="android.permission.BIND_REMOTEVIEWS" />

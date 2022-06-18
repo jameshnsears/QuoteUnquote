@@ -35,10 +35,10 @@
     <string name="fragment_quotations_all">All: %d</string>
     <string name="fragment_quotations_add_to_previous_count">Add displayed Author / Search results to Previous</string>
     <string name="fragment_quotations_author">Author: %d</string>
-    <string name="fragment_quotations_not_listed">Authors with &lt; 5 quotations are not listed</string>
+    <string name="fragment_quotations_not_listed">Authors with &lt; 5 quotations are not shown</string>
     <string name="fragment_quotations_favourites">Favourites: %d</string>
     <string name="fragment_quotations_favourites_export_button">Export</string>
-    <string name="fragment_quotations_favourites_export_instructions">to storage</string>
+    <string name="fragment_quotations_favourites_export_instructions">to Device</string>
     <string name="fragment_quotations_favourites_export_success">Success - export completed</string>
     <string name="fragment_quotations_search">Search: %d</string>
     <string name="fragment_quotations_search_instructions">Case insensitive search…</string>
@@ -53,6 +53,14 @@
     <string name="fragment_appearance_ok">OK</string>
     <string name="fragment_appearance_transparency">Transparency %</string>
     <string name="fragment_appearance_text">Text</string>
+    <string name="fragment_appearance_force">Force Italic / Regular style</string>
+    <string name="fragment_appearance_button_quotation">Quotation</string>
+    <string name="fragment_appearance_button_author">Author</string>
+    <string name="fragment_appearance_button_position">Position</string>
+    <string name="fragment_appearance_style_text_dialog_quotation">Quotation Text</string>
+    <string name="fragment_appearance_style_text_dialog_author">Author Text</string>
+    <string name="fragment_appearance_style_text_dialog_position">Position Text</string>
+    <string name="fragment_appearance_style_text_dialog_visibility">Hide</string>
     <string name="fragment_appearance_text_colour_dialog_title">Text Colour</string>
     <string name="fragment_appearance_family">Family</string>
     <string-array name="fragment_appearance_family_array">
@@ -68,7 +76,9 @@
         <item>Bold</item>
         <item>Bold Italic</item>
         <item>Italic</item>
+        <item>Italic, Shadow</item>
         <item>Regular</item>
+        <item>Regular, Shadow</item>
     </string-array>
     <string name="fragment_appearance_size">Size</string>
     <integer-array name="fragment_appearance_size_array">
@@ -102,9 +112,7 @@
     <string name="fragment_notifications_time">Time</string>
 
     <string name="fragment_archive_title">Sync</string>
-    <string name="fragment_archive_instructions_1">\u2022 Sync your Configuration; Previous and Favourites</string>
-    <string name="fragment_archive_instructions_2">\u2022 Favourites are appended during a Restore; everything else is replaced</string>
-    <string name="fragment_archive_select_cloud">Cloud</string>
+    <string name="fragment_archive_select_cloud">Google Cloud</string>
     <string name="fragment_archive_select_filesystem">Device</string>
     <string name="fragment_archive_backup_local_code_value">%s</string>
     <string name="fragment_archive_backup">Backup</string>
@@ -115,7 +123,7 @@
     <string name="fragment_archive_restore_token_invalid">Please enter a valid code</string>
     <string name="fragment_archive_restore_saf_invalid">Invalid file contents</string>
     <string name="fragment_archive_restore_receiving">Restore - please wait&#8230;</string>
-    <string name="fragment_archive_restore_missing_code">Unable to find code in cloud</string>
+    <string name="fragment_archive_restore_missing_code">Unable to find code in Cloud</string>
     <string name="fragment_archive_restore_success">Success - restore completed</string>
     <string name="fragment_archive_internet_missing">Check network / wait &amp; retry</string>
 
@@ -127,6 +135,6 @@
     <string name="preview_description">Discover high quality quotations!</string>
     <string name="preview_quotation">Nothing matters very much and very few things matter at all.\n</string>
     <string name="preview_author"><u>Arthur Balfour\n</u></string>
-    <string name="preview_position">\u2316  1/20550</string>
+    <string name="preview_position">\u2316  1/20529\u0020</string>
 
 </resources>

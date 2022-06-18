@@ -1,22 +1,22 @@
 <b>Description</b>
-Improve your self-esteem with high quality quotations! Authors include:
+Improve your self-esteem with these high quality quotations! Authors include:
 &bull; Artists
 &bull; Athletes
 &bull; Entertainers
 &bull; Entrepreneurs
-&bull; Philosophers (Ancient to modern-day)
+&bull; Philosophers (ancient to modern-day)
 &bull; Playwrights (special focus on Shakespeare)
 &bull; Politicians
 &bull; Psychotherapists
-&bull; ...
+&bull; and many, many, more...
 
 <b>Key features</b>
-&bull; Twenty thousand reviewed high quality quotations
+&bull; Twenty thousand, reviewed, high quality quotations
 &bull; Wikipedia integration (where author found)
 &bull; Configurable appearance
 &bull; Advanced navigation
-&bull; Searchable content
 &bull; Notifications
+&bull; Searchable content
 &bull; Backup &amp; Restore across devices
 
 <b>Other items of interest</b>

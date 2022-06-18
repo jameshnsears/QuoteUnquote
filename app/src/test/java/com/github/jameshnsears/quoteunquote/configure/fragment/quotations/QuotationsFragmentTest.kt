@@ -77,12 +77,24 @@ class QuotationsFragmentTest : ShadowLoggingHelper() {
             assertFalse(fragment.quotationsPreferences?.contentSelection == ContentSelection.SEARCH)
 
             if (BuildConfig.DEBUG) {
-                assertEquals("All: 7", fragment.fragmentQuotationsBinding?.radioButtonAll?.text.toString())
-                assertEquals("Author: 1", fragment.fragmentQuotationsBinding?.radioButtonAuthor?.text.toString())
-                assertEquals("Favourites: 0", fragment.fragmentQuotationsBinding?.radioButtonFavourites?.text.toString())
+                assertEquals(
+                    "All: 7",
+                    fragment.fragmentQuotationsBinding?.radioButtonAll?.text.toString()
+                )
+                assertEquals(
+                    "Author: 1",
+                    fragment.fragmentQuotationsBinding?.radioButtonAuthor?.text.toString()
+                )
+                assertEquals(
+                    "Favourites: 0",
+                    fragment.fragmentQuotationsBinding?.radioButtonFavourites?.text.toString()
+                )
             }
 
-            assertEquals("", fragment.fragmentQuotationsBinding?.editTextSearchText?.text.toString())
+            assertEquals(
+                "",
+                fragment.fragmentQuotationsBinding?.editTextSearchText?.text.toString()
+            )
 
             fragment.shutdown()
         }

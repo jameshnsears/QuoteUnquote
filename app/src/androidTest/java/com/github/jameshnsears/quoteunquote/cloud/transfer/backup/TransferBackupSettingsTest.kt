@@ -94,15 +94,23 @@ class TransferBackupSettingsTest : GsonTestHelper() {
         "#FFF8FD89",
         "Sans Serif",
         "Regular",
+        false,
         16,
         "#FF000000",
+        16,
+        "#FF000000",
+        false,
+        16,
+        "#FF000000",
+        false,
+        false,
         "#FF000000",
         false,
         true,
         true,
         true,
         true,
-        false
+        false,
     )
 
     private fun expectedQuotations() = Quotations(

@@ -27,7 +27,7 @@ if (!localPropertiesFile.exists()) {
 localProperties.load(new FileInputStream(localPropertiesFile))
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 32
 
     signingConfigs {
         googleplay {
@@ -45,8 +45,8 @@ android {
         applicationId "com.github.jameshnsears.quoteunquote"
 
         // changelog version | min sdk | target sdk
-        versionCode 1012432
-        versionName "3.0.6"
+        versionCode 1022432
+        versionName "3.0.7"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -100,10 +100,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
+        jvmTarget = '1.8'
     }
+
 
     flavorDimensions 'Version'
     productFlavors {
@@ -176,6 +176,11 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.databinding:databinding-runtime:7.2.1'
+    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
+
     androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
     androidTestImplementation 'androidx.room:room-testing:2.4.2'
     androidTestImplementation 'androidx.test:core:1.4.0'
@@ -184,7 +189,11 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.4.0'
     androidTestImplementation 'androidx.test:runner:1.4.0'
     androidTestImplementation 'io.mockk:mockk-android:1.12.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    // Chipmunk not working with 3.4.0!?
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation 'androidx.test:runner:1.4.0'
+    androidTestImplementation 'androidx.test:rules:1.4.0'
 
     annotationProcessor 'androidx.room:room-compiler:2.4.2'
 
@@ -199,7 +208,7 @@ dependencies {
     implementation 'androidx.activity:activity:1.4.0'
     implementation 'androidx.fragment:fragment:1.4.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-common-java8:2.4.1'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'

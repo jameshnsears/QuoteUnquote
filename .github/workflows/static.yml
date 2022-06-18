@@ -1,0 +1,245 @@
+name: static
+
+on:
+  push:
+    branches:
+  pull_request:
+    branches:
+
+env:
+  # Increment this to manually invalidate the cache.
+  CACHE_VERSION: 1
+
+jobs:
+  checkstyle:
+    name: checkstyle
+    runs-on: macOS-latest
+
+    steps:
+      - name: clone
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+          submodules: true
+
+      - name: set up jdk
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: 11
+      - run: ./ci_clear_gradle_cache.sh
+
+      - name: gradle cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ env.CACHE_VERSION }}-${{ hashFiles('**/**.gradle.kts', '**/gradle/wrapper/gradle-wrapper.properties', '**/libs.versions.toml') }}
+
+      - name: local.properties
+        env:
+          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
+          LOCAL_PROPERTIES_CLOUDLIB: ${{ secrets.LOCAL_PROPERTIES_CLOUDLIB }}
+          LOCAL_PROPERTIES_UTILSLIB: ${{ secrets.LOCAL_PROPERTIES_UTILSLIB }}
+        run: |
+          echo "${LOCAL_PROPERTIES}" | base64 -d > local.properties
+          echo "${LOCAL_PROPERTIES_CLOUDLIB}" | base64 -d > QuoteUnquote.cloudLib/cloudLib/local.properties
+          echo "${LOCAL_PROPERTIES_UTILSLIB}" | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
+
+      - name: google-services.json
+        env:
+          GOOGLE_PLAY_JSON_DEVELOPMENT: ${{ secrets.GOOGLE_PLAY_JSON_DEVELOPMENT }}
+        run: echo "${GOOGLE_PLAY_JSON_DEVELOPMENT}" | base64 -d > app/google-services.json
+
+      - name: gradlew
+        run: |
+          set -x
+          ./gradlew checkstyle
+
+  detekt:
+    name: detekt
+    runs-on: macOS-latest
+    steps:
+      - name: clone
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+          submodules: true
+
+      - name: set up jdk
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: 11
+      - run: ./ci_clear_gradle_cache.sh
+
+      - name: gradle cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ env.CACHE_VERSION }}-${{ hashFiles('**/**.gradle.kts', '**/gradle/wrapper/gradle-wrapper.properties', '**/libs.versions.toml') }}
+
+      - name: local.properties
+        env:
+          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
+          LOCAL_PROPERTIES_CLOUDLIB: ${{ secrets.LOCAL_PROPERTIES_CLOUDLIB }}
+          LOCAL_PROPERTIES_UTILSLIB: ${{ secrets.LOCAL_PROPERTIES_UTILSLIB }}
+        run: |
+          echo "${LOCAL_PROPERTIES}" | base64 -d > local.properties
+          echo "${LOCAL_PROPERTIES_CLOUDLIB}" | base64 -d > QuoteUnquote.cloudLib/cloudLib/local.properties
+          echo "${LOCAL_PROPERTIES_UTILSLIB}" | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
+
+      - name: google-services.json
+        env:
+          GOOGLE_PLAY_JSON_DEVELOPMENT: ${{ secrets.GOOGLE_PLAY_JSON_DEVELOPMENT }}
+        run: echo "${GOOGLE_PLAY_JSON_DEVELOPMENT}" | base64 -d > app/google-services.json
+
+      - name: gradlew
+        run: |
+          set -x
+          ./gradlew detekt
+
+  ktlint:
+    name: ktlint
+    runs-on: macOS-latest
+    steps:
+      - name: clone
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+          submodules: true
+
+      - name: set up jdk
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: 11
+      - run: ./ci_clear_gradle_cache.sh
+
+      - name: gradle cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ env.CACHE_VERSION }}-${{ hashFiles('**/**.gradle.kts', '**/gradle/wrapper/gradle-wrapper.properties', '**/libs.versions.toml') }}
+
+      - name: local.properties
+        env:
+          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
+          LOCAL_PROPERTIES_CLOUDLIB: ${{ secrets.LOCAL_PROPERTIES_CLOUDLIB }}
+          LOCAL_PROPERTIES_UTILSLIB: ${{ secrets.LOCAL_PROPERTIES_UTILSLIB }}
+        run: |
+          echo "${LOCAL_PROPERTIES}" | base64 -d > local.properties
+          echo "${LOCAL_PROPERTIES_CLOUDLIB}" | base64 -d > QuoteUnquote.cloudLib/cloudLib/local.properties
+          echo "${LOCAL_PROPERTIES_UTILSLIB}" | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
+
+      - name: google-services.json
+        env:
+          GOOGLE_PLAY_JSON_DEVELOPMENT: ${{ secrets.GOOGLE_PLAY_JSON_DEVELOPMENT }}
+        run: echo "${GOOGLE_PLAY_JSON_DEVELOPMENT}" | base64 -d > app/google-services.json
+
+      - name: gradlew
+        run: |
+          set -x
+          ./gradlew ktlint
+
+  lintGooglePlayDebug:
+    name: lintGooglePlayDebug
+    needs: [checkstyle, detekt, ktlint]
+    runs-on: macOS-latest
+    steps:
+      - name: clone
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+          submodules: true
+
+      - name: set up jdk
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: 11
+      - run: ./ci_clear_gradle_cache.sh
+
+      - name: gradle cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ env.CACHE_VERSION }}-${{ hashFiles('**/**.gradle.kts', '**/gradle/wrapper/gradle-wrapper.properties', '**/libs.versions.toml') }}
+
+      - name: local.properties
+        env:
+          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
+          LOCAL_PROPERTIES_CLOUDLIB: ${{ secrets.LOCAL_PROPERTIES_CLOUDLIB }}
+          LOCAL_PROPERTIES_UTILSLIB: ${{ secrets.LOCAL_PROPERTIES_UTILSLIB }}
+        run: |
+          echo "${LOCAL_PROPERTIES}" | base64 -d > local.properties
+          echo "${LOCAL_PROPERTIES_CLOUDLIB}" | base64 -d > QuoteUnquote.cloudLib/cloudLib/local.properties
+          echo "${LOCAL_PROPERTIES_UTILSLIB}" | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
+
+      - name: google-services.json
+        env:
+          GOOGLE_PLAY_JSON_DEVELOPMENT: ${{ secrets.GOOGLE_PLAY_JSON_DEVELOPMENT }}
+        run: echo "${GOOGLE_PLAY_JSON_DEVELOPMENT}" | base64 -d > app/google-services.json
+
+      - name: gradlew
+        run: |
+          set -x
+          ./gradlew lintGooglePlayDebug
+
+      - name: show .gradle size
+        run: |
+          set -x
+          du -h -d 1 ~/.gradle
+
+  lintFdroidDebug:
+    name: lintFdroidDebug
+    needs: [checkstyle, detekt, ktlint]
+    runs-on: macOS-latest
+    steps:
+      - name: clone
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+          submodules: true
+
+      - name: set up jdk
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: 11
+      - run: ./ci_clear_gradle_cache.sh
+
+      - name: gradle cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ env.CACHE_VERSION }}-${{ hashFiles('**/**.gradle.kts', '**/gradle/wrapper/gradle-wrapper.properties', '**/libs.versions.toml') }}
+
+      - name: local.properties
+        env:
+          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
+          LOCAL_PROPERTIES_CLOUDLIB: ${{ secrets.LOCAL_PROPERTIES_CLOUDLIB }}
+          LOCAL_PROPERTIES_UTILSLIB: ${{ secrets.LOCAL_PROPERTIES_UTILSLIB }}
+        run: |
+          echo "${LOCAL_PROPERTIES}" | base64 -d > local.properties
+          echo "${LOCAL_PROPERTIES_CLOUDLIB}" | base64 -d > QuoteUnquote.cloudLib/cloudLib/local.properties
+          echo "${LOCAL_PROPERTIES_UTILSLIB}" | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
+
+      - name: gradlew
+        run: |
+          set -x
+          ./gradlew lintFdroidDebug
+
+      - name: show .gradle size
+        run: |
+          set -x
+          du -h -d 1 ~/.gradle

@@ -10,8 +10,8 @@ import androidx.annotation.NonNull;
 import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.cloud.transfer.TransferRestoreResponse;
 import com.github.jameshnsears.quoteunquote.cloud.transfer.restore.TransferRestore;
-import com.github.jameshnsears.quoteunquote.configure.fragment.archive.ArchiveFragment;
-import com.github.jameshnsears.quoteunquote.configure.fragment.archive.ArchivePreferences;
+import com.github.jameshnsears.quoteunquote.configure.fragment.sync.SyncFragment;
+import com.github.jameshnsears.quoteunquote.configure.fragment.sync.SyncPreferences;
 import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
 import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
 
@@ -42,10 +42,11 @@ public class CloudServiceRestore extends CloudService {
                 } else {
                     auditRestore(intent);
 
-                    ArchivePreferences archivePreferences
-                            = new ArchivePreferences(intent.getIntExtra("widgetId", 0), context);
-                    boolean googleCloudRadio = archivePreferences.getArchiveGoogleCloud();
-                    boolean sharedStorageRadio = archivePreferences.getArchiveSharedStorage();
+                    SyncPreferences syncPreferences
+                            = new SyncPreferences(intent.getIntExtra("widgetId", 0), context);
+
+                    syncPreferences.setArchiveGoogleCloud(syncPreferences.getArchiveGoogleCloud());
+                    syncPreferences.setArchiveSharedStorage(syncPreferences.getArchiveSharedStorage());
 
                     handler.post(() -> Toast.makeText(
                             context,
@@ -82,13 +83,9 @@ public class CloudServiceRestore extends CloudService {
                                 context.getString(R.string.fragment_archive_restore_success),
                                 Toast.LENGTH_SHORT).show());
                     }
-
-                    archivePreferences.setArchiveGoogleCloud(googleCloudRadio);
-                    archivePreferences.setArchiveSharedStorage(sharedStorageRadio);
-
-                    broadcastEvent(ArchiveFragment.ENABLE_BUTTON_RESTORE);
-                    broadcastEvent(ArchiveFragment.ENABLE_BUTTON_BACKUP);
                 }
+
+                broadcastEvent(SyncFragment.CLOUD_SERVICE_COMPLETED);
 
                 CloudService.isRunning = false;
                 Timber.d("isRunning=%b", CloudService.isRunning);

@@ -26,8 +26,14 @@ class NotificationsFragmentPreferencesTest : ShadowLoggingHelper() {
                 assertTrue(fragment.notificationsPreferences?.eventDeviceUnlock == false)
 
                 assertTrue(fragment.notificationsPreferences?.eventDaily == false)
-                assertThat(fragment.notificationsPreferences?.eventDailyTimeHour, IsEqual.equalTo(6))
-                assertThat(fragment.notificationsPreferences?.eventDailyTimeMinute, IsEqual.equalTo(0))
+                assertThat(
+                    fragment.notificationsPreferences?.eventDailyTimeHour,
+                    IsEqual.equalTo(6)
+                )
+                assertThat(
+                    fragment.notificationsPreferences?.eventDailyTimeMinute,
+                    IsEqual.equalTo(0)
+                )
             }
         }
     }
@@ -36,16 +42,28 @@ class NotificationsFragmentPreferencesTest : ShadowLoggingHelper() {
     fun confirmChangesToPreferences() {
         with(launchFragment<NotificationsFragmentDouble>()) {
             onFragment { fragment ->
-                assertThat(fragment.notificationsPreferences?.eventDailyTimeHour, IsEqual.equalTo(6))
-                assertThat(fragment.notificationsPreferences?.eventDailyTimeMinute, IsEqual.equalTo(0))
+                assertThat(
+                    fragment.notificationsPreferences?.eventDailyTimeHour,
+                    IsEqual.equalTo(6)
+                )
+                assertThat(
+                    fragment.notificationsPreferences?.eventDailyTimeMinute,
+                    IsEqual.equalTo(0)
+                )
 
                 fragment.setDailyTime()
                 fragment.notificationsPreferences?.eventDaily = true
                 fragment.notificationsPreferences?.eventDailyTimeHour = 7
                 fragment.notificationsPreferences?.eventDailyTimeMinute = 30
 
-                assertThat(fragment.notificationsPreferences?.eventDailyTimeHour, IsEqual.equalTo(7))
-                assertThat(fragment.notificationsPreferences?.eventDailyTimeMinute, IsEqual.equalTo(30))
+                assertThat(
+                    fragment.notificationsPreferences?.eventDailyTimeHour,
+                    IsEqual.equalTo(7)
+                )
+                assertThat(
+                    fragment.notificationsPreferences?.eventDailyTimeMinute,
+                    IsEqual.equalTo(30)
+                )
             }
         }
     }

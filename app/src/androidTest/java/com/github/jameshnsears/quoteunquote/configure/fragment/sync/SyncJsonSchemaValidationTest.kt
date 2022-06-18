@@ -1,4 +1,4 @@
-package com.github.jameshnsears.quoteunquote.configure.fragment.archive
+package com.github.jameshnsears.quoteunquote.configure.fragment.sync
 
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.platform.app.InstrumentationRegistry
@@ -8,7 +8,7 @@ import org.junit.Test
 import timber.log.Timber
 import java.io.BufferedReader
 
-class ArchiveJsonSchemaValidationTest {
+class SyncJsonSchemaValidationTest {
     @Test
     fun validateGoodJsonAgainstSchema() {
         if (Timber.treeCount == 0) {
@@ -22,8 +22,10 @@ class ArchiveJsonSchemaValidationTest {
                 )
         val jsonString = inputStream.bufferedReader().use(BufferedReader::readText)
 
+        // be aware of QuoteUnquote/.gradle folder caching old version
+        // https://stackoverflow.com/questions/60878947/android-studio-how-to-clear-assets-folder-cache
         assertTrue(
-            ArchiveJsonSchemaValidation.isJsonValid(
+            SyncJsonSchemaValidation.isJsonValid(
                 getApplicationContext(), jsonString
             )
         )

@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Spinner;
 
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
@@ -66,8 +64,9 @@ public class AppearanceToolbarFragment extends FragmentCommon {
     @Override
     public void onViewCreated(
             @NonNull final View view, @NonNull final Bundle savedInstanceState) {
+        createListenerHideSeperator();
+
         createListenerToolbarColourPicker();
-        createListenerRemoveSpaceAboveToolbar();
         createListenerToolbarFirst();
         createListenerToolbarPrevious();
         createListenerToolbarToggleFavourite();
@@ -76,8 +75,8 @@ public class AppearanceToolbarFragment extends FragmentCommon {
         createListenerToolbarNextRandom();
         createListenerToolbarNextSequential();
 
+        setHideSeperator();
         setToolbarColour();
-        setRemoveSpaceAboveToolbar();
         setToolbar();
     }
 
@@ -123,13 +122,13 @@ public class AppearanceToolbarFragment extends FragmentCommon {
         });
     }
 
-    public void setRemoveSpaceAboveToolbar() {
-        fragmentAppearanceTabToolbarBinding.toolbarSwitchRemoveSpaceAboveToolbar.setChecked(appearancePreferences.getAppearanceRemoveSpaceAboveToolbar());
+    public void setHideSeperator() {
+        fragmentAppearanceTabToolbarBinding.toolbarSwitchHideSeperator.setChecked(appearancePreferences.getAppearanceToolbarHideSeparator());
     }
 
-    private void createListenerRemoveSpaceAboveToolbar() {
-        fragmentAppearanceTabToolbarBinding.toolbarSwitchRemoveSpaceAboveToolbar.setOnCheckedChangeListener((buttonView, isChecked) ->
-                appearancePreferences.setAppearanceRemoveSpaceAboveToolbar(isChecked)
+    private void createListenerHideSeperator() {
+        fragmentAppearanceTabToolbarBinding.toolbarSwitchHideSeperator.setOnCheckedChangeListener((buttonView, isChecked) ->
+                appearancePreferences.setAppearanceToolbarHideSeparator(isChecked)
         );
     }
 

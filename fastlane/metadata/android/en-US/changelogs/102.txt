@@ -1,0 +1,4 @@
+- Quotation; Author and Position appearance configurable.
+- Remove some, lower quality, quotations.
+- Fix UI defects in Sync.
+- Fix memory leaks.

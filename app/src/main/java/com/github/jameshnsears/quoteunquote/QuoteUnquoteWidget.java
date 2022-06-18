@@ -172,7 +172,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
     private int getWidgetLayout(@NonNull Context context) {
         int layout = R.layout.quote_unquote_widget;
         AppearancePreferences appearancePreferences = new AppearancePreferences(context);
-        if (appearancePreferences.getAppearanceRemoveSpaceAboveToolbar()) {
+        if (appearancePreferences.getAppearanceToolbarHideSeparator()) {
             layout = R.layout.quote_unquote_widget_without_seperator;
         }
         return layout;
@@ -588,7 +588,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                     notificationsPreferences.getEventNextSequential(),
                     widgetId);
         }
-}
+    }
 
     private void onReceiveActivityFinishedConfiguration(
             @NonNull final Context context,
@@ -821,7 +821,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
     }
 
     @Nullable
-    public QuoteUnquoteModel getQuoteUnquoteModel(@NonNull final Context context) {
+    public synchronized QuoteUnquoteModel getQuoteUnquoteModel(@NonNull final Context context) {
         if (quoteUnquoteModel == null) {
             quoteUnquoteModel = new QuoteUnquoteModel(context);
         }

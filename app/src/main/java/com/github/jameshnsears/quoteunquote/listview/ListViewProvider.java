@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.TypedValue;
+import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -36,16 +37,8 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
     @Nullable
     private final QuotationEntity quotationEntity;
 
-    private final int textSize;
-
-    @Nullable
-    private final String textColour;
-
     @Nullable
     public QuoteUnquoteModel quoteUnquoteModel;
-
-    @Nullable
-    private String quotationPosition;
 
     ListViewProvider(@NonNull final Context context, @NonNull final Intent intent) {
         synchronized (this) {
@@ -54,34 +47,27 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
             widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
             Timber.d("%d", widgetId);
 
-            AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, context);
-            textSize = appearancePreferences.getAppearanceTextSize();
-            textColour = appearancePreferences.getAppearanceTextColour();
-
-            QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, context);
-
             setQuoteUnquoteModel(new QuoteUnquoteModel(context));
 
-            quotationEntity = getQuoteUnquoteModel().getCurrentQuotation(
-                    widgetId);
-
-            if (quotationEntity != null) {
-                quotationPosition = getQuoteUnquoteModel().getCurrentPosition(
-                        widgetId,
-                        quotationsPreferences);
-
-                if (quotationEntity.digest != null) {
-                    Timber.d("digest=%s", quotationEntity.digest);
-
-                    if (quotationEntity.digest.equals(
-                            getQuoteUnquoteModel().getLastPreviousDigest(
-                                    widgetId, quotationsPreferences.getContentSelection()))) {
-
-                        quotationPosition = "\u2316  " + quotationPosition;
-                    }
-                }
-            }
+            quotationEntity = getQuoteUnquoteModel().getCurrentQuotation(widgetId);
         }
+    }
+
+    private String getPosition() {
+        QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, context);
+
+        String quotationPosition = getQuoteUnquoteModel().getCurrentPosition(
+                widgetId,
+                quotationsPreferences);
+
+        if (quotationEntity.digest.equals(
+                getQuoteUnquoteModel().getLastPreviousDigest(
+                        widgetId, quotationsPreferences.getContentSelection()))) {
+
+            quotationPosition = "\u2316  " + quotationPosition + " ";
+        }
+
+        return quotationPosition;
     }
 
     @Nullable
@@ -100,22 +86,20 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
 
     @Override
     public void onDataSetChanged() {
-        Timber.d("%d", widgetId);
-
         synchronized (this) {
             if (quotationList.isEmpty() && quotationEntity != null) {
                 // first time call
                 quotationList.add(quotationEntity.theQuotation());
                 quotationList.add(quotationEntity.theAuthor());
-                quotationList.add(quotationPosition);
+                quotationList.add(getPosition());
             } else {
                 // subsequent calls
-                if (quotationEntity != null && !"".equals(quotationEntity.theQuotation())
-                        &&
-                        !quotationList.get(0).equals(quotationEntity.theQuotation())) {
+                if (quotationEntity != null
+                        && !"".equals(quotationEntity.theQuotation())
+                        && !quotationList.get(0).equals(quotationEntity.theQuotation())) {
                     quotationList.set(0, quotationEntity.theQuotation());
                     quotationList.set(1, quotationEntity.theAuthor());
-                    quotationList.set(2, quotationPosition);
+                    quotationList.set(2, getPosition());
                 }
             }
         }
@@ -123,13 +107,7 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
 
     @Override
     public void onDestroy() {
-        this.quoteUnquoteModel.databaseRepository.abstractHistoryDatabase = null;
-        this.quoteUnquoteModel = null;
-    }
-
-    @Override
-    public int getCount() {
-        return 1;
+        // ...
     }
 
     @Override
@@ -146,7 +124,7 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
                 IntentFactoryHelper.createClickFillInIntent(
                         "wikipedia",
                         quotationEntity.wikipedia,
-                        this.widgetId));
+                        widgetId));
 
         remoteViews.setOnClickFillInIntent(
                 R.id.textViewRowPosition,
@@ -155,101 +133,156 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
         return remoteViews;
     }
 
-    private int getRowLayoutId() {
-        AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, context);
-
-        String textFamily = appearancePreferences.getAppearanceTextFamily();
-        String textStyle = appearancePreferences.getAppearanceTextStyle();
-        Timber.d("textFamily=%s; textStyle=%s", textFamily, textStyle);
-
+    private int getRowLayoutId(
+            String textFamily, String textStyle, boolean forceItalicRegular) {
         int layoutId = 0;
+
+
 
         switch (textFamily) {
             case "Cursive":
-                layoutId = ListViewLayoutIdHelper.Companion.layoutIdForCursive(textStyle);
+                if (forceItalicRegular) {
+                    layoutId = R.layout.listvew_row_0_cursive_forced;
+                } else {
+                    layoutId = ListViewLayoutIdHelper.Companion.layoutIdForCursive(textStyle);
+                }
                 break;
 
             case "Monospace":
-                layoutId = ListViewLayoutIdHelper.Companion.layoutIdForMonospace(textStyle);
+                if (forceItalicRegular) {
+                    layoutId = R.layout.listvew_row_1_monospace_forced;
+                } else {
+                    layoutId = ListViewLayoutIdHelper.Companion.layoutIdForMonospace(textStyle);
+                }
                 break;
 
             case "Sans Serif":
-                layoutId = ListViewLayoutIdHelper.Companion.layoutIdForSansSerif(textStyle);
+                if (forceItalicRegular) {
+                    layoutId = R.layout.listvew_row_2_sans_serif_forced;
+                } else {
+                    layoutId = ListViewLayoutIdHelper.Companion.layoutIdForSansSerif(textStyle);
+                }
                 break;
 
             case "Sans Serif Condensed":
-                layoutId = ListViewLayoutIdHelper.Companion.layoutIdForSansSerifCondensed(textStyle);
+                if (forceItalicRegular) {
+                    layoutId = R.layout.listvew_row_3_sans_serif_condensed_forced;
+                } else {
+                    layoutId = ListViewLayoutIdHelper.Companion.layoutIdForSansSerifCondensed(textStyle);
+                }
                 break;
 
             case "Sans Serif Medium":
-                layoutId = ListViewLayoutIdHelper.Companion.layoutIdForSansSerifMedium(textStyle);
+                if (forceItalicRegular) {
+                    layoutId = R.layout.listvew_row_4_sans_serif_medium_forced;
+                } else {
+                    layoutId = ListViewLayoutIdHelper.Companion.layoutIdForSansSerifMedium(textStyle);
+                }
                 break;
 
             default:
-                layoutId = ListViewLayoutIdHelper.Companion.layoutIdForSerif(textStyle);
+                if (forceItalicRegular) {
+                    layoutId = R.layout.listvew_row_5_serif_forced;
+                } else {
+                    layoutId = ListViewLayoutIdHelper.Companion.layoutIdForSerif(textStyle);
+                }
                 break;
         }
 
-        Timber.d("%d", layoutId);
         return layoutId;
     }
 
     @NonNull
     private RemoteViews getRemoteViews(final int position) {
-        final RemoteViews remoteViews = new RemoteViews(context.getPackageName(), getRowLayoutId());
+        AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, context);
 
-        remoteViews.setTextViewText(R.id.textViewRowQuotation, quotationEntity.theQuotation());
-        remoteViews.setTextViewText(R.id.textViewRowAuthor, quotationEntity.theAuthor());
-        remoteViews.setTextViewText(R.id.textViewRowPosition, quotationPosition);
+        final RemoteViews remoteViews = new RemoteViews(
+                context.getPackageName(),
+                getRowLayoutId(
+                        appearancePreferences.getAppearanceTextFamily(),
+                        appearancePreferences.getAppearanceTextStyle(),
+                        appearancePreferences.getAppearanceTextForceItalicRegular()));
 
         synchronized (this) {
             if (!quotationList.isEmpty() && !"".equals(quotationEntity.theQuotation())) {
-                remoteViews.setTextViewText(R.id.textViewRowQuotation, quotationEntity.theQuotation());
-                remoteViews.setTextViewText(R.id.textViewRowAuthor, quotationEntity.theAuthor());
-                remoteViews.setTextViewText(R.id.textViewRowPosition, quotationPosition);
-
-                remoteViews.setTextViewTextSize(
-                        R.id.textViewRowQuotation,
-                        TypedValue.COMPLEX_UNIT_DIP,
-                        (float) textSize);
-
-                remoteViews.setTextColor(
-                        R.id.textViewRowQuotation,
-                        Color.parseColor(textColour));
-
-                remoteViews.setTextViewTextSize(
-                        R.id.textViewRowAuthor,
-                        TypedValue.COMPLEX_UNIT_DIP,
-                        (float) textSize);
-
-                remoteViews.setTextColor(
-                        R.id.textViewRowAuthor,
-                        Color.parseColor(textColour));
-
-                remoteViews.setTextViewTextSize(
-                        R.id.textViewRowPosition,
-                        TypedValue.COMPLEX_UNIT_DIP,
-                        (float) textSize);
-
-                remoteViews.setTextColor(
-                        R.id.textViewRowPosition,
-                        Color.parseColor(textColour));
-
-                final int paintFlags = Paint.ANTI_ALIAS_FLAG;
-                final String methodName = "setPaintFlags";
-
-                if (!quotationEntity.wikipedia.equals("?")) {
-                    remoteViews.setInt(R.id.textViewRowAuthor, methodName,
-                            paintFlags | Paint.UNDERLINE_TEXT_FLAG);
-                } else {
-                    remoteViews.setInt(R.id.textViewRowQuotation, methodName, paintFlags);
-                    remoteViews.setInt(R.id.textViewRowAuthor, methodName, paintFlags);
-                    remoteViews.setInt(R.id.textViewRowPosition, methodName, paintFlags);
-                }
+                setRemoteViewQuotation(remoteViews);
+                setRemoteViewAuthor(remoteViews);
+                setRemoteViewPosition(remoteViews);
             }
         }
 
         return remoteViews;
+    }
+
+    private void setRemoteViewQuotation(RemoteViews remoteViews) {
+        AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, context);
+
+        setText(remoteViews, R.id.textViewRowQuotation, quotationEntity.theQuotation());
+        setTextSize(remoteViews, R.id.textViewRowQuotation, appearancePreferences.getAppearanceQuotationTextSize());
+        setTextColour(remoteViews, R.id.textViewRowQuotation, appearancePreferences.getAppearanceQuotationTextColour());
+        setTextPaintFlags(remoteViews, R.id.textViewRowQuotation, Paint.ANTI_ALIAS_FLAG);
+    }
+
+    private void setRemoteViewHide(RemoteViews remoteViews, boolean hideView, int id) {
+        if (hideView) {
+            remoteViews.setViewVisibility(id, View.GONE);
+        } else {
+            remoteViews.setViewVisibility(id, View.VISIBLE);
+        }
+    }
+
+    private void setRemoteViewAuthor(RemoteViews remoteViews) {
+        AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, context);
+
+        setText(remoteViews, R.id.textViewRowAuthor, quotationEntity.theAuthor());
+        setTextSize(remoteViews, R.id.textViewRowAuthor, appearancePreferences.getAppearanceAuthorTextSize());
+        setTextColour(remoteViews, R.id.textViewRowAuthor, appearancePreferences.getAppearanceAuthorTextColour());
+        if (!quotationEntity.wikipedia.equals("?")) {
+            setTextPaintFlags(
+                    remoteViews,
+                    R.id.textViewRowAuthor,
+                    Paint.ANTI_ALIAS_FLAG | Paint.UNDERLINE_TEXT_FLAG);
+        } else {
+            setTextPaintFlags(remoteViews, R.id.textViewRowAuthor, Paint.ANTI_ALIAS_FLAG);
+        }
+        setRemoteViewHide(
+                remoteViews,
+                appearancePreferences.getAppearanceAuthorTextHide(),
+                R.id.textViewRowAuthor);
+    }
+
+    private void setRemoteViewPosition(RemoteViews remoteViews) {
+        AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, context);
+
+        setText(remoteViews, R.id.textViewRowPosition, getPosition());
+        setTextSize(remoteViews, R.id.textViewRowPosition, appearancePreferences.getAppearancePositionTextSize());
+        setTextColour(remoteViews, R.id.textViewRowPosition, appearancePreferences.getAppearancePositionTextColour());
+        setTextPaintFlags(remoteViews, R.id.textViewRowPosition, Paint.ANTI_ALIAS_FLAG);
+        setRemoteViewHide(
+                remoteViews,
+                appearancePreferences.getAppearancePositionTextHide(),
+                R.id.textViewRowPosition);
+    }
+
+    private void setTextPaintFlags(RemoteViews remoteViews, int viewId, int paintFlags) {
+        remoteViews.setInt(viewId, "setPaintFlags", paintFlags);
+    }
+
+    private void setText(RemoteViews remoteViews, int viewId, String text) {
+        remoteViews.setTextViewText(viewId, text);
+    }
+
+    private void setTextColour(RemoteViews remoteViews, int viewId, String colour) {
+        remoteViews.setTextColor(
+                viewId,
+                Color.parseColor(colour));
+    }
+
+    private void setTextSize(RemoteViews remoteViews, int viewId, int size) {
+        remoteViews.setTextViewTextSize(
+                viewId,
+                TypedValue.COMPLEX_UNIT_DIP,
+                (float) size);
     }
 
     @NonNull
@@ -271,5 +304,10 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
     @Override
     public boolean hasStableIds() {
         return true;
+    }
+
+    @Override
+    public int getCount() {
+        return 1;
     }
 }

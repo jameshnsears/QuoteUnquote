@@ -8,7 +8,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.github.jameshnsears.quoteunquote.R;
-import com.github.jameshnsears.quoteunquote.configure.fragment.archive.ArchiveFragment;
+import com.github.jameshnsears.quoteunquote.configure.fragment.sync.SyncFragment;
 import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
 
 import java.util.concurrent.ConcurrentHashMap;
@@ -59,8 +59,7 @@ public class CloudServiceBackup extends CloudService {
                 CloudService.isRunning = false;
                 Timber.d("isRunning=%b", CloudService.isRunning);
 
-                this.broadcastEvent(ArchiveFragment.ENABLE_BUTTON_RESTORE);
-                this.broadcastEvent(ArchiveFragment.ENABLE_BUTTON_BACKUP);
+                this.broadcastEvent(SyncFragment.CLOUD_SERVICE_COMPLETED);
 
                 stopSelf();
 

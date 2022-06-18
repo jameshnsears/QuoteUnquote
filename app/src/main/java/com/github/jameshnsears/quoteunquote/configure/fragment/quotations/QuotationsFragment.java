@@ -213,7 +213,7 @@ public class QuotationsFragment extends FragmentCommon {
         createListenerAuthor();
         createListenerFavouriteButtonExport();
 
-        handleStorageAccessFrameworkResult();
+        handleExportResult();
 
         setSelection();
     }
@@ -491,7 +491,7 @@ public class QuotationsFragment extends FragmentCommon {
         });
     }
 
-    protected final void handleStorageAccessFrameworkResult() {
+    protected final void handleExportResult() {
         // default: /storage/emulated/0/Download/Favourites.txt
         activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),

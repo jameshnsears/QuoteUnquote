@@ -1,11 +1,11 @@
-package com.github.jameshnsears.quoteunquote.configure.fragment.archive
+package com.github.jameshnsears.quoteunquote.configure.fragment.sync
 
 import android.content.Context
 import net.pwall.json.schema.JSONSchema
 import timber.log.Timber
 import java.io.BufferedReader
 
-class ArchiveJsonSchemaValidation {
+class SyncJsonSchemaValidation {
     // https://github.com/pwall567/json-kotlin-schema
     private constructor() {
         // ...

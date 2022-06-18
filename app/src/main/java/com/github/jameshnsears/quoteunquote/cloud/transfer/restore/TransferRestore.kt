@@ -13,8 +13,8 @@ import com.github.jameshnsears.quoteunquote.cloud.transfer.TransferCommon
 import com.github.jameshnsears.quoteunquote.cloud.transfer.TransferRestoreRequest
 import com.github.jameshnsears.quoteunquote.cloud.transfer.TransferUtility
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences
-import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences
 import com.github.jameshnsears.quoteunquote.configure.fragment.notifications.NotificationsPreferences
+import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences
 import com.github.jameshnsears.quoteunquote.database.DatabaseRepository
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
@@ -89,7 +89,8 @@ class TransferRestore : TransferCommon() {
                     digest = DatabaseRepository.getDefaultQuotationDigest()
                 }
 
-                val currentQuotation: QuotationEntity? = databaseRepository.getCurrentQuotation(widgetId)
+                val currentQuotation: QuotationEntity? =
+                    databaseRepository.getCurrentQuotation(widgetId)
                 if (currentQuotation == null || currentQuotation.digest != digest) {
                     databaseRepository.markAsCurrent(widgetId, digest)
                 }
@@ -214,10 +215,19 @@ class TransferRestore : TransferCommon() {
     ) {
         val appearancePreferences = AppearancePreferences(widgetId, context)
         appearancePreferences.appearanceColour = appearance.appearanceColour
-        appearancePreferences.appearanceTextColour = appearance.appearanceTextColour
+        appearancePreferences.appearanceTransparency = appearance.appearanceTransparency
         appearancePreferences.appearanceTextFamily = appearance.appearanceTextFamily
-        appearancePreferences.appearanceTextSize = appearance.appearanceTextSize
         appearancePreferences.appearanceTextStyle = appearance.appearanceTextStyle
+        appearancePreferences.appearanceTextForceItalicRegular = appearance.appearanceTextForceItalicRegular
+        appearancePreferences.appearanceQuotationTextColour = appearance.appearanceTextColour
+        appearancePreferences.appearanceQuotationTextSize = appearance.appearanceTextSize
+        appearancePreferences.appearanceAuthorTextColour = appearance.appearanceAuthorTextColour
+        appearancePreferences.appearanceAuthorTextSize = appearance.appearanceAuthorTextSize
+        appearancePreferences.appearanceAuthorTextHide = appearance.appearanceAuthorTextHide
+        appearancePreferences.appearancePositionTextColour = appearance.appearancePositionTextColour
+        appearancePreferences.appearancePositionTextSize = appearance.appearancePositionTextSize
+        appearancePreferences.appearancePositionTextHide = appearance.appearancePositionTextHide
+        appearancePreferences.appearanceToolbarHideSeparator = appearance.appearanceToolbarHideSeparator
         appearancePreferences.appearanceToolbarColour = appearance.appearanceToolbarColour
         appearancePreferences.appearanceToolbarFavourite = appearance.appearanceToolbarFavourite
         appearancePreferences.appearanceToolbarFirst = appearance.appearanceToolbarFirst
@@ -225,6 +235,5 @@ class TransferRestore : TransferCommon() {
         appearancePreferences.appearanceToolbarRandom = appearance.appearanceToolbarRandom
         appearancePreferences.appearanceToolbarSequential = appearance.appearanceToolbarSequential
         appearancePreferences.appearanceToolbarShare = appearance.appearanceToolbarShare
-        appearancePreferences.appearanceTransparency = appearance.appearanceTransparency
     }
 }

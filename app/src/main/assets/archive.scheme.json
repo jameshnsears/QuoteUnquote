@@ -65,11 +65,35 @@
               "APPEARANCE_TEXT_STYLE": {
                 "type": "string"
               },
+              "APPEARANCE_TEXT_FORCE_ITALIC_REGULAR": {
+                "type": "boolean"
+              },
               "APPEARANCE_TEXT_SIZE": {
                 "type": "integer"
               },
               "APPEARANCE_TEXT_COLOUR": {
                 "type": "string"
+              },
+              "APPEARANCE_AUTHOR_TEXT_SIZE": {
+                "type": "integer"
+              },
+              "APPEARANCE_AUTHOR_TEXT_COLOUR": {
+                "type": "string"
+              },
+              "APPEARANCE_AUTHOR_TEXT_HIDE": {
+                "type": "boolean"
+              },
+              "APPEARANCE_POSITION_TEXT_SIZE": {
+                "type": "integer"
+              },
+              "APPEARANCE_POSITION_TEXT_COLOUR": {
+                "type": "string"
+              },
+              "APPEARANCE_POSITION_TEXT_HIDE": {
+                "type": "boolean"
+              },
+              "APPEARANCE_REMOVE_SPACE_ABOVE_TOOLBAR": {
+                "type": "boolean"
               },
               "APPEARANCE_TOOLBAR_COLOUR": {
                 "type": "string"

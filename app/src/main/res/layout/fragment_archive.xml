@@ -40,35 +40,13 @@
         android:paddingTop="5dp"
         android:paddingBottom="5dp">
 
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingVertical="5dp"
-                android:paddingTop="0dp"
-                android:paddingBottom="4dp"
-                android:paddingStart="0dp"
-                android:paddingEnd="5dp"
-                android:text="@string/fragment_archive_instructions_1"
-                android:textSize="14sp"/>
-
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingVertical="5dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:paddingStart="0dp"
-                android:paddingEnd="5dp"
-                android:text="@string/fragment_archive_instructions_2"
-                android:textSize="14sp"/>
-
         <RadioGroup
                 android:id="@+id/radioGroupArchive"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
         <RadioButton
-                android:id="@+id/radioButtonCloud"
+                android:id="@+id/radio_button_google_cloud"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_archive_cloud_24"
@@ -80,7 +58,7 @@
                 android:textSize="14sp" />
 
         <RadioButton
-                android:id="@+id/radioButtonSharedStorage"
+                android:id="@+id/radio_button_device"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/ic_archive_folder_24"

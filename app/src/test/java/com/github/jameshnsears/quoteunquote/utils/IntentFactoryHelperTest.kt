@@ -19,7 +19,10 @@ class IntentFactoryHelperTest {
     @Test
     fun createSimpleIntent() {
         val intent = IntentFactoryHelper.createIntent(WidgetIdHelper.WIDGET_ID_01)
-        assertEquals(WidgetIdHelper.WIDGET_ID_01, intent.extras?.get(AppWidgetManager.EXTRA_APPWIDGET_ID))
+        assertEquals(
+            WidgetIdHelper.WIDGET_ID_01,
+            intent.extras?.get(AppWidgetManager.EXTRA_APPWIDGET_ID)
+        )
     }
 
     @Test

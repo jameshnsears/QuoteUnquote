@@ -13,7 +13,7 @@
             android:icon="@drawable/ic_selector_navigation_bar_update_24"
             android:title="@string/fragment_notifications_title" />
     <item
-            android:id="@+id/navigationBarArchive"
+            android:id="@+id/navigationBarSync"
             android:icon="@drawable/ic_selector_navigation_bar_sync_alt_24"
             android:title="@string/fragment_archive_title" />
 </menu>

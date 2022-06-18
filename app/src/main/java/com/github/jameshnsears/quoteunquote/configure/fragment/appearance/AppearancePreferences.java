@@ -9,12 +9,23 @@ import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade;
 public class AppearancePreferences extends PreferencesFacade {
     public static final String APPEARANCE_COLOUR = "APPEARANCE_COLOUR";
     public static final String APPEARANCE_TRANSPARENCY = "APPEARANCE_TRANSPARENCY";
-    public static final String APPEARANCE_REMOVE_SPACE_ABOVE_TOOLBAR
-            = "APPEARANCE_REMOVE_SPACE_ABOVE_TOOLBAR";
-    public static final String APPEARANCE_TEXT_COLOUR = "APPEARANCE_TEXT_COLOUR";
-    public static final String APPEARANCE_TEXT_FAMILY = "APPEARANCE_TEXT_FAMILY";
+
     public static final String APPEARANCE_TEXT_STYLE = "APPEARANCE_TEXT_STYLE";
     public static final String APPEARANCE_TEXT_SIZE = "APPEARANCE_TEXT_SIZE";
+    public static final String APPEARANCE_TEXT_FORCE_ITALIC_REGULAR
+            = "APPEARANCE_TEXT_FORCE_ITALIC_REGULAR";
+
+    public static final String APPEARANCE_QUOTATION_TEXT_COLOUR = "APPEARANCE_TEXT_COLOUR";
+    public static final String APPEARANCE_QUOTATION_TEXT_FAMILY = "APPEARANCE_TEXT_FAMILY";
+
+    public static final String APPEARANCE_AUTHOR_TEXT_COLOUR = "APPEARANCE_AUTHOR_TEXT_COLOUR";
+    public static final String APPEARANCE_AUTHOR_TEXT_SIZE = "APPEARANCE_AUTHOR_TEXT_SIZE";
+    public static final String APPEARANCE_AUTHOR_TEXT_HIDE = "APPEARANCE_AUTHOR_TEXT_HIDE";
+
+    public static final String APPEARANCE_POSITION_TEXT_COLOUR = "APPEARANCE_POSITION_TEXT_COLOUR";
+    public static final String APPEARANCE_POSITION_TEXT_SIZE = "APPEARANCE_POSITION_TEXT_SIZE";
+    public static final String APPEARANCE_POSITION_TEXT_HIDE = "APPEARANCE_POSITION_TEXT_HIDE";
+
     public static final String APPEARANCE_TOOLBAR_COLOUR = "APPEARANCE_TOOLBAR_COLOUR";
     public static final String APPEARANCE_TOOLBAR_FIRST = "APPEARANCE_TOOLBAR_FIRST";
     public static final String APPEARANCE_TOOLBAR_PREVIOUS = "APPEARANCE_TOOLBAR_PREVIOUS";
@@ -35,33 +46,88 @@ public class AppearancePreferences extends PreferencesFacade {
         super(widgetId, applicationContext);
     }
 
-    public boolean getAppearanceToolbarJump() {
-        return preferenceHelper.getPreferenceBoolean(getPreferenceKey(APPEARANCE_TOOLBAR_JUMP), false);
+    @NonNull
+    public String getAppearancePositionTextColour() {
+        String textColour = preferenceHelper.getPreferenceString(getPreferenceKey(APPEARANCE_POSITION_TEXT_COLOUR));
+        if (textColour.equals("")) {
+            textColour = "#FF000000";
+        }
+        return textColour;
     }
 
-    public void setAppearanceToolbarJump(final boolean value) {
-        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TOOLBAR_JUMP), value);
+    public void setAppearancePositionTextColour(@NonNull final String value) {
+        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_POSITION_TEXT_COLOUR), value);
     }
 
-    public boolean getAppearanceRemoveSpaceAboveToolbar() {
-        return preferenceHelper.getPreferenceBoolean("0:APPEARANCE_REMOVE_SPACE_ABOVE_TOOLBAR", false);
+    public int getAppearancePositionTextSize() {
+        int textSize = preferenceHelper.getPreferenceInt(getPreferenceKey(APPEARANCE_POSITION_TEXT_SIZE));
+        if (textSize == -1) {
+            textSize = 16;
+        }
+        return textSize;
     }
 
-    public void setAppearanceRemoveSpaceAboveToolbar(final boolean value) {
-        preferenceHelper.setPreference("0:APPEARANCE_REMOVE_SPACE_ABOVE_TOOLBAR", value);
+    public void setAppearancePositionTextSize(final int value) {
+        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_POSITION_TEXT_SIZE), value);
     }
 
-    public int getAppearanceTransparency() {
-        return preferenceHelper.getPreferenceInt(getPreferenceKey(APPEARANCE_TRANSPARENCY));
+    public boolean getAppearancePositionTextHide() {
+        return preferenceHelper.getPreferenceBoolean(getPreferenceKey(APPEARANCE_POSITION_TEXT_HIDE), false);
     }
 
-    public void setAppearanceTransparency(final int value) {
-        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TRANSPARENCY), value);
+    public void setAppearancePositionTextHide(final boolean value) {
+        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_POSITION_TEXT_HIDE), value);
+    }
+
+    @NonNull
+    public String getAppearanceAuthorTextColour() {
+        String textColour = preferenceHelper.getPreferenceString(getPreferenceKey(APPEARANCE_AUTHOR_TEXT_COLOUR));
+        if (textColour.equals("")) {
+            textColour = "#FF000000";
+        }
+        return textColour;
+    }
+
+    public void setAppearanceAuthorTextColour(@NonNull final String value) {
+        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_AUTHOR_TEXT_COLOUR), value);
+    }
+
+    public int getAppearanceAuthorTextSize() {
+        int textSize = preferenceHelper.getPreferenceInt(getPreferenceKey(APPEARANCE_AUTHOR_TEXT_SIZE));
+        if (textSize == -1) {
+            textSize = 16;
+        }
+        return textSize;
+    }
+
+    public void setAppearanceAuthorTextSize(final int value) {
+        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_AUTHOR_TEXT_SIZE), value);
+    }
+
+    public boolean getAppearanceAuthorTextHide() {
+        return preferenceHelper.getPreferenceBoolean(getPreferenceKey(APPEARANCE_AUTHOR_TEXT_HIDE), false);
+    }
+
+    public void setAppearanceAuthorTextHide(final boolean value) {
+        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_AUTHOR_TEXT_HIDE), value);
+    }
+
+    @NonNull
+    public String getAppearanceQuotationTextColour() {
+        String textColour = preferenceHelper.getPreferenceString(getPreferenceKey(APPEARANCE_QUOTATION_TEXT_COLOUR));
+        if (textColour.equals("")) {
+            textColour = "#FF000000";
+        }
+        return textColour;
+    }
+
+    public void setAppearanceQuotationTextColour(@NonNull final String value) {
+        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_QUOTATION_TEXT_COLOUR), value);
     }
 
     @NonNull
     public String getAppearanceTextFamily() {
-        String textFamily = preferenceHelper.getPreferenceString(getPreferenceKey(APPEARANCE_TEXT_FAMILY));
+        String textFamily = preferenceHelper.getPreferenceString(getPreferenceKey(APPEARANCE_QUOTATION_TEXT_FAMILY));
         if (textFamily.equals("")) {
             textFamily = "Sans Serif";
         }
@@ -69,7 +135,7 @@ public class AppearancePreferences extends PreferencesFacade {
     }
 
     public void setAppearanceTextFamily(@NonNull final String value) {
-        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TEXT_FAMILY), value);
+        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_QUOTATION_TEXT_FAMILY), value);
     }
 
     @NonNull
@@ -83,6 +149,53 @@ public class AppearancePreferences extends PreferencesFacade {
 
     public void setAppearanceTextStyle(@NonNull final String value) {
         preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TEXT_STYLE), value);
+    }
+
+    public int getAppearanceQuotationTextSize() {
+        int textSize = preferenceHelper.getPreferenceInt(getPreferenceKey(APPEARANCE_TEXT_SIZE));
+        if (textSize == -1) {
+            textSize = 16;
+        }
+        return textSize;
+    }
+
+    public void setAppearanceTextForceItalicRegular(final boolean value) {
+        preferenceHelper.setPreference
+                (getPreferenceKey(APPEARANCE_TEXT_FORCE_ITALIC_REGULAR), value);
+    }
+
+    public boolean getAppearanceTextForceItalicRegular() {
+        return preferenceHelper.getPreferenceBoolean(
+                getPreferenceKey(APPEARANCE_TEXT_FORCE_ITALIC_REGULAR), false);
+    }
+
+
+    public void setAppearanceQuotationTextSize(final int value) {
+        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TEXT_SIZE), value);
+    }
+
+    public boolean getAppearanceToolbarJump() {
+        return preferenceHelper.getPreferenceBoolean(getPreferenceKey(APPEARANCE_TOOLBAR_JUMP), false);
+    }
+
+    public void setAppearanceToolbarJump(final boolean value) {
+        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TOOLBAR_JUMP), value);
+    }
+
+    public boolean getAppearanceToolbarHideSeparator() {
+        return preferenceHelper.getPreferenceBoolean("0:APPEARANCE_REMOVE_SPACE_ABOVE_TOOLBAR", false);
+    }
+
+    public void setAppearanceToolbarHideSeparator(final boolean value) {
+        preferenceHelper.setPreference("0:APPEARANCE_REMOVE_SPACE_ABOVE_TOOLBAR", value);
+    }
+
+    public int getAppearanceTransparency() {
+        return preferenceHelper.getPreferenceInt(getPreferenceKey(APPEARANCE_TRANSPARENCY));
+    }
+
+    public void setAppearanceTransparency(final int value) {
+        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TRANSPARENCY), value);
     }
 
     @NonNull
@@ -110,31 +223,6 @@ public class AppearancePreferences extends PreferencesFacade {
 
     public void setAppearanceToolbarColour(@NonNull final String value) {
         preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TOOLBAR_COLOUR), value);
-    }
-
-    @NonNull
-    public String getAppearanceTextColour() {
-        String textColour = preferenceHelper.getPreferenceString(getPreferenceKey(APPEARANCE_TEXT_COLOUR));
-        if (textColour.equals("")) {
-            textColour = "#FF000000";
-        }
-        return textColour;
-    }
-
-    public void setAppearanceTextColour(@NonNull final String value) {
-        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TEXT_COLOUR), value);
-    }
-
-    public int getAppearanceTextSize() {
-        int textSize = preferenceHelper.getPreferenceInt(getPreferenceKey(APPEARANCE_TEXT_SIZE));
-        if (textSize == -1) {
-            textSize = 16;
-        }
-        return textSize;
-    }
-
-    public void setAppearanceTextSize(final int value) {
-        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TEXT_SIZE), value);
     }
 
     public boolean getAppearanceToolbarFirst() {

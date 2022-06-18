@@ -3,7 +3,7 @@ package com.github.jameshnsears.quoteunquote.cloud.transfer.backup
 import android.content.Context
 import com.github.jameshnsears.quoteunquote.cloud.transfer.Transfer
 import com.github.jameshnsears.quoteunquote.cloud.transfer.TransferCommon
-import com.github.jameshnsears.quoteunquote.configure.fragment.archive.ArchivePreferences
+import com.github.jameshnsears.quoteunquote.configure.fragment.sync.SyncPreferences
 import com.github.jameshnsears.quoteunquote.database.DatabaseRepository
 
 open class TransferBackup(val context: Context) : TransferCommon() {
@@ -18,7 +18,7 @@ open class TransferBackup(val context: Context) : TransferCommon() {
     }
 
     open fun getLocalCode(): String {
-        return ArchivePreferences(
+        return SyncPreferences(
             0,
             context
         ).transferLocalCode

@@ -17,7 +17,7 @@
             android:orientation="vertical">
 
         <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/toolbarSwitchRemoveSpaceAboveToolbar"
+                android:id="@+id/toolbar_switch_hide_seperator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/fragment_appearance_toolbar_hide_separator"

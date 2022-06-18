@@ -4,6 +4,11 @@ import android.os.Build
 import androidx.fragment.app.testing.launchFragment
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.style.AppearanceStyleFragmentDouble
+import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.style.text.AppearanceTextDialogAuthorDouble
+import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.style.text.AppearanceTextDialogPositionDouble
+import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.style.text.AppearanceTextDialogQuotationDouble
+import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.toolbar.AppearanceToolbarFragmentDouble
 import com.github.jameshnsears.quoteunquote.utils.logging.ShadowLoggingHelper
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import org.hamcrest.MatcherAssert.assertThat
@@ -18,7 +23,7 @@ import org.robolectric.annotation.Config
 @Config(sdk = [Build.VERSION_CODES.P])
 class AppearanceFragmentPreferencesTest : ShadowLoggingHelper() {
     @Test
-    fun confirmInitialStylePreferences() {
+    fun confirmInitialAppearanceStylePreferences() {
         with(launchFragment<AppearanceStyleFragmentDouble>()) {
             onFragment { fragment ->
                 fragment.setBackgroundColour()
@@ -27,32 +32,100 @@ class AppearanceFragmentPreferencesTest : ShadowLoggingHelper() {
                 fragment.setTransparency()
                 assertThat(fragment.appearancePreferences?.appearanceTransparency, equalTo(-1))
 
-                fragment.setTextColour()
-                assertEquals("#FF000000", fragment.appearancePreferences?.appearanceTextColour)
-
                 fragment.setTextFamily()
-                assertEquals("Sans Serif", fragment.appearancePreferences?.appearanceTextFamily)
+                assertEquals(
+                    "Sans Serif",
+                    fragment.appearancePreferences?.appearanceTextFamily
+                )
 
                 fragment.setTextStyle()
-                assertEquals("Regular", fragment.appearancePreferences?.appearanceTextStyle)
+                assertEquals(
+                    "Regular",
+                    fragment.appearancePreferences?.appearanceTextStyle
+                )
 
-                fragment.setTextSize()
-                assertThat(fragment.appearancePreferences?.appearanceTextSize, equalTo(16))
+                fragment.setTextForceItalicRegular()
+                assertEquals(
+                    false,
+                    fragment.appearancePreferences?.appearanceTextForceItalicRegular
+                )
             }
         }
     }
+
+    @Test
+    fun confirmInitialTextPreferencesQuotation() {
+        with(launchFragment<AppearanceTextDialogQuotationDouble>()) {
+            onFragment { fragment ->
+                fragment.setTextColour()
+                assertEquals(
+                    "#FF000000",
+                    fragment.appearancePreferences?.appearanceQuotationTextColour
+                )
+
+                fragment.setTextSize()
+                assertThat(fragment.appearancePreferences?.appearanceQuotationTextSize, equalTo(16))
+            }
+        }
+    }
+
+    @Test
+    fun confirmInitialTextPreferencesAuthor() {
+        with(launchFragment<AppearanceTextDialogAuthorDouble>()) {
+            onFragment { fragment ->
+                fragment.setTextColour()
+                assertEquals(
+                    "#FF000000",
+                    fragment.appearancePreferences?.appearanceAuthorTextColour
+                )
+
+                fragment.setTextSize()
+                assertThat(fragment.appearancePreferences?.appearanceAuthorTextSize, equalTo(16))
+
+                fragment.setTextHide()
+                assertTrue(fragment.appearancePreferences?.appearanceAuthorTextHide == false)
+            }
+        }
+    }
+
+    @Test
+    fun confirmInitialTextPreferencesPosition() {
+        with(launchFragment<AppearanceTextDialogPositionDouble>()) {
+            onFragment { fragment ->
+                fragment.setTextColour()
+                assertEquals(
+                    "#FF000000",
+                    fragment.appearancePreferences?.appearancePositionTextColour
+                )
+
+                fragment.setTextSize()
+                assertThat(fragment.appearancePreferences?.appearancePositionTextSize, equalTo(16))
+
+                fragment.setTextHide()
+                assertTrue(fragment.appearancePreferences?.appearancePositionTextHide == false)
+            }
+        }
+    }
+
     @Test
     fun confirmInitialToolbarPreferences() {
         with(launchFragment<AppearanceToolbarFragmentDouble>()) {
             onFragment { fragment ->
+                fragment.setHideSeperator()
+                assertTrue(fragment.appearancePreferences?.appearanceToolbarHideSeparator == false)
+
                 fragment.setToolbarColour()
-                assertThat(fragment.appearancePreferences?.appearanceToolbarColour, equalTo("#FF000000"))
+                assertThat(
+                    fragment.appearancePreferences?.appearanceToolbarColour,
+                    equalTo("#FF000000")
+                )
 
                 fragment.setToolbar()
                 assertTrue(fragment.appearancePreferences?.appearanceToolbarFirst == false)
                 assertTrue(fragment.appearancePreferences?.appearanceToolbarPrevious == true)
                 assertTrue(fragment.appearancePreferences?.appearanceToolbarFavourite == true)
                 assertTrue(fragment.appearancePreferences?.appearanceToolbarShare == true)
+                assertTrue(fragment.appearancePreferences?.appearanceToolbarJump == false)
                 assertTrue(fragment.appearancePreferences?.appearanceToolbarRandom == true)
                 assertTrue(fragment.appearancePreferences?.appearanceToolbarSequential == false)
             }
@@ -63,22 +136,30 @@ class AppearanceFragmentPreferencesTest : ShadowLoggingHelper() {
     fun confirmToolbarChangesToPreferences() {
         with(launchFragment<AppearanceToolbarFragmentDouble>()) {
             onFragment { fragment ->
+                fragment.fragmentAppearanceTabToolbarBinding?.toolbarSwitchHideSeperator?.isChecked =
+                    false
+                assertTrue(fragment.appearancePreferences?.appearanceToolbarHideSeparator == false)
+
                 fragment.fragmentAppearanceTabToolbarBinding?.toolbarSwitchFirst?.isChecked = true
                 assertTrue(fragment.appearancePreferences?.appearanceToolbarFirst == true)
 
-                fragment.fragmentAppearanceTabToolbarBinding?.toolbarSwitchPrevious?.isChecked = false
+                fragment.fragmentAppearanceTabToolbarBinding?.toolbarSwitchPrevious?.isChecked =
+                    false
                 assertTrue(fragment.appearancePreferences?.appearanceToolbarPrevious == false)
 
-                fragment.fragmentAppearanceTabToolbarBinding?.toolbarSwitchToggleFavourite?.isChecked = false
+                fragment.fragmentAppearanceTabToolbarBinding?.toolbarSwitchToggleFavourite?.isChecked =
+                    false
                 assertTrue(fragment.appearancePreferences?.appearanceToolbarFavourite == false)
 
                 fragment.fragmentAppearanceTabToolbarBinding?.toolbarSwitchShare?.isChecked = false
                 assertTrue(fragment.appearancePreferences?.appearanceToolbarShare == false)
 
-                fragment.fragmentAppearanceTabToolbarBinding?.toolbarSwitchNextRandom?.isChecked = false
+                fragment.fragmentAppearanceTabToolbarBinding?.toolbarSwitchNextRandom?.isChecked =
+                    false
                 assertTrue(fragment.appearancePreferences?.appearanceToolbarRandom == false)
 
-                fragment.fragmentAppearanceTabToolbarBinding?.toolbarSwitchNextSequential?.isChecked = true
+                fragment.fragmentAppearanceTabToolbarBinding?.toolbarSwitchNextSequential?.isChecked =
+                    true
                 assertTrue(fragment.appearancePreferences?.appearanceToolbarSequential == true)
             }
         }

@@ -2,7 +2,7 @@ package com.github.jameshnsears.quoteunquote
 
 import android.os.Build
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences
-import com.github.jameshnsears.quoteunquote.configure.fragment.archive.ArchivePreferences
+import com.github.jameshnsears.quoteunquote.configure.fragment.sync.SyncPreferences
 import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import io.mockk.every
@@ -23,24 +23,24 @@ class WidgetDeletedTest : QuoteUnquoteModelUtility() {
             every { quoteUnquoteWidget.getQuoteUnquoteModel(any()) } returns quoteUnquoteModelDouble
 
             quoteUnquoteWidget.onEnabled(context)
-            val archivePreferences =
-                ArchivePreferences(
+            val syncPreferences =
+                SyncPreferences(
                     0,
                     context
                 )
-            assertTrue(archivePreferences.transferLocalCode.length == 10)
+            assertTrue(syncPreferences.transferLocalCode.length == 10)
             quoteUnquoteWidget.onDeleted(context, intArrayOf(WidgetIdHelper.WIDGET_ID_01))
 
             assertDatabase()
-            assertSharedPreferences(archivePreferences)
+            assertSharedPreferences(syncPreferences)
         }
     }
 
-    private fun assertSharedPreferences(archivePreferences: ArchivePreferences) {
+    private fun assertSharedPreferences(syncPreferences: SyncPreferences) {
         assertEquals(0, PreferencesFacade.countPreferences(context, WidgetIdHelper.WIDGET_ID_01))
         assertEquals(1, PreferencesFacade.countPreferences(context, WidgetIdHelper.WIDGET_ID_02))
 
-        assertFalse(archivePreferences.transferLocalCode.isEmpty())
+        assertFalse(syncPreferences.transferLocalCode.isEmpty())
     }
 
     private fun assertDatabase() {
@@ -72,7 +72,7 @@ class WidgetDeletedTest : QuoteUnquoteModelUtility() {
     }
 
     private fun setupSharedPreferences() {
-        AppearancePreferences(WidgetIdHelper.WIDGET_ID_01, context).appearanceTextSize = 1
-        AppearancePreferences(WidgetIdHelper.WIDGET_ID_02, context).appearanceTextSize = 1
+        AppearancePreferences(WidgetIdHelper.WIDGET_ID_01, context).appearanceQuotationTextSize = 1
+        AppearancePreferences(WidgetIdHelper.WIDGET_ID_02, context).appearanceQuotationTextSize = 1
     }
 }

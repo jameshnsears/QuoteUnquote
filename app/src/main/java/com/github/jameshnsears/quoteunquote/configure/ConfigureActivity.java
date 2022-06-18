@@ -16,9 +16,9 @@ import androidx.fragment.app.Fragment;
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteWidget;
 import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearanceFragment;
-import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.notifications.NotificationsFragment;
-import com.github.jameshnsears.quoteunquote.configure.fragment.archive.ArchiveFragment;
+import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsFragment;
+import com.github.jameshnsears.quoteunquote.configure.fragment.sync.SyncFragment;
 import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
 import com.github.jameshnsears.quoteunquote.databinding.ActivityConfigureBinding;
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
@@ -35,57 +35,29 @@ public class ConfigureActivity extends AppCompatActivity {
     @Nullable
     public ActivityConfigureBinding activityConfigureBinding;
 
-    private final BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener
-            = item -> {
-        Fragment selectedFragment = getFragmentContentNewInstance();
-
-        switch (item.getItemId()) {
-            case R.id.navigationBarQuotations:
-                selectedFragment = getFragmentContentNewInstance();
-                break;
-
-            case R.id.navigationBarAppearance:
-                selectedFragment = AppearanceFragment.newInstance(widgetId);
-                break;
-
-            case R.id.navigationBarNotification:
-                selectedFragment = NotificationsFragment.newInstance(widgetId);
-                break;
-
-            case R.id.navigationBarArchive:
-                selectedFragment = ArchiveFragment.newInstance(widgetId);
-                break;
-
-            default:
-                Timber.e("%d", item.getItemId());
-        }
-
-        String activeFragment = selectedFragment.getClass().getSimpleName();
-
-        Timber.d("activeFragment=%s", activeFragment);
-
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragmentPlaceholderContent, selectedFragment)
-                .commit();
-
-        activityConfigureBinding.scrollView.scrollTo(0, 0);
-
-        return true;
-    };
+    @Nullable
+    public BottomNavigationView bottomNavigationView;
 
     public boolean broadcastFinishIntent = true;
+
     @Nullable
+    protected boolean finishCalled;
 
-    private boolean finishCalled;
-
-    ActivityResultLauncher<Intent> wikipediaActivityLancher = this.registerForActivityResult(
+    @NonNull
+    private ActivityResultLauncher<Intent> wikipediaActivityLancher = this.registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {
-                   finish();
+                    finish();
                 }
             });
+
+    @Override
+    protected void onResume() {
+        // https://stackoverflow.com/questions/15658687/how-to-use-onresume
+        Timber.d("onResume");
+        super.onResume();
+    }
 
     @Override
     public void finish() {
@@ -94,7 +66,7 @@ public class ConfigureActivity extends AppCompatActivity {
             broadcastTheFinishIntent();
         }
 
-       finishCalled = true;
+        finishCalled = true;
 
         super.finish();
     }
@@ -103,7 +75,7 @@ public class ConfigureActivity extends AppCompatActivity {
     public void onPause() {
         // back pressed | swipe up | export activity started
         if (!this.finishCalled && !ConfigureActivity.safCalled) {
-           finish();
+            finish();
         }
 
         super.onPause();
@@ -123,7 +95,6 @@ public class ConfigureActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         QuotationsFragment.ensureFragmentContentSearchConsistency(widgetId, getApplicationContext());
-
         super.onBackPressed();
     }
 
@@ -131,48 +102,77 @@ public class ConfigureActivity extends AppCompatActivity {
     public void onCreate(@Nullable final Bundle bundle) {
         Timber.d("onCreate");
         super.onCreate(bundle);
+        init();
+    }
 
+    protected void init() {
         AuditEventHelper.createInstance(getApplication());
         final Intent intent = getIntent();
         final Bundle extras = intent.getExtras();
 
         final String wikipedia = extras.getString("wikipedia");
         if (wikipedia != null && !wikipedia.equals("?") && !wikipedia.equals("")) {
-           linkToWikipedia(wikipedia);
+            linkToWikipedia(wikipedia);
         } else {
             widgetId = extras.getInt(
                     AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
             broadcastFinishIntent = extras.getBoolean("broadcastFinishIntent", true);
-
-            activityConfigureBinding = ActivityConfigureBinding.inflate(this.getLayoutInflater());
-            setContentView(activityConfigureBinding.getRoot());
-
-            final BottomNavigationView bottomNavigationView = findViewById(R.id.configureNavigation);
-            bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
-
-            bottomNavigationView.setSelectedItemId(R.id.navigationBarQuotations);
         }
+
+        activityConfigureBinding = ActivityConfigureBinding.inflate(this.getLayoutInflater());
+        setContentView(activityConfigureBinding.getRoot());
+
+        createListenerBottomNavigationView();
+
+        activityConfigureBinding.configureNavigation.setSelectedItemId(R.id.navigationBarQuotations);
+    }
+
+    protected void createListenerBottomNavigationView() {
+        activityConfigureBinding.configureNavigation.setOnItemSelectedListener(item -> {
+            Fragment selectedFragment = getFragmentContentNewInstance();
+
+            switch (item.getItemId()) {
+                case R.id.navigationBarQuotations:
+                    selectedFragment = getFragmentContentNewInstance();
+                    break;
+                case R.id.navigationBarAppearance:
+                    selectedFragment = AppearanceFragment.newInstance(widgetId);
+                    break;
+                case R.id.navigationBarNotification:
+                    selectedFragment = NotificationsFragment.newInstance(widgetId);
+                    break;
+                case R.id.navigationBarSync:
+                    selectedFragment = SyncFragment.newInstance(widgetId);
+                    break;
+                default:
+                    Timber.e("%d", item.getItemId());
+            }
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragmentPlaceholderContent, selectedFragment)
+                    .commit();
+
+            activityConfigureBinding.scrollView.scrollTo(0, 0);
+
+            return true;
+        });
     }
 
     private void linkToWikipedia(@NonNull final String wikipedia) {
         Timber.d("wikipedia=%s", wikipedia);
 
         if (wikipedia.equals("r/quotes/")) {
-           wikipediaActivityLancher.launch(
+            wikipediaActivityLancher.launch(
                     IntentFactoryHelper.createIntentActionView("https://www.reddit.com/" + wikipedia));
         } else {
-           wikipediaActivityLancher.launch(
+            wikipediaActivityLancher.launch(
                     IntentFactoryHelper.createIntentActionView("https://en.wikipedia.org/wiki/" + wikipedia));
         }
     }
 
     @Override
     public void onDestroy() {
-        Timber.d("onDestroy");
-
-        DatabaseRepository.close(this.getApplicationContext());
-        DatabaseRepository.databaseRepository = null;
-
         super.onDestroy();
     }
 

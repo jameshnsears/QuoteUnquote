@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_gravity="center"
+        android:theme="@style/Theme.QuoteUnquote">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingVertical="5dp"/>
+
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="5dp">
+
+        <TextView
+                android:id="@+id/textViewTextColour"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingVertical="5dp"
+                android:paddingStart="0dp"
+                android:paddingTop="0dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="5dp"
+                android:text="@string/fragment_appearance_colour"
+                android:textSize="14sp" />
+
+        <Button
+                android:id="@+id/textColourPickerButton"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:paddingStart="0dp"
+                android:paddingEnd="5dp"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="5dp">
+
+        <TextView
+                android:id="@+id/textViewSize"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingVertical="5dp"
+                android:paddingStart="0dp"
+                android:paddingEnd="10dp"
+                android:text="@string/fragment_appearance_size"
+                android:textSize="14sp" />
+
+        <Spinner
+                android:id="@+id/spinnerSize"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical"
+                android:entries="@array/fragment_appearance_size_array"
+                android:paddingStart="0dp"
+                android:paddingEnd="5dp"
+                android:spinnerMode="dropdown" />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchHideAuthor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:paddingVertical="10dp"
+                android:text="@string/fragment_appearance_style_text_dialog_visibility"
+                android:textSize="14sp"
+                tools:ignore="TextContrastCheck" />
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switch_hide_position"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:paddingVertical="10dp"
+                android:text="@string/fragment_appearance_style_text_dialog_visibility"
+                android:textSize="14sp"
+                tools:ignore="TextContrastCheck" />
+    </LinearLayout>
+</LinearLayout>
+</ScrollView>

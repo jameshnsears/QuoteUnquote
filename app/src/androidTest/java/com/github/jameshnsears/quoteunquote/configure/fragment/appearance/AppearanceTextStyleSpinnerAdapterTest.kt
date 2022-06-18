@@ -7,10 +7,10 @@ import org.junit.Test
 
 class AppearanceTextStyleSpinnerAdapterTest {
     @Test
-    fun howManyFonts() {
+    fun howManyTextStyles() {
         val appearanceStyleSpinnerAdapter =
             AppearanceTextStyleSpinnerAdapter(getApplicationContext())
 
-        assertEquals(4, appearanceStyleSpinnerAdapter.count)
+        assertEquals(6, appearanceStyleSpinnerAdapter.count)
     }
 }
