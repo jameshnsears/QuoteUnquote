@@ -605,7 +605,6 @@ public class QuoteUnquoteModel {
             Thread.currentThread().interrupt();
         }
 
-        Timber.d(transferJson);
         return transferJson;
     }
 

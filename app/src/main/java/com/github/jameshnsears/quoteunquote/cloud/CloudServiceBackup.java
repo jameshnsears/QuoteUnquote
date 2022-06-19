@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.github.jameshnsears.quoteunquote.QuoteUnquoteModel;
 import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.fragment.sync.SyncFragment;
 import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
@@ -41,7 +42,9 @@ public class CloudServiceBackup extends CloudService {
                             context.getString(R.string.fragment_archive_backup_sending),
                             Toast.LENGTH_SHORT).show());
 
-                    if (cloudTransfer.backup(intent.getStringExtra("asJson"))) {
+                    // "large" amounts of data can not be sent as an Intent entra
+                    QuoteUnquoteModel quoteUnquoteModel = new QuoteUnquoteModel(context);
+                    if (cloudTransfer.backup(quoteUnquoteModel.transferBackup(context))) {
                         handler.post(() -> Toast.makeText(
                                 context,
                                 context.getString(R.string.fragment_archive_backup_success),

@@ -70,7 +70,7 @@
         <entry key="app/src/main/res/layout/activity_report.xml" value="0.33" />
         <entry key="app/src/main/res/layout/anim_settings.xml" value="0.17916666666666667" />
         <entry key="app/src/main/res/layout/fragment_appearance.xml" value="0.2" />
-        <entry key="app/src/main/res/layout/fragment_appearance_tab_style.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_appearance_tab_style.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_appearance_tab_style_dialog.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_appearance_tab_style_text.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_appearance_tab_toolbar.xml" value="0.12734082397003746" />

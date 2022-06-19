@@ -18,12 +18,11 @@ import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearanceFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.notifications.NotificationsFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsFragment;
+import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
 import com.github.jameshnsears.quoteunquote.configure.fragment.sync.SyncFragment;
-import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
 import com.github.jameshnsears.quoteunquote.databinding.ActivityConfigureBinding;
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
 import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import timber.log.Timber;
 
@@ -34,9 +33,6 @@ public class ConfigureActivity extends AppCompatActivity {
 
     @Nullable
     public ActivityConfigureBinding activityConfigureBinding;
-
-    @Nullable
-    public BottomNavigationView bottomNavigationView;
 
     public boolean broadcastFinishIntent = true;
 
@@ -117,6 +113,9 @@ public class ConfigureActivity extends AppCompatActivity {
             widgetId = extras.getInt(
                     AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
             broadcastFinishIntent = extras.getBoolean("broadcastFinishIntent", true);
+
+            QuoteUnquoteWidget.currentContentSelection
+                    = new QuotationsPreferences(widgetId, getApplicationContext()).getContentSelection();
         }
 
         activityConfigureBinding = ActivityConfigureBinding.inflate(this.getLayoutInflater());

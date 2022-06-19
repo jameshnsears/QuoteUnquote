@@ -250,13 +250,11 @@ public class DatabaseRepository {
             final int widgetId,
             @NonNull final ContentSelection contentSelection,
             @NonNull final String digest) {
-        Timber.d("contentType=%d; digest=%s", contentSelection.getContentSelection(), digest);
         previousDAO.markAsPrevious(new PreviousEntity(widgetId, contentSelection, digest));
     }
 
     public void markAsFavourite(@NonNull final String digest) {
         if (favouriteDAO.isFavourite(digest) == 0) {
-            Timber.d("digest=%s", digest);
             favouriteDAO.markAsFavourite(new FavouriteEntity(digest));
         }
     }

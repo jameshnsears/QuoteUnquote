@@ -20,9 +20,9 @@ import com.github.jameshnsears.quoteunquote.cloud.CloudServiceBackup;
 import com.github.jameshnsears.quoteunquote.cloud.CloudServiceRestore;
 import com.github.jameshnsears.quoteunquote.cloud.CloudTransferHelper;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences;
-import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
 import com.github.jameshnsears.quoteunquote.configure.fragment.notifications.NotificationsDailyAlarm;
 import com.github.jameshnsears.quoteunquote.configure.fragment.notifications.NotificationsPreferences;
+import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 import com.github.jameshnsears.quoteunquote.listview.ListViewService;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
@@ -41,6 +41,9 @@ import timber.log.Timber;
 public class QuoteUnquoteWidget extends AppWidgetProvider {
     @Nullable
     private static ExecutorService executorService;
+
+    @Nullable
+    public static ContentSelection currentContentSelection = ContentSelection.ALL;
 
     private static volatile boolean receiversRegistered;
 
@@ -595,7 +598,12 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             final int widgetId,
             @NonNull final NotificationsDailyAlarm notificationsDailyAlarm) {
         Timber.d("%d", widgetId);
-        getQuoteUnquoteModel(context).markAsCurrentDefault(widgetId);
+
+        if (getQuoteUnquoteModel(context).getCurrentQuotation(widgetId) == null
+        || new QuotationsPreferences(widgetId, context).getContentSelection() != currentContentSelection) {
+            getQuoteUnquoteModel(context).markAsCurrentDefault(widgetId);
+        }
+
         notificationsDailyAlarm.setDailyAlarm();
         updateNotificationIfExists(context, widgetId);
     }

@@ -396,15 +396,6 @@ public class SyncFragment extends FragmentCommon {
         return jsonString;
     }
 
-    private void backupGoogleCloud() {
-        final Intent serviceIntent = new Intent(getContext(), CloudServiceBackup.class);
-        serviceIntent.putExtra("asJson", quoteUnquoteModel.transferBackup(getContext()));
-        serviceIntent.putExtra(
-                "localCodeValue", fragmentArchiveBinding.textViewLocalCodeValue.getText().toString());
-
-        getContext().startService(serviceIntent);
-    }
-
     protected void createListenerButtonRestore() {
         fragmentArchiveBinding.buttonRestore.setOnClickListener(v -> {
             enableUI(false);
@@ -438,6 +429,14 @@ public class SyncFragment extends FragmentCommon {
             fragmentArchiveBinding.buttonBackup.setEnabled(false);
             enableButton(fragmentArchiveBinding.buttonBackup, false);
         }
+    }
+
+    private void backupGoogleCloud() {
+        final Intent serviceIntent = new Intent(getContext(), CloudServiceBackup.class);
+        serviceIntent.putExtra(
+                "localCodeValue", fragmentArchiveBinding.textViewLocalCodeValue.getText().toString());
+
+        getContext().startService(serviceIntent);
     }
 
     private void restoreGoogleCloud() {

@@ -60,7 +60,7 @@
                 android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <service android:name=".cloud.CloudService" />
-        <service android:name=".cloud.CloudServiceBackup" />
         <service android:name=".cloud.CloudServiceRestore" />
+        <service android:name=".cloud.CloudServiceBackup" />
     </application>
 </manifest>
