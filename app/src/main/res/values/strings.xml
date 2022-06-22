@@ -32,13 +32,14 @@
     <string name="settings">Configuration</string>
 
     <string name="fragment_quotations_title">Quotations</string>
+
     <string name="fragment_quotations_all">All: %d</string>
     <string name="fragment_quotations_add_to_previous_count">Add displayed Author / Search results to Previous</string>
     <string name="fragment_quotations_author">Author: %d</string>
     <string name="fragment_quotations_not_listed">Authors with &lt; 5 quotations are not shown</string>
     <string name="fragment_quotations_favourites">Favourites: %d</string>
     <string name="fragment_quotations_favourites_export_button">Export</string>
-    <string name="fragment_quotations_favourites_export_instructions">to Device</string>
+    <string name="fragment_quotations_favourites_export_instructions">.csv to Device</string>
     <string name="fragment_quotations_favourites_export_success">Success - export completed</string>
     <string name="fragment_quotations_search">Search: %d</string>
     <string name="fragment_quotations_search_instructions">Case insensitive search…</string>

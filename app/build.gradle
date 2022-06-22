@@ -45,8 +45,8 @@ android {
         applicationId "com.github.jameshnsears.quoteunquote"
 
         // changelog version | min sdk | target sdk
-        versionCode 1032432
-        versionName "3.1.0"
+        versionCode 1042432
+        versionName "3.2.0"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -226,7 +226,8 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
-    implementation 'net.pwall.json:json-kotlin-schema:0.34'
+    implementation 'net.pwall.json:json-kotlin-schema:0.35'
+    implementation 'org.apache.commons:commons-csv:1.9.0'
 
     implementation project(path: ':cloudLib')
     implementation project(path: ':utilsLib')

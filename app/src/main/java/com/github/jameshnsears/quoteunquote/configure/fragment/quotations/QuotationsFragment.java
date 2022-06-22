@@ -28,13 +28,13 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
 import com.github.jameshnsears.quoteunquote.database.quotation.AuthorPOJO;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentQuotationsBinding;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
+import com.github.jameshnsears.quoteunquote.utils.CSVHelper;
 import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
@@ -484,15 +484,15 @@ public class QuotationsFragment extends FragmentCommon {
 
                 final Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
-                intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TITLE, "Favourites.txt");
+                intent.setType("text/csv");
+                intent.putExtra(Intent.EXTRA_TITLE, "Favourites.csv");
                 activityResultLauncher.launch(intent);
             }
         });
     }
 
     protected final void handleExportResult() {
-        // default: /storage/emulated/0/Download/Favourites.txt
+        // default: /storage/emulated/0/Download/Favourites.csv
         activityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 activityResult -> {
@@ -505,15 +505,10 @@ public class QuotationsFragment extends FragmentCommon {
                             final FileOutputStream fileOutputStream
                                     = new FileOutputStream(parcelFileDescriptor.getFileDescriptor());
 
-                            final ArrayList<String> exportableFavourites = (ArrayList) this.quoteUnquoteModel.exportFavourites();
-                            Collections.reverse(exportableFavourites);
-
-                            int favouriteIndex = 1;
-                            for (final String exportFavourite : exportableFavourites) {
-                                final String exportableString = "" + favouriteIndex + "\n" + exportFavourite;
-                                fileOutputStream.write(exportableString.getBytes());
-                                favouriteIndex++;
-                            }
+                            new CSVHelper()
+                                    .csvWriteFavourites(
+                                            fileOutputStream,
+                                            (ArrayList) quoteUnquoteModel.exportFavourites());
 
                             fileOutputStream.close();
                             parcelFileDescriptor.close();

@@ -609,17 +609,16 @@ public class QuoteUnquoteModel {
     }
 
     @Nullable
-    public List<String> exportFavourites() {
-        final Future<ArrayList<String>> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
-            final ArrayList<String> exportedFavourites = new ArrayList<>();
+    public List<QuotationEntity> exportFavourites() {
+        final Future<ArrayList<QuotationEntity>> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+            final ArrayList<QuotationEntity> exportedFavourites = new ArrayList<>();
 
             for (final String favouriteDigest : databaseRepository.getFavouriteDigests()) {
                 final QuotationEntity quotationEntity
                         = databaseRepository.getQuotation(favouriteDigest);
 
                 if (quotationEntity != null) {
-                    exportedFavourites.add(
-                            quotationEntity.quotation + "\n" + quotationEntity.author + "\n");
+                    exportedFavourites.add(quotationEntity);
                 } else {
                     Timber.w("misaligned:%s", favouriteDigest);
                 }
@@ -628,7 +627,7 @@ public class QuoteUnquoteModel {
             return exportedFavourites;
         });
 
-        ArrayList<String> exportedFavourites = null;
+        ArrayList<QuotationEntity> exportedFavourites = null;
 
         try {
             exportedFavourites = future.get();
