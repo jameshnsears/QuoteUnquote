@@ -47,7 +47,10 @@ class NotificationsFragmentTest {
         val intent = IntentFactoryHelper.createIntent(context, WidgetIdHelper.WIDGET_ID_01)
         intent.action = IntentFactoryHelper.DAILY_ALARM
         return PendingIntent.getBroadcast(
-            context, WidgetIdHelper.WIDGET_ID_01, intent, PendingIntent.FLAG_NO_CREATE
+            context,
+            WidgetIdHelper.WIDGET_ID_01,
+            intent,
+            PendingIntent.FLAG_NO_CREATE
         ) != null
     }
 }

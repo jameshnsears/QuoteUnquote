@@ -26,7 +26,8 @@ class SyncJsonSchemaValidationTest {
         // https://stackoverflow.com/questions/60878947/android-studio-how-to-clear-assets-folder-cache
         assertTrue(
             SyncJsonSchemaValidation.isJsonValid(
-                getApplicationContext(), jsonString
+                getApplicationContext(),
+                jsonString
             )
         )
     }

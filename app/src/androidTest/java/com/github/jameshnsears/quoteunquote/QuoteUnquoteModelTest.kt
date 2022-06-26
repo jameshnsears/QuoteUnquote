@@ -17,7 +17,9 @@ class QuoteUnquoteModelTest : QuoteUnquoteModelUtility() {
         val sortedList =
             quoteUnquoteModelDouble.authorsSorted(
                 mutableListOf(
-                    AuthorPOJO("c"), AuthorPOJO("b"), AuthorPOJO("a")
+                    AuthorPOJO("c"),
+                    AuthorPOJO("b"),
+                    AuthorPOJO("a")
                 )
             )
 

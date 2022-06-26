@@ -25,7 +25,10 @@ abstract class DatabaseTestHelper {
         val quotationEntityList: MutableList<QuotationEntity> = ArrayList()
         quotationEntityList.add(
             QuotationEntity(
-                DatabaseRepository.getDefaultQuotationDigest(), "w1", "a0", "q0"
+                DatabaseRepository.getDefaultQuotationDigest(),
+                "w1",
+                "a0",
+                "q0"
             )
         )
         quotationEntityList.add(QuotationEntity("d1234567", "w1", "a1", "q1"))

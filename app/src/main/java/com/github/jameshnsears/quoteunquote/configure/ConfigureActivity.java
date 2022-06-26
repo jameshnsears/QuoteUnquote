@@ -116,6 +116,9 @@ public class ConfigureActivity extends AppCompatActivity {
 
             QuoteUnquoteWidget.currentContentSelection
                     = new QuotationsPreferences(widgetId, getApplicationContext()).getContentSelection();
+
+            QuoteUnquoteWidget.currentAuthorSelection
+                    = new QuotationsPreferences(widgetId, getApplicationContext()).getContentSelectionAuthor();
         }
 
         activityConfigureBinding = ActivityConfigureBinding.inflate(this.getLayoutInflater());

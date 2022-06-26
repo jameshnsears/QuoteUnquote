@@ -52,7 +52,8 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
         assertEquals(
             "d1234567",
             quoteUnquoteModelDouble.getLastPreviousDigest(
-                WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL
+                WidgetIdHelper.WIDGET_ID_01,
+                ContentSelection.ALL
             )
         )
 
@@ -66,7 +67,8 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
         assertEquals(
             "d2345678",
             quoteUnquoteModelDouble.getLastPreviousDigest(
-                WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL
+                WidgetIdHelper.WIDGET_ID_01,
+                ContentSelection.ALL
             )
         )
 
@@ -78,7 +80,8 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
         assertNotEquals(
             quoteUnquoteModelDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01)?.digest,
             quoteUnquoteModelDouble.getLastPreviousDigest(
-                WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL
+                WidgetIdHelper.WIDGET_ID_01,
+                ContentSelection.ALL
             )
         )
 
@@ -92,7 +95,8 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
         assertEquals(
             quoteUnquoteModelDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01)?.digest,
             quoteUnquoteModelDouble.getLastPreviousDigest(
-                WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL
+                WidgetIdHelper.WIDGET_ID_01,
+                ContentSelection.ALL
             )
         )
     }

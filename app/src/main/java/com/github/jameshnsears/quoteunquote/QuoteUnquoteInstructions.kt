@@ -19,7 +19,8 @@ class QuoteUnquoteInstructions : AppCompatActivity() {
 
         this.activityInstructionsBinding.textViewVersion.text = this.resources.getString(
             R.string.activity_instructions_version,
-            buildconfigVersion, BuildConfig.GIT_HASH
+            buildconfigVersion,
+            BuildConfig.GIT_HASH
         )
 
         val layoutFooter: LinearLayout = this.activityInstructionsBinding.layoutFooter

@@ -38,7 +38,8 @@ class IntentFactoryHelperTest {
     fun createComplexIntent() {
         val intent = IntentFactoryHelper.createIntent(
             getApplicationContext(),
-            ListViewService::class.java, WidgetIdHelper.WIDGET_ID_01
+            ListViewService::class.java,
+            WidgetIdHelper.WIDGET_ID_01
         )
 
         assertNotNull(intent.extras)
@@ -47,7 +48,8 @@ class IntentFactoryHelperTest {
     @Test
     fun createIntentAction() {
         val intent = IntentFactoryHelper.createIntentAction(
-            getApplicationContext(), WidgetIdHelper.WIDGET_ID_01,
+            getApplicationContext(),
+            WidgetIdHelper.WIDGET_ID_01,
             IntentFactoryHelper.ACTIVITY_FINISHED_CONFIGURATION
         )
 

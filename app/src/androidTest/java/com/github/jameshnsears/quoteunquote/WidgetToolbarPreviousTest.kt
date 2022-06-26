@@ -39,7 +39,8 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
         assertEquals(
             4,
             databaseRepositoryDouble.positionInPrevious(
-                WidgetIdHelper.WIDGET_ID_01, quotationsPreferences
+                WidgetIdHelper.WIDGET_ID_01,
+                quotationsPreferences
             )
         )
 
@@ -48,7 +49,8 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
         assertEquals(
             1,
             databaseRepositoryDouble.positionInPrevious(
-                WidgetIdHelper.WIDGET_ID_01, quotationsPreferences
+                WidgetIdHelper.WIDGET_ID_01,
+                quotationsPreferences
             )
         )
     }
@@ -90,7 +92,7 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
     private fun pressPrevious(
         quotationsPreferences: QuotationsPreferences,
         digestIfExpected: String,
-        expectedPosition: String,
+        expectedPosition: String
     ) {
         quoteUnquoteModelDouble.markAsCurrentPrevious(WidgetIdHelper.WIDGET_ID_01)
 
@@ -131,7 +133,8 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
         assertEquals(
             expectedPosition,
             quoteUnquoteModelDouble.getCurrentPosition(
-                WidgetIdHelper.WIDGET_ID_01, quotationsPreferences
+                WidgetIdHelper.WIDGET_ID_01,
+                quotationsPreferences
             )
         )
     }

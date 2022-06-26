@@ -80,7 +80,6 @@ class TransferRestore : TransferCommon() {
         currentList: List<Current>
     ) {
         for (widgetId in TransferUtility.getWidgetIds(context)) {
-
             for (currentIndex in (currentList.size - 1) downTo 0 step 1) {
                 val current = currentList[currentIndex]
                 var digest = current.digest

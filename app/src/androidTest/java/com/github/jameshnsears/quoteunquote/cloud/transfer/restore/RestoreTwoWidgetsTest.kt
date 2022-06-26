@@ -35,15 +35,15 @@ class RestoreTwoWidgetsTest : TransferRestoreUtility() {
             Assert.assertTrue(backupTransfer.settings.size == 1)
             Assert.assertEquals(
                 restoreTransfer.settings[0].appearance,
-                backupTransfer.settings[0].appearance,
+                backupTransfer.settings[0].appearance
             )
             Assert.assertEquals(
                 restoreTransfer.settings[0].quotations,
-                backupTransfer.settings[0].quotations,
+                backupTransfer.settings[0].quotations
             )
             Assert.assertEquals(
                 restoreTransfer.settings[0].schedule,
-                backupTransfer.settings[0].schedule,
+                backupTransfer.settings[0].schedule
             )
         }
     }
@@ -72,28 +72,28 @@ class RestoreTwoWidgetsTest : TransferRestoreUtility() {
             Assert.assertTrue(backupTransfer.settings.size == 2)
             Assert.assertEquals(
                 restoreTransfer.settings[0].appearance,
-                backupTransfer.settings[0].appearance,
+                backupTransfer.settings[0].appearance
             )
             Assert.assertEquals(
                 restoreTransfer.settings[0].quotations,
-                backupTransfer.settings[0].quotations,
+                backupTransfer.settings[0].quotations
             )
             Assert.assertEquals(
                 restoreTransfer.settings[0].schedule,
-                backupTransfer.settings[0].schedule,
+                backupTransfer.settings[0].schedule
             )
 
             Assert.assertEquals(
                 restoreTransfer.settings[1].appearance,
-                backupTransfer.settings[1].appearance,
+                backupTransfer.settings[1].appearance
             )
             Assert.assertEquals(
                 restoreTransfer.settings[1].quotations,
-                backupTransfer.settings[1].quotations,
+                backupTransfer.settings[1].quotations
             )
             Assert.assertEquals(
                 restoreTransfer.settings[1].schedule,
-                backupTransfer.settings[1].schedule,
+                backupTransfer.settings[1].schedule
             )
         }
     }

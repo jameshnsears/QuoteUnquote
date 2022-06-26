@@ -45,6 +45,9 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
     @Nullable
     public static ContentSelection currentContentSelection = ContentSelection.ALL;
 
+    @Nullable
+    public static String currentAuthorSelection;
+
     private static volatile boolean receiversRegistered;
 
     @NonNull
@@ -599,8 +602,12 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull final NotificationsDailyAlarm notificationsDailyAlarm) {
         Timber.d("%d", widgetId);
 
-        if (getQuoteUnquoteModel(context).getCurrentQuotation(widgetId) == null
-        || new QuotationsPreferences(widgetId, context).getContentSelection() != currentContentSelection) {
+        if (getQuoteUnquoteModel(context).getCurrentQuotation(widgetId) == null) {
+            getQuoteUnquoteModel(context).markAsCurrentDefault(widgetId);
+        } else if (new QuotationsPreferences(widgetId, context).getContentSelection() != currentContentSelection) {
+            getQuoteUnquoteModel(context).markAsCurrentDefault(widgetId);
+        } else if (new QuotationsPreferences(widgetId, context).getContentSelection() == ContentSelection.AUTHOR
+            && new QuotationsPreferences(widgetId, context).getContentSelectionAuthor() != currentAuthorSelection) {
             getQuoteUnquoteModel(context).markAsCurrentDefault(widgetId);
         }
 

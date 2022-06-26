@@ -44,7 +44,9 @@ class AppearanceTextFamilySpinnerAdapter(@NonNull private val context: Context) 
 
         if (view == null) {
             view = LayoutInflater.from(context).inflate(
-                android.R.layout.simple_spinner_dropdown_item, viewGroup, false
+                android.R.layout.simple_spinner_dropdown_item,
+                viewGroup,
+                false
             )
         }
 

@@ -15,14 +15,16 @@ class WidgetToolbarFavouriteTest : QuoteUnquoteModelUtility() {
         assertFalse(databaseRepositoryDouble.isFavourite(getDefaultQuotation().digest))
 
         quoteUnquoteModelDouble.toggleFavourite(
-            WidgetIdHelper.WIDGET_ID_01, DatabaseRepository.getDefaultQuotationDigest()
+            WidgetIdHelper.WIDGET_ID_01,
+            DatabaseRepository.getDefaultQuotationDigest()
         )
 
         assertTrue(databaseRepositoryDouble.isFavourite(getDefaultQuotation().digest))
         assertTrue(quoteUnquoteModelDouble.countFavourites().blockingGet() == 1)
 
         quoteUnquoteModelDouble.toggleFavourite(
-            WidgetIdHelper.WIDGET_ID_01, DatabaseRepository.getDefaultQuotationDigest()
+            WidgetIdHelper.WIDGET_ID_01,
+            DatabaseRepository.getDefaultQuotationDigest()
         )
     }
 }

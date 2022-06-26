@@ -10,7 +10,8 @@ class TransferBackupFavourite {
         for (favourite in databaseRepository.favourites) {
             favouriteList.add(
                 Favourite(
-                    favourite.digest, favourite.navigation
+                    favourite.digest,
+                    favourite.navigation
                 )
             )
         }

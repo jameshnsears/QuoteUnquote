@@ -36,7 +36,8 @@ class ConfigureActivityDoubleExpressoTest {
 
         val bottomNavigationItemView = onView(
             allOf(
-                withId(R.id.navigationBarSync), withContentDescription("Sync"),
+                withId(R.id.navigationBarSync),
+                withContentDescription("Sync"),
                 childAtPosition(
                     childAtPosition(
                         withId(R.id.configureNavigation),
@@ -54,7 +55,6 @@ class ConfigureActivityDoubleExpressoTest {
         parentMatcher: Matcher<View>,
         position: Int
     ): Matcher<View> {
-
         return object : TypeSafeMatcher<View>() {
             override fun describeTo(description: Description) {
                 description.appendText("Child at position $position in parent ")

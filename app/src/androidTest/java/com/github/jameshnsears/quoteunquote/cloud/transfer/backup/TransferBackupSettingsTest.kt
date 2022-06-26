@@ -20,7 +20,8 @@ class TransferBackupSettingsTest : GsonTestHelper() {
             gson().toJson(expectedQuotations()),
             gson().toJson(
                 TransferBackupSettings(context).settingsQuotations(
-                    1, getApplicationContext()
+                    1,
+                    getApplicationContext()
                 )
             )
         )
@@ -32,7 +33,8 @@ class TransferBackupSettingsTest : GsonTestHelper() {
             gson().toJson(expectedAppearance()),
             gson().toJson(
                 TransferBackupSettings(context).settingsAppearance(
-                    1, getApplicationContext()
+                    1,
+                    getApplicationContext()
                 )
             )
         )
@@ -44,7 +46,8 @@ class TransferBackupSettingsTest : GsonTestHelper() {
             gson().toJson(expectedSchedule()),
             gson().toJson(
                 TransferBackupSettings(context).settingsSchedule(
-                    1, getApplicationContext()
+                    1,
+                    getApplicationContext()
                 )
             )
         )
@@ -110,7 +113,7 @@ class TransferBackupSettingsTest : GsonTestHelper() {
         true,
         true,
         true,
-        false,
+        false
     )
 
     private fun expectedQuotations() = Quotations(
