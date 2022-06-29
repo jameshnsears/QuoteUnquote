@@ -1,7 +1,6 @@
 package com.github.jameshnsears.quoteunquote
 
 import android.appwidget.AppWidgetManager
-import android.os.Build
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
@@ -18,7 +17,7 @@ class WidgetToolbarFirstTest : QuoteUnquoteModelUtility() {
     fun setup() {
         insertQuotationTestData01()
 
-        every { quoteUnquoteWidget.getQuoteUnquoteModel(any()) } returns quoteUnquoteModelDouble
+        every { quoteUnquoteWidget.getQuoteUnquoteModel(WidgetIdHelper.WIDGET_ID_01, any()) } returns quoteUnquoteModelDouble
 
         every {
             appWidgetManager.notifyAppWidgetViewDataChanged(
@@ -32,7 +31,7 @@ class WidgetToolbarFirstTest : QuoteUnquoteModelUtility() {
 
     @Test
     fun firstAll() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        if (canWorkWithMockk()) {
             setup()
 
             databaseRepositoryDouble.markAsCurrent(
@@ -57,7 +56,7 @@ class WidgetToolbarFirstTest : QuoteUnquoteModelUtility() {
 
     @Test
     fun firstFavourite() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        if (canWorkWithMockk()) {
             setup()
 
             val quotationsPreferences =
@@ -74,7 +73,7 @@ class WidgetToolbarFirstTest : QuoteUnquoteModelUtility() {
 
     @Test
     fun firstAuthor() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        if (canWorkWithMockk()) {
             setup()
 
             val quotationsPreferences =
@@ -95,7 +94,7 @@ class WidgetToolbarFirstTest : QuoteUnquoteModelUtility() {
 
     @Test
     fun firstSearch() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        if (canWorkWithMockk()) {
             setup()
 
             val quotationsPreferences =

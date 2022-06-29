@@ -42,8 +42,8 @@ public class CloudServiceBackup extends CloudService {
                             context.getString(R.string.fragment_archive_backup_sending),
                             Toast.LENGTH_SHORT).show());
 
-                    // "large" amounts of data can not be sent as an Intent entra
-                    QuoteUnquoteModel quoteUnquoteModel = new QuoteUnquoteModel(context);
+                    // "large" amounts of data can not be sent as an Intent extra
+                    QuoteUnquoteModel quoteUnquoteModel = new QuoteUnquoteModel(-1, context);
                     if (cloudTransfer.backup(quoteUnquoteModel.transferBackup(context))) {
                         handler.post(() -> Toast.makeText(
                                 context,

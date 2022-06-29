@@ -16,6 +16,7 @@ import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
@@ -38,9 +39,18 @@ public class QuoteUnquoteModel {
     public QuoteUnquoteModel() {
     }
 
-    public QuoteUnquoteModel(@NonNull final Context widgetContext) {
+    public QuoteUnquoteModel(int widgetId, @NonNull final Context widgetContext) {
         context = widgetContext;
         databaseRepository = DatabaseRepository.getInstance(this.context);
+
+        if (widgetId != -1) {
+            QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, context);
+            if (quotationsPreferences.getDatabaseExternal()) {
+                databaseRepository.useInternalDatabase = false;
+            } else {
+                databaseRepository.useInternalDatabase = true;
+            }
+        }
     }
 
     private boolean isNextNew(
@@ -490,7 +500,6 @@ public class QuoteUnquoteModel {
         try {
             future.get();
         } catch (@NonNull ExecutionException | InterruptedException e) {
-            Timber.e(e);
             Thread.currentThread().interrupt();
         }
     }
@@ -533,6 +542,28 @@ public class QuoteUnquoteModel {
     @NonNull
     public Single<Integer> countAll() {
         return databaseRepository.countAll();
+    }
+
+    @NonNull
+    public boolean externalDatabaseContainsQuotations() {
+        final Future<Boolean> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+            if (databaseRepository.countAllExternal().blockingGet() > 0) {
+                return true;
+            }
+
+            return false;
+        });
+
+        boolean externalDatabaseContainsQuotations = false;
+
+        try {
+            externalDatabaseContainsQuotations = future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
+            Thread.currentThread().interrupt();
+        }
+
+        return externalDatabaseContainsQuotations;
     }
 
     @NonNull
@@ -584,8 +615,20 @@ public class QuoteUnquoteModel {
     }
 
     @NonNull
-    public Integer countQuotationWithSearchText(@NonNull final String text) {
-        return databaseRepository.countSearchText(text);
+    public Integer countQuotationWithSearchText(@NonNull final String text, boolean favouritesOnly) {
+        final Future<Integer> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+            return databaseRepository.countSearchText(text, favouritesOnly);
+        });
+
+        Integer searchCount = 0;
+
+        try {
+            searchCount = future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        return searchCount;
     }
 
     @NonNull
@@ -637,5 +680,22 @@ public class QuoteUnquoteModel {
         }
 
         return exportedFavourites;
+    }
+
+    @NonNull
+    public void insertQuotationsExternal(
+            @NonNull final LinkedHashSet<QuotationEntity> quotations) {
+        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+            DatabaseRepository.useInternalDatabase = false;
+            databaseRepository.erase();
+            databaseRepository.insertQuotationsExternal(quotations);
+        });
+
+        try {
+            future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
+            Thread.currentThread().interrupt();
+        }
     }
 }

@@ -1,18 +1,18 @@
 package com.github.jameshnsears.quoteunquote.cloud.transfer.backup
 
-import android.os.Build
 import com.github.jameshnsears.quoteunquote.cloud.transfer.Current
 import com.github.jameshnsears.quoteunquote.cloud.transfer.GsonTestHelper
 import com.github.jameshnsears.quoteunquote.cloud.transfer.TransferUtility
 import io.mockk.every
 import io.mockk.mockkObject
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class TransferBackupCurrentTest : GsonTestHelper() {
     @Test
     fun current() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        if (canWorkWithMockk()) {
             insertQuotationTestData01()
             insertQuotationTestData02()
 
@@ -33,17 +33,34 @@ class TransferBackupCurrentTest : GsonTestHelper() {
         setDefaultQuotationAll(13)
     }
 
-    fun expectedCurrent(): List<Current> {
+    private fun expectedCurrent(): List<Current> {
         setupTestData()
 
         val currentList = mutableListOf<Current>()
         currentList.add(
-            Current("7a36e553", 12)
+            Current("7a36e553", 12, "internal")
         )
         currentList.add(
-            Current("7a36e553", 13)
+            Current("7a36e553", 13, "internal")
         )
 
         return currentList
+    }
+
+    @Test
+    fun currentInternalAndExternal() {
+        populateInternal(14)
+        populateExternal(14)
+
+        mockkObject(TransferUtility)
+        every { TransferUtility.getWidgetIds(context) } returns intArrayOf(14)
+
+        val currentList = TransferBackupCurrent(context).current(databaseRepositoryDouble)
+
+        assertTrue(currentList.size == 2)
+        assertEquals(currentList[0].digest, "d1234567")
+        assertEquals(currentList[0].db, "internal")
+        assertEquals(currentList[1].digest, "00000000")
+        assertEquals(currentList[1].db, "external")
     }
 }

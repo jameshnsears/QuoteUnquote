@@ -1,62 +1,62 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:viewBindingIgnore="true">
-
-    <ListView
-        android:id="@+id/listViewQuotation"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:divider="@null"
-        android:dividerHeight="0dp"
-        android:drawSelectorOnTop="false"
-        android:paddingVertical="2dp" />
+        android:orientation="vertical"
+        tools:viewBindingIgnore="true">
+
+    <ListView
+            android:id="@+id/listViewQuotation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:drawSelectorOnTop="false"
+            android:paddingVertical="2dp" />
 
     <LinearLayout
-        android:id="@+id/linearLayoutToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:orientation="horizontal">
+            android:id="@+id/linearLayoutToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/imageButtonFirst"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@android:color/white"
-            android:contentDescription="@string/fragment_appearance_toolbar_first"
-            android:src="@drawable/ic_toolbar_first_ff000000_24"
-            android:visibility="gone" />
+                android:id="@+id/imageButtonFirst"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:contentDescription="@string/fragment_appearance_toolbar_first"
+                android:src="@drawable/ic_toolbar_first_ff000000_24"
+                android:visibility="gone" />
 
         <ImageButton
-            android:id="@+id/imageButtonPrevious"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@android:color/white"
-            android:contentDescription="@string/fragment_appearance_toolbar_previous"
-            android:src="@drawable/ic_toolbar_previous_ff000000_24" />
+                android:id="@+id/imageButtonPrevious"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:contentDescription="@string/fragment_appearance_toolbar_previous"
+                android:src="@drawable/ic_toolbar_previous_ff000000_24" />
 
         <ImageButton
-            android:id="@+id/imageButtonFavourite"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@android:color/white"
-            android:contentDescription="@string/fragment_appearance_toolbar_favourite"
-            android:src="@drawable/ic_toolbar_favorite_ff000000_24" />
+                android:id="@+id/imageButtonFavourite"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:contentDescription="@string/fragment_appearance_toolbar_favourite"
+                android:src="@drawable/ic_toolbar_favorite_ff000000_24" />
 
         <ImageButton
-            android:id="@+id/imageButtonShare"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@android:color/white"
-            android:contentDescription="@string/fragment_appearance_toolbar_share"
-            android:src="@drawable/ic_toolbar_share_ff000000_24" />
+                android:id="@+id/imageButtonShare"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:contentDescription="@string/fragment_appearance_toolbar_share"
+                android:src="@drawable/ic_toolbar_share_ff000000_24" />
 
         <ImageButton
                 android:id="@+id/imageButtonJump"
@@ -69,23 +69,23 @@
                 android:visibility="gone" />
 
         <ImageButton
-            android:id="@+id/imageButtonNextSequential"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@android:color/white"
-            android:contentDescription="@string/fragment_appearance_toolbar_next_sequential"
-            android:src="@drawable/ic_toolbar_next_sequential_ff000000_24"
-            android:visibility="gone" />
+                android:id="@+id/imageButtonNextSequential"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:contentDescription="@string/fragment_appearance_toolbar_next_sequential"
+                android:src="@drawable/ic_toolbar_next_sequential_ff000000_24"
+                android:visibility="gone" />
 
         <ImageButton
-            android:id="@+id/imageButtonNextRandom"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@android:color/white"
-            android:contentDescription="@string/fragment_appearance_toolbar_next_random"
-            android:src="@drawable/ic_toolbar_next_random_ff000000_24" />
+                android:id="@+id/imageButtonNextRandom"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:contentDescription="@string/fragment_appearance_toolbar_next_random"
+                android:src="@drawable/ic_toolbar_next_random_ff000000_24" />
 
     </LinearLayout>
 

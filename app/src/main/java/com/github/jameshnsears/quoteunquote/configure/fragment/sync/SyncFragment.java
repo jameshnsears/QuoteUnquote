@@ -33,8 +33,9 @@ import com.github.jameshnsears.quoteunquote.cloud.transfer.Transfer;
 import com.github.jameshnsears.quoteunquote.cloud.transfer.restore.TransferRestore;
 import com.github.jameshnsears.quoteunquote.configure.ConfigureActivity;
 import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
+import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsFragmentStateAdapter;
 import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
-import com.github.jameshnsears.quoteunquote.databinding.FragmentArchiveBinding;
+import com.github.jameshnsears.quoteunquote.databinding.FragmentSyncBinding;
 import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
 import com.google.gson.Gson;
@@ -54,7 +55,7 @@ public class SyncFragment extends FragmentCommon {
     public static String CLOUD_SERVICE_COMPLETED = "CLOUD_SERVICE_COMPLETED";
 
     @Nullable
-    public FragmentArchiveBinding fragmentArchiveBinding;
+    public FragmentSyncBinding fragmentSyncBinding;
 
     @Nullable
     public QuoteUnquoteModel quoteUnquoteModel;
@@ -109,7 +110,7 @@ public class SyncFragment extends FragmentCommon {
     public void onCreate(@NonNull final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        quoteUnquoteModel = new QuoteUnquoteModel(getContext());
+        quoteUnquoteModel = new QuoteUnquoteModel(widgetId, getContext());
 
         if (quoteUnquoteModel.countPrevious(widgetId) == 0) {
             quoteUnquoteModel.markAsCurrentDefault(widgetId);
@@ -133,8 +134,8 @@ public class SyncFragment extends FragmentCommon {
             @NonNull final Bundle savedInstanceState) {
         syncPreferences = new SyncPreferences(widgetId, getContext());
 
-        fragmentArchiveBinding = FragmentArchiveBinding.inflate(getLayoutInflater());
-        return fragmentArchiveBinding.getRoot();
+        fragmentSyncBinding = FragmentSyncBinding.inflate(getLayoutInflater());
+        return fragmentSyncBinding.getRoot();
     }
 
     @Override
@@ -156,7 +157,7 @@ public class SyncFragment extends FragmentCommon {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        fragmentArchiveBinding = null;
+        fragmentSyncBinding = null;
     }
 
     private void setSyncFields() {
@@ -166,40 +167,40 @@ public class SyncFragment extends FragmentCommon {
         }
 
         if (syncPreferences.getArchiveGoogleCloud()) {
-            fragmentArchiveBinding.radioButtonGoogleCloud.setChecked(true);
-            fragmentArchiveBinding.radioButtonDevice.setChecked(false);
-            fragmentArchiveBinding.editTextRemoteCodeValue.setEnabled(true);
-            fragmentArchiveBinding.editTextRemoteCodeValue.setText("");
+            fragmentSyncBinding.radioButtonSyncGoogleCloud.setChecked(true);
+            fragmentSyncBinding.radioButtonSyncDevice.setChecked(false);
+            fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(true);
+            fragmentSyncBinding.editTextRemoteCodeValue.setText("");
         } else {
-            fragmentArchiveBinding.radioButtonGoogleCloud.setChecked(false);
-            fragmentArchiveBinding.radioButtonDevice.setChecked(true);
-            fragmentArchiveBinding.editTextRemoteCodeValue.setEnabled(false);
-            fragmentArchiveBinding.editTextRemoteCodeValue.setText("");
+            fragmentSyncBinding.radioButtonSyncGoogleCloud.setChecked(false);
+            fragmentSyncBinding.radioButtonSyncDevice.setChecked(true);
+            fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(false);
+            fragmentSyncBinding.editTextRemoteCodeValue.setText("");
         }
     }
 
     private void createListenerRadioGoogleCloud() {
-        RadioButton radioButtonGoogleCloud = fragmentArchiveBinding.radioButtonGoogleCloud;
+        RadioButton radioButtonGoogleCloud = fragmentSyncBinding.radioButtonSyncGoogleCloud;
         radioButtonGoogleCloud.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 syncPreferences.setArchiveGoogleCloud(true);
                 syncPreferences.setArchiveSharedStorage(false);
 
-                fragmentArchiveBinding.editTextRemoteCodeValue.setEnabled(true);
-                fragmentArchiveBinding.editTextRemoteCodeValue.setText("");
+                fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(true);
+                fragmentSyncBinding.editTextRemoteCodeValue.setText("");
             }
         });
     }
 
     private void createListenerRadioDevice() {
-        RadioButton radioButtonDevice = fragmentArchiveBinding.radioButtonDevice;
+        RadioButton radioButtonDevice = fragmentSyncBinding.radioButtonSyncDevice;
         radioButtonDevice.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 syncPreferences.setArchiveGoogleCloud(false);
                 syncPreferences.setArchiveSharedStorage(true);
 
-                fragmentArchiveBinding.editTextRemoteCodeValue.setEnabled(false);
-                fragmentArchiveBinding.editTextRemoteCodeValue.setText("");
+                fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(false);
+                fragmentSyncBinding.editTextRemoteCodeValue.setText("");
             }
         });
     }
@@ -210,15 +211,15 @@ public class SyncFragment extends FragmentCommon {
             syncPreferences.setTransferLocalCode(CloudTransferHelper.getLocalCode());
         }
 
-        fragmentArchiveBinding.textViewLocalCodeValue.setText(syncPreferences.getTransferLocalCode());
+        fragmentSyncBinding.textViewLocalCodeValue.setText(syncPreferences.getTransferLocalCode());
     }
 
     protected void createListenerButtonBackup() {
-        fragmentArchiveBinding.buttonBackup.setOnClickListener(v -> {
+        fragmentSyncBinding.buttonBackup.setOnClickListener(v -> {
             enableUI(false);
 
             if (syncPreferences.getArchiveGoogleCloud()) {
-                fragmentArchiveBinding.editTextRemoteCodeValue.setEnabled(false);
+                fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(false);
                 backupGoogleCloud();
             } else {
                 backupSharedStorage();
@@ -235,28 +236,27 @@ public class SyncFragment extends FragmentCommon {
         // API 25 doesn't save the extension!
         intent.setType("application/json");
 
-        intent.putExtra(Intent.EXTRA_TITLE, fragmentArchiveBinding.textViewLocalCodeValue.getText().toString());
+        intent.putExtra(Intent.EXTRA_TITLE, fragmentSyncBinding.textViewLocalCodeValue.getText().toString());
         storageAccessFrameworkActivityResultBackup.launch(intent);
     }
 
-    private final void handleDeviceBackupResult() {
+    private void handleDeviceBackupResult() {
         // default: /storage/emulated/0/Download/<10 character code>.json
         storageAccessFrameworkActivityResultBackup = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 activityResult -> {
                     if (activityResult.getResultCode() == Activity.RESULT_OK) {
+                        ParcelFileDescriptor parcelFileDescriptor = null;
+                        FileOutputStream fileOutputStream = null;
                         try {
-                            final ParcelFileDescriptor parcelFileDescriptor
+                            parcelFileDescriptor
                                     = getContext().getContentResolver().openFileDescriptor(
                                     activityResult.getData().getData(), "w");
-                            final FileOutputStream fileOutputStream
+                            fileOutputStream
                                     = new FileOutputStream(parcelFileDescriptor.getFileDescriptor());
 
                             final String exportableString = quoteUnquoteModel.transferBackup(getContext());
                             fileOutputStream.write(exportableString.getBytes());
-
-                            fileOutputStream.close();
-                            parcelFileDescriptor.close();
 
                             Toast.makeText(
                                     getContext(),
@@ -264,6 +264,17 @@ public class SyncFragment extends FragmentCommon {
                                     Toast.LENGTH_SHORT).show();
                         } catch (final IOException e) {
                             Timber.e(e.getMessage());
+                        } finally {
+                            try {
+                                if (fileOutputStream != null) {
+                                    fileOutputStream.close();
+                                }
+                                if (parcelFileDescriptor != null) {
+                                    parcelFileDescriptor.close();
+                                }
+                            } catch (final IOException e) {
+                                Timber.e(e.getMessage());
+                            }
                         }
                     }
 
@@ -278,7 +289,7 @@ public class SyncFragment extends FragmentCommon {
         final Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("application/json");
-        intent.putExtra(Intent.EXTRA_TITLE, fragmentArchiveBinding.textViewLocalCodeValue.getText().toString());
+        intent.putExtra(Intent.EXTRA_TITLE, fragmentSyncBinding.textViewLocalCodeValue.getText().toString());
         storageAccessFrameworkActivityResultRestore.launch(intent);
     }
 
@@ -304,6 +315,8 @@ public class SyncFragment extends FragmentCommon {
 
                                 if (isJsonValid && transfer != null) {
                                     restoreDeviceJson(transfer);
+
+                                    QuotationsFragmentStateAdapter.alignSelectionFragmentWithRestore(widgetId, getContext());
 
                                     Toast.makeText(
                                             getContext(),
@@ -397,11 +410,11 @@ public class SyncFragment extends FragmentCommon {
     }
 
     protected void createListenerButtonRestore() {
-        fragmentArchiveBinding.buttonRestore.setOnClickListener(v -> {
+        fragmentSyncBinding.buttonRestore.setOnClickListener(v -> {
             enableUI(false);
 
             if (syncPreferences.getArchiveGoogleCloud()) {
-                fragmentArchiveBinding.editTextRemoteCodeValue.setEnabled(false);
+                fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(false);
                 restoreGoogleCloud();
             } else {
                 ConfigureActivity.safCalled = true;
@@ -411,39 +424,39 @@ public class SyncFragment extends FragmentCommon {
     }
 
     public void enableUI(boolean enableUI) {
-        fragmentArchiveBinding.radioButtonGoogleCloud.setEnabled(enableUI);
-        fragmentArchiveBinding.radioButtonDevice.setEnabled(enableUI);
-        fragmentArchiveBinding.editTextRemoteCodeValue.setEnabled(enableUI);
-        enableButton(fragmentArchiveBinding.buttonBackup, enableUI);
-        enableButton(fragmentArchiveBinding.buttonRestore, enableUI);
+        fragmentSyncBinding.radioButtonSyncGoogleCloud.setEnabled(enableUI);
+        fragmentSyncBinding.radioButtonSyncDevice.setEnabled(enableUI);
+        fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(enableUI);
+        enableButton(fragmentSyncBinding.buttonBackup, enableUI);
+        enableButton(fragmentSyncBinding.buttonRestore, enableUI);
 
         if (syncPreferences.getArchiveGoogleCloud()) {
-            fragmentArchiveBinding.radioButtonGoogleCloud.setChecked(true);
-            fragmentArchiveBinding.editTextRemoteCodeValue.setEnabled(true);
+            fragmentSyncBinding.radioButtonSyncGoogleCloud.setChecked(true);
+            fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(true);
         } else {
-            fragmentArchiveBinding.radioButtonDevice.setChecked(true);
-            fragmentArchiveBinding.editTextRemoteCodeValue.setEnabled(false);
+            fragmentSyncBinding.radioButtonSyncDevice.setChecked(true);
+            fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(false);
         }
 
         if (quoteUnquoteModel.countPrevious(widgetId) == 0) {
-            fragmentArchiveBinding.buttonBackup.setEnabled(false);
-            enableButton(fragmentArchiveBinding.buttonBackup, false);
+            fragmentSyncBinding.buttonBackup.setEnabled(false);
+            enableButton(fragmentSyncBinding.buttonBackup, false);
         }
     }
 
     private void backupGoogleCloud() {
         final Intent serviceIntent = new Intent(getContext(), CloudServiceBackup.class);
         serviceIntent.putExtra(
-                "localCodeValue", fragmentArchiveBinding.textViewLocalCodeValue.getText().toString());
+                "localCodeValue", fragmentSyncBinding.textViewLocalCodeValue.getText().toString());
 
         getContext().startService(serviceIntent);
     }
 
     private void restoreGoogleCloud() {
-        Timber.d("remoteCode=%s", fragmentArchiveBinding.editTextRemoteCodeValue.getText().toString());
+        Timber.d("remoteCode=%s", fragmentSyncBinding.editTextRemoteCodeValue.getText().toString());
 
         // correct length?
-        if (fragmentArchiveBinding.editTextRemoteCodeValue.getText().toString().length() != 10) {
+        if (fragmentSyncBinding.editTextRemoteCodeValue.getText().toString().length() != 10) {
             Toast.makeText(
                     getContext(),
                     getContext().getString(R.string.fragment_archive_restore_token_missing),
@@ -453,7 +466,7 @@ public class SyncFragment extends FragmentCommon {
         }
 
         // crc wrong?
-        if (!CloudTransferHelper.isRemoteCodeValid(fragmentArchiveBinding.editTextRemoteCodeValue.getText().toString())) {
+        if (!CloudTransferHelper.isRemoteCodeValid(fragmentSyncBinding.editTextRemoteCodeValue.getText().toString())) {
             Toast.makeText(
                     getContext(),
                     getContext().getString(R.string.fragment_archive_restore_token_invalid),
@@ -462,12 +475,12 @@ public class SyncFragment extends FragmentCommon {
             return;
         }
 
-        fragmentArchiveBinding.radioButtonDevice.setEnabled(false);
-        fragmentArchiveBinding.editTextRemoteCodeValue.setEnabled(false);
+        fragmentSyncBinding.radioButtonSyncDevice.setEnabled(false);
+        fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(false);
 
         final Intent serviceIntent = new Intent(getContext(), CloudServiceRestore.class);
         serviceIntent.putExtra(
-                "remoteCodeValue", fragmentArchiveBinding.editTextRemoteCodeValue.getText().toString());
+                "remoteCodeValue", fragmentSyncBinding.editTextRemoteCodeValue.getText().toString());
         serviceIntent.putExtra("widgetId", widgetId);
 
         getContext().startService(serviceIntent);

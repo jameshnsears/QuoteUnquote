@@ -31,7 +31,7 @@ class SyncJsonSchemaValidation {
             val inputStream =
                 context.resources.assets
                     .open(
-                        "archive.scheme.json"
+                        "sync.scheme.json"
                     )
             return inputStream.bufferedReader().use(BufferedReader::readText)
         }

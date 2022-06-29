@@ -1,15 +1,15 @@
 package com.github.jameshnsears.quoteunquote.cloud.transfer.restore
 
-import android.os.Build
 import com.github.jameshnsears.quoteunquote.cloud.transfer.backup.TransferBackup
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class RestoreOneWidgetTest : TransferRestoreUtility() {
     @Test
     fun restoreOneIntoOne() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        if (canWorkWithMockk()) {
             // set up
             setupWidgets(intArrayOf(1))
             markDefaultQuotationAsFavourite()
@@ -34,10 +34,16 @@ class RestoreOneWidgetTest : TransferRestoreUtility() {
                 restoreTransfer.settings[0].appearance,
                 backupTransfer.settings[0].appearance
             )
-            assertEquals(
+            // a restore from a version that had no internal/external database, into one that does
+            assertNotEquals(
                 restoreTransfer.settings[0].quotations,
                 backupTransfer.settings[0].quotations
             )
+            assertNotEquals(
+                restoreTransfer.settings[0].quotations.databaseInternal,
+                backupTransfer.settings[0].quotations.databaseInternal
+            )
+
             assertEquals(
                 restoreTransfer.settings[0].schedule,
                 backupTransfer.settings[0].schedule
@@ -47,7 +53,7 @@ class RestoreOneWidgetTest : TransferRestoreUtility() {
 
     @Test
     fun restoreOneIntoTwo() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        if (canWorkWithMockk()) {
             // set up
             setupWidgets(intArrayOf(1, 2))
 
@@ -75,9 +81,13 @@ class RestoreOneWidgetTest : TransferRestoreUtility() {
                 backupTransfer.settings[1].appearance
             )
 
-            assertEquals(
+            assertNotEquals(
                 restoreTransfer.settings[0].quotations,
                 backupTransfer.settings[0].quotations
+            )
+            assertNotEquals(
+                restoreTransfer.settings[0].quotations.databaseInternal,
+                backupTransfer.settings[0].quotations.databaseInternal
             )
             assertEquals(
                 backupTransfer.settings[0].quotations,

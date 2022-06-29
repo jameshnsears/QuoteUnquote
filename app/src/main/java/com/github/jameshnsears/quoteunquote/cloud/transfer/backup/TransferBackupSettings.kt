@@ -36,7 +36,6 @@ open class TransferBackupSettings(val context: Context) {
 
     fun settingsQuotations(widgetId: Int, context: Context): Quotations {
         val quotationPreferences = QuotationsPreferences(widgetId, context)
-        quotationPreferences.setContentSelection(quotationPreferences.contentSelection)
 
         var all = false
         var author = false
@@ -53,12 +52,19 @@ open class TransferBackupSettings(val context: Context) {
         return Quotations(
             quotationPreferences.contentAddToPreviousAll,
             all,
+
             author,
             quotationPreferences.contentSelectionAuthor,
+
             favourites,
+
             search,
+            quotationPreferences.contentSelectionSearchFavouritesOnly,
             quotationPreferences.contentSelectionSearchCount,
-            quotationPreferences.contentSelectionSearch
+            quotationPreferences.contentSelectionSearch,
+
+            quotationPreferences.databaseInternal,
+            quotationPreferences.databaseExternal
         )
     }
 

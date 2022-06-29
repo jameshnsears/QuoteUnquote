@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="CheckStyle-IDEA">
-    <option name="configuration">
-      <map>
-        <entry key="active-configuration" value="LOCAL_FILE:$PROJECT_DIR$/config/checkstyle/checkstyle.xml:config/checkstyle/checkstyle.xml" />
-        <entry key="checkstyle-version" value="8.36.2" />
-        <entry key="copy-libs" value="false" />
-        <entry key="location-0" value="BUNDLED:(bundled):Sun Checks" />
-        <entry key="location-1" value="BUNDLED:(bundled):Google Checks" />
-        <entry key="location-2" value="LOCAL_FILE:$PROJECT_DIR$/config/checkstyle/checkstyle.xml:config/checkstyle/checkstyle.xml" />
-        <entry key="property-2.org.checkstyle.sun.suppressionfilter.config" value="" />
-        <entry key="property-2.org.checkstyle.sun.suppressionxpathfilter.config" value="" />
-        <entry key="scan-before-checkin" value="false" />
-        <entry key="scanscope" value="JavaOnlyWithTests" />
-        <entry key="suppress-errors" value="false" />
-      </map>
+  <component name="CheckStyle-IDEA" serialisationVersion="2">
+    <checkstyleVersion>8.36.2</checkstyleVersion>
+    <scanScope>JavaOnlyWithTests</scanScope>
+    <option name="thirdPartyClasspath" />
+    <option name="activeLocationIds">
+      <option value="16bac362-a555-47e1-ab63-4429a826760d" />
+    </option>
+    <option name="locations">
+      <list>
+        <ConfigurationLocation id="bundled-sun-checks" type="BUNDLED" scope="All" description="Sun Checks">(bundled)</ConfigurationLocation>
+        <ConfigurationLocation id="bundled-google-checks" type="BUNDLED" scope="All" description="Google Checks">(bundled)</ConfigurationLocation>
+        <ConfigurationLocation id="16bac362-a555-47e1-ab63-4429a826760d" type="LOCAL_FILE" scope="All" description="config/checkstyle/checkstyle.xml">
+          $PROJECT_DIR$/config/checkstyle/checkstyle.xml
+          <option name="properties">
+            <map>
+              <entry key="org.checkstyle.sun.suppressionfilter.config" value="" />
+              <entry key="org.checkstyle.sun.suppressionxpathfilter.config" value="" />
+            </map>
+          </option>
+        </ConfigurationLocation>
+      </list>
     </option>
   </component>
 </project>

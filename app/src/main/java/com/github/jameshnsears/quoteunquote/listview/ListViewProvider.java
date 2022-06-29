@@ -47,13 +47,13 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
             widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
             Timber.d("%d", widgetId);
 
-            setQuoteUnquoteModel(new QuoteUnquoteModel(context));
+            setQuoteUnquoteModel(new QuoteUnquoteModel(widgetId, context));
 
             quotationEntity = getQuoteUnquoteModel().getCurrentQuotation(widgetId);
         }
     }
 
-    private String getPosition() {
+    private synchronized String getPosition() {
         QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, context);
 
         String quotationPosition = getQuoteUnquoteModel().getCurrentPosition(
@@ -119,12 +119,14 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
                 R.id.textViewRowQuotation,
                 IntentFactoryHelper.createIntent(widgetId));
 
-        remoteViews.setOnClickFillInIntent(
-                R.id.textViewRowAuthor,
-                IntentFactoryHelper.createClickFillInIntent(
-                        "wikipedia",
-                        quotationEntity.wikipedia,
-                        widgetId));
+        if (quotationEntity.wikipedia != null) {
+            remoteViews.setOnClickFillInIntent(
+                    R.id.textViewRowAuthor,
+                    IntentFactoryHelper.createClickFillInIntent(
+                            "wikipedia",
+                            quotationEntity.wikipedia,
+                            widgetId));
+        }
 
         remoteViews.setOnClickFillInIntent(
                 R.id.textViewRowPosition,
@@ -136,8 +138,6 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
     private int getRowLayoutId(
             String textFamily, String textStyle, boolean forceItalicRegular) {
         int layoutId = 0;
-
-
 
         switch (textFamily) {
             case "Cursive":
@@ -203,12 +203,12 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
                         appearancePreferences.getAppearanceTextStyle(),
                         appearancePreferences.getAppearanceTextForceItalicRegular()));
 
-        synchronized (this) {
-            if (!quotationList.isEmpty() && !"".equals(quotationEntity.theQuotation())) {
-                setRemoteViewQuotation(remoteViews);
-                setRemoteViewAuthor(remoteViews);
-                setRemoteViewPosition(remoteViews);
-            }
+        if (!quotationList.isEmpty()
+                && !"".equals(quotationEntity.theQuotation())
+                && !"".equals(getPosition())) {
+            setRemoteViewQuotation(remoteViews);
+            setRemoteViewAuthor(remoteViews);
+            setRemoteViewPosition(remoteViews);
         }
 
         return remoteViews;

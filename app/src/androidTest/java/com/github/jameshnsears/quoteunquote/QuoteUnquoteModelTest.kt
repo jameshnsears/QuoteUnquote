@@ -9,7 +9,11 @@ class QuoteUnquoteModelTest : QuoteUnquoteModelUtility() {
     @Test
     fun countAll() {
         insertQuotationTestData01()
-        assertEquals(2, quoteUnquoteModelDouble.countAll().blockingGet())
+
+        assertEquals(
+            2,
+            quoteUnquoteModelDouble.countAll().blockingGet()
+        )
     }
 
     @Test

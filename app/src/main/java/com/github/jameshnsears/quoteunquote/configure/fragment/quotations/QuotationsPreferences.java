@@ -11,13 +11,36 @@ import timber.log.Timber;
 
 public class QuotationsPreferences extends PreferencesFacade {
     public static final String CONTENT_ALL = "CONTENT_ALL";
+    public static final String CONTENT_ADD_TO_PREVIOUS_ALL = "CONTENT_ADD_TO_PREVIOUS_ALL";
     public static final String CONTENT_AUTHOR = "CONTENT_AUTHOR";
     public static final String CONTENT_AUTHOR_NAME = "CONTENT_AUTHOR_NAME";
     public static final String CONTENT_FAVOURITES = "CONTENT_FAVOURITES";
     public static final String CONTENT_SEARCH = "CONTENT_SEARCH";
+    public static final String CONTENT_SEARCH_FAVOURITES_ONLY = "CONTENT_SEARCH_FAVOURITES_ONLY";
     public static final String CONTENT_SEARCH_COUNT = "CONTENT_SEARCH_COUNT";
     public static final String CONTENT_SEARCH_TEXT = "CONTENT_SEARCH_TEXT";
-    public static final String CONTENT_ADD_TO_PREVIOUS_ALL = "CONTENT_ADD_TO_PREVIOUS_ALL";
+
+    public static final String DATABASE_INTERNAL = "DATABASE_INTERNAL";
+    public static final String DATABASE_EXTERNAL = "DATABASE_EXTERNAL";
+    public static final String DATABASE_EXTERNAL_FILENAME = "DATABASE_EXTERNAL_PATH";
+
+    @NonNull
+    public boolean getDatabaseInternal() {
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(QuotationsPreferences.DATABASE_INTERNAL), true);
+    }
+
+    public void setDatabaseInternal(@NonNull boolean value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(QuotationsPreferences.DATABASE_INTERNAL), value);
+    }
+
+    @NonNull
+    public boolean getDatabaseExternal() {
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(QuotationsPreferences.DATABASE_EXTERNAL), false);
+    }
+
+    public void setDatabaseExternal(@NonNull boolean value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(QuotationsPreferences.DATABASE_EXTERNAL), value);
+    }
 
     public QuotationsPreferences(@NonNull Context applicationContext) {
         super(0, applicationContext);
@@ -25,6 +48,15 @@ public class QuotationsPreferences extends PreferencesFacade {
 
     public QuotationsPreferences(int widgetId, @NonNull Context applicationContext) {
         super(widgetId, applicationContext);
+    }
+
+    @NonNull
+    public boolean getContentSelectionSearchFavouritesOnly() {
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(QuotationsPreferences.CONTENT_SEARCH_FAVOURITES_ONLY), false);
+    }
+
+    public void setContentSelectionSearchFavouritesOnly(@NonNull boolean value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(QuotationsPreferences.CONTENT_SEARCH_FAVOURITES_ONLY), value);
     }
 
     @NonNull

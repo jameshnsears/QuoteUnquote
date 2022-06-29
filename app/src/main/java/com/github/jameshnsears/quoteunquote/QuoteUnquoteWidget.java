@@ -112,7 +112,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             quotationsPreferences.setContentLocalCode(CloudTransferHelper.getLocalCode());
         }
 
-        startDatabaseConnectivity(context);
+        startDatabaseConnectivity(-1, context);
     }
 
     @Override
@@ -200,7 +200,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
         try {
             switch (intent.getAction()) {
                 case Intent.ACTION_USER_PRESENT:
-                    startDatabaseConnectivity(context);
+                    startDatabaseConnectivity(widgetId, context);
                     onReceiveDeviceUnlock(context, appWidgetManager);
                     break;
 
@@ -242,7 +242,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                     onReceiveToolbarPressedFavourite(
                             context,
                             widgetId,
-                            getQuoteUnquoteModel(context).getCurrentQuotation(widgetId).digest,
+                            getQuoteUnquoteModel(widgetId, context).getCurrentQuotation(widgetId).digest,
                             appWidgetManager);
                     break;
 
@@ -302,21 +302,21 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
 
         final QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, context);
 
-        int favouritesCount = getQuoteUnquoteModel(context).countFavouritesWithoutRx();
+        int favouritesCount = getQuoteUnquoteModel(widgetId, context).countFavouritesWithoutRx();
 
         if (quotationsPreferences.getContentSelection() == ContentSelection.FAVOURITES) {
             if (favouritesCount == 0) {
                 noFavouritesSoMoveToAll(context, widgetId, quotationsPreferences);
             } else {
-                getQuoteUnquoteModel(context).markAsCurrentDefault(widgetId);
+                getQuoteUnquoteModel(widgetId, context).markAsCurrentDefault(widgetId);
             }
 
             appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
         }
     }
 
-    private void startDatabaseConnectivity(@NonNull Context context) {
-        setQuoteUnquoteModel(new QuoteUnquoteModel(context));
+    private void startDatabaseConnectivity(int widgetId, @NonNull Context context) {
+        setQuoteUnquoteModel(new QuoteUnquoteModel(widgetId, context));
     }
 
     public void stopDatabaseConnectivity() {
@@ -344,7 +344,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
     public void onReceiveToolbarPressedShare(@NonNull final Context context, final int widgetId) {
         context.startActivity(IntentFactoryHelper.createIntentShare(
                 context.getResources().getString(R.string.app_name),
-                getQuoteUnquoteModel(context).getCurrentQuotation(widgetId).theShareContent()));
+                getQuoteUnquoteModel(widgetId, context).getCurrentQuotation(widgetId).theShareContent()));
     }
 
     private void onReceiveToolbarPressedFavourite(
@@ -354,13 +354,13 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull final AppWidgetManager appWidgetManager) {
         final QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, context);
 
-        int favouritesCount = getQuoteUnquoteModel(context).toggleFavourite(widgetId, digest);
+        int favouritesCount = getQuoteUnquoteModel(widgetId, context).toggleFavourite(widgetId, digest);
 
         if (quotationsPreferences.getContentSelection() == ContentSelection.FAVOURITES) {
             if (favouritesCount == 0) {
                 noFavouritesSoMoveToAll(context, widgetId, quotationsPreferences);
             } else {
-                getQuoteUnquoteModel(context).markAsCurrentDefault(widgetId);
+                getQuoteUnquoteModel(widgetId, context).markAsCurrentDefault(widgetId);
             }
 
             appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
@@ -371,7 +371,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
         updateNotificationIfShowingFavouriteDigest(
                 context,
                 widgetId,
-                getQuoteUnquoteModel(context).getCurrentQuotation(widgetId).digest);
+                getQuoteUnquoteModel(widgetId, context).getCurrentQuotation(widgetId).digest);
     }
 
     private void sendAllWidgetInstancesFavouriteNotification(
@@ -397,7 +397,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
         if (quotationsPreferences.getContentSelection() != ContentSelection.ALL) {
             quotationsPreferences.setContentSelection(ContentSelection.ALL);
             Timber.d("%s", quotationsPreferences.getContentSelection());
-            getQuoteUnquoteModel(context).markAsCurrentDefault(widgetId);
+            getQuoteUnquoteModel(widgetId, context).markAsCurrentDefault(widgetId);
         }
     }
 
@@ -405,8 +405,8 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull final Context context,
             final int widgetId,
             @NonNull final AppWidgetManager appWidgetManager) {
-        getQuoteUnquoteModel(context).resetPrevious(widgetId, new QuotationsPreferences(widgetId, context).getContentSelection());
-        getQuoteUnquoteModel(context).markAsCurrentDefault(widgetId);
+        getQuoteUnquoteModel(widgetId, context).resetPrevious(widgetId, new QuotationsPreferences(widgetId, context).getContentSelection());
+        getQuoteUnquoteModel(widgetId, context).markAsCurrentDefault(widgetId);
 
         appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
 
@@ -415,7 +415,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
 
     private void onReceiveToolbarPressedPrevious(
             @NonNull final Context context, final int widgetId, @NonNull final AppWidgetManager appWidgetManager) {
-        getQuoteUnquoteModel(context).markAsCurrentPrevious(widgetId);
+        getQuoteUnquoteModel(widgetId, context).markAsCurrentPrevious(widgetId);
 
         appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
 
@@ -434,7 +434,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             final int widgetId,
             @NonNull final AppWidgetManager appWidgetManager) {
         Timber.d("%d", widgetId);
-        getQuoteUnquoteModel(context).markAsCurrentLastPrevious(widgetId);
+        getQuoteUnquoteModel(widgetId, context).markAsCurrentLastPrevious(widgetId);
         appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
 
         updateNotificationIfExists(context, widgetId);
@@ -452,7 +452,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             final int widgetId,
             @NonNull final AppWidgetManager appWidgetManager,
             final boolean randomNext) {
-        getQuoteUnquoteModel(context).markAsCurrentNext(widgetId, randomNext);
+        getQuoteUnquoteModel(widgetId, context).markAsCurrentNext(widgetId, randomNext);
         appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
 
         updateNotificationIfExists(context, widgetId);
@@ -469,7 +469,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
     private void scheduleEvent(@NonNull Context context, int widgetId) {
         NotificationsPreferences notificationsPreferences = new NotificationsPreferences(widgetId, context);
 
-        getQuoteUnquoteModel(context).markAsCurrentNext(widgetId, notificationsPreferences.getEventNextRandom());
+        getQuoteUnquoteModel(widgetId, context).markAsCurrentNext(widgetId, notificationsPreferences.getEventNextRandom());
 
         if (notificationsPreferences.getEventDisplayWidgetAndNotification()) {
             displayNotification(context, widgetId);
@@ -481,7 +481,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
 
     private void displayNotification(@NonNull Context context, int widgetId) {
         QuotationEntity currentQuotation
-                = getQuoteUnquoteModel(context).getCurrentQuotation(widgetId);
+                = getQuoteUnquoteModel(widgetId, context).getCurrentQuotation(widgetId);
 
         if (currentQuotation != null){
             NotificationsPreferences notificationsPreferences = new NotificationsPreferences(widgetId, context);
@@ -491,9 +491,9 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                     widgetId,
                     currentQuotation.author,
                     markNotificationAsFavourite(
-                            context, currentQuotation.digest, currentQuotation.quotation),
+                            widgetId, context, currentQuotation.digest, currentQuotation.quotation),
                     currentQuotation.digest,
-                    getQuoteUnquoteModel(context).isFavourite(currentQuotation.digest),
+                    getQuoteUnquoteModel(widgetId, context).isFavourite(currentQuotation.digest),
                     notificationsPreferences.getEventNextSequential(),
                     widgetId);
 
@@ -543,22 +543,22 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
         NotificationsPreferences notificationsPreferences = new NotificationsPreferences(widgetId, context);
 
         QuotationEntity quotationEntity
-                = getQuoteUnquoteModel(context).getQuotation(digestFromIntent);
+                = getQuoteUnquoteModel(widgetId, context).getQuotation(digestFromIntent);
 
         notificationHelper.displayNotification(
                 context,
                 widgetId,
                 quotationEntity.author,
-                markNotificationAsFavourite(context, digestFromIntent, quotationEntity.quotation),
+                markNotificationAsFavourite(widgetId, context, digestFromIntent, quotationEntity.quotation),
                 digestFromIntent,
-                getQuoteUnquoteModel(context).isFavourite(digestFromIntent),
+                getQuoteUnquoteModel(widgetId, context).isFavourite(digestFromIntent),
                 notificationsPreferences.getEventNextSequential(),
                 widgetId);
     }
 
     private String markNotificationAsFavourite(
-            @NonNull Context context, @NonNull String digest, String quotation) {
-         if (getQuoteUnquoteModel(context).isFavourite(digest)) {
+            int widgetId, @NonNull Context context, @NonNull String digest, String quotation) {
+         if (getQuoteUnquoteModel(widgetId, context).isFavourite(digest)) {
             quotation = "\u2764 " + quotation;
             return quotation;
         }
@@ -582,15 +582,15 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             NotificationsPreferences notificationsPreferences = new NotificationsPreferences(widgetId, context);
 
             QuotationEntity quotationEntity
-                    = getQuoteUnquoteModel(context).getQuotation(digestMadeFavouriteInWidget);
+                    = getQuoteUnquoteModel(widgetId, context).getQuotation(digestMadeFavouriteInWidget);
 
             notificationHelper.displayNotification(
                     context,
                     widgetId,
                     quotationEntity.author,
-                    markNotificationAsFavourite(context, digestMadeFavouriteInWidget, quotationEntity.quotation),
+                    markNotificationAsFavourite(widgetId, context, digestMadeFavouriteInWidget, quotationEntity.quotation),
                     digestMadeFavouriteInWidget,
-                    getQuoteUnquoteModel(context).isFavourite(digestMadeFavouriteInWidget),
+                    getQuoteUnquoteModel(widgetId, context).isFavourite(digestMadeFavouriteInWidget),
                     notificationsPreferences.getEventNextSequential(),
                     widgetId);
         }
@@ -602,13 +602,13 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull final NotificationsDailyAlarm notificationsDailyAlarm) {
         Timber.d("%d", widgetId);
 
-        if (getQuoteUnquoteModel(context).getCurrentQuotation(widgetId) == null) {
-            getQuoteUnquoteModel(context).markAsCurrentDefault(widgetId);
+        if (getQuoteUnquoteModel(widgetId, context).getCurrentQuotation(widgetId) == null) {
+            getQuoteUnquoteModel(widgetId, context).markAsCurrentDefault(widgetId);
         } else if (new QuotationsPreferences(widgetId, context).getContentSelection() != currentContentSelection) {
-            getQuoteUnquoteModel(context).markAsCurrentDefault(widgetId);
-        } else if (new QuotationsPreferences(widgetId, context).getContentSelection() == ContentSelection.AUTHOR
-            && new QuotationsPreferences(widgetId, context).getContentSelectionAuthor() != currentAuthorSelection) {
-            getQuoteUnquoteModel(context).markAsCurrentDefault(widgetId);
+            getQuoteUnquoteModel(widgetId, context).markAsCurrentDefault(widgetId);
+        } else if (new QuotationsPreferences(widgetId, context).getContentSelection().equals(ContentSelection.AUTHOR)
+            && !new QuotationsPreferences(widgetId, context).getContentSelectionAuthor().equals(currentAuthorSelection)) {
+            getQuoteUnquoteModel(widgetId, context).markAsCurrentDefault(widgetId);
         }
 
         notificationsDailyAlarm.setDailyAlarm();
@@ -759,12 +759,12 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull final RemoteViews remoteViews) {
         Timber.d("%d", widgetId);
 
-        final QuotationEntity quotationEntity = getQuoteUnquoteModel(context).getCurrentQuotation(
+        final QuotationEntity quotationEntity = getQuoteUnquoteModel(widgetId, context).getCurrentQuotation(
                 widgetId);
 
         String appearanceToolbarColour = getAppearancePreferences(context, widgetId).getAppearanceToolbarColour();
 
-        boolean isFavourite = quotationEntity != null && getQuoteUnquoteModel(context).isFavourite(quotationEntity.digest);
+        boolean isFavourite = quotationEntity != null && getQuoteUnquoteModel(widgetId, context).isFavourite(quotationEntity.digest);
 
         if (isFavourite) {
             remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_toolbar_favorite_red_24);
@@ -801,7 +801,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
 
             NotificationManagerCompat.from(context).cancel(widgetId);
 
-            getQuoteUnquoteModel(context).delete(widgetId);
+            getQuoteUnquoteModel(widgetId, context).delete(widgetId);
             PreferencesFacade.delete(context, widgetId);
 
             final NotificationsDailyAlarm notificationsDailyAlarm = new NotificationsDailyAlarm(context, widgetId);
@@ -815,7 +815,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
         super.onDisabled(context);
 
         try {
-            getQuoteUnquoteModel(context).disable();
+            getQuoteUnquoteModel(-1, context).disable();
             final QuotationsPreferences quotationsPreferences = new QuotationsPreferences(context);
             final String localCode = quotationsPreferences.getContentLocalCode();
             PreferencesFacade.erase(context);
@@ -836,10 +836,12 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
     }
 
     @Nullable
-    public synchronized QuoteUnquoteModel getQuoteUnquoteModel(@NonNull final Context context) {
+    public synchronized QuoteUnquoteModel getQuoteUnquoteModel(
+            int widgetId, @NonNull final Context context) {
         if (quoteUnquoteModel == null) {
-            quoteUnquoteModel = new QuoteUnquoteModel(context);
+            quoteUnquoteModel = new QuoteUnquoteModel(widgetId, context);
         }
+
         return quoteUnquoteModel;
     }
 

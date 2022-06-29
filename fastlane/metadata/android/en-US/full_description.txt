@@ -1,28 +1,25 @@
 <b>Description</b>
-Improve your self-esteem with these high quality quotations! Authors include:
-&bull; Artists
-&bull; Athletes
-&bull; Entertainers
-&bull; Entrepreneurs
-&bull; Philosophers (ancient to modern-day)
-&bull; Playwrights (special focus on Shakespeare)
-&bull; Politicians
-&bull; Psychotherapists
-&bull; and many, many, more...
+Quote Unquote is a widget that displays Quotations.
+
+There are no predefined categories or pictures.
+
+The app includes two databases: an Internal database, containing &#34;high quality&#34; quotations; an External database, into which you can import your own quotations.
 
 <b>Key features</b>
-&bull; Twenty thousand, reviewed, high quality quotations
-&bull; Wikipedia integration (where author found)
-&bull; Configurable appearance
-&bull; Advanced navigation
-&bull; Notifications
-&bull; Searchable content
-&bull; Backup &amp; Restore across devices
+&bull; Over 18,000 unique and reviewed quotations
+&bull; Filter quotations by: source; favourites; search results
+&bull; Navigate the quotations: sequentially; randomly; previously
+&bull; Tap an underlined source, from the Internal database, to deep link to Wikipedia
+&bull; Schedule a quotation via a Notification
+&bull; Use multiple devices? Sync via Backup &amp; Restore
 
 <b>Other items of interest</b>
 &bull; Free &amp; without Ads
 &bull; Core functionality works offline
 &bull; No analytics
 &bull; Minimal permissions
-&bull; All quotations are in English
-&bull; Supported <a href="https://github.com/jameshnsears/quoteunquote">Open-source</a> project
+&bull; Internal database content is in English
+&bull; Open-source
+
+Something missing (or otherwise)? Please raise a <a href="https://github.com/jameshnsears/quoteunquote">GitHub</a> issue.
+

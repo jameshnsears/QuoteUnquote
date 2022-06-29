@@ -2,7 +2,7 @@ name: coverage
 
 on:
   push:
-    branches: [ main, qa ]
+    branches:
   pull_request:
     branches:
 
@@ -14,11 +14,11 @@ jobs:
   coverage-fdroid:
     name: coverage-fdroid
     runs-on: macOS-latest
-    timeout-minutes: 45
+    timeout-minutes: 30
     strategy:
       fail-fast: true
       matrix:
-        api-level: [24, 31]
+        api-level: [31]
 
     steps:
       - name: clone
@@ -30,11 +30,9 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: 11
+          java-version: 17
       - run: ./ci_clear_gradle_cache.sh
-
-      - name: gradle cache
-        uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: |
             ~/.gradle/caches
@@ -48,7 +46,7 @@ jobs:
           api-level: ${{ matrix.api-level }}
 
       # Retrieve the cached emulator snapshot.
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         id: avd-cache
         with:
           path: |
@@ -69,7 +67,6 @@ jobs:
           ram-size: 4096M
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           script: echo "Generated AVD snapshot."
-
 
       - name: local.properties
         env:
@@ -126,11 +123,11 @@ jobs:
   coverage-googleplay:
     name: coverage-googleplay
     runs-on: macOS-latest
-    timeout-minutes: 45
+    timeout-minutes: 30
     strategy:
       fail-fast: true
       matrix:
-        api-level: [24, 31]
+        api-level: [31]
 
     steps:
       - name: clone
@@ -142,11 +139,9 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: 11
+          java-version: 17
       - run: ./ci_clear_gradle_cache.sh
-
-      - name: gradle cache
-        uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: |
             ~/.gradle/caches
@@ -160,7 +155,7 @@ jobs:
           api-level: ${{ matrix.api-level }}
 
       # Retrieve the cached emulator snapshot.
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         id: avd-cache
         with:
           path: |

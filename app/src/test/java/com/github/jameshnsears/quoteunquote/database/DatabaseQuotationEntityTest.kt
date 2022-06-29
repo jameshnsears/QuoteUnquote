@@ -21,6 +21,6 @@ class DatabaseQuotationEntityTest : ShadowLoggingHelper() {
             "quotation"
         )
 
-        assertEquals("quotation\n\nauthor\n", quotationEntity.theShareContent())
+        assertEquals("quotation\n\nauthor", quotationEntity.theShareContent())
     }
 }

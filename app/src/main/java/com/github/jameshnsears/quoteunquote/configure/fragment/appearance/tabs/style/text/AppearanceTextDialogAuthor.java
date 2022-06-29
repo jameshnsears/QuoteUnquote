@@ -4,12 +4,8 @@ import static android.view.View.VISIBLE;
 
 import android.widget.Spinner;
 
-import androidx.annotation.NonNull;
-
 import com.github.jameshnsears.quoteunquote.R;
 import com.skydoves.colorpickerview.ColorEnvelope;
-
-import timber.log.Timber;
 
 public class AppearanceTextDialogAuthor extends AppearanceTextDialogFragment {
     public AppearanceTextDialogAuthor(int widgetId) {

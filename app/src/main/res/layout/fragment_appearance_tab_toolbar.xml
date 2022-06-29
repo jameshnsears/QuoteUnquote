@@ -1,183 +1,220 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:focusableInTouchMode="true"
-    android:orientation="vertical"
-    android:paddingStart="0dp"
-    android:paddingTop="10dp"
-    android:paddingEnd="5dp"
-    android:paddingBottom="0dp"
-    android:theme="@style/Theme.QuoteUnquote">
+        android:layout_height="match_parent"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:paddingStart="0dp"
+        android:paddingTop="0dp"
+        android:paddingEnd="0dp"
+        android:paddingBottom="10dp"
+        android:theme="@style/Theme.QuoteUnquote">
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardViewSeperator"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-        <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/toolbar_switch_hide_seperator"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/fragment_appearance_toolbar_hide_separator"
-                android:paddingVertical="10dp"
-                android:textSize="14sp"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingVertical="5dp"
-                android:text="@string/fragment_appearance_toolbar_buttons"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+            app:cardCornerRadius="20dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true">
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingVertical="5dp">
+                android:orientation="vertical"
+                android:padding="10dp">
 
-            <TextView
-                    android:id="@+id/textViewToolbarColour"
-                    android:layout_width="70dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:text="@string/fragment_appearance_colour"
-                    android:textSize="14sp" />
-
-            <Button
-                    android:id="@+id/toolbarColourPickerButton"
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/toolbar_switch_hide_seperator"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center"
-                    android:paddingStart="0dp"
-                    android:paddingEnd="5dp"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                    android:layout_height="wrap_content"
+                    android:text="@string/fragment_appearance_toolbar_hide_separator"
+                    android:textSize="14sp" />
 
         </LinearLayout>
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/toolbarSwitchFirst"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checked="false"
-                android:drawableStart="@drawable/ic_toolbar_first_24"
-                android:drawablePadding="20dp"
-                android:paddingVertical="10dp"
-                android:text="@string/fragment_appearance_toolbar_first"
-                android:textSize="14sp" />
-    </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/toolbarSwitchPrevious"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:drawableStart="@drawable/ic_toolbar_previous_24"
-                android:drawablePadding="20dp"
-                android:paddingVertical="10dp"
-                android:text="@string/fragment_appearance_toolbar_previous"
-                android:textSize="14sp"
-                tools:ignore="TextContrastCheck" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/toolbarSwitchToggleFavourite"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:drawableStart="@drawable/ic_toolbar_favorite_red_24"
-                android:drawablePadding="20dp"
-                android:paddingVertical="10dp"
-                android:text="@string/fragment_appearance_toolbar_favourite"
-                android:textSize="14sp"
-                tools:ignore="TextContrastCheck" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/toolbarSwitchShare"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:drawableStart="@drawable/ic_toolbar_share_24"
-                android:drawablePadding="20dp"
-                android:paddingVertical="10dp"
-                android:text="@string/fragment_appearance_toolbar_share"
-                android:textSize="14sp" />
-    </LinearLayout>
-
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardViewButtons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            app:cardCornerRadius="20dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true">
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/toolbar_switch_jump"
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_toolbar_jump_24"
-                android:drawablePadding="20dp"
-                android:paddingVertical="10dp"
-                android:text="@string/fragment_appearance_toolbar_position_indicator"
-                android:textSize="14sp" />
-    </LinearLayout>
+                android:orientation="vertical"
+                android:padding="10dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/toolbarSwitchNextSequential"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_toolbar_next_sequential_24"
-                android:drawablePadding="20dp"
-                android:paddingVertical="10dp"
-                android:text="@string/fragment_appearance_toolbar_next_sequential"
-                android:textSize="14sp" />
-    </LinearLayout>
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="5dp"
+                        android:text="@string/fragment_appearance_toolbar_buttons"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="5dp">
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/toolbarSwitchNextRandom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:drawableStart="@drawable/ic_toolbar_next_random_24"
-                android:drawablePadding="20dp"
-                android:paddingVertical="10dp"
-                android:text="@string/fragment_appearance_toolbar_next_random"
-                android:textSize="14sp"
-                tools:ignore="TextContrastCheck" />
-    </LinearLayout>
+                    <TextView
+                            android:id="@+id/textViewToolbarColour"
+                            android:layout_width="70dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
+                            android:text="@string/fragment_appearance_colour"
+                            android:textSize="14sp" />
+
+                    <Button
+                            android:id="@+id/toolbarColourPickerButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:layout_gravity="center"
+                            android:paddingStart="0dp"
+                            android:paddingEnd="5dp"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                </LinearLayout>
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/toolbarSwitchFirst"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:contentDescription="@string/fragment_appearance_toolbar_first"
+                        android:drawableStart="@drawable/ic_toolbar_first_24"
+                        android:drawablePadding="20dp"
+                        android:paddingVertical="10dp"
+                        android:text="@string/fragment_appearance_toolbar_first"
+                        android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/toolbarSwitchPrevious"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:contentDescription="@string/fragment_appearance_toolbar_previous"
+                        android:drawableStart="@drawable/ic_toolbar_previous_24"
+                        android:drawablePadding="20dp"
+                        android:paddingVertical="10dp"
+                        android:text="@string/fragment_appearance_toolbar_previous"
+                        android:textSize="14sp"
+                        tools:ignore="TextContrastCheck" />
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/toolbarSwitchToggleFavourite"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:contentDescription="@string/fragment_appearance_toolbar_favourite"
+                        android:drawableStart="@drawable/ic_toolbar_favorite_red_24"
+                        android:drawablePadding="20dp"
+                        android:paddingVertical="10dp"
+                        android:text="@string/fragment_appearance_toolbar_favourite"
+                        android:textSize="14sp"
+                        tools:ignore="TextContrastCheck" />
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/toolbarSwitchShare"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:contentDescription="@string/fragment_appearance_toolbar_share"
+                        android:drawableStart="@drawable/ic_toolbar_share_24"
+                        android:drawablePadding="20dp"
+                        android:paddingVertical="10dp"
+                        android:text="@string/fragment_appearance_toolbar_share"
+                        android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/toolbar_switch_jump"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/fragment_appearance_toolbar_position_indicator"
+                        android:drawableStart="@drawable/ic_toolbar_jump_24"
+                        android:drawablePadding="20dp"
+                        android:paddingVertical="10dp"
+                        android:text="@string/fragment_appearance_toolbar_position_indicator"
+                        android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/toolbarSwitchNextSequential"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/fragment_appearance_toolbar_next_sequential"
+                        android:drawableStart="@drawable/ic_toolbar_next_sequential_24"
+                        android:drawablePadding="20dp"
+                        android:paddingVertical="10dp"
+                        android:text="@string/fragment_appearance_toolbar_next_sequential"
+                        android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/toolbarSwitchNextRandom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:contentDescription="@string/fragment_appearance_toolbar_next_random"
+                        android:drawableStart="@drawable/ic_toolbar_next_random_24"
+                        android:drawablePadding="20dp"
+                        android:paddingVertical="10dp"
+                        android:text="@string/fragment_appearance_toolbar_next_random"
+                        android:textSize="14sp"
+                        tools:ignore="TextContrastCheck" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>

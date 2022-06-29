@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.cloud.transfer.TransferRestoreResponse;
 import com.github.jameshnsears.quoteunquote.cloud.transfer.restore.TransferRestore;
+import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsFragmentStateAdapter;
 import com.github.jameshnsears.quoteunquote.configure.fragment.sync.SyncFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.sync.SyncPreferences;
 import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
@@ -77,6 +78,11 @@ public class CloudServiceRestore extends CloudService {
                                 context,
                                 DatabaseRepository.getInstance(context),
                                 transferRestoreResponse.getTransfer());
+
+                        // DatabaseRepository.useInternalDatabase
+
+                        QuotationsFragmentStateAdapter.alignSelectionFragmentWithRestore(
+                                intent.getIntExtra("widgetId", 0), context);
 
                         handler.post(() -> Toast.makeText(
                                 context,

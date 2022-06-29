@@ -48,6 +48,6 @@ public class QuotationEntity {
 
     @NonNull
     public String theShareContent() {
-        return this.theQuotation() + "\n" + this.theAuthor();
+        return quotation + "\n\n" + author;
     }
 }

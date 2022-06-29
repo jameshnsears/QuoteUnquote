@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:paddingStart="0dp"
+        android:paddingTop="0dp"
+        android:paddingEnd="0dp"
+        android:paddingBottom="10dp"
+        android:theme="@style/Theme.QuoteUnquote">
+
+    <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardViewSelection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="20dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+            <RadioGroup
+                    android:id="@+id/radioGroupContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <RadioButton
+                        android:id="@+id/radioButtonAll"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:contentDescription="@string/fragment_quotations_selection_all"
+                        android:paddingVertical="10dp"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="0dp"
+                        android:text="@string/fragment_quotations_selection_all"
+                        android:textSize="14sp" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchAddToPreviousAll"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:contentDescription="@string/fragment_quotations_selection_add_to_previous_count"
+                        android:drawablePadding="5dp"
+                        android:paddingVertical="10dp"
+                        android:paddingStart="6dp"
+                        android:paddingEnd="0dp"
+                        android:text="@string/fragment_quotations_selection_add_to_previous_count"
+                        android:textSize="14sp" />
+
+                <View
+                        android:id="@+id/dividerAll"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="?android:attr/listDivider"
+                        android:paddingStart="0dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="5dp"
+                        android:paddingBottom="10dp" />
+
+                <RadioButton
+                        android:id="@+id/radioButtonAuthor"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/fragment_quotations_selection_author"
+                        android:paddingVertical="10dp"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="0dp"
+                        android:text="@string/fragment_quotations_selection_author"
+                        android:textSize="14sp" />
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:orientation="vertical"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp"
+                        android:paddingBottom="5dp">
+
+                    <Spinner
+                            android:id="@+id/spinnerAuthors"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/fragment_quotations_selection_author_name"
+                            android:minHeight="48dp"
+                            android:paddingVertical="10dp"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                </LinearLayout>
+
+                <View
+                        android:id="@+id/dividerAuthor"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="?android:attr/listDivider"
+                        android:paddingStart="0dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="5dp"
+                        android:paddingBottom="10dp" />
+
+                <RadioButton
+                        android:id="@+id/radioButtonFavourites"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/fragment_quotations_selection_favourites"
+                        android:drawableStart="@drawable/ic_toolbar_favorite_red_24"
+                        android:drawablePadding="20dp"
+                        android:paddingVertical="10dp"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="0dp"
+                        android:text="@string/fragment_quotations_selection_favourites"
+                        android:textSize="14sp" />
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="0dp"
+                        android:orientation="vertical"
+                        android:paddingStart="6dp"
+                        android:paddingEnd="0dp">
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp">
+
+                        <Button
+                                android:id="@+id/buttonExport"
+                                android:layout_width="110dp"
+                                android:layout_height="48dp"
+                                android:background="@drawable/corners_buttons"
+                                android:contentDescription="@string/fragment_quotations_selection_favourites_export_button"
+                                android:text="@string/fragment_quotations_selection_favourites_export_button"
+                                android:textColor="@android:color/white"
+                                android:textSize="14sp"
+                                app:backgroundTint="@null" />
+
+                        <TextView
+                                android:id="@+id/textViewLocalStorageInstructions"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingStart="7dp"
+                                android:paddingEnd="0dp"
+                                android:text="@string/fragment_quotations_selection_favourites_export_instructions" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <View
+                        android:id="@+id/dividerFavourites"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="?android:attr/listDivider"
+                        android:paddingStart="0dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="5dp"
+                        android:paddingBottom="10dp" />
+
+                <RadioButton
+                        android:id="@+id/radioButtonSearch"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/fragment_quotations_selection_search"
+                        android:drawableStart="@drawable/ic_quotations_search_24"
+                        android:drawablePadding="20dp"
+                        android:paddingVertical="10dp"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="0dp"
+                        android:text="@string/fragment_quotations_selection_search"
+                        android:textSize="14sp" />
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:orientation="vertical"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="6dp">
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:id="@+id/switchSearchFavouritesOnly"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="0dp"
+                            android:paddingEnd="0dp"
+                            android:text="@string/fragment_quotations_selection_search_favourites_only"
+                            android:textSize="14sp" />
+
+                    <EditText
+                            android:id="@+id/editTextSearchText"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:ems="10"
+                            android:gravity="start|top"
+                            android:hint="@string/fragment_quotations_selection_search_instructions"
+                            android:importantForAutofill="no"
+                            android:inputType="text"
+                            android:maxLength="50"
+                            android:textSize="14sp"
+                            tools:ignore="TouchTargetSizeCheck" />
+
+                </LinearLayout>
+
+            </RadioGroup>
+
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

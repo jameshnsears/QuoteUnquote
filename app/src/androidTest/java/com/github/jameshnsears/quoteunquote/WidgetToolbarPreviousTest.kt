@@ -11,7 +11,9 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
     fun erase() {
         assertEquals(
             0,
-            databaseRepositoryDouble.countCurrent(WidgetIdHelper.WIDGET_ID_01)
+            databaseRepositoryDouble.countCurrent(
+                WidgetIdHelper.WIDGET_ID_01
+            )
         )
 
         databaseRepositoryDouble.markAsCurrent(WidgetIdHelper.WIDGET_ID_01, "d3456789")
@@ -20,7 +22,9 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             0,
-            databaseRepositoryDouble.countCurrent(WidgetIdHelper.WIDGET_ID_01)
+            databaseRepositoryDouble.countCurrent(
+                WidgetIdHelper.WIDGET_ID_01
+            )
         )
     }
 

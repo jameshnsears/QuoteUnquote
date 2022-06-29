@@ -66,21 +66,24 @@
         <entry key="app/src/main/res/drawable/next_plan_avd_anim.xml" value="0.1953125" />
         <entry key="app/src/main/res/drawable/vectordrawable.xml" value="0.21770833333333334" />
         <entry key="app/src/main/res/layout/activity_configure.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/activity_instructions.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_instructions.xml" value="0.3067484662576687" />
         <entry key="app/src/main/res/layout/activity_report.xml" value="0.33" />
         <entry key="app/src/main/res/layout/anim_settings.xml" value="0.17916666666666667" />
-        <entry key="app/src/main/res/layout/fragment_appearance.xml" value="0.2" />
-        <entry key="app/src/main/res/layout/fragment_appearance_tab_style.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_appearance.xml" value="0.12" />
+        <entry key="app/src/main/res/layout/fragment_appearance_tab_style.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_appearance_tab_style_dialog.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_appearance_tab_style_text.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_appearance_tab_toolbar.xml" value="0.12734082397003746" />
+        <entry key="app/src/main/res/layout/fragment_appearance_tab_toolbar.xml" value="0.5356679636835279" />
         <entry key="app/src/main/res/layout/fragment_archive.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_backup_restore.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_content.xml" value="0.4165103189493433" />
         <entry key="app/src/main/res/layout/fragment_event.xml" value="0.5" />
-        <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.29080675422138835" />
-        <entry key="app/src/main/res/layout/fragment_quotations.xml" value="0.26988636363636365" />
+        <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_quotations.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_quotations_tab_database.xml" value="0.9" />
+        <entry key="app/src/main/res/layout/fragment_quotations_tab_selection.xml" value="0.2517482517482518" />
         <entry key="app/src/main/res/layout/fragment_schedule.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_sync.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_transfer.xml" value="0.42964352720450283" />
         <entry key="app/src/main/res/layout/listvew_row_.xml" value="0.1" />
         <entry key="app/src/main/res/layout/listvew_row_0_cursive.xml" value="0.1" />
@@ -133,7 +136,7 @@
         <entry key="app/src/main/res/layout/notification_exapanded.xml" value="0.1" />
         <entry key="app/src/main/res/layout/notification_large.xml" value="0.1" />
         <entry key="app/src/main/res/layout/notification_small.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/quote_unquote_widget.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/quote_unquote_widget.xml" value="0.5" />
         <entry key="app/src/main/res/layout/quote_unquote_widget_preview.xml" value="0.4138309549945115" />
         <entry key="app/src/main/res/layout/quote_unquote_widget_shape.xml" value="0.1" />
         <entry key="app/src/main/res/layout/quote_unquote_widget_without_seperator.xml" value="0.24242424242424243" />
@@ -201,7 +204,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

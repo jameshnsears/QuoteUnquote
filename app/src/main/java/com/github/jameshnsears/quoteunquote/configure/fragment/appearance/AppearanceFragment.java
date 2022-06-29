@@ -56,12 +56,15 @@ public class AppearanceFragment extends FragmentCommon {
             @NonNull final View view, final @NonNull Bundle savedInstanceState) {
 
         pagerAdapter = new AppearanceFragmentStateAdapter(this, widgetId);
-        fragmentAppearanceBinding.viewPager2.setAdapter(pagerAdapter);
+        fragmentAppearanceBinding.viewPager2Appearance.setAdapter(pagerAdapter);
 
-        String[] tabs = {"Style", "Toolbar"};
+        String[] tabs = {
+                getString(R.string.fragment_appearance_style),
+                getString(R.string.fragment_appearance_toolbar)
+        };
         new TabLayoutMediator(
                 fragmentAppearanceBinding.tabLayout,
-                fragmentAppearanceBinding.viewPager2,
+                fragmentAppearanceBinding.viewPager2Appearance,
                 true,
                 false,
                 (tab, position) -> tab.setText(tabs[position])).attach();

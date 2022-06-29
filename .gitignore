@@ -31,5 +31,5 @@ local.properties
 /Quote, Unquote.vpp.*
 /.Quote, Unquote.vpp.lck
 .scannerwork
-/app/emanuelkebede/release/
 /bin/transfer_restore.sh
+/bin/envvars.sh

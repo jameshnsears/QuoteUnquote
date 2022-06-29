@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -22,8 +21,6 @@ import androidx.fragment.app.DialogFragment;
 
 import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences;
-import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.style.AppearanceTextFamilySpinnerAdapter;
-import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.style.AppearanceTextStyleSpinnerAdapter;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentAppearanceTabStyleDialogBinding;
 import com.skydoves.colorpickerview.ColorEnvelope;
 import com.skydoves.colorpickerview.ColorPickerDialog;

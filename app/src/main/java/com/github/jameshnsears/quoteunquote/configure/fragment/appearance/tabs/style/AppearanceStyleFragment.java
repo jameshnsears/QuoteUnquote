@@ -83,7 +83,7 @@ public class AppearanceStyleFragment extends FragmentCommon {
             @NonNull Bundle savedInstanceState) {
         appearancePreferences = new AppearancePreferences(this.widgetId, getContext());
 
-        quoteUnquoteModel = new QuoteUnquoteModel(getContext());
+        quoteUnquoteModel = new QuoteUnquoteModel(widgetId, getContext());
 
         fragmentAppearanceTabStyleBinding
                 = FragmentAppearanceTabStyleBinding.inflate(inflater.cloneInContext(

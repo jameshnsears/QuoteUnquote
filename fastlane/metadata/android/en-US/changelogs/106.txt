@@ -1,0 +1,7 @@
+- Update UI to Card layout and simplify
+- Update Internal database
+- Update IDE and dependencies
+- Add External .csv database and associated Sync
+- Add Switch, Search Favorites only
+- Fix Remove trailing newline from Share content
+- Remove Product flavour that External database negates

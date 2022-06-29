@@ -2,7 +2,9 @@
 <SmellBaseline>
   <ManuallySuppressedIssues/>
   <CurrentIssues>
+    <ID>NestedBlockDepth:TransferRestore.kt$TransferRestore$private fun restoreCurrent( context: Context, databaseRepository: DatabaseRepository, currentList: List&lt;Current> )</ID>
     <ID>NestedBlockDepth:TransferRestore.kt$TransferRestore$private fun restorePrevious( context: Context, databaseRepository: DatabaseRepository, previousList: List&lt;Previous> )</ID>
+    <ID>TooManyFunctions:TransferRestore.kt$TransferRestore : TransferCommon</ID>
     <ID>UtilityClassWithPublicConstructor:ListViewLayoutIdHelper.kt$ListViewLayoutIdHelper</ID>
   </CurrentIssues>
 </SmellBaseline>

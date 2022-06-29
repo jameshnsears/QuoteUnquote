@@ -1,6 +1,5 @@
 package com.github.jameshnsears.quoteunquote
 
-import android.os.Build
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences
 import com.github.jameshnsears.quoteunquote.configure.fragment.sync.SyncPreferences
 import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade
@@ -15,12 +14,12 @@ import org.junit.Test
 class WidgetDeletedTest : QuoteUnquoteModelUtility() {
     @Test
     fun widgetDeleted() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        if (canWorkWithMockk()) {
             setupDatabase()
             setupSharedPreferences()
 
             val quoteUnquoteWidget = spyk<QuoteUnquoteWidget>()
-            every { quoteUnquoteWidget.getQuoteUnquoteModel(any()) } returns quoteUnquoteModelDouble
+            every { quoteUnquoteWidget.getQuoteUnquoteModel(WidgetIdHelper.WIDGET_ID_01, any()) } returns quoteUnquoteModelDouble
 
             quoteUnquoteWidget.onEnabled(context)
             val syncPreferences =

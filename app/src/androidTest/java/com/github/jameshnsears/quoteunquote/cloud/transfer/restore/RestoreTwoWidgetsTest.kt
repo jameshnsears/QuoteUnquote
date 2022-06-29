@@ -1,6 +1,5 @@
 package com.github.jameshnsears.quoteunquote.cloud.transfer.restore
 
-import android.os.Build
 import com.github.jameshnsears.quoteunquote.cloud.transfer.Transfer
 import com.github.jameshnsears.quoteunquote.cloud.transfer.TransferUtility
 import com.github.jameshnsears.quoteunquote.cloud.transfer.backup.TransferBackup
@@ -13,7 +12,7 @@ import org.junit.Test
 class RestoreTwoWidgetsTest : TransferRestoreUtility() {
     @Test
     fun restoreTwoWithFavouritesIntoOne() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        if (canWorkWithMockk()) {
             // set up
             setupWidgets(intArrayOf(1))
 
@@ -23,8 +22,8 @@ class RestoreTwoWidgetsTest : TransferRestoreUtility() {
 
             // assert
             val backupTransfer = TransferBackup(context).transfer(databaseRepositoryDouble)
-            val restoreJson = TransferRestore().asJson(restoreTransfer)
-            val backupJson = TransferBackup(context).asJson(backupTransfer)
+//            val restoreJson = TransferRestore().asJson(restoreTransfer)
+//            val backupJson = TransferBackup(context).asJson(backupTransfer)
 
             Assert.assertEquals(getLocalCode(), backupTransfer.code)
 
@@ -37,10 +36,16 @@ class RestoreTwoWidgetsTest : TransferRestoreUtility() {
                 restoreTransfer.settings[0].appearance,
                 backupTransfer.settings[0].appearance
             )
-            Assert.assertEquals(
+
+            Assert.assertNotEquals(
                 restoreTransfer.settings[0].quotations,
                 backupTransfer.settings[0].quotations
             )
+            Assert.assertNotEquals(
+                restoreTransfer.settings[0].quotations.databaseInternal,
+                backupTransfer.settings[0].quotations.databaseInternal
+            )
+
             Assert.assertEquals(
                 restoreTransfer.settings[0].schedule,
                 backupTransfer.settings[0].schedule
@@ -50,7 +55,7 @@ class RestoreTwoWidgetsTest : TransferRestoreUtility() {
 
     @Test
     fun restoreTwoWithFavouritesIntoTwo() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        if (canWorkWithMockk()) {
             // set up
             setupWidgets(intArrayOf(1, 2))
 
@@ -74,10 +79,16 @@ class RestoreTwoWidgetsTest : TransferRestoreUtility() {
                 restoreTransfer.settings[0].appearance,
                 backupTransfer.settings[0].appearance
             )
-            Assert.assertEquals(
+
+            Assert.assertNotEquals(
                 restoreTransfer.settings[0].quotations,
                 backupTransfer.settings[0].quotations
             )
+            Assert.assertNotEquals(
+                restoreTransfer.settings[0].quotations.databaseInternal,
+                backupTransfer.settings[0].quotations.databaseInternal
+            )
+
             Assert.assertEquals(
                 restoreTransfer.settings[0].schedule,
                 backupTransfer.settings[0].schedule
@@ -87,10 +98,7 @@ class RestoreTwoWidgetsTest : TransferRestoreUtility() {
                 restoreTransfer.settings[1].appearance,
                 backupTransfer.settings[1].appearance
             )
-            Assert.assertEquals(
-                restoreTransfer.settings[1].quotations,
-                backupTransfer.settings[1].quotations
-            )
+
             Assert.assertEquals(
                 restoreTransfer.settings[1].schedule,
                 backupTransfer.settings[1].schedule
@@ -101,7 +109,7 @@ class RestoreTwoWidgetsTest : TransferRestoreUtility() {
     @Test
     fun restoreTwoIntoOne() {
         // defect raised by user!
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        if (canWorkWithMockk()) {
             // set up
             val restoreTransfer = getTransferAsset("restore_order_test.json")
             setUp(restoreTransfer)
@@ -159,6 +167,8 @@ class RestoreTwoWidgetsTest : TransferRestoreUtility() {
                 )
             )
         }
-        databaseRepositoryDouble.insertQuotations(quotationEntityList.distinct())
+        databaseRepositoryDouble.insertQuotations(
+            quotationEntityList.distinct()
+        )
     }
 }

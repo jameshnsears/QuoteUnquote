@@ -1,6 +1,5 @@
 package com.github.jameshnsears.quoteunquote.cloud.transfer.backup
 
-import android.os.Build
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import com.github.jameshnsears.quoteunquote.cloud.transfer.Appearance
 import com.github.jameshnsears.quoteunquote.cloud.transfer.GsonTestHelper
@@ -55,7 +54,7 @@ class TransferBackupSettingsTest : GsonTestHelper() {
 
     @Test
     fun settings() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        if (canWorkWithMockk()) {
             mockkObject(TransferUtility)
             every { TransferUtility.getWidgetIds(context) } returns intArrayOf(1)
 
@@ -123,7 +122,10 @@ class TransferBackupSettingsTest : GsonTestHelper() {
         "",
         false,
         false,
+        false,
         -1,
-        ""
+        "",
+        true,
+        false
     )
 }

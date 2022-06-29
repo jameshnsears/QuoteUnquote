@@ -1,2 +1,0 @@
-- Remember last previous quotation, rather then most recent - when coming back from Configuration screen.
-- Fix Cloud sync, for large data.

@@ -27,11 +27,14 @@ class WidgetToolbarRandomizationTest : QuoteUnquoteModelUtility() {
             Timber.plant(MethodLineLoggingTree())
         }
 
-        databaseRepositoryDouble.eraseEverything()
+        databaseRepositoryDouble.eraseAllDatabsaes()
         insertQuotationTestData01()
         insertQuotationTestData02()
         insertQuotationTestData03()
-        assertEquals(7, quoteUnquoteModelDouble.countAll().blockingGet())
+        assertEquals(
+            7,
+            quoteUnquoteModelDouble.countAll().blockingGet()
+        )
 
         assertEquals(
             0,
@@ -56,7 +59,8 @@ class WidgetToolbarRandomizationTest : QuoteUnquoteModelUtility() {
         assertNextOrder(expectedNextNextOrder)
 
         // use the Next quotations
-        for (i in 1..quoteUnquoteModelDouble.countAll().blockingGet()) {
+        for (i in 1..quoteUnquoteModelDouble.countAll()
+            .blockingGet()) {
             quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
         }
 
@@ -78,12 +82,15 @@ class WidgetToolbarRandomizationTest : QuoteUnquoteModelUtility() {
     }
 
     private fun assertNextOrder(expectedAllQuotationsOrder: MutableList<String>) {
-        assertTrue(expectedAllQuotationsOrder == databaseRepositoryDouble.nextAllDigests)
+        assertTrue(
+            expectedAllQuotationsOrder == databaseRepositoryDouble.getNextAllDigests()
+        )
     }
 
     @Test
     fun traverseContentSelectionRandomly() {
-        for (i in 1..quoteUnquoteModelDouble.countAll().blockingGet()) {
+        for (i in 1..quoteUnquoteModelDouble.countAll()
+            .blockingGet()) {
             quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, true)
         }
 

@@ -29,7 +29,7 @@ class TransferRestore : TransferCommon() {
         return builder.create().toJson(TransferRestoreRequest(remoteCodeValue))
     }
 
-    private fun emptySharedPreferencesExceptArchive(context: Context) {
+    private fun emptySharedPreferencesExceptLocalCode(context: Context) {
         val preferencesFacade = PreferencesFacade(context)
         val localCode =
             preferencesFacade.preferenceHelper!!.getPreferenceString(preferencesFacade.localCode)
@@ -42,7 +42,7 @@ class TransferRestore : TransferCommon() {
     }
 
     fun restore(context: Context, databaseRepository: DatabaseRepository, transfer: Transfer) {
-        emptySharedPreferencesExceptArchive(context)
+        emptySharedPreferencesExceptLocalCode(context)
         databaseRepository.eraseForRestore()
 
         restoreFavourite(databaseRepository, transfer.favourites)
@@ -66,12 +66,23 @@ class TransferRestore : TransferCommon() {
         databaseRepository: DatabaseRepository,
         favouriteList: List<Favourite>
     ) {
+        val useInternalDatabase = DatabaseRepository.useInternalDatabase
+
         for (index in (favouriteList.size - 1) downTo 0 step 1) {
             val favourite = favouriteList[index]
-            if (databaseRepository.getQuotation(favourite.digest) != null) {
+
+            if (favourite.db == "internal" || favourite.db == null) {
+                DatabaseRepository.useInternalDatabase = true
                 databaseRepository.markAsFavourite(favourite.digest)
+            } else {
+                if (databaseRepository.countAllExternal().blockingGet() > 0) {
+                    DatabaseRepository.useInternalDatabase = false
+                    databaseRepository.markAsFavourite(favourite.digest)
+                }
             }
         }
+
+        DatabaseRepository.useInternalDatabase = useInternalDatabase
     }
 
     private fun restoreCurrent(
@@ -79,21 +90,38 @@ class TransferRestore : TransferCommon() {
         databaseRepository: DatabaseRepository,
         currentList: List<Current>
     ) {
+        val useInternalDatabase = DatabaseRepository.useInternalDatabase
+
         for (widgetId in TransferUtility.getWidgetIds(context)) {
             for (currentIndex in (currentList.size - 1) downTo 0 step 1) {
                 val current = currentList[currentIndex]
                 var digest = current.digest
 
-                if (databaseRepository.getQuotation(current.digest) == null) {
-                    digest = DatabaseRepository.getDefaultQuotationDigest()
-                }
-
-                val currentQuotation: QuotationEntity? =
-                    databaseRepository.getCurrentQuotation(widgetId)
-                if (currentQuotation == null || currentQuotation.digest != digest) {
-                    databaseRepository.markAsCurrent(widgetId, digest)
+                if (current.db == "internal" || current.db == null) {
+                    DatabaseRepository.useInternalDatabase = true
+                    restoreCurrentDigest(databaseRepository, widgetId, digest)
+                } else {
+                    if (databaseRepository.countAllExternal().blockingGet() > 0) {
+                        DatabaseRepository.useInternalDatabase = false
+                        restoreCurrentDigest(databaseRepository, widgetId, digest)
+                    }
                 }
             }
+        }
+
+        DatabaseRepository.useInternalDatabase = useInternalDatabase
+    }
+
+    private fun restoreCurrentDigest(
+        databaseRepository: DatabaseRepository,
+        widgetId: Int,
+        digest: String
+    ) {
+        val currentQuotation: QuotationEntity? =
+            databaseRepository.getCurrentQuotation(widgetId)
+
+        if (currentQuotation == null || currentQuotation.digest != digest) {
+            databaseRepository.markAsCurrent(widgetId, digest)
         }
     }
 
@@ -102,6 +130,8 @@ class TransferRestore : TransferCommon() {
         databaseRepository: DatabaseRepository,
         previousList: List<Previous>
     ) {
+        val useInternalDatabase = DatabaseRepository.useInternalDatabase
+
         val favourites = ContentSelection.FAVOURITES.contentSelection
         val author = ContentSelection.AUTHOR.contentSelection
         val search = ContentSelection.SEARCH.contentSelection
@@ -110,32 +140,52 @@ class TransferRestore : TransferCommon() {
             for (widgetId in TransferUtility.getWidgetIds(context)) {
                 val previous = previousList[previousIndex]
 
-                if (databaseRepository.getQuotation(previous.digest) != null) {
-                    var contentSelection = ContentSelection.ALL
-                    when (previous.contentType) {
-                        favourites -> contentSelection = ContentSelection.FAVOURITES
-                        author -> contentSelection = ContentSelection.AUTHOR
-                        search -> contentSelection = ContentSelection.SEARCH
-                    }
+                var contentSelection = ContentSelection.ALL
+                when (previous.contentType) {
+                    favourites -> contentSelection = ContentSelection.FAVOURITES
+                    author -> contentSelection = ContentSelection.AUTHOR
+                    search -> contentSelection = ContentSelection.SEARCH
+                }
 
-                    if (databaseRepository.countPreviousDigest(
-                            widgetId,
-                            contentSelection,
-                            previous.digest
-                        ) == 0
-                    ) {
-                        databaseRepository.markAsPrevious(
-                            widgetId,
-                            contentSelection,
-                            previous.digest
-                        )
-                    } else {
-                        Timber.d("digest already present: digest=%s", previous.digest)
-                    }
+                if (previous.db == "internal" || previous.db == null) {
+                    DatabaseRepository.useInternalDatabase = true
+                    restorePreviousDigest(databaseRepository, widgetId, contentSelection, previous)
                 } else {
-                    Timber.d("unknown digest: digest=%s", previous.digest)
+                    if (databaseRepository.countAllExternal().blockingGet() > 0) {
+                        DatabaseRepository.useInternalDatabase = false
+                        restorePreviousDigest(
+                            databaseRepository,
+                            widgetId,
+                            contentSelection,
+                            previous
+                        )
+                    }
                 }
             }
+        }
+
+        DatabaseRepository.useInternalDatabase = useInternalDatabase
+    }
+
+    private fun restorePreviousDigest(
+        databaseRepository: DatabaseRepository,
+        widgetId: Int,
+        contentSelection: ContentSelection,
+        previous: Previous
+    ) {
+        if (databaseRepository.countPreviousDigest(
+                widgetId,
+                contentSelection,
+                previous.digest
+            ) == 0
+        ) {
+            databaseRepository.markAsPrevious(
+                widgetId,
+                contentSelection,
+                previous.digest
+            )
+        } else {
+            Timber.d("digest already present: digest=%s", previous.digest)
         }
     }
 
@@ -193,18 +243,29 @@ class TransferRestore : TransferCommon() {
         quotations: Quotations
     ) {
         val quotationsPreferences = QuotationsPreferences(widgetId, context)
-        quotationsPreferences.contentSelectionAuthor = quotations.contentAuthorName
-        quotationsPreferences.contentSelectionSearchCount = quotations.contentSearchCount
         quotationsPreferences.contentAddToPreviousAll = quotations.contentAddToPreviousAll
-        quotationsPreferences.contentSelectionSearch = quotations.contentSearchText
 
-        if (quotations.contentAuthor) quotationsPreferences.contentSelection =
-            ContentSelection.AUTHOR
-        else if (quotations.contentFavourites) quotationsPreferences.contentSelection =
-            ContentSelection.FAVOURITES
-        else if (quotations.contentSearch) quotationsPreferences.contentSelection =
-            ContentSelection.SEARCH
-        else quotationsPreferences.contentSelection = ContentSelection.ALL
+        quotationsPreferences.contentSelectionAuthor = quotations.contentAuthorName
+
+        quotationsPreferences.contentSelectionSearch = quotations.contentSearchText
+        quotationsPreferences.contentSelectionSearchCount = quotations.contentSearchCount
+
+        if (quotations.contentAuthor) {
+            quotationsPreferences.contentSelection =
+                ContentSelection.AUTHOR
+        } else if (quotations.contentFavourites) {
+            quotationsPreferences.contentSelection =
+                ContentSelection.FAVOURITES
+        } else if (quotations.contentSearch) {
+            quotationsPreferences.contentSelection =
+                ContentSelection.SEARCH
+        } else {
+            quotationsPreferences.contentSelection = ContentSelection.ALL
+        }
+
+        // we always move back to the Internal after a restore
+        quotationsPreferences.databaseInternal = true
+        quotationsPreferences.databaseExternal = false
     }
 
     private fun restoreSettingsAppearance(
@@ -217,7 +278,8 @@ class TransferRestore : TransferCommon() {
         appearancePreferences.appearanceTransparency = appearance.appearanceTransparency
         appearancePreferences.appearanceTextFamily = appearance.appearanceTextFamily
         appearancePreferences.appearanceTextStyle = appearance.appearanceTextStyle
-        appearancePreferences.appearanceTextForceItalicRegular = appearance.appearanceTextForceItalicRegular
+        appearancePreferences.appearanceTextForceItalicRegular =
+            appearance.appearanceTextForceItalicRegular
         appearancePreferences.appearanceQuotationTextColour = appearance.appearanceTextColour
         appearancePreferences.appearanceQuotationTextSize = appearance.appearanceTextSize
         appearancePreferences.appearanceAuthorTextColour = appearance.appearanceAuthorTextColour
@@ -226,7 +288,8 @@ class TransferRestore : TransferCommon() {
         appearancePreferences.appearancePositionTextColour = appearance.appearancePositionTextColour
         appearancePreferences.appearancePositionTextSize = appearance.appearancePositionTextSize
         appearancePreferences.appearancePositionTextHide = appearance.appearancePositionTextHide
-        appearancePreferences.appearanceToolbarHideSeparator = appearance.appearanceToolbarHideSeparator
+        appearancePreferences.appearanceToolbarHideSeparator =
+            appearance.appearanceToolbarHideSeparator
         appearancePreferences.appearanceToolbarColour = appearance.appearanceToolbarColour
         appearancePreferences.appearanceToolbarFavourite = appearance.appearanceToolbarFavourite
         appearancePreferences.appearanceToolbarFirst = appearance.appearanceToolbarFirst

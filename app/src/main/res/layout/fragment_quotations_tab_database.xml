@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:paddingStart="0dp"
+        android:paddingTop="0dp"
+        android:paddingEnd="0dp"
+        android:paddingBottom="10dp"
+        android:theme="@style/Theme.QuoteUnquote">
+
+    <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardViewDatabase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="20dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+            <RadioGroup
+                    android:id="@+id/radioGroupContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <RadioButton
+                        android:id="@+id/radioButtonDatabaseInternal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:drawableStart="@drawable/ic_quotations_database_internal_24"
+                        android:drawablePadding="20dp"
+                        android:paddingVertical="10dp"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="0dp"
+                        android:text="@string/fragment_quotations_database_default"
+                        android:textSize="14sp" />
+
+                <View
+                        android:id="@+id/dividerInternalExternal"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="?android:attr/listDivider"
+                        android:paddingStart="0dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="5dp"
+                        android:paddingBottom="10dp" />
+
+                <RadioButton
+                        android:id="@+id/radio_button_database_external"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:drawableStart="@drawable/ic_quotations_database_external_24"
+                        android:drawablePadding="20dp"
+                        android:enabled="false"
+                        android:paddingVertical="10dp"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="0dp"
+                        android:text="@string/fragment_quotations_database_imported"
+                        android:textSize="14sp" />
+
+            </RadioGroup>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="7dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="10dp">
+
+                <Button
+                        android:id="@+id/buttonImport"
+                        android:layout_width="110dp"
+                        android:layout_height="48dp"
+                        android:background="@drawable/corners_buttons"
+                        android:text="@string/fragment_quotations_database_button_import"
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp"
+                        app:backgroundTint="@null" />
+
+                <TextView
+                        android:id="@+id/textViewLocalStorageInstructions"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="7dp"
+                        android:paddingEnd="0dp"
+                        android:text="@string/fragment_quotations_database_button_import_text" />
+
+            </LinearLayout>
+
+            <TextView
+                    android:id="@+id/textViewExamples"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:paddingStart="4dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/fragment_quotations_database_external_instructions_1"
+                    android:textSize="14sp"
+                    app:drawableStartCompat="@drawable/ic_info_24" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+</LinearLayout>

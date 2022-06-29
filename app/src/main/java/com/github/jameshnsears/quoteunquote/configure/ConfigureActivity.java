@@ -19,6 +19,7 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.Appear
 import com.github.jameshnsears.quoteunquote.configure.fragment.notifications.NotificationsFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
+import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.selection.QuotationsSelectionFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.sync.SyncFragment;
 import com.github.jameshnsears.quoteunquote.databinding.ActivityConfigureBinding;
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
@@ -90,7 +91,7 @@ public class ConfigureActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        QuotationsFragment.ensureFragmentContentSearchConsistency(widgetId, getApplicationContext());
+        QuotationsSelectionFragment.ensureFragmentContentSearchConsistency(widgetId, getApplicationContext());
         super.onBackPressed();
     }
 

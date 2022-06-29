@@ -39,9 +39,9 @@
 
 * Checkstyle-IDE - Jamie Shiell
 * SonarLint - SonarSource
-* MetricsReloaded - https://plugins.jetbrains.com/plugin/93-metricsreloaded
-* ADB Idea - https://plugins.jetbrains.com/plugin/7380-adb-idea
-* JSON To Kotlin Class (JsonToKotlinClass) - https://plugins.jetbrains.com/plugin/9960-json-to-kotlin-class-jsontokotlinclass-
+* MetricsReloaded - <https://plugins.jetbrains.com/plugin/93-metricsreloaded>
+* ADB Idea - <https://plugins.jetbrains.com/plugin/7380-adb-idea>
+* JSON To Kotlin Class (JsonToKotlinClass) - <https://plugins.jetbrains.com/plugin/9960-json-to-kotlin-class-jsontokotlinclass>-
 
 ---
 
@@ -66,24 +66,9 @@
 
 ---
 
-## 7. Release Checklist
+## 7. Useful git commands - align submodules / tags
 
-* 25: get latest /sdcard/Download/Quote_Unquote_ori_portrait.png for featureGraphic.png
-* test application install on top of prior version, see step 5. above
-* delete development and extract production app/google-services.json
-* update versionCode + versionName in app/build.gradle
-* make sure changelogs/xx.txt matches versionCode
-* update app/schemas/com.github.jameshnsears.quoteunquote.database.quotation.AbstractQuotationDatabase/xx.json to match AbstractQuotationDatabase.java
-* examine merged manifest, especially for sdk version and permissions
-* deploy app-googleplay-release.aab
-* tag the release
-* delete production and extract development google-services.json
-
----
-
-## 8. Useful git commands - align submodules / tags
-
-* git submodule add https://github.com/jameshnsears/QuoteUnquote.cloudLib
+* git submodule add <https://github.com/jameshnsears/QuoteUnquote.cloudLib>
 * more .gitmodules
 
 * git submodule
@@ -98,7 +83,16 @@
 
 ---
 
-## 9. Animation
+## 8. Animation
 
-* download .svg via https://fonts.google.com/icons?selected=Material+Icons&icon.query=draw
-* load into inkscape & produce end result, getting path's for https://shapeshifter.design/
+* download .svg via <https://fonts.google.com/icons?selected=Material+Icons&icon.query=draw>
+* load into inkscape & produce end result, getting path's for <https://shapeshifter.design/>
+
+---
+
+## 9. database caching in ide / emulator
+
+* find . -name *.db.prod
+* ./app/build/intermediates/assets/fdroidDebug/mergeFdroidDebugAssets/quotations.db.prod
+* ./app/src/main/assets/quotations.db.prod
+* rm the mergeFdroidDebugAssets/quotations.db.pro
