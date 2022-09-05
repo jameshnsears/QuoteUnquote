@@ -72,6 +72,9 @@ public class SyncFragment extends FragmentCommon {
     @Nullable
     private ActivityResultLauncher<Intent> storageAccessFrameworkActivityResultRestore;
 
+    @NonNull
+    private TransferRestore transferRestore = new TransferRestore();
+
     public SyncFragment() {
         // dark mode support
     }
@@ -314,21 +317,32 @@ public class SyncFragment extends FragmentCommon {
                                         = new Gson().fromJson(jsonString, Transfer.class);
 
                                 if (isJsonValid && transfer != null) {
-                                    restoreDeviceJson(transfer);
+                                    if (transferRestore.testRestoreForDatabaseConsistency(
+                                            DatabaseRepository.getInstance(getContext()),
+                                            transfer
+                                    ).get()) {
 
-                                    QuotationsFragmentStateAdapter.alignSelectionFragmentWithRestore(widgetId, getContext());
+                                        restoreDeviceJson(transfer);
 
-                                    Toast.makeText(
-                                            getContext(),
-                                            getContext().getString(R.string.fragment_archive_restore_success),
-                                            Toast.LENGTH_SHORT).show();
+                                        QuotationsFragmentStateAdapter.alignSelectionFragmentWithRestore(widgetId, getContext());
+
+                                        Toast.makeText(
+                                                getContext(),
+                                                getContext().getString(R.string.fragment_archive_restore_success),
+                                                Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(
+                                                getContext(),
+                                                getContext().getString(R.string.fragment_archive_restore_failure),
+                                                Toast.LENGTH_LONG).show();
+                                    }
                                 } else {
                                     Toast.makeText(
                                             getContext(),
                                             getContext().getString(R.string.fragment_archive_restore_saf_invalid),
                                             Toast.LENGTH_SHORT).show();
                                 }
-                            } catch (final IOException e) {
+                            } catch (final IOException | ExecutionException | InterruptedException e) {
                                 Timber.e(e.getMessage());
                             }
                         }
@@ -345,7 +359,6 @@ public class SyncFragment extends FragmentCommon {
             boolean googleCloudRadio = syncPreferences.getArchiveGoogleCloud();
             boolean sharedStorageRadio = syncPreferences.getArchiveSharedStorage();
 
-            TransferRestore transferRestore = new TransferRestore();
             transferRestore.restore(
                     getContext(),
                     DatabaseRepository.getInstance(getContext()),

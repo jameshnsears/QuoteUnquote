@@ -50,12 +50,14 @@ public class CSVHelper {
                 .build();
     }
 
+    /*
+    does not support newlines; use .setQuoteMode(QuoteMode.NONE) and rm .setQuote(null)
+     */
     private CSVFormat getCsvFormatForImport() {
         return CSVFormat.Builder.create()
                 .setDelimiter("||")
-                .setRecordSeparator("\n")
                 .setEscape('\\')
-                .setQuoteMode(QuoteMode.NONE)
+                .setQuote(null)
                 .setHeader(headers)
                 .build();
     }
@@ -89,7 +91,8 @@ public class CSVHelper {
                     quotationEntityLinkedHashSet.add(q);
                 }
             }
-        } catch (IllegalArgumentException | IOException exception) {
+        } catch (IllegalStateException | IllegalArgumentException | IOException exception) {
+            Timber.e("%s", exception.getMessage());
             throw new CVSHelperException(exception.getMessage());
         } finally {
             if (parser != null) {

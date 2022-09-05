@@ -135,6 +135,7 @@
                 "APPEARANCE_TOOLBAR_RANDOM": false,
                 "APPEARANCE_TOOLBAR_SEQUENTIAL": false,
                 "APPEARANCE_TOOLBAR_SHARE": true,
+                "APPEARANCE_TOOLBAR_JUMP": true,
                 "APPEARANCE_TRANSPARENCY": -1
             },
             "quotations": {

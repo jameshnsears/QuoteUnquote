@@ -19,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="20dp"
+            app:cardElevation="2dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
 
@@ -115,7 +116,7 @@
 
                 <RadioButton
                         android:id="@+id/radioButtonFavourites"
-                        android:layout_width="200dp"
+                        android:layout_width="240dp"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/fragment_quotations_selection_favourites"
                         android:drawableStart="@drawable/ic_toolbar_favorite_red_24"
@@ -179,7 +180,7 @@
 
                 <RadioButton
                         android:id="@+id/radioButtonSearch"
-                        android:layout_width="200dp"
+                        android:layout_width="240dp"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/fragment_quotations_selection_search"
                         android:drawableStart="@drawable/ic_quotations_search_24"

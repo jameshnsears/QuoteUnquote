@@ -8,6 +8,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import com.github.jameshnsears.quoteunquote.R;
+import com.github.jameshnsears.quoteunquote.cloud.transfer.Transfer;
 import com.github.jameshnsears.quoteunquote.cloud.transfer.TransferRestoreResponse;
 import com.github.jameshnsears.quoteunquote.cloud.transfer.restore.TransferRestore;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsFragmentStateAdapter;
@@ -17,6 +18,7 @@ import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
 import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
 
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutionException;
 
 import timber.log.Timber;
 
@@ -74,20 +76,34 @@ public class CloudServiceRestore extends CloudService {
                     }
                     else {
                         TransferRestore transferRestore = new TransferRestore();
-                        transferRestore.restore(
-                                context,
-                                DatabaseRepository.getInstance(context),
-                                transferRestoreResponse.getTransfer());
+                        Transfer transfer = transferRestoreResponse.getTransfer();
 
-                        // DatabaseRepository.useInternalDatabase
+                        try {
+                            if (transferRestore.testRestoreForDatabaseConsistency(
+                                    DatabaseRepository.getInstance(context),
+                                    transfer
+                            ).get()) {
+                                transferRestore.restore(
+                                        context,
+                                        DatabaseRepository.getInstance(context),
+                                        transfer);
 
-                        QuotationsFragmentStateAdapter.alignSelectionFragmentWithRestore(
-                                intent.getIntExtra("widgetId", 0), context);
+                                QuotationsFragmentStateAdapter.alignSelectionFragmentWithRestore(
+                                        intent.getIntExtra("widgetId", 0), context);
 
-                        handler.post(() -> Toast.makeText(
-                                context,
-                                context.getString(R.string.fragment_archive_restore_success),
-                                Toast.LENGTH_SHORT).show());
+                                handler.post(() -> Toast.makeText(
+                                        context,
+                                        context.getString(R.string.fragment_archive_restore_success),
+                                        Toast.LENGTH_SHORT).show());
+                            } else {
+                                handler.post(() -> Toast.makeText(
+                                        context,
+                                        context.getString(R.string.fragment_archive_restore_failure),
+                                        Toast.LENGTH_LONG).show());
+                            }
+                        } catch (ExecutionException | InterruptedException e) {
+                            Timber.e(e.getMessage());
+                        }
                     }
                 }
 

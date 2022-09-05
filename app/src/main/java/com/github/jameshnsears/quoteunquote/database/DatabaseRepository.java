@@ -395,20 +395,28 @@ public class DatabaseRepository {
             @NonNull final ContentSelection contentSelection,
             @NonNull final String digest) {
         if (useInternalDatabase()) {
-            previousDAO.markAsPrevious(new PreviousEntity(widgetId, contentSelection, digest));
+            if (getQuotation(digest) != null) {
+                previousDAO.markAsPrevious(new PreviousEntity(widgetId, contentSelection, digest));
+            }
         } else {
-            previousExternalDAO.markAsPrevious(new PreviousEntity(widgetId, contentSelection, digest));
+            if (getQuotation(digest) != null) {
+                previousExternalDAO.markAsPrevious(new PreviousEntity(widgetId, contentSelection, digest));
+            }
         }
     }
 
     public void markAsFavourite(@NonNull final String digest) {
         if (useInternalDatabase()) {
             if (favouriteDAO.isFavourite(digest) == 0) {
-                favouriteDAO.markAsFavourite(new FavouriteEntity(digest));
+                if (getQuotation(digest) != null) {
+                    favouriteDAO.markAsFavourite(new FavouriteEntity(digest));
+                }
             }
         } else {
-            if (favouriteExternalDAO.isFavourite(digest) == 0) {
-                favouriteExternalDAO.markAsFavourite(new FavouriteEntity(digest));
+            if (getQuotation(digest) != null) {
+                if (favouriteExternalDAO.isFavourite(digest) == 0) {
+                    favouriteExternalDAO.markAsFavourite(new FavouriteEntity(digest));
+                }
             }
         }
     }

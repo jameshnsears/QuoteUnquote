@@ -1,0 +1,102 @@
+{
+  "code": "8HKC5fHLab",
+  "current": [
+    {
+      "db": "internal",
+      "digest": "7a36e553",
+      "widget_id": 21
+    },
+    {
+      "db": "external",
+      "digest": "058933b1",
+      "widget_id": 21
+    }
+  ],
+  "favourite": [
+    {
+      "db": "external",
+      "digest": "058933b1",
+      "navigation": 2
+    },
+    {
+      "db": "external",
+      "digest": "00000000",
+      "navigation": 1
+    }
+  ],
+  "previous": [
+    {
+      "content_type": 1,
+      "db": "internal",
+      "digest": "7a36e553",
+      "navigation": 1,
+      "widget_id": 21
+    },
+    {
+      "content_type": 1,
+      "db": "external",
+      "digest": "058933b1",
+      "navigation": 2,
+      "widget_id": 21
+    },
+    {
+      "content_type": 1,
+      "db": "external",
+      "digest": "00000000",
+      "navigation": 1,
+      "widget_id": 21
+    }
+  ],
+  "settings": [
+    {
+      "appearance": {
+        "APPEARANCE_AUTHOR_TEXT_COLOUR": "#FF000000",
+        "APPEARANCE_AUTHOR_TEXT_HIDE": false,
+        "APPEARANCE_AUTHOR_TEXT_SIZE": 16,
+        "APPEARANCE_COLOUR": "#FFF8FD89",
+        "APPEARANCE_POSITION_TEXT_COLOUR": "#FF000000",
+        "APPEARANCE_POSITION_TEXT_HIDE": false,
+        "APPEARANCE_POSITION_TEXT_SIZE": 16,
+        "APPEARANCE_TEXT_COLOUR": "#FF000000",
+        "APPEARANCE_TEXT_FAMILY": "Sans Serif",
+        "APPEARANCE_TEXT_FORCE_ITALIC_REGULAR": false,
+        "APPEARANCE_TEXT_SIZE": 16,
+        "APPEARANCE_TEXT_STYLE": "Regular",
+        "APPEARANCE_TOOLBAR_COLOUR": "#FF000000",
+        "APPEARANCE_TOOLBAR_FAVOURITE": true,
+        "APPEARANCE_TOOLBAR_FIRST": false,
+        "APPEARANCE_REMOVE_SPACE_ABOVE_TOOLBAR": false,
+        "APPEARANCE_TOOLBAR_JUMP": true,
+        "APPEARANCE_TOOLBAR_PREVIOUS": true,
+        "APPEARANCE_TOOLBAR_RANDOM": true,
+        "APPEARANCE_TOOLBAR_SEQUENTIAL": false,
+        "APPEARANCE_TOOLBAR_SHARE": true,
+        "APPEARANCE_TRANSPARENCY": -1
+      },
+      "quotations": {
+        "CONTENT_ADD_TO_PREVIOUS_ALL": true,
+        "CONTENT_ALL": true,
+        "CONTENT_AUTHOR": false,
+        "CONTENT_AUTHOR_NAME": "A MIDSUMMER-NIGHT\u0027S DREAM [1595–1559]",
+        "CONTENT_FAVOURITES": false,
+        "CONTENT_SEARCH": false,
+        "CONTENT_SEARCH_COUNT": 0,
+        "CONTENT_SEARCH_FAVOURITES_ONLY": false,
+        "CONTENT_SEARCH_TEXT": "",
+        "DATABASE_EXTERNAL": true,
+        "DATABASE_INTERNAL": false
+      },
+      "schedule": {
+        "EVENT_DAILY": false,
+        "EVENT_DAILY_HOUR": -1,
+        "EVENT_DAILY_MINUTE": -1,
+        "EVENT_DEVICE_UNLOCK": false,
+        "EVENT_DISPLAY_WIDGET_AND_NOTIFICATION": false,
+        "EVENT_DISPLAY_WIDGET": true,
+        "EVENT_NEXT_RANDOM": true,
+        "EVENT_NEXT_SEQUENTIAL": false
+      },
+      "widget_id": 21
+    }
+  ]
+}

@@ -51,7 +51,7 @@
     <string name="fragment_quotations_database_imported">External</string>
     <string name="fragment_quotations_database_button_import">Import</string>
     <string name="fragment_quotations_database_button_import_text">.csv from device</string>
-    <string name="fragment_quotations_database_external_instructions_1">Expected format is <b>source||quotation</b> per line</string>
+    <string name="fragment_quotations_database_external_instructions_1">Tap <a href="https://github.com/jameshnsears/QuoteUnquote/blob/main/app/src/androidTest/assets/Shakespeare.csv">here</a> to view an example .csv file</string>
     <string name="fragment_quotations_database_import_no_csv_selected">No .csv file selected</string>
     <string name="fragment_quotations_database_import_contents">Invalid .csv format: %1$s</string>
     <string name="fragment_quotations_database_import_importing">Importing .csv - please wait&#8230;</string>

@@ -40,19 +40,16 @@ import timber.log.Timber;
 
 public class QuoteUnquoteWidget extends AppWidgetProvider {
     @Nullable
-    private static ExecutorService executorService;
-
-    @Nullable
     public static ContentSelection currentContentSelection = ContentSelection.ALL;
-
     @Nullable
     public static String currentAuthorSelection;
-
+    @NonNull
+    static Map<Integer, String> widgetIdToDigestNotificationMap = new HashMap();
+    @Nullable
+    private static ExecutorService executorService;
     private static volatile boolean receiversRegistered;
-
     @NonNull
     private final NotificationHelper notificationHelper = new NotificationHelper();
-
     @Nullable
     public QuoteUnquoteModel quoteUnquoteModel;
 
@@ -195,9 +192,9 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
 
         final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
 
-        final NotificationsDailyAlarm notificationsDailyAlarm = new NotificationsDailyAlarm(context, widgetId);
-
         try {
+            final NotificationsDailyAlarm notificationsDailyAlarm = new NotificationsDailyAlarm(context, widgetId);
+
             switch (intent.getAction()) {
                 case Intent.ACTION_USER_PRESENT:
                     startDatabaseConnectivity(widgetId, context);
@@ -273,6 +270,8 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                 default:
                     break;
             }
+        } catch (NullPointerException e) {
+            Timber.e("%s", e.getMessage());
         } finally {
             if (!intent.getAction().equals(AppWidgetManager.ACTION_APPWIDGET_DISABLED)) {
                 onUpdate(context, appWidgetManager, new int[]{widgetId});
@@ -476,14 +475,11 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
         }
     }
 
-    @NonNull
-    static Map<Integer, String> widgetIdToDigestNotificationMap = new HashMap();
-
     private void displayNotification(@NonNull Context context, int widgetId) {
         QuotationEntity currentQuotation
                 = getQuoteUnquoteModel(widgetId, context).getCurrentQuotation(widgetId);
 
-        if (currentQuotation != null){
+        if (currentQuotation != null) {
             NotificationsPreferences notificationsPreferences = new NotificationsPreferences(widgetId, context);
 
             notificationHelper.displayNotification(
@@ -558,7 +554,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
 
     private String markNotificationAsFavourite(
             int widgetId, @NonNull Context context, @NonNull String digest, String quotation) {
-         if (getQuoteUnquoteModel(widgetId, context).isFavourite(digest)) {
+        if (getQuoteUnquoteModel(widgetId, context).isFavourite(digest)) {
             quotation = "\u2764 " + quotation;
             return quotation;
         }
@@ -607,7 +603,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
         } else if (new QuotationsPreferences(widgetId, context).getContentSelection() != currentContentSelection) {
             getQuoteUnquoteModel(widgetId, context).markAsCurrentDefault(widgetId);
         } else if (new QuotationsPreferences(widgetId, context).getContentSelection().equals(ContentSelection.AUTHOR)
-            && !new QuotationsPreferences(widgetId, context).getContentSelectionAuthor().equals(currentAuthorSelection)) {
+                && !new QuotationsPreferences(widgetId, context).getContentSelectionAuthor().equals(currentAuthorSelection)) {
             getQuoteUnquoteModel(widgetId, context).markAsCurrentDefault(widgetId);
         }
 

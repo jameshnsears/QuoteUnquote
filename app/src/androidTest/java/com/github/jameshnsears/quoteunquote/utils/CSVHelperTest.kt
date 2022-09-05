@@ -113,26 +113,6 @@ class CSVHelperTest : QuoteUnquoteModelUtility() {
         }
     }
 
-    @Test
-    fun csvImportWithNewLines() {
-        val inputStream: InputStream = getCsvAsset("ImportWithNewLines.csv")
-
-        val cvsHelper = CSVHelper()
-        val quotationEntityLinkedHashSet = cvsHelper.csvImportDatabase(inputStream)
-
-        assertEquals(13, quotationEntityLinkedHashSet.size)
-    }
-
-    @Test
-    fun csvImportExampleShakespeare() {
-        val inputStream: InputStream = getCsvAsset("Shakespeare.csv")
-
-        val cvsHelper = CSVHelper()
-        val quotationEntityLinkedHashSet = cvsHelper.csvImportDatabase(inputStream)
-
-        assertEquals(1904, quotationEntityLinkedHashSet.size)
-    }
-
     private fun getCsvAsset(filename: String) =
         InstrumentationRegistry.getInstrumentation().context.resources.assets
             .open(

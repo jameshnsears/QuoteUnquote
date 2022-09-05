@@ -115,22 +115,26 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
     public RemoteViews getViewAt(final int position) {
         final RemoteViews remoteViews = getRemoteViews(position);
 
-        remoteViews.setOnClickFillInIntent(
-                R.id.textViewRowQuotation,
-                IntentFactoryHelper.createIntent(widgetId));
-
-        if (quotationEntity.wikipedia != null) {
+        try {
             remoteViews.setOnClickFillInIntent(
-                    R.id.textViewRowAuthor,
-                    IntentFactoryHelper.createClickFillInIntent(
-                            "wikipedia",
-                            quotationEntity.wikipedia,
-                            widgetId));
-        }
+                    R.id.textViewRowQuotation,
+                    IntentFactoryHelper.createIntent(widgetId));
 
-        remoteViews.setOnClickFillInIntent(
-                R.id.textViewRowPosition,
-                IntentFactoryHelper.createIntent(widgetId));
+            if (quotationEntity.wikipedia != null) {
+                remoteViews.setOnClickFillInIntent(
+                        R.id.textViewRowAuthor,
+                        IntentFactoryHelper.createClickFillInIntent(
+                                "wikipedia",
+                                quotationEntity.wikipedia,
+                                widgetId));
+            }
+
+            remoteViews.setOnClickFillInIntent(
+                    R.id.textViewRowPosition,
+                    IntentFactoryHelper.createIntent(widgetId));
+        } catch (NullPointerException e) {
+            Timber.e("%s", e.getMessage());
+        }
 
         return remoteViews;
     }

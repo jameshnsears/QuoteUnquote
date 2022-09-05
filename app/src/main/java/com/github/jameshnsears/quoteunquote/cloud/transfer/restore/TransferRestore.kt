@@ -20,7 +20,10 @@ import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade
 import com.google.gson.GsonBuilder
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.future.future
 import timber.log.Timber
+import java.util.concurrent.CompletableFuture
 
 class TransferRestore : TransferCommon() {
     fun requestJson(remoteCodeValue: String): String {
@@ -39,6 +42,36 @@ class TransferRestore : TransferCommon() {
             "0:CONTENT_FAVOURITES_LOCAL_CODE",
             localCode
         )
+    }
+
+    // kotlin future, that gets called from java
+    fun testRestoreForDatabaseConsistency(
+        databaseRepository: DatabaseRepository,
+        transfer: Transfer
+    ): CompletableFuture<Boolean> = GlobalScope.future {
+        val useInternalDatabase = DatabaseRepository.useInternalDatabase
+
+        var consistency = true
+
+        for (current in transfer.current) {
+            if (current.db == "internal") {
+                DatabaseRepository.useInternalDatabase = true
+                if (databaseRepository.getQuotation(current.digest) == null) {
+                    Timber.d("internal: %s", current.digest)
+                    consistency = false
+                }
+            } else {
+                DatabaseRepository.useInternalDatabase = false
+                if (databaseRepository.getQuotation(current.digest) == null) {
+                    Timber.d("external: %s", current.digest)
+                    consistency = false
+                }
+            }
+        }
+
+        DatabaseRepository.useInternalDatabase = useInternalDatabase
+
+        return@future consistency
     }
 
     fun restore(context: Context, databaseRepository: DatabaseRepository, transfer: Transfer) {
@@ -297,5 +330,6 @@ class TransferRestore : TransferCommon() {
         appearancePreferences.appearanceToolbarRandom = appearance.appearanceToolbarRandom
         appearancePreferences.appearanceToolbarSequential = appearance.appearanceToolbarSequential
         appearancePreferences.appearanceToolbarShare = appearance.appearanceToolbarShare
+        appearancePreferences.appearanceToolbarJump = appearance.appearanceToolbarJump
     }
 }

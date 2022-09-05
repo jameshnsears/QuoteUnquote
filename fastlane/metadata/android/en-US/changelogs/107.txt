@@ -1,0 +1,3 @@
+- Improve Database consistency check for Sync Restore
+- Improve Import .csv behaviour
+- Fix Restore Jump button if enabled

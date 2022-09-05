@@ -11,10 +11,12 @@ import androidx.test.uiautomator.UiDevice;
 import androidx.test.uiautomator.UiObject2;
 
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@Ignore("flaky in different environments")
 public class UIAutomatorWidgetTest extends UiAutomatorUtility {
     @Test
     public void test_0_createWidget() {
