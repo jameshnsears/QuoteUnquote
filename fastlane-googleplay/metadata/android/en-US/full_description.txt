@@ -1,12 +1,14 @@
 <b>Description</b>
-Quote Unquote is a widget that displays Quotations.
+Quote Unquote is a widget that displays quotations.
 
 There are no predefined categories or pictures.
 
-The app includes two databases: an Internal database, containing &#34;high quality&#34; quotations; an External database, into which you can import your own quotations.
+The app includes two databases:
+&bull; an Internal database, containing &#34;high quality&#34; quotations
+&bull; an External database, into which you can import your own quotations
 
 <b>Key features</b>
-&bull; Over 18,000 unique and reviewed quotations
+&bull; Over 18,000 unique, reviewed, quotations
 &bull; Filter quotations by: source; favourites; search results
 &bull; Navigate the quotations: sequentially; randomly; previously
 &bull; Tap an underlined source, from the Internal database, to deep link to Wikipedia
@@ -19,7 +21,5 @@ The app includes two databases: an Internal database, containing &#34;high quali
 &bull; Anonymous analytics
 &bull; Minimal permissions
 &bull; Internal database content is in English
-&bull; Open-source
-
-Something missing (or otherwise)? Please raise a <a href="https://github.com/jameshnsears/quoteunquote">GitHub</a> issue.
+&bull; Open-source - raise a <a href="https://github.com/jameshnsears/quoteunquote">GitHub</a> issue at https://github.com/jameshnsears/quoteunquote
 

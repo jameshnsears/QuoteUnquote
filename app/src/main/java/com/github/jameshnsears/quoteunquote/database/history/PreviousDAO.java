@@ -31,13 +31,16 @@ public interface PreviousDAO {
     PreviousEntity getLastPrevious(int widgetId, ContentSelection contentType);
 
     @Query("SELECT * FROM PREVIOUS ORDER BY NAVIGATION DESC")
-    List<PreviousEntity> getLastPrevious();
+    List<PreviousEntity> getAllPrevious();
 
     @Query("DELETE FROM PREVIOUS")
     void erase();
 
     @Query("DELETE FROM PREVIOUS WHERE WIDGET_ID = :widgetId")
     void erase(int widgetId);
+
+    @Query("DELETE FROM PREVIOUS WHERE DIGEST = :digest")
+    void erase(String digest);
 
     @Query("DELETE FROM PREVIOUS WHERE WIDGET_ID = :widgetId AND CONTENT_TYPE = :contentType")
     void erase(int widgetId, ContentSelection contentType);

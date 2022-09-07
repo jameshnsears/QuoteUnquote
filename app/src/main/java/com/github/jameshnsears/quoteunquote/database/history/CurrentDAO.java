@@ -24,4 +24,7 @@ public interface CurrentDAO {
 
     @Query("DELETE FROM CURRENT WHERE WIDGET_ID = :widgetId")
     void erase(int widgetId);
+
+    @Query("DELETE FROM CURRENT WHERE DIGEST = :digest")
+    void erase(String digest);
 }

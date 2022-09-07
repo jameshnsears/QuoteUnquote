@@ -1,1 +1,0 @@
-- Fix defect in switching Author.

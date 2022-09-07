@@ -305,6 +305,19 @@ public class QuoteUnquoteModel {
     }
 
     @NonNull
+    public void alignHistoryWithQuotations(int widgetId) {
+        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+            databaseRepository.alignHistoryWithQuotations(widgetId, context);
+        });
+
+        try {
+            future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
+        }
+    }
+
+    @NonNull
     public List<String> getPreviousDigests(
             final int widgetId,
             @NonNull final ContentSelection contentSelection) {

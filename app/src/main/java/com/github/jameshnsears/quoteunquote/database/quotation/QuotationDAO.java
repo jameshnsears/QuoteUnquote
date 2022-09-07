@@ -45,4 +45,7 @@ public interface QuotationDAO {
 
     @Query("DELETE FROM QUOTATIONS")
     void erase();
+
+    @Query("DELETE FROM QUOTATIONS WHERE DIGEST = :digest")
+    void erase(String digest);
 }

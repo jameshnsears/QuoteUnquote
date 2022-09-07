@@ -29,7 +29,7 @@ public interface FavouriteDAO {
     List<String> getNextFavouriteDigests();
 
     @Query("DELETE FROM FAVOURITE WHERE DIGEST = :digest")
-    void deleteFavourite(String digest);
+    void erase(String digest);
 
     @Query("DELETE FROM FAVOURITE")
     void erase();

@@ -45,9 +45,9 @@ android {
         applicationId "com.github.jameshnsears.quoteunquote"
 
         // changelog version | min sdk | target sdk
-        versionCode 1072433
+        versionCode 1082433
         // semantic versioning
-        versionName "4.0.1"
+        versionName "4.0.2"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -87,7 +87,7 @@ android {
             buildConfigField("String", "DATABASE_QUOTATIONS", "\"quotations.db.prod\"")
 
             ndk {
-                debugSymbolLevel = 'full'
+                debugSymbolLevel = 'FULL'
             }
         }
         debug {

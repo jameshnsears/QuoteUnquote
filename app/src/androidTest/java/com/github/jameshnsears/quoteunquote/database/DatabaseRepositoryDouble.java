@@ -116,4 +116,12 @@ public final class DatabaseRepositoryDouble extends DatabaseRepository {
             }
         }
     }
+
+    public void eraseQuotation(@NonNull String digest) {
+        if (useInternalDatabase) {
+            quotationDAO.erase(digest);
+        } else {
+            quotationExternalDAO.erase(digest);
+        }
+    }
 }

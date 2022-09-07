@@ -5,7 +5,6 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.github.jameshnsears.quoteunquote.BuildConfig;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
 import com.github.jameshnsears.quoteunquote.database.history.AbstractHistoryDatabase;
 import com.github.jameshnsears.quoteunquote.database.history.CurrentDAO;
@@ -309,9 +308,46 @@ public class DatabaseRepository {
     @NonNull
     public List<PreviousEntity> getPrevious() {
         if (useInternalDatabase()) {
-            return previousDAO.getLastPrevious();
+            return previousDAO.getAllPrevious();
         } else {
-            return previousExternalDAO.getLastPrevious();
+            return previousExternalDAO.getAllPrevious();
+        }
+    }
+
+    @NonNull
+    public void alignHistoryWithQuotations(int widgetId, @NonNull Context context) {
+        boolean alignmentRequired = false;
+
+        if (useInternalDatabase()) {
+            for (PreviousEntity previousEntity : previousDAO.getAllPrevious()) {
+                if (quotationDAO.getQuotation(previousEntity.digest) == null) {
+                    Timber.d("align=%s", previousEntity.digest);
+                    alignmentRequired = true;
+                    currentDAO.erase(previousEntity.digest);
+                    previousDAO.erase(previousEntity.digest);
+                    favouriteDAO.erase(previousEntity.digest);
+                }
+            }
+        } else {
+            for (PreviousEntity previousEntity : previousExternalDAO.getAllPrevious()) {
+                if (quotationExternalDAO.getQuotation(previousEntity.digest) == null) {
+                    Timber.d("align=%s", previousEntity.digest);
+                    alignmentRequired = true;
+                    currentExternalDAO.erase(previousEntity.digest);
+                    previousExternalDAO.erase(previousEntity.digest);
+                    favouriteExternalDAO.erase(previousEntity.digest);
+                }
+            }
+        }
+
+        if (alignmentRequired) {
+            QuotationsPreferences quotationsPreferences
+                    = new QuotationsPreferences(widgetId, context);
+            quotationsPreferences.setContentSelection(ContentSelection.ALL);
+
+            markAsCurrent(
+                    widgetId,
+                    getLastPreviousDigest(widgetId, ContentSelection.ALL));
         }
     }
 
@@ -570,10 +606,10 @@ public class DatabaseRepository {
         Timber.d("digest=%s", digest);
 
         if (useInternalDatabase()) {
-            favouriteDAO.deleteFavourite(digest);
+            favouriteDAO.erase(digest);
             previousDAO.erase(widgetId, ContentSelection.FAVOURITES, digest);
         } else {
-            favouriteExternalDAO.deleteFavourite(digest);
+            favouriteExternalDAO.erase(digest);
             previousExternalDAO.erase(widgetId, ContentSelection.FAVOURITES, digest);
         }
     }

@@ -196,6 +196,10 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             final NotificationsDailyAlarm notificationsDailyAlarm = new NotificationsDailyAlarm(context, widgetId);
 
             switch (intent.getAction()) {
+                case Intent.ACTION_MY_PACKAGE_REPLACED:
+                    onReceiveMyPackageReplaced(context, appWidgetManager);
+                    break;
+
                 case Intent.ACTION_USER_PRESENT:
                     startDatabaseConnectivity(widgetId, context);
                     onReceiveDeviceUnlock(context, appWidgetManager);
@@ -279,7 +283,27 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
         }
     }
 
-    private void onReceiveActionAppwidgetEnabled(@NonNull final Context context, final AppWidgetManager appWidgetManager) {
+    private void onReceiveMyPackageReplaced(@NonNull Context context,
+                                            @NonNull final AppWidgetManager appWidgetManager) {
+        /*
+        adb uninstall 'com.github.jameshnsears.quoteunquote'
+        adb install -r app-googleplay-debug.apk
+        # add the fav. and move to Favourites
+
+        # rm the Fav. digest from quotations db
+        # update schema, etc
+        # build > clean
+        adb install -r app-googleplay-debug.apk
+        */
+        int[] widgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, QuoteUnquoteWidget.class));
+        for (final int knownWidgetId : widgetIds) {
+            getQuoteUnquoteModel(knownWidgetId, context).alignHistoryWithQuotations(knownWidgetId);
+            appWidgetManager.notifyAppWidgetViewDataChanged(knownWidgetId, R.id.listViewQuotation);
+        }
+    }
+
+    private void onReceiveActionAppwidgetEnabled(@NonNull final Context context,
+                                                 @NonNull final AppWidgetManager appWidgetManager) {
         NotificationsDailyAlarm notificationsDailyAlarm;
         int[] widgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, QuoteUnquoteWidget.class));
         for (final int widgetId : widgetIds) {
