@@ -1,6 +1,7 @@
 package com.github.jameshnsears.quoteunquote
 
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences
+import com.github.jameshnsears.quoteunquote.database.DatabaseRepository
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import junit.framework.TestCase.assertEquals
@@ -42,17 +43,20 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             4,
-            databaseRepositoryDouble.positionInPrevious(
+            databaseRepositoryDouble.findPositionInPrevious(
                 WidgetIdHelper.WIDGET_ID_01,
                 quotationsPreferences
             )
         )
 
-        databaseRepositoryDouble.markAsCurrent(WidgetIdHelper.WIDGET_ID_01, "7a36e553")
+        databaseRepositoryDouble.markAsCurrent(
+            WidgetIdHelper.WIDGET_ID_01,
+            DatabaseRepository.getDefaultQuotationDigest()
+        )
 
         assertEquals(
             1,
-            databaseRepositoryDouble.positionInPrevious(
+            databaseRepositoryDouble.findPositionInPrevious(
                 WidgetIdHelper.WIDGET_ID_01,
                 quotationsPreferences
             )

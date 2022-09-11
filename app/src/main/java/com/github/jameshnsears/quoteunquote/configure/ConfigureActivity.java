@@ -19,7 +19,7 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.Appear
 import com.github.jameshnsears.quoteunquote.configure.fragment.notifications.NotificationsFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
-import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.selection.QuotationsSelectionFragment;
+import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.QuotationsFilterFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.sync.SyncFragment;
 import com.github.jameshnsears.quoteunquote.databinding.ActivityConfigureBinding;
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
@@ -41,7 +41,7 @@ public class ConfigureActivity extends AppCompatActivity {
     protected boolean finishCalled;
 
     @NonNull
-    private ActivityResultLauncher<Intent> wikipediaActivityLancher = this.registerForActivityResult(
+    private ActivityResultLauncher<Intent> wikipediaActivityLauncher = this.registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {
@@ -91,7 +91,7 @@ public class ConfigureActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        QuotationsSelectionFragment.ensureFragmentContentSearchConsistency(widgetId, getApplicationContext());
+        QuotationsFilterFragment.ensureFragmentContentSearchConsistency(widgetId, getApplicationContext());
         super.onBackPressed();
     }
 
@@ -166,10 +166,10 @@ public class ConfigureActivity extends AppCompatActivity {
         Timber.d("wikipedia=%s", wikipedia);
 
         if (wikipedia.equals("r/quotes/")) {
-            wikipediaActivityLancher.launch(
+            wikipediaActivityLauncher.launch(
                     IntentFactoryHelper.createIntentActionView("https://www.reddit.com/" + wikipedia));
         } else {
-            wikipediaActivityLancher.launch(
+            wikipediaActivityLauncher.launch(
                     IntentFactoryHelper.createIntentActionView("https://en.wikipedia.org/wiki/" + wikipedia));
         }
     }

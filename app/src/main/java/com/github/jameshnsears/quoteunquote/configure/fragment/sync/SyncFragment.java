@@ -323,7 +323,7 @@ public class SyncFragment extends FragmentCommon {
 
                                         quoteUnquoteModel.alignHistoryWithQuotations(widgetId);
 
-                                        QuotationsFragmentStateAdapter.alignSelectionFragmentWithRestore(widgetId, getContext());
+                                        DatabaseRepository.useInternalDatabase = true;
 
                                         Toast.makeText(
                                                 getContext(),

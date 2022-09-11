@@ -1,15 +1,16 @@
 #!/bin/bash
 
+# install JDK 1.8
 # https://www.openlogic.com/openjdk-downloads?field_java_parent_version_target_id=416&field_operating_system_target_id=426&field_architecture_target_id=391&field_java_package_target_id=396
 
 ANDROID_SDK_PATH=$HOME/Android/Sdk
-JAVA_HOME=$HOME/bin/openlogic-openjdk-8u342-b07-linux-x64/jre
+JAVA_HOME=$HOME/bin/openlogic-openjdk-8u352-b08-linux-x64/jre
 PATH=$JAVA_HOME/bin:$PATH
 
 # openjdk version "1.8.0_342-342"
 # OpenJDK Runtime Environment (build 1.8.0_342-342-b07)
 # OpenJDK 64-Bit Server VM (build 25.342-b07, mixed mode)
-# java -version
+java -version
 
 $HOME/Android/Sdk/tools/bin/uiautomatorviewer
 

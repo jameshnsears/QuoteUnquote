@@ -59,8 +59,8 @@ public class AppearanceFragment extends FragmentCommon {
         fragmentAppearanceBinding.viewPager2Appearance.setAdapter(pagerAdapter);
 
         String[] tabs = {
-                getString(R.string.fragment_appearance_style),
-                getString(R.string.fragment_appearance_toolbar)
+                getString(R.string.fragment_appearance_tab_style),
+                getString(R.string.fragment_appearance_navigation)
         };
         new TabLayoutMediator(
                 fragmentAppearanceBinding.tabLayout,

@@ -48,7 +48,7 @@ public class NotificationsPreferences extends PreferencesFacade {
         return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(NotificationsPreferences.EVENT_DISPLAY_WIDGET_AND_NOTIFICATION), false);
     }
 
-    public void setEventdisplayWidgetAndNotification(boolean value) {
+    public void setEventDisplayWidgetAndNotification(boolean value) {
         this.preferenceHelper.setPreference(this.getPreferenceKey(NotificationsPreferences.EVENT_DISPLAY_WIDGET_AND_NOTIFICATION), value);
     }
 

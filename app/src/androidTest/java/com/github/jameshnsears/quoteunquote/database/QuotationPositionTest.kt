@@ -21,7 +21,7 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             0,
-            databaseRepositoryDouble.positionInPrevious(
+            databaseRepositoryDouble.findPositionInPrevious(
                 WidgetIdHelper.WIDGET_ID_01,
                 quotationsPreferences
             )
@@ -31,7 +31,7 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             1,
-            databaseRepositoryDouble.positionInPrevious(
+            databaseRepositoryDouble.findPositionInPrevious(
                 WidgetIdHelper.WIDGET_ID_01,
                 quotationsPreferences
             )
@@ -51,7 +51,7 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             0,
-            databaseRepositoryDouble.positionInPrevious(
+            databaseRepositoryDouble.findPositionInPrevious(
                 WidgetIdHelper.WIDGET_ID_01,
                 quotationsPreferences
             )
@@ -64,7 +64,7 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             0,
-            databaseRepositoryDouble.positionInPrevious(
+            databaseRepositoryDouble.findPositionInPrevious(
                 WidgetIdHelper.WIDGET_ID_01,
                 quotationsPreferences
             )
@@ -77,7 +77,7 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             0,
-            databaseRepositoryDouble.positionInPrevious(
+            databaseRepositoryDouble.findPositionInPrevious(
                 WidgetIdHelper.WIDGET_ID_01,
                 quotationsPreferences
             )
@@ -87,7 +87,7 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
         assertEquals(
             1,
-            databaseRepositoryDouble.positionInPrevious(
+            databaseRepositoryDouble.findPositionInPrevious(
                 WidgetIdHelper.WIDGET_ID_01,
                 quotationsPreferences
             )
@@ -96,7 +96,7 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
         assertEquals(
             2,
-            databaseRepositoryDouble.positionInPrevious(
+            databaseRepositoryDouble.findPositionInPrevious(
                 WidgetIdHelper.WIDGET_ID_01,
                 quotationsPreferences
             )
@@ -127,7 +127,7 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             0,
-            databaseRepositoryDouble.positionInPrevious(
+            databaseRepositoryDouble.findPositionInPrevious(
                 WidgetIdHelper.WIDGET_ID_01,
                 quotationsPreferences
             )
@@ -139,7 +139,7 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             1,
-            databaseRepositoryDouble.positionInPrevious(
+            databaseRepositoryDouble.findPositionInPrevious(
                 WidgetIdHelper.WIDGET_ID_01,
                 quotationsPreferences
             )
@@ -162,7 +162,7 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             0,
-            databaseRepositoryDouble.positionInPrevious(
+            databaseRepositoryDouble.findPositionInPrevious(
                 WidgetIdHelper.WIDGET_ID_01,
                 quotationsPreferences
             )
@@ -172,7 +172,7 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             1,
-            databaseRepositoryDouble.positionInPrevious(
+            databaseRepositoryDouble.findPositionInPrevious(
                 WidgetIdHelper.WIDGET_ID_01,
                 quotationsPreferences
             )

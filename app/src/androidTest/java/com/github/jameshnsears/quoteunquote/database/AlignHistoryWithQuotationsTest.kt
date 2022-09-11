@@ -34,7 +34,7 @@ class AlignHistoryWithQuotationsTest : QuoteUnquoteModelUtility() {
 
         databaseRepositoryDouble.markAsFavourite(secondDigest)
 
-        assertEquals(2, databaseRepositoryDouble.countPrevious(1))
+        assertEquals(2, databaseRepositoryDouble.countPreviousCriteria(1))
 
         // act - execute code under test
 
@@ -45,7 +45,7 @@ class AlignHistoryWithQuotationsTest : QuoteUnquoteModelUtility() {
 
         assertEquals(0, databaseRepositoryDouble.countFavourites().blockingGet())
 
-        assertEquals(1, databaseRepositoryDouble.countPrevious(1))
+        assertEquals(1, databaseRepositoryDouble.countPreviousCriteria(1))
 
         assertEquals(firstDigest, databaseRepositoryDouble.getCurrentQuotation(1).digest)
     }

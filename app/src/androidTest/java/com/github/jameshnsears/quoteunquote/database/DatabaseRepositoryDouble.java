@@ -12,17 +12,20 @@ import com.github.jameshnsears.quoteunquote.database.quotation.AbstractQuotation
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 import com.github.jameshnsears.quoteunquote.database.quotation.external.AbstractQuotationExternalDatabase;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 
 public final class DatabaseRepositoryDouble extends DatabaseRepository {
     private static DatabaseRepositoryDouble databaseRepositoryDouble;
 
-    private DatabaseRepositoryDouble() {
+    private DatabaseRepositoryDouble(@NonNull final Context context) {
         createQuotationsDatabaseInternal();
         createHistoryDatabaseInternal();
 
         createQuotationsDatabaseExternal();
         createHistoryDatabaseExternal();
+
+        this.context = context;
     }
 
     private void createHistoryDatabaseExternal() {
@@ -33,7 +36,6 @@ public final class DatabaseRepositoryDouble extends DatabaseRepository {
                 .build();
         previousExternalDAO = abstractHistoryExternalDatabase.previousExternalDAO();
         favouriteExternalDAO = abstractHistoryExternalDatabase.favouritesExternalDAO();
-        reportedExternalDAO = abstractHistoryExternalDatabase.reportedExternalDAO();
         currentExternalDAO = abstractHistoryExternalDatabase.currentExternalDAO();
     }
 
@@ -45,7 +47,6 @@ public final class DatabaseRepositoryDouble extends DatabaseRepository {
                 .build();
         previousDAO = abstractHistoryDatabase.previousDAO();
         favouriteDAO = abstractHistoryDatabase.favouritesDAO();
-        reportedDAO = abstractHistoryDatabase.reportedDAO();
         currentDAO = abstractHistoryDatabase.currentDAO();
     }
 
@@ -69,7 +70,7 @@ public final class DatabaseRepositoryDouble extends DatabaseRepository {
 
     public static synchronized DatabaseRepositoryDouble getInstance(@NonNull Context context) {
         if (databaseRepositoryDouble == null) {
-            databaseRepositoryDouble = new DatabaseRepositoryDouble();
+            databaseRepositoryDouble = new DatabaseRepositoryDouble(context);
         }
 
         return databaseRepositoryDouble;
@@ -80,28 +81,18 @@ public final class DatabaseRepositoryDouble extends DatabaseRepository {
         previousDAO.erase();
         currentDAO.erase();
         favouriteDAO.erase();
-        reportedDAO.erase();
 
         databaseRepositoryDouble.abstractQuotationExternalDatabase.quotationExternalDAO().erase();
         previousExternalDAO.erase();
         currentExternalDAO.erase();
         favouriteExternalDAO.erase();
-        reportedExternalDAO.erase();
     }
 
     public int countCurrent(int widgetId) {
-        if (useInternalDatabase) {
+        if (useInternalDatabase()) {
             return currentDAO.countCurrent(widgetId);
         } else {
             return currentExternalDAO.countCurrent(widgetId);
-        }
-    }
-
-    public List<String> getNextAllDigests() {
-        if (useInternalDatabase) {
-            return quotationDAO.getNextAllDigests();
-        } else {
-            return quotationExternalDAO.getNextAllDigests();
         }
     }
 
@@ -109,7 +100,7 @@ public final class DatabaseRepositoryDouble extends DatabaseRepository {
             @NonNull final List<QuotationEntity> quotationEntityList) {
         for (final QuotationEntity quotationEntity : quotationEntityList) {
 
-            if (useInternalDatabase) {
+            if (useInternalDatabase()) {
                 quotationDAO.insertQuotation(quotationEntity);
             } else {
                 quotationExternalDAO.insertQuotation(quotationEntity);
@@ -118,10 +109,18 @@ public final class DatabaseRepositoryDouble extends DatabaseRepository {
     }
 
     public void eraseQuotation(@NonNull String digest) {
-        if (useInternalDatabase) {
+        if (useInternalDatabase()) {
             quotationDAO.erase(digest);
         } else {
             quotationExternalDAO.erase(digest);
         }
+    }
+
+    public LinkedHashSet<String> getNextAllDigests() {
+        if (useInternalDatabase()) {
+            return new LinkedHashSet<>(quotationDAO.getNextAllDigests());
+        }
+
+        return new LinkedHashSet<>(quotationExternalDAO.getNextAllDigests());
     }
 }

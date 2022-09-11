@@ -16,7 +16,7 @@
     },
     {
       "content_type": 1,
-      "digest": "7a36e553",
+      "digest": "1624c314",
       "navigation": 1,
       "widget_id": 40
     }
@@ -50,6 +50,7 @@
       "quotations": {
         "CONTENT_ADD_TO_PREVIOUS_ALL": true,
         "CONTENT_ALL": true,
+        "CONTENT_ALL_EXCLUSION": "a1",
         "CONTENT_AUTHOR": false,
         "CONTENT_AUTHOR_NAME_COUNT": 5,
         "CONTENT_AUTHOR_NAME": "a0",

@@ -12,8 +12,7 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.Quotat
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 import timber.log.Timber
 
-// Settings are set on demand in the UI; the settings listed here define all possible
-// keys but not accurate values.
+// Settings are set on demand in the UI
 open class TransferBackupSettings(val context: Context) {
     fun settings(): List<Settings> {
         val settingsList = mutableListOf<Settings>()
@@ -52,6 +51,7 @@ open class TransferBackupSettings(val context: Context) {
         return Quotations(
             quotationPreferences.contentAddToPreviousAll,
             all,
+            quotationPreferences.contentSelectionAllExclusion,
 
             author,
             quotationPreferences.contentSelectionAuthorCount,

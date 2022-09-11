@@ -24,19 +24,28 @@ public class CSVHelper {
     private static String[] headers = {"Author", "Quotation"};
 
     public void csvExportFavourites(FileOutputStream fileOutputStream, ArrayList<QuotationEntity> exportableFavourites) throws IOException {
-        final OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream);
+        OutputStreamWriter outputStreamWriter = null;
+        CSVPrinter csvPrinter = null;
 
-        final CSVPrinter csvPrinter = new CSVPrinter(outputStreamWriter, getCsvFormatForExport());
+        try {
+            outputStreamWriter = new OutputStreamWriter(fileOutputStream);
+            csvPrinter = new CSVPrinter(outputStreamWriter, getCsvFormatForExport());
 
-        for (final QuotationEntity quotationEntityFavourite : exportableFavourites) {
-            csvPrinter.printRecord(
-                    quotationEntityFavourite.author,
-                    quotationEntityFavourite.quotation);
+            for (final QuotationEntity quotationEntityFavourite : exportableFavourites) {
+                csvPrinter.printRecord(
+                        quotationEntityFavourite.author,
+                        quotationEntityFavourite.quotation);
+            }
+        } finally {
+            if (csvPrinter != null) {
+                csvPrinter.flush();
+                csvPrinter.close();
+            }
+
+            if (outputStreamWriter != null) {
+                outputStreamWriter.close();
+            }
         }
-
-        csvPrinter.flush();
-        csvPrinter.close();
-        outputStreamWriter.close();
     }
 
     private CSVFormat getCsvFormatForExport() {

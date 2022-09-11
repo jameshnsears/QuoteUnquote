@@ -160,8 +160,8 @@ public class AppearancePreferences extends PreferencesFacade {
     }
 
     public void setAppearanceTextForceItalicRegular(final boolean value) {
-        preferenceHelper.setPreference
-                (getPreferenceKey(APPEARANCE_TEXT_FORCE_ITALIC_REGULAR), value);
+        preferenceHelper.setPreference(
+                getPreferenceKey(APPEARANCE_TEXT_FORCE_ITALIC_REGULAR), value);
     }
 
     public boolean getAppearanceTextForceItalicRegular() {
@@ -175,7 +175,7 @@ public class AppearancePreferences extends PreferencesFacade {
     }
 
     public boolean getAppearanceToolbarJump() {
-        return preferenceHelper.getPreferenceBoolean(getPreferenceKey(APPEARANCE_TOOLBAR_JUMP), false);
+        return preferenceHelper.getPreferenceBoolean(getPreferenceKey(APPEARANCE_TOOLBAR_JUMP), true);
     }
 
     public void setAppearanceToolbarJump(final boolean value) {
@@ -183,7 +183,7 @@ public class AppearancePreferences extends PreferencesFacade {
     }
 
     public boolean getAppearanceToolbarHideSeparator() {
-        return preferenceHelper.getPreferenceBoolean("0:APPEARANCE_REMOVE_SPACE_ABOVE_TOOLBAR", false);
+        return preferenceHelper.getPreferenceBoolean("0:APPEARANCE_REMOVE_SPACE_ABOVE_TOOLBAR", true);
     }
 
     public void setAppearanceToolbarHideSeparator(final boolean value) {
@@ -202,7 +202,7 @@ public class AppearancePreferences extends PreferencesFacade {
     public String getAppearanceColour() {
         String appearanceColour = preferenceHelper.getPreferenceString(getPreferenceKey(APPEARANCE_COLOUR));
         if (appearanceColour.equals("")) {
-            appearanceColour = "#FFF8FD89";
+            appearanceColour = "#FFFFFFFF";
 
         }
         return appearanceColour;
@@ -214,11 +214,11 @@ public class AppearancePreferences extends PreferencesFacade {
 
     @NonNull
     public String getAppearanceToolbarColour() {
-        String toolbarCololur = preferenceHelper.getPreferenceString(getPreferenceKey(APPEARANCE_TOOLBAR_COLOUR));
-        if (toolbarCololur.equals("")) {
-            toolbarCololur = "#FF000000";
+        String toolbarColour = preferenceHelper.getPreferenceString(getPreferenceKey(APPEARANCE_TOOLBAR_COLOUR));
+        if (toolbarColour.equals("")) {
+            toolbarColour = "#FF000000";
         }
-        return toolbarCololur;
+        return toolbarColour;
     }
 
     public void setAppearanceToolbarColour(@NonNull final String value) {
@@ -250,7 +250,7 @@ public class AppearancePreferences extends PreferencesFacade {
     }
 
     public boolean getAppearanceToolbarShare() {
-        return preferenceHelper.getPreferenceBoolean(getPreferenceKey(APPEARANCE_TOOLBAR_SHARE), true);
+        return preferenceHelper.getPreferenceBoolean(getPreferenceKey(APPEARANCE_TOOLBAR_SHARE), false);
     }
 
     public void setAppearanceToolbarShare(final boolean value) {

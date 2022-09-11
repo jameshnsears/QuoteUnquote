@@ -10,7 +10,7 @@ import androidx.test.uiautomator.UiObject2;
 import androidx.test.uiautomator.Until;
 
 public class UiAutomatorUtility {
-    protected static final int TIMEOUT = 5000;
+    protected static final int TIMEOUT = 2500;
     protected UiDevice device;
 
     protected void waitForLauncher() {

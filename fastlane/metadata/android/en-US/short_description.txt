@@ -1,1 +1,1 @@
-A quotations widget.
+A Quotations App Widget.

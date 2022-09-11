@@ -7,14 +7,14 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.database.QuotationsDatabaseFragment;
-import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.selection.QuotationsSelectionFragment;
+import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.QuotationsFilterFragment;
 import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 
 public class QuotationsFragmentStateAdapter extends FragmentStateAdapter {
     private final int widgetId;
 
-    public static QuotationsSelectionFragment quotationsSelectionFragment;
+    public static QuotationsFilterFragment quotationsFilterFragment;
 
     public QuotationsFragmentStateAdapter(@NonNull final QuotationsFragment fa, final int widgetId) {
         super(fa);
@@ -24,13 +24,9 @@ public class QuotationsFragmentStateAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(final int pos) {
-        if (quotationsSelectionFragment == null) {
-            quotationsSelectionFragment = QuotationsSelectionFragment.newInstance(widgetId);
-        }
-
         switch (pos) {
             case 0:
-                return quotationsSelectionFragment;
+                return QuotationsFilterFragment.newInstance(widgetId);
 
             default:
                 return QuotationsDatabaseFragment.newInstance(widgetId);
@@ -41,17 +37,6 @@ public class QuotationsFragmentStateAdapter extends FragmentStateAdapter {
         QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, context);
         quotationsPreferences.setContentSelection(ContentSelection.ALL);
         quotationsPreferences.setContentSelectionAuthor("");
-
-        if (quotationsSelectionFragment != null) {
-            quotationsSelectionFragment.initUi();
-        }
-    }
-
-    public static void alignSelectionFragmentWithRestore(int widgetId, @NonNull Context context) {
-        // we always move back to the Internal after a restore
-        DatabaseRepository.useInternalDatabase = true;
-
-        alignSelectionFragmentWithSelectedDatabase(widgetId, context);
     }
 
     @Override

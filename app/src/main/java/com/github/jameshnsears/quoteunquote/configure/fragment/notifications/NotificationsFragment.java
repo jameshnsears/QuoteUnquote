@@ -132,7 +132,7 @@ public class NotificationsFragment extends FragmentCommon {
         final RadioButton radioButtonWhereAsNotification = fragmentNotificationsBinding.radioButtonWhereAsNotification;
         radioButtonWhereAsNotification.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (notificationsPreferences.getEventDisplayWidgetAndNotification() != isChecked) {
-                notificationsPreferences.setEventdisplayWidgetAndNotification(isChecked);
+                notificationsPreferences.setEventDisplayWidgetAndNotification(isChecked);
             }
         });
     }

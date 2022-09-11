@@ -95,7 +95,7 @@ class TransferRestore : TransferCommon() {
         for (widgetId in TransferUtility.getWidgetIds(context)) {
             for (currentIndex in (currentList.size - 1) downTo 0 step 1) {
                 val current = currentList[currentIndex]
-                var digest = current.digest
+                val digest = current.digest
 
                 if (current.db == "internal" || current.db == null) {
                     DatabaseRepository.useInternalDatabase = true
@@ -231,7 +231,7 @@ class TransferRestore : TransferCommon() {
         notificationsPreferences.eventDailyTimeHour = schedule.eventDailyHour
         notificationsPreferences.eventDailyTimeMinute = schedule.eventDailyMinute
         notificationsPreferences.eventDeviceUnlock = schedule.eventDeviceUnlock
-        notificationsPreferences.setEventdisplayWidgetAndNotification(schedule.eventDisplayAidgetAndNotification)
+        notificationsPreferences.setEventDisplayWidgetAndNotification(schedule.eventDisplayAidgetAndNotification)
         notificationsPreferences.eventDisplayWidget = schedule.eventDisplayWidget
         notificationsPreferences.eventNextRandom = schedule.eventNextRandom
         notificationsPreferences.eventNextSequential = schedule.eventNextSequential
@@ -243,6 +243,7 @@ class TransferRestore : TransferCommon() {
         quotations: Quotations
     ) {
         val quotationsPreferences = QuotationsPreferences(widgetId, context)
+        quotationsPreferences.contentSelectionAllExclusion = quotations.contentAllExclusion
         quotationsPreferences.contentAddToPreviousAll = quotations.contentAddToPreviousAll
 
         quotationsPreferences.contentSelectionAuthorCount = quotations.contentAuthorNameCount

@@ -1,15 +1,15 @@
 <resources>
-    <style name="Theme.QuoteUnquote" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.QuoteUnquote" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/indigo_500</item>
         <item name="colorPrimaryVariant">@color/indigo_700</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorSecondary">@color/indigo_500</item>
         <item name="colorSecondaryVariant">@color/indigo_700</item>
         <item name="colorOnSecondary">@color/black</item>
-        <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
     </style>
 
-    <style name="Theme.QuoteUnquote.AppBarOverlay" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.QuoteUnquote.AppBarOverlay" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">20sp</item>
         <item name="colorPrimary">@color/indigo_500</item>
@@ -20,7 +20,7 @@
         <item name="colorOnSecondary">@color/black</item>
     </style>
 
-    <style name="Theme.QuoteUnquote.PreviewQuotation" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.QuoteUnquote.PreviewQuotation" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:listViewStyle">@style/PreviewQuotation.ListViewStyle</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/black</item>

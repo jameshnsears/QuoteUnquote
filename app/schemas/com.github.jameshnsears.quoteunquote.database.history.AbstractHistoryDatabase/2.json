@@ -46,6 +46,7 @@
             "columnNames": [
               "digest"
             ],
+            "orders": [],
             "createSql": "CREATE INDEX IF NOT EXISTS `index_previous_digest` ON `${TABLE_NAME}` (`digest`)"
           },
           {
@@ -56,6 +57,7 @@
               "content_type",
               "digest"
             ],
+            "orders": [],
             "createSql": "CREATE INDEX IF NOT EXISTS `index_previous_widget_id_content_type_digest` ON `${TABLE_NAME}` (`widget_id`, `content_type`, `digest`)"
           }
         ],

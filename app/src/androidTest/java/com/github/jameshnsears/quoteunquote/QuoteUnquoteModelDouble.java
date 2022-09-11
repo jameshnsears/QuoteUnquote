@@ -15,9 +15,9 @@ public class QuoteUnquoteModelDouble extends QuoteUnquoteModel {
     }
 
     public int countPrevious(int widgetId) {
-        return databaseRepository.countPrevious(widgetId, ContentSelection.ALL)
-                + databaseRepository.countPrevious(widgetId, ContentSelection.AUTHOR)
-                + databaseRepository.countPrevious(widgetId, ContentSelection.SEARCH);
+        return databaseRepository.countPreviousCriteria(widgetId, ContentSelection.ALL)
+                + databaseRepository.countPreviousCriteria(widgetId, ContentSelection.AUTHOR)
+                + databaseRepository.countPreviousCriteria(widgetId, ContentSelection.SEARCH);
     }
 
     public List<QuotationEntity> getAllQuotations() {

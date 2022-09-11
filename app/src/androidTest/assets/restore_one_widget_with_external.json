@@ -69,6 +69,7 @@
       "quotations": {
         "CONTENT_ADD_TO_PREVIOUS_ALL": true,
         "CONTENT_ALL": true,
+        "CONTENT_ALL_EXCLUSION": "a2",
         "CONTENT_AUTHOR": false,
         "CONTENT_AUTHOR_NAME_COUNT": 5,
         "CONTENT_AUTHOR_NAME": "a0",

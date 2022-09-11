@@ -4,21 +4,21 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="5dp"
+        android:paddingBottom="0dp">
 
     <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/Theme.QuoteUnquote.AppBarOverlay">
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="16dp"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="@string/settings"
-                app:drawableStartCompat="@drawable/ic_action_bar_icon" />
+        <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topAppBar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:navigationIcon="@drawable/app_icon"
+                app:title="@string/settings" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -45,6 +45,5 @@
             android:layout_height="wrap_content"
             app:labelVisibilityMode="selected"
             app:menu="@menu/bottom_navigation_menu" />
-
 
 </LinearLayout>

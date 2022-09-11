@@ -33,3 +33,5 @@ local.properties
 .scannerwork
 /bin/transfer_restore.sh
 /bin/envvars.sh
+/.idea/render.experimental.xml
+/bin/tidy-up-github-actions.sh

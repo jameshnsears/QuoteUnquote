@@ -94,6 +94,7 @@
             "quotations": {
                 "CONTENT_ADD_TO_PREVIOUS_ALL": true,
                 "CONTENT_ALL": false,
+                "CONTENT_ALL_EXCLUSION": "a4.1",
                 "CONTENT_AUTHOR": true,
                 "CONTENT_AUTHOR_NAME_COUNT": 5,
                 "CONTENT_AUTHOR_NAME": "a0",
@@ -142,6 +143,7 @@
             "quotations": {
                 "CONTENT_ADD_TO_PREVIOUS_ALL": true,
                 "CONTENT_ALL": false,
+                "CONTENT_ALL_EXCLUSION": "a4.2",
                 "CONTENT_AUTHOR": false,
                 "CONTENT_AUTHOR_NAME_COUNT": 5,
                 "CONTENT_AUTHOR_NAME": "a1",

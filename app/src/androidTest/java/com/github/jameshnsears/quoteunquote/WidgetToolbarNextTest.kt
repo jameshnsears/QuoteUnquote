@@ -24,7 +24,7 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
         quotationsPreferences.contentSelection = ContentSelection.ALL
 
         /*
-        > next > next > next : 7a36e553 > D1 > D2
+        > next > next > next : 1624c314 > D1 > D2
         < back : D1
         > next = show position indicator : D2
         > next (digest never seen before)
@@ -38,7 +38,7 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
         // next
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
         assertEquals(
-            "7a36e553",
+            DatabaseRepository.getDefaultQuotationDigest(),
             quoteUnquoteModelDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01)?.digest
         )
 

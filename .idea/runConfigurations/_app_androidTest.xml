@@ -1,13 +1,13 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name=":app.androidTest" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
     <module name="QuoteUnquote.app.androidTest" />
-    <option name="TESTING_TYPE" value="0" />
+    <option name="TESTING_TYPE" value="1" />
     <option name="METHOD_NAME" value="" />
     <option name="CLASS_NAME" value="" />
-    <option name="PACKAGE_NAME" value="" />
+    <option name="PACKAGE_NAME" value="com.github.jameshnsears.quoteunquote" />
+    <option name="TEST_NAME_REGEX" value="" />
     <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
     <option name="EXTRA_OPTIONS" value="" />
-    <option name="INCLUDE_GRADLE_EXTRA_OPTIONS" value="true" />
     <option name="RETENTION_ENABLED" value="No" />
     <option name="RETENTION_MAX_SNAPSHOTS" value="2" />
     <option name="RETENTION_COMPRESS_SNAPSHOTS" value="false" />
@@ -47,6 +47,7 @@
       <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Callstack Sample" />
       <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
       <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+      <option name="PROFILING_MODE" value="NOT_SET" />
     </Profilers>
     <method v="2">
       <option name="Android.Gradle.BeforeRunTask" enabled="true" />

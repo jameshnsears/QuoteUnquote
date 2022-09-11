@@ -1,5 +1,6 @@
 package com.github.jameshnsears.quoteunquote
 
+import com.github.jameshnsears.quoteunquote.database.DatabaseRepository
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 import com.github.jameshnsears.quoteunquote.utils.logging.MethodLineLoggingTree
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
@@ -12,7 +13,7 @@ import timber.log.Timber
 
 class WidgetToolbarRandomizationTest : QuoteUnquoteModelUtility() {
     val expectedAllInsertionOrder = mutableListOf(
-        "7a36e553",
+        DatabaseRepository.getDefaultQuotationDigest(),
         "d1234567",
         "d2345678",
         "d3456789",
@@ -33,7 +34,7 @@ class WidgetToolbarRandomizationTest : QuoteUnquoteModelUtility() {
         insertQuotationTestData03()
         assertEquals(
             7,
-            quoteUnquoteModelDouble.countAll().blockingGet()
+            quoteUnquoteModelDouble.countAllMinusExclusions(WidgetIdHelper.WIDGET_ID_01).blockingGet()
         )
 
         assertEquals(
@@ -47,7 +48,7 @@ class WidgetToolbarRandomizationTest : QuoteUnquoteModelUtility() {
         assertInsertionOrder(expectedAllInsertionOrder)
 
         val expectedNextNextOrder = mutableListOf(
-            "7a36e553",
+            DatabaseRepository.getDefaultQuotationDigest(),
             "d1234567",
             "d2345678",
             "d3456789",
@@ -59,14 +60,16 @@ class WidgetToolbarRandomizationTest : QuoteUnquoteModelUtility() {
         assertNextOrder(expectedNextNextOrder)
 
         // use the Next quotations
-        for (i in 1..quoteUnquoteModelDouble.countAll()
+        for (i in 1..quoteUnquoteModelDouble.countAllMinusExclusions(WidgetIdHelper.WIDGET_ID_01)
             .blockingGet()) {
             quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
         }
 
         val actualPreviousOrder = quoteUnquoteModelDouble.databaseRepository?.getPreviousDigests(
             WidgetIdHelper.WIDGET_ID_01,
-            ContentSelection.ALL
+            ContentSelection.ALL,
+            quoteUnquoteModelDouble
+                .getContentPreferences(WidgetIdHelper.WIDGET_ID_01).contentSelectionAllExclusion
         )
         actualPreviousOrder?.reverse()
 
@@ -82,21 +85,31 @@ class WidgetToolbarRandomizationTest : QuoteUnquoteModelUtility() {
     }
 
     private fun assertNextOrder(expectedAllQuotationsOrder: MutableList<String>) {
+        val nextAllDigests = databaseRepositoryDouble.nextAllDigests
+
         assertTrue(
-            expectedAllQuotationsOrder == databaseRepositoryDouble.getNextAllDigests()
+            expectedAllQuotationsOrder.size == nextAllDigests.size
         )
+
+        var i = 0
+        for (nextDigest in nextAllDigests) {
+            assertTrue(expectedAllQuotationsOrder[i] == nextDigest)
+            i += 1
+        }
     }
 
     @Test
     fun traverseContentSelectionRandomly() {
-        for (i in 1..quoteUnquoteModelDouble.countAll()
+        for (i in 1..quoteUnquoteModelDouble.countAllMinusExclusions(WidgetIdHelper.WIDGET_ID_01)
             .blockingGet()) {
             quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, true)
         }
 
         val actualPreviousOrder = quoteUnquoteModelDouble.databaseRepository?.getPreviousDigests(
             WidgetIdHelper.WIDGET_ID_01,
-            ContentSelection.ALL
+            ContentSelection.ALL,
+            quoteUnquoteModelDouble
+                .getContentPreferences(WidgetIdHelper.WIDGET_ID_01).contentSelectionAllExclusion
         )
         actualPreviousOrder?.reverse()
 

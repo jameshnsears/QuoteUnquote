@@ -1,0 +1,35 @@
+1 = 1.png
+
+2 = 2.1.png
+
+3 = 2.2 fdroid.png
+
+4 = 2.2.fdroid.png
+
+5 = 2.2.png
+
+6 = 2.3.fdroid.png
+
+7 = 2.3.png
+
+8 = 2.png
+
+3 .1 fdroid.png
+
+3.1.fdroid.png
+
+3.1.png
+
+3.2 fdroid.png
+
+3.2.fdroid.png
+
+3.2.png
+
+3.3.png
+
+3.png
+
+4.png
+
+5.png

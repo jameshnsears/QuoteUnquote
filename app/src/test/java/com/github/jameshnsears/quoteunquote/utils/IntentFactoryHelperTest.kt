@@ -1,8 +1,8 @@
 package com.github.jameshnsears.quoteunquote.utils
 
 import android.appwidget.AppWidgetManager
-import android.content.Intent
 import android.os.Build
+import android.os.Bundle
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.jameshnsears.quoteunquote.listview.ListViewService
@@ -14,24 +14,17 @@ import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.P])
+@Config(sdk = [Build.VERSION_CODES.TIRAMISU])
 class IntentFactoryHelperTest {
     @Test
     fun createSimpleIntent() {
         val intent = IntentFactoryHelper.createIntent(WidgetIdHelper.WIDGET_ID_01)
+
+        val intentBundle = intent.extras as Bundle
         assertEquals(
             WidgetIdHelper.WIDGET_ID_01,
-            intent.extras?.get(AppWidgetManager.EXTRA_APPWIDGET_ID)
+            intentBundle.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID)
         )
-    }
-
-    @Test
-    fun createIntentShare() {
-        val shareIntent = IntentFactoryHelper.createIntentShare("s", "q\na\n")
-        val bundle = (shareIntent.extras?.get("android.intent.extra.INTENT") as Intent).extras
-
-        assertEquals("s", bundle?.get("android.intent.extra.SUBJECT"))
-        assertEquals("q\na\n", bundle?.get("android.intent.extra.TEXT"))
     }
 
     @Test

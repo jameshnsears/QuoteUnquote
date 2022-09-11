@@ -1,7 +1,7 @@
 apply plugin: 'jacoco'
 
 jacoco {
-    toolVersion = "0.8.7"
+    toolVersion = "0.8.8"
 }
 
 project.afterEvaluate {
@@ -35,7 +35,7 @@ project.afterEvaluate {
             def flavourSrc = "$project.projectDir/src/$productFlavorName/java"
 
             task "test${sourceName.capitalize()}CombinedCoverage"(type: JacocoReport, dependsOn: ["$testTaskName", "connected${sourceName.capitalize()}AndroidTest"]) {
-                group = "coverage"
+                group = "coverage.combined"
                 description = "Generate Jacoco /test + combined (if avail.) /andoidTest coverage report from ${sourceName.capitalize()}"
 
                 classDirectories.setFrom(files([classKotlin, classJava]))
@@ -55,8 +55,10 @@ project.afterEvaluate {
                 }
             }
 
-            task "test${sourceName.capitalize()}Coverage"(type: JacocoReport, dependsOn: ["$testTaskName"]) {
-                group = "coverage"
+            ///////////////////////////////////////
+
+            task "test${sourceName.capitalize()}UnitTestCoverage"(type: JacocoReport, dependsOn: ["$testTaskName"]) {
+                group = "coverage.unittest"
                 description = "Generate Jacoco /test coverage report from ${sourceName.capitalize()}"
 
                 classDirectories.setFrom(files([classKotlin, classJava]))
@@ -76,6 +78,31 @@ project.afterEvaluate {
                     html.destination file("$project.buildDir/reports/jacoco")
                 }
             }
+
+            ///////////////////////////////////////
+
+            task "connected${sourceName.capitalize()}AndroidTestCoverage"(type: JacocoReport, dependsOn: ["connected${sourceName.capitalize()}AndroidTest"]) {
+                group = "coverage.connected"
+                description = "Generate Jacoco /test coverage report from ${sourceName.capitalize()}"
+
+                classDirectories.setFrom(files([classKotlin, classJava]))
+
+                sourceDirectories.setFrom(files([javaSrc, kotlinSrc, flavourSrc]))
+
+                println "$sourceName"
+
+                executionData.from = fileTree(dir: "${project.buildDir}", includes: [
+                        "outputs/code_coverage/$productFlavorName${buildTypeName.capitalize()}AndroidTest/connected/**/*.ec"
+                ])
+
+                reports {
+                    xml.enabled = true
+                    xml.destination file("${project.buildDir}/reports/${sourceName.capitalize()}.xml")
+                    html.enabled = true
+                    html.destination file("$project.buildDir/reports/jacoco")
+                }
+            }
+
         }
     }
 }

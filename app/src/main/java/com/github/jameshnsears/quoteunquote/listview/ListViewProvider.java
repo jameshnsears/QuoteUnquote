@@ -53,17 +53,17 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
         }
     }
 
-    private synchronized String getPosition() {
+    private String getPosition() {
         QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, context);
 
         String quotationPosition = getQuoteUnquoteModel().getCurrentPosition(
                 widgetId,
                 quotationsPreferences);
 
-        if (quotationEntity.digest.equals(
-                getQuoteUnquoteModel().getLastPreviousDigest(
-                        widgetId, quotationsPreferences.getContentSelection()))) {
+        String lastPreviousDigest = getQuoteUnquoteModel().
+                getLastPreviousDigest(widgetId, quotationsPreferences.getContentSelection());
 
+        if (quotationEntity.digest.equals(lastPreviousDigest)) {
             quotationPosition = "\u2316  " + quotationPosition + " ";
         }
 
@@ -94,12 +94,17 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
                 quotationList.add(getPosition());
             } else {
                 // subsequent calls
-                if (quotationEntity != null
-                        && !"".equals(quotationEntity.theQuotation())
-                        && !quotationList.get(0).equals(quotationEntity.theQuotation())) {
-                    quotationList.set(0, quotationEntity.theQuotation());
-                    quotationList.set(1, quotationEntity.theAuthor());
-                    quotationList.set(2, getPosition());
+                if (quotationEntity != null) {
+                    try {
+                        if (!"".equals(quotationEntity.theQuotation())
+                                && !quotationList.get(0).equals(quotationEntity.theQuotation())) {
+                            quotationList.set(0, quotationEntity.theQuotation());
+                            quotationList.set(1, quotationEntity.theAuthor());
+                            quotationList.set(2, getPosition());
+                        }
+                    } catch (NullPointerException e) {
+                        Timber.e(e.getMessage());
+                    }
                 }
             }
         }
@@ -115,25 +120,27 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
     public RemoteViews getViewAt(final int position) {
         final RemoteViews remoteViews = getRemoteViews(position);
 
-        try {
-            remoteViews.setOnClickFillInIntent(
-                    R.id.textViewRowQuotation,
-                    IntentFactoryHelper.createIntent(widgetId));
-
-            if (quotationEntity.wikipedia != null) {
+        if (quotationEntity != null) {
+            try {
                 remoteViews.setOnClickFillInIntent(
-                        R.id.textViewRowAuthor,
-                        IntentFactoryHelper.createClickFillInIntent(
-                                "wikipedia",
-                                quotationEntity.wikipedia,
-                                widgetId));
-            }
+                        R.id.textViewRowQuotation,
+                        IntentFactoryHelper.createIntent(widgetId));
 
-            remoteViews.setOnClickFillInIntent(
-                    R.id.textViewRowPosition,
-                    IntentFactoryHelper.createIntent(widgetId));
-        } catch (NullPointerException e) {
-            Timber.e("%s", e.getMessage());
+                if (quotationEntity.wikipedia != null) {
+                    remoteViews.setOnClickFillInIntent(
+                            R.id.textViewRowAuthor,
+                            IntentFactoryHelper.createClickFillInIntent(
+                                    "wikipedia",
+                                    quotationEntity.wikipedia,
+                                    widgetId));
+                }
+
+                remoteViews.setOnClickFillInIntent(
+                        R.id.textViewRowPosition,
+                        IntentFactoryHelper.createIntent(widgetId));
+            } catch (NullPointerException e) {
+                Timber.e("%s", e.getMessage());
+            }
         }
 
         return remoteViews;

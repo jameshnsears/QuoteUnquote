@@ -64,7 +64,7 @@ public class AppearanceToolbarFragment extends FragmentCommon {
     @Override
     public void onViewCreated(
             @NonNull final View view, @NonNull final Bundle savedInstanceState) {
-        createListenerHideSeperator();
+        createListenerHideSeparator();
 
         createListenerToolbarColourPicker();
         createListenerToolbarFirst();
@@ -75,7 +75,7 @@ public class AppearanceToolbarFragment extends FragmentCommon {
         createListenerToolbarNextRandom();
         createListenerToolbarNextSequential();
 
-        setHideSeperator();
+        setHideSeparator();
         setToolbarColour();
         setToolbar();
     }
@@ -122,12 +122,12 @@ public class AppearanceToolbarFragment extends FragmentCommon {
         });
     }
 
-    public void setHideSeperator() {
-        fragmentAppearanceTabToolbarBinding.toolbarSwitchHideSeperator.setChecked(appearancePreferences.getAppearanceToolbarHideSeparator());
+    public void setHideSeparator() {
+        fragmentAppearanceTabToolbarBinding.toolbarSwitchHideSeparator.setChecked(appearancePreferences.getAppearanceToolbarHideSeparator());
     }
 
-    private void createListenerHideSeperator() {
-        fragmentAppearanceTabToolbarBinding.toolbarSwitchHideSeperator.setOnCheckedChangeListener((buttonView, isChecked) ->
+    private void createListenerHideSeparator() {
+        fragmentAppearanceTabToolbarBinding.toolbarSwitchHideSeparator.setOnCheckedChangeListener((buttonView, isChecked) ->
                 appearancePreferences.setAppearanceToolbarHideSeparator(isChecked)
         );
     }

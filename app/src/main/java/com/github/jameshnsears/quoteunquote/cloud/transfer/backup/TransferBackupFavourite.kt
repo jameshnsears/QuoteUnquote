@@ -23,7 +23,7 @@ class TransferBackupFavourite {
 
         val favouriteList = mutableListOf<Favourite>()
 
-        for (favourite in databaseRepository.favourites) {
+        for (favourite in databaseRepository.favouritesEntity) {
             favouriteList.add(
                 Favourite(
                     favourite.digest,

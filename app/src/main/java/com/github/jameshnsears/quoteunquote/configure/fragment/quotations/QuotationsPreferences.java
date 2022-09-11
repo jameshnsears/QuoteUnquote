@@ -11,6 +11,7 @@ import timber.log.Timber;
 
 public class QuotationsPreferences extends PreferencesFacade {
     public static final String CONTENT_ALL = "CONTENT_ALL";
+    public static final String CONTENT_ALL_EXCLUSION = "CONTENT_ALL_EXCLUSION";
     public static final String CONTENT_ADD_TO_PREVIOUS_ALL = "CONTENT_ADD_TO_PREVIOUS_ALL";
     public static final String CONTENT_AUTHOR = "CONTENT_AUTHOR";
     public static final String CONTENT_AUTHOR_NAME = "CONTENT_AUTHOR_NAME";
@@ -103,6 +104,14 @@ public class QuotationsPreferences extends PreferencesFacade {
 
     public void setContentSelectionSearch(@NonNull String value) {
         this.preferenceHelper.setPreference(this.getPreferenceKey(QuotationsPreferences.CONTENT_SEARCH_TEXT), value);
+    }
+
+    public String getContentSelectionAllExclusion() {
+        return this.preferenceHelper.getPreferenceString(this.getPreferenceKey(QuotationsPreferences.CONTENT_ALL_EXCLUSION));
+    }
+
+    public void setContentSelectionAllExclusion(final String value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(QuotationsPreferences.CONTENT_ALL_EXCLUSION), value);
     }
 
     public int getContentSelectionSearchCount() {

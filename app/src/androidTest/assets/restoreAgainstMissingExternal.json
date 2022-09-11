@@ -3,7 +3,7 @@
   "current": [
     {
       "db": "internal",
-      "digest": "7a36e553",
+      "digest": "1624c314",
       "widget_id": 21
     },
     {
@@ -28,7 +28,7 @@
     {
       "content_type": 1,
       "db": "internal",
-      "digest": "7a36e553",
+      "digest": "1624c314",
       "navigation": 1,
       "widget_id": 21
     },
@@ -76,6 +76,7 @@
       "quotations": {
         "CONTENT_ADD_TO_PREVIOUS_ALL": true,
         "CONTENT_ALL": true,
+        "CONTENT_ALL_EXCLUSION": "a4",
         "CONTENT_AUTHOR": false,
         "CONTENT_AUTHOR_NAME_COUNT": 5,
         "CONTENT_AUTHOR_NAME": "A MIDSUMMER-NIGHT\u0027S DREAM [1595–1559]",

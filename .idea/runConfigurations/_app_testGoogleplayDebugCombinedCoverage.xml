@@ -10,6 +10,7 @@
       </option>
       <option name="taskNames">
         <list>
+          <option value=":app:clean" />
           <option value=":app:testGoogleplayDebugCombinedCoverage" />
         </list>
       </option>
@@ -17,15 +18,7 @@
     </ExternalSystemSettings>
     <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
     <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-    <extension name="coverage">
-      <pattern>
-        <option name="PATTERN" value="com.github.jameshnsears.quoteunquote.*" />
-        <option name="ENABLED" value="true" />
-      </pattern>
-    </extension>
     <DebugAllEnabled>false</DebugAllEnabled>
-    <method v="2">
-      <option name="Gradle.BeforeRunTask" enabled="true" tasks="clean" externalProjectPath="$PROJECT_DIR$/app" vmOptions="" scriptParameters="" />
-    </method>
+    <method v="2" />
   </configuration>
 </component>

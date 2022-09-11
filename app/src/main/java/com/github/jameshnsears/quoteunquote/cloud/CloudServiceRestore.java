@@ -83,8 +83,7 @@ public class CloudServiceRestore extends CloudService {
 
                         databaseRepository.alignHistoryWithQuotations(widgetId, context);
 
-                        QuotationsFragmentStateAdapter.alignSelectionFragmentWithRestore(
-                                widgetId, context);
+                        DatabaseRepository.useInternalDatabase = true;
 
                         handler.post(() -> Toast.makeText(
                                 context,

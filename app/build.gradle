@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.diffplug.spotless'
 
 apply from: '../jacoco.gradle'
 apply from: '../ktlint.gradle'
@@ -45,9 +46,9 @@ android {
         applicationId "com.github.jameshnsears.quoteunquote"
 
         // changelog version | min sdk | target sdk
-        versionCode 1092433
+        versionCode 1102433
         // semantic versioning
-        versionName "4.1.0"
+        versionName "4.2.0"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -61,12 +62,18 @@ android {
             }
         }
     }
+
     packagingOptions {
         resources {
-            excludes += ['**/module-info.class', 'LICENSE', 'README.md']
+            excludes += [
+                    '**/module-info.class',
+                    'LICENSE',
+                    'README.md',
+                    'META-INF/LICENSE.md',
+                    'META-INF/LICENSE-notice.md'
+            ]
         }
     }
-
 
     buildTypes {
         def gitHash = { ->
@@ -98,11 +105,11 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
     }
 
 
@@ -118,6 +125,14 @@ android {
             versionNameSuffix "-fdroid"
             isDefault true
         }
+        'espresso' {
+            dimension 'Version'
+            versionNameSuffix "-espresso"
+        }
+        'uiautomator' {
+            dimension 'Version'
+            versionNameSuffix "-uiautomator"
+        }
     }
 
     sourceSets {
@@ -130,6 +145,14 @@ android {
             java.srcDirs = ['src/main/java', 'src/fdroid/java']
         }
         googleplay {
+            assets.srcDirs = ['src/main/assets']
+            java.srcDirs = ['src/main/java']
+        }
+        espresso {
+            assets.srcDirs = ['src/main/assets']
+            java.srcDirs = ['src/main/java']
+        }
+        uiautomator {
             assets.srcDirs = ['src/main/assets']
             java.srcDirs = ['src/main/java']
         }
@@ -169,40 +192,39 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.databinding:databinding-runtime:7.2.2'
+    implementation 'androidx.databinding:databinding-runtime:7.3.1'
     implementation 'androidx.appcompat:appcompat:1.5.1'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.2'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.5.2'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
 
     androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
     androidTestImplementation 'androidx.room:room-testing:2.4.3'
-    androidTestImplementation 'androidx.test:core:1.4.0'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.ext:junit-ktx:1.1.3'
-    androidTestImplementation 'androidx.test:rules:1.4.0'
-    androidTestImplementation 'androidx.test:runner:1.4.0'
+    androidTestImplementation 'androidx.test:core:1.5.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
+    androidTestImplementation 'androidx.test.ext:junit-ktx:1.1.4'
+    androidTestImplementation 'androidx.test:rules:1.5.0'
+    androidTestImplementation 'androidx.test:runner:1.5.1'
 
-    // 1.12.5 supports API 24
-    androidTestImplementation 'io.mockk:mockk-android:1.12.5'
+    androidTestImplementation 'io.mockk:mockk-android:1.13.2'
 
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    androidTestImplementation 'androidx.test:runner:1.4.0'
-    androidTestImplementation 'androidx.test:rules:1.4.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+    androidTestImplementation 'androidx.test:runner:1.5.1'
+    androidTestImplementation 'androidx.test:rules:1.5.0'
 
     annotationProcessor 'androidx.room:room-compiler:2.4.3'
 
-    debugImplementation 'androidx.fragment:fragment-testing:1.5.2'
-    debugImplementation 'androidx.test:core:1.4.0'
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'
+    debugImplementation 'androidx.fragment:fragment-testing:1.5.4'
+    debugImplementation 'androidx.test:core-ktx:1.5.0'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
 
-    implementation platform('com.google.firebase:firebase-bom:30.4.1')
-    googleplayImplementation 'com.google.firebase:firebase-crashlytics:18.2.13'
-    googleplayImplementation 'com.google.firebase:firebase-analytics:21.1.1'
+    implementation platform('com.google.firebase:firebase-bom:31.0.3')
+    googleplayImplementation 'com.google.firebase:firebase-crashlytics:18.3.2'
+    googleplayImplementation 'com.google.firebase:firebase-analytics:21.2.0'
 
-    implementation 'androidx.activity:activity:1.5.1'
+    implementation 'androidx.activity:activity-ktx:1.6.1'
     implementation "androidx.cardview:cardview:1.0.0"
-    implementation 'androidx.fragment:fragment:1.5.2'
+    implementation 'androidx.fragment:fragment-ktx:1.5.4'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -214,15 +236,15 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.4.3'
     implementation 'androidx.room:room-rxjava2:2.4.3'
     implementation "com.github.skydoves:colorpickerpreference:2.0.6"
-    implementation 'com.google.android.material:material:1.6.1'
-    implementation 'com.google.code.gson:gson:2.9.1'
+    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'com.google.code.gson:gson:2.10'
     implementation 'com.google.guava:guava:31.1-jre'
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.2.0'
     implementation 'com.jakewharton.timber:timber:5.0.1'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
-    implementation 'net.pwall.json:json-kotlin-schema:0.36'
+    implementation 'net.pwall.json:json-kotlin-schema:0.39'
     implementation 'org.apache.commons:commons-csv:1.9.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.6.4'
 
@@ -231,13 +253,13 @@ dependencies {
 
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
     testImplementation 'androidx.room:room-testing:2.4.3'
-    testImplementation 'androidx.test:core-ktx:1.4.0'
-    testImplementation 'androidx.test.ext:junit:1.1.3'
-    testImplementation 'androidx.test:rules:1.4.0'
+    testImplementation 'androidx.test:core-ktx:1.5.0'
+    testImplementation 'androidx.test.ext:junit:1.1.4'
+    testImplementation 'androidx.test:rules:1.5.0'
     testImplementation 'com.google.guava:guava:31.1-jre'
-    testImplementation 'io.mockk:mockk:1.12.7'
+    testImplementation 'io.mockk:mockk:1.13.2'
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.robolectric:robolectric:4.8.2'
+    testImplementation 'org.robolectric:robolectric:4.9'
 }
 
 repositories {

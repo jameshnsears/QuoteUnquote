@@ -3,6 +3,7 @@ package com.github.jameshnsears.quoteunquote.cloud.transfer.backup
 import com.github.jameshnsears.quoteunquote.cloud.transfer.Current
 import com.github.jameshnsears.quoteunquote.cloud.transfer.GsonTestHelper
 import com.github.jameshnsears.quoteunquote.cloud.transfer.TransferUtility
+import com.github.jameshnsears.quoteunquote.database.DatabaseRepository
 import io.mockk.every
 import io.mockk.mockkObject
 import org.junit.Assert.assertEquals
@@ -38,10 +39,10 @@ class TransferBackupCurrentTest : GsonTestHelper() {
 
         val currentList = mutableListOf<Current>()
         currentList.add(
-            Current("7a36e553", 12, "internal")
+            Current(DatabaseRepository.getDefaultQuotationDigest(), 12, "internal")
         )
         currentList.add(
-            Current("7a36e553", 13, "internal")
+            Current(DatabaseRepository.getDefaultQuotationDigest(), 13, "internal")
         )
 
         return currentList
@@ -49,18 +50,20 @@ class TransferBackupCurrentTest : GsonTestHelper() {
 
     @Test
     fun currentInternalAndExternal() {
-        populateInternal(14)
-        populateExternal(14)
+        if (canWorkWithMockk()) {
+            populateInternal(14)
+            populateExternal(14)
 
-        mockkObject(TransferUtility)
-        every { TransferUtility.getWidgetIds(context) } returns intArrayOf(14)
+            mockkObject(TransferUtility)
+            every { TransferUtility.getWidgetIds(context) } returns intArrayOf(14)
 
-        val currentList = TransferBackupCurrent(context).current(databaseRepositoryDouble)
+            val currentList = TransferBackupCurrent(context).current(databaseRepositoryDouble)
 
-        assertTrue(currentList.size == 2)
-        assertEquals(currentList[0].digest, "d1234567")
-        assertEquals(currentList[0].db, "internal")
-        assertEquals(currentList[1].digest, "00000000")
-        assertEquals(currentList[1].db, "external")
+            assertTrue(currentList.size == 2)
+            assertEquals(currentList[0].digest, "d1234567")
+            assertEquals(currentList[0].db, "internal")
+            assertEquals(currentList[1].digest, "00000000")
+            assertEquals(currentList[1].db, "external")
+        }
     }
 }

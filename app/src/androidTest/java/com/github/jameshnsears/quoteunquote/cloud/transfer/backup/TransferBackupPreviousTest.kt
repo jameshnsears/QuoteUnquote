@@ -40,18 +40,20 @@ class TransferBackupPreviousTest : DatabaseTestHelper() {
 
     @Test
     fun currentInternalAndExternal() {
-        populateInternal(14)
-        populateExternal(14)
+        if (canWorkWithMockk()) {
+            populateInternal(14)
+            populateExternal(14)
 
-        mockkObject(TransferUtility)
-        every { TransferUtility.getWidgetIds(context) } returns intArrayOf(14)
+            mockkObject(TransferUtility)
+            every { TransferUtility.getWidgetIds(context) } returns intArrayOf(14)
 
-        val previousList = TransferBackupPrevious().previous(databaseRepositoryDouble)
+            val previousList = TransferBackupPrevious().previous(databaseRepositoryDouble)
 
-        assertTrue(previousList.size == 2)
-        assertEquals(previousList[0].digest, "d1234567")
-        assertEquals(previousList[0].db, "internal")
-        assertEquals(previousList[1].digest, "00000000")
-        assertEquals(previousList[1].db, "external")
+            assertTrue(previousList.size == 2)
+            assertEquals(previousList[0].digest, "d1234567")
+            assertEquals(previousList[0].db, "internal")
+            assertEquals(previousList[1].digest, "00000000")
+            assertEquals(previousList[1].db, "external")
+        }
     }
 }

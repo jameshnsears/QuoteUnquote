@@ -11,14 +11,12 @@
             android:layout_height="wrap_content"
             android:theme="@style/Theme.QuoteUnquote.AppBarOverlay">
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="16dp"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="@string/activity_instructions_title"
-                app:drawableStartCompat="@drawable/ic_action_bar_icon" />
+        <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topAppBar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:title="@string/activity_instructions_title"
+                app:navigationIcon="@drawable/app_icon" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -28,7 +26,6 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:paddingStart="0dp"
-            android:paddingTop="5dp"
             android:paddingEnd="0dp">
 
         <LinearLayout
@@ -58,7 +55,7 @@
                             android:paddingTop="0dp"
                             android:paddingBottom="0dp"
                             android:text="@string/activity_instructions_placement"
-                            android:textSize="16sp"
+                            android:textSize="18sp"
                             android:textStyle="bold" />
 
                     <TextView
@@ -148,14 +145,14 @@
                             android:paddingTop="10dp"
                             android:paddingBottom="5dp"
                             android:text="@string/activity_instructions_usage"
-                            android:textSize="16sp"
+                            android:textSize="18sp"
                             android:textStyle="bold" />
 
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingStart="20dp"
-                            android:paddingTop="5dp"
+                            android:paddingTop="0dp"
                             android:paddingEnd="0dp"
                             android:paddingBottom="5dp"
                             android:text="@string/activity_instructions_configure_1"
@@ -235,7 +232,7 @@
                             android:paddingTop="10dp"
                             android:paddingBottom="5dp"
                             android:text="@string/activity_instructions_resize"
-                            android:textSize="16sp"
+                            android:textSize="18sp"
                             android:textStyle="bold" />
 
                     <TextView
@@ -291,7 +288,7 @@
             android:gravity="bottom"
             android:orientation="horizontal"
             android:paddingStart="15dp"
-            android:paddingTop="0dp"
+            android:paddingTop="10dp"
             android:paddingEnd="0dp"
             android:paddingBottom="10dp">
 

@@ -2,6 +2,7 @@ package com.github.jameshnsears.quoteunquote
 
 import android.appwidget.AppWidgetManager
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences
+import com.github.jameshnsears.quoteunquote.database.DatabaseRepository
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import io.mockk.every
@@ -86,7 +87,7 @@ class WidgetToolbarFirstTest : QuoteUnquoteModelUtility() {
 
             onReceiveToolbarPressedFirst(quoteUnquoteWidget, appWidgetManager)
             assertEquals(
-                "7a36e553",
+                DatabaseRepository.getDefaultQuotationDigest(),
                 databaseRepositoryDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01).digest
             )
         }
@@ -107,7 +108,7 @@ class WidgetToolbarFirstTest : QuoteUnquoteModelUtility() {
 
             onReceiveToolbarPressedFirst(quoteUnquoteWidget, appWidgetManager)
             assertEquals(
-                "7a36e553",
+                DatabaseRepository.getDefaultQuotationDigest(),
                 databaseRepositoryDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01).digest
             )
         }

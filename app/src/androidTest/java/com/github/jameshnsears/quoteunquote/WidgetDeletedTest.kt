@@ -15,11 +15,15 @@ class WidgetDeletedTest : QuoteUnquoteModelUtility() {
     @Test
     fun widgetDeleted() {
         if (canWorkWithMockk()) {
+            // arrange
             setupDatabase()
             setupSharedPreferences()
 
+            // act
             val quoteUnquoteWidget = spyk<QuoteUnquoteWidget>()
-            every { quoteUnquoteWidget.getQuoteUnquoteModel(WidgetIdHelper.WIDGET_ID_01, any()) } returns quoteUnquoteModelDouble
+            every {
+                quoteUnquoteWidget.getQuoteUnquoteModel(WidgetIdHelper.WIDGET_ID_01, any())
+            } returns quoteUnquoteModelDouble
 
             quoteUnquoteWidget.onEnabled(context)
             val syncPreferences =
@@ -30,23 +34,15 @@ class WidgetDeletedTest : QuoteUnquoteModelUtility() {
             assertTrue(syncPreferences.transferLocalCode.length == 10)
             quoteUnquoteWidget.onDeleted(context, intArrayOf(WidgetIdHelper.WIDGET_ID_01))
 
-            assertDatabase()
-            assertSharedPreferences(syncPreferences)
+            // assert
+            assertTrue(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01) == 0)
+            assertTrue(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_02) == 3)
+            assertTrue(quoteUnquoteModelDouble.countFavourites().blockingGet() == 1)
+
+            assertEquals(0, PreferencesFacade.countPreferences(context, WidgetIdHelper.WIDGET_ID_01))
+            assertEquals(1, PreferencesFacade.countPreferences(context, WidgetIdHelper.WIDGET_ID_02))
+            assertFalse(syncPreferences.transferLocalCode.isEmpty())
         }
-    }
-
-    private fun assertSharedPreferences(syncPreferences: SyncPreferences) {
-        assertEquals(0, PreferencesFacade.countPreferences(context, WidgetIdHelper.WIDGET_ID_01))
-        assertEquals(1, PreferencesFacade.countPreferences(context, WidgetIdHelper.WIDGET_ID_02))
-
-        assertFalse(syncPreferences.transferLocalCode.isEmpty())
-    }
-
-    private fun assertDatabase() {
-        assertTrue(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01) == 0)
-
-        assertTrue(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_02) == 3)
-        assertTrue(quoteUnquoteModelDouble.countFavourites().blockingGet() == 1)
     }
 
     private fun setupDatabase() {

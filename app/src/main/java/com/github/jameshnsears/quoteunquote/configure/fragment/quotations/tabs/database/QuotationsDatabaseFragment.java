@@ -211,6 +211,9 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
                                 fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternal.setEnabled(true);
                                 fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternal.setChecked(true);
 
+                                quotationsPreferences.setContentSelectionSearchCount(0);
+                                quotationsPreferences.setContentSelectionSearch("");
+
                                 updateQuotationsUI();
 
                                 Toast.makeText(

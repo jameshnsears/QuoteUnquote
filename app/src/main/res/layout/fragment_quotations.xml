@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusableInTouchMode="true"
@@ -13,8 +14,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingTop="5dp"
-            android:paddingBottom="0dp">
+            android:paddingStart="10dp"
+            android:paddingEnd="0dp">
 
         <TextView
                 android:layout_width="match_parent"
@@ -22,7 +23,7 @@
                 android:paddingStart="0dp"
                 android:paddingEnd="10dp"
                 android:text="@string/fragment_quotations_title"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -32,14 +33,11 @@
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="0dp"
-            android:paddingBottom="10dp"
-            android:theme="@style/Theme.QuoteUnquote" />
+            app:tabTextAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
     <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager2Quotations"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_height="match_parent"/>
 
 </LinearLayout>

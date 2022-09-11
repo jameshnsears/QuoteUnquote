@@ -44,7 +44,7 @@ class TransferBackupTest : DatabaseTestHelper() {
             populateExternal(50)
             populateInternal(50)
 
-            val (backupTransfer, transferCode) = getBackupTransfer()
+            val (backupTransfer, _) = getBackupTransfer()
 
             mockkObject(TransferUtility)
             every { TransferUtility.getWidgetIds(context) } returns intArrayOf(50)

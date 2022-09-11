@@ -1,10 +1,11 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" ?>
 <SmellBaseline>
-  <ManuallySuppressedIssues/>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
   <CurrentIssues>
-    <ID>NestedBlockDepth:TransferRestore.kt$TransferRestore$private fun restoreCurrent( context: Context, databaseRepository: DatabaseRepository, currentList: List&lt;Current> )</ID>
-    <ID>NestedBlockDepth:TransferRestore.kt$TransferRestore$private fun restorePrevious( context: Context, databaseRepository: DatabaseRepository, previousList: List&lt;Previous> )</ID>
+    <ID>NestedBlockDepth:TransferRestore.kt$TransferRestore$private fun restoreCurrent( context: Context, databaseRepository: DatabaseRepository, currentList: List&lt;Current&gt; )</ID>
+    <ID>NestedBlockDepth:TransferRestore.kt$TransferRestore$private fun restorePrevious( context: Context, databaseRepository: DatabaseRepository, previousList: List&lt;Previous&gt; )</ID>
     <ID>TooManyFunctions:TransferRestore.kt$TransferRestore : TransferCommon</ID>
     <ID>UtilityClassWithPublicConstructor:ListViewLayoutIdHelper.kt$ListViewLayoutIdHelper</ID>
+    <ID>UtilityClassWithPublicConstructor:SyncJsonSchemaValidation.kt$SyncJsonSchemaValidation</ID>
   </CurrentIssues>
 </SmellBaseline>
