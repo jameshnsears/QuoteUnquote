@@ -8,7 +8,7 @@ The app includes two databases:
 &bull; an External database, into which you can import your own quotations
 
 <b>Key features</b>
-&bull; Over 18,000 unique, reviewed, quotations
+&bull; Over 20,000 unique, reviewed, quotations
 &bull; Filter quotations by: source; favourites; search results
 &bull; Navigate the quotations: sequentially; randomly; previously
 &bull; Tap an underlined source, from the Internal database, to deep link to Wikipedia
