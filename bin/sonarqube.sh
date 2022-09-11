@@ -11,4 +11,4 @@
 ./gradlew sonarqube \
   -Dsonar.projectKey=QuoteUnquote \
   -Dsonar.host.url=http://localhost:9000 \
-  -Dsonar.login=sqp_29b40c2eba45511c0eb8cc1ad62f19cbd210ffe4
+  -Dsonar.login=sqp_8b6115017eb78837aa80bf8548a7091c8743367d

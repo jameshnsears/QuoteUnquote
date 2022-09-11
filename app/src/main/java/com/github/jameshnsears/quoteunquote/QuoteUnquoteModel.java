@@ -580,8 +580,14 @@ public class QuoteUnquoteModel {
     }
 
     @NonNull
-    public Single<List<AuthorPOJO>> authors() {
-        return databaseRepository.getAuthorsAndQuotationCounts();
+    public Single<List<Integer>> authorsQuotationCount() {
+        return databaseRepository.getAuthorsQuotationCount();
+    }
+
+    @NonNull
+    public Single<List<AuthorPOJO>> authors(int authorCount) {
+        return databaseRepository.getAuthorsAndQuotationCounts(
+                (authorCount == -1) ? 1 : authorCount);
     }
 
     @NonNull

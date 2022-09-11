@@ -10,6 +10,7 @@ import com.skydoves.colorpickerview.ColorEnvelope;
 public class AppearanceTextDialogQuotation extends AppearanceTextDialogFragment {
     public AppearanceTextDialogQuotation(int widgetId) {
         super(widgetId, R.string.fragment_appearance_style_text_dialog_quotation);
+        this.titleId = R.string.fragment_appearance_style_text_dialog_quotation_colour;
     }
 
     @Override

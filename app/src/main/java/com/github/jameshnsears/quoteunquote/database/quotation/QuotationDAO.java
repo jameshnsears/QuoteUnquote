@@ -25,6 +25,9 @@ public interface QuotationDAO {
     @Query("SELECT DIGEST FROM QUOTATIONS WHERE AUTHOR = :author ORDER BY ROWID ASC")
     List<String> getDigestsForAuthor(String author);
 
+    @Query("SELECT DISTINCT COUNT(AUTHOR) AS C FROM QUOTATIONS GROUP BY AUTHOR ORDER BY C ASC")
+    Single<List<Integer>> getAuthorsQuotationCount();
+
     @Query("SELECT AUTHOR, COUNT(*) AS QUOTATION_COUNT FROM QUOTATIONS GROUP BY AUTHOR HAVING QUOTATION_COUNT >= :quotationCount ORDER BY AUTHOR ASC")
     Single<List<AuthorPOJO>> getAuthorsAndQuotationCounts(int quotationCount);
 

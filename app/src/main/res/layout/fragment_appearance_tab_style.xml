@@ -230,9 +230,9 @@
                         android:layout_marginStart="0dp"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="1"
-                        android:padding="5dp"
-                        android:text="@string/fragment_appearance_button_quotation"
                         android:gravity="center_vertical"
+                        android:padding="10dp"
+                        android:text="@string/fragment_appearance_button_quotation"
                         android:textSize="14sp" />
 
                 <Button
@@ -262,9 +262,9 @@
                         android:layout_marginStart="0dp"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="1"
-                        android:padding="5dp"
-                        android:text="@string/fragment_appearance_button_author"
                         android:gravity="center_vertical"
+                        android:padding="10dp"
+                        android:text="@string/fragment_appearance_button_author"
                         android:textSize="14sp" />
 
                 <Button
@@ -296,7 +296,7 @@
                         android:layout_marginEnd="10dp"
                         android:layout_weight="1"
                         android:gravity="end|center_vertical"
-                        android:padding="5dp"
+                        android:padding="10dp"
                         android:text="@string/fragment_appearance_button_position"
                         android:textSize="14sp" />
 

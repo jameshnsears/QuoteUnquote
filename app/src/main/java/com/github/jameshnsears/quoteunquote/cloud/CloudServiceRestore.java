@@ -18,7 +18,6 @@ import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
 import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
 
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutionException;
 
 import timber.log.Timber;
 
@@ -45,8 +44,9 @@ public class CloudServiceRestore extends CloudService {
                 } else {
                     auditRestore(intent);
 
-                    SyncPreferences syncPreferences
-                            = new SyncPreferences(intent.getIntExtra("widgetId", 0), context);
+                    int widgetId = intent.getIntExtra("widgetId", 0);
+
+                    SyncPreferences syncPreferences = new SyncPreferences(widgetId, context);
 
                     syncPreferences.setArchiveGoogleCloud(syncPreferences.getArchiveGoogleCloud());
                     syncPreferences.setArchiveSharedStorage(syncPreferences.getArchiveSharedStorage());
@@ -58,52 +58,38 @@ public class CloudServiceRestore extends CloudService {
 
                     TransferRestoreResponse transferRestoreResponse
                             = cloudTransfer.restore(
-                                    CloudTransfer.TIMEOUT_SECONDS,
-                                    new TransferRestore().requestJson(
-                                            intent.getStringExtra("remoteCodeValue")));
+                            CloudTransfer.TIMEOUT_SECONDS,
+                            new TransferRestore().requestJson(
+                                    intent.getStringExtra("remoteCodeValue")));
 
                     if (transferRestoreResponse.getReason().equals("no JSON for code")) {
                         handler.post(() -> Toast.makeText(
                                 context,
                                 context.getString(R.string.fragment_archive_restore_missing_code),
                                 Toast.LENGTH_SHORT).show());
-                    }
-                    else if (transferRestoreResponse == null) {
+                    } else if (transferRestoreResponse == null) {
                         handler.post(() -> Toast.makeText(
                                 context,
                                 context.getString(R.string.fragment_archive_internet_missing),
                                 Toast.LENGTH_SHORT).show());
-                    }
-                    else {
+                    } else {
                         TransferRestore transferRestore = new TransferRestore();
                         Transfer transfer = transferRestoreResponse.getTransfer();
 
-                        try {
-                            if (transferRestore.testRestoreForDatabaseConsistency(
-                                    DatabaseRepository.getInstance(context),
-                                    transfer
-                            ).get()) {
-                                transferRestore.restore(
-                                        context,
-                                        DatabaseRepository.getInstance(context),
-                                        transfer);
+                        DatabaseRepository databaseRepository
+                                = DatabaseRepository.getInstance(context);
 
-                                QuotationsFragmentStateAdapter.alignSelectionFragmentWithRestore(
-                                        intent.getIntExtra("widgetId", 0), context);
+                        transferRestore.restore(context, databaseRepository, transfer);
 
-                                handler.post(() -> Toast.makeText(
-                                        context,
-                                        context.getString(R.string.fragment_archive_restore_success),
-                                        Toast.LENGTH_SHORT).show());
-                            } else {
-                                handler.post(() -> Toast.makeText(
-                                        context,
-                                        context.getString(R.string.fragment_archive_restore_failure),
-                                        Toast.LENGTH_LONG).show());
-                            }
-                        } catch (ExecutionException | InterruptedException e) {
-                            Timber.e(e.getMessage());
-                        }
+                        databaseRepository.alignHistoryWithQuotations(widgetId, context);
+
+                        QuotationsFragmentStateAdapter.alignSelectionFragmentWithRestore(
+                                widgetId, context);
+
+                        handler.post(() -> Toast.makeText(
+                                context,
+                                context.getString(R.string.fragment_archive_restore_success),
+                                Toast.LENGTH_SHORT).show());
                     }
                 }
 

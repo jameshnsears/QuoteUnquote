@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.1" />
+        <entry key="../../Android/Sdk/platforms/android-33/data/res/layout/simple_spinner_dropdown_item.xml" value="0.19375" />
         <entry key="app/src/emanuelkebede/res/layout/fragment_appearance_tab_toolbar.xml" value="0.19635416666666666" />
         <entry key="app/src/emanuelkebede/res/layout/quote_unquote_widget.xml" value="0.19479166666666667" />
         <entry key="app/src/fdroid/res/layout/fragment_appearance_tab_toolbar.xml" value="0.19270833333333334" />
@@ -81,7 +82,7 @@
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_quotations.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_quotations_tab_database.xml" value="0.9" />
-        <entry key="app/src/main/res/layout/fragment_quotations_tab_selection.xml" value="0.2517482517482518" />
+        <entry key="app/src/main/res/layout/fragment_quotations_tab_selection.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_schedule.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_sync.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_transfer.xml" value="0.42964352720450283" />

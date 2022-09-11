@@ -39,6 +39,7 @@ import com.github.jameshnsears.quoteunquote.databinding.FragmentSyncBinding;
 import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -307,22 +308,20 @@ public class SyncFragment extends FragmentCommon {
                         Timber.d("cancelled");
                     } else {
 
-                        if (activityResult.getResultCode() == Activity.RESULT_OK) {
-                            try {
-                                final String jsonString = getRestoreJson(activityResult);
+                        try {
+                            if (activityResult.getResultCode() == Activity.RESULT_OK) {
+                                try {
+                                    final String jsonString = getRestoreJson(activityResult);
 
-                                Boolean isJsonValid = isRestoreJsonValid(jsonString);
+                                    Boolean isJsonValid = isRestoreJsonValid(jsonString);
 
-                                final Transfer transfer
-                                        = new Gson().fromJson(jsonString, Transfer.class);
+                                    final Transfer transfer
+                                            = new Gson().fromJson(jsonString, Transfer.class);
 
-                                if (isJsonValid && transfer != null) {
-                                    if (transferRestore.testRestoreForDatabaseConsistency(
-                                            DatabaseRepository.getInstance(getContext()),
-                                            transfer
-                                    ).get()) {
-
+                                    if (isJsonValid && transfer != null) {
                                         restoreDeviceJson(transfer);
+
+                                        quoteUnquoteModel.alignHistoryWithQuotations(widgetId);
 
                                         QuotationsFragmentStateAdapter.alignSelectionFragmentWithRestore(widgetId, getContext());
 
@@ -333,18 +332,18 @@ public class SyncFragment extends FragmentCommon {
                                     } else {
                                         Toast.makeText(
                                                 getContext(),
-                                                getContext().getString(R.string.fragment_archive_restore_failure),
-                                                Toast.LENGTH_LONG).show();
+                                                getContext().getString(R.string.fragment_archive_restore_saf_invalid),
+                                                Toast.LENGTH_SHORT).show();
                                     }
-                                } else {
-                                    Toast.makeText(
-                                            getContext(),
-                                            getContext().getString(R.string.fragment_archive_restore_saf_invalid),
-                                            Toast.LENGTH_SHORT).show();
+                                } catch (final IOException e) {
+                                    Timber.e(e.getMessage());
                                 }
-                            } catch (final IOException | ExecutionException | InterruptedException e) {
-                                Timber.e(e.getMessage());
                             }
+                        } catch (JsonSyntaxException e) {
+                            Toast.makeText(
+                                    getContext(),
+                                    getContext().getString(R.string.fragment_archive_restore_saf_invalid),
+                                    Toast.LENGTH_SHORT).show();
                         }
                     }
 

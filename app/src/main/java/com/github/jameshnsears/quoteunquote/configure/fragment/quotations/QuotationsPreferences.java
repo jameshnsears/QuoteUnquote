@@ -14,6 +14,7 @@ public class QuotationsPreferences extends PreferencesFacade {
     public static final String CONTENT_ADD_TO_PREVIOUS_ALL = "CONTENT_ADD_TO_PREVIOUS_ALL";
     public static final String CONTENT_AUTHOR = "CONTENT_AUTHOR";
     public static final String CONTENT_AUTHOR_NAME = "CONTENT_AUTHOR_NAME";
+    public static final String CONTENT_AUTHOR_NAME_COUNT = "CONTENT_AUTHOR_NAME_COUNT";
     public static final String CONTENT_FAVOURITES = "CONTENT_FAVOURITES";
     public static final String CONTENT_SEARCH = "CONTENT_SEARCH";
     public static final String CONTENT_SEARCH_FAVOURITES_ONLY = "CONTENT_SEARCH_FAVOURITES_ONLY";
@@ -57,6 +58,15 @@ public class QuotationsPreferences extends PreferencesFacade {
 
     public void setContentSelectionSearchFavouritesOnly(@NonNull boolean value) {
         this.preferenceHelper.setPreference(this.getPreferenceKey(QuotationsPreferences.CONTENT_SEARCH_FAVOURITES_ONLY), value);
+    }
+
+    @NonNull
+    public Integer getContentSelectionAuthorCount() {
+        return this.preferenceHelper.getPreferenceInt(this.getPreferenceKey(QuotationsPreferences.CONTENT_AUTHOR_NAME_COUNT));
+    }
+
+    public void setContentSelectionAuthorCount(@NonNull Integer value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(QuotationsPreferences.CONTENT_AUTHOR_NAME_COUNT), value);
     }
 
     @NonNull

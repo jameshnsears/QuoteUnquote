@@ -75,8 +75,10 @@ public class QuotationsFragment extends FragmentCommon {
     public void onDestroyView() {
         fragmentQuotationsBinding = null;
 
-        QuotationsFragmentStateAdapter.quotationsSelectionFragment.shutdown();
-        QuotationsFragmentStateAdapter.quotationsSelectionFragment = null;
+        if (QuotationsFragmentStateAdapter.quotationsSelectionFragment != null) {
+            QuotationsFragmentStateAdapter.quotationsSelectionFragment.shutdown();
+            QuotationsFragmentStateAdapter.quotationsSelectionFragment = null;
+        }
 
         super.onDestroyView();
     }

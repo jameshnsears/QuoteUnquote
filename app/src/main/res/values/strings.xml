@@ -37,6 +37,7 @@
     <string name="fragment_quotations_selection_all"><b>All: %d</b></string>
     <string name="fragment_quotations_selection_add_to_previous_count">Add displayed Source / Search results to Previous</string>
     <string name="fragment_quotations_selection_author"><b>Source: %d</b></string>
+    <string name="fragment_quotations_selection_author_count">With quotation count &gt;=</string>
     <string name="fragment_quotations_selection_author_name">Selected Source</string>
     <string name="fragment_quotations_selection_favourites"><b>Favourites: %d</b></string>
     <string name="fragment_quotations_selection_favourites_export_button">Export</string>
@@ -71,10 +72,12 @@
     <string name="fragment_appearance_button_author">Source</string>
     <string name="fragment_appearance_button_position">Position</string>
     <string name="fragment_appearance_style_text_dialog_quotation">Quotation Text</string>
+    <string name="fragment_appearance_style_text_dialog_quotation_colour">Quotation Text Colour</string>
     <string name="fragment_appearance_style_text_dialog_author">Source Text</string>
+    <string name="fragment_appearance_style_text_dialog_author_colour">Source Text Colour</string>
     <string name="fragment_appearance_style_text_dialog_position">Position Text</string>
+    <string name="fragment_appearance_style_text_dialog_position_colour">Position Text Colour</string>
     <string name="fragment_appearance_style_text_dialog_visibility">Hide</string>
-    <string name="fragment_appearance_text_colour_dialog_title">Text Colour</string>
     <string name="fragment_appearance_family">Family</string>
     <string-array name="fragment_appearance_family_array">
         <item>Cursive</item>
@@ -137,7 +140,6 @@
     <string name="fragment_archive_restore_saf_invalid">Invalid file contents</string>
     <string name="fragment_archive_restore_receiving">Restore - please wait&#8230;</string>
     <string name="fragment_archive_restore_missing_code">Unable to find code in Cloud</string>
-    <string name="fragment_archive_restore_failure">Failure - current digest not in quotation database</string>
     <string name="fragment_archive_restore_success">Success - restore completed</string>
     <string name="fragment_archive_internet_missing">Check network / wait &amp; retry</string>
     <string name="fragment_archive_instruction">Sync does not include the contents of an External .csv; on a new device, import the .csv prior to restoring</string>

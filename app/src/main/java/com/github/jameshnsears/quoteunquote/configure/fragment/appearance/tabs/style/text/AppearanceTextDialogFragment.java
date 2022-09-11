@@ -33,6 +33,8 @@ import java.util.List;
 import timber.log.Timber;
 
 public class AppearanceTextDialogFragment extends DialogFragment {
+    protected int titleId;
+
     @Nullable
     public AppearancePreferences appearancePreferences;
 
@@ -127,7 +129,7 @@ public class AppearanceTextDialogFragment extends DialogFragment {
     private void createListenerTextColourPicker() {
         fragmentAppearanceTabStyleDialogBinding.textColourPickerButton.setOnClickListener(v -> {
             ColorPickerDialog.Builder builder = new ColorPickerDialog.Builder(getContext())
-                    .setTitle(getString(R.string.fragment_appearance_text_colour_dialog_title))
+                    .setTitle(getString(titleId))
                     .setPositiveButton(getString(R.string.fragment_appearance_ok),
                             (ColorEnvelopeListener) (envelope, fromUser) -> {
 

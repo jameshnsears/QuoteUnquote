@@ -370,11 +370,20 @@ public class DatabaseRepository {
     }
 
     @NonNull
-    public Single<List<AuthorPOJO>> getAuthorsAndQuotationCounts() {
+    public Single<List<Integer>> getAuthorsQuotationCount() {
         if (useInternalDatabase()) {
-            return quotationDAO.getAuthorsAndQuotationCounts(1);
+            return quotationDAO.getAuthorsQuotationCount();
         } else {
-            return quotationExternalDAO.getAuthorsAndQuotationCounts(1);
+            return quotationExternalDAO.getAuthorsQuotationCount();
+        }
+    }
+
+    @NonNull
+    public Single<List<AuthorPOJO>> getAuthorsAndQuotationCounts(int authorCount) {
+        if (useInternalDatabase()) {
+            return quotationDAO.getAuthorsAndQuotationCounts(authorCount);
+        } else {
+            return quotationExternalDAO.getAuthorsAndQuotationCounts(authorCount);
         }
     }
 
@@ -433,10 +442,14 @@ public class DatabaseRepository {
         if (useInternalDatabase()) {
             if (getQuotation(digest) != null) {
                 previousDAO.markAsPrevious(new PreviousEntity(widgetId, contentSelection, digest));
+            } else {
+                Timber.d("align=%s", digest);
             }
         } else {
             if (getQuotation(digest) != null) {
                 previousExternalDAO.markAsPrevious(new PreviousEntity(widgetId, contentSelection, digest));
+            } else {
+                Timber.d("align=%s", digest);
             }
         }
     }
@@ -480,9 +493,6 @@ public class DatabaseRepository {
             quotationEntity = getQuotation(currentExternalDAO.getCurrentDigest(widgetId));
         }
 
-        if (quotationEntity != null) {
-            Timber.d("digest=%s", quotationEntity.digest);
-        }
         return quotationEntity;
     }
 

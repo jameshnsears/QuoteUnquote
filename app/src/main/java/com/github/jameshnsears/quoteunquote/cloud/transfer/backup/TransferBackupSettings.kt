@@ -54,6 +54,7 @@ open class TransferBackupSettings(val context: Context) {
             all,
 
             author,
+            quotationPreferences.contentSelectionAuthorCount,
             quotationPreferences.contentSelectionAuthor,
 
             favourites,

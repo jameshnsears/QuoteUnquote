@@ -86,6 +86,37 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="6dp"
+                        android:orientation="horizontal"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp"
+                        android:paddingBottom="5dp">
+
+                    <TextView
+                            android:id="@+id/textViewQuotationCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:paddingVertical="5dp"
+                            android:paddingStart="0dp"
+                            android:paddingEnd="10dp"
+                            android:text="@string/fragment_quotations_selection_author_count"
+                            android:textSize="14sp" />
+
+                    <Spinner
+                            android:id="@+id/spinnerAuthorsCount"
+                            android:layout_width="110dp"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/fragment_quotations_selection_author_name"
+                            android:minHeight="48dp"
+                            android:paddingVertical="10dp"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
                         android:orientation="vertical"
                         android:paddingStart="0dp"
                         android:paddingEnd="0dp"
@@ -133,7 +164,9 @@
                         android:layout_marginStart="0dp"
                         android:orientation="vertical"
                         android:paddingStart="6dp"
-                        android:paddingEnd="0dp">
+                        android:paddingEnd="0dp"
+                        android:paddingTop="0dp"
+                        android:paddingBottom="5dp">>
 
                     <LinearLayout
                             android:layout_width="match_parent"
@@ -197,7 +230,9 @@
                         android:layout_marginStart="5dp"
                         android:orientation="vertical"
                         android:paddingStart="0dp"
-                        android:paddingEnd="6dp">
+                        android:paddingEnd="6dp"
+                        android:paddingTop="0dp"
+                        android:paddingBottom="5dp">
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
                             android:id="@+id/switchSearchFavouritesOnly"

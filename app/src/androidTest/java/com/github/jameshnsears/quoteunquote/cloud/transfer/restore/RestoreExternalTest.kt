@@ -4,7 +4,6 @@ import com.github.jameshnsears.quoteunquote.cloud.transfer.TransferUtility
 import com.github.jameshnsears.quoteunquote.cloud.transfer.backup.TransferBackup
 import io.mockk.every
 import io.mockk.mockkObject
-import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
@@ -60,27 +59,5 @@ class RestoreExternalTest : TransferRestoreUtility() {
             assertTrue(backupTransfer.favourites.isEmpty())
             assertTrue(backupTransfer.previous.size == 1)
         }
-    }
-
-    @Test
-    fun ensureDatabaseRestoreConsistency() {
-        insertInternalQuotations()
-        insertExternalQuotations()
-
-        val restoreTransfer = getTransferAsset("restoreAgainstMissingExternal.json")
-
-        val transferRestore = TransferRestore()
-
-//        val restoreJson = TransferRestore()
-//            .asJson(restoreTransfer)
-//        val backupJson = TransferBackup(context)
-//            .asJson(TransferBackup(context).transfer(databaseRepositoryDouble))
-
-        assertFalse(
-            transferRestore.testRestoreForDatabaseConsistency(
-                databaseRepositoryDouble,
-                restoreTransfer
-            ).get()
-        )
     }
 }

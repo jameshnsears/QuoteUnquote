@@ -25,7 +25,11 @@ class DatabaseSelectionTest : QuoteUnquoteModelUtility() {
         )
         assertEquals(
             5,
-            databaseRepositoryDouble.authorsAndQuotationCounts.blockingGet().size
+            databaseRepositoryDouble.getAuthorsAndQuotationCounts(1).blockingGet().size
+        )
+        assertEquals(
+            2,
+            databaseRepositoryDouble.authorsQuotationCount.blockingGet().size
         )
     }
 
@@ -42,7 +46,11 @@ class DatabaseSelectionTest : QuoteUnquoteModelUtility() {
         )
         assertEquals(
             4,
-            databaseRepositoryDouble.authorsAndQuotationCounts.blockingGet().size
+            databaseRepositoryDouble.getAuthorsAndQuotationCounts(1).blockingGet().size
+        )
+        assertEquals(
+            2,
+            databaseRepositoryDouble.authorsQuotationCount.blockingGet().size
         )
     }
 }

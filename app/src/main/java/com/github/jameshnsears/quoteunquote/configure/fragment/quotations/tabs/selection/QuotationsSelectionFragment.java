@@ -199,9 +199,14 @@ public class QuotationsSelectionFragment extends FragmentCommon {
         initUi();
 
         createListenerRadioGroup();
+
         createListenerAddToPreviousAll();
+
+        createListenerAuthorsQuotationCount();
         createListenerAuthor();
+
         createListenerFavouriteButtonExport();
+
         createListenerSearchFavouritesOnly();
 
         handleExportResult();
@@ -212,10 +217,13 @@ public class QuotationsSelectionFragment extends FragmentCommon {
     public void initUi() {
         setInitialCounts();
 
-        setFavouriteCount();
         setAllCount();
         setAddToPreviousAll();
-        setAuthor();
+
+        setAuthorsQuotationCount();
+
+        setFavouriteCount();
+
         setSearch();
 
         setSelection();
@@ -262,8 +270,36 @@ public class QuotationsSelectionFragment extends FragmentCommon {
                         }));
     }
 
-    public void setAuthor() {
-        disposables.add(quoteUnquoteModel.authors()
+    public void setAuthorsQuotationCount() {
+        disposables.add(quoteUnquoteModel.authorsQuotationCount()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(
+                        new DisposableSingleObserver<List<Integer>>() {
+                            @Override
+                            public void onSuccess(@NonNull final List<Integer> authorCountList) {
+                                final ArrayAdapter<Integer> adapter = new ArrayAdapter<>(
+                                        getContext(),
+                                        R.layout.spinner_item,
+                                        authorCountList);
+                                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                fragmentQuotationsTabSelectionBinding.spinnerAuthorsCount.setAdapter(adapter);
+
+                                fragmentQuotationsTabSelectionBinding.spinnerAuthorsCount.setSelection(
+                                        authorCountList.indexOf(quotationsPreferences.getContentSelectionAuthorCount()));
+                            }
+
+                            @Override
+                            public void onError(@NonNull final Throwable throwable) {
+                                Timber.d("onError=%s", throwable.getMessage());
+                            }
+                        }));
+    }
+
+    public void setAuthors() {
+        disposables.add(quoteUnquoteModel.authors(
+                        quotationsPreferences.getContentSelectionAuthorCount().intValue()
+                )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(
@@ -280,11 +316,18 @@ public class QuotationsSelectionFragment extends FragmentCommon {
                                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                                 fragmentQuotationsTabSelectionBinding.spinnerAuthors.setAdapter(adapter);
 
+                                // first time usage
                                 if ("".equals(quotationsPreferences.getContentSelectionAuthor())) {
                                     quotationsPreferences.setContentSelectionAuthor(authors.get(0));
                                 }
 
-                                setAuthorName();
+                                if (authors.contains(quotationsPreferences.getContentSelectionAuthor())) {
+                                    // author is within quotation count range
+                                    setAuthorName(quotationsPreferences.getContentSelectionAuthor());
+                                } else {
+                                    quotationsPreferences.setContentSelectionAuthor(authors.get(0));
+                                    setAuthorName(authors.get(0));
+                                }
                             }
 
                             @Override
@@ -294,8 +337,7 @@ public class QuotationsSelectionFragment extends FragmentCommon {
                         }));
     }
 
-    protected void setAuthorName() {
-        final String authorPreference = quotationsPreferences.getContentSelectionAuthor();
+    protected void setAuthorName(final String authorPreference) {
 
         fragmentQuotationsTabSelectionBinding.spinnerAuthors.setSelection(
                 quoteUnquoteModel.authorsIndex(authorPreference));
@@ -304,7 +346,6 @@ public class QuotationsSelectionFragment extends FragmentCommon {
                 getResources().getString(
                         R.string.fragment_quotations_selection_author,
                         quoteUnquoteModel.countAuthorQuotations(authorPreference)));
-
     }
 
     public void setFavouriteCount() {
@@ -433,7 +474,10 @@ public class QuotationsSelectionFragment extends FragmentCommon {
     }
 
     private void enableAuthor(final boolean enable) {
+        fragmentQuotationsTabSelectionBinding.textViewQuotationCount.setEnabled(enable);
+        fragmentQuotationsTabSelectionBinding.spinnerAuthorsCount.setEnabled(enable);
         fragmentQuotationsTabSelectionBinding.spinnerAuthors.setEnabled(enable);
+
     }
 
     public void makeButtonAlpha(@NonNull final Button button, final boolean enable) {
@@ -456,6 +500,24 @@ public class QuotationsSelectionFragment extends FragmentCommon {
         }
     }
 
+    protected void createListenerAuthorsQuotationCount() {
+        fragmentQuotationsTabSelectionBinding.spinnerAuthorsCount.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(final AdapterView<?> parent, final View view, final int position, final long selectedItemId) {
+                final String authorCount = fragmentQuotationsTabSelectionBinding.spinnerAuthorsCount.getSelectedItem().toString();
+
+                quotationsPreferences.setContentSelectionAuthorCount(Integer.valueOf(authorCount));
+
+                setAuthors();
+            }
+
+            @Override
+            public void onNothingSelected(final AdapterView<?> parent) {
+                // do nothing
+            }
+        });
+    }
+
     protected void createListenerAuthor() {
         fragmentQuotationsTabSelectionBinding.spinnerAuthors.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -463,7 +525,8 @@ public class QuotationsSelectionFragment extends FragmentCommon {
                 final String author = fragmentQuotationsTabSelectionBinding.spinnerAuthors.getSelectedItem().toString();
                 fragmentQuotationsTabSelectionBinding.radioButtonAuthor.setText(
                         getResources().getString(R.string.fragment_quotations_selection_author,
-                                quoteUnquoteModel.countAuthorQuotations(author)));
+                                quoteUnquoteModel.countAuthorQuotations(author)
+                        ));
 
                 if (!quotationsPreferences.getContentSelectionAuthor().equals(author)) {
                     Timber.d("author=%s", author);

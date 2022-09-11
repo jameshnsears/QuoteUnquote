@@ -22,4 +22,3 @@ The app includes two databases:
 &bull; Minimal permissions
 &bull; Internal database content is in English
 &bull; Open-source - raise a <a href="https://github.com/jameshnsears/quoteunquote">GitHub</a> issue at https://github.com/jameshnsears/quoteunquote
-

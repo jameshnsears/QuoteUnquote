@@ -383,6 +383,7 @@
         "CONTENT_ADD_TO_PREVIOUS_ALL": true,
         "CONTENT_ALL": true,
         "CONTENT_AUTHOR": false,
+        "CONTENT_AUTHOR_NAME_COUNT": 5,
         "CONTENT_AUTHOR_NAME": "/r/quotes/top",
         "CONTENT_FAVOURITES": false,
         "CONTENT_SEARCH": false,
