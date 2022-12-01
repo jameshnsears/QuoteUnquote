@@ -1,4 +1,0 @@
-- Allow user to select # of quotations shown in Sources spinner
-- Include all quotations from prior releases
-- Fix database integrity following Import / Restore
-- Fix Wikipedia linking defect

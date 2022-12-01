@@ -1,0 +1,2 @@
+&bull; For F-Droid bring back android.permission.INTERNET
+&bull; Update 3rd party dependencies via dependabot
