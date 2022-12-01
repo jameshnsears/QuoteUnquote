@@ -83,7 +83,7 @@ class AddDisplayedResultToPreviousAllTest : QuoteUnquoteModelUtility() {
         )
     }
 
-    fun setupAuthorWithAddToPreviousAll(contentAddToPrevious: Boolean) {
+    private fun setupAuthorWithAddToPreviousAll(contentAddToPrevious: Boolean) {
         insertQuotationTestData01()
         insertQuotationTestData02()
 
@@ -111,7 +111,7 @@ class AddDisplayedResultToPreviousAllTest : QuoteUnquoteModelUtility() {
         )
     }
 
-    fun setupSearchWithAddToPreviousAll(contentAddToPrevious: Boolean) {
+    private fun setupSearchWithAddToPreviousAll(contentAddToPrevious: Boolean) {
         val quotationsPreferences =
             QuotationsPreferences(
                 WidgetIdHelper.WIDGET_ID_01,

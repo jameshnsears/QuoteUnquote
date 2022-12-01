@@ -1,1 +1,0 @@
-- Fix Alignment of history database with quotations after release

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Quote Unquote</string>
 
     <string name="activity_instructions_title">Instructions</string>
@@ -65,11 +65,12 @@
     <string name="fragment_appearance_background">Background</string>
     <string name="fragment_appearance_colour">Colour</string>
     <string name="fragment_appearance_background_colour_dialog_title">Background Colour</string>
-    <string name="fragment_appearance_cancel">CANCEL</string>
+    <string name="fragment_appearance_cancel" tools:ignore="ButtonCase">CANCEL</string>
     <string name="fragment_appearance_ok">OK</string>
     <string name="fragment_appearance_transparency">Transparency %</string>
     <string name="fragment_appearance_text">Text</string>
     <string name="fragment_appearance_force">Force Italic / Regular style</string>
+    <string name="fragment_appearance_center">Center Quotation &amp; Source</string>
     <string name="fragment_appearance_button_quotation">Quotation</string>
     <string name="fragment_appearance_button_author">Source</string>
     <string name="fragment_appearance_button_position">Position</string>

@@ -1,7 +1,7 @@
 <b>Description</b>
-Quote Unquote is an App Widget that displays &#34;Quotations&#34;.
+Quote Unquote is an App Widget that displays Quotations.
 
-The App contains 20,000+ &#34;high quality&#34; quotations.
+The App contains over twenty thousand, curated, &#34;high quality&#34; quotations.
 
 <b>Key features</b>
 &bull; Filter quotations

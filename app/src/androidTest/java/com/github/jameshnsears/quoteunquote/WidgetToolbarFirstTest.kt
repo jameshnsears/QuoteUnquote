@@ -12,8 +12,8 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class WidgetToolbarFirstTest : QuoteUnquoteModelUtility() {
-    val quoteUnquoteWidget = spyk<QuoteUnquoteWidget>()
-    val appWidgetManager = mockk<AppWidgetManager>()
+    private val quoteUnquoteWidget = spyk<QuoteUnquoteWidget>()
+    private val appWidgetManager = mockk<AppWidgetManager>()
 
     fun setup() {
         insertQuotationTestData01()

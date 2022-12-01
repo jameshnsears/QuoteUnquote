@@ -16,6 +16,7 @@
             android:id="@+id/cardViewBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:contentPadding="5dp"
             app:cardCornerRadius="20dp"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="true"
@@ -124,6 +125,7 @@
             android:id="@+id/cardViewText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:contentPadding="5dp"
             app:cardCornerRadius="20dp"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="true"
@@ -224,23 +226,40 @@
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchCenter"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:paddingVertical="10dp"
+                        android:text="@string/fragment_appearance_center"
+                        android:textSize="14sp"
+                        tools:ignore="TextContrastCheck" />
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingTop="5dp">
 
                 <Button
                         android:id="@+id/buttonQuotation"
-                        android:layout_width="160dp"
+                        android:layout_width="140dp"
                         android:layout_height="48dp"
                         android:text="@string/fragment_appearance_button_quotation"
                         android:textColor="@android:color/white"
                         android:textSize="14sp"
-                        app:backgroundTint="@null" />
+                        app:backgroundTint="@null"
+                        tools:ignore="DuplicateSpeakableTextCheck" />
 
                 <TextView
                         android:id="@+id/textViewCurrentQuotation"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="0dp"
@@ -261,18 +280,19 @@
 
                 <Button
                         android:id="@+id/buttonAuthor"
-                        android:layout_width="160dp"
+                        android:layout_width="140dp"
                         android:layout_height="48dp"
                         android:text="@string/fragment_appearance_button_author"
                         android:textColor="@android:color/white"
                         android:textSize="14sp"
                         app:backgroundTint="@null"
-                        app:icon="@drawable/ic_appearance_visibility_off_24" />
+                        app:icon="@drawable/ic_appearance_visibility_off_24"
+                        tools:ignore="DuplicateSpeakableTextCheck" />
 
                 <TextView
                         android:id="@+id/textViewCurrentAuthor"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="0dp"
@@ -293,18 +313,19 @@
 
                 <Button
                         android:id="@+id/buttonPosition"
-                        android:layout_width="160dp"
+                        android:layout_width="140dp"
                         android:layout_height="48dp"
                         android:text="@string/fragment_appearance_button_position"
                         android:textColor="@android:color/white"
                         android:textSize="14sp"
                         app:backgroundTint="@null"
-                        app:icon="@drawable/ic_appearance_visibility_off_24" />
+                        app:icon="@drawable/ic_appearance_visibility_off_24"
+                        tools:ignore="DuplicateSpeakableTextCheck" />
 
                 <TextView
                         android:id="@+id/textViewCurrentPosition"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="10dp"
                         android:layout_marginEnd="00dp"

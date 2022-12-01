@@ -46,9 +46,9 @@ android {
         applicationId "com.github.jameshnsears.quoteunquote"
 
         // changelog version | min sdk | target sdk
-        versionCode 1102433
+        versionCode 1112433
         // semantic versioning
-        versionName "4.2.0"
+        versionName "4.3.0"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -97,6 +97,7 @@ android {
                 debugSymbolLevel 'FULL'
             }
         }
+
         debug {
             testCoverageEnabled true
             buildConfigField("String", "GIT_HASH", "\"$gitHash\"")
@@ -205,7 +206,7 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.5.0'
     androidTestImplementation 'androidx.test:runner:1.5.1'
 
-    androidTestImplementation 'io.mockk:mockk-android:1.13.2'
+    androidTestImplementation 'io.mockk:mockk-android:1.13.3'
 
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
@@ -218,7 +219,7 @@ dependencies {
     debugImplementation 'androidx.test:core-ktx:1.5.0'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
 
-    implementation platform('com.google.firebase:firebase-bom:31.0.3')
+    implementation platform('com.google.firebase:firebase-bom:31.1.0')
     googleplayImplementation 'com.google.firebase:firebase-crashlytics:18.3.2'
     googleplayImplementation 'com.google.firebase:firebase-analytics:21.2.0'
 
@@ -257,7 +258,7 @@ dependencies {
     testImplementation 'androidx.test.ext:junit:1.1.4'
     testImplementation 'androidx.test:rules:1.5.0'
     testImplementation 'com.google.guava:guava:31.1-jre'
-    testImplementation 'io.mockk:mockk:1.13.2'
+    testImplementation 'io.mockk:mockk:1.13.3'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.robolectric:robolectric:4.9'
 }

@@ -15,6 +15,7 @@
             android:id="@+id/cardViewDatabaseInternal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:contentPadding="5dp"
             app:cardCornerRadius="20dp"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="true"
@@ -47,6 +48,7 @@
             android:id="@+id/cardViewDatabaseExternal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:contentPadding="5dp"
             app:cardCornerRadius="20dp"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="true"
@@ -85,7 +87,7 @@
 
                 <Button
                         android:id="@+id/buttonImport"
-                        android:layout_width="110dp"
+                        android:layout_width="140dp"
                         android:layout_height="48dp"
                         android:text="@string/fragment_quotations_database_button_import"
                         android:textColor="@android:color/white"

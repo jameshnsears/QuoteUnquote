@@ -14,6 +14,8 @@ public class AppearancePreferences extends PreferencesFacade {
     public static final String APPEARANCE_TEXT_SIZE = "APPEARANCE_TEXT_SIZE";
     public static final String APPEARANCE_TEXT_FORCE_ITALIC_REGULAR
             = "APPEARANCE_TEXT_FORCE_ITALIC_REGULAR";
+    public static final String APPEARANCE_TEXT_CENTER
+            = "APPEARANCE_TEXT_CENTER";
 
     public static final String APPEARANCE_QUOTATION_TEXT_COLOUR = "APPEARANCE_TEXT_COLOUR";
     public static final String APPEARANCE_QUOTATION_TEXT_FAMILY = "APPEARANCE_TEXT_FAMILY";
@@ -169,6 +171,15 @@ public class AppearancePreferences extends PreferencesFacade {
                 getPreferenceKey(APPEARANCE_TEXT_FORCE_ITALIC_REGULAR), false);
     }
 
+    public void setAppearanceTextCenter(final boolean value) {
+        preferenceHelper.setPreference(
+                getPreferenceKey(APPEARANCE_TEXT_CENTER), value);
+    }
+
+    public boolean getAppearanceTextCenter() {
+        return preferenceHelper.getPreferenceBoolean(
+                getPreferenceKey(APPEARANCE_TEXT_CENTER), false);
+    }
 
     public void setAppearanceQuotationTextSize(final int value) {
         preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TEXT_SIZE), value);

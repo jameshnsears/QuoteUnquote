@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -107,6 +108,7 @@ public class AppearanceContentsFragment extends FragmentCommon {
         createListenerTextFamily();
         createListenerTextStyle();
         createListenerForceItalicRegular();
+        createListenerCenter();
 
         createListenerButtonQuotation();
         createListenerButtonAuthor();
@@ -117,6 +119,7 @@ public class AppearanceContentsFragment extends FragmentCommon {
         setTextFamily();
         setTextStyle();
         setTextForceItalicRegular();
+        setTextCenter();
 
         setTextQuotation();
         setTextAuthor();
@@ -249,6 +252,15 @@ public class AppearanceContentsFragment extends FragmentCommon {
         });
     }
 
+    private void createListenerCenter() {
+        fragmentAppearanceTabContentsBinding.switchCenter.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            appearancePreferences.setAppearanceTextCenter(isChecked);
+
+            setTextQuotation();
+            setTextAuthor();
+        });
+    }
+
     public void sharedPreferenceSaveTextFamily(String selectedItem) {
         if (!appearancePreferences.getAppearanceTextFamily().equals(selectedItem)) {
             appearancePreferences.setAppearanceTextFamily(selectedItem);
@@ -350,6 +362,19 @@ public class AppearanceContentsFragment extends FragmentCommon {
         }
     }
 
+    public void setTextCenter() {
+        fragmentAppearanceTabContentsBinding.switchCenter
+                .setChecked(appearancePreferences.getAppearanceTextCenter());
+
+        if (appearancePreferences.getAppearanceTextCenter()) {
+            fragmentAppearanceTabContentsBinding.textViewCurrentQuotation.setGravity(Gravity.CENTER);
+            fragmentAppearanceTabContentsBinding.textViewCurrentAuthor.setGravity(Gravity.CENTER);
+        } else {
+            fragmentAppearanceTabContentsBinding.textViewCurrentQuotation.setGravity(Gravity.START | Gravity.CENTER);
+            fragmentAppearanceTabContentsBinding.textViewCurrentAuthor.setGravity(Gravity.START | Gravity.CENTER);
+        }
+    }
+
     public void setSpinner(
             @NonNull final Spinner spinner,
             @NonNull final BaseAdapter spinnerAdapter,
@@ -389,6 +414,8 @@ public class AppearanceContentsFragment extends FragmentCommon {
         fragmentAppearanceTabContentsBinding.textViewCurrentQuotation
                 .setTextSize(appearancePreferences.getAppearanceQuotationTextSize());
 
+        setTextCenter();
+
         fragmentAppearanceTabContentsBinding.textViewCurrentQuotation
                 .setText(R.string.fragment_appearance_button_quotation);
     }
@@ -408,6 +435,8 @@ public class AppearanceContentsFragment extends FragmentCommon {
 
         fragmentAppearanceTabContentsBinding.textViewCurrentAuthor
                 .setTextSize(appearancePreferences.getAppearanceAuthorTextSize());
+
+        setTextCenter();
 
         SpannableString content;
         if (appearancePreferences.getAppearanceAuthorTextHide()) {
@@ -521,7 +550,7 @@ public class AppearanceContentsFragment extends FragmentCommon {
                 textView.setTypeface(typeFace, Typeface.NORMAL);
                 textView.setShadowLayer(1F, 2F, 2F, Color.BLACK);
                 break;
-            case "Regular":
+            default: // case "Regular":
                 textView.setTypeface(typeFace, Typeface.NORMAL);
                 break;
         }

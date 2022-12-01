@@ -78,6 +78,7 @@ open class TransferBackupSettings(val context: Context) {
             appearancePreferences.appearanceTextFamily,
             appearancePreferences.appearanceTextStyle,
             appearancePreferences.appearanceTextForceItalicRegular,
+            appearancePreferences.appearanceTextCenter,
 
             appearancePreferences.appearanceQuotationTextSize,
             appearancePreferences.appearanceQuotationTextColour,

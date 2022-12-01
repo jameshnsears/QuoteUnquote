@@ -98,7 +98,7 @@ class EspressoConfigurationTest {
         }
     }
 
-    fun ViewInteraction.waitUntilVisible(timeout: Long): ViewInteraction {
+    private fun ViewInteraction.waitUntilVisible(timeout: Long): ViewInteraction {
         val startTime = System.currentTimeMillis()
         val endTime = startTime + timeout
 
@@ -114,7 +114,7 @@ class EspressoConfigurationTest {
         throw TimeoutException()
     }
 
-    fun getText(matcher: ViewInteraction): String {
+    private fun getText(matcher: ViewInteraction): String {
         var text = String()
         matcher.perform(object : ViewAction {
             override fun getConstraints(): Matcher<View> {

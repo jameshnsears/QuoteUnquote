@@ -36,6 +36,7 @@
             android:id="@+id/cardViewSync"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:contentPadding="5dp"
             app:cardCornerRadius="20dp"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="true"
@@ -95,7 +96,7 @@
 
                     <TextView
                             android:id="@+id/textViewLocalCodeValue"
-                            android:layout_width="190dp"
+                            android:layout_width="160dp"
                             android:layout_height="wrap_content"
                             android:minHeight="48dp"
                             android:paddingVertical="10dp"
@@ -107,7 +108,7 @@
 
                     <Button
                             android:id="@+id/buttonBackup"
-                            android:layout_width="120dp"
+                            android:layout_width="140dp"
                             android:layout_height="48dp"
                             android:text="@string/fragment_archive_backup"
                             android:textColor="@android:color/white"
@@ -125,7 +126,7 @@
 
                     <EditText
                             android:id="@+id/editTextRemoteCodeValue"
-                            android:layout_width="190dp"
+                            android:layout_width="160dp"
                             android:layout_height="wrap_content"
                             android:ems="10"
                             android:importantForAutofill="no"
@@ -137,7 +138,7 @@
 
                     <Button
                             android:id="@+id/buttonRestore"
-                            android:layout_width="120dp"
+                            android:layout_width="140dp"
                             android:layout_height="48dp"
                             android:text="@string/fragment_archive_restore"
                             android:textColor="@android:color/white"

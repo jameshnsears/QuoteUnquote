@@ -65,7 +65,7 @@ class TransferBackupSettingsTest : GsonTestHelper() {
         }
     }
 
-    fun expectedSettings(): List<Settings> {
+    private fun expectedSettings(): List<Settings> {
         val settingsList = mutableListOf<Settings>()
 
         settingsList.add(
@@ -96,6 +96,7 @@ class TransferBackupSettingsTest : GsonTestHelper() {
         "#FFFFFFFF",
         "Sans Serif",
         "Regular",
+        false,
         false,
         16,
         "#FF000000",

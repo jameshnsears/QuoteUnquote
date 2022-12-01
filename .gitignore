@@ -7,6 +7,9 @@ app/.classpath
 /app/keystore.jks
 /app/src/googleplay/google-services.json
 /app/src/google-services.json
+/bin/envvars.sh
+/bin/tidy-up-github-actions.sh
+/bin/transfer_restore.sh
 /build
 /captures
 .cxx
@@ -21,6 +24,7 @@ app/.classpath
 .idea/modules.xml
 .idea/navEditor.xml
 .idea/QuoteUnquote.iml
+/.idea/render.experimental.xml
 .idea/shelf/
 .idea/sonarlint/issuestore/
 .idea/sonarlint-state.xml
@@ -31,7 +35,3 @@ local.properties
 /Quote, Unquote.vpp.*
 /.Quote, Unquote.vpp.lck
 .scannerwork
-/bin/transfer_restore.sh
-/bin/envvars.sh
-/.idea/render.experimental.xml
-/bin/tidy-up-github-actions.sh
