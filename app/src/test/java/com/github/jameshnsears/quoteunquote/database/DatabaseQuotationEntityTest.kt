@@ -21,6 +21,18 @@ class DatabaseQuotationEntityTest : ShadowLoggingHelper() {
             "quotation"
         )
 
-        assertEquals("quotation\n\nauthor", quotationEntity.theShareContent())
+        assertEquals("quotation\n\nauthor", quotationEntity.shareQuotationAuthor())
+    }
+
+    @Test
+    fun shareQuotation() {
+        val quotationEntity = QuotationEntity(
+            "digest",
+            "wikipedia",
+            "author",
+            "quotation"
+        )
+
+        assertEquals("quotation", quotationEntity.shareQuotation())
     }
 }

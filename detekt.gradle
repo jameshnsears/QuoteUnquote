@@ -3,7 +3,6 @@ apply plugin: "io.gitlab.arturbosch.detekt"
 detekt {
     debug = true
     ignoreFailures = false
-    failFast = false
     buildUponDefaultConfig = true
     config = files("${rootProject.projectDir}/config/detekt/detekt.yml")
     baseline = file("${rootProject.projectDir}/config/detekt/baseline.xml")

@@ -47,7 +47,12 @@ public class QuotationEntity {
     }
 
     @NonNull
-    public String theShareContent() {
+    public String shareQuotationAuthor() {
         return quotation + "\n\n" + author;
+    }
+
+    @NonNull
+    public String shareQuotation() {
+        return quotation;
     }
 }

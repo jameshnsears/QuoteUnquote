@@ -42,6 +42,7 @@
 * MetricsReloaded - <https://plugins.jetbrains.com/plugin/93-metricsreloaded>
 * ADB Idea - <https://plugins.jetbrains.com/plugin/7380-adb-idea>
 * JSON To Kotlin Class (JsonToKotlinClass) - <https://plugins.jetbrains.com/plugin/9960-json-to-kotlin-class-jsontokotlinclass>-
+* Qodana - JetBrains
 
 ---
 

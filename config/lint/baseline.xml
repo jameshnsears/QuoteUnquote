@@ -1,177 +1,201 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="5" by="lint Dolphin | 2021.3.1 Patch 1">
+<issues format="6" by="lint 7.3.1" type="baseline" client="gradle" dependencies="false" name="AGP (7.3.1)" variant="all" version="7.3.1">
 
     <issue
-        id="LintError"
-        message="Unexpected failure during lint analysis (this is a bug in lint or one of the libraries it depends on)&#xA;&#xA;Stack: `AssertionError:ResourceXmlDetector.run(ResourceXmlDetector.java:49)←LintDriver.checkProperties(LintDriver.kt:1574)←LintDriver.runFileDetectors(LintDriver.kt:1450)←LintDriver.checkProject(LintDriver.kt:1185)←LintDriver.checkProjectRoot(LintDriver.kt:645)←LintDriver.access$checkProjectRoot(LintDriver.kt:158)←LintDriver$analyze$1.invoke(LintDriver.kt:438)←LintDriver$analyze$1.invoke(LintDriver.kt:435)←LintDriver.doAnalyze(LintDriver.kt:519)←LintDriver.doAnalyze$default(LintDriver.kt:490)←LintDriver.analyze(LintDriver.kt:435)←LintGlobalInspectionContext.performPreRunActivities(LintGlobalInspectionContext.java:282)←GlobalInspectionContextBase.initializeTools(GlobalInspectionContextBase.java:302)←GlobalInspectionContextImpl.runTools(GlobalInspectionContextImpl.java:326)←GlobalInspectionContextBase.lambda$performInspectionsWithProgress$3(GlobalInspectionContextBase.java:260)←CoreProgressManager.lambda$executeProcessUnderProgress$12(CoreProgressManager.java:624)←CoreProgressManager.registerIndicatorAndRun(CoreProgressManager.java:698)←CoreProgressManager.computeUnderProgress(CoreProgressManager.java:646)←CoreProgressManager.executeProcessUnderProgress(CoreProgressManager.java:623)←ProgressManagerImpl.executeProcessUnderProgress(ProgressManagerImpl.java:66)←GlobalInspectionContextBase.performInspectionsWithProgress(GlobalInspectionContextBase.java:260)←GlobalInspectionContextBase$2.run(GlobalInspectionContextBase.java:213)←CoreProgressManager.startTask(CoreProgressManager.java:436)←ProgressManagerImpl.startTask(ProgressManagerImpl.java:120)←CoreProgressManager.lambda$runProcessWithProgressAsync$5(CoreProgressManager.java:496)←ProgressRunner.lambda$submit$3(ProgressRunner.java:244)←CoreProgressManager.lambda$runProcess$2(CoreProgressManager.java:188)←CoreProgressManager.lambda$executeProcessUnderProgress$12(CoreProgressManager.java:624)←CoreProgressManager.registerIndicatorAndRun(CoreProgressManager.java:698)←CoreProgressManager.computeUnderProgress(CoreProgressManager.java:646)←CoreProgressManager.executeProcessUnderProgress(CoreProgressManager.java:623)←ProgressManagerImpl.executeProcessUnderProgress(ProgressManagerImpl.java:66)←CoreProgressManager.runProcess(CoreProgressManager.java:175)←ProgressRunner.lambda$submit$4(ProgressRunner.java:244)←CompletableFuture$AsyncSupply.run(CompletableFuture.java:1700)←ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)←ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)←Executors$PrivilegedThreadFactory$1$1.run(Executors.java:668)←Executors$PrivilegedThreadFactory$1$1.run(Executors.java:665)←AccessController.doPrivileged(AccessController.java:-2)←Executors$PrivilegedThreadFactory$1.run(Executors.java:665)←Thread.run(Thread.java:829)`&#xA;&#xA;You can set environment variable `LINT_PRINT_STACKTRACE=true` to dump a full stacktrace to stdout.">
+        id="InvalidPackage"
+        message="Invalid package reference in org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm; not included in Android: `java.lang.instrument`. Referenced from `kotlinx.coroutines.debug.AgentPremain`.">
         <location
-            file="QuoteUnquote"/>
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.jetbrains.kotlinx/kotlinx-coroutines-core-jvm/1.6.4/2c997cd1c0ef33f3e751d3831929aeff1390cb30/kotlinx-coroutines-core-jvm-1.6.4.jar"/>
+    </issue>
+
+    <issue
+        id="InvalidPackage"
+        message="Invalid package reference in library; not included in Android: `java.lang.management`. Referenced from `org.jacoco.agent.rt.internal_3570298.JmxRegistration`.">
+        <location
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.jacoco/org.jacoco.agent/0.8.7/37df187b76888101ecd745282e9cd1ad4ea508d6/org.jacoco.agent-0.8.7-runtime.jar"/>
+    </issue>
+
+    <issue
+        id="InvalidPackage"
+        message="Invalid package reference in library; not included in Android: `javax.management`. Referenced from `org.jacoco.agent.rt.internal_3570298.JmxRegistration`.">
+        <location
+            file="$GRADLE_USER_HOME/caches/modules-2/files-2.1/org.jacoco/org.jacoco.agent/0.8.7/37df187b76888101ecd745282e9cd1ad4ea508d6/org.jacoco.agent-0.8.7-runtime.jar"/>
     </issue>
 
     <issue
         id="VectorRaster"
-        message="Limit vector icons sizes to 200×200 to keep icon drawing fast; see https://developer.android.com/studio/write/vector-asset-studio#when for more">
+        message="Limit vector icons sizes to 200×200 to keep icon drawing fast; see https://developer.android.com/studio/write/vector-asset-studio#when for more"
+        errorLine1="    android:width=&quot;620dp&quot;"
+        errorLine2="                   ~~~~~">
         <location
             file="src/main/res/drawable/ic_instructions_footer_github_logo.xml"
-            line="2"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of io.mockk:mockk than 1.12.7 is available: 1.13.2">
-        <location
-            file="build.gradle"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
-        message="A newer version of io.mockk:mockk than 1.12.7 is available: 1.13.2">
-        <location
-            file="build.gradle"/>
+            line="2"
+            column="20"/>
     </issue>
 
     <issue
         id="DataExtractionRules"
-        message="The attribute `android:allowBackup` is deprecated from Android 12 and higher and may be removed in future versions. Consider adding the attribute `android:dataExtractionRules` specifying an `@xml` resource which configures cloud backups and device transfers on Android 12 and higher.">
+        message="The attribute `android:allowBackup` is deprecated from Android 12 and higher and may be removed in future versions. Consider adding the attribute `android:dataExtractionRules` specifying an `@xml` resource which configures cloud backups and device transfers on Android 12 and higher."
+        errorLine1="            android:allowBackup=&quot;false&quot;>"
+        errorLine2="                                 ~~~~~">
         <location
             file="src/main/AndroidManifest.xml"
-            line="21"/>
-    </issue>
-
-    <issue
-        id="ObsoleteSdkInt"
-        message="Unnecessary; SDK_INT is always >= 31">
-        <location
-            file="src/main/res/xml/quote_unquote_widget_info.xml"
-            line="18"/>
-    </issue>
-
-    <issue
-        id="StaticFieldLeak"
-        message="Do not place Android context classes in static fields (static reference to `DatabaseRepository` which has field `context` pointing to `Context`); this is a memory leak">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
-            line="37"/>
-    </issue>
-
-    <issue
-        id="StaticFieldLeak"
-        message="Do not place Android context classes in static fields (static reference to `DatabaseRepository` which has field `context` pointing to `Context`); this is a memory leak">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
-            line="37"/>
+            line="18"
+            column="34"/>
     </issue>
 
     <issue
         id="VectorPath"
-        message="Very long vector path (822 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        message="Very long vector path (822 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
+        errorLine1="        android:pathData=&quot;m136.46,158.02c8.7,0 14.5,-3.97 14.5,-3.57 0,0.4 -2.9,9.13 -4.97,13.89 -7.87,19.44 -22.79,38.1 -40.61,51.98 -3.73,2.78 -5.39,4.37 -5.39,5.95 0,2.78 6.22,8.73 8.29,8.73 0.83,0 2.07,-0.79 3.31,-1.59 5.8,-3.97 14.92,-12.3 20.3,-18.25 16.57,-17.46 29.42,-38.49 35.64,-64.29 0.83,-4.37 0.83,-5.95 0.83,-13.1l0,-3.57c0,-13.49 -8.7,-24.21 -21.55,-24.21 -16.99,0 -31.08,13.49 -31.08,29.37 0,11.9 8.29,18.65 20.72,18.65zM218.09,158.02c8.7,0 14.5,-3.97 14.5,-3.57 0,0.4 -2.9,9.13 -4.97,13.89 -7.87,19.44 -22.79,38.1 -40.61,51.98 -3.73,2.78 -5.39,4.37 -5.39,5.95 0,2.78 6.22,8.73 8.29,8.73 0.83,0 2.07,-0.79 3.31,-1.59 5.8,-3.97 14.92,-12.3 20.3,-18.25 16.57,-17.46 29.42,-38.49 35.64,-64.29 0.83,-4.37 0.83,-5.95 0.83,-13.1l0,-3.57c0,-13.49 -8.7,-24.21 -21.55,-24.21 -16.99,0 -31.08,13.49 -31.08,29.37 0,11.9 8.29,18.65 20.72,18.65z&quot;"
+        errorLine2="                          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/drawable/app_icon.xml"
-            line="9"/>
+            line="9"
+            column="27"/>
     </issue>
 
     <issue
         id="VectorPath"
-        message="Very long vector path (803 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        message="Very long vector path (803 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
+        errorLine1="            android:pathData=&quot;M12,6c3.79,0 7.17,2.13 8.82,5.5 -0.59,1.22 -1.42,2.27 -2.41,3.12l1.41,1.41c1.39,-1.23 2.49,-2.77 3.18,-4.53C21.27,7.11 17,4 12,4c-1.27,0 -2.49,0.2 -3.64,0.57l1.65,1.65C10.66,6.09 11.32,6 12,6zM10.93,7.14L13,9.21c0.57,0.25 1.03,0.71 1.28,1.28l2.07,2.07c0.08,-0.34 0.14,-0.7 0.14,-1.07C16.5,9.01 14.48,7 12,7c-0.37,0 -0.72,0.05 -1.07,0.14zM2.01,3.87l2.68,2.68C3.06,7.83 1.77,9.53 1,11.5 2.73,15.89 7,19 12,19c1.52,0 2.98,-0.29 4.32,-0.82l3.42,3.42 1.41,-1.41L3.42,2.45 2.01,3.87zM9.51,11.37l2.61,2.61c-0.04,0.01 -0.08,0.02 -0.12,0.02 -1.38,0 -2.5,-1.12 -2.5,-2.5 0,-0.05 0.01,-0.08 0.01,-0.13zM6.11,7.97l1.75,1.75c-0.23,0.55 -0.36,1.15 -0.36,1.78 0,2.48 2.02,4.5 4.5,4.5 0.63,0 1.23,-0.13 1.77,-0.36l0.98,0.98c-0.88,0.24 -1.8,0.38 -2.75,0.38 -3.79,0 -7.17,-2.13 -8.82,-5.5 0.7,-1.43 1.72,-2.61 2.93,-3.53z&quot; />"
+        errorLine2="                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/drawable/ic_appearance_visibility_off_24.xml"
-            line="9"/>
+            line="9"
+            column="31"/>
     </issue>
 
     <issue
         id="VectorPath"
-        message="Very long vector path (804 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        message="Very long vector path (804 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector."
+        errorLine1="            android:pathData=&quot;m258.82248,64.54049l-21.30623,0c0,0 -0.0325,-28.14175 -0.0325,-28.14799c0,-1.065 -0.54875,-1.5975 -1.78,-1.5975l-29.035,0c-1.12875,0 -1.735,0.49625 -1.735,1.58125l0,29.08712c0,0 -14.55,3.51275 -15.53374,3.79638c-0.98001,0.28425 -1.70125,1.1875 -1.70125,2.26563l0,18.27838c0,1.31438 1.05,2.3745 2.34875,2.3745l14.88623,0c0,0 0,19.11762 0,43.97312c0,32.66113 22.90999,35.87012 38.37001,35.87012c7.06374,0 15.51375,-2.26906 16.90874,-2.78419c0.84375,-0.31003 1.33377,-1.18358 1.33377,-2.13083l0.02374,-20.10797c0,-1.31099 -1.10751,-2.37198 -2.35501,-2.37198c-1.24124,0 -4.4175,0.50487 -7.6875,0.50487c-10.465,0 -14.01125,-4.86623 -14.01125,-11.16463c0,-6.29388 -0.00125,-41.7885 -0.00125,-41.7885l21.30751,0c1.29877,0 2.35001,-1.06013 2.35001,-2.3745l0,-22.895c0,-1.31213 -1.05124,-2.36825 -2.35001,-2.36825&quot; />"
+        errorLine2="                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/drawable/ic_instructions_footer_github_logo.xml"
-            line="29"/>
+            line="29"
+            column="31"/>
     </issue>
 
     <issue
         id="UnusedResources"
-        message="The resource `R.xml.backup_descriptor` appears to be unused">
+        message="The resource `R.xml.backup_descriptor` appears to be unused"
+        errorLine1="&lt;full-backup-content />"
+        errorLine2="~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/xml/backup_descriptor.xml"
-            line="2"/>
+            line="2"
+            column="1"/>
     </issue>
 
     <issue
         id="UnusedResources"
-        message="The resource `R.color.yellow` appears to be unused">
+        message="The resource `R.color.yellow` appears to be unused"
+        errorLine1="    &lt;color name=&quot;yellow&quot;>#FFF8FD89&lt;/color>"
+        errorLine2="           ~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/colors.xml"
-            line="8"/>
+            line="8"
+            column="12"/>
     </issue>
 
     <issue
         id="UnusedResources"
-        message="The resource `R.drawable.ic_toolbar_favorite_24` appears to be unused">
+        message="The resource `R.drawable.ic_toolbar_favorite_24` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2="^">
         <location
             file="src/main/res/drawable/ic_toolbar_favorite_24.xml"
-            line="1"/>
+            line="1"
+            column="1"/>
     </issue>
 
     <issue
         id="UnusedResources"
-        message="The resource `R.string.activity_instructions_github` appears to be unused">
+        message="The resource `R.string.activity_instructions_github` appears to be unused"
+        errorLine1="    &lt;string name=&quot;activity_instructions_github&quot;>GitHub&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="25"/>
+            line="25"
+            column="13"/>
     </issue>
 
     <issue
         id="UnusedResources"
-        message="The resource `R.string.configure_navigation_bar_schedule` appears to be unused">
+        message="The resource `R.string.configure_navigation_bar_schedule` appears to be unused"
+        errorLine1="    &lt;string name=&quot;configure_navigation_bar_schedule&quot;>Schedule&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="29"/>
+            line="29"
+            column="13"/>
     </issue>
 
     <issue
         id="UnusedResources"
-        message="The resource `R.string.configure_navigation_bar_transfer` appears to be unused">
+        message="The resource `R.string.configure_navigation_bar_transfer` appears to be unused"
+        errorLine1="    &lt;string name=&quot;configure_navigation_bar_transfer&quot;>Transfer&lt;/string>"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="30"/>
+            line="30"
+            column="13"/>
     </issue>
 
     <issue
         id="UnusedResources"
-        message="The resource `R.style.Theme_QuoteUnquote_ActivityReport` appears to be unused">
+        message="The resource `R.style.Theme_QuoteUnquote_ActivityReport` appears to be unused"
+        errorLine1="    &lt;style name=&quot;Theme.QuoteUnquote.ActivityReport&quot; parent=&quot;Theme.Material3.DayNight.Dialog&quot;>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values-night/themes.xml"
-            line="17"/>
+            line="17"
+            column="12"/>
     </issue>
 
     <issue
         id="UnusedResources"
-        message="The resource `R.style.Theme_QuoteUnquote_PreviewQuotation` appears to be unused">
+        message="The resource `R.style.Theme_QuoteUnquote_PreviewQuotation` appears to be unused"
+        errorLine1="    &lt;style name=&quot;Theme.QuoteUnquote.PreviewQuotation&quot; parent=&quot;Theme.Material3.DayNight.NoActionBar&quot;>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/themes.xml"
-            line="23"/>
+            line="23"
+            column="12"/>
     </issue>
 
     <issue
         id="UnusedResources"
-        message="The resource `R.style.PreviewQuotation_ListViewStyle` appears to be unused">
+        message="The resource `R.style.PreviewQuotation_ListViewStyle` appears to be unused"
+        errorLine1="    &lt;style name=&quot;PreviewQuotation.ListViewStyle&quot; parent=&quot;android:style/Widget.ListView&quot;>"
+        errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/themes.xml"
-            line="29"/>
+            line="29"
+            column="12"/>
     </issue>
 
     <issue
         id="UselessParent"
-        message="This `LinearLayout` layout or its `LinearLayout` parent is unnecessary">
+        message="This `LinearLayout` layout or its `LinearLayout` parent is unnecessary"
+        errorLine1="                    &lt;LinearLayout"
+        errorLine2="                     ~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_quotations_tab_selection.xml"
-            line="214"/>
+            line="205"
+            column="22"/>
     </issue>
 
     <issue
         id="UselessParent"
-        message="This `LinearLayout` layout or its `LinearLayout` parent is unnecessary">
+        message="This `LinearLayout` layout or its `LinearLayout` parent is unnecessary"
+        errorLine1="            &lt;LinearLayout"
+        errorLine2="             ~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_sync.xml"
-            line="50"/>
+            line="51"
+            column="14"/>
     </issue>
 
     <issue

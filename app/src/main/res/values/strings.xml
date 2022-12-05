@@ -117,6 +117,7 @@
     <string name="fragment_appearance_toolbar_previous">Previous</string>>
     <string name="fragment_appearance_toolbar_favourite">Favourite, toggle</string>
     <string name="fragment_appearance_toolbar_share">Share</string>
+    <string name="fragment_appearance_toolbar_share_exclude_source">Exclude Source from Share</string>
     <string name="fragment_appearance_toolbar_next_sequential">Next, sequential</string>
     <string name="fragment_appearance_toolbar_position_indicator">Jump, last Previous</string>
     <string name="fragment_appearance_toolbar_next_random">Next, random</string>

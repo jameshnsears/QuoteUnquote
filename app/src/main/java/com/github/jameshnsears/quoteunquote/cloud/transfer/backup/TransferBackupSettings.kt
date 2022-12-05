@@ -97,6 +97,7 @@ open class TransferBackupSettings(val context: Context) {
             appearancePreferences.appearanceToolbarPrevious,
             appearancePreferences.appearanceToolbarFavourite,
             appearancePreferences.appearanceToolbarShare,
+            appearancePreferences.appearanceToolbarShareNoSource,
             appearancePreferences.appearanceToolbarJump,
             appearancePreferences.appearanceToolbarRandom,
             appearancePreferences.appearanceToolbarSequential

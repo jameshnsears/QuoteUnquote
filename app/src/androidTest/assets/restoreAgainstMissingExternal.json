@@ -72,6 +72,7 @@
         "APPEARANCE_TOOLBAR_RANDOM": true,
         "APPEARANCE_TOOLBAR_SEQUENTIAL": false,
         "APPEARANCE_TOOLBAR_SHARE": true,
+        "APPEARANCE_TOOLBAR_SHARE_NO_SOURCE": true,
         "APPEARANCE_TRANSPARENCY": -1
       },
       "quotations": {

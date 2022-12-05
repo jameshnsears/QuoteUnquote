@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:contentPadding="5dp"
-            app:cardCornerRadius="20dp"
+            app:cardCornerRadius="12dp"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
@@ -86,7 +86,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:contentPadding="5dp"
-            app:cardCornerRadius="20dp"
+            app:cardCornerRadius="12dp"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
@@ -130,7 +130,7 @@
 
                     <Spinner
                             android:id="@+id/spinnerAuthorsCount"
-                            android:layout_width="110dp"
+                            android:layout_width="120dp"
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/fragment_quotations_selection_author_name"
                             android:minHeight="48dp"
@@ -168,7 +168,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:contentPadding="5dp"
-            app:cardCornerRadius="20dp"
+            app:cardCornerRadius="12dp"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
@@ -211,7 +211,7 @@
 
                         <Button
                                 android:id="@+id/buttonExport"
-                                android:layout_width="140dp"
+                                android:layout_width="120dp"
                                 android:layout_height="48dp"
                                 android:contentDescription="@string/fragment_quotations_selection_favourites_export_button"
                                 android:text="@string/fragment_quotations_selection_favourites_export_button"
@@ -241,7 +241,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:contentPadding="5dp"
-            app:cardCornerRadius="20dp"
+            app:cardCornerRadius="12dp"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">

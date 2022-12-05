@@ -20,8 +20,8 @@ class RestoreOneWidgetTest : TransferRestoreUtility() {
 
             // assert
             val backupTransfer = TransferBackup(context).transfer(databaseRepositoryDouble)
-//            val restoreJson = TransferRestore().asJson(restoreTransfer)
-//            val backupJson = TransferBackup(context).asJson(backupTransfer)
+            val restoreJson = TransferRestore().asJson(restoreTransfer)
+            val backupJson = TransferBackup(context).asJson(backupTransfer)
 
             assertEquals(getLocalCode(), backupTransfer.code)
 
@@ -63,8 +63,8 @@ class RestoreOneWidgetTest : TransferRestoreUtility() {
 
             // assert
             val backupTransfer = TransferBackup(context).transfer(databaseRepositoryDouble)
-//            val restoreJson = TransferRestore().asJson(restoreTransfer)
-//            val backupJson = TransferBackup(context).asJson(backupTransfer)
+            val restoreJson = TransferRestore().asJson(restoreTransfer)
+            val backupJson = TransferBackup(context).asJson(backupTransfer)
 
             assertTrue(backupTransfer.current.size == 2)
             assertTrue(backupTransfer.favourites.isEmpty())

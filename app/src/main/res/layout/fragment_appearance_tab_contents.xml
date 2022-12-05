@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:contentPadding="5dp"
-            app:cardCornerRadius="20dp"
+            app:cardCornerRadius="12dp"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
@@ -126,7 +126,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:contentPadding="5dp"
-            app:cardCornerRadius="20dp"
+            app:cardCornerRadius="12dp"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true"
@@ -248,7 +248,7 @@
 
                 <Button
                         android:id="@+id/buttonQuotation"
-                        android:layout_width="140dp"
+                        android:layout_width="120dp"
                         android:layout_height="48dp"
                         android:text="@string/fragment_appearance_button_quotation"
                         android:textColor="@android:color/white"
@@ -280,7 +280,7 @@
 
                 <Button
                         android:id="@+id/buttonAuthor"
-                        android:layout_width="140dp"
+                        android:layout_width="120dp"
                         android:layout_height="48dp"
                         android:text="@string/fragment_appearance_button_author"
                         android:textColor="@android:color/white"
@@ -313,7 +313,7 @@
 
                 <Button
                         android:id="@+id/buttonPosition"
-                        android:layout_width="140dp"
+                        android:layout_width="120dp"
                         android:layout_height="48dp"
                         android:text="@string/fragment_appearance_button_position"
                         android:textColor="@android:color/white"

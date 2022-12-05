@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:contentPadding="5dp"
-            app:cardCornerRadius="20dp"
+            app:cardCornerRadius="12dp"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:contentPadding="5dp"
-            app:cardCornerRadius="20dp"
+            app:cardCornerRadius="12dp"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
@@ -165,6 +165,15 @@
                         android:paddingVertical="10dp"
                         android:paddingStart="12dp"
                         android:paddingEnd="0dp"                        android:text="@string/fragment_appearance_toolbar_share"
+                        android:textSize="14sp" />
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/toolbar_switch_share_no_source"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="47dp"
+                        android:paddingEnd="0dp"
+                        android:text="@string/fragment_appearance_toolbar_share_exclude_source"
                         android:textSize="14sp" />
             </LinearLayout>
 

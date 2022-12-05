@@ -1,5 +1,0 @@
-&bull; Exclude Source(s) from being displayed
-&bull; Remove several, similar, quotations from Internal database
-&bull; Start migration of UI to Material Design 3
-&bull; Improve unit test coverage and CI scripts
-&bull; Update to Android Studio Dolphin | 2021.3.1 Patch 1 + 3rd party dependencies

@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:contentPadding="5dp"
-            app:cardCornerRadius="20dp"
+            app:cardCornerRadius="12dp"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
@@ -96,7 +96,7 @@
 
                     <TextView
                             android:id="@+id/textViewLocalCodeValue"
-                            android:layout_width="160dp"
+                            android:layout_width="150dp"
                             android:layout_height="wrap_content"
                             android:minHeight="48dp"
                             android:paddingVertical="10dp"
@@ -104,11 +104,11 @@
                             android:paddingEnd="48dp"
                             android:text="@string/fragment_archive_backup_local_code_value"
                             android:textIsSelectable="true"
-                            android:textSize="18sp" />
+                            android:textSize="16sp" />
 
                     <Button
                             android:id="@+id/buttonBackup"
-                            android:layout_width="140dp"
+                            android:layout_width="120dp"
                             android:layout_height="48dp"
                             android:text="@string/fragment_archive_backup"
                             android:textColor="@android:color/white"
@@ -126,19 +126,19 @@
 
                     <EditText
                             android:id="@+id/editTextRemoteCodeValue"
-                            android:layout_width="160dp"
+                            android:layout_width="150dp"
                             android:layout_height="wrap_content"
                             android:ems="10"
                             android:importantForAutofill="no"
                             android:inputType="textPersonName"
                             android:maxLength="10"
                             android:minHeight="48dp"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             tools:ignore="LabelFor,TextContrastCheck" />
 
                     <Button
                             android:id="@+id/buttonRestore"
-                            android:layout_width="140dp"
+                            android:layout_width="120dp"
                             android:layout_height="48dp"
                             android:text="@string/fragment_archive_restore"
                             android:textColor="@android:color/white"

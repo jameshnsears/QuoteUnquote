@@ -33,6 +33,7 @@ public class AppearancePreferences extends PreferencesFacade {
     public static final String APPEARANCE_TOOLBAR_PREVIOUS = "APPEARANCE_TOOLBAR_PREVIOUS";
     public static final String APPEARANCE_TOOLBAR_FAVOURITE = "APPEARANCE_TOOLBAR_FAVOURITE";
     public static final String APPEARANCE_TOOLBAR_SHARE = "APPEARANCE_TOOLBAR_SHARE";
+    public static final String APPEARANCE_TOOLBAR_SHARE_NO_SOURCE = "APPEARANCE_TOOLBAR_SHARE_NO_SOURCE";
     public static final String APPEARANCE_TOOLBAR_JUMP = "APPEARANCE_TOOLBAR_JUMP";
     public static final String APPEARANCE_TOOLBAR_RANDOM = "APPEARANCE_TOOLBAR_RANDOM";
     public static final String APPEARANCE_TOOLBAR_SEQUENTIAL = "APPEARANCE_TOOLBAR_SEQUENTIAL";
@@ -266,6 +267,14 @@ public class AppearancePreferences extends PreferencesFacade {
 
     public void setAppearanceToolbarShare(final boolean value) {
         preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TOOLBAR_SHARE), value);
+    }
+
+    public boolean getAppearanceToolbarShareNoSource() {
+        return preferenceHelper.getPreferenceBoolean(getPreferenceKey(APPEARANCE_TOOLBAR_SHARE_NO_SOURCE), false);
+    }
+
+    public void setAppearanceToolbarShareNoSource(final boolean value) {
+        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TOOLBAR_SHARE_NO_SOURCE), value);
     }
 
     public boolean getAppearanceToolbarRandom() {

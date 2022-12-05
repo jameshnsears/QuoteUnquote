@@ -365,9 +365,19 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
     }
 
     public void onReceiveToolbarPressedShare(@NonNull final Context context, final int widgetId) {
-        context.startActivity(IntentFactoryHelper.createIntentShare(
-                context.getResources().getString(R.string.app_name),
-                getQuoteUnquoteModel(widgetId, context).getCurrentQuotation(widgetId).theShareContent()));
+        final AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, context);
+
+        String appName = context.getResources().getString(R.string.app_name);
+
+        QuotationEntity currentQuotation = getQuoteUnquoteModel(widgetId, context).getCurrentQuotation(widgetId);
+
+        if (appearancePreferences.getAppearanceToolbarShareNoSource()) {
+            context.startActivity(IntentFactoryHelper.createIntentShare(
+                    appName, currentQuotation.shareQuotation()));
+        } else {
+            context.startActivity(IntentFactoryHelper.createIntentShare(
+                    appName, currentQuotation.shareQuotationAuthor()));
+        }
     }
 
     private void onReceiveToolbarPressedFavourite(

@@ -71,6 +71,7 @@ public class AppearanceToolbarFragment extends FragmentCommon {
         createListenerToolbarPrevious();
         createListenerToolbarToggleFavourite();
         createListenerToolbarShare();
+        createListenerToolbarShareNoSource();
         createListenerToolbarJump();
         createListenerToolbarNextRandom();
         createListenerToolbarNextSequential();
@@ -85,6 +86,7 @@ public class AppearanceToolbarFragment extends FragmentCommon {
         fragmentAppearanceTabToolbarBinding.toolbarSwitchPrevious.setChecked(appearancePreferences.getAppearanceToolbarPrevious());
         fragmentAppearanceTabToolbarBinding.toolbarSwitchToggleFavourite.setChecked(appearancePreferences.getAppearanceToolbarFavourite());
         fragmentAppearanceTabToolbarBinding.toolbarSwitchShare.setChecked(appearancePreferences.getAppearanceToolbarShare());
+        fragmentAppearanceTabToolbarBinding.toolbarSwitchShareNoSource.setChecked(appearancePreferences.getAppearanceToolbarShareNoSource());
         fragmentAppearanceTabToolbarBinding.toolbarSwitchJump.setChecked(appearancePreferences.getAppearanceToolbarJump());
         fragmentAppearanceTabToolbarBinding.toolbarSwitchNextRandom.setChecked(appearancePreferences.getAppearanceToolbarRandom());
         fragmentAppearanceTabToolbarBinding.toolbarSwitchNextSequential.setChecked(appearancePreferences.getAppearanceToolbarSequential());
@@ -153,6 +155,12 @@ public class AppearanceToolbarFragment extends FragmentCommon {
     private void createListenerToolbarShare() {
         fragmentAppearanceTabToolbarBinding.toolbarSwitchShare.setOnCheckedChangeListener((buttonView, isChecked) ->
                 appearancePreferences.setAppearanceToolbarShare(isChecked)
+        );
+    }
+
+    private void createListenerToolbarShareNoSource() {
+        fragmentAppearanceTabToolbarBinding.toolbarSwitchShareNoSource.setOnCheckedChangeListener((buttonView, isChecked) ->
+                appearancePreferences.setAppearanceToolbarShareNoSource(isChecked)
         );
     }
 

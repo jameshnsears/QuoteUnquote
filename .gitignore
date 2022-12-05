@@ -35,3 +35,4 @@ local.properties
 /Quote, Unquote.vpp.*
 /.Quote, Unquote.vpp.lck
 .scannerwork
+/.idea/deploymentTargetDropDown.xml

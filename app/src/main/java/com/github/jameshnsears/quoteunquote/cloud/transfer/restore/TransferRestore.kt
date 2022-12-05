@@ -299,6 +299,7 @@ class TransferRestore : TransferCommon() {
         appearancePreferences.appearanceToolbarRandom = appearance.appearanceToolbarRandom
         appearancePreferences.appearanceToolbarSequential = appearance.appearanceToolbarSequential
         appearancePreferences.appearanceToolbarShare = appearance.appearanceToolbarShare
+        appearancePreferences.appearanceToolbarShareNoSource = appearance.appearanceToolbarShareNoSource
         appearancePreferences.appearanceToolbarJump = appearance.appearanceToolbarJump
     }
 }

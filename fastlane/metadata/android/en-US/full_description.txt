@@ -1,19 +1,16 @@
-<b>Description</b>
-Quote Unquote is an App Widget that displays Quotations.
+Discover over twenty thousand, curated, &#34;high quality&#34; quotations.
 
-The App contains over twenty thousand, curated, &#34;high quality&#34; quotations.
-
-<b>Key features</b>
+Key features:
 &bull; Filter quotations
 &bull; Import quotations
-&bull; Change appearance
+&bull; Customise appearance
 &bull; Toolbar navigation
-&bull; Schedule Notifications
+&bull; Notifications
 &bull; Backup &amp; Restore
 &bull; Wikipedia integration
 
-<b>Other items of interest</b>
+Other items of interest:
 &bull; Core functionality works offline
 &bull; Minimal permissions
-&bull; Internal database content is English
-&bull; Use GitHub to report defects / raise feature requests
+&bull; Internal Database content is English
+&bull; Use GitHub to report defects / raise feature requests - https://github.com/jameshnsears/QuoteUnquote/issues
