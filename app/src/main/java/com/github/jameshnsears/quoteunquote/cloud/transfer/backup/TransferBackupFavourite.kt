@@ -17,7 +17,7 @@ class TransferBackupFavourite {
 
     private fun getFavouritesFromDatabase(
         databaseRepository: DatabaseRepository,
-        useInternalDatabase: Boolean
+        useInternalDatabase: Boolean,
     ): List<Favourite> {
         DatabaseRepository.useInternalDatabase = useInternalDatabase
 
@@ -32,8 +32,8 @@ class TransferBackupFavourite {
                         "internal"
                     } else {
                         "external"
-                    }
-                )
+                    },
+                ),
             )
         }
 

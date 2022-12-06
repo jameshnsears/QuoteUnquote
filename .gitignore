@@ -8,8 +8,6 @@ app/.classpath
 /app/src/googleplay/google-services.json
 /app/src/google-services.json
 /bin/envvars.sh
-/bin/tidy-up-github-actions.sh
-/bin/transfer_restore.sh
 /build
 /captures
 .cxx
@@ -36,3 +34,4 @@ local.properties
 /.Quote, Unquote.vpp.lck
 .scannerwork
 /.idea/deploymentTargetDropDown.xml
+/qodana_output/

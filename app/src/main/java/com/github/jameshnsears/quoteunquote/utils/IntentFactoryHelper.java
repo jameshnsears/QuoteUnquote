@@ -26,11 +26,11 @@ public class IntentFactoryHelper {
     @NonNull
     public static final String TOOLBAR_PRESSED_FAVOURITE = "TOOLBAR_PRESSED_FAVOURITE";
     @NonNull
-    public static final String TOOLBAR_PRESSED_NOTIFICATION_FAVOURITE = "TOOLBAR_PRESSED_NOTIFICATION_FAVOURITE";
+    public static final String NOTIFICATION_FAVOURITE_PRESSED = "NOTIFICATION_FAVOURITE_PRESSED";
     @NonNull
-    public static final String TOOLBAR_PRESSED_NOTIFICATION_NEXT = "TOOLBAR_PRESSED_NOTIFICATION_NEXT";
+    public static final String NOTIFICATION_NEXT_PRESSED = "NOTIFICATION_NEXT_PRESSED";
     @NonNull
-    public static final String TOOLBAR_PRESSED_NOTIFICATION_DELETED = "TOOLBAR_PRESSED_NOTIFICATION_DELETED";
+    public static final String NOTIFICATION_DISMISSED = "NOTIFICATION_DISMISSED";
     @NonNull
     public static final String ALL_WIDGET_INSTANCES_FAVOURITE_NOTIFICATION
             = "ALL_WIDGET_INSTANCES_FAVOURITE_NOTIFICATION";
@@ -44,6 +44,8 @@ public class IntentFactoryHelper {
     public static final String TOOLBAR_PRESSED_NEXT_SEQUENTIAL = "TOOLBAR_PRESSED_NEXT_SEQUENTIAL";
     @NonNull
     public static final String DAILY_ALARM = "DAILY_ALARM";
+    @NonNull
+    public static final String BIHOURLY_ALARM = "BIHOURLY_ALARM";
     @NonNull
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
@@ -94,9 +96,9 @@ public class IntentFactoryHelper {
     @NonNull
     public static PendingIntent createClickPendingIntent(
             @NonNull final Context context,
-            final int widgetId,
+            final int uniqueId,
             @NonNull final String action) {
-        final Intent intent = createIntent(context, widgetId);
+        final Intent intent = createIntent(context, uniqueId);
         intent.setAction(action);
 
         int pendingIntentFlags = 0;
@@ -106,7 +108,28 @@ public class IntentFactoryHelper {
             pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT;
         }
 
-        return PendingIntent.getBroadcast(context, widgetId, intent, pendingIntentFlags);
+        return PendingIntent.getBroadcast(context, uniqueId, intent, pendingIntentFlags);
+    }
+
+    @SuppressLint("UnspecifiedImmutableFlag")
+    @NonNull
+    public static PendingIntent createClickPendingIntent(
+            @NonNull final Context context,
+            final int uniqueId,
+            @NonNull final String action,
+            @NonNull Bundle bundle) {
+        final Intent intent = createIntent(context, uniqueId);
+        intent.setAction(action);
+        intent.putExtras(bundle);
+
+        int pendingIntentFlags = 0;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE;
+        } else {
+            pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT;
+        }
+
+        return PendingIntent.getBroadcast(context, uniqueId, intent, pendingIntentFlags);
     }
 
     @SuppressLint("UnspecifiedImmutableFlag")
@@ -114,6 +137,7 @@ public class IntentFactoryHelper {
     public static PendingIntent createClickPendingIntent(
             @NonNull final Context context,
             final int widgetId,
+            final int uniqueId,
             @NonNull final String action,
             @NonNull Bundle bundle) {
         final Intent intent = createIntent(context, widgetId);
@@ -127,7 +151,7 @@ public class IntentFactoryHelper {
             pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT;
         }
 
-        return PendingIntent.getBroadcast(context, widgetId, intent, pendingIntentFlags);
+        return PendingIntent.getBroadcast(context, uniqueId, intent, pendingIntentFlags);
     }
 
     @NonNull
@@ -179,7 +203,6 @@ public class IntentFactoryHelper {
     public static Intent createIntentActionView(@NonNull String url) {
         final Intent intent = new Intent();
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
         intent.setAction(Intent.ACTION_VIEW);
         intent.addCategory(Intent.CATEGORY_BROWSABLE);
         intent.setData(Uri.parse(url));

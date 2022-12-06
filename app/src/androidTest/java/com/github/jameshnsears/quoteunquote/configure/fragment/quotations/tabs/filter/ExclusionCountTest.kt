@@ -31,7 +31,7 @@ class ExclusionCountTest : QuoteUnquoteModelUtility() {
         assertEquals(
             6,
             quoteUnquoteModelDouble.countAllMinusExclusions(WidgetIdHelper.WIDGET_ID_01)
-                .blockingGet()
+                .blockingGet(),
         )
     }
 
@@ -45,7 +45,7 @@ class ExclusionCountTest : QuoteUnquoteModelUtility() {
         assertEquals(
             4,
             quoteUnquoteModelDouble.countAllMinusExclusions(WidgetIdHelper.WIDGET_ID_01)
-                .blockingGet()
+                .blockingGet(),
         )
     }
 
@@ -59,7 +59,7 @@ class ExclusionCountTest : QuoteUnquoteModelUtility() {
         assertEquals(
             1,
             quoteUnquoteModelDouble.countAllMinusExclusions(WidgetIdHelper.WIDGET_ID_01)
-                .blockingGet()
+                .blockingGet(),
         )
     }
 
@@ -73,21 +73,21 @@ class ExclusionCountTest : QuoteUnquoteModelUtility() {
         assertEquals(
             2,
             quoteUnquoteModelDouble.countAllMinusExclusions(WidgetIdHelper.WIDGET_ID_01)
-                .blockingGet()
+                .blockingGet(),
         )
 
         quotationsPreferences.contentSelectionAllExclusion = "aaaa2;aaaa"
         assertEquals(
             1,
             quoteUnquoteModelDouble.countAllMinusExclusions(WidgetIdHelper.WIDGET_ID_01)
-                .blockingGet()
+                .blockingGet(),
         )
 
         quotationsPreferences.contentSelectionAllExclusion = ";;;;;;*;()"
         assertEquals(
             6,
             quoteUnquoteModelDouble.countAllMinusExclusions(WidgetIdHelper.WIDGET_ID_01)
-                .blockingGet()
+                .blockingGet(),
         )
     }
 }

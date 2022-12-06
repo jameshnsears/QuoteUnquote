@@ -98,7 +98,8 @@
         "EVENT_DISPLAY_WIDGET_AND_NOTIFICATION": false,
         "EVENT_DISPLAY_WIDGET": true,
         "EVENT_NEXT_RANDOM": true,
-        "EVENT_NEXT_SEQUENTIAL": false
+        "EVENT_NEXT_SEQUENTIAL": false,
+        "EVENT_BIHOURLY": true
       },
       "widget_id": 21
     }

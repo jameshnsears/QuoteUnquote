@@ -32,21 +32,21 @@ class RestoreOneWidgetTest : TransferRestoreUtility() {
             assertTrue(backupTransfer.settings.size == 1)
             assertEquals(
                 restoreTransfer.settings[0].appearance,
-                backupTransfer.settings[0].appearance
+                backupTransfer.settings[0].appearance,
             )
             // a restore from a version that had no internal/external database, into one that does
             assertNotEquals(
                 restoreTransfer.settings[0].quotations,
-                backupTransfer.settings[0].quotations
+                backupTransfer.settings[0].quotations,
             )
             assertNotEquals(
                 restoreTransfer.settings[0].quotations.databaseInternal,
-                backupTransfer.settings[0].quotations.databaseInternal
+                backupTransfer.settings[0].quotations.databaseInternal,
             )
 
             assertEquals(
                 restoreTransfer.settings[0].schedule,
-                backupTransfer.settings[0].schedule
+                backupTransfer.settings[0].schedule,
             )
         }
     }
@@ -74,33 +74,33 @@ class RestoreOneWidgetTest : TransferRestoreUtility() {
 
             assertEquals(
                 restoreTransfer.settings[0].appearance,
-                backupTransfer.settings[0].appearance
+                backupTransfer.settings[0].appearance,
             )
             assertEquals(
                 backupTransfer.settings[0].appearance,
-                backupTransfer.settings[1].appearance
+                backupTransfer.settings[1].appearance,
             )
 
             assertNotEquals(
                 restoreTransfer.settings[0].quotations,
-                backupTransfer.settings[0].quotations
+                backupTransfer.settings[0].quotations,
             )
             assertNotEquals(
                 restoreTransfer.settings[0].quotations.databaseInternal,
-                backupTransfer.settings[0].quotations.databaseInternal
+                backupTransfer.settings[0].quotations.databaseInternal,
             )
             assertEquals(
                 backupTransfer.settings[0].quotations,
-                backupTransfer.settings[1].quotations
+                backupTransfer.settings[1].quotations,
             )
 
             assertEquals(
                 restoreTransfer.settings[0].schedule,
-                backupTransfer.settings[0].schedule
+                backupTransfer.settings[0].schedule,
             )
             assertEquals(
                 backupTransfer.settings[0].schedule,
-                backupTransfer.settings[1].schedule
+                backupTransfer.settings[1].schedule,
             )
         }
     }

@@ -1,4 +1,4 @@
-package com.github.jameshnsears.quoteunquote.configure.fragment.notifications;
+package com.github.jameshnsears.quoteunquote.utils.notification;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
@@ -8,18 +8,21 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.github.jameshnsears.quoteunquote.configure.fragment.notifications.NotificationsPreferences;
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import timber.log.Timber;
 
-public final class NotificationsDailyAlarm {
+public class NotificationsDailyAlarm {
     @Nullable
-    private final NotificationsPreferences notificationsPreferences;
+    protected final NotificationsPreferences notificationsPreferences;
     @NonNull
-    private final Context context;
-    private final int widgetId;
+    protected final Context context;
+    protected final int widgetId;
 
     public NotificationsDailyAlarm(
             @NonNull final Context widgetContext, final int theWidgetId) {
@@ -29,9 +32,8 @@ public final class NotificationsDailyAlarm {
     }
 
     @SuppressLint("MissingPermission")
-    public void setDailyAlarm() {
+    public void setAlarm() {
         if (notificationsPreferences.getEventDaily()) {
-            Timber.d("%d", widgetId);
 
             final Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(System.currentTimeMillis());
@@ -48,11 +50,15 @@ public final class NotificationsDailyAlarm {
                 calendar.add(Calendar.DAY_OF_YEAR, 1);
             }
 
+            final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm.ss", Locale.getDefault());
+            Timber.d("dailyAlarm: %s", sdf.format(calendar.getTime()));
+
             final AlarmManager alarmManager =
                     (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
             final PendingIntent alarmPendingIntent
-                    = IntentFactoryHelper.createClickPendingIntent(context, widgetId, IntentFactoryHelper.DAILY_ALARM);
+                    = IntentFactoryHelper.createClickPendingIntent(
+                            context, widgetId, IntentFactoryHelper.DAILY_ALARM);
 
             alarmManager.setExact(
                     AlarmManager.RTC_WAKEUP,
@@ -61,16 +67,14 @@ public final class NotificationsDailyAlarm {
         }
     }
 
-    public void resetAnyExistingDailyAlarm() {
+    public void resetAlarm() {
         if (!notificationsPreferences.getEventDaily()) {
-            Timber.d("%d", widgetId);
 
-            final PendingIntent alarmPendingIntent
-                    = IntentFactoryHelper.createClickPendingIntent(context, widgetId, IntentFactoryHelper.DAILY_ALARM);
             final AlarmManager alarmManager =
                     (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
-                alarmManager.cancel(alarmPendingIntent);
+                alarmManager.cancel(IntentFactoryHelper.createClickPendingIntent(
+                        context, widgetId, IntentFactoryHelper.BIHOURLY_ALARM));
             }
         }
     }

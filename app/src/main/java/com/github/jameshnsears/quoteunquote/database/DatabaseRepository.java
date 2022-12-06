@@ -713,8 +713,6 @@ public class DatabaseRepository {
     }
 
     public void erase(final int widgetId, @NonNull final ContentSelection contentSelection) {
-        Timber.d("contentType=%d", contentSelection.getContentSelection());
-
         if (useInternalDatabase()) {
             previousDAO.erase(widgetId, contentSelection);
             currentDAO.erase(widgetId);

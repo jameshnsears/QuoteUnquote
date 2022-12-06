@@ -18,8 +18,8 @@ class ExclusionNextTest : QuoteUnquoteModelUtility() {
                 DatabaseRepository.getDefaultQuotationDigest(),
                 "w1",
                 "aaaa1",
-                "q1"
-            )
+                "q1",
+            ),
         )
         quotationEntityList.add(QuotationEntity("d6789012", "w1", "aaaa2", "q2"))
         quotationEntityList.add(QuotationEntity("d6789013", "w1", "aaaa2", "q3"))
@@ -47,9 +47,9 @@ class ExclusionNextTest : QuoteUnquoteModelUtility() {
 
         assertTrue(
             databaseRepositoryDouble.getAllExcludedDigests(
-                quotationsPreferences.contentSelectionAllExclusion
+                quotationsPreferences.contentSelectionAllExclusion,
             )
-                .containsAll(listOf("d6789012", "d6789013"))
+                .containsAll(listOf("d6789012", "d6789013")),
         )
 
         assertTrue(
@@ -57,9 +57,9 @@ class ExclusionNextTest : QuoteUnquoteModelUtility() {
                 .getNextDigests(
                     WidgetIdHelper.WIDGET_ID_01,
                     ContentSelection.ALL,
-                    quotationsPreferences.contentSelectionAllExclusion
+                    quotationsPreferences.contentSelectionAllExclusion,
                 )
-                .containsAll(listOf("d6789014", "d6789015", "d6789016"))
+                .containsAll(listOf("d6789014", "d6789015", "d6789016")),
         )
 
         assertTrue(
@@ -67,14 +67,14 @@ class ExclusionNextTest : QuoteUnquoteModelUtility() {
                 .getPreviousDigests(
                     WidgetIdHelper.WIDGET_ID_01,
                     ContentSelection.ALL,
-                    quotationsPreferences.contentSelectionAllExclusion
+                    quotationsPreferences.contentSelectionAllExclusion,
                 )
-                .containsAll(listOf(DatabaseRepository.getDefaultQuotationDigest()))
+                .containsAll(listOf(DatabaseRepository.getDefaultQuotationDigest())),
         )
 
         assertEquals(
             "d6789014",
-            quoteUnquoteModelDouble.getNextQuotation(WidgetIdHelper.WIDGET_ID_01, false).digest
+            quoteUnquoteModelDouble.getNextQuotation(WidgetIdHelper.WIDGET_ID_01, false).digest,
         )
     }
 
@@ -96,7 +96,7 @@ class ExclusionNextTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             "d6789014",
-            quoteUnquoteModelDouble.getNextQuotation(WidgetIdHelper.WIDGET_ID_01, false).digest
+            quoteUnquoteModelDouble.getNextQuotation(WidgetIdHelper.WIDGET_ID_01, false).digest,
         )
 
         quotationsPreferences.contentSelectionAllExclusion = "aaaa3"
@@ -110,7 +110,7 @@ class ExclusionNextTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             "d6789012",
-            quoteUnquoteModelDouble.getNextQuotation(WidgetIdHelper.WIDGET_ID_01, false).digest
+            quoteUnquoteModelDouble.getNextQuotation(WidgetIdHelper.WIDGET_ID_01, false).digest,
         )
     }
 
@@ -132,14 +132,14 @@ class ExclusionNextTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             "d6789012",
-            quoteUnquoteModelDouble.getNextQuotation(WidgetIdHelper.WIDGET_ID_01, false).digest
+            quoteUnquoteModelDouble.getNextQuotation(WidgetIdHelper.WIDGET_ID_01, false).digest,
         )
 
         quotationsPreferences.contentSelectionAllExclusion = "aaaa2;aaa3;aaa4"
 
         assertEquals(
             DatabaseRepository.getDefaultQuotationDigest(),
-            quoteUnquoteModelDouble.getNextQuotation(WidgetIdHelper.WIDGET_ID_01, false).digest
+            quoteUnquoteModelDouble.getNextQuotation(WidgetIdHelper.WIDGET_ID_01, false).digest,
         )
     }
 

@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name=":app:connectedUiautomatorDebugAndroidTestCoverage" type="GradleRunConfiguration" factoryName="Gradle" folderName="androidTest">
+  <configuration default="false" name=":app:connectedUiautomatorDebugAndroidTestCoverage" type="GradleRunConfiguration" factoryName="Gradle" folderName="androidTest*Coverage">
     <ExternalSystemSettings>
       <option name="executionName" />
       <option name="externalProjectPath" value="$PROJECT_DIR$" />

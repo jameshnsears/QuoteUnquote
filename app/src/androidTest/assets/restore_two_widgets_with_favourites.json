@@ -79,7 +79,7 @@
                 "APPEARANCE_TEXT_COLOUR": "#FF000000",
                 "APPEARANCE_TEXT_FAMILY": "Sans Serif",
                 "APPEARANCE_TEXT_FORCE_ITALIC_REGULAR": false,
-                "APPEARANCE_TEXT_CENTER": false,
+                "APPEARANCE_TEXT_CENTER": true,
                 "APPEARANCE_TEXT_SIZE": 16,
                 "APPEARANCE_TEXT_STYLE": "Regular",
                 "APPEARANCE_TOOLBAR_COLOUR": "#FF000000",
@@ -129,7 +129,7 @@
                 "APPEARANCE_TEXT_COLOUR": "#FF000000",
                 "APPEARANCE_TEXT_FAMILY": "Sans Serif",
                 "APPEARANCE_TEXT_FORCE_ITALIC_REGULAR": false,
-                "APPEARANCE_TEXT_CENTER": false,
+                "APPEARANCE_TEXT_CENTER": true,
                 "APPEARANCE_TEXT_SIZE": 12,
                 "APPEARANCE_TEXT_STYLE": "Bold",
                 "APPEARANCE_TOOLBAR_COLOUR": "#FF000000",
@@ -164,7 +164,8 @@
                 "EVENT_DISPLAY_WIDGET_AND_NOTIFICATION": false,
                 "EVENT_DISPLAY_WIDGET": true,
                 "EVENT_NEXT_RANDOM": true,
-                "EVENT_NEXT_SEQUENTIAL": false
+                "EVENT_NEXT_SEQUENTIAL": false,
+                "EVENT_BIHOURLY": true
             },
             "widget_id": 3
         }

@@ -86,7 +86,14 @@ public class AppearanceToolbarFragment extends FragmentCommon {
         fragmentAppearanceTabToolbarBinding.toolbarSwitchPrevious.setChecked(appearancePreferences.getAppearanceToolbarPrevious());
         fragmentAppearanceTabToolbarBinding.toolbarSwitchToggleFavourite.setChecked(appearancePreferences.getAppearanceToolbarFavourite());
         fragmentAppearanceTabToolbarBinding.toolbarSwitchShare.setChecked(appearancePreferences.getAppearanceToolbarShare());
-        fragmentAppearanceTabToolbarBinding.toolbarSwitchShareNoSource.setChecked(appearancePreferences.getAppearanceToolbarShareNoSource());
+
+        if (appearancePreferences.getAppearanceToolbarShare()) {
+            fragmentAppearanceTabToolbarBinding.toolbarSwitchShareNoSource.setChecked(appearancePreferences.getAppearanceToolbarShareNoSource());
+            fragmentAppearanceTabToolbarBinding.toolbarSwitchShareNoSource.setEnabled(true);
+        } else {
+            fragmentAppearanceTabToolbarBinding.toolbarSwitchShareNoSource.setEnabled(false);
+        }
+
         fragmentAppearanceTabToolbarBinding.toolbarSwitchJump.setChecked(appearancePreferences.getAppearanceToolbarJump());
         fragmentAppearanceTabToolbarBinding.toolbarSwitchNextRandom.setChecked(appearancePreferences.getAppearanceToolbarRandom());
         fragmentAppearanceTabToolbarBinding.toolbarSwitchNextSequential.setChecked(appearancePreferences.getAppearanceToolbarSequential());
@@ -148,14 +155,14 @@ public class AppearanceToolbarFragment extends FragmentCommon {
 
     private void createListenerToolbarToggleFavourite() {
         fragmentAppearanceTabToolbarBinding.toolbarSwitchToggleFavourite.setOnCheckedChangeListener((buttonView, isChecked) ->
-                appearancePreferences.setAppearanceToolbarFavourite(isChecked)
-        );
+            appearancePreferences.setAppearanceToolbarFavourite(isChecked));
     }
 
     private void createListenerToolbarShare() {
-        fragmentAppearanceTabToolbarBinding.toolbarSwitchShare.setOnCheckedChangeListener((buttonView, isChecked) ->
-                appearancePreferences.setAppearanceToolbarShare(isChecked)
-        );
+        fragmentAppearanceTabToolbarBinding.toolbarSwitchShare.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                appearancePreferences.setAppearanceToolbarShare(isChecked);
+                fragmentAppearanceTabToolbarBinding.toolbarSwitchShareNoSource.setEnabled(isChecked);
+        });
     }
 
     private void createListenerToolbarShareNoSource() {

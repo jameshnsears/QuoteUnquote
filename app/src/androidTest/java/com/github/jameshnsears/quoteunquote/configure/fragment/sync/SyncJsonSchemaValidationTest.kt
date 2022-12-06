@@ -18,7 +18,7 @@ class SyncJsonSchemaValidationTest {
         val inputStream =
             InstrumentationRegistry.getInstrumentation().context.resources.assets
                 .open(
-                    "restore_one_widget.json"
+                    "restore_one_widget.json",
                 )
         val jsonString = inputStream.bufferedReader().use(BufferedReader::readText)
 
@@ -27,8 +27,8 @@ class SyncJsonSchemaValidationTest {
         assertTrue(
             SyncJsonSchemaValidation.isJsonValid(
                 getApplicationContext(),
-                jsonString
-            )
+                jsonString,
+            ),
         )
     }
 }

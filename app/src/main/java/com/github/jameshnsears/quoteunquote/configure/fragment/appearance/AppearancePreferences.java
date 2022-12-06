@@ -169,7 +169,7 @@ public class AppearancePreferences extends PreferencesFacade {
 
     public boolean getAppearanceTextForceItalicRegular() {
         return preferenceHelper.getPreferenceBoolean(
-                getPreferenceKey(APPEARANCE_TEXT_FORCE_ITALIC_REGULAR), false);
+                getPreferenceKey(APPEARANCE_TEXT_FORCE_ITALIC_REGULAR), true);
     }
 
     public void setAppearanceTextCenter(final boolean value) {
@@ -179,7 +179,7 @@ public class AppearancePreferences extends PreferencesFacade {
 
     public boolean getAppearanceTextCenter() {
         return preferenceHelper.getPreferenceBoolean(
-                getPreferenceKey(APPEARANCE_TEXT_CENTER), false);
+                getPreferenceKey(APPEARANCE_TEXT_CENTER), true);
     }
 
     public void setAppearanceQuotationTextSize(final int value) {

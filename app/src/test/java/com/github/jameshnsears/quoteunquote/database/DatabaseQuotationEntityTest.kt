@@ -18,7 +18,7 @@ class DatabaseQuotationEntityTest : ShadowLoggingHelper() {
             "digest",
             "wikipedia",
             "author",
-            "quotation"
+            "quotation",
         )
 
         assertEquals("quotation\n\nauthor", quotationEntity.shareQuotationAuthor())
@@ -30,7 +30,7 @@ class DatabaseQuotationEntityTest : ShadowLoggingHelper() {
             "digest",
             "wikipedia",
             "author",
-            "quotation"
+            "quotation",
         )
 
         assertEquals("quotation", quotationEntity.shareQuotation())

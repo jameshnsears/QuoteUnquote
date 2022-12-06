@@ -45,6 +45,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.observers.DisposableSingleObserver;
+import io.reactivex.plugins.RxJavaPlugins;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -101,6 +102,16 @@ public class QuotationsFilterFragment extends FragmentCommon {
         super.onCreate(savedInstanceState);
 
         quoteUnquoteModel = new QuoteUnquoteModel(widgetId, getContext());
+
+        /*
+        Firebase, possible fix to:
+        Fatal Exception: e9.c
+        The exception could not be delivered to the consumer because it has already canceled/disposed the flow or the exception has nowhere to go to begin with. Further reading: https://github.com/ReactiveX/RxJava/wiki/What's-different-in-2.0#error-handling | java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+        io.reactivex.plugins.RxJavaPlugins.onError (RxJavaPlugins.java:42)
+         */
+        RxJavaPlugins.setErrorHandler(e -> {
+            Timber.e(e.getMessage());
+        });
     }
 
     @Override

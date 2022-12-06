@@ -26,7 +26,7 @@ class WidgetHeartColourTest : QuoteUnquoteModelUtility() {
             quoteUnquoteWidget.setHeartColour(
                 context,
                 WidgetIdHelper.WIDGET_ID_01,
-                remoteViews
+                remoteViews,
             )
         }
     }

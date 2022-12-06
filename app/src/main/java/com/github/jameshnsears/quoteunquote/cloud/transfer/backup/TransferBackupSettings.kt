@@ -25,8 +25,8 @@ open class TransferBackupSettings(val context: Context) {
                     settingsQuotations(widgetIds[widgetIdsIndex], context),
                     settingsAppearance(widgetIds[widgetIdsIndex], context),
                     settingsSchedule(widgetIds[widgetIdsIndex], context),
-                    widgetIds[widgetIdsIndex]
-                )
+                    widgetIds[widgetIdsIndex],
+                ),
             )
         }
 
@@ -65,7 +65,7 @@ open class TransferBackupSettings(val context: Context) {
             quotationPreferences.contentSelectionSearch,
 
             quotationPreferences.databaseInternal,
-            quotationPreferences.databaseExternal
+            quotationPreferences.databaseExternal,
         )
     }
 
@@ -100,7 +100,7 @@ open class TransferBackupSettings(val context: Context) {
             appearancePreferences.appearanceToolbarShareNoSource,
             appearancePreferences.appearanceToolbarJump,
             appearancePreferences.appearanceToolbarRandom,
-            appearancePreferences.appearanceToolbarSequential
+            appearancePreferences.appearanceToolbarSequential,
         )
     }
 
@@ -108,7 +108,7 @@ open class TransferBackupSettings(val context: Context) {
         val notificationsPreferences =
             NotificationsPreferences(
                 widgetId,
-                context
+                context,
             )
 
         return Schedule(
@@ -119,7 +119,8 @@ open class TransferBackupSettings(val context: Context) {
             notificationsPreferences.eventDaily,
             notificationsPreferences.eventDeviceUnlock,
             notificationsPreferences.eventDailyTimeMinute,
-            notificationsPreferences.eventDailyTimeHour
+            notificationsPreferences.eventDailyTimeHour,
+            notificationsPreferences.eventBihourly,
         )
     }
 }

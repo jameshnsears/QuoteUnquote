@@ -1,5 +1,7 @@
 package com.github.jameshnsears.quoteunquote.utils.notification;
 
+import static android.content.Context.NOTIFICATION_SERVICE;
+
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -13,95 +15,194 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.github.jameshnsears.quoteunquote.QuoteUnquoteWidget;
 import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+
 import timber.log.Timber;
 
-
 public class NotificationHelper {
-    public void displayNotification(
-            @NonNull Context context,
-            int widgetId,
-            @NonNull String author,
-            @NonNull String quotation,
-            @NonNull String digest,
-            boolean isFavourite,
-            boolean sequential,
-            int notificationId) {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(
-                context, createNotificationChannel(context))
-                .setSmallIcon(R.drawable.ic_notification_icon)
-                .setContentTitle(author)
-                .setStyle(getBigTextStyle(quotation))
-                .setDeleteIntent(createNotificationDeleteIntent(context, widgetId, digest))
-                .setPriority(NotificationCompat.PRIORITY_HIGH);
+    /*
+    API 30:
+    Notification 1 + N
+    ...
+    Notification 1
+     */
+    @Nullable
+    String notificationChannelDeviceUnlock;
+    @Nullable
+    String notificationChannelEventDaily;
+    @Nullable
+    String notificationChannelBihourly;
 
-        builder.addAction(getActionFavourite(context, widgetId, digest, notificationId, isFavourite));
-        builder.addAction(getActionNext(context, widgetId, digest, notificationId, sequential));
+    public NotificationHelper(@NonNull Context context) {
+        notificationChannelDeviceUnlock = createNotificationChannel(
+                context,
+                context.getString(R.string.notification_channel_screen_unlock));
 
-        NotificationManagerCompat.from(context)
-                .notify(notificationId, builder.build());
+        notificationChannelEventDaily = createNotificationChannel(
+                context,
+                context.getString(R.string.notification_channel_specific_time));
+
+        notificationChannelBihourly = createNotificationChannel(
+                context,
+                context.getString(R.string.notification_channel_every_two_hours));
     }
 
-    private PendingIntent createNotificationDeleteIntent(
-            @Nullable Context context,
-            final int widgetId,
-            @NonNull String digest) {
-        Bundle bundle = new Bundle();
-        bundle.putString("widgetId", digest);
-        bundle.putString("digest", digest);
-
-        return IntentFactoryHelper.createClickPendingIntent(
-                context,
-                widgetId,
-                IntentFactoryHelper.TOOLBAR_PRESSED_NOTIFICATION_DELETED,
-                bundle
+    public void displayNotificationDeviceUnlock(
+            @NonNull NotificationContent notificationContent) {
+        displayNotification(
+                notificationContent,
+                notificationChannelDeviceUnlock,
+                R.drawable.ic_notification_icon_screen_unlock
         );
     }
 
+    public void displayNotificationEventDaily(
+            @NonNull NotificationContent notificationContent) {
+        displayNotification(
+                notificationContent,
+                notificationChannelEventDaily,
+                R.drawable.ic_notification_icon_specific_time
+        );
+    }
+
+    public void displayNotificationBihourly(
+            @NonNull NotificationContent notificationContent) {
+        displayNotification(
+                notificationContent,
+                notificationChannelBihourly,
+                R.drawable.ic_notification_icon_every_two_hours
+        );
+    }
+
+    private void displayNotification(
+            @NonNull NotificationContent notificationContent,
+            @NonNull String notificationChannelId,
+            final int notificationIcon) {
+
+        Timber.d("notificationChannelId=%s", notificationChannelId);
+        Timber.d("widgetId=%d; digest=%s; notificationId=%d; notificationEvent=%s",
+                notificationContent.getWidgetId(),
+                notificationContent.getDigest(),
+                notificationContent.getNotificationId(),
+                notificationContent.getNotificationEvent()
+        );
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(
+                notificationContent.getContext(), notificationChannelId)
+                .setSmallIcon(notificationIcon)
+                .setContentTitle(notificationContent.getAuthor())
+                .setStyle(getBigTextStyle(notificationContent.getQuotation()))
+
+                .setDeleteIntent(createNotificationDeleteIntent(
+                        notificationContent.getContext(),
+                        notificationContent.getWidgetId(),
+                        notificationContent.getDigest(),
+                        notificationContent.getNotificationId(),
+                        notificationContent.getNotificationEvent()))
+
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setGroup(notificationChannelId);
+
+        builder.addAction(getActionFavourite(
+                notificationContent.getContext(),
+                notificationContent.getWidgetId(),
+                notificationContent.getDigest(),
+                notificationContent.getNotificationId(),
+                notificationContent.getNotificationEvent(),
+                notificationContent.isFavourite()));
+
+        builder.addAction(getActionNext(
+                notificationContent.getContext(),
+                notificationContent.getWidgetId(),
+                notificationContent.getDigest(),
+                notificationContent.getNotificationId(),
+                notificationContent.getNotificationEvent(),
+                notificationContent.getSequential()));
+
+        NotificationManagerCompat.from(notificationContent.getContext())
+                .notify(notificationContent.getNotificationId(), builder.build());
+    }
+
+    public void dismissNotification(@NonNull Context context, final int notificationId) {
+        Timber.d("notificationId=%d", notificationId);
+
+        NotificationManager notificationManager
+                = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+        notificationManager.cancel(notificationId);
+    }
+
+    @NonNull
+    private PendingIntent createNotificationDeleteIntent(
+            @Nullable Context context,
+            final int widgetId,
+            @NonNull String digest,
+            final int notificationId,
+            @NonNull final String notificationEvent) {
+        return IntentFactoryHelper.createClickPendingIntent(
+                context,
+                notificationId,
+                IntentFactoryHelper.NOTIFICATION_DISMISSED,
+                getActionBundle(widgetId, digest, notificationId, notificationEvent)
+        );
+    }
+
+    @NonNull
     private NotificationCompat.Action getActionFavourite(
             @NonNull Context context,
             final int widgetId,
             @NonNull String digest,
             final int notificationId,
+            @NonNull final String notificationEvent,
             boolean isFavourite) {
-        Bundle bundle = new Bundle();
-        bundle.putString("digest", digest);
-        bundle.putInt("notificationId", notificationId);
-
-        Timber.d("digest=%s; notificationId=%d", digest, notificationId);
-
         int icon = R.drawable.ic_toolbar_favorite_ff000000_24;
         if (isFavourite) {
             icon = R.drawable.ic_toolbar_favorite_red_24;
         }
 
+        PendingIntent pendingIntent = IntentFactoryHelper.createClickPendingIntent(
+                context,
+                widgetId,
+                notificationId,
+                IntentFactoryHelper.NOTIFICATION_FAVOURITE_PRESSED,
+                getActionBundle(widgetId, digest, notificationId, notificationEvent)
+        );
+
         return new NotificationCompat.Action(icon,
-                context.getString(R.string.notification_action_favourite),
-                IntentFactoryHelper.createClickPendingIntent(
-                        context,
-                        widgetId,
-                        IntentFactoryHelper.TOOLBAR_PRESSED_NOTIFICATION_FAVOURITE,
-                        bundle
-                )
+                context.getString(R.string.fragment_appearance_toolbar_favourite),
+                pendingIntent
         );
     }
 
+    @NonNull
+    private Bundle getActionBundle(
+            int widgetId,
+            @NonNull String digest,
+            int notificationId,
+            @NonNull final String notificationEvent) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("widgetId", widgetId);
+        bundle.putString("digest", digest);
+        bundle.putInt("notificationId", notificationId);
+        bundle.putString("notificationEvent", notificationEvent);
+        return bundle;
+    }
+
+    @NonNull
     private NotificationCompat.Action getActionNext(
             @NonNull Context context,
             final int widgetId,
             @NonNull String digest,
             final int notificationId,
+            @NonNull final String notificationEvent,
             boolean sequential) {
-        Bundle bundle = new Bundle();
-        bundle.putString("digest", digest);
-        bundle.putInt("notificationId", notificationId);
-
-        Timber.d("digest=%s; notificationId=%d", digest, notificationId);
-
         int icon = R.drawable.ic_toolbar_next_sequential_ff000000_24;
         String nextString = context.getString(R.string.fragment_appearance_toolbar_next_sequential);
+
         if (!sequential) {
             icon = R.drawable.ic_toolbar_next_random_ff000000_24;
             nextString = context.getString(R.string.fragment_appearance_toolbar_next_random);
@@ -113,8 +214,9 @@ public class NotificationHelper {
                 IntentFactoryHelper.createClickPendingIntent(
                         context,
                         widgetId,
-                        IntentFactoryHelper.TOOLBAR_PRESSED_NOTIFICATION_NEXT,
-                        bundle
+                        notificationId,
+                        IntentFactoryHelper.NOTIFICATION_NEXT_PRESSED,
+                        getActionBundle(widgetId, digest, notificationId, notificationEvent)
                 )
         );
     }
@@ -127,22 +229,21 @@ public class NotificationHelper {
     }
 
     @Nullable
-    private String createNotificationChannel(@NonNull Context context) {
+    private String createNotificationChannel(
+            @NonNull Context context,
+            @NonNull String notificationChannelId) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            String notificationChannelId
-                    = context.getString(com.github.jameshnsears.quoteunquote.R.string.notification_channel_id);
 
             NotificationChannel notificationChannel = new NotificationChannel(
                     notificationChannelId,
-                    context.getText(com.github.jameshnsears.quoteunquote.R.string.notification_channel_name),
+                    notificationChannelId,
                     NotificationManager.IMPORTANCE_HIGH);
-
-            notificationChannel.setDescription(context.getString(R.string.notification_channel_description));
+            notificationChannel.setDescription(notificationChannelId);
             notificationChannel.enableVibration(true);
             notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
             notificationChannel.setShowBadge(false);
-
-            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationManager notificationManager
+                    = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
             notificationManager.createNotificationChannel(notificationChannel);
 
             return notificationChannelId;

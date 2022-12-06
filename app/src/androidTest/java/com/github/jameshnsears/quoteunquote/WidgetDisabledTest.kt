@@ -23,7 +23,7 @@ open class WidgetDisabledTest : QuoteUnquoteModelUtility() {
             val contentPreferences =
                 SyncPreferences(
                     0,
-                    context
+                    context,
                 )
             assertTrue(contentPreferences.transferLocalCode.length == 10)
             quoteUnquoteWidget.onDisabled(context)

@@ -1,4 +1,0 @@
-&bull; Center Quotation &amp; Source
-&bull; Feature Graphic
-&bull; Card padding
-&bull; Update 3rd party dependencies

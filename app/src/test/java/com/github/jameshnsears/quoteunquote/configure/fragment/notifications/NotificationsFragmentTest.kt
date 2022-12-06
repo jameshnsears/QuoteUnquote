@@ -6,6 +6,7 @@ import android.os.Build
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper
+import com.github.jameshnsears.quoteunquote.utils.notification.NotificationsDailyAlarm
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import junit.framework.TestCase.assertTrue
 import org.junit.Assert.assertFalse
@@ -25,20 +26,20 @@ class NotificationsFragmentTest {
         val eventPreferences =
             NotificationsPreferences(
                 WidgetIdHelper.WIDGET_ID_01,
-                context
+                context,
             )
         eventPreferences.eventDaily = true
 
         val eventDailyAlarm =
             NotificationsDailyAlarm(
                 context,
-                WidgetIdHelper.WIDGET_ID_01
+                WidgetIdHelper.WIDGET_ID_01,
             )
-        eventDailyAlarm.setDailyAlarm()
+        eventDailyAlarm.setAlarm()
 
         assertTrue(isAlarmSet(context))
 
-        eventDailyAlarm.resetAnyExistingDailyAlarm()
+        eventDailyAlarm.resetAlarm()
 
         assertTrue(isAlarmSet(context))
     }
@@ -50,7 +51,7 @@ class NotificationsFragmentTest {
             context,
             WidgetIdHelper.WIDGET_ID_01,
             intent,
-            PendingIntent.FLAG_NO_CREATE
+            PendingIntent.FLAG_NO_CREATE,
         ) != null
     }
 }

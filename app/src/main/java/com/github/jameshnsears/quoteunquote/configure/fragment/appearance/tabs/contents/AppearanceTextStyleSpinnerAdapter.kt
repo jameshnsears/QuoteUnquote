@@ -46,7 +46,7 @@ class AppearanceTextStyleSpinnerAdapter(private val context: Context) : BaseAdap
             view = LayoutInflater.from(context).inflate(
                 android.R.layout.simple_spinner_dropdown_item,
                 viewGroup,
-                false
+                false,
             )
         }
 

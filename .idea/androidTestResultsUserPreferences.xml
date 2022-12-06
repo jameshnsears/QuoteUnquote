@@ -60,6 +60,7 @@
             <AndroidTestResultsTableState>
               <option name="preferredColumnWidths">
                 <map>
+                  <entry key="30_Pixel_4a" value="120" />
                   <entry key="Duration" value="90" />
                   <entry key="Pixel_5_API_30" value="120" />
                   <entry key="Tests" value="360" />
@@ -154,10 +155,11 @@
             <AndroidTestResultsTableState>
               <option name="preferredColumnWidths">
                 <map>
-                  <entry key="Duration" value="90" />
+                  <entry key="30_Pixel_4a" value="207" />
+                  <entry key="Duration" value="178" />
                   <entry key="Pixel_5_API_24" value="120" />
                   <entry key="Pixel_5_API_30" value="120" />
-                  <entry key="Tests" value="360" />
+                  <entry key="Tests" value="447" />
                   <entry key="adb-52000e504bc43567-HYWx9G._adb-tls-connect._tcp" value="120" />
                   <entry key="samsung&#10; SM-A520F" value="120" />
                 </map>
@@ -172,6 +174,19 @@
                 <map>
                   <entry key="Duration" value="90" />
                   <entry key="Pixel_5_API_30" value="120" />
+                  <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="945840503">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="30_Pixel_4a" value="120" />
+                  <entry key="Duration" value="90" />
                   <entry key="Tests" value="360" />
                 </map>
               </option>

@@ -1,20 +1,14 @@
-Quote Unquote is an App Widget that displays Quotations.
+From Reddit to Shakespeare, and beyond... Discover high quality Quotations!
 
-Discover over twenty thousand, curated, &#34;high quality&#34; quotations.
+Improve your self-esteem with this easy to use App Widget.
 
 Key features:
-&bull; Filter quotations
-&bull; Import quotations
-&bull; Customise appearance
-&bull; Toolbar navigation
-&bull; Notifications
-&bull; Backup &amp; Restore
-&bull; Wikipedia integration
-
-Other items of interest:
-&bull; Free &amp; without Ads
-&bull; Core functionality works offline
-&bull; Minimal permissions
-&bull; Anonymous analytics
-&bull; Internal Database content is English
-&bull; Open-source software: use GitHub to report defects / raise feature requests - https://github.com/jameshnsears/QuoteUnquote/issues
+&bull; The Quotations! Carefully sourced and curated
+&bull; Works offline
+&bull; Free; no Ads; minimal permissions
+&bull; Navigate through what you want, how you want
+&bull; Single tap to Wikipedia Source article
+&bull; Highly customisable appearance
+&bull; Notification channels and actions
+&bull; Backup and Restore, locally or remote
+&bull; Open source - user feedback drives development

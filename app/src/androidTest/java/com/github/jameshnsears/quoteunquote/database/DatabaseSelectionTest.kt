@@ -16,20 +16,20 @@ class DatabaseSelectionTest : QuoteUnquoteModelUtility() {
 
         quoteUnquoteModelDouble.toggleFavourite(
             WidgetIdHelper.WIDGET_ID_01,
-            DatabaseRepository.getDefaultQuotationDigest()
+            DatabaseRepository.getDefaultQuotationDigest(),
         )
 
         assertEquals(
             7,
-            databaseRepositoryDouble.countAll().blockingGet()
+            databaseRepositoryDouble.countAll().blockingGet(),
         )
         assertEquals(
             5,
-            databaseRepositoryDouble.getAuthorsAndQuotationCounts(1).blockingGet().size
+            databaseRepositoryDouble.getAuthorsAndQuotationCounts(1).blockingGet().size,
         )
         assertEquals(
             2,
-            databaseRepositoryDouble.authorsQuotationCount.blockingGet().size
+            databaseRepositoryDouble.authorsQuotationCount.blockingGet().size,
         )
     }
 
@@ -42,15 +42,15 @@ class DatabaseSelectionTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             5,
-            databaseRepositoryDouble.countAll().blockingGet()
+            databaseRepositoryDouble.countAll().blockingGet(),
         )
         assertEquals(
             4,
-            databaseRepositoryDouble.getAuthorsAndQuotationCounts(1).blockingGet().size
+            databaseRepositoryDouble.getAuthorsAndQuotationCounts(1).blockingGet().size,
         )
         assertEquals(
             2,
-            databaseRepositoryDouble.authorsQuotationCount.blockingGet().size
+            databaseRepositoryDouble.authorsQuotationCount.blockingGet().size,
         )
     }
 }

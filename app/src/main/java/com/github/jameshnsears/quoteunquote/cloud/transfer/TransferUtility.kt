@@ -11,8 +11,8 @@ object TransferUtility {
         return appWidgetManager.getAppWidgetIds(
             ComponentName(
                 context,
-                QuoteUnquoteWidget::class.java
-            )
+                QuoteUnquoteWidget::class.java,
+            ),
         )
     }
 }

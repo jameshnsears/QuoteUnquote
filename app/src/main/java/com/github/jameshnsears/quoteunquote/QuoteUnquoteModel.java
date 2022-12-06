@@ -180,7 +180,7 @@ public class QuoteUnquoteModel {
     public void markAsCurrentNext(
             final int widgetId,
             final boolean randomNext) {
-        Timber.d("%b", randomNext);
+        Timber.d("randomNext=%b", randomNext);
 
         final QuotationsPreferences quotationsPreferences = getContentPreferences(widgetId);
 
@@ -365,8 +365,6 @@ public class QuoteUnquoteModel {
             Thread.currentThread().interrupt();
         }
 
-        Timber.d("%d", allPreviousDigests.size());
-
         return allPreviousDigests;
     }
 
@@ -459,7 +457,7 @@ public class QuoteUnquoteModel {
 
             if (!favourites.contains(digest)) {
                 databaseRepository.markAsFavourite(digest);
-                auditFavourite(widgetId, digest);
+                auditFavourite(digest);
             } else {
                 databaseRepository.eraseFavourite(widgetId, digest);
             }
@@ -478,9 +476,8 @@ public class QuoteUnquoteModel {
         return favouritesCount;
     }
 
-    private void auditFavourite(int widgetId, @NonNull String digest) {
-        QuotationEntity quotationEntity = getCurrentQuotation(
-                widgetId);
+    private void auditFavourite(@NonNull String digest) {
+        QuotationEntity quotationEntity = getQuotation(digest);
 
         ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
         properties.put("Favourite",
@@ -501,7 +498,7 @@ public class QuoteUnquoteModel {
             Thread.currentThread().interrupt();
         }
 
-        Timber.d("%b", isFavourite);
+        Timber.d("isFavourite=%b", isFavourite);
         return isFavourite;
     }
 

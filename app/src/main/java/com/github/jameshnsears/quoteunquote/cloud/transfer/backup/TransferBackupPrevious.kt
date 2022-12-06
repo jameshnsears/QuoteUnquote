@@ -17,7 +17,7 @@ open class TransferBackupPrevious {
 
     private fun getPreviousFromDatabase(
         databaseRepository: DatabaseRepository,
-        useInternalDatabase: Boolean
+        useInternalDatabase: Boolean,
     ): List<Previous> {
         DatabaseRepository.useInternalDatabase = useInternalDatabase
 
@@ -35,8 +35,8 @@ open class TransferBackupPrevious {
                             "internal"
                         } else {
                             "external"
-                        }
-                    )
+                        },
+                    ),
                 )
             }
         }

@@ -1,27 +1,22 @@
 ---
-name: Bug report
-about: Create a report to help improve the App
-title: ''
-labels: ''
-assignees: ''
+name: BR
+about: Report a bug
+title: '...'
 
 ---
 
 **Version of the app**
-Version: [e.g.  1.1.1-googleplay]
+Version: [e.g.  4.5.0-googleplay]
 
 **Describe the bug**
-A clear and concise description of what the bug is.
+Please describe the bug.
 
 **To Reproduce**
-Steps to reproduce the behavior:
+Steps to reproduce:
 
 1. Go to '...'
-2. Click on '....'
-3. See error
-
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+2. Tap '...'
+3. ...
 
 **Screenshots**
-If applicable, add screenshots to help explain your problem.
+Add if possible.

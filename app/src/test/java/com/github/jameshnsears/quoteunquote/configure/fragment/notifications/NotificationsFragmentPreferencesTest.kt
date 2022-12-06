@@ -18,8 +18,8 @@ class NotificationsFragmentPreferencesTest : ShadowLoggingHelper() {
     fun confirmInitialPreferences() {
         with(launchFragment<NotificationsFragmentDouble>()) {
             onFragment { fragment ->
-                assertTrue(fragment.notificationsPreferences?.eventNextRandom == true)
-                assertTrue(fragment.notificationsPreferences?.eventNextSequential == false)
+                assertTrue(fragment.notificationsPreferences?.eventNextRandom == false)
+                assertTrue(fragment.notificationsPreferences?.eventNextSequential == true)
                 assertTrue(fragment.notificationsPreferences?.eventDisplayWidget == true)
                 assertTrue(fragment.notificationsPreferences?.eventDisplayWidgetAndNotification == false)
 
@@ -28,12 +28,13 @@ class NotificationsFragmentPreferencesTest : ShadowLoggingHelper() {
                 assertTrue(fragment.notificationsPreferences?.eventDaily == false)
                 assertThat(
                     fragment.notificationsPreferences?.eventDailyTimeHour,
-                    IsEqual.equalTo(6)
+                    IsEqual.equalTo(6),
                 )
                 assertThat(
                     fragment.notificationsPreferences?.eventDailyTimeMinute,
-                    IsEqual.equalTo(0)
+                    IsEqual.equalTo(0),
                 )
+                assertTrue(fragment.notificationsPreferences?.eventBihourly == false)
             }
         }
     }
@@ -44,11 +45,11 @@ class NotificationsFragmentPreferencesTest : ShadowLoggingHelper() {
             onFragment { fragment ->
                 assertThat(
                     fragment.notificationsPreferences?.eventDailyTimeHour,
-                    IsEqual.equalTo(6)
+                    IsEqual.equalTo(6),
                 )
                 assertThat(
                     fragment.notificationsPreferences?.eventDailyTimeMinute,
-                    IsEqual.equalTo(0)
+                    IsEqual.equalTo(0),
                 )
 
                 fragment.setDailyTime()
@@ -58,11 +59,11 @@ class NotificationsFragmentPreferencesTest : ShadowLoggingHelper() {
 
                 assertThat(
                     fragment.notificationsPreferences?.eventDailyTimeHour,
-                    IsEqual.equalTo(7)
+                    IsEqual.equalTo(7),
                 )
                 assertThat(
                     fragment.notificationsPreferences?.eventDailyTimeMinute,
-                    IsEqual.equalTo(30)
+                    IsEqual.equalTo(30),
                 )
             }
         }

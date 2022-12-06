@@ -23,7 +23,7 @@ class WidgetToolbarFirstTest : QuoteUnquoteModelUtility() {
         every {
             appWidgetManager.notifyAppWidgetViewDataChanged(
                 WidgetIdHelper.WIDGET_ID_01,
-                any()
+                any(),
             )
         } returns Unit
 
@@ -37,20 +37,20 @@ class WidgetToolbarFirstTest : QuoteUnquoteModelUtility() {
 
             databaseRepositoryDouble.markAsCurrent(
                 WidgetIdHelper.WIDGET_ID_01,
-                getDefaultQuotation().digest
+                getDefaultQuotation().digest,
             )
 
             val quotationsPreferences =
                 QuotationsPreferences(
                     WidgetIdHelper.WIDGET_ID_01,
-                    context
+                    context,
                 )
             quotationsPreferences.contentSelection = ContentSelection.ALL
 
             onReceiveToolbarPressedFirst(quoteUnquoteWidget, appWidgetManager)
             assertEquals(
                 getDefaultQuotation().digest,
-                databaseRepositoryDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01).digest
+                databaseRepositoryDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01).digest,
             )
         }
     }
@@ -63,7 +63,7 @@ class WidgetToolbarFirstTest : QuoteUnquoteModelUtility() {
             val quotationsPreferences =
                 QuotationsPreferences(
                     WidgetIdHelper.WIDGET_ID_01,
-                    context
+                    context,
                 )
             quotationsPreferences.contentSelection = ContentSelection.FAVOURITES
 
@@ -80,7 +80,7 @@ class WidgetToolbarFirstTest : QuoteUnquoteModelUtility() {
             val quotationsPreferences =
                 QuotationsPreferences(
                     WidgetIdHelper.WIDGET_ID_01,
-                    context
+                    context,
                 )
             quotationsPreferences.contentSelection = ContentSelection.AUTHOR
             quotationsPreferences.contentSelectionAuthor = "a0"
@@ -88,7 +88,7 @@ class WidgetToolbarFirstTest : QuoteUnquoteModelUtility() {
             onReceiveToolbarPressedFirst(quoteUnquoteWidget, appWidgetManager)
             assertEquals(
                 DatabaseRepository.getDefaultQuotationDigest(),
-                databaseRepositoryDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01).digest
+                databaseRepositoryDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01).digest,
             )
         }
     }
@@ -101,7 +101,7 @@ class WidgetToolbarFirstTest : QuoteUnquoteModelUtility() {
             val quotationsPreferences =
                 QuotationsPreferences(
                     WidgetIdHelper.WIDGET_ID_01,
-                    context
+                    context,
                 )
             quotationsPreferences.contentSelection = ContentSelection.AUTHOR
             quotationsPreferences.contentSelectionAuthor = "a0"
@@ -109,19 +109,19 @@ class WidgetToolbarFirstTest : QuoteUnquoteModelUtility() {
             onReceiveToolbarPressedFirst(quoteUnquoteWidget, appWidgetManager)
             assertEquals(
                 DatabaseRepository.getDefaultQuotationDigest(),
-                databaseRepositoryDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01).digest
+                databaseRepositoryDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01).digest,
             )
         }
     }
 
     private fun onReceiveToolbarPressedFirst(
         quoteUnquoteWidget: QuoteUnquoteWidget,
-        appWidgetManager: AppWidgetManager
+        appWidgetManager: AppWidgetManager,
     ) {
         quoteUnquoteWidget.onReceiveToolbarPressedFirst(
             context,
             WidgetIdHelper.WIDGET_ID_01,
-            appWidgetManager
+            appWidgetManager,
         )
     }
 }

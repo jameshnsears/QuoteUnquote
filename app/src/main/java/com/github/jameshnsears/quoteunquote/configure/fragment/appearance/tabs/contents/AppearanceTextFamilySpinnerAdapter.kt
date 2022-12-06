@@ -45,7 +45,7 @@ class AppearanceTextFamilySpinnerAdapter(private val context: Context) : BaseAda
             view = LayoutInflater.from(context).inflate(
                 android.R.layout.simple_spinner_dropdown_item,
                 viewGroup,
-                false
+                false,
             )
         }
 
@@ -59,24 +59,24 @@ class AppearanceTextFamilySpinnerAdapter(private val context: Context) : BaseAda
         }
 
         when (getItem(position)) {
-            "Cursive"
+            "Cursive",
             -> view.typeface =
                 Typeface.createFromAsset(context.assets, "font/DancingScript_Regular.ttf")
-            "Monospace"
+            "Monospace",
             -> view.typeface =
                 Typeface.createFromAsset(context.assets, "font/DroidSansMono.ttf")
-            "Sans Serif"
+            "Sans Serif",
             -> view.typeface =
                 Typeface.createFromAsset(context.assets, "font/Roboto_Regular.ttf")
-            "Sans Serif Condensed"
+            "Sans Serif Condensed",
             -> view.typeface = Typeface.createFromAsset(
                 context.assets,
-                "font/RobotoCondensed_Regular.ttf"
+                "font/RobotoCondensed_Regular.ttf",
             )
-            "Sans Serif Medium"
+            "Sans Serif Medium",
             -> view.typeface =
                 Typeface.createFromAsset(context.assets, "font/Roboto_Medium.ttf")
-            "Serif"
+            "Serif",
             -> view.typeface =
                 Typeface.createFromAsset(context.assets, "font/NotoSerif_Regular.ttf")
         }

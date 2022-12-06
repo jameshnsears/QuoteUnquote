@@ -96,7 +96,7 @@
 
                     <TextView
                             android:id="@+id/textViewLocalCodeValue"
-                            android:layout_width="150dp"
+                            android:layout_width="170dp"
                             android:layout_height="wrap_content"
                             android:minHeight="48dp"
                             android:paddingVertical="10dp"
@@ -104,7 +104,7 @@
                             android:paddingEnd="48dp"
                             android:text="@string/fragment_archive_backup_local_code_value"
                             android:textIsSelectable="true"
-                            android:textSize="16sp" />
+                            android:textSize="18sp" />
 
                     <Button
                             android:id="@+id/buttonBackup"
@@ -126,14 +126,14 @@
 
                     <EditText
                             android:id="@+id/editTextRemoteCodeValue"
-                            android:layout_width="150dp"
+                            android:layout_width="170dp"
                             android:layout_height="wrap_content"
                             android:ems="10"
                             android:importantForAutofill="no"
                             android:inputType="textPersonName"
                             android:maxLength="10"
                             android:minHeight="48dp"
-                            android:textSize="16sp"
+                            android:textSize="18sp"
                             tools:ignore="LabelFor,TextContrastCheck" />
 
                     <Button

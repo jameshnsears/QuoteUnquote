@@ -22,8 +22,8 @@ class QuoteUnquoteModelTest : QuoteUnquoteModelUtility() {
                 mutableListOf(
                     AuthorPOJO("c"),
                     AuthorPOJO("b"),
-                    AuthorPOJO("a")
-                )
+                    AuthorPOJO("a"),
+                ),
             )
 
         assertTrue(sortedList[0].equals("a"))
@@ -59,7 +59,7 @@ class QuoteUnquoteModelTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             gson().toJson(expectedJson),
-            gson().toJson(actualJson)
+            gson().toJson(actualJson),
         )
     }
 
@@ -80,23 +80,23 @@ class QuoteUnquoteModelTest : QuoteUnquoteModelUtility() {
     fun countQuotationWithSearchText() {
         assertEquals(
             0,
-            quoteUnquoteModelDouble.countQuotationWithSearchText("a", false)
+            quoteUnquoteModelDouble.countQuotationWithSearchText("a", false),
         )
         insertInternalQuotations()
         assertEquals(
             5,
-            quoteUnquoteModelDouble.countQuotationWithSearchText("a", false)
+            quoteUnquoteModelDouble.countQuotationWithSearchText("a", false),
         )
 
         DatabaseRepository.useInternalDatabase = false
         assertEquals(
             0,
-            quoteUnquoteModelDouble.countQuotationWithSearchText("external", false)
+            quoteUnquoteModelDouble.countQuotationWithSearchText("external", false),
         )
         insertExternalQuotations()
         assertEquals(
             2,
-            quoteUnquoteModelDouble.countQuotationWithSearchText("external", false)
+            quoteUnquoteModelDouble.countQuotationWithSearchText("external", false),
         )
     }
 
@@ -114,8 +114,8 @@ class QuoteUnquoteModelTest : QuoteUnquoteModelUtility() {
                 DatabaseRepository.getDefaultQuotationDigest(),
                 "",
                 "external_a0",
-                "external_q0"
-            )
+                "external_q0",
+            ),
         )
 
         quoteUnquoteModelDouble.insertQuotationsExternal(quotationEntityList)
@@ -129,13 +129,13 @@ class QuoteUnquoteModelTest : QuoteUnquoteModelUtility() {
 
         val quotationEntityList: MutableList<QuotationEntity> = ArrayList()
         quotationEntityList.add(
-            QuotationEntity(DatabaseRepository.getDefaultQuotationDigest(), "w1", "a1", "q1")
+            QuotationEntity(DatabaseRepository.getDefaultQuotationDigest(), "w1", "a1", "q1"),
         )
         databaseRepositoryDouble.insertQuotations(quotationEntityList)
 
         assertEquals(
             "a1",
-            quoteUnquoteModelDouble.getQuotation(DatabaseRepository.getDefaultQuotationDigest()).author
+            quoteUnquoteModelDouble.getQuotation(DatabaseRepository.getDefaultQuotationDigest()).author,
         )
     }
 
@@ -150,8 +150,8 @@ class QuoteUnquoteModelTest : QuoteUnquoteModelUtility() {
                 DatabaseRepository.getDefaultQuotationDigest(),
                 "w1",
                 "a1",
-                "q1"
-            )
+                "q1",
+            ),
         )
         quotationEntityList.add(QuotationEntity("d2", "w2", "a2", "q2"))
         databaseRepositoryDouble.insertQuotations(quotationEntityList)
@@ -175,8 +175,8 @@ class QuoteUnquoteModelTest : QuoteUnquoteModelUtility() {
                 DatabaseRepository.getDefaultQuotationDigest(),
                 "w1",
                 "a1",
-                "q1"
-            )
+                "q1",
+            ),
         )
         quotationEntityList.add(QuotationEntity("d2", "w2", "a2", "q2"))
         databaseRepositoryDouble.insertQuotations(quotationEntityList)
@@ -184,13 +184,13 @@ class QuoteUnquoteModelTest : QuoteUnquoteModelUtility() {
         // act
         quoteUnquoteModelDouble.setDefault(
             WidgetIdHelper.WIDGET_ID_01,
-            ContentSelection.SEARCH
+            ContentSelection.SEARCH,
         )
 
         // assert
         assertEquals(
             DatabaseRepository.getDefaultQuotationDigest(),
-            quoteUnquoteModelDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01)?.digest
+            quoteUnquoteModelDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01)?.digest,
         )
     }
 
@@ -203,8 +203,8 @@ class QuoteUnquoteModelTest : QuoteUnquoteModelUtility() {
                 DatabaseRepository.getDefaultQuotationDigest(),
                 "w1",
                 "a1",
-                "q1"
-            )
+                "q1",
+            ),
         )
         quotationEntityList.add(QuotationEntity("d2", "w2", "a2", "q2"))
         quotationEntityList.add(QuotationEntity("d3", "w3", "a3", "q3"))
@@ -214,27 +214,27 @@ class QuoteUnquoteModelTest : QuoteUnquoteModelUtility() {
         databaseRepositoryDouble.markAsPrevious(
             WidgetIdHelper.WIDGET_ID_01,
             ContentSelection.ALL,
-            DatabaseRepository.getDefaultQuotationDigest()
+            DatabaseRepository.getDefaultQuotationDigest(),
         )
         databaseRepositoryDouble.markAsPrevious(
             WidgetIdHelper.WIDGET_ID_01,
             ContentSelection.ALL,
-            "d2"
+            "d2",
         )
         databaseRepositoryDouble.markAsPrevious(
             WidgetIdHelper.WIDGET_ID_01,
             ContentSelection.ALL,
-            "d3"
+            "d3",
         )
         databaseRepositoryDouble.markAsPrevious(
             WidgetIdHelper.WIDGET_ID_01,
             ContentSelection.ALL,
-            "d4"
+            "d4",
         )
 
         databaseRepositoryDouble.markAsCurrent(
             WidgetIdHelper.WIDGET_ID_01,
-            "d3"
+            "d3",
         )
 
         databaseRepositoryDouble.markAsFavourite("d3")
@@ -254,7 +254,7 @@ class QuoteUnquoteModelTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             "d4",
-            databaseRepositoryDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01).digest
+            databaseRepositoryDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01).digest,
         )
     }
 }

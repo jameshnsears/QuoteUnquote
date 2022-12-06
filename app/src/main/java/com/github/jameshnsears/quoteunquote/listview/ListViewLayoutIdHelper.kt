@@ -6,7 +6,7 @@ class ListViewLayoutIdHelper {
     companion object {
         fun layoutIdForCursive(
             textSize: String,
-            center: Boolean
+            center: Boolean,
         ): Int {
             if (center) {
                 return when (textSize) {
@@ -31,7 +31,7 @@ class ListViewLayoutIdHelper {
 
         fun layoutIdForMonospace(
             textSize: String,
-            center: Boolean
+            center: Boolean,
         ): Int {
             if (center) {
                 return when (textSize) {
@@ -56,7 +56,7 @@ class ListViewLayoutIdHelper {
 
         fun layoutIdForSansSerif(
             textSize: String,
-            center: Boolean
+            center: Boolean,
         ): Int {
             if (center) {
                 return when (textSize) {
@@ -81,7 +81,7 @@ class ListViewLayoutIdHelper {
 
         fun layoutIdForSansSerifCondensed(
             textSize: String,
-            center: Boolean
+            center: Boolean,
         ): Int {
             if (center) {
                 return when (textSize) {
@@ -106,7 +106,7 @@ class ListViewLayoutIdHelper {
 
         fun layoutIdForSansSerifMedium(
             textSize: String,
-            center: Boolean
+            center: Boolean,
         ): Int {
             if (center) {
                 return when (textSize) {
@@ -131,7 +131,7 @@ class ListViewLayoutIdHelper {
 
         fun layoutIdForSerif(
             textSize: String,
-            center: Boolean
+            center: Boolean,
         ): Int {
             if (center) {
                 return when (textSize) {

@@ -15,13 +15,14 @@ public class NotificationsPreferences extends PreferencesFacade {
     public static final String EVENT_DEVICE_UNLOCK = "EVENT_DEVICE_UNLOCK";
     public static final String EVENT_DAILY_MINUTE = "EVENT_DAILY_MINUTE";
     public static final String EVENT_DAILY_HOUR = "EVENT_DAILY_HOUR";
+    public static final String EVENT_BIHOURLY = "EVENT_BIHOURLY";
 
     public NotificationsPreferences(int widgetId, @NonNull Context applicationContext) {
         super(widgetId, applicationContext);
     }
 
     public boolean getEventNextRandom() {
-        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(NotificationsPreferences.EVENT_NEXT_RANDOM), true);
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(NotificationsPreferences.EVENT_NEXT_RANDOM), false);
     }
 
     public void setEventNextRandom(boolean value) {
@@ -29,7 +30,7 @@ public class NotificationsPreferences extends PreferencesFacade {
     }
 
     public boolean getEventNextSequential() {
-        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(NotificationsPreferences.EVENT_NEXT_SEQUENTIAL), false);
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(NotificationsPreferences.EVENT_NEXT_SEQUENTIAL), true);
     }
 
     public void setEventNextSequential(boolean value) {
@@ -66,6 +67,14 @@ public class NotificationsPreferences extends PreferencesFacade {
 
     public void setEventDeviceUnlock(boolean value) {
         this.preferenceHelper.setPreference(this.getPreferenceKey(NotificationsPreferences.EVENT_DEVICE_UNLOCK), value);
+    }
+
+    public boolean getEventBihourly() {
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(NotificationsPreferences.EVENT_BIHOURLY), false);
+    }
+
+    public void setEventBihourly(boolean value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(NotificationsPreferences.EVENT_BIHOURLY), value);
     }
 
     public int getEventDailyTimeMinute() {

@@ -13,14 +13,14 @@ open class TransferBackup(val context: Context) : TransferCommon() {
             TransferBackupCurrent(context).current(databaseRepository),
             TransferBackupFavourite().favourite(databaseRepository),
             TransferBackupPrevious().previous(databaseRepository),
-            TransferBackupSettings(context).settings()
+            TransferBackupSettings(context).settings(),
         )
     }
 
     open fun getLocalCode(): String {
         return SyncPreferences(
             0,
-            context
+            context,
         ).transferLocalCode
     }
 }

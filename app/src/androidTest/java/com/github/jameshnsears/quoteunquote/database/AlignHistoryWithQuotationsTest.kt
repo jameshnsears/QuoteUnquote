@@ -16,20 +16,20 @@ class AlignHistoryWithQuotationsTest : QuoteUnquoteModelUtility() {
         databaseRepositoryDouble.markAsPrevious(
             1,
             ContentSelection.ALL,
-            firstDigest
+            firstDigest,
         )
 
         val secondDigest = "d2345678"
 
         databaseRepositoryDouble.markAsCurrent(
             1,
-            secondDigest
+            secondDigest,
         )
 
         databaseRepositoryDouble.markAsPrevious(
             1,
             ContentSelection.ALL,
-            secondDigest
+            secondDigest,
         )
 
         databaseRepositoryDouble.markAsFavourite(secondDigest)

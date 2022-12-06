@@ -16,7 +16,7 @@ class WidgetToolbarFavouriteTest : QuoteUnquoteModelUtility() {
 
         quoteUnquoteModelDouble.toggleFavourite(
             WidgetIdHelper.WIDGET_ID_01,
-            DatabaseRepository.getDefaultQuotationDigest()
+            DatabaseRepository.getDefaultQuotationDigest(),
         )
 
         assertTrue(databaseRepositoryDouble.isFavourite(getDefaultQuotation().digest))
@@ -24,7 +24,7 @@ class WidgetToolbarFavouriteTest : QuoteUnquoteModelUtility() {
 
         quoteUnquoteModelDouble.toggleFavourite(
             WidgetIdHelper.WIDGET_ID_01,
-            DatabaseRepository.getDefaultQuotationDigest()
+            DatabaseRepository.getDefaultQuotationDigest(),
         )
     }
 }

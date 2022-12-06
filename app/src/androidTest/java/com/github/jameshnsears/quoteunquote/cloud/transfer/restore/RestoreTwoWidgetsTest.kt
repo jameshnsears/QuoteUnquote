@@ -22,8 +22,8 @@ class RestoreTwoWidgetsTest : TransferRestoreUtility() {
 
             // assert
             val backupTransfer = TransferBackup(context).transfer(databaseRepositoryDouble)
-//            val restoreJson = TransferRestore().asJson(restoreTransfer)
-//            val backupJson = TransferBackup(context).asJson(backupTransfer)
+            val restoreJson = TransferRestore().asJson(restoreTransfer)
+            val backupJson = TransferBackup(context).asJson(backupTransfer)
 
             Assert.assertEquals(getLocalCode(), backupTransfer.code)
 
@@ -34,21 +34,21 @@ class RestoreTwoWidgetsTest : TransferRestoreUtility() {
             Assert.assertTrue(backupTransfer.settings.size == 1)
             Assert.assertEquals(
                 restoreTransfer.settings[0].appearance,
-                backupTransfer.settings[0].appearance
+                backupTransfer.settings[0].appearance,
             )
 
             Assert.assertNotEquals(
                 restoreTransfer.settings[0].quotations,
-                backupTransfer.settings[0].quotations
+                backupTransfer.settings[0].quotations,
             )
             Assert.assertNotEquals(
                 restoreTransfer.settings[0].quotations.databaseInternal,
-                backupTransfer.settings[0].quotations.databaseInternal
+                backupTransfer.settings[0].quotations.databaseInternal,
             )
 
             Assert.assertEquals(
                 restoreTransfer.settings[0].schedule,
-                backupTransfer.settings[0].schedule
+                backupTransfer.settings[0].schedule,
             )
         }
     }
@@ -65,8 +65,8 @@ class RestoreTwoWidgetsTest : TransferRestoreUtility() {
 
             // assert
             val backupTransfer = TransferBackup(context).transfer(databaseRepositoryDouble)
-//            val restoreJson = TransferRestore().asJson(restoreTransfer)
-//            val backupJson = TransferBackup(context).asJson(backupTransfer)
+            val restoreJson = TransferRestore().asJson(restoreTransfer)
+            val backupJson = TransferBackup(context).asJson(backupTransfer)
 
             Assert.assertEquals(getLocalCode(), backupTransfer.code)
 
@@ -77,31 +77,31 @@ class RestoreTwoWidgetsTest : TransferRestoreUtility() {
             Assert.assertTrue(backupTransfer.settings.size == 2)
             Assert.assertEquals(
                 restoreTransfer.settings[0].appearance,
-                backupTransfer.settings[0].appearance
+                backupTransfer.settings[0].appearance,
             )
 
             Assert.assertNotEquals(
                 restoreTransfer.settings[0].quotations,
-                backupTransfer.settings[0].quotations
+                backupTransfer.settings[0].quotations,
             )
             Assert.assertNotEquals(
                 restoreTransfer.settings[0].quotations.databaseInternal,
-                backupTransfer.settings[0].quotations.databaseInternal
+                backupTransfer.settings[0].quotations.databaseInternal,
             )
 
             Assert.assertEquals(
                 restoreTransfer.settings[0].schedule,
-                backupTransfer.settings[0].schedule
+                backupTransfer.settings[0].schedule,
             )
 
             Assert.assertEquals(
                 restoreTransfer.settings[1].appearance,
-                backupTransfer.settings[1].appearance
+                backupTransfer.settings[1].appearance,
             )
 
             Assert.assertEquals(
                 restoreTransfer.settings[1].schedule,
-                backupTransfer.settings[1].schedule
+                backupTransfer.settings[1].schedule,
             )
         }
     }
@@ -163,12 +163,12 @@ class RestoreTwoWidgetsTest : TransferRestoreUtility() {
                     digest,
                     "w-$digest",
                     "a-$digest",
-                    "q-$digest"
-                )
+                    "q-$digest",
+                ),
             )
         }
         databaseRepositoryDouble.insertQuotations(
-            quotationEntityList.distinct()
+            quotationEntityList.distinct(),
         )
     }
 }

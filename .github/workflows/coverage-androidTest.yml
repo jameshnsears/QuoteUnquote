@@ -2,9 +2,14 @@ name: coverage-androidTest
 
 on:
   push:
+    # This should disable running the workflow on tags, according to the
+    # on.<push|pull_request>.<branches|tags> GitHub Actions docs.
     branches:
-  pull_request:
-    branches:
+      - "*"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 env:
   CACHE_VERSION: 1

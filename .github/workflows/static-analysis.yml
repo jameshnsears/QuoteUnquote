@@ -3,8 +3,11 @@ name: static-analysis
 on:
   push:
     branches:
-  pull_request:
-    branches:
+      - "*"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 env:
   CACHE_VERSION: 1

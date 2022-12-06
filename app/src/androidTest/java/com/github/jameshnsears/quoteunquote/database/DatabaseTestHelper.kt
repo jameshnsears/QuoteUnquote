@@ -32,8 +32,8 @@ abstract class DatabaseTestHelper {
                 DatabaseRepository.getDefaultQuotationDigest(),
                 "w1",
                 "a0",
-                "q0"
-            )
+                "q0",
+            ),
         )
         quotationEntityList.add(QuotationEntity("d1234567", "w1", "a1", "q1"))
         databaseRepositoryDouble.insertQuotations(quotationEntityList)
@@ -58,12 +58,12 @@ abstract class DatabaseTestHelper {
         databaseRepositoryDouble.markAsPrevious(
             widgetId,
             ContentSelection.ALL,
-            getDefaultQuotation().digest
+            getDefaultQuotation().digest,
         )
 
         databaseRepositoryDouble.markAsCurrent(
             widgetId,
-            getDefaultQuotation().digest
+            getDefaultQuotation().digest,
         )
     }
 
@@ -71,7 +71,7 @@ abstract class DatabaseTestHelper {
         databaseRepositoryDouble.markAsPrevious(
             widgetId,
             ContentSelection.AUTHOR,
-            getDefaultQuotation().digest
+            getDefaultQuotation().digest,
         )
     }
 
@@ -79,7 +79,7 @@ abstract class DatabaseTestHelper {
         databaseRepositoryDouble.markAsPrevious(
             widgetId,
             ContentSelection.SEARCH,
-            getDefaultQuotation().digest
+            getDefaultQuotation().digest,
         )
     }
 
@@ -98,17 +98,17 @@ abstract class DatabaseTestHelper {
 
         databaseRepositoryDouble.markAsCurrent(
             widgetId,
-            "d1234567"
+            "d1234567",
         )
 
         databaseRepositoryDouble.markAsPrevious(
             widgetId,
             ContentSelection.ALL,
-            "d1234567"
+            "d1234567",
         )
 
         databaseRepositoryDouble.markAsFavourite(
-            databaseRepositoryDouble.getCurrentQuotation(widgetId).digest
+            databaseRepositoryDouble.getCurrentQuotation(widgetId).digest,
         )
 
         assertTrue(databaseRepositoryDouble.countAll().blockingGet() == 5)
@@ -128,17 +128,17 @@ abstract class DatabaseTestHelper {
 
         databaseRepositoryDouble.markAsCurrent(
             widgetId,
-            DatabaseRepositoryDouble.getDefaultQuotationDigest()
+            DatabaseRepositoryDouble.getDefaultQuotationDigest(),
         )
 
         databaseRepositoryDouble.markAsPrevious(
             widgetId,
             ContentSelection.ALL,
-            DatabaseRepositoryDouble.getDefaultQuotationDigest()
+            DatabaseRepositoryDouble.getDefaultQuotationDigest(),
         )
 
         databaseRepositoryDouble.markAsFavourite(
-            databaseRepositoryDouble.getCurrentQuotation(widgetId).digest
+            databaseRepositoryDouble.getCurrentQuotation(widgetId).digest,
         )
 
         assertTrue(databaseRepositoryDouble.countAll().blockingGet() == 2)
@@ -153,16 +153,16 @@ abstract class DatabaseTestHelper {
                 DatabaseRepository.getDefaultQuotationDigest(),
                 "",
                 "external_a0",
-                "external_q0"
-            )
+                "external_q0",
+            ),
         )
         quotationEntityList.add(
             QuotationEntity(
                 "00000001",
                 "",
                 "external_a1",
-                "external_q1"
-            )
+                "external_q1",
+            ),
         )
         databaseRepositoryDouble.insertQuotations(quotationEntityList)
     }

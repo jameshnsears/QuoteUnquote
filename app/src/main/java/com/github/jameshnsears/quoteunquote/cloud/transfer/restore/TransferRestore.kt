@@ -37,7 +37,7 @@ class TransferRestore : TransferCommon() {
         PreferencesFacade.erase(context)
         preferencesFacade.preferenceHelper!!.setPreference(
             "0:CONTENT_FAVOURITES_LOCAL_CODE",
-            localCode
+            localCode,
         )
     }
 
@@ -64,7 +64,7 @@ class TransferRestore : TransferCommon() {
 
     private fun restoreFavourite(
         databaseRepository: DatabaseRepository,
-        favouriteList: List<Favourite>
+        favouriteList: List<Favourite>,
     ) {
         val useInternalDatabase = DatabaseRepository.useInternalDatabase
 
@@ -88,7 +88,7 @@ class TransferRestore : TransferCommon() {
     private fun restoreCurrent(
         context: Context,
         databaseRepository: DatabaseRepository,
-        currentList: List<Current>
+        currentList: List<Current>,
     ) {
         val useInternalDatabase = DatabaseRepository.useInternalDatabase
 
@@ -115,7 +115,7 @@ class TransferRestore : TransferCommon() {
     private fun restoreCurrentDigest(
         databaseRepository: DatabaseRepository,
         widgetId: Int,
-        digest: String
+        digest: String,
     ) {
         val currentQuotation: QuotationEntity? =
             databaseRepository.getCurrentQuotation(widgetId)
@@ -128,7 +128,7 @@ class TransferRestore : TransferCommon() {
     private fun restorePrevious(
         context: Context,
         databaseRepository: DatabaseRepository,
-        previousList: List<Previous>
+        previousList: List<Previous>,
     ) {
         val useInternalDatabase = DatabaseRepository.useInternalDatabase
 
@@ -157,7 +157,7 @@ class TransferRestore : TransferCommon() {
                             databaseRepository,
                             widgetId,
                             contentSelection,
-                            previous
+                            previous,
                         )
                     }
                 }
@@ -171,18 +171,18 @@ class TransferRestore : TransferCommon() {
         databaseRepository: DatabaseRepository,
         widgetId: Int,
         contentSelection: ContentSelection,
-        previous: Previous
+        previous: Previous,
     ) {
         if (databaseRepository.countPreviousDigest(
                 widgetId,
                 contentSelection,
-                previous.digest
+                previous.digest,
             ) == 0
         ) {
             databaseRepository.markAsPrevious(
                 widgetId,
                 contentSelection,
-                previous.digest
+                previous.digest,
             )
         } else {
             Timber.d("digest already in previous: digest=%s", previous.digest)
@@ -197,17 +197,17 @@ class TransferRestore : TransferCommon() {
             restoreSettingsAppearance(
                 widgetId,
                 context,
-                settings.appearance
+                settings.appearance,
             )
             restoreSettingsQuotations(
                 widgetId,
                 context,
-                settings.quotations
+                settings.quotations,
             )
             restoreSettingsSchedules(
                 widgetId,
                 context,
-                settings.schedule
+                settings.schedule,
             )
 
             // move to next settingsList if it's available, else reuse last one
@@ -220,12 +220,12 @@ class TransferRestore : TransferCommon() {
     private fun restoreSettingsSchedules(
         widgetId: Int,
         context: Context,
-        schedule: Schedule
+        schedule: Schedule,
     ) {
         val notificationsPreferences =
             NotificationsPreferences(
                 widgetId,
-                context
+                context,
             )
         notificationsPreferences.eventDaily = schedule.eventDaily
         notificationsPreferences.eventDailyTimeHour = schedule.eventDailyHour
@@ -235,12 +235,13 @@ class TransferRestore : TransferCommon() {
         notificationsPreferences.eventDisplayWidget = schedule.eventDisplayWidget
         notificationsPreferences.eventNextRandom = schedule.eventNextRandom
         notificationsPreferences.eventNextSequential = schedule.eventNextSequential
+        notificationsPreferences.eventBihourly = schedule.eventEventBihourly
     }
 
     private fun restoreSettingsQuotations(
         widgetId: Int,
         context: Context,
-        quotations: Quotations
+        quotations: Quotations,
     ) {
         val quotationsPreferences = QuotationsPreferences(widgetId, context)
         quotationsPreferences.contentSelectionAllExclusion = quotations.contentAllExclusion
@@ -273,7 +274,7 @@ class TransferRestore : TransferCommon() {
     private fun restoreSettingsAppearance(
         widgetId: Int,
         context: Context,
-        appearance: Appearance
+        appearance: Appearance,
     ) {
         val appearancePreferences = AppearancePreferences(widgetId, context)
         appearancePreferences.appearanceColour = appearance.appearanceColour

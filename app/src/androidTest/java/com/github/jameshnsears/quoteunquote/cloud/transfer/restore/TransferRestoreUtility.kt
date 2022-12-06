@@ -16,7 +16,7 @@ open class TransferRestoreUtility : QuoteUnquoteModelUtility() {
         val preferencesFacade = PreferencesFacade(0, context)
         preferencesFacade.preferenceHelper?.setPreference(
             "0:CONTENT_FAVOURITES_LOCAL_CODE",
-            localCode
+            localCode,
         )
     }
 
@@ -24,12 +24,12 @@ open class TransferRestoreUtility : QuoteUnquoteModelUtility() {
         val inputStream: InputStream =
             InstrumentationRegistry.getInstrumentation().context.resources.assets
                 .open(
-                    assetFilename
+                    assetFilename,
                 )
 
         return Gson().fromJson(
             inputStream.bufferedReader().use(BufferedReader::readText),
-            Transfer::class.java
+            Transfer::class.java,
         )
     }
 

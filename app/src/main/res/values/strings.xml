@@ -12,14 +12,15 @@
     <string name="activity_instructions_usage">Usage</string>
     <string name="activity_instructions_configure_1">\u2022 Once the widget is on a home screen, tap the Quotation text to re-configure the widget</string>
     <string name="activity_instructions_configure_2">\u2022 Configuration changes are only recognised when the Configuration screen is exited with the Back button / Gesture</string>
-    <string name="activity_instructions_configure_3">\u2022 Tap an <u>underlined</u> - Internal database - Source for Wikipedia entry</string>
+    <string name="activity_instructions_configure_3">\u2022 Tap an <u>underlined</u> - Internal database only - Source for Wikipedia entry</string>
     <string name="activity_instructions_configure_4">\u2022 The \u2316 icon, next to the Quotation position count, denotes last previous Quotation</string>
+    <string name="activity_instructions_permission_warning">This App can send Notifications - Android 13 might require that you <a href="">allow the Notification permission</a></string>
+    <string name="activity_instructions_os_warning">Some devices might require Battery Saver settings to be appropriately configured</string>
     <string name="activity_instructions_resize">Resize the widget</string>
     <string name="activity_instructions_resize_instruction_1">1. Touch and hold the widget on your home screen</string>
     <string name="activity_instructions_resize_instruction_2">2. Lift your finger. You\'ll find an outline with dots on the sides</string>
     <string name="activity_instructions_resize_instruction_3">3. To resize the widget, drag the dots</string>
     <string name="activity_instructions_resize_instruction_4">4. When you\'re done, tap outside the widget</string>
-    <string name="activity_instructions_os_warning">Some devices might require Battery Saver settings to be configured for this App</string>
     <string name="activity_instructions_version">%1$s/%2$s</string>
     <string name="activity_instructions_oss">Open-source software</string>
     <string name="activity_instructions_github">GitHub</string>
@@ -130,6 +131,7 @@
     <string name="fragment_notifications_notification_warning">Android limits the size of Notifications; some Quotations might not show in their entirety</string>
     <string name="fragment_notifications_recurring_event">Recurring Event</string>
     <string name="fragment_notifications_screen_unlock">Screen unlock</string>
+    <string name="fragment_notifications_bihourly">Every two hours, starting at 00:00</string>
 
     <string name="fragment_archive_title">Sync</string>
     <string name="fragment_archive_select_cloud">Google Cloud</string>
@@ -151,14 +153,15 @@
     <string name="widget_listview_author">Source</string>
     <string name="widget_listview_position">Position</string>
 
-    <string name="notification_action_favourite">Favourite, toggle</string>
-    <string name="notification_channel_id">quote_unquote_channel_01</string>
-    <string name="notification_channel_name">Quotations</string>
-    <string name="notification_channel_description">Quotation Notifications</string>
+    <string name="notification_permission_not_allowed">Notification permission not yet allowed</string>
+    <string name="notification_permission_allowed">Notification permission is allowed</string>
+    <string name="notification_channel_every_two_hours">Every two hours</string>
+    <string name="notification_channel_screen_unlock">Screen unlock</string>
+    <string name="notification_channel_specific_time">Specific time</string>
 
     <string name="preview_description">Discover high quality Quotations!</string>
     <string name="preview_quotation">Nothing matters very much and very few things matter at all.\n</string>
     <string name="preview_author"><u>Arthur Balfour\n</u></string>
-    <string name="preview_position">\u2316  1/20543\u0020</string>
+    <string name="preview_position">\u2316  1/20542\u0020</string>
 
 </resources>

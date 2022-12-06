@@ -13,13 +13,13 @@ open class TransferBackupCurrent(val context: Context) {
             getCurrentFromDatabase(
                 TransferUtility.getWidgetIds(context),
                 databaseRepository,
-                true
+                true,
             )
         val externalDatabaseCurrent =
             getCurrentFromDatabase(
                 TransferUtility.getWidgetIds(context),
                 databaseRepository,
-                false
+                false,
             )
 
         DatabaseRepository.useInternalDatabase = originalUseInternalDatabaseState
@@ -30,7 +30,7 @@ open class TransferBackupCurrent(val context: Context) {
     private fun getCurrentFromDatabase(
         widgetIds: IntArray,
         databaseRepository: DatabaseRepository,
-        useInternalDatabase: Boolean
+        useInternalDatabase: Boolean,
     ): List<Current> {
         DatabaseRepository.useInternalDatabase = useInternalDatabase
 
@@ -48,8 +48,8 @@ open class TransferBackupCurrent(val context: Context) {
                             "internal"
                         } else {
                             "external"
-                        }
-                    )
+                        },
+                    ),
                 )
             }
         }

@@ -151,6 +151,7 @@
                         android:textSize="14sp" />
 
                 <TextView
+                        android:id="@+id/textViewNotificationSizeWarning"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
@@ -189,10 +190,30 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
-                    android:paddingBottom="5dp"
+                    android:paddingBottom="0dp"
                     android:text="@string/fragment_notifications_recurring_event"
                     android:textSize="18sp"
                     android:textStyle="bold" />
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp">
+
+                <CheckBox
+                        android:id="@+id/checkBoxBihourly"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:drawableStart="@drawable/ic_notifications_bihourly_24"
+                        android:drawablePadding="20dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="0dp"
+                        android:text="@string/fragment_notifications_bihourly"
+                        android:textSize="14sp" />
+
+            </LinearLayout>
 
             <LinearLayout
                     android:layout_width="match_parent"
@@ -222,18 +243,21 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:drawableStart="@drawable/ic_notifications_time_24"
-                            android:drawablePadding="5dp"
+                            android:drawablePadding="20dp"
                             android:paddingStart="10dp"
                             android:paddingEnd="0dp"
-                            android:text=" "
-                            tools:ignore="HardcodedText" />
+                            android:text="@string/notification_channel_specific_time"/>
 
-                    <TimePicker
-                            android:id="@+id/timePickerDailyAt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:timePickerMode="spinner" />
                 </LinearLayout>
+
+                <TimePicker
+                        android:id="@+id/timePickerDailyAt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:timePickerMode="spinner"
+                        android:paddingStart="28dp"
+                        android:paddingEnd="0dp" />
+
             </LinearLayout>
 
         </LinearLayout>

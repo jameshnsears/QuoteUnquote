@@ -24,7 +24,7 @@ class TransferBackupCurrentTest : GsonTestHelper() {
 
             assertEquals(
                 gson().toJson(expectedCurrent()),
-                gson().toJson(TransferBackupCurrent(context).current(databaseRepositoryDouble))
+                gson().toJson(TransferBackupCurrent(context).current(databaseRepositoryDouble)),
             )
         }
     }
@@ -39,10 +39,10 @@ class TransferBackupCurrentTest : GsonTestHelper() {
 
         val currentList = mutableListOf<Current>()
         currentList.add(
-            Current(DatabaseRepository.getDefaultQuotationDigest(), 12, "internal")
+            Current(DatabaseRepository.getDefaultQuotationDigest(), 12, "internal"),
         )
         currentList.add(
-            Current(DatabaseRepository.getDefaultQuotationDigest(), 13, "internal")
+            Current(DatabaseRepository.getDefaultQuotationDigest(), 13, "internal"),
         )
 
         return currentList

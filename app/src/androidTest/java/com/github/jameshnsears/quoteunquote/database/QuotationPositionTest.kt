@@ -15,7 +15,7 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
         val quotationsPreferences =
             QuotationsPreferences(
                 WidgetIdHelper.WIDGET_ID_01,
-                context
+                context,
             )
         quotationsPreferences.contentSelection = ContentSelection.ALL
 
@@ -23,8 +23,8 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
             0,
             databaseRepositoryDouble.findPositionInPrevious(
                 WidgetIdHelper.WIDGET_ID_01,
-                quotationsPreferences
-            )
+                quotationsPreferences,
+            ),
         )
 
         setDefaultQuotationAll(WidgetIdHelper.WIDGET_ID_01)
@@ -33,8 +33,8 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
             1,
             databaseRepositoryDouble.findPositionInPrevious(
                 WidgetIdHelper.WIDGET_ID_01,
-                quotationsPreferences
-            )
+                quotationsPreferences,
+            ),
         )
     }
 
@@ -45,7 +45,7 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
         val quotationsPreferences =
             QuotationsPreferences(
                 WidgetIdHelper.WIDGET_ID_01,
-                context
+                context,
             )
         quotationsPreferences.contentSelection = ContentSelection.FAVOURITES
 
@@ -53,8 +53,8 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
             0,
             databaseRepositoryDouble.findPositionInPrevious(
                 WidgetIdHelper.WIDGET_ID_01,
-                quotationsPreferences
-            )
+                quotationsPreferences,
+            ),
         )
 
         quotationsPreferences.contentSelection = ContentSelection.ALL
@@ -66,8 +66,8 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
             0,
             databaseRepositoryDouble.findPositionInPrevious(
                 WidgetIdHelper.WIDGET_ID_01,
-                quotationsPreferences
-            )
+                quotationsPreferences,
+            ),
         )
 
         quotationsPreferences.contentSelection = ContentSelection.ALL
@@ -79,8 +79,8 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
             0,
             databaseRepositoryDouble.findPositionInPrevious(
                 WidgetIdHelper.WIDGET_ID_01,
-                quotationsPreferences
-            )
+                quotationsPreferences,
+            ),
         )
 
         quotationsPreferences.contentSelection = ContentSelection.FAVOURITES
@@ -89,8 +89,8 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
             1,
             databaseRepositoryDouble.findPositionInPrevious(
                 WidgetIdHelper.WIDGET_ID_01,
-                quotationsPreferences
-            )
+                quotationsPreferences,
+            ),
         )
 
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
@@ -98,8 +98,8 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
             2,
             databaseRepositoryDouble.findPositionInPrevious(
                 WidgetIdHelper.WIDGET_ID_01,
-                quotationsPreferences
-            )
+                quotationsPreferences,
+            ),
         )
     }
 
@@ -120,7 +120,7 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
         val quotationsPreferences =
             QuotationsPreferences(
                 WidgetIdHelper.WIDGET_ID_01,
-                context
+                context,
             )
         quotationsPreferences.contentSelection = ContentSelection.AUTHOR
         quotationsPreferences.contentSelectionAuthor = "a2"
@@ -129,8 +129,8 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
             0,
             databaseRepositoryDouble.findPositionInPrevious(
                 WidgetIdHelper.WIDGET_ID_01,
-                quotationsPreferences
-            )
+                quotationsPreferences,
+            ),
         )
 
         quotationsPreferences.contentSelectionAuthor = "a2"
@@ -141,8 +141,8 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
             1,
             databaseRepositoryDouble.findPositionInPrevious(
                 WidgetIdHelper.WIDGET_ID_01,
-                quotationsPreferences
-            )
+                quotationsPreferences,
+            ),
         )
     }
 
@@ -155,7 +155,7 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
         val quotationsPreferences =
             QuotationsPreferences(
                 WidgetIdHelper.WIDGET_ID_01,
-                context
+                context,
             )
         quotationsPreferences.contentSelection = ContentSelection.SEARCH
         quotationsPreferences.contentSelectionSearch = "q1"
@@ -164,8 +164,8 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
             0,
             databaseRepositoryDouble.findPositionInPrevious(
                 WidgetIdHelper.WIDGET_ID_01,
-                quotationsPreferences
-            )
+                quotationsPreferences,
+            ),
         )
 
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
@@ -174,8 +174,8 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
             1,
             databaseRepositoryDouble.findPositionInPrevious(
                 WidgetIdHelper.WIDGET_ID_01,
-                quotationsPreferences
-            )
+                quotationsPreferences,
+            ),
         )
     }
 }

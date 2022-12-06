@@ -19,7 +19,7 @@ class WidgetToolbarRandomizationTest : QuoteUnquoteModelUtility() {
         "d3456789",
         "d4567890",
         "d5678901",
-        "d6789012"
+        "d6789012",
     )
 
     @Before
@@ -34,12 +34,12 @@ class WidgetToolbarRandomizationTest : QuoteUnquoteModelUtility() {
         insertQuotationTestData03()
         assertEquals(
             7,
-            quoteUnquoteModelDouble.countAllMinusExclusions(WidgetIdHelper.WIDGET_ID_01).blockingGet()
+            quoteUnquoteModelDouble.countAllMinusExclusions(WidgetIdHelper.WIDGET_ID_01).blockingGet(),
         )
 
         assertEquals(
             0,
-            quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL)
+            quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL),
         )
     }
 
@@ -54,7 +54,7 @@ class WidgetToolbarRandomizationTest : QuoteUnquoteModelUtility() {
             "d3456789",
             "d6789012",
             "d4567890",
-            "d5678901"
+            "d5678901",
         )
 
         assertNextOrder(expectedNextNextOrder)
@@ -69,7 +69,7 @@ class WidgetToolbarRandomizationTest : QuoteUnquoteModelUtility() {
             WidgetIdHelper.WIDGET_ID_01,
             ContentSelection.ALL,
             quoteUnquoteModelDouble
-                .getContentPreferences(WidgetIdHelper.WIDGET_ID_01).contentSelectionAllExclusion
+                .getContentPreferences(WidgetIdHelper.WIDGET_ID_01).contentSelectionAllExclusion,
         )
         actualPreviousOrder?.reverse()
 
@@ -88,7 +88,7 @@ class WidgetToolbarRandomizationTest : QuoteUnquoteModelUtility() {
         val nextAllDigests = databaseRepositoryDouble.nextAllDigests
 
         assertTrue(
-            expectedAllQuotationsOrder.size == nextAllDigests.size
+            expectedAllQuotationsOrder.size == nextAllDigests.size,
         )
 
         var i = 0
@@ -109,7 +109,7 @@ class WidgetToolbarRandomizationTest : QuoteUnquoteModelUtility() {
             WidgetIdHelper.WIDGET_ID_01,
             ContentSelection.ALL,
             quoteUnquoteModelDouble
-                .getContentPreferences(WidgetIdHelper.WIDGET_ID_01).contentSelectionAllExclusion
+                .getContentPreferences(WidgetIdHelper.WIDGET_ID_01).contentSelectionAllExclusion,
         )
         actualPreviousOrder?.reverse()
 

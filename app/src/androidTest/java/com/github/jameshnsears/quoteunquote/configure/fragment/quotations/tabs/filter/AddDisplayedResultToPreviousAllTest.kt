@@ -20,7 +20,7 @@ class AddDisplayedResultToPreviousAllTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             1,
-            quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL)
+            quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL),
         )
 
         assertEquals(
@@ -29,8 +29,8 @@ class AddDisplayedResultToPreviousAllTest : QuoteUnquoteModelUtility() {
                 WidgetIdHelper.WIDGET_ID_01,
                 ContentSelection.ALL,
                 quoteUnquoteModelDouble
-                    .getContentPreferences(WidgetIdHelper.WIDGET_ID_01).contentSelectionAllExclusion
-            ).get(index = 0)
+                    .getContentPreferences(WidgetIdHelper.WIDGET_ID_01).contentSelectionAllExclusion,
+            ).get(index = 0),
         )
     }
 
@@ -42,7 +42,7 @@ class AddDisplayedResultToPreviousAllTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             2,
-            quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL)
+            quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL),
         )
 
         assertEquals(
@@ -51,8 +51,8 @@ class AddDisplayedResultToPreviousAllTest : QuoteUnquoteModelUtility() {
                 WidgetIdHelper.WIDGET_ID_01,
                 ContentSelection.ALL,
                 quoteUnquoteModelDouble
-                    .getContentPreferences(WidgetIdHelper.WIDGET_ID_01).contentSelectionAllExclusion
-            ).get(index = 0)
+                    .getContentPreferences(WidgetIdHelper.WIDGET_ID_01).contentSelectionAllExclusion,
+            ).get(index = 0),
         )
 
         assertEquals(
@@ -61,15 +61,15 @@ class AddDisplayedResultToPreviousAllTest : QuoteUnquoteModelUtility() {
                 WidgetIdHelper.WIDGET_ID_01,
                 ContentSelection.ALL,
                 quoteUnquoteModelDouble
-                    .getContentPreferences(WidgetIdHelper.WIDGET_ID_01).contentSelectionAllExclusion
-            ).get(index = 1)
+                    .getContentPreferences(WidgetIdHelper.WIDGET_ID_01).contentSelectionAllExclusion,
+            ).get(index = 1),
         )
 
         setupSearchWithAddToPreviousAll(true)
 
         assertEquals(
             3,
-            quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL)
+            quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL),
         )
 
         assertEquals(
@@ -78,8 +78,8 @@ class AddDisplayedResultToPreviousAllTest : QuoteUnquoteModelUtility() {
                 WidgetIdHelper.WIDGET_ID_01,
                 ContentSelection.ALL,
                 quoteUnquoteModelDouble
-                    .getContentPreferences(WidgetIdHelper.WIDGET_ID_01).contentSelectionAllExclusion
-            ).get(index = 0)
+                    .getContentPreferences(WidgetIdHelper.WIDGET_ID_01).contentSelectionAllExclusion,
+            ).get(index = 0),
         )
     }
 
@@ -89,14 +89,14 @@ class AddDisplayedResultToPreviousAllTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             0,
-            quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL)
+            quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL),
         )
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
 
         val quotationsPreferences =
             QuotationsPreferences(
                 WidgetIdHelper.WIDGET_ID_01,
-                context
+                context,
             )
         quotationsPreferences.contentAddToPreviousAll = contentAddToPrevious
         quotationsPreferences.contentSelection = ContentSelection.AUTHOR
@@ -107,7 +107,7 @@ class AddDisplayedResultToPreviousAllTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             1,
-            quoteUnquoteModelDouble.countPreviousAuthor(WidgetIdHelper.WIDGET_ID_01)
+            quoteUnquoteModelDouble.countPreviousAuthor(WidgetIdHelper.WIDGET_ID_01),
         )
     }
 
@@ -115,7 +115,7 @@ class AddDisplayedResultToPreviousAllTest : QuoteUnquoteModelUtility() {
         val quotationsPreferences =
             QuotationsPreferences(
                 WidgetIdHelper.WIDGET_ID_01,
-                context
+                context,
             )
         quotationsPreferences.contentAddToPreviousAll = contentAddToPrevious
         quotationsPreferences.contentSelection = ContentSelection.SEARCH
@@ -126,7 +126,7 @@ class AddDisplayedResultToPreviousAllTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             1,
-            quoteUnquoteModelDouble.countPreviousSearch(WidgetIdHelper.WIDGET_ID_01)
+            quoteUnquoteModelDouble.countPreviousSearch(WidgetIdHelper.WIDGET_ID_01),
         )
     }
 }

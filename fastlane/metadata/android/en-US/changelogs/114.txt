@@ -1,0 +1,3 @@
+&bull; Improved Notification support - permission; channels
+&bull; Fix typo's in three; add twelve new
+&bull; Bump 3rd party dependencies

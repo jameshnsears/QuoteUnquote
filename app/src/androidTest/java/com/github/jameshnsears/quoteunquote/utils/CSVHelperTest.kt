@@ -50,7 +50,7 @@ class CSVHelperTest : QuoteUnquoteModelUtility() {
         } catch (exception: CSVHelper.CVSHelperException) {
             assertEquals(
                 "Index for header 'Quotation' is 1 but CSVRecord only has 1 values!",
-                exception.message
+                exception.message,
             )
         }
     }
@@ -66,7 +66,7 @@ class CSVHelperTest : QuoteUnquoteModelUtility() {
         } catch (exception: CSVHelper.CVSHelperException) {
             assertEquals(
                 "Index for header 'Quotation' is 1 but CSVRecord only has 1 values!",
-                exception.message
+                exception.message,
             )
         }
     }
@@ -95,7 +95,7 @@ class CSVHelperTest : QuoteUnquoteModelUtility() {
         } catch (exception: CSVHelper.CVSHelperException) {
             assertEquals(
                 "Index for header 'Quotation' is 1 but CSVRecord only has 1 values!",
-                exception.message
+                exception.message,
             )
         }
     }
@@ -116,7 +116,7 @@ class CSVHelperTest : QuoteUnquoteModelUtility() {
     private fun getCsvAsset(filename: String) =
         InstrumentationRegistry.getInstrumentation().context.resources.assets
             .open(
-                filename
+                filename,
             )
 
     @Test
@@ -126,8 +126,8 @@ class CSVHelperTest : QuoteUnquoteModelUtility() {
             "e5da2450",
             CSVHelper().makeDigest(
                 "The only thing that interferes with my learning is my education.",
-                "Albert Einstein"
-            )
+                "Albert Einstein",
+            ),
         )
     }
 }

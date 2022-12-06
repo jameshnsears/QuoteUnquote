@@ -45,7 +45,6 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
             this.context = context;
 
             widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
-            Timber.d("%d", widgetId);
 
             setQuoteUnquoteModel(new QuoteUnquoteModel(widgetId, context));
 

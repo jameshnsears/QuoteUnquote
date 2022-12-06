@@ -29,7 +29,7 @@ class WidgetDeletedTest : QuoteUnquoteModelUtility() {
             val syncPreferences =
                 SyncPreferences(
                     0,
-                    context
+                    context,
                 )
             assertTrue(syncPreferences.transferLocalCode.length == 10)
             quoteUnquoteWidget.onDeleted(context, intArrayOf(WidgetIdHelper.WIDGET_ID_01))

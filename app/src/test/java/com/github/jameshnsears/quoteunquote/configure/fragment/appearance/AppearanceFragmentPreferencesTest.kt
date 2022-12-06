@@ -35,19 +35,19 @@ class AppearanceFragmentPreferencesTest : ShadowLoggingHelper() {
                 fragment.setTextFamily()
                 assertEquals(
                     "Sans Serif",
-                    fragment.appearancePreferences?.appearanceTextFamily
+                    fragment.appearancePreferences?.appearanceTextFamily,
                 )
 
                 fragment.setTextStyle()
                 assertEquals(
                     "Regular",
-                    fragment.appearancePreferences?.appearanceTextStyle
+                    fragment.appearancePreferences?.appearanceTextStyle,
                 )
 
                 fragment.setTextForceItalicRegular()
                 assertEquals(
-                    false,
-                    fragment.appearancePreferences?.appearanceTextForceItalicRegular
+                    true,
+                    fragment.appearancePreferences?.appearanceTextForceItalicRegular,
                 )
             }
         }
@@ -60,7 +60,7 @@ class AppearanceFragmentPreferencesTest : ShadowLoggingHelper() {
                 fragment.setTextColour()
                 assertEquals(
                     "#FF000000",
-                    fragment.appearancePreferences?.appearanceQuotationTextColour
+                    fragment.appearancePreferences?.appearanceQuotationTextColour,
                 )
 
                 fragment.setTextSize()
@@ -76,7 +76,7 @@ class AppearanceFragmentPreferencesTest : ShadowLoggingHelper() {
                 fragment.setTextColour()
                 assertEquals(
                     "#FF000000",
-                    fragment.appearancePreferences?.appearanceAuthorTextColour
+                    fragment.appearancePreferences?.appearanceAuthorTextColour,
                 )
 
                 fragment.setTextSize()
@@ -95,7 +95,7 @@ class AppearanceFragmentPreferencesTest : ShadowLoggingHelper() {
                 fragment.setTextColour()
                 assertEquals(
                     "#FF000000",
-                    fragment.appearancePreferences?.appearancePositionTextColour
+                    fragment.appearancePreferences?.appearancePositionTextColour,
                 )
 
                 fragment.setTextSize()
@@ -117,7 +117,7 @@ class AppearanceFragmentPreferencesTest : ShadowLoggingHelper() {
                 fragment.setToolbarColour()
                 assertThat(
                     fragment.appearancePreferences?.appearanceToolbarColour,
-                    equalTo("#FF000000")
+                    equalTo("#FF000000"),
                 )
 
                 fragment.setToolbar()

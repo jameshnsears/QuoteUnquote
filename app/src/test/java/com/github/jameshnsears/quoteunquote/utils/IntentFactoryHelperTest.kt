@@ -23,7 +23,7 @@ class IntentFactoryHelperTest {
         val intentBundle = intent.extras as Bundle
         assertEquals(
             WidgetIdHelper.WIDGET_ID_01,
-            intentBundle.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID)
+            intentBundle.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID),
         )
     }
 
@@ -32,7 +32,7 @@ class IntentFactoryHelperTest {
         val intent = IntentFactoryHelper.createIntent(
             getApplicationContext(),
             ListViewService::class.java,
-            WidgetIdHelper.WIDGET_ID_01
+            WidgetIdHelper.WIDGET_ID_01,
         )
 
         assertNotNull(intent.extras)
@@ -43,7 +43,7 @@ class IntentFactoryHelperTest {
         val intent = IntentFactoryHelper.createIntentAction(
             getApplicationContext(),
             WidgetIdHelper.WIDGET_ID_01,
-            IntentFactoryHelper.ACTIVITY_FINISHED_CONFIGURATION
+            IntentFactoryHelper.ACTIVITY_FINISHED_CONFIGURATION,
         )
 
         assertNotNull(intent.extras)
