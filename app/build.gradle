@@ -260,7 +260,7 @@ dependencies {
     testImplementation 'com.google.guava:guava:31.1-jre'
     testImplementation 'io.mockk:mockk:1.13.3'
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.robolectric:robolectric:4.9'
+    testImplementation 'org.robolectric:robolectric:4.9.1'
 }
 
 repositories {
