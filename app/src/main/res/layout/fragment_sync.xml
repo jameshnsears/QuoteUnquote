@@ -96,7 +96,7 @@
 
                     <TextView
                             android:id="@+id/textViewLocalCodeValue"
-                            android:layout_width="170dp"
+                            android:layout_width="180dp"
                             android:layout_height="wrap_content"
                             android:minHeight="48dp"
                             android:paddingVertical="10dp"
@@ -126,7 +126,7 @@
 
                     <EditText
                             android:id="@+id/editTextRemoteCodeValue"
-                            android:layout_width="170dp"
+                            android:layout_width="180dp"
                             android:layout_height="wrap_content"
                             android:ems="10"
                             android:importantForAutofill="no"

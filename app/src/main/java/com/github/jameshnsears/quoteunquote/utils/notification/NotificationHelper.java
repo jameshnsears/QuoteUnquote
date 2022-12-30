@@ -50,6 +50,13 @@ public class NotificationHelper {
         notificationChannelBihourly = createNotificationChannel(
                 context,
                 context.getString(R.string.notification_channel_every_two_hours));
+
+        // for inplace updates
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationManager notificationManager =
+                    (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+            notificationManager.deleteNotificationChannel("Quotations");
+        }
     }
 
     public void displayNotificationDeviceUnlock(
