@@ -150,6 +150,16 @@
                         android:text="@string/fragment_notifications_widget_and_notification"
                         android:textSize="14sp" />
 
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchExcludeSourceFromNotification"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="47dp"
+                        android:paddingEnd="0dp"
+                        android:text="@string/notification_action_exclude_source"
+                        android:textSize="14sp" />
+                <!--    android:visibility="gone"-->
+
                 <TextView
                         android:id="@+id/textViewNotificationSizeWarning"
                         android:layout_width="match_parent"

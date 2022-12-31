@@ -91,6 +91,8 @@
                             android:layout_gravity="center"
                             android:paddingStart="0dp"
                             android:paddingEnd="5dp"
+                            app:strokeColor="?attr/colorPrimary"
+                            app:strokeWidth="1dp"
                             tools:ignore="SpeakableTextPresentCheck" />
 
                 </LinearLayout>

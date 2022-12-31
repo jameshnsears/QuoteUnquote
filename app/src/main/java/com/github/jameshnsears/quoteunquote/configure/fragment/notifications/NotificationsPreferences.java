@@ -11,6 +11,7 @@ public class NotificationsPreferences extends PreferencesFacade {
     public static final String EVENT_NEXT_SEQUENTIAL = "EVENT_NEXT_SEQUENTIAL";
     public static final String EVENT_DISPLAY_WIDGET = "EVENT_DISPLAY_WIDGET";
     public static final String EVENT_DISPLAY_WIDGET_AND_NOTIFICATION = "EVENT_DISPLAY_WIDGET_AND_NOTIFICATION";
+    public static final String EVENT_EXCLUDE_SOURCE_FROM_NOTIFICATION = "EVENT_EXCLUDE_SOURCE_FROM_NOTIFICATION";
     public static final String EVENT_DAILY = "EVENT_DAILY";
     public static final String EVENT_DEVICE_UNLOCK = "EVENT_DEVICE_UNLOCK";
     public static final String EVENT_DAILY_MINUTE = "EVENT_DAILY_MINUTE";
@@ -43,6 +44,14 @@ public class NotificationsPreferences extends PreferencesFacade {
 
     public void setEventDisplayWidget(boolean value) {
         this.preferenceHelper.setPreference(this.getPreferenceKey(NotificationsPreferences.EVENT_DISPLAY_WIDGET), value);
+    }
+
+    public boolean getExcludeSourceFromNotification() {
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(NotificationsPreferences.EVENT_EXCLUDE_SOURCE_FROM_NOTIFICATION), false);
+    }
+
+    public void setExcludeSourceFromNotification(boolean value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(NotificationsPreferences.EVENT_EXCLUDE_SOURCE_FROM_NOTIFICATION), value);
     }
 
     public boolean getEventDisplayWidgetAndNotification() {

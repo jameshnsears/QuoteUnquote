@@ -116,6 +116,7 @@ open class TransferBackupSettings(val context: Context) {
             notificationsPreferences.eventNextSequential,
             notificationsPreferences.eventDisplayWidget,
             notificationsPreferences.eventDisplayWidgetAndNotification,
+            notificationsPreferences.excludeSourceFromNotification,
             notificationsPreferences.eventDaily,
             notificationsPreferences.eventDeviceUnlock,
             notificationsPreferences.eventDailyTimeMinute,

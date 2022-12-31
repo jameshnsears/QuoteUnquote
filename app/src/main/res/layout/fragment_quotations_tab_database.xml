@@ -91,6 +91,8 @@
                         android:layout_height="48dp"
                         android:text="@string/fragment_quotations_database_button_import"
                         android:textColor="@android:color/white"
+                        app:strokeColor="?attr/colorPrimary"
+                        app:strokeWidth="1dp"
                         android:textSize="14sp"
                         app:backgroundTint="@null" />
 

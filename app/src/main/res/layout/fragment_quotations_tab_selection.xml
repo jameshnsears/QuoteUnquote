@@ -216,6 +216,8 @@
                                 android:contentDescription="@string/fragment_quotations_selection_favourites_export_button"
                                 android:text="@string/fragment_quotations_selection_favourites_export_button"
                                 android:textColor="@android:color/white"
+                                app:strokeColor="?attr/colorPrimary"
+                                app:strokeWidth="1dp"
                                 android:textSize="14sp"
                                 app:backgroundTint="@null" />
 

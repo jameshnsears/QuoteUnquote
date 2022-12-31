@@ -1,5 +1,0 @@
-&bull; Exclude Source from Share option
-&bull; Tidy up card padding &amp; button size
-&bull; Align image assets with product
-&bull; JetBrains Qodana Workflow
-&bull; Bump dependencies

@@ -231,7 +231,8 @@ class TransferRestore : TransferCommon() {
         notificationsPreferences.eventDailyTimeHour = schedule.eventDailyHour
         notificationsPreferences.eventDailyTimeMinute = schedule.eventDailyMinute
         notificationsPreferences.eventDeviceUnlock = schedule.eventDeviceUnlock
-        notificationsPreferences.setEventDisplayWidgetAndNotification(schedule.eventDisplayAidgetAndNotification)
+        notificationsPreferences.setEventDisplayWidgetAndNotification(schedule.eventDisplayWidgetAndNotification)
+        notificationsPreferences.excludeSourceFromNotification = schedule.eventExcludeSourceFromNotification
         notificationsPreferences.eventDisplayWidget = schedule.eventDisplayWidget
         notificationsPreferences.eventNextRandom = schedule.eventNextRandom
         notificationsPreferences.eventNextSequential = schedule.eventNextSequential

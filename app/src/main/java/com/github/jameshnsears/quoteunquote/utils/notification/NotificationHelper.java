@@ -17,6 +17,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteWidget;
 import com.github.jameshnsears.quoteunquote.R;
+import com.github.jameshnsears.quoteunquote.configure.fragment.notifications.NotificationsPreferences;
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
 
 import java.util.concurrent.ExecutionException;
@@ -51,7 +52,7 @@ public class NotificationHelper {
                 context,
                 context.getString(R.string.notification_channel_every_two_hours));
 
-        // for inplace updates
+        // for in-place updates
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationManager notificationManager =
                     (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
@@ -102,8 +103,6 @@ public class NotificationHelper {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(
                 notificationContent.getContext(), notificationChannelId)
                 .setSmallIcon(notificationIcon)
-                .setContentTitle(notificationContent.getAuthor())
-                .setStyle(getBigTextStyle(notificationContent.getQuotation()))
 
                 .setDeleteIntent(createNotificationDeleteIntent(
                         notificationContent.getContext(),
@@ -114,6 +113,15 @@ public class NotificationHelper {
 
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setGroup(notificationChannelId);
+
+        NotificationsPreferences notificationsPreferences = new NotificationsPreferences(
+                notificationContent.getWidgetId(),
+                notificationContent.getContext()
+        );
+        if (notificationsPreferences.getExcludeSourceFromNotification() == false) {
+            builder.setContentTitle(notificationContent.getAuthor());
+        }
+        builder.setStyle(getBigTextStyle(notificationContent.getQuotation()));
 
         builder.addAction(getActionFavourite(
                 notificationContent.getContext(),
@@ -180,7 +188,7 @@ public class NotificationHelper {
         );
 
         return new NotificationCompat.Action(icon,
-                context.getString(R.string.fragment_appearance_toolbar_favourite),
+                context.getString(R.string.notification_action_favourite),
                 pendingIntent
         );
     }

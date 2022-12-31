@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
+import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -75,6 +76,7 @@ public class NotificationsFragment extends FragmentCommon {
         createListenerNextRandom();
         createListenerNextSequential();
         createListenerDisplayWidget();
+        createListenerExcludeSourceFromNotification();
         createListenerDisplayNotificationAndWidget();
         createListenerDeviceUnlock();
         createListenerDaily();
@@ -92,6 +94,7 @@ public class NotificationsFragment extends FragmentCommon {
                 fragmentNotificationsBinding.radioButtonWhereInWidget.setChecked(true);
                 notificationsPreferences.setEventDisplayWidget(true);
 
+                fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(false);
                 fragmentNotificationsBinding.radioButtonWhereAsNotification.setEnabled(false);
                 fragmentNotificationsBinding.radioButtonWhereAsNotification.setChecked(false);
                 fragmentNotificationsBinding.textViewNotificationSizeWarning.setEnabled(false);
@@ -129,10 +132,16 @@ public class NotificationsFragment extends FragmentCommon {
         fragmentNotificationsBinding.radioButtonWhereAsNotification.setChecked(notificationsPreferences.getEventDisplayWidgetAndNotification());
 
         if (fragmentNotificationsBinding.radioButtonWhereAsNotification.isChecked()) {
+            fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(true);
+
             fragmentNotificationsBinding.textViewNotificationSizeWarning.setEnabled(true);
         } else {
+            fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(false);
+
             fragmentNotificationsBinding.textViewNotificationSizeWarning.setEnabled(false);
         }
+
+        fragmentNotificationsBinding.switchExcludeSourceFromNotification.setChecked(notificationsPreferences.getExcludeSourceFromNotification());
     }
 
     private void setDeviceUnlock() {
@@ -167,12 +176,20 @@ public class NotificationsFragment extends FragmentCommon {
         });
     }
 
+    private void createListenerExcludeSourceFromNotification() {
+        fragmentNotificationsBinding.switchExcludeSourceFromNotification.setOnCheckedChangeListener((buttonView, isChecked) ->
+                notificationsPreferences.setExcludeSourceFromNotification(isChecked)
+        );
+    }
+
     private void createListenerDisplayNotificationAndWidget() {
         final RadioButton radioButtonWhereAsNotification = fragmentNotificationsBinding.radioButtonWhereAsNotification;
         radioButtonWhereAsNotification.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (notificationsPreferences.getEventDisplayWidgetAndNotification() != isChecked) {
                 notificationsPreferences.setEventDisplayWidgetAndNotification(isChecked);
-                fragmentNotificationsBinding.textViewNotificationSizeWarning.setEnabled(false);
+                fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(isChecked);
+
+                fragmentNotificationsBinding.textViewNotificationSizeWarning.setEnabled(isChecked);
             }
         });
     }

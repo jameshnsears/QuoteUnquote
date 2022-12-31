@@ -158,6 +158,8 @@
     <string name="notification_channel_every_two_hours">Every two hours</string>
     <string name="notification_channel_screen_unlock">Screen unlock</string>
     <string name="notification_channel_specific_time">Specific time</string>
+    <string name="notification_action_exclude_source">Exclude Source from Notification</string>
+    <string name="notification_action_favourite">Favourite</string>
 
     <string name="preview_description">Discover high quality Quotations!</string>
     <string name="preview_quotation">Nothing matters very much and very few things matter at all.\n</string>

@@ -1,0 +1,2 @@
+&bull; Exclude Source from Notification
+&bull; Improve Dark theme support
