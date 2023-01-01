@@ -250,7 +250,7 @@
 
                 <Button
                         android:id="@+id/buttonQuotation"
-                        android:layout_width="130dp"
+                        android:layout_width="140dp"
                         android:layout_height="48dp"
                         android:gravity="center"
                         android:text="@string/fragment_appearance_button_quotation"
@@ -286,7 +286,7 @@
 
                 <Button
                         android:id="@+id/buttonAuthor"
-                        android:layout_width="130dp"
+                        android:layout_width="140dp"
                         android:layout_height="48dp"
                         android:gravity="center"
                         android:text="@string/fragment_appearance_button_author"
@@ -323,7 +323,7 @@
 
                 <Button
                         android:id="@+id/buttonPosition"
-                        android:layout_width="130dp"
+                        android:layout_width="140dp"
                         android:layout_height="48dp"
                         android:gravity="center"
                         android:text="@string/fragment_appearance_button_position"
