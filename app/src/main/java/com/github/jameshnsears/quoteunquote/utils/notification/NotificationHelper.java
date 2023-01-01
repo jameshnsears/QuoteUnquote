@@ -187,8 +187,13 @@ public class NotificationHelper {
                 getActionBundle(widgetId, digest, notificationId, notificationEvent)
         );
 
+        String actionString = context.getString(R.string.notification_action_unfavourite);
+        if (!isFavourite) {
+            actionString = context.getString(R.string.notification_action_favourite);
+        }
+
         return new NotificationCompat.Action(icon,
-                context.getString(R.string.notification_action_favourite),
+                actionString,
                 pendingIntent
         );
     }

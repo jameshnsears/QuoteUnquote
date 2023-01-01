@@ -10,7 +10,7 @@
         android:paddingTop="0dp"
         android:paddingEnd="0dp"
         android:paddingBottom="0dp"
-        android:theme="@style/Theme.QuoteUnquote">
+        android:theme="@style/AppTheme">
 
     <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardViewBackground"
@@ -109,7 +109,7 @@
                             android:max="10"
                             android:paddingVertical="5dp"
                             android:stepSize="10"
-                            android:theme="@style/Theme.QuoteUnquote"
+                            android:theme="@style/AppTheme"
                             android:value="false"
                             android:valueFrom="0"
                             android:valueTo="100"

@@ -10,7 +10,7 @@
         android:paddingTop="0dp"
         android:paddingEnd="0dp"
         android:paddingBottom="0dp"
-        android:theme="@style/Theme.QuoteUnquote">
+        android:theme="@style/AppTheme">
 
     <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardViewSeparator"

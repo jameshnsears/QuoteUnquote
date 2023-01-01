@@ -10,7 +10,7 @@
         android:paddingTop="0dp"
         android:paddingEnd="5dp"
         android:paddingBottom="0dp"
-        android:theme="@style/Theme.QuoteUnquote">
+        android:theme="@style/AppTheme">
 
     <LinearLayout
             android:layout_width="wrap_content"
