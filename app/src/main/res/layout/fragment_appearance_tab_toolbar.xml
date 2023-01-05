@@ -32,8 +32,7 @@
                     android:id="@+id/toolbar_switch_hide_separator"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/fragment_appearance_toolbar_hide_separator"
-                    android:textSize="14sp" />
+                    android:text="@string/fragment_appearance_toolbar_hide_separator" />
 
         </LinearLayout>
 
@@ -81,8 +80,7 @@
                             android:layout_gravity="center_vertical"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
-                            android:text="@string/fragment_appearance_colour"
-                            android:textSize="14sp" />
+                            android:text="@string/fragment_appearance_colour" />
 
                     <Button
                             android:id="@+id/toolbarColourPickerButton"
@@ -107,8 +105,8 @@
                         android:drawablePadding="20dp"
                         android:paddingVertical="10dp"
                         android:paddingStart="12dp"
-                        android:paddingEnd="0dp"                        android:text="@string/fragment_appearance_toolbar_first"
-                        android:textSize="14sp" />
+                        android:paddingEnd="0dp"
+                        android:text="@string/fragment_appearance_toolbar_first" />
             </LinearLayout>
 
             <LinearLayout
@@ -126,8 +124,8 @@
                         android:drawablePadding="20dp"
                         android:paddingVertical="10dp"
                         android:paddingStart="12dp"
-                        android:paddingEnd="0dp"                        android:text="@string/fragment_appearance_toolbar_previous"
-                        android:textSize="14sp"
+                        android:paddingEnd="0dp"
+                        android:text="@string/fragment_appearance_toolbar_previous"
                         tools:ignore="TextContrastCheck" />
             </LinearLayout>
 
@@ -146,8 +144,8 @@
                         android:drawablePadding="20dp"
                         android:paddingVertical="10dp"
                         android:paddingStart="12dp"
-                        android:paddingEnd="0dp"                        android:text="@string/fragment_appearance_toolbar_favourite"
-                        android:textSize="14sp"
+                        android:paddingEnd="0dp"
+                        android:text="@string/fragment_appearance_toolbar_favourite"
                         tools:ignore="TextContrastCheck" />
             </LinearLayout>
 
@@ -166,8 +164,8 @@
                         android:drawablePadding="20dp"
                         android:paddingVertical="10dp"
                         android:paddingStart="12dp"
-                        android:paddingEnd="0dp"                        android:text="@string/fragment_appearance_toolbar_share"
-                        android:textSize="14sp" />
+                        android:paddingEnd="0dp"
+                        android:text="@string/fragment_appearance_toolbar_share" />
 
                 <com.google.android.material.switchmaterial.SwitchMaterial
                         android:id="@+id/toolbar_switch_share_no_source"
@@ -175,8 +173,7 @@
                         android:layout_height="wrap_content"
                         android:paddingStart="47dp"
                         android:paddingEnd="0dp"
-                        android:text="@string/fragment_appearance_toolbar_share_exclude_source"
-                        android:textSize="14sp" />
+                        android:text="@string/fragment_appearance_toolbar_share_exclude_source" />
             </LinearLayout>
 
             <LinearLayout
@@ -193,8 +190,8 @@
                         android:drawablePadding="20dp"
                         android:paddingVertical="10dp"
                         android:paddingStart="12dp"
-                        android:paddingEnd="0dp"                        android:text="@string/fragment_appearance_toolbar_position_indicator"
-                        android:textSize="14sp" />
+                        android:paddingEnd="0dp"
+                        android:text="@string/fragment_appearance_toolbar_position_indicator" />
             </LinearLayout>
 
             <LinearLayout
@@ -211,8 +208,8 @@
                         android:drawablePadding="20dp"
                         android:paddingVertical="10dp"
                         android:paddingStart="12dp"
-                        android:paddingEnd="0dp"                        android:text="@string/fragment_appearance_toolbar_next_sequential"
-                        android:textSize="14sp" />
+                        android:paddingEnd="0dp"
+                        android:text="@string/fragment_appearance_toolbar_next_sequential" />
             </LinearLayout>
 
             <LinearLayout
@@ -230,8 +227,8 @@
                         android:drawablePadding="20dp"
                         android:paddingVertical="10dp"
                         android:paddingStart="12dp"
-                        android:paddingEnd="0dp"                        android:text="@string/fragment_appearance_toolbar_next_random"
-                        android:textSize="14sp"
+                        android:paddingEnd="0dp"
+                        android:text="@string/fragment_appearance_toolbar_next_random"
                         tools:ignore="TextContrastCheck" />
             </LinearLayout>
 

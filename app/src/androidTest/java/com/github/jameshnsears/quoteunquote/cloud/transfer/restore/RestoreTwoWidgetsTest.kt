@@ -22,10 +22,11 @@ class RestoreTwoWidgetsTest : TransferRestoreUtility() {
 
             // assert
             val backupTransfer = TransferBackup(context).transfer(databaseRepositoryDouble)
-            val restoreJson = TransferRestore().asJson(restoreTransfer)
-            val backupJson = TransferBackup(context).asJson(backupTransfer)
+//            val restoreJson = TransferRestore().asJson(restoreTransfer)
+//            val backupJson = TransferBackup(context).asJson(backupTransfer)
 
-            Assert.assertEquals(getLocalCode(), backupTransfer.code)
+            Assert.assertNotEquals(getLocalCode(), backupTransfer.code)
+            Assert.assertEquals(restoreTransfer.code, backupTransfer.code)
 
             Assert.assertTrue(backupTransfer.current.size == 1)
             Assert.assertTrue(backupTransfer.favourites.size == 4)
@@ -65,10 +66,11 @@ class RestoreTwoWidgetsTest : TransferRestoreUtility() {
 
             // assert
             val backupTransfer = TransferBackup(context).transfer(databaseRepositoryDouble)
-            val restoreJson = TransferRestore().asJson(restoreTransfer)
-            val backupJson = TransferBackup(context).asJson(backupTransfer)
+//            val restoreJson = TransferRestore().asJson(restoreTransfer)
+//            val backupJson = TransferBackup(context).asJson(backupTransfer)
 
-            Assert.assertEquals(getLocalCode(), backupTransfer.code)
+            Assert.assertNotEquals(getLocalCode(), backupTransfer.code)
+            Assert.assertEquals(restoreTransfer.code, backupTransfer.code)
 
             Assert.assertTrue(backupTransfer.current.size == 2)
             Assert.assertTrue(backupTransfer.favourites.size == 4)
@@ -122,7 +124,8 @@ class RestoreTwoWidgetsTest : TransferRestoreUtility() {
 //            val restoreJson = TransferRestore().asJson(restoreTransfer)
 //            val backupJson = TransferBackup(context).asJson(backupTransfer)
 
-            Assert.assertEquals(getLocalCode(), backupTransfer.code)
+            Assert.assertNotEquals(getLocalCode(), backupTransfer.code)
+            Assert.assertEquals(restoreTransfer.code, backupTransfer.code)
 
             Assert.assertTrue(backupTransfer.current.size == 1)
             Assert.assertEquals(restoreTransfer.current[0].digest, backupTransfer.current[0].digest)

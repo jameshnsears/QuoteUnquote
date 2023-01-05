@@ -30,8 +30,7 @@
                     android:paddingTop="0dp"
                     android:paddingEnd="10dp"
                     android:paddingBottom="5dp"
-                    android:text="@string/fragment_appearance_colour"
-                    android:textSize="14sp" />
+                    android:text="@string/fragment_appearance_colour" />
 
             <Button
                     android:id="@+id/textColourPickerButton"
@@ -60,8 +59,7 @@
                     android:paddingVertical="5dp"
                     android:paddingStart="0dp"
                     android:paddingEnd="10dp"
-                    android:text="@string/fragment_appearance_size"
-                    android:textSize="14sp" />
+                    android:text="@string/fragment_appearance_size" />
 
             <Spinner
                     android:id="@+id/spinnerSize"
@@ -87,7 +85,6 @@
                     android:checked="false"
                     android:paddingVertical="10dp"
                     android:text="@string/fragment_appearance_style_text_dialog_visibility"
-                    android:textSize="14sp"
                     tools:ignore="TextContrastCheck" />
         </LinearLayout>
 
@@ -103,7 +100,6 @@
                     android:checked="false"
                     android:paddingVertical="10dp"
                     android:text="@string/fragment_appearance_style_text_dialog_visibility"
-                    android:textSize="14sp"
                     tools:ignore="TextContrastCheck" />
         </LinearLayout>
     </LinearLayout>

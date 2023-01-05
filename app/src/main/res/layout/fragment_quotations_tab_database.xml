@@ -27,18 +27,17 @@
                 android:orientation="vertical"
                 android:padding="10dp">
 
-                <RadioButton
-                        android:id="@+id/radioButtonDatabaseInternal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:drawableStart="@drawable/ic_quotations_database_internal_24"
-                        android:drawablePadding="20dp"
-                        android:paddingVertical="10dp"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="0dp"
-                        android:text="@string/fragment_quotations_database_default"
-                        android:textSize="14sp" />
+            <RadioButton
+                    android:id="@+id/radioButtonDatabaseInternal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:drawableStart="@drawable/ic_quotations_database_internal_24"
+                    android:drawablePadding="20dp"
+                    android:paddingVertical="10dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/fragment_quotations_database_default" />
 
         </LinearLayout>
 
@@ -60,19 +59,18 @@
                 android:orientation="vertical"
                 android:padding="10dp">
 
-                <RadioButton
-                        android:id="@+id/radio_button_database_external"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:checked="false"
-                        android:drawableStart="@drawable/ic_quotations_database_external_24"
-                        android:drawablePadding="20dp"
-                        android:enabled="false"
-                        android:paddingVertical="10dp"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="0dp"
-                        android:text="@string/fragment_quotations_database_imported"
-                        android:textSize="14sp" />
+            <RadioButton
+                    android:id="@+id/radio_button_database_external"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:drawableStart="@drawable/ic_quotations_database_external_24"
+                    android:drawablePadding="20dp"
+                    android:enabled="false"
+                    android:paddingVertical="10dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/fragment_quotations_database_imported" />
 
 
             <LinearLayout
@@ -93,7 +91,6 @@
                         android:textColor="@android:color/white"
                         app:strokeColor="?attr/colorPrimary"
                         app:strokeWidth="1dp"
-                        android:textSize="14sp"
                         app:backgroundTint="@null" />
 
                 <TextView
@@ -116,7 +113,6 @@
                     android:paddingEnd="0dp"
                     android:paddingBottom="10dp"
                     android:text="@string/fragment_quotations_database_external_instructions_1"
-                    android:textSize="14sp"
                     app:drawableStartCompat="@drawable/ic_info_24" />
 
         </LinearLayout>

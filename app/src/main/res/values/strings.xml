@@ -141,6 +141,7 @@
     <string name="fragment_archive_backup_sending">Backup - please wait&#8230;</string>
     <string name="fragment_archive_backup_success">Success - backup completed</string>
     <string name="fragment_archive_restore">Restore</string>
+    <string name="fragment_archive_superseded">Sync code will be superseded upon a successful restore</string>
     <string name="fragment_archive_restore_token_missing">Please enter 10 character code</string>
     <string name="fragment_archive_restore_token_invalid">Please enter a valid code</string>
     <string name="fragment_archive_restore_saf_invalid">Invalid file contents</string>

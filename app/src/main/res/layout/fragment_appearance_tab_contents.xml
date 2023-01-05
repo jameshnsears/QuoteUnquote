@@ -54,8 +54,7 @@
                             android:paddingVertical="5dp"
                             android:paddingStart="0dp"
                             android:paddingEnd="10dp"
-                            android:text="@string/fragment_appearance_colour"
-                            android:textSize="14sp" />
+                            android:text="@string/fragment_appearance_colour" />
 
                     <Button
                             android:id="@+id/backgroundColourPickerButton"
@@ -86,8 +85,7 @@
                         android:paddingVertical="5dp"
                         android:paddingStart="0dp"
                         android:paddingEnd="20dp"
-                        android:text="@string/fragment_appearance_transparency"
-                        android:textSize="14sp" />
+                        android:text="@string/fragment_appearance_transparency" />
 
                 <LinearLayout
                         android:layout_width="match_parent"
@@ -167,8 +165,7 @@
                         android:paddingVertical="5dp"
                         android:paddingStart="0dp"
                         android:paddingEnd="10dp"
-                        android:text="@string/fragment_appearance_family"
-                        android:textSize="14sp" />
+                        android:text="@string/fragment_appearance_family" />
 
                 <Spinner
                         android:id="@+id/spinnerFamily"
@@ -194,8 +191,7 @@
                         android:paddingVertical="5dp"
                         android:paddingStart="0dp"
                         android:paddingEnd="10dp"
-                        android:text="@string/fragment_appearance_style"
-                        android:textSize="14sp" />
+                        android:text="@string/fragment_appearance_style" />
 
                 <Spinner
                         android:id="@+id/spinnerStyle"
@@ -221,7 +217,6 @@
                         android:checked="false"
                         android:paddingVertical="10dp"
                         android:text="@string/fragment_appearance_force"
-                        android:textSize="14sp"
                         tools:ignore="TextContrastCheck" />
             </LinearLayout>
 
@@ -237,7 +232,6 @@
                         android:checked="false"
                         android:paddingVertical="10dp"
                         android:text="@string/fragment_appearance_center"
-                        android:textSize="14sp"
                         tools:ignore="TextContrastCheck" />
             </LinearLayout>
 
@@ -257,7 +251,6 @@
                         android:textColor="@android:color/white"
                         app:strokeColor="?attr/colorPrimary"
                         app:strokeWidth="1dp"
-                        android:textSize="14sp"
                         app:backgroundTint="@null"
                         app:iconTint="@null"
                         tools:ignore="DuplicateSpeakableTextCheck" />
@@ -272,8 +265,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:padding="10dp"
-                        android:text="@string/fragment_appearance_button_quotation"
-                        android:textSize="14sp" />
+                        android:text="@string/fragment_appearance_button_quotation" />
 
             </LinearLayout>
 
@@ -293,7 +285,6 @@
                         android:textColor="@android:color/white"
                         app:strokeColor="?attr/colorPrimary"
                         app:strokeWidth="1dp"
-                        android:textSize="14sp"
                         app:backgroundTint="@null"
                         app:iconTint="@null"
                         app:icon="@drawable/ic_appearance_visibility_off_24"
@@ -309,8 +300,7 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:padding="10dp"
-                        android:text="@string/fragment_appearance_button_author"
-                        android:textSize="14sp" />
+                        android:text="@string/fragment_appearance_button_author" />
 
             </LinearLayout>
 
@@ -330,7 +320,6 @@
                         android:textColor="@android:color/white"
                         app:strokeColor="?attr/colorPrimary"
                         app:strokeWidth="1dp"
-                        android:textSize="14sp"
                         app:backgroundTint="@null"
                         app:iconTint="@null"
                         app:icon="@drawable/ic_appearance_visibility_off_24"
@@ -346,8 +335,7 @@
                         android:layout_weight="1"
                         android:gravity="end|center_vertical"
                         android:padding="10dp"
-                        android:text="@string/fragment_appearance_button_position"
-                        android:textSize="14sp" />
+                        android:text="@string/fragment_appearance_button_position" />
 
             </LinearLayout>
 

@@ -68,8 +68,7 @@
                             android:paddingVertical="10dp"
                             android:paddingStart="12dp"
                             android:paddingEnd="0dp"
-                            android:text="@string/fragment_archive_select_cloud"
-                            android:textSize="14sp" />
+                            android:text="@string/fragment_archive_select_cloud" />
 
                     <RadioButton
                             android:id="@+id/radioButtonSyncDevice"
@@ -80,8 +79,7 @@
                             android:paddingVertical="10dp"
                             android:paddingStart="12dp"
                             android:paddingEnd="0dp"
-                            android:text="@string/fragment_archive_select_filesystem"
-                            android:textSize="14sp" />
+                            android:text="@string/fragment_archive_select_filesystem" />
 
                 </RadioGroup>
 
@@ -114,7 +112,6 @@
                             android:textColor="@android:color/white"
                             app:strokeColor="?attr/colorPrimary"
                             app:strokeWidth="1dp"
-                            android:textSize="14sp"
                             app:backgroundTint="@null" />
                 </LinearLayout>
 
@@ -146,10 +143,22 @@
                             android:textColor="@android:color/white"
                             app:strokeColor="?attr/colorPrimary"
                             app:strokeWidth="1dp"
-                            android:textSize="14sp"
                             app:backgroundTint="@null" />
 
                 </LinearLayout>
+
+                <TextView
+                        android:id="@+id/textViewSuperseded"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="10dp"
+                        android:paddingVertical="10dp"
+                        android:paddingStart="4dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="0dp"
+                        android:paddingBottom="0dp"
+                        android:text="@string/fragment_archive_superseded"
+                        app:drawableStartCompat="@drawable/ic_info_24" />
 
             </LinearLayout>
 

@@ -60,6 +60,20 @@ class TransferRestore : TransferCommon() {
         restoreCurrent(context, databaseRepository, transfer.current)
         restorePrevious(context, databaseRepository, transfer.previous)
         restoreSettings(context, transfer.settings)
+        restoreCode(context, transfer.code)
+    }
+
+    private fun restoreCode(context: Context, restoreCode: String) {
+        val preferencesFacade = PreferencesFacade(context)
+        val localCode =
+            preferencesFacade.preferenceHelper!!.getPreferenceString(preferencesFacade.localCode)
+
+        Timber.d("localCode=%s; restoreCode=%s", localCode, restoreCode)
+
+        preferencesFacade.preferenceHelper!!.setPreference(
+            "0:CONTENT_FAVOURITES_LOCAL_CODE",
+            restoreCode,
+        )
     }
 
     private fun restoreFavourite(

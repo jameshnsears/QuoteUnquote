@@ -125,6 +125,8 @@ public class SyncFragment extends FragmentCommon {
             public void onReceive(Context context, Intent intent) {
                 if (intent.getAction().equals(CLOUD_SERVICE_COMPLETED)) {
                     enableUI(true);
+
+                    alignLocalCodeWithRestoredcode();
                 }
             }
         };
@@ -325,6 +327,8 @@ public class SyncFragment extends FragmentCommon {
 
                                         DatabaseRepository.useInternalDatabase = true;
 
+                                        alignLocalCodeWithRestoredcode();
+
                                         Toast.makeText(
                                                 getContext(),
                                                 getContext().getString(R.string.fragment_archive_restore_success),
@@ -449,11 +453,6 @@ public class SyncFragment extends FragmentCommon {
             fragmentSyncBinding.radioButtonSyncDevice.setChecked(true);
             fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(false);
         }
-
-        if (quoteUnquoteModel.countPrevious(widgetId) == 0) {
-            fragmentSyncBinding.buttonBackup.setEnabled(false);
-            enableButton(fragmentSyncBinding.buttonBackup, false);
-        }
     }
 
     private void backupGoogleCloud() {
@@ -501,5 +500,10 @@ public class SyncFragment extends FragmentCommon {
     public void enableButton(@NonNull final Button button, @NonNull final Boolean enabled) {
         button.setEnabled(enabled);
         button.setAlpha(enabled ? 1 : 0.25f);
+    }
+
+    public void alignLocalCodeWithRestoredcode() {
+        fragmentSyncBinding.textViewLocalCodeValue.setText(syncPreferences.getTransferLocalCode());
+        fragmentSyncBinding.editTextRemoteCodeValue.setText("");
     }
 }
