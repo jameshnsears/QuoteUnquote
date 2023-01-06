@@ -131,7 +131,7 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
         // invoke Storage Access Framework
         fragmentQuotationsTabDatabaseBinding.buttonImport.setOnClickListener(v -> {
             if (fragmentQuotationsTabDatabaseBinding.buttonImport.isEnabled()) {
-                ConfigureActivity.safCalled = true;
+                ConfigureActivity.launcherInvoked = true;
 
                 Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -241,7 +241,7 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
                             }
                         }
 
-                        ConfigureActivity.safCalled = false;
+                        ConfigureActivity.launcherInvoked = false;
                     }
                 });
     }

@@ -9,16 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
-import android.widget.Switch;
+import android.widget.RadioGroup;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
 import com.github.jameshnsears.quoteunquote.R;
+import com.github.jameshnsears.quoteunquote.configure.ConfigureActivity;
 import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentNotificationsBinding;
 
@@ -29,6 +31,20 @@ public class NotificationsFragment extends FragmentCommon {
 
     @Nullable
     public NotificationsPreferences notificationsPreferences;
+
+    private ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+                if (!isGranted) {
+                    fragmentNotificationsBinding.radioButtonWhereInWidget.performClick();
+                } else {
+                    notificationsPreferences.setEventDisplayWidget(false);
+                    notificationsPreferences.setEventDisplayWidgetAndNotification(true);
+                    fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(true);
+                    fragmentNotificationsBinding.textViewNotificationSizeWarning.setEnabled(true);
+                }
+
+                ConfigureActivity.launcherInvoked = false;
+            });
 
     public NotificationsFragment() {
         // dark mode support
@@ -75,38 +91,14 @@ public class NotificationsFragment extends FragmentCommon {
 
         createListenerNextRandom();
         createListenerNextSequential();
-        createListenerDisplayWidget();
+
+        createListenerDisplayRadioGroup();
         createListenerExcludeSourceFromNotification();
-        createListenerDisplayNotificationAndWidget();
+
+        createListenerBihourly();
         createListenerDeviceUnlock();
         createListenerDaily();
         createListenerDailyTime();
-        createListenerBihourly();
-
-        disableNotificationFunctionalityIfNecessary();
-    }
-
-    private void disableNotificationFunctionalityIfNecessary() {
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(
-                    getContext(), Manifest.permission.POST_NOTIFICATIONS) !=
-                    PackageManager.PERMISSION_GRANTED) {
-                fragmentNotificationsBinding.radioButtonWhereInWidget.setChecked(true);
-                notificationsPreferences.setEventDisplayWidget(true);
-
-                fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(false);
-                fragmentNotificationsBinding.radioButtonWhereAsNotification.setEnabled(false);
-                fragmentNotificationsBinding.radioButtonWhereAsNotification.setChecked(false);
-                fragmentNotificationsBinding.textViewNotificationSizeWarning.setEnabled(false);
-                notificationsPreferences.setEventDisplayWidgetAndNotification(false);
-
-                Toast.makeText(
-                        this.getContext(),
-                        this.getContext().getString(R.string.notification_permission_not_allowed),
-                        Toast.LENGTH_LONG).show();
-            }
-        }
-
     }
 
     private void setDaily() {
@@ -166,12 +158,36 @@ public class NotificationsFragment extends FragmentCommon {
         });
     }
 
-    private void createListenerDisplayWidget() {
-        final RadioButton radioButtonWhereInWidget = fragmentNotificationsBinding.radioButtonWhereInWidget;
-        radioButtonWhereInWidget.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (notificationsPreferences.getEventDisplayWidget() != isChecked) {
-                notificationsPreferences.setEventDisplayWidget(isChecked);
-                fragmentNotificationsBinding.textViewNotificationSizeWarning.setEnabled(true);
+    private void createListenerDisplayRadioGroup() {
+        final RadioGroup radioGroup = fragmentNotificationsBinding.radioButtonDisplayGroup;
+        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            switch (checkedId) {
+                case R.id.radioButtonWhereInWidget:
+                    notificationsPreferences.setEventDisplayWidget(true);
+                    notificationsPreferences.setEventDisplayWidgetAndNotification(false);
+
+                    fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(false);
+                    fragmentNotificationsBinding.textViewNotificationSizeWarning.setEnabled(false);
+                    break;
+
+                case R.id.radioButtonWhereAsNotification:
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        if (ContextCompat.checkSelfPermission(
+                                getContext(), Manifest.permission.POST_NOTIFICATIONS) !=
+                                PackageManager.PERMISSION_GRANTED) {
+
+                            ConfigureActivity.launcherInvoked = true;
+
+                            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+
+                            break;
+                        }
+                    }
+                    notificationsPreferences.setEventDisplayWidget(false);
+                    notificationsPreferences.setEventDisplayWidgetAndNotification(true);
+                    fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(true);
+                    fragmentNotificationsBinding.textViewNotificationSizeWarning.setEnabled(true);
+                    break;
             }
         });
     }
@@ -180,18 +196,6 @@ public class NotificationsFragment extends FragmentCommon {
         fragmentNotificationsBinding.switchExcludeSourceFromNotification.setOnCheckedChangeListener((buttonView, isChecked) ->
                 notificationsPreferences.setExcludeSourceFromNotification(isChecked)
         );
-    }
-
-    private void createListenerDisplayNotificationAndWidget() {
-        final RadioButton radioButtonWhereAsNotification = fragmentNotificationsBinding.radioButtonWhereAsNotification;
-        radioButtonWhereAsNotification.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (notificationsPreferences.getEventDisplayWidgetAndNotification() != isChecked) {
-                notificationsPreferences.setEventDisplayWidgetAndNotification(isChecked);
-                fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(isChecked);
-
-                fragmentNotificationsBinding.textViewNotificationSizeWarning.setEnabled(isChecked);
-            }
-        });
     }
 
     private void createListenerDeviceUnlock() {

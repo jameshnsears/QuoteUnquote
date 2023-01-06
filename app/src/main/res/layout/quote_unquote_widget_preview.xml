@@ -22,6 +22,7 @@
                 android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
                 android:text="@string/preview_quotation"
                 android:textAllCaps="false"
+                android:paddingTop="5dp"
                 android:textAppearance="?android:attr/textAppearanceListItemSmall"
                 android:textStyle="italic" />
 

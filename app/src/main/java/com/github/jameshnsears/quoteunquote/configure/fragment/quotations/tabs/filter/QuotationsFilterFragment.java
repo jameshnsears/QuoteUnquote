@@ -683,7 +683,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
         // invoke Storage Access Framework
         fragmentQuotationsTabSelectionBinding.buttonExport.setOnClickListener(v -> {
             if (fragmentQuotationsTabSelectionBinding.buttonExport.isEnabled()) {
-                ConfigureActivity.safCalled = true;
+                ConfigureActivity.launcherInvoked = true;
 
                 final Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -735,7 +735,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
                         }
                     }
 
-                    ConfigureActivity.safCalled = false;
+                    ConfigureActivity.launcherInvoked = false;
                 });
     }
 }

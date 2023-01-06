@@ -33,7 +33,6 @@ import com.github.jameshnsears.quoteunquote.cloud.transfer.Transfer;
 import com.github.jameshnsears.quoteunquote.cloud.transfer.restore.TransferRestore;
 import com.github.jameshnsears.quoteunquote.configure.ConfigureActivity;
 import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
-import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsFragmentStateAdapter;
 import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentSyncBinding;
 import com.google.common.base.Charsets;
@@ -234,7 +233,7 @@ public class SyncFragment extends FragmentCommon {
     }
 
     private void backupSharedStorage() {
-        ConfigureActivity.safCalled = true;
+        ConfigureActivity.launcherInvoked = true;
 
         final Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -285,12 +284,12 @@ public class SyncFragment extends FragmentCommon {
                     }
 
                     enableUI(true);
-                    ConfigureActivity.safCalled = false;
+                    ConfigureActivity.launcherInvoked = false;
                 });
     }
 
     private void restoreDevice() {
-        ConfigureActivity.safCalled = true;
+        ConfigureActivity.launcherInvoked = true;
 
         final Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -351,7 +350,7 @@ public class SyncFragment extends FragmentCommon {
                         }
                     }
 
-                    ConfigureActivity.safCalled = false;
+                    ConfigureActivity.launcherInvoked = false;
                     enableUI(true);
                 });
     }
@@ -433,7 +432,7 @@ public class SyncFragment extends FragmentCommon {
                 fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(false);
                 restoreGoogleCloud();
             } else {
-                ConfigureActivity.safCalled = true;
+                ConfigureActivity.launcherInvoked = true;
                 restoreDevice();
             }
         });

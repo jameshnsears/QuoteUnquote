@@ -14,7 +14,6 @@
     <string name="activity_instructions_configure_2">\u2022 Configuration changes are only recognised when the Configuration screen is exited with the Back button / Gesture</string>
     <string name="activity_instructions_configure_3">\u2022 Tap an <u>underlined</u> - Internal database only - Source for Wikipedia entry</string>
     <string name="activity_instructions_configure_4">\u2022 The \u2316 icon, next to the Quotation position count, denotes last previous Quotation</string>
-    <string name="activity_instructions_permission_warning">This App can send Notifications - Android 13 might require that you <a href="">allow the Notification permission</a></string>
     <string name="activity_instructions_os_warning">Some devices might require Battery Saver settings to be appropriately configured</string>
     <string name="activity_instructions_resize">Resize the widget</string>
     <string name="activity_instructions_resize_instruction_1">1. Touch and hold the widget on your home screen</string>
@@ -145,7 +144,7 @@
     <string name="fragment_archive_restore_token_missing">Please enter 10 character code</string>
     <string name="fragment_archive_restore_token_invalid">Please enter a valid code</string>
     <string name="fragment_archive_restore_saf_invalid">Invalid file contents</string>
-    <string name="fragment_archive_restore_receiving">Restore - please wait&#8230;</string>
+    <string name="fragment_archive_restore_receiving">Restore - please be patient&#8230;</string>
     <string name="fragment_archive_restore_missing_code">Unable to find code in Cloud</string>
     <string name="fragment_archive_restore_success">Success - restore completed</string>
     <string name="fragment_archive_internet_missing">Check network / wait &amp; retry</string>
@@ -154,8 +153,6 @@
     <string name="widget_listview_author">Source</string>
     <string name="widget_listview_position">Position</string>
 
-    <string name="notification_permission_not_allowed">Notification permission not yet allowed</string>
-    <string name="notification_permission_allowed">Notification permission is allowed</string>
     <string name="notification_channel_every_two_hours">Every two hours</string>
     <string name="notification_channel_screen_unlock">Screen unlock</string>
     <string name="notification_channel_specific_time">Specific time</string>

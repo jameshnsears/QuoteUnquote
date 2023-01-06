@@ -117,6 +117,7 @@
                     android:textStyle="bold" />
 
             <RadioGroup
+                    android:id="@+id/radioButtonDisplayGroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="0dp"
@@ -149,7 +150,7 @@
                         android:id="@+id/switchExcludeSourceFromNotification"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingStart="47dp"
+                        android:paddingStart="7dp"
                         android:paddingEnd="0dp"
                         android:text="@string/notification_action_exclude_source" />
 
@@ -251,13 +252,20 @@
 
                 </LinearLayout>
 
-                <TimePicker
-                        android:id="@+id/timePickerDailyAt"
+                <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:timePickerMode="spinner"
-                        android:paddingStart="28dp"
-                        android:paddingEnd="0dp" />
+                        android:layout_gravity="center_horizontal"
+                        android:orientation="horizontal">
+
+                    <TimePicker
+                            android:id="@+id/timePickerDailyAt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingStart="0dp"
+                            android:paddingEnd="0dp"
+                            android:timePickerMode="spinner" />
+                </LinearLayout>
 
             </LinearLayout>
 

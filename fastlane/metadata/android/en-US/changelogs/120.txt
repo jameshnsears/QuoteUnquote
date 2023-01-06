@@ -1,0 +1,2 @@
+&bull; Improve Android 13 Notification Permission handling
+&bull; Improve alignment of some UI components

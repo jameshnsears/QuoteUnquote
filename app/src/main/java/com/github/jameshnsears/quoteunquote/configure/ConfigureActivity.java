@@ -28,7 +28,7 @@ import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
 import timber.log.Timber;
 
 public class ConfigureActivity extends AppCompatActivity {
-    public static boolean safCalled;
+    public static boolean launcherInvoked;
 
     public int widgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
@@ -70,8 +70,8 @@ public class ConfigureActivity extends AppCompatActivity {
 
     @Override
     public void onPause() {
-        // back pressed | swipe up | export activity started
-        if (!this.finishCalled && !ConfigureActivity.safCalled) {
+        // back pressed | swipe up | launcher started
+        if (!finishCalled && !launcherInvoked) {
             finish();
         }
 

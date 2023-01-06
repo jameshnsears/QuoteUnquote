@@ -171,7 +171,7 @@
                         android:id="@+id/toolbar_switch_share_no_source"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingStart="47dp"
+                        android:paddingStart="7dp"
                         android:paddingEnd="0dp"
                         android:text="@string/fragment_appearance_toolbar_share_exclude_source" />
             </LinearLayout>

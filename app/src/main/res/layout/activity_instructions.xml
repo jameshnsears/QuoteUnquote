@@ -181,24 +181,6 @@
                             android:text="@string/activity_instructions_configure_4" />
 
                     <LinearLayout
-                            android:id="@+id/layoutNotificationPermission"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
-
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:drawablePadding="10dp"
-                                android:paddingStart="15dp"
-                                android:paddingTop="10dp"
-                                android:paddingEnd="0dp"
-                                android:paddingBottom="5dp"
-                                android:text="@string/activity_instructions_permission_warning"
-                                app:drawableStartCompat="@drawable/ic_info_24" />
-                    </LinearLayout>
-
-                    <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical">
