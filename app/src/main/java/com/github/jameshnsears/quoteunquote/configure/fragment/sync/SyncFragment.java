@@ -154,6 +154,7 @@ public class SyncFragment extends FragmentCommon {
         createListenerRadioDevice();
         createListenerButtonBackup();
         createListenerButtonRestore();
+        createListenerButtonNewCode();
 
         handleDeviceBackupResult();
         handleDeviceRestoreResult();
@@ -435,6 +436,15 @@ public class SyncFragment extends FragmentCommon {
                 ConfigureActivity.launcherInvoked = true;
                 restoreDevice();
             }
+        });
+    }
+
+    protected void createListenerButtonNewCode() {
+        fragmentSyncBinding.buttonNewCode.setOnClickListener(v -> {
+            syncPreferences.setTransferLocalCode(CloudTransferHelper.generateNewCode());
+
+            fragmentSyncBinding.textViewLocalCodeValue.setText(syncPreferences.getTransferLocalCode());
+            fragmentSyncBinding.textViewLocalCodeValue.invalidate();
         });
     }
 

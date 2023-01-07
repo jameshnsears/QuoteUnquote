@@ -128,12 +128,13 @@
     <string name="fragment_notifications_widget">Widget</string>
     <string name="fragment_notifications_widget_and_notification">Notification &amp; Widget</string>
     <string name="fragment_notifications_notification_warning">Android limits the size of Notifications; some Quotations might not show in their entirety</string>
+    <string name="fragment_notifications_notification_permission">Notification permission not yet allowed. Please enable it in Android settings.</string>
     <string name="fragment_notifications_recurring_event">Recurring Event</string>
     <string name="fragment_notifications_screen_unlock">Screen unlock</string>
     <string name="fragment_notifications_bihourly">Every two hours, starting at 00:00</string>
 
     <string name="fragment_archive_title">Sync</string>
-    <string name="fragment_archive_select_cloud">Google Cloud</string>
+    <string name="fragment_archive_select_cloud">Cloud</string>
     <string name="fragment_archive_select_filesystem">Device</string>
     <string name="fragment_archive_backup_local_code_value">%s</string>
     <string name="fragment_archive_backup">Backup</string>
@@ -141,6 +142,7 @@
     <string name="fragment_archive_backup_success">Success - backup completed</string>
     <string name="fragment_archive_restore">Restore</string>
     <string name="fragment_archive_superseded">Sync code will be superseded upon a successful restore</string>
+    <string name="fragment_archive_create_new_sync_code">New code</string>
     <string name="fragment_archive_restore_token_missing">Please enter 10 character code</string>
     <string name="fragment_archive_restore_token_invalid">Please enter a valid code</string>
     <string name="fragment_archive_restore_saf_invalid">Invalid file contents</string>

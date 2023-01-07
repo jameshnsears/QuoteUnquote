@@ -52,6 +52,8 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
     @Nullable
     private NotificationCoordinator notificationCoordinator;
     @Nullable
+    public static int notificationPermissionDeniedCount = 0;
+    @Nullable
     private static NotificationHelper notificationHelper;
     @Nullable
     public QuoteUnquoteModel quoteUnquoteModel;

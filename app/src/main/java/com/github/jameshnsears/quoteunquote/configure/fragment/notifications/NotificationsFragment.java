@@ -11,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -19,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
+import com.github.jameshnsears.quoteunquote.QuoteUnquoteWidget;
 import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.ConfigureActivity;
 import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
@@ -35,6 +37,14 @@ public class NotificationsFragment extends FragmentCommon {
     private ActivityResultLauncher<String> requestPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
                 if (!isGranted) {
+                    QuoteUnquoteWidget.notificationPermissionDeniedCount += 1;
+                    if (QuoteUnquoteWidget.notificationPermissionDeniedCount >= 3) {
+                        Toast.makeText(
+                                getContext(),
+                                getContext().getString(R.string.fragment_notifications_notification_permission),
+                                Toast.LENGTH_LONG).show();
+                    }
+
                     fragmentNotificationsBinding.radioButtonWhereInWidget.performClick();
                 } else {
                     notificationsPreferences.setEventDisplayWidget(false);
