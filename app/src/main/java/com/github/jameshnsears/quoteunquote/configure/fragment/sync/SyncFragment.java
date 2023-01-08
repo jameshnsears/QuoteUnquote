@@ -454,6 +454,7 @@ public class SyncFragment extends FragmentCommon {
         fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(enableUI);
         enableButton(fragmentSyncBinding.buttonBackup, enableUI);
         enableButton(fragmentSyncBinding.buttonRestore, enableUI);
+        enableButton(fragmentSyncBinding.buttonNewCode, enableUI);
 
         if (syncPreferences.getArchiveGoogleCloud()) {
             fragmentSyncBinding.radioButtonSyncGoogleCloud.setChecked(true);

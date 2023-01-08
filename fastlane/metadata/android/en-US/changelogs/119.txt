@@ -1,3 +1,0 @@
-&bull; Sync code will be superseded upon a successful restore
-&bull; Make image assets from Android 13 environment
-&bull; Bump 3rd party dependencies

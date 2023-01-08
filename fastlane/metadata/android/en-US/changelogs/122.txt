@@ -1,0 +1,2 @@
+&bull; Improve Sync New code button behaviour
+&bull; Shorten Notification message size
