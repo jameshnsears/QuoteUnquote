@@ -5,11 +5,11 @@
    version="1.1"
    viewBox="0 0 350 350"
    width="350"
-   inkscape:export-filename="/home/jsears/GIT_REPOS/QuoteUnquote/images/new_icon/imkscape.png"
+   inkscape:export-filename="/home/jsears/GIT_REPOS/QuoteUnquote/images/notification_icons/ic_notification_icon_every_two_hours.png"
    inkscape:export-xdpi="92.800003"
    inkscape:export-ydpi="92.800003"
    inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
-   sodipodi:docname="icon_notification_every_two_hours.svg"
+   sodipodi:docname="ic_notification_icon_every_two_hours.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -40,17 +40,17 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1553"
-     inkscape:window-height="752"
+     inkscape:window-width="1221"
+     inkscape:window-height="658"
      id="namedview82"
      showgrid="false"
      inkscape:zoom="1.3296955"
-     inkscape:cx="118.07215"
-     inkscape:cy="237.64839"
-     inkscape:window-x="661"
-     inkscape:window-y="87"
+     inkscape:cx="167.70757"
+     inkscape:cy="109.04752"
+     inkscape:window-x="121"
+     inkscape:window-y="77"
      inkscape:window-maximized="0"
-     inkscape:current-layer="layer4"
+     inkscape:current-layer="layer5"
      inkscape:document-rotation="0"
      inkscape:pagecheckerboard="0" />
   <g
@@ -77,7 +77,7 @@
      style="display:inline"
      transform="translate(0,-162)">
     <path
-       d="m 271.4765,500.12696 q -27.70154,0 -47.17592,-19.47441 -19.47441,-19.47441 -19.47441,-47.17599 0,-27.70157 19.47441,-47.17598 19.47438,-19.47441 47.17592,-19.47441 17.70401,0 31.03406,7.18575 13.33006,7.18575 23.11931,19.68271 v -26.86846 h 12.49695 v 52.90375 h -52.90369 v -12.49697 h 34.99141 q -7.91473,-12.49692 -20.20339,-20.20337 -12.28863,-7.70647 -28.53465,-7.70647 -22.70279,0 -38.42808,15.72535 -15.72531,15.72534 -15.72531,38.4281 0,22.70282 15.72531,38.42811 15.72529,15.72535 38.42808,15.72535 17.28741,0 31.65892,-9.89345 14.37147,-9.89339 19.99509,-26.13944 h 12.9135 q -6.04018,21.86967 -23.95247,35.19974 -17.91228,13.33009 -40.61504,13.33009 z"
+       d="m 272.65033,503.30079 q -27.70154,0 -47.17592,-19.47441 Q 206,464.35197 206,436.65039 206,408.94882 225.47441,389.47441 244.94879,370 272.65033,370 q 17.70401,0 31.03406,7.18575 13.33006,7.18575 23.11931,19.68271 V 370 h 12.49695 v 52.90375 h -52.90369 v -12.49697 h 34.99141 q -7.91473,-12.49692 -20.20339,-20.20337 -12.28863,-7.70647 -28.53465,-7.70647 -22.70279,0 -38.42808,15.72535 -15.72531,15.72534 -15.72531,38.4281 0,22.70282 15.72531,38.42811 15.72529,15.72535 38.42808,15.72535 17.28741,0 31.65892,-9.89345 14.37147,-9.89339 19.99509,-26.13944 h 12.9135 q -6.04018,21.86967 -23.95247,35.19974 -17.91228,13.33009 -40.61504,13.33009 z"
        id="path115"
        style="stroke-width:4.16563" />
   </g>
@@ -126,17 +126,17 @@
      transform="translate(0,-162)">
     <circle
        id="path3855"
-       cx="110.2375"
-       cy="272.23749"
-       style="display:inline;stroke-width:0.4986"
-       r="100.2375" />
+       cx="126.56302"
+       cy="288.56302"
+       style="display:inline;stroke-width:0.604677"
+       r="121.56302" />
     <path
-       style="display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.540436;stroke-opacity:1"
-       d="M 193.49853,272.2375 A 83.261026,83.261026 0 0 1 110.2375,355.49853 83.261026,83.261026 0 0 1 26.976475,272.2375 83.261026,83.261026 0 0 1 110.2375,188.97647 83.261026,83.261026 0 0 1 193.49853,272.2375 Z"
+       style="display:inline;fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.655414;stroke-opacity:1"
+       d="M 227.53782,288.56305 A 100.97481,100.97481 0 0 1 126.56301,389.53787 100.97481,100.97481 0 0 1 25.588207,288.56305 100.97481,100.97481 0 0 1 126.56301,187.58824 100.97481,100.97481 0 0 1 227.53782,288.56305 Z"
        id="path3850" />
     <g
        aria-label="&quot;"
-       transform="matrix(0.68285828,0,0,0.65395424,-6.7062469,47.037253)"
+       transform="matrix(0.82813639,0,0,0.793083,-15.260514,15.451443)"
        style="font-style:normal;font-weight:normal;font-size:84.4792px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2.11198"
        id="text4667">
       <path

@@ -1,2 +1,0 @@
-&bull; Toast for when Notification Permission repeatedly denied
-&bull; Regenerate New code button

@@ -1,0 +1,3 @@
+&bull; Remove three, add thirty quotations
+&bull; Improve notification icons
+&bull; Bump dependencies
