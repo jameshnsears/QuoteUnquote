@@ -229,7 +229,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'androidx.room:room-guava:2.4.3'
+    implementation 'androidx.room:room-guava:2.5.0'
     implementation 'androidx.room:room-runtime:2.4.3'
     implementation 'androidx.room:room-rxjava2:2.4.3'
     implementation "com.github.skydoves:colorpickerpreference:2.0.6"
