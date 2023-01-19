@@ -209,7 +209,7 @@ dependencies {
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
-    annotationProcessor 'androidx.room:room-compiler:2.4.3'
+    annotationProcessor 'androidx.room:room-compiler:2.5.0'
 
     debugImplementation 'androidx.fragment:fragment-testing:1.5.5'
     debugImplementation 'androidx.test:core-ktx:1.5.0'
