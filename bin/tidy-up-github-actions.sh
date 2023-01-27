@@ -2,11 +2,15 @@
 
 source envvars.sh
 
-# https://blog.oddbit.com/post/2022-09-22-delete-workflow-runs/
+if [ $# -ne 2 ]; then
+  echo "Usage: $0 <BRANCH> <NUMBER_OF_RUNS>"
+  exit 1
+fi
 
-# gh run list -b 4.2.0-exclusions -L 2
+BRANCH=$1
+NUMBER_OF_RUNS=$2
 
-gh run list --json databaseId  -q '.[].databaseId' -L 100 |
+gh run list -b "${BRANCH}" --json databaseId  -q '.[].databaseId' -L ${NUMBER_OF_RUNS} |
   xargs -IID gh api \
     "repos/$(gh repo view --json nameWithOwner -q .nameWithOwner)/actions/runs/ID" \
     -X DELETE

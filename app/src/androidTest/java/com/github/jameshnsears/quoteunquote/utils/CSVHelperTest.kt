@@ -65,7 +65,7 @@ class CSVHelperTest : QuoteUnquoteModelUtility() {
             fail()
         } catch (exception: CSVHelper.CVSHelperException) {
             assertEquals(
-                "Index for header 'Quotation' is 1 but CSVRecord only has 1 values!",
+                "empty quotation",
                 exception.message,
             )
         }
@@ -94,7 +94,7 @@ class CSVHelperTest : QuoteUnquoteModelUtility() {
             fail()
         } catch (exception: CSVHelper.CVSHelperException) {
             assertEquals(
-                "Index for header 'Quotation' is 1 but CSVRecord only has 1 values!",
+                "empty quotation",
                 exception.message,
             )
         }

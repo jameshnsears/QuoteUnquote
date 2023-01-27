@@ -6,6 +6,6 @@ import org.robolectric.shadows.ShadowLog
 open class ShadowLoggingHelper {
     @Before
     fun logging() {
-        ShadowLog.stream = System.out
+        ShadowLog.stream = System.out // robolectric support
     }
 }

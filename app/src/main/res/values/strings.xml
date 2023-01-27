@@ -54,8 +54,11 @@
     <string name="fragment_quotations_database_imported">External</string>
     <string name="fragment_quotations_database_button_import">Import</string>
     <string name="fragment_quotations_database_button_import_text">.csv from device</string>
-    <string name="fragment_quotations_database_external_instructions_1">Expected format is <b>Source||Quotation</b> per entry</string>
+    <string name="fragment_quotations_database_external_instructions_1">Expected format is <b>Source||Quotation</b> per line</string>
+    <string name="fragment_quotations_database_external_watch">Watch .csv for modification</string>
+    <string name="fragment_quotations_database_external_watch_permission">Please enable Storage permission in Android settings</string>
     <string name="fragment_quotations_database_import_no_csv_selected">No .csv file selected</string>
+    <string name="fragment_quotations_database_invalid_watch_format">Invalid .csv file</string>
     <string name="fragment_quotations_database_import_contents">Invalid .csv format: %1$s</string>
     <string name="fragment_quotations_database_import_importing">Importing .csv - please wait&#8230;</string>
     <string name="fragment_quotations_database_import_success">Success - .csv imported</string>
@@ -165,6 +168,6 @@
     <string name="preview_description">Discover high quality Quotations!</string>
     <string name="preview_quotation">Nothing matters very much and very few things matter at all.\n</string>
     <string name="preview_author"><u>Arthur Balfour\n</u></string>
-    <string name="preview_position">\u2316  1/20581\u0020</string>
+    <string name="preview_position">\u2316  1/20579\u0020</string>
 
 </resources>

@@ -30,7 +30,7 @@ project.afterEvaluate {
             def classKotlin = fileTree(dir: "$project.buildDir/tmp/kotlin-classes/${sourceName}UnitTest", excludes: excludes)
             def classJava = fileTree(dir: "$project.buildDir/intermediates/javac/${sourceName}/classes", excludes: excludes)
 
-            def kotlinSrc = "$project.projectDir/src/main/kotlin"
+            def kotlinSrc = "$project.projectDir/src/main/java"
             def javaSrc = "$project.projectDir/src/main/java"
             def flavourSrc = "$project.projectDir/src/$productFlavorName/java"
 

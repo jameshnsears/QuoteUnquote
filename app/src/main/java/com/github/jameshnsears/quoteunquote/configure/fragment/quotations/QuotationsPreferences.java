@@ -24,7 +24,8 @@ public class QuotationsPreferences extends PreferencesFacade {
 
     public static final String DATABASE_INTERNAL = "DATABASE_INTERNAL";
     public static final String DATABASE_EXTERNAL = "DATABASE_EXTERNAL";
-    public static final String DATABASE_EXTERNAL_FILENAME = "DATABASE_EXTERNAL_PATH";
+    public static final String DATABASE_EXTERNAL_PATH = "DATABASE_EXTERNAL_PATH";
+    public static final String DATABASE_EXTERNAL_WATCH = "DATABASE_EXTERNAL_WATCH";
 
     @NonNull
     public boolean getDatabaseInternal() {
@@ -36,12 +37,30 @@ public class QuotationsPreferences extends PreferencesFacade {
     }
 
     @NonNull
+    public String getDatabaseExternalPath() {
+        return this.preferenceHelper.getPreferenceString(this.getPreferenceKey(QuotationsPreferences.DATABASE_EXTERNAL_PATH));
+    }
+
+    public void setDatabaseExternalPath(@NonNull String value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(QuotationsPreferences.DATABASE_EXTERNAL_PATH), value);
+    }
+
+    @NonNull
     public boolean getDatabaseExternal() {
         return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(QuotationsPreferences.DATABASE_EXTERNAL), false);
     }
 
     public void setDatabaseExternal(@NonNull boolean value) {
         this.preferenceHelper.setPreference(this.getPreferenceKey(QuotationsPreferences.DATABASE_EXTERNAL), value);
+    }
+
+    @NonNull
+    public boolean getDatabaseExternalWatch() {
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(QuotationsPreferences.DATABASE_EXTERNAL_WATCH), false);
+    }
+
+    public void setDatabaseExternalWatch(@NonNull boolean value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(QuotationsPreferences.DATABASE_EXTERNAL_WATCH), value);
     }
 
     public QuotationsPreferences(@NonNull Context applicationContext) {

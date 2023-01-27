@@ -7,9 +7,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
@@ -23,8 +27,10 @@ import com.github.jameshnsears.quoteunquote.cloud.CloudTransferHelper;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences;
 import com.github.jameshnsears.quoteunquote.configure.fragment.notifications.NotificationsPreferences;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
+import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 import com.github.jameshnsears.quoteunquote.listview.ListViewService;
+import com.github.jameshnsears.quoteunquote.utils.CSVHelper;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
 import com.github.jameshnsears.quoteunquote.utils.notification.NotificationContent;
@@ -34,9 +40,17 @@ import com.github.jameshnsears.quoteunquote.utils.notification.NotificationHelpe
 import com.github.jameshnsears.quoteunquote.utils.notification.NotificationsBihourlyAlarm;
 import com.github.jameshnsears.quoteunquote.utils.notification.NotificationsDailyAlarm;
 import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.LinkedHashSet;
+import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import timber.log.Timber;
@@ -47,16 +61,17 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
     @Nullable
     public static String currentAuthorSelection;
     @Nullable
+    public static int notificationPermissionDeniedCount = 0;
+    @Nullable
     private static ExecutorService executorService;
     private static volatile boolean receiversRegistered;
     @Nullable
-    private NotificationCoordinator notificationCoordinator;
-    @Nullable
-    public static int notificationPermissionDeniedCount = 0;
-    @Nullable
     private static NotificationHelper notificationHelper;
+    private static UUID testWorkerRequestUid = null;
     @Nullable
     public QuoteUnquoteModel quoteUnquoteModel;
+    @Nullable
+    private NotificationCoordinator notificationCoordinator;
 
     private static void registerReceivers(@NonNull Context contextIn) {
         if (!receiversRegistered) {
@@ -82,7 +97,9 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
     @Nullable
     public static ExecutorService getExecutorService() {
         if (executorService == null) {
-            executorService = Executors.newFixedThreadPool(5);
+            executorService = Executors.newFixedThreadPool(
+                    10,
+                    new ThreadFactoryBuilder().setNameFormat("QuoteUnquote-thread-%d").build());
         }
         return executorService;
     }
@@ -101,6 +118,105 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                 }
                 Timber.d(executorService.toString());
             }));
+        }
+    }
+
+    @NonNull
+    public QuotationsPreferences getQuotationsPreferences(@NonNull Context context, int widgetId) {
+        return new QuotationsPreferences(widgetId, context);
+    }
+
+    public static Future externalObserver;
+    public static long externalObserverInternal = 1000;
+
+    public void launchExternalObserver(
+            @NonNull final Context context,
+            int widgetId,
+            @NonNull final QuoteUnquoteModel quoteUnquoteModel) {
+        final QuotationsPreferences quotationsPreferences = getQuotationsPreferences(context, widgetId);
+
+        if (quotationsPreferences.getDatabaseInternal() ||
+                !quotationsPreferences.getDatabaseExternalWatch()) {
+            if (externalObserver != null) {
+                externalObserver.cancel(true);
+                externalObserver = null;
+            }
+        }
+
+        if (quotationsPreferences.getDatabaseExternal() && quotationsPreferences.getDatabaseExternalWatch()) {
+            if (externalObserver == null) {
+                String path = quotationsPreferences.getDatabaseExternalPath();
+
+                externalObserver = getExecutorService().submit(() -> {
+                    Thread.currentThread().setName("externalObserver");
+                    Timber.d("ExternalObserver.start: %s", path);
+
+                    // adb push app/src/androidTest/assets/externalWatch/1/VerseOfTheDay.csv /sdcard/Download
+                    // adb shell dumpsys cpuinfo | grep quoteunquote
+                    try {
+                        File externalFile = new File(path); // uses a fd in its path, not actual filenam!
+                        long originalFileId = externalFile.lastModified();
+
+                        while (!Thread.currentThread().isInterrupted()) {
+                            Thread.sleep(externalObserverInternal);
+
+                            long currentFileId = new File(path).lastModified();
+                            // API >= 32: currentFileId ALWAYS == 0
+
+                            Timber.d("ExternalObserver.poll: %d; %d", originalFileId, currentFileId);
+                            if (currentFileId != originalFileId) {
+                                Timber.d("ExternalObserver.difference: %s", path);
+
+                                try {
+                                    importExternalCsv(context, widgetId, externalFile, quoteUnquoteModel);
+
+                                    onUpdate(context, AppWidgetManager.getInstance(context), new int[]{widgetId});
+
+                                    originalFileId = currentFileId;
+                                } catch (final CSVHelper.CVSHelperException | FileNotFoundException e) {
+                                    new Handler(Looper.getMainLooper()).post(() -> Toast.makeText(
+                                            context,
+                                            context.getString(
+                                                    R.string.fragment_quotations_database_invalid_watch_format),
+                                            Toast.LENGTH_SHORT).show());
+
+                                    Thread.sleep(externalObserverInternal * 5);
+                                }
+                            }
+                        }
+                    } catch (InterruptedException e) {
+                        Timber.d("ExternalObserver.stop");
+                    }
+                });
+            }
+        }
+    }
+
+    private void importExternalCsv(
+            @NonNull final Context context,
+            int widgetId,
+            @NonNull final File file,
+            @NonNull final QuoteUnquoteModel quoteUnquoteModel) throws FileNotFoundException, CSVHelper.CVSHelperException {
+        FileInputStream fileInputStream = null;
+
+        try {
+            fileInputStream = new FileInputStream(file);
+
+            final CSVHelper csvHelper = new CSVHelper();
+            final LinkedHashSet<QuotationEntity> quotations = csvHelper.csvImportDatabase(fileInputStream);
+
+            quoteUnquoteModel.insertQuotationsExternal(quotations);
+
+            DatabaseRepository.useInternalDatabase = false;
+            quoteUnquoteModel.markAsCurrentDefault(widgetId);
+        } finally {
+            try {
+                if (fileInputStream != null) {
+                    fileInputStream.close();
+                }
+            } catch (IOException e) {
+                Timber.e(e.getMessage());
+            }
         }
     }
 
@@ -125,7 +241,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
         final RemoteViews remoteViews = new RemoteViews(context.getPackageName(), getWidgetLayout(context));
 
         for (final int widgetId : widgetIds) {
-            Timber.d("widgetId=%d", widgetId);
+            Timber.d("onUpdate: widgetId=%d", widgetId);
 
             remoteViews.setRemoteAdapter(
                     R.id.listViewQuotation,
@@ -171,7 +287,6 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             appWidgetManager.updateAppWidget(widgetId, remoteViews);
         }
 
-        // at end, so that onReceive gets called first
         super.onUpdate(context, appWidgetManager, widgetIds);
     }
 
@@ -353,7 +468,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                     widgetId,
                     new RemoteViews(context.getPackageName(), getWidgetLayout(context)));
 
-            final QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, context);
+            final QuotationsPreferences quotationsPreferences = getQuotationsPreferences(context, widgetId);
 
             int favouritesCount = getQuoteUnquoteModel(widgetId, context).countFavouritesWithoutRx();
 
@@ -430,7 +545,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             int widgetId,
             @NonNull String digest,
             @NonNull AppWidgetManager appWidgetManager) {
-        final QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, context);
+        final QuotationsPreferences quotationsPreferences = getQuotationsPreferences(context, widgetId);
 
         int favouritesCount = getQuoteUnquoteModel(widgetId, context).toggleFavourite(widgetId, digest);
 
@@ -484,7 +599,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull final Context context,
             final int widgetId,
             @NonNull final AppWidgetManager appWidgetManager) {
-        getQuoteUnquoteModel(widgetId, context).resetPrevious(widgetId, new QuotationsPreferences(widgetId, context).getContentSelection());
+        getQuoteUnquoteModel(widgetId, context).resetPrevious(widgetId, getQuotationsPreferences(context, widgetId).getContentSelection());
         getQuoteUnquoteModel(widgetId, context).markAsCurrentDefault(widgetId);
 
         appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.listViewQuotation);
@@ -763,12 +878,16 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull final NotificationsDailyAlarm notificationsDailyAlarm,
             @NonNull final NotificationsBihourlyAlarm notificationsBihourlyAlarm) {
 
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
+            launchExternalObserver(context, widgetId, getQuoteUnquoteModel(widgetId, context));
+        }
+
         if (getQuoteUnquoteModel(widgetId, context).getCurrentQuotation(widgetId) == null) {
             getQuoteUnquoteModel(widgetId, context).markAsCurrentDefault(widgetId);
-        } else if (new QuotationsPreferences(widgetId, context).getContentSelection() != currentContentSelection) {
+        } else if (getQuotationsPreferences(context, widgetId).getContentSelection() != currentContentSelection) {
             getQuoteUnquoteModel(widgetId, context).markAsCurrentDefault(widgetId);
-        } else if (new QuotationsPreferences(widgetId, context).getContentSelection().equals(ContentSelection.AUTHOR)
-                && !new QuotationsPreferences(widgetId, context).getContentSelectionAuthor().equals(currentAuthorSelection)) {
+        } else if (getQuotationsPreferences(context, widgetId).getContentSelection().equals(ContentSelection.AUTHOR)
+                && !getQuotationsPreferences(context, widgetId).getContentSelectionAuthor().equals(currentAuthorSelection)) {
             getQuoteUnquoteModel(widgetId, context).markAsCurrentDefault(widgetId);
         }
 

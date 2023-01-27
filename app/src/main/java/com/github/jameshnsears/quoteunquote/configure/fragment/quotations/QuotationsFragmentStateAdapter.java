@@ -8,7 +8,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.database.QuotationsDatabaseFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.QuotationsFilterFragment;
-import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 
 public class QuotationsFragmentStateAdapter extends FragmentStateAdapter {
@@ -19,6 +18,8 @@ public class QuotationsFragmentStateAdapter extends FragmentStateAdapter {
     public QuotationsFragmentStateAdapter(@NonNull final QuotationsFragment fa, final int widgetId) {
         super(fa);
         this.widgetId = widgetId;
+
+        quotationsFilterFragment = QuotationsFilterFragment.newInstance(widgetId);
     }
 
     @NonNull
@@ -26,10 +27,10 @@ public class QuotationsFragmentStateAdapter extends FragmentStateAdapter {
     public Fragment createFragment(final int pos) {
         switch (pos) {
             case 0:
-                return QuotationsFilterFragment.newInstance(widgetId);
+                return quotationsFilterFragment;
 
             default:
-                return QuotationsDatabaseFragment.newInstance(widgetId);
+                return QuotationsDatabaseFragment.newInstance(widgetId, quotationsFilterFragment);
         }
     }
 

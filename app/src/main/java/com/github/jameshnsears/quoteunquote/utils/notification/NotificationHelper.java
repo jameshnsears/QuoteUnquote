@@ -15,13 +15,9 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.github.jameshnsears.quoteunquote.QuoteUnquoteWidget;
 import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.fragment.notifications.NotificationsPreferences;
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
-
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
 import timber.log.Timber;
 

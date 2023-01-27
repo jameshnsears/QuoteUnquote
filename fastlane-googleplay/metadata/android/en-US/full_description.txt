@@ -4,8 +4,8 @@ Improve your self-esteem with this easy to use App Widget.
 
 Key features:
 &bull; The Quotations! Carefully sourced and curated
-&bull; Free; no Ads; minimal permissions
 &bull; Works offline
+&bull; Free; no Ads
 &bull; Navigate through what you want, how you want
 &bull; Single tap to Wikipedia Source article
 &bull; Highly customisable appearance

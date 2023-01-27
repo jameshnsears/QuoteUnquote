@@ -1,7 +1,12 @@
 package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.database;
 
+import static android.view.View.VISIBLE;
+
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.text.method.LinkMovementMethod;
@@ -16,20 +21,23 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteModel;
+import com.github.jameshnsears.quoteunquote.QuoteUnquoteWidget;
 import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.ConfigureActivity;
 import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsFragmentStateAdapter;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
+import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.QuotationsFilterFragment;
 import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentQuotationsTabDatabaseBinding;
 import com.github.jameshnsears.quoteunquote.utils.CSVHelper;
 
+import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.LinkedHashSet;
 
@@ -49,17 +57,25 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
     @Nullable
     private ActivityResultLauncher<Intent> storageAccessFrameworkActivityResultCSV;
 
+    @Nullable
+    private QuotationsFilterFragment quotationsFilterFragment;
+
     public QuotationsDatabaseFragment() {
         // dark mode support
     }
 
-    public QuotationsDatabaseFragment(int widgetId) {
+    public QuotationsDatabaseFragment(int widgetId,
+                                      QuotationsFilterFragment quotationsFilterFragment) {
         super(widgetId);
+        this.quotationsFilterFragment = quotationsFilterFragment;
     }
 
     @NonNull
-    public static QuotationsDatabaseFragment newInstance(int widgetId) {
-        QuotationsDatabaseFragment fragment = new QuotationsDatabaseFragment(widgetId);
+    public static QuotationsDatabaseFragment newInstance(
+            int widgetId,
+            QuotationsFilterFragment quotationsFilterFragment) {
+        QuotationsDatabaseFragment fragment = new QuotationsDatabaseFragment(
+                widgetId, quotationsFilterFragment);
         fragment.setArguments(null);
         return fragment;
     }
@@ -92,10 +108,66 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
 
         this.createListenerRadioInternal();
         this.createListenerRadioExternal();
-        this.createListenerImportButton();
+        this.createListenerButtonImport();
+        this.createListenerSwitchWatch();
 
         this.setHandleImport();
+
+        setSwitchWatch();
     }
+
+    private void setSwitchWatch() {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
+            fragmentQuotationsTabDatabaseBinding.switchExternalWatch.setVisibility(VISIBLE);
+
+            if (quotationsPreferences.getDatabaseExternalWatch()) {
+                fragmentQuotationsTabDatabaseBinding.switchExternalWatch.setChecked(true);
+            } else {
+                fragmentQuotationsTabDatabaseBinding.switchExternalWatch.setChecked(false);
+            }
+
+            if (quotationsPreferences.getDatabaseInternal()) {
+                fragmentQuotationsTabDatabaseBinding.switchExternalWatch.setEnabled(false);
+            } else {
+                fragmentQuotationsTabDatabaseBinding.switchExternalWatch.setEnabled(true);
+            }
+        }
+    }
+
+    private void createListenerSwitchWatch() {
+        fragmentQuotationsTabDatabaseBinding.switchExternalWatch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+
+            if (buttonView.isPressed()) {
+                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
+                    if (ContextCompat.checkSelfPermission(
+                            getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) ==
+                            PackageManager.PERMISSION_DENIED) {
+
+                        ConfigureActivity.launcherInvoked = true;
+                        requestPermissionLauncher.launch(
+                                Manifest.permission.READ_EXTERNAL_STORAGE);
+                    }
+                }
+
+                quotationsPreferences.setDatabaseExternalWatch(isChecked);
+            }
+        });
+    }
+
+    private final ActivityResultLauncher<String> requestPermissionLauncher =
+            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isPermissionAllowed -> {
+                if (!isPermissionAllowed) {
+                    Toast.makeText(
+                            getContext(),
+                            getContext().getString(R.string.fragment_quotations_database_external_watch_permission),
+                            Toast.LENGTH_LONG).show();
+
+                    fragmentQuotationsTabDatabaseBinding.switchExternalWatch.setChecked(false);
+                    quotationsPreferences.setDatabaseExternalWatch(false);
+                } else {
+                    quotationsPreferences.setDatabaseExternalWatch(true);
+                }
+            });
 
     @Override
     public void onDestroyView() {
@@ -127,7 +199,7 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
         }
     }
 
-    protected void createListenerImportButton() {
+    protected void createListenerButtonImport() {
         // invoke Storage Access Framework
         fragmentQuotationsTabDatabaseBinding.buttonImport.setOnClickListener(v -> {
             if (fragmentQuotationsTabDatabaseBinding.buttonImport.isEnabled()) {
@@ -150,6 +222,8 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
                 this.quotationsPreferences.setDatabaseInternal(true);
                 this.quotationsPreferences.setDatabaseExternal(false);
 
+                fragmentQuotationsTabDatabaseBinding.switchExternalWatch.setEnabled(false);
+
                 DatabaseRepository.useInternalDatabase = true;
 
                 updateQuotationsUI();
@@ -167,6 +241,8 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
 
                 this.quotationsPreferences.setDatabaseInternal(false);
                 this.quotationsPreferences.setDatabaseExternal(true);
+
+                fragmentQuotationsTabDatabaseBinding.switchExternalWatch.setEnabled(true);
 
                 DatabaseRepository.useInternalDatabase = false;
 
@@ -194,12 +270,15 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
                                     this.getContext().getString(R.string.fragment_quotations_database_import_importing),
                                     Toast.LENGTH_SHORT).show();
 
+                            stopExternalObserver();
+
                             ParcelFileDescriptor parcelFileDescriptor = null;
                             FileInputStream fileInputStream = null;
 
                             try {
                                 parcelFileDescriptor = this.getContext().getContentResolver().openFileDescriptor(
                                         activityResult.getData().getData(), "r");
+
                                 fileInputStream
                                         = new FileInputStream(parcelFileDescriptor.getFileDescriptor());
 
@@ -214,13 +293,21 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
                                 quotationsPreferences.setContentSelectionSearchCount(0);
                                 quotationsPreferences.setContentSelectionSearch("");
 
+                                DatabaseRepository.useInternalDatabase = false;
+
+                                File file = new File("/proc/self/fd/" + parcelFileDescriptor.getFd());
+                                quotationsPreferences.setDatabaseExternalPath(file.getCanonicalPath());
+
+                                fragmentQuotationsTabDatabaseBinding.switchExternalWatch.setEnabled(true);
+
                                 updateQuotationsUI();
 
                                 Toast.makeText(
                                         this.getContext(),
                                         this.getContext().getString(R.string.fragment_quotations_database_import_success),
                                         Toast.LENGTH_SHORT).show();
-                            } catch (final CSVHelper.CVSHelperException | FileNotFoundException e) {
+
+                            } catch (final CSVHelper.CVSHelperException | IOException e) {
                                 Toast.makeText(
                                         this.getContext(),
                                         this.getContext().getString(
@@ -246,7 +333,25 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
                 });
     }
 
+    public void stopExternalObserver() {
+        if (fragmentQuotationsTabDatabaseBinding.switchExternalWatch.isChecked()) {
+
+            try {
+                if (QuoteUnquoteWidget.externalObserver != null) {
+                    Timber.d("ExternalObserver.stop.request");
+                    QuoteUnquoteWidget.externalObserver.cancel(true);
+                    Thread.sleep(QuoteUnquoteWidget.externalObserverInternal);
+                    QuoteUnquoteWidget.externalObserver = null;
+                }
+            } catch (InterruptedException e) {
+                Timber.e(e.getMessage());
+            }
+        }
+    }
+
     private void updateQuotationsUI() {
         QuotationsFragmentStateAdapter.alignSelectionFragmentWithSelectedDatabase(widgetId, getContext());
+        quotationsFilterFragment.shutdown();
+        quotationsFilterFragment.initUi();
     }
 }
