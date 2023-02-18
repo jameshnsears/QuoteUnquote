@@ -1,0 +1,1 @@
+&bull; Fix Sync Cloud issue (improve deployment process)
