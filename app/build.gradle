@@ -192,7 +192,7 @@ android {
 }
 
 dependencies {
-    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
+    androidTestImplementation "androidx.arch.core:core-testing:2.2.0"
     androidTestImplementation 'androidx.room:room-testing:2.5.0'
     androidTestImplementation 'androidx.test:core:1.5.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
@@ -237,7 +237,7 @@ dependencies {
     implementation project(path: ':cloudLib')
     implementation project(path: ':utilsLib')
 
-    testImplementation 'androidx.arch.core:core-testing:2.1.0'
+    testImplementation 'androidx.arch.core:core-testing:2.2.0'
     testImplementation 'androidx.room:room-testing:2.5.0'
     testImplementation 'androidx.test:core-ktx:1.5.0'
     testImplementation 'androidx.test.ext:junit:1.1.5'
