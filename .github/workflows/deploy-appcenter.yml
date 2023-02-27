@@ -54,7 +54,7 @@ jobs:
         run: echo "$KEYSTORE_JKS" | base64 -d > app/keystore.jks
 
       - name: gradle cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             ~/.gradle
@@ -118,7 +118,7 @@ jobs:
         run: echo "$KEYSTORE_JKS" | base64 -d > app/keystore.jks
 
       - name: gradle cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: |
             ~/.gradle
