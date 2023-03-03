@@ -233,7 +233,7 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
     implementation 'net.pwall.json:json-kotlin-schema:0.39'
     implementation 'org.apache.commons:commons-csv:1.10.0'
-    implementation platform('com.google.firebase:firebase-bom:31.2.2')
+    implementation platform('com.google.firebase:firebase-bom:31.2.3')
     implementation project(path: ':cloudLib')
     implementation project(path: ':utilsLib')
 
