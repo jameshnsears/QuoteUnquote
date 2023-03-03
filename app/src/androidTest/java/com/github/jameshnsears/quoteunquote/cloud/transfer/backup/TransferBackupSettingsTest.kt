@@ -134,5 +134,10 @@ class TransferBackupSettingsTest : GsonTestHelper() {
         "",
         true,
         false,
+        false,
+        "",
+        "",
+        "",
+        true,
     )
 }

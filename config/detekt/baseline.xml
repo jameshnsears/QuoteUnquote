@@ -2,9 +2,13 @@
 <SmellBaseline>
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
   <CurrentIssues>
-    <ID>LongParameterList:QuoteUnquoteWidgetTest.kt$QuoteUnquoteWidgetTest$( widgetId: Int, mockContext: Context, databaseInternal: Boolean, databaseExternal: Boolean, databaseExternalPath: String, databaseExternalWatch: Boolean, )</ID>
+    <ID>MagicNumber:Scraper.kt$Scraper$1000</ID>
     <ID>NestedBlockDepth:TransferRestore.kt$TransferRestore$private fun restoreCurrent( context: Context, databaseRepository: DatabaseRepository, currentList: List&lt;Current&gt;, )</ID>
     <ID>NestedBlockDepth:TransferRestore.kt$TransferRestore$private fun restorePrevious( context: Context, databaseRepository: DatabaseRepository, previousList: List&lt;Previous&gt;, )</ID>
+    <ID>SwallowedException:Scraper.kt$Scraper$e: Exception</ID>
+    <ID>SwallowedException:Scraper.kt$Scraper$e: ScraperXpathException</ID>
+    <ID>ThrowsCount:Scraper.kt$Scraper$private fun getXpath(document: Document, xpath: String): String</ID>
+    <ID>TooGenericExceptionCaught:Scraper.kt$Scraper$e: Exception</ID>
     <ID>TooManyFunctions:TransferRestore.kt$TransferRestore : TransferCommon</ID>
     <ID>UnusedPrivateMember:DatabaseQuotationsRandomTest.kt$DatabaseQuotationsRandomTest$i</ID>
     <ID>UtilityClassWithPublicConstructor:ListViewLayoutIdHelper.kt$ListViewLayoutIdHelper</ID>

@@ -733,9 +733,12 @@ public class DatabaseRepository {
 
     public void insertQuotationsExternal(
             @NonNull final LinkedHashSet<QuotationEntity> quotationEntityList) {
-
         for (final QuotationEntity quotationEntity : quotationEntityList) {
-            quotationExternalDAO.insertQuotation(quotationEntity);
+            insertQuotationExternal(quotationEntity);
         }
+    }
+
+    public void insertQuotationExternal(QuotationEntity quotationEntity) {
+        quotationExternalDAO.insertQuotation(quotationEntity);
     }
 }

@@ -31,7 +31,9 @@
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingStart="5dp"
+                android:paddingEnd="5dp">
 
             <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cardViewPlacement"
@@ -54,7 +56,7 @@
                             android:layout_height="wrap_content"
                             android:paddingVertical="5dp"
                             android:paddingTop="0dp"
-                            android:paddingBottom="0dp"
+                            android:paddingBottom="5dp"
                             android:text="@string/activity_instructions_placement"
                             android:textSize="18sp"
                             android:textStyle="bold" />
@@ -62,16 +64,14 @@
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingTop="0dp"
+                            android:paddingTop="5dp"
                             android:paddingBottom="5dp"
                             android:text="@string/activity_instructions_different_ways" />
 
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingStart="20dp"
                             android:paddingTop="5dp"
-                            android:paddingEnd="0dp"
                             android:paddingBottom="5dp"
                             android:text="@string/activity_instructions_1" />
 
@@ -79,10 +79,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawablePadding="5dp"
-                            android:paddingStart="20dp"
                             android:paddingTop="5dp"
-                            android:paddingEnd="0dp"
-                            android:paddingBottom="0dp"
+                            android:paddingBottom="5dp"
                             android:text="@string/activity_instructions_2"
                             android:textAlignment="center"
                             app:drawableEndCompat="@drawable/ic_notifications_widgets_24" />
@@ -90,27 +88,21 @@
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingStart="20dp"
                             android:paddingTop="5dp"
-                            android:paddingEnd="0dp"
                             android:paddingBottom="5dp"
                             android:text="@string/activity_instructions_3" />
 
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingStart="20dp"
                             android:paddingTop="5dp"
-                            android:paddingEnd="0dp"
                             android:paddingBottom="5dp"
                             android:text="@string/activity_instructions_4" />
 
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingStart="20dp"
                             android:paddingTop="5dp"
-                            android:paddingEnd="0dp"
                             android:paddingBottom="5dp"
                             android:text="@string/activity_instructions_5" />
 
@@ -138,7 +130,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingVertical="5dp"
-                            android:paddingTop="10dp"
+                            android:paddingTop="0dp"
                             android:paddingBottom="5dp"
                             android:text="@string/activity_instructions_usage"
                             android:textSize="18sp"
@@ -147,36 +139,28 @@
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingStart="20dp"
-                            android:paddingTop="0dp"
-                            android:paddingEnd="0dp"
+                            android:paddingTop="5dp"
                             android:paddingBottom="5dp"
                             android:text="@string/activity_instructions_configure_1" />
 
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingStart="20dp"
                             android:paddingTop="5dp"
-                            android:paddingEnd="0dp"
                             android:paddingBottom="5dp"
                             android:text="@string/activity_instructions_configure_2" />
 
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingStart="20dp"
                             android:paddingTop="5dp"
-                            android:paddingEnd="0dp"
                             android:paddingBottom="5dp"
                             android:text="@string/activity_instructions_configure_3" />
 
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingStart="20dp"
                             android:paddingTop="5dp"
-                            android:paddingEnd="0dp"
                             android:paddingBottom="5dp"
                             android:text="@string/activity_instructions_configure_4" />
 
@@ -189,9 +173,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:drawablePadding="10dp"
-                                android:paddingStart="15dp"
                                 android:paddingTop="10dp"
-                                android:paddingEnd="0dp"
                                 android:paddingBottom="5dp"
                                 android:text="@string/activity_instructions_os_warning"
                                 app:drawableStartCompat="@drawable/ic_info_24" />
@@ -221,7 +203,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingVertical="5dp"
-                            android:paddingTop="10dp"
+                            android:paddingTop="0dp"
                             android:paddingBottom="5dp"
                             android:text="@string/activity_instructions_resize"
                             android:textSize="18sp"
@@ -230,36 +212,28 @@
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingStart="20dp"
-                            android:paddingTop="0dp"
-                            android:paddingEnd="0dp"
+                            android:paddingTop="5dp"
                             android:paddingBottom="5dp"
                             android:text="@string/activity_instructions_resize_instruction_1" />
 
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingStart="20dp"
                             android:paddingTop="5dp"
-                            android:paddingEnd="0dp"
                             android:paddingBottom="5dp"
                             android:text="@string/activity_instructions_resize_instruction_2" />
 
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingStart="20dp"
                             android:paddingTop="5dp"
-                            android:paddingEnd="0dp"
                             android:paddingBottom="5dp"
                             android:text="@string/activity_instructions_resize_instruction_3" />
 
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:paddingStart="20dp"
                             android:paddingTop="5dp"
-                            android:paddingEnd="0dp"
                             android:paddingBottom="5dp"
                             android:text="@string/activity_instructions_resize_instruction_4" />
 

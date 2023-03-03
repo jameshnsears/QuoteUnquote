@@ -52,16 +52,28 @@
     <string name="fragment_quotations_database">Database</string>
     <string name="fragment_quotations_database_default">Internal</string>
     <string name="fragment_quotations_database_imported">External</string>
+    <string name="fragment_quotations_database_csv">.csv file</string>
     <string name="fragment_quotations_database_button_import">Import</string>
-    <string name="fragment_quotations_database_button_import_text">.csv from device</string>
     <string name="fragment_quotations_database_external_instructions_1">Expected format is <b>Source||Quotation</b> per line</string>
-    <string name="fragment_quotations_database_external_watch">Watch .csv for modification</string>
-    <string name="fragment_quotations_database_external_watch_permission">Please enable Storage permission in Android settings</string>
-    <string name="fragment_quotations_database_import_no_csv_selected">No .csv file selected</string>
-    <string name="fragment_quotations_database_invalid_watch_format">Invalid .csv file</string>
     <string name="fragment_quotations_database_import_contents">Invalid .csv format: %1$s</string>
-    <string name="fragment_quotations_database_import_importing">Importing .csv - please wait&#8230;</string>
-    <string name="fragment_quotations_database_import_success">Success - .csv imported</string>
+    <string name="fragment_quotations_database_import_importing">Importing .csv file - please wait&#8230;</string>
+    <string name="fragment_quotations_database_import_success">Success - .csv file imported</string>
+    <string name="fragment_quotations_database_scrape">Web page</string>
+    <string name="fragment_quotations_database_scrape_url_hint" tools:ignore="TypographyEllipsis">http...</string>
+    <string name="fragment_quotations_database_scrape_quote_source_hint" tools:ignore="TypographyEllipsis">XPath...</string>
+    <string name="fragment_quotations_database_scrape_endpoint">URL</string>
+    <string name="fragment_quotations_database_scrape_quotation">Quotation</string>
+    <string name="fragment_quotations_database_scrape_quotation_example" tools:ignore="TypographyQuotes">//*[@id=\"votd_wrapper\"]/div/div/div[1]/div[2]/p[1]</string>
+    <string name="fragment_quotations_database_scrape_source">Source</string>
+    <string name="fragment_quotations_database_scrape_source_example" tools:ignore="TypographyQuotes">//*[@id=\"votd_wrapper\"]/div/div/div[1]/div[2]/p[2]</string>
+    <string name="fragment_quotations_database_scrape_erase">Keep latest response only</string>
+    <string name="fragment_quotations_database_scrape_fields_error_incomplete">Incomplete parameters</string>
+    <string name="fragment_quotations_database_scrape_importing">Importing web page - please wait&#8230;</string>
+    <string name="fragment_quotations_database_scrape_endpoint_error">Unable to contact URL</string>
+    <string name="fragment_quotations_database_scrape_xpath_error_quotation">Invalid quotation XPath</string>
+    <string name="fragment_quotations_database_scrape_xpath_error_source">Invalid source XPath</string>
+    <string name="fragment_quotations_database_scrape_test_success">Success - web page imported</string>
+    <string name="fragment_quotations_database_scrape_info">Use XPath to retrieve a Quotation &amp; Source from the URL; XPath must return a single element containing text; App Widget will poll every 60 minutes, starting at 00:00</string>
 
     <string name="fragment_appearance_title">Appearance</string>
     <string name="fragment_appearance_tab_style">Contents</string>
@@ -134,7 +146,7 @@
     <string name="fragment_notifications_notification_permission">Please enable Notification permission in Android settings</string>
     <string name="fragment_notifications_recurring_event">Recurring Event</string>
     <string name="fragment_notifications_screen_unlock">Screen unlock</string>
-    <string name="fragment_notifications_bihourly">Every two hours, starting at 00:00</string>
+    <string name="fragment_notifications_bihourly">Every 2 hours, starting at 00:00</string>
 
     <string name="fragment_archive_title">Sync</string>
     <string name="fragment_archive_select_cloud">Cloud</string>

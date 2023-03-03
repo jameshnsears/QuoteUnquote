@@ -24,8 +24,31 @@ public class QuotationsPreferences extends PreferencesFacade {
 
     public static final String DATABASE_INTERNAL = "DATABASE_INTERNAL";
     public static final String DATABASE_EXTERNAL = "DATABASE_EXTERNAL";
-    public static final String DATABASE_EXTERNAL_PATH = "DATABASE_EXTERNAL_PATH";
-    public static final String DATABASE_EXTERNAL_WATCH = "DATABASE_EXTERNAL_WATCH";
+    public static final String DATABASE_EXTERNAL_WEB = "DATABASE_EXTERNAL_WEB";
+    public static final String DATABASE_WEB_URL = "DATABASE_WEB_URL";
+    public static final String DATABASE_WEB_XPATH_QUOTATION = "DATABASE_WEB_XPATH_QUOTATION";
+    public static final String DATABASE_WEB_XPATH_SOURCE = "DATABASE_WEB_XPATH_SOURCE";
+    public static final String DATABASE_WEB_KEEP_LATEST_ONLY = "DATABASE_WEB_KEEP_LATEST_ONLY";
+
+    public static final String DATABASE_EXTERNAL_CONTENT = "DATABASE_EXTERNAL_CONTENT";
+
+    @NonNull
+    public boolean getDatabaseWebKeepLatestOnly() {
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(QuotationsPreferences.DATABASE_WEB_KEEP_LATEST_ONLY), true);
+    }
+
+    public void setDatabaseWebKeepLatestOnly(@NonNull boolean value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(QuotationsPreferences.DATABASE_WEB_KEEP_LATEST_ONLY), value);
+    }
+
+    @NonNull
+    public String getDatabaseExternalContent() {
+        return this.preferenceHelper.getPreferenceString(this.getPreferenceKey(DATABASE_EXTERNAL_CONTENT));
+    }
+
+    public void setDatabaseExternalContent(@NonNull String value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(DATABASE_EXTERNAL_CONTENT), value);
+    }
 
     @NonNull
     public boolean getDatabaseInternal() {
@@ -37,30 +60,48 @@ public class QuotationsPreferences extends PreferencesFacade {
     }
 
     @NonNull
-    public String getDatabaseExternalPath() {
-        return this.preferenceHelper.getPreferenceString(this.getPreferenceKey(QuotationsPreferences.DATABASE_EXTERNAL_PATH));
-    }
-
-    public void setDatabaseExternalPath(@NonNull String value) {
-        this.preferenceHelper.setPreference(this.getPreferenceKey(QuotationsPreferences.DATABASE_EXTERNAL_PATH), value);
-    }
-
-    @NonNull
-    public boolean getDatabaseExternal() {
+    public boolean getDatabaseExternalCsv() {
         return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(QuotationsPreferences.DATABASE_EXTERNAL), false);
     }
 
-    public void setDatabaseExternal(@NonNull boolean value) {
+    public void setDatabaseExternalCsv(@NonNull boolean value) {
         this.preferenceHelper.setPreference(this.getPreferenceKey(QuotationsPreferences.DATABASE_EXTERNAL), value);
     }
 
     @NonNull
-    public boolean getDatabaseExternalWatch() {
-        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(QuotationsPreferences.DATABASE_EXTERNAL_WATCH), false);
+    public String getDatabaseWebXpathSource() {
+        return this.preferenceHelper.getPreferenceString(this.getPreferenceKey(QuotationsPreferences.DATABASE_WEB_XPATH_SOURCE));
     }
 
-    public void setDatabaseExternalWatch(@NonNull boolean value) {
-        this.preferenceHelper.setPreference(this.getPreferenceKey(QuotationsPreferences.DATABASE_EXTERNAL_WATCH), value);
+    public void setDatabaseWebXpathSource(@NonNull String value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(QuotationsPreferences.DATABASE_WEB_XPATH_SOURCE), value);
+    }
+
+    @NonNull
+    public String getDatabaseWebXpathQuotation() {
+        return this.preferenceHelper.getPreferenceString(this.getPreferenceKey(QuotationsPreferences.DATABASE_WEB_XPATH_QUOTATION));
+    }
+
+    public void setDatabaseWebXpathQuotation(@NonNull String value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(QuotationsPreferences.DATABASE_WEB_XPATH_QUOTATION), value);
+    }
+
+    @NonNull
+    public String getDatabaseWebUrl() {
+        return this.preferenceHelper.getPreferenceString(this.getPreferenceKey(QuotationsPreferences.DATABASE_WEB_URL));
+    }
+
+    public void setDatabaseWebUrl(@NonNull String value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(QuotationsPreferences.DATABASE_WEB_URL), value);
+    }
+
+    @NonNull
+    public boolean getDatabaseExternalWeb() {
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(QuotationsPreferences.DATABASE_EXTERNAL_WEB), false);
+    }
+
+    public void setDatabaseExternalWeb(@NonNull boolean value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(QuotationsPreferences.DATABASE_EXTERNAL_WEB), value);
     }
 
     public QuotationsPreferences(@NonNull Context applicationContext) {

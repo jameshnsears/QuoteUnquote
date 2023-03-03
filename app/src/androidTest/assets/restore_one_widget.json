@@ -60,7 +60,12 @@
         "CONTENT_SEARCH": false,
         "CONTENT_SEARCH_COUNT": 0,
         "CONTENT_SEARCH_FAVOURITES_ONLY": false,
-        "CONTENT_SEARCH_TEXT": "some search text"
+        "CONTENT_SEARCH_TEXT": "some search text",
+        "DATABASE_EXTERNAL_WEB": true,
+        "DATABASE_WEB_URL": "url",
+        "DATABASE_WEB_XPATH_QUOTATION": "xpath q",
+        "DATABASE_WEB_XPATH_SOURCE": "xpath s",
+        "DATABASE_WEB_KEEP_LATEST_ONLY": false
       },
       "schedule": {
         "EVENT_DAILY": true,

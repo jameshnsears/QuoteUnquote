@@ -30,7 +30,7 @@ public class NotificationsBihourlyAlarm extends NotificationsDailyAlarm {
             if (currentHour % 2 == 0) {
                 calendar.add(Calendar.HOUR_OF_DAY, 2);
             } else {
-                    calendar.add(Calendar.HOUR_OF_DAY, 1);
+                calendar.add(Calendar.HOUR_OF_DAY, 1);
             }
             calendar.set(Calendar.MINUTE, calendar.getMinimum(Calendar.MINUTE));
             calendar.set(Calendar.SECOND, calendar.getMinimum(Calendar.SECOND));
@@ -46,7 +46,7 @@ public class NotificationsBihourlyAlarm extends NotificationsDailyAlarm {
                     = IntentFactoryHelper.createClickPendingIntent(
                     this.context, this.widgetId, IntentFactoryHelper.BIHOURLY_ALARM);
 
-            alarmManager.setExact(
+            alarmManager.setExactAndAllowWhileIdle(
                     AlarmManager.RTC_WAKEUP,
                     calendar.getTimeInMillis(),
                     alarmPendingIntent);

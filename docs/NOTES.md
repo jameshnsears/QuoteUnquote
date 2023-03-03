@@ -104,3 +104,30 @@
 ## 10. GitHub CLI
 
 * https://github.com/cli/cli/blob/trunk/docs/install_linux.md
+
+---
+
+## 11. Qodana - using cli to produce results folder
+
+``` text
+curl -fsSL https://jb.gg/qodana-cli/install | bash -s -- v2022.3.4 $HOME/bin
+
+cd ~/GIT_REPOS/QuoteUnquote
+
+~/bin/qodana init
+
+# kotlin + shows report in 127.0.0.1:8080
+~/bin/qodana scan -l jetbrains/qodana-jvm:2022.3-eap --show-report
+
+~/bin/qodana scan -l jetbrains/qodana-jvm-android:2022.3-eap --show-report
+```
+
+### 11.1. Qodana - reading a results folder
+
+``` text
+cd results/report/html
+
+python3 -m http.server
+
+http://localhost:8000/
+```

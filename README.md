@@ -62,9 +62,9 @@ VCS > Git > Branches...
 
 git submodule update --remote
 
-git remote add cloudLib https://github.com/jameshnsears/QuoteUnquote.cloudLib
-git remote add cloudLib.functions https://github.com/jameshnsears/QuoteUnquote.cloudLib.functions
-git remote add utilsLib https://github.com/jameshnsears/QuoteUnquote.utilsLib
+git remote add origin/cloudLib https://github.com/jameshnsears/QuoteUnquote.cloudLib
+git remote add origin/cloudLib.functions https://github.com/jameshnsears/QuoteUnquote.cloudLib.functions
+git remote add origin/utilsLib https://github.com/jameshnsears/QuoteUnquote.utilsLib
 
 Build > Rebuild Project
 

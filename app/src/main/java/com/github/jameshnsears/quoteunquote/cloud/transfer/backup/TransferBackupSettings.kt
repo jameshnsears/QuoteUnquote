@@ -65,7 +65,12 @@ open class TransferBackupSettings(val context: Context) {
             quotationPreferences.contentSelectionSearch,
 
             quotationPreferences.databaseInternal,
-            quotationPreferences.databaseExternal,
+            quotationPreferences.databaseExternalCsv,
+            quotationPreferences.databaseExternalWeb,
+            quotationPreferences.databaseWebUrl,
+            quotationPreferences.databaseWebXpathQuotation,
+            quotationPreferences.databaseWebXpathSource,
+            quotationPreferences.databaseWebKeepLatestOnly,
         )
     }
 

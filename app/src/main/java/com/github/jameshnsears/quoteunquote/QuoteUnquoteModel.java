@@ -1,6 +1,9 @@
 package com.github.jameshnsears.quoteunquote;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,7 +15,15 @@ import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
 import com.github.jameshnsears.quoteunquote.database.quotation.AuthorPOJO;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
+import com.github.jameshnsears.quoteunquote.utils.ImportHelper;
 import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
+import com.github.jameshnsears.quoteunquote.utils.scraper.Scraper;
+import com.github.jameshnsears.quoteunquote.utils.scraper.ScraperData;
+import com.github.jameshnsears.quoteunquote.utils.scraper.ScraperQuotationException;
+import com.github.jameshnsears.quoteunquote.utils.scraper.ScraperSourceException;
+import com.github.jameshnsears.quoteunquote.utils.scraper.ScraperUrlException;
+
+import org.jsoup.nodes.Document;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,10 +56,10 @@ public class QuoteUnquoteModel {
 
         if (widgetId != -1) {
             QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, context);
-            if (quotationsPreferences.getDatabaseExternal()) {
-                databaseRepository.useInternalDatabase = false;
-            } else {
+            if (quotationsPreferences.getDatabaseInternal()) {
                 databaseRepository.useInternalDatabase = true;
+            } else {
+                databaseRepository.useInternalDatabase = false;
             }
         }
     }
@@ -634,13 +645,74 @@ public class QuoteUnquoteModel {
 
     @NonNull
     public Single<List<Integer>> authorsQuotationCount() {
-        return databaseRepository.getAuthorsQuotationCount();
+        final Future<Single<List<Integer>>> future = QuoteUnquoteWidget.getExecutorService().submit(()
+                -> databaseRepository.getAuthorsQuotationCount());
+
+        Single<List<Integer>> authorsQuotationCount = null;
+
+        try {
+            authorsQuotationCount = future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
+            Thread.currentThread().interrupt();
+        }
+
+        return authorsQuotationCount;
+    }
+
+    @NonNull
+    public List<Integer> authorsQuotationCountAsList() {
+        final Future<List<Integer>> future = QuoteUnquoteWidget.getExecutorService().submit(()
+                -> databaseRepository.getAuthorsQuotationCount().blockingGet());
+
+        List<Integer> authorsQuotationCount = null;
+
+        try {
+            authorsQuotationCount = future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
+            Thread.currentThread().interrupt();
+        }
+
+        return authorsQuotationCount;
     }
 
     @NonNull
     public Single<List<AuthorPOJO>> authors(int authorCount) {
-        return databaseRepository.getAuthorsAndQuotationCounts(
-                (authorCount == -1) ? 1 : authorCount);
+        final Future<Single<List<AuthorPOJO>>> future = QuoteUnquoteWidget.getExecutorService().submit(()
+                -> databaseRepository.getAuthorsAndQuotationCounts((authorCount == -1) ? 1 : authorCount));
+
+        Single<List<AuthorPOJO>> authors = null;
+
+        try {
+            authors = future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
+            Thread.currentThread().interrupt();
+        }
+
+        return authors;
+    }
+
+    @NonNull
+    public List<AuthorPOJO> authorsAsList(int authorCount) {
+        final Future<List<AuthorPOJO>> future = QuoteUnquoteWidget.getExecutorService().submit(()
+                -> {
+            Single<List<AuthorPOJO>> list
+                    = databaseRepository.getAuthorsAndQuotationCounts((authorCount == -1) ? 1 : authorCount);
+            return list.blockingGet();
+        });
+
+        List<AuthorPOJO> authors = null;
+
+        try {
+            authors = future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
+            Thread.currentThread().interrupt();
+        }
+
+        return authors;
     }
 
     @NonNull
@@ -676,8 +748,6 @@ public class QuoteUnquoteModel {
                 index++;
             }
         }
-
-        Timber.d("index=%s; author=%s", index, author);
         return index;
     }
 
@@ -768,5 +838,131 @@ public class QuoteUnquoteModel {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
+    }
+
+    @NonNull
+    public void insertQuotationExternal(int widgetId, QuotationEntity quotation) {
+        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+            DatabaseRepository.useInternalDatabase = false;
+            databaseRepository.insertQuotationExternal(quotation);
+
+            QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, context);
+
+            if (databaseRepository.findPositionInPrevious(widgetId, quotationsPreferences) + 1
+                    == databaseRepository.countNext(quotationsPreferences)) {
+                // as a courtesy, move to latest quotation if user was at adjacent previous
+                markAsCurrentNext(widgetId, false);
+            }
+        });
+
+        try {
+            future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    public ScraperData getWebPage(
+            @NonNull final Context context,
+            @NonNull final String url,
+            @NonNull final String xpathQuotation,
+            @NonNull final String xpathSource
+    ) {
+        final Future<ScraperData> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+            Handler handler = new Handler(Looper.getMainLooper());
+
+            try {
+                Scraper scraper = new Scraper();
+                Document document = scraper.getDocumentFromUrl(url);
+
+                return new ScraperData(
+                        true,
+                        scraper.getQuotation(document, xpathQuotation),
+                        scraper.getSource(document, xpathSource)
+                );
+            } catch (ScraperUrlException e) {
+                handler.post(() -> Toast.makeText(
+                        context,
+                        context.getString(R.string.fragment_quotations_database_scrape_endpoint_error),
+                        Toast.LENGTH_SHORT).show());
+            } catch (ScraperQuotationException e) {
+                handler.post(() -> Toast.makeText(
+                        context,
+                        context.getString(R.string.fragment_quotations_database_scrape_xpath_error_quotation),
+                        Toast.LENGTH_SHORT).show());
+            } catch (ScraperSourceException e) {
+                handler.post(() -> Toast.makeText(
+                        context,
+                        context.getString(R.string.fragment_quotations_database_scrape_xpath_error_source),
+                        Toast.LENGTH_SHORT).show());
+            }
+
+            return new ScraperData();
+        });
+
+        try {
+            return future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
+            Thread.currentThread().interrupt();
+        }
+
+        return new ScraperData();
+    }
+
+    public void insertWebPage(
+            final int widgetId,
+            @NonNull final String quotation,
+            @NonNull final String source,
+            @NonNull final String digest
+    ) {
+        Timber.d("scraper: %s; %s; %s", digest, source, quotation);
+
+        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+            if (digest.equals(ImportHelper.DEFAULT_DIGEST)) {
+                databaseRepository.erase();
+            }
+
+            insertQuotationExternal(
+                    widgetId,
+                    new QuotationEntity(
+                            digest,
+                            "?",
+                            source,
+                            quotation));
+        });
+
+        try {
+            future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    public String getPosition(int widgetId, String digest) {
+        final Future<String> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+            QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, context);
+
+            String quotationPosition = getCurrentPosition(
+                    widgetId,
+                    quotationsPreferences);
+
+            if (digest.equals(getLastPreviousDigest(widgetId, quotationsPreferences.getContentSelection()))) {
+                quotationPosition = "\u2316  " + quotationPosition + " ";
+            }
+
+            return quotationPosition;
+        });
+
+        try {
+            return future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
+            Thread.currentThread().interrupt();
+        }
+
+        return "";
     }
 }

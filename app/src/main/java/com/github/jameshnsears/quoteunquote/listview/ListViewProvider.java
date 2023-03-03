@@ -38,6 +38,9 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
     private final QuotationEntity quotationEntity;
 
     @Nullable
+    private final String postion;
+
+    @Nullable
     public QuoteUnquoteModel quoteUnquoteModel;
 
     ListViewProvider(@NonNull final Context context, @NonNull final Intent intent) {
@@ -49,24 +52,9 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
             setQuoteUnquoteModel(new QuoteUnquoteModel(widgetId, context));
 
             quotationEntity = getQuoteUnquoteModel().getCurrentQuotation(widgetId);
+
+            postion = getQuoteUnquoteModel().getPosition(widgetId, quotationEntity.digest);
         }
-    }
-
-    private String getPosition() {
-        QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, context);
-
-        String quotationPosition = getQuoteUnquoteModel().getCurrentPosition(
-                widgetId,
-                quotationsPreferences);
-
-        String lastPreviousDigest = getQuoteUnquoteModel().
-                getLastPreviousDigest(widgetId, quotationsPreferences.getContentSelection());
-
-        if (quotationEntity.digest.equals(lastPreviousDigest)) {
-            quotationPosition = "\u2316  " + quotationPosition + " ";
-        }
-
-        return quotationPosition;
     }
 
     @Nullable
@@ -90,7 +78,7 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
                 // first time call
                 quotationList.add(quotationEntity.theQuotation());
                 quotationList.add(quotationEntity.theAuthor());
-                quotationList.add(getPosition());
+                quotationList.add(postion);
             } else {
                 // subsequent calls
                 if (quotationEntity != null) {
@@ -99,7 +87,7 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
                                 && !quotationList.get(0).equals(quotationEntity.theQuotation())) {
                             quotationList.set(0, quotationEntity.theQuotation());
                             quotationList.set(1, quotationEntity.theAuthor());
-                            quotationList.set(2, getPosition());
+                            quotationList.set(2, postion);
                         }
                     } catch (NullPointerException e) {
                         Timber.e(e.getMessage());
@@ -233,7 +221,7 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
 
         if (!quotationList.isEmpty()
                 && !"".equals(quotationEntity.theQuotation())
-                && !"".equals(getPosition())) {
+                && !"".equals(postion)) {
             setRemoteViewQuotation(remoteViews);
             setRemoteViewAuthor(remoteViews);
             setRemoteViewPosition(remoteViews);
@@ -282,7 +270,7 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
     private void setRemoteViewPosition(RemoteViews remoteViews) {
         AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, context);
 
-        setText(remoteViews, R.id.textViewRowPosition, getPosition());
+        setText(remoteViews, R.id.textViewRowPosition, postion);
         setTextSize(remoteViews, R.id.textViewRowPosition, appearancePreferences.getAppearancePositionTextSize());
         setTextColour(remoteViews, R.id.textViewRowPosition, appearancePreferences.getAppearancePositionTextColour());
         setTextPaintFlags(remoteViews, R.id.textViewRowPosition, Paint.ANTI_ALIAS_FLAG);

@@ -1,12 +1,7 @@
 package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.database;
 
-import static android.view.View.VISIBLE;
-
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.text.method.LinkMovementMethod;
@@ -21,25 +16,27 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 
+import com.github.jameshnsears.quoteunquote.BuildConfig;
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteModel;
-import com.github.jameshnsears.quoteunquote.QuoteUnquoteWidget;
 import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.ConfigureActivity;
 import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
-import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsFragmentStateAdapter;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.QuotationsFilterFragment;
 import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentQuotationsTabDatabaseBinding;
-import com.github.jameshnsears.quoteunquote.utils.CSVHelper;
+import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
+import com.github.jameshnsears.quoteunquote.utils.ImportHelper;
+import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
+import com.github.jameshnsears.quoteunquote.utils.scraper.ScraperData;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 import timber.log.Timber;
 
@@ -107,67 +104,16 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
         this.setDatabase();
 
         this.createListenerRadioInternal();
-        this.createListenerRadioExternal();
-        this.createListenerButtonImport();
-        this.createListenerSwitchWatch();
 
-        this.setHandleImport();
+        this.createListenerRadioExternalCsv();
+        this.createListenerButtonImportCsv();
 
-        setSwitchWatch();
+        this.createListenerRadioExternalWeb();
+        createListenerToolbarShareNoSource();
+        this.createListenerButtonImportWebPage();
+
+        this.setHandleImportCsv();
     }
-
-    private void setSwitchWatch() {
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
-            fragmentQuotationsTabDatabaseBinding.switchExternalWatch.setVisibility(VISIBLE);
-
-            if (quotationsPreferences.getDatabaseExternalWatch()) {
-                fragmentQuotationsTabDatabaseBinding.switchExternalWatch.setChecked(true);
-            } else {
-                fragmentQuotationsTabDatabaseBinding.switchExternalWatch.setChecked(false);
-            }
-
-            if (quotationsPreferences.getDatabaseInternal()) {
-                fragmentQuotationsTabDatabaseBinding.switchExternalWatch.setEnabled(false);
-            } else {
-                fragmentQuotationsTabDatabaseBinding.switchExternalWatch.setEnabled(true);
-            }
-        }
-    }
-
-    private void createListenerSwitchWatch() {
-        fragmentQuotationsTabDatabaseBinding.switchExternalWatch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-
-            if (buttonView.isPressed()) {
-                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.Q) {
-                    if (ContextCompat.checkSelfPermission(
-                            getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) ==
-                            PackageManager.PERMISSION_DENIED) {
-
-                        ConfigureActivity.launcherInvoked = true;
-                        requestPermissionLauncher.launch(
-                                Manifest.permission.READ_EXTERNAL_STORAGE);
-                    }
-                }
-
-                quotationsPreferences.setDatabaseExternalWatch(isChecked);
-            }
-        });
-    }
-
-    private final ActivityResultLauncher<String> requestPermissionLauncher =
-            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isPermissionAllowed -> {
-                if (!isPermissionAllowed) {
-                    Toast.makeText(
-                            getContext(),
-                            getContext().getString(R.string.fragment_quotations_database_external_watch_permission),
-                            Toast.LENGTH_LONG).show();
-
-                    fragmentQuotationsTabDatabaseBinding.switchExternalWatch.setChecked(false);
-                    quotationsPreferences.setDatabaseExternalWatch(false);
-                } else {
-                    quotationsPreferences.setDatabaseExternalWatch(true);
-                }
-            });
 
     @Override
     public void onDestroyView() {
@@ -176,30 +122,92 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
     }
 
     private void setDatabase() {
+        if (BuildConfig.DEBUG) {
+            String url = "https://www.bible.com/verse-of-the-day";
+            if (BuildConfig.DATABASE_QUOTATIONS.contains(".db.dev")) {
+                // javalin - Listening on http://localhost:7070/
+                url = "http://10.0.2.2:7070/verse-of-the-day";
+            }
+            fragmentQuotationsTabDatabaseBinding.editTextUrl.setText(url);
+            fragmentQuotationsTabDatabaseBinding.editTextXpathQuotation
+                    .setText(getContext().getString(R.string.fragment_quotations_database_scrape_quotation_example));
+            fragmentQuotationsTabDatabaseBinding.editTextXpathSource.setText(
+                    getContext().getString(R.string.fragment_quotations_database_scrape_source_example));
+        }
+
         if (this.quotationsPreferences.getDatabaseInternal()) {
-            this.fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseInternal.setChecked(true);
-            this.fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternal.setChecked(false);
-            this.quotationsPreferences.setDatabaseInternal(true);
-            this.quotationsPreferences.setDatabaseExternal(false);
+            setDatabaseInternal();
 
-            DatabaseRepository.useInternalDatabase = true;
-        } else {
-            this.fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseInternal.setChecked(false);
-            this.fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternal.setChecked(true);
-            this.quotationsPreferences.setDatabaseInternal(false);
-            this.quotationsPreferences.setDatabaseExternal(true);
+            String databseExternalContent = quotationsPreferences.getDatabaseExternalContent();
+            if (databseExternalContent.equals(QuotationsPreferences.DATABASE_EXTERNAL)) {
+                this.fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternalCsv.setEnabled(true);
+            }
 
-            DatabaseRepository.useInternalDatabase = false;
+            if (databseExternalContent.equals(QuotationsPreferences.DATABASE_EXTERNAL_WEB)) {
+                this.fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternalWeb.setEnabled(true);
+            }
         }
 
-        if (quoteUnquoteModel.externalDatabaseContainsQuotations()) {
-            this.fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternal.setEnabled(true);
-        } else {
-            this.fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternal.setEnabled(false);
+        if (this.quotationsPreferences.getDatabaseExternalCsv()) {
+            setDatabaseExternalCsv();
         }
+
+        if (this.quotationsPreferences.getDatabaseExternalWeb()) {
+            setDatabaseExternalWeb();
+        }
+
+        this.fragmentQuotationsTabDatabaseBinding.switchKeepLatestResponseOnly.setChecked(
+                this.quotationsPreferences.getDatabaseWebKeepLatestOnly()
+        );
     }
 
-    protected void createListenerButtonImport() {
+    private void setDatabaseInternal() {
+        this.fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseInternal.setChecked(true);
+        this.fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternalCsv.setChecked(false);
+        this.fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternalWeb.setChecked(false);
+
+        this.quotationsPreferences.setDatabaseInternal(true);
+        this.quotationsPreferences.setDatabaseExternalCsv(false);
+        this.quotationsPreferences.setDatabaseExternalWeb(false);
+
+        DatabaseRepository.useInternalDatabase = true;
+    }
+
+    private void setDatabaseExternalCsv() {
+        this.fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseInternal.setChecked(false);
+        this.fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternalCsv.setChecked(true);
+        this.fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternalCsv.setEnabled(true);
+        this.fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternalWeb.setChecked(false);
+
+        this.quotationsPreferences.setDatabaseInternal(false);
+        this.quotationsPreferences.setDatabaseExternalCsv(true);
+        this.quotationsPreferences.setDatabaseExternalWeb(false);
+        this.quotationsPreferences.setDatabaseExternalContent(QuotationsPreferences.DATABASE_EXTERNAL);
+
+        DatabaseRepository.useInternalDatabase = false;
+    }
+
+    private void setDatabaseExternalWeb() {
+        this.fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseInternal.setChecked(false);
+        this.fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternalCsv.setChecked(false);
+        this.fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternalWeb.setChecked(true);
+        this.fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternalWeb.setEnabled(true);
+
+        this.quotationsPreferences.setDatabaseInternal(false);
+        this.quotationsPreferences.setDatabaseExternalCsv(false);
+        this.quotationsPreferences.setDatabaseExternalWeb(true);
+        this.quotationsPreferences.setDatabaseExternalContent(QuotationsPreferences.DATABASE_EXTERNAL_WEB);
+
+        fragmentQuotationsTabDatabaseBinding.editTextUrl.setText(quotationsPreferences.getDatabaseWebUrl());
+        fragmentQuotationsTabDatabaseBinding.editTextXpathQuotation.setText(quotationsPreferences.getDatabaseWebXpathQuotation());
+        fragmentQuotationsTabDatabaseBinding.editTextXpathSource.setText(quotationsPreferences.getDatabaseWebXpathSource());
+
+        DatabaseRepository.useInternalDatabase = false;
+    }
+
+    protected void createListenerButtonImportCsv() {
+        // adb push app/src/androidTest/assets/Favourites.csv /sdcard/Download
+
         // invoke Storage Access Framework
         fragmentQuotationsTabDatabaseBinding.buttonImport.setOnClickListener(v -> {
             if (fragmentQuotationsTabDatabaseBinding.buttonImport.isEnabled()) {
@@ -217,141 +225,202 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
         final RadioButton radioButtonDatabaseInternal = this.fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseInternal;
         radioButtonDatabaseInternal.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                this.fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseInternal.setChecked(true);
-                this.fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternal.setChecked(false);
-                this.quotationsPreferences.setDatabaseInternal(true);
-                this.quotationsPreferences.setDatabaseExternal(false);
-
-                fragmentQuotationsTabDatabaseBinding.switchExternalWatch.setEnabled(false);
-
-                DatabaseRepository.useInternalDatabase = true;
-
+                setDatabaseInternal();
                 updateQuotationsUI();
             }
         });
     }
 
-    private void createListenerRadioExternal() {
-        final RadioButton radioButtonDatabaseCSV = this.fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternal;
-        radioButtonDatabaseCSV.setOnCheckedChangeListener((buttonView, isChecked) -> {
+    private void createListenerRadioExternalCsv() {
+        final RadioButton radioButtonDatabaseExternalCsv = this.fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternalCsv;
+        radioButtonDatabaseExternalCsv.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                this.fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseInternal.setChecked(false);
-                this.fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternal.setChecked(true);
-                this.fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternal.setEnabled(true);
-
-                this.quotationsPreferences.setDatabaseInternal(false);
-                this.quotationsPreferences.setDatabaseExternal(true);
-
-                fragmentQuotationsTabDatabaseBinding.switchExternalWatch.setEnabled(true);
-
-                DatabaseRepository.useInternalDatabase = false;
-
+                setDatabaseExternalCsv();
                 updateQuotationsUI();
             }
         });
     }
 
-    private void setHandleImport() {
+    private void createListenerRadioExternalWeb() {
+        final RadioButton radioButtonDatabaseExternalWeb = this.fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternalWeb;
+        radioButtonDatabaseExternalWeb.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                setDatabaseExternalWeb();
+                updateQuotationsUI();
+            }
+        });
+    }
+
+    private String getWebUrl() {
+        String url = fragmentQuotationsTabDatabaseBinding.editTextUrl.getText().toString();
+        Timber.d("url=%s", url);
+        this.quotationsPreferences.setDatabaseWebUrl(url);
+        return url;
+    }
+
+    private String getWebXpathQuotation() {
+        String xpathQuotation = fragmentQuotationsTabDatabaseBinding.editTextXpathQuotation.getText().toString();
+        Timber.d("xpathQuotation=%s", xpathQuotation);
+        this.quotationsPreferences.setDatabaseWebXpathQuotation(xpathQuotation);
+        return xpathQuotation;
+    }
+
+    private String getWebXpathSource() {
+        String xpathSource = fragmentQuotationsTabDatabaseBinding.editTextXpathSource.getText().toString();
+        Timber.d("xpathSource=%s", xpathSource);
+        this.quotationsPreferences.setDatabaseWebXpathSource(xpathSource);
+        return xpathSource;
+    }
+
+
+    private void createListenerToolbarShareNoSource() {
+        fragmentQuotationsTabDatabaseBinding.switchKeepLatestResponseOnly.setOnCheckedChangeListener((buttonView, isChecked) ->
+                this.quotationsPreferences.setDatabaseWebKeepLatestOnly(isChecked)
+        );
+    }
+
+    private void createListenerButtonImportWebPage() {
+        fragmentQuotationsTabDatabaseBinding.buttonImportWebPage.setOnClickListener(v -> {
+            if (fragmentQuotationsTabDatabaseBinding.buttonImportWebPage.isPressed()) {
+                if (fragmentQuotationsTabDatabaseBinding.buttonImportWebPage.isEnabled()) {
+
+                    String url = getWebUrl();
+                    String xpathQuotation = getWebXpathQuotation();
+                    String xpathSource = getWebXpathSource();
+
+                    if (url.equals("") || xpathQuotation.equals("") | xpathSource.equals("")
+                    || url.length() < 10) {
+                        Toast.makeText(
+                                getContext(),
+                                getContext().getString(R.string.fragment_quotations_database_scrape_fields_error_incomplete),
+                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(
+                                this.getContext(),
+                                this.getContext().getString(R.string.fragment_quotations_database_scrape_importing),
+                                Toast.LENGTH_SHORT).show();
+
+                        ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
+                        properties.put("WebPage",
+                                "url=" + url + "; xpathQuotation=" + xpathQuotation + "; xpathSource=" + xpathSource);
+                        AuditEventHelper.auditEvent("WEB_PAGE", properties);
+
+                        ScraperData scraperData = quoteUnquoteModel.getWebPage(
+                                getContext(), url, xpathQuotation, xpathSource);
+
+                        if (scraperData.getScrapeResult()) {
+                            quoteUnquoteModel.insertWebPage(
+                                    widgetId,
+                                    scraperData.getQuotation(),
+                                    scraperData.getSource(),
+                                    ImportHelper.DEFAULT_DIGEST
+                            );
+
+                            fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternalCsv.setEnabled(false);
+                            fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternalCsv.setChecked(false);
+
+                            fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternalWeb.setEnabled(true);
+                            fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternalWeb.setChecked(true);
+
+                            importWasSuccessful();
+
+                            Toast.makeText(
+                                    getContext(),
+                                    getContext().getString(R.string.fragment_quotations_database_scrape_test_success),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    private void importWasSuccessful() {
+        quotationsPreferences.setContentSelectionSearchCount(0);
+        quotationsPreferences.setContentSelectionSearch("");
+
+        DatabaseRepository.useInternalDatabase = false;
+
+        updateQuotationsUI();
+    }
+
+    private void setHandleImportCsv() {
         // default: /storage/emulated/0/Download/
         this.storageAccessFrameworkActivityResultCSV = this.registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 activityResult -> {
                     Timber.d("%d", activityResult.getResultCode());
 
-                    if (activityResult.getResultCode() == Activity.RESULT_CANCELED) {
+                    if (activityResult.getResultCode() == Activity.RESULT_OK) {
                         Toast.makeText(
                                 this.getContext(),
-                                this.getContext().getString(R.string.fragment_quotations_database_import_no_csv_selected),
+                                this.getContext().getString(R.string.fragment_quotations_database_import_importing),
                                 Toast.LENGTH_SHORT).show();
-                    } else {
-                        if (activityResult.getResultCode() == Activity.RESULT_OK) {
+
+                        ParcelFileDescriptor parcelFileDescriptor = null;
+                        FileInputStream fileInputStream = null;
+
+                        try {
+                            parcelFileDescriptor = this.getContext().getContentResolver().openFileDescriptor(
+                                    activityResult.getData().getData(), "r");
+                            fileInputStream
+                                    = new FileInputStream(parcelFileDescriptor.getFileDescriptor());
+
+                            final ImportHelper importHelper = new ImportHelper();
+                            final LinkedHashSet<QuotationEntity> quotations = importHelper.csvImportDatabase(fileInputStream);
+                            quoteUnquoteModel.insertQuotationsExternal(quotations);
+
+                            fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternalCsv.setEnabled(true);
+                            fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternalCsv.setChecked(true);
+
+                            fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternalWeb.setEnabled(false);
+                            fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternalWeb.setChecked(false);
+
+                            importWasSuccessful();
+
                             Toast.makeText(
                                     this.getContext(),
-                                    this.getContext().getString(R.string.fragment_quotations_database_import_importing),
+                                    this.getContext().getString(R.string.fragment_quotations_database_import_success),
                                     Toast.LENGTH_SHORT).show();
 
-                            stopExternalObserver();
-
-                            ParcelFileDescriptor parcelFileDescriptor = null;
-                            FileInputStream fileInputStream = null;
-
+                        } catch (final ImportHelper.ImportHelperException | IOException e) {
+                            Toast.makeText(
+                                    this.getContext(),
+                                    this.getContext().getString(
+                                            R.string.fragment_quotations_database_import_contents,
+                                            e.getMessage()),
+                                    Toast.LENGTH_LONG).show();
+                        } finally {
                             try {
-                                parcelFileDescriptor = this.getContext().getContentResolver().openFileDescriptor(
-                                        activityResult.getData().getData(), "r");
-
-                                fileInputStream
-                                        = new FileInputStream(parcelFileDescriptor.getFileDescriptor());
-
-                                final CSVHelper csvHelper = new CSVHelper();
-                                final LinkedHashSet<QuotationEntity> quotations = csvHelper.csvImportDatabase(fileInputStream);
-
-                                quoteUnquoteModel.insertQuotationsExternal(quotations);
-
-                                fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternal.setEnabled(true);
-                                fragmentQuotationsTabDatabaseBinding.radioButtonDatabaseExternal.setChecked(true);
-
-                                quotationsPreferences.setContentSelectionSearchCount(0);
-                                quotationsPreferences.setContentSelectionSearch("");
-
-                                DatabaseRepository.useInternalDatabase = false;
-
-                                File file = new File("/proc/self/fd/" + parcelFileDescriptor.getFd());
-                                quotationsPreferences.setDatabaseExternalPath(file.getCanonicalPath());
-
-                                fragmentQuotationsTabDatabaseBinding.switchExternalWatch.setEnabled(true);
-
-                                updateQuotationsUI();
-
-                                Toast.makeText(
-                                        this.getContext(),
-                                        this.getContext().getString(R.string.fragment_quotations_database_import_success),
-                                        Toast.LENGTH_SHORT).show();
-
-                            } catch (final CSVHelper.CVSHelperException | IOException e) {
-                                Toast.makeText(
-                                        this.getContext(),
-                                        this.getContext().getString(
-                                                R.string.fragment_quotations_database_import_contents,
-                                                e.getMessage()),
-                                        Toast.LENGTH_LONG).show();
-                            } finally {
-                                try {
-                                    if (fileInputStream != null) {
-                                        fileInputStream.close();
-                                    }
-                                    if (parcelFileDescriptor != null) {
-                                        parcelFileDescriptor.close();
-                                    }
-                                } catch (IOException e) {
-                                    Timber.e(e.getMessage());
+                                if (fileInputStream != null) {
+                                    fileInputStream.close();
                                 }
+                                if (parcelFileDescriptor != null) {
+                                    parcelFileDescriptor.close();
+                                }
+                            } catch (IOException e) {
+                                Timber.e(e.getMessage());
                             }
                         }
-
-                        ConfigureActivity.launcherInvoked = false;
                     }
+
+                    ConfigureActivity.launcherInvoked = false;
                 });
     }
 
-    public void stopExternalObserver() {
-        if (fragmentQuotationsTabDatabaseBinding.switchExternalWatch.isChecked()) {
-
-            try {
-                if (QuoteUnquoteWidget.externalObserver != null) {
-                    Timber.d("ExternalObserver.stop.request");
-                    QuoteUnquoteWidget.externalObserver.cancel(true);
-                    Thread.sleep(QuoteUnquoteWidget.externalObserverInternal);
-                    QuoteUnquoteWidget.externalObserver = null;
-                }
-            } catch (InterruptedException e) {
-                Timber.e(e.getMessage());
-            }
-        }
-    }
-
     private void updateQuotationsUI() {
-        QuotationsFragmentStateAdapter.alignSelectionFragmentWithSelectedDatabase(widgetId, getContext());
+        QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, getContext());
+        quotationsPreferences.setContentSelection(ContentSelection.ALL);
+        quotationsPreferences.setContentSelectionAuthorCount(-1);
+        quotationsPreferences.setContentSelectionAuthor("");
+
         quotationsFilterFragment.shutdown();
         quotationsFilterFragment.initUi();
+
+        List<Integer> quotationsCountAsList = quoteUnquoteModel.authorsQuotationCountAsList();
+        quotationsFilterFragment.populateAuthorsQuotationCount(quotationsCountAsList);
+
+        int authorCount = quotationsPreferences.getContentSelectionAuthorCount().intValue();
+        quotationsFilterFragment.populateAuthors(quoteUnquoteModel.authorsAsList(authorCount));
     }
 }

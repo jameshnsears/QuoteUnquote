@@ -4,7 +4,7 @@
       <option name="executionName" />
       <option name="externalProjectPath" value="$PROJECT_DIR$" />
       <option name="externalSystemIdString" value="GRADLE" />
-      <option name="scriptParameters" value="--tests &quot;com.github.jameshnsears.quoteunquote.utils.*&quot;" />
+      <option name="scriptParameters" value="" />
       <option name="taskDescriptions">
         <list />
       </option>
@@ -12,6 +12,8 @@
         <list>
           <option value=":utilsLib:cleanTestGoogleplayDebugUnitTest" />
           <option value=":utilsLib:testGoogleplayDebugUnitTest" />
+          <option value="--tests" />
+          <option value="&quot;com.github.jameshnsears.quoteunquote.utils.*&quot;" />
         </list>
       </option>
       <option name="vmOptions" value="" />

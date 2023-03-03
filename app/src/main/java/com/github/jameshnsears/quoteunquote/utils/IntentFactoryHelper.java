@@ -47,6 +47,8 @@ public class IntentFactoryHelper {
     @NonNull
     public static final String BIHOURLY_ALARM = "BIHOURLY_ALARM";
     @NonNull
+    public static final String SCRAPER_ALARM = "WEB_PAGE_ALARM";
+    @NonNull
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     @NonNull

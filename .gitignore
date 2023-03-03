@@ -35,3 +35,7 @@ local.properties
 .scannerwork
 /.idea/deploymentTargetDropDown.xml
 /qodana_output/
+/app/google-services.json-development
+/.idea/sonarlint/securityhotspotstore/index.pb
+/.idea/sonarlint/
+/bin/javalin/webpage/build/

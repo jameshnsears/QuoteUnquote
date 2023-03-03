@@ -20,7 +20,7 @@ import java.util.LinkedHashSet;
 
 import timber.log.Timber;
 
-public class CSVHelper {
+public class ImportHelper {
     private static String[] headers = {"Author", "Quotation"};
 
     public void csvExportFavourites(FileOutputStream fileOutputStream, ArrayList<QuotationEntity> exportableFavourites) throws IOException {
@@ -71,7 +71,7 @@ public class CSVHelper {
                 .build();
     }
 
-    public LinkedHashSet<QuotationEntity> csvImportDatabase(InputStream inputStream) throws CVSHelperException {
+    public LinkedHashSet<QuotationEntity> csvImportDatabase(InputStream inputStream) throws ImportHelperException {
         CSVParser parser = null;
 
         LinkedHashSet<QuotationEntity> quotationEntityLinkedHashSet = new LinkedHashSet<>();
@@ -102,7 +102,7 @@ public class CSVHelper {
             }
         } catch (IllegalStateException | IllegalArgumentException | IOException exception) {
             Timber.e("%s", exception.getMessage());
-            throw new CVSHelperException(exception.getMessage());
+            throw new ImportHelperException(exception.getMessage());
         } finally {
             if (parser != null) {
                 try {
@@ -114,43 +114,45 @@ public class CSVHelper {
         }
 
         if (quotationEntityLinkedHashSet.size() == 0) {
-            throw new CVSHelperException("empty file");
+            throw new ImportHelperException("empty file");
         }
 
         return quotationEntityLinkedHashSet;
     }
 
+    public static String DEFAULT_DIGEST = "00000000";
+
     private String makeDigest(int recordCount, String author, String quotation) {
         String digest;
         if (recordCount == 0) {
-            digest = "00000000";
+            digest = DEFAULT_DIGEST;
         } else {
             digest = makeDigest(quotation, author);
         }
         return digest;
     }
 
-    private void testNotEmptyQuotation(String quotation) throws CVSHelperException {
+    private void testNotEmptyQuotation(String quotation) throws ImportHelperException {
         if (quotation.equals("") || quotation.length() <= 1) {
-            throw new CVSHelperException("empty quotation");
+            throw new ImportHelperException("empty quotation");
         }
     }
 
-    private void testNotEmptyAuthor(String author) throws CVSHelperException {
+    private void testNotEmptyAuthor(String author) throws ImportHelperException {
         if (author.equals("")) {
-            throw new CVSHelperException("empty author");
+            throw new ImportHelperException("empty author");
         }
     }
 
-    public String makeDigest(String quotation, String author) {
+    public static String makeDigest(String quotation, String author) {
         String rawString = quotation + author;
         return Hashing.sha256()
                 .hashBytes(rawString.getBytes(StandardCharsets.UTF_8))
                 .toString().substring(0, 8);
     }
 
-    public class CVSHelperException extends Exception {
-        public CVSHelperException(String errorMessage) {
+    public class ImportHelperException extends Exception {
+        public ImportHelperException(String errorMessage) {
             super(errorMessage);
         }
     }

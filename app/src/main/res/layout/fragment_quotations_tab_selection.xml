@@ -217,7 +217,7 @@
                             app:backgroundTint="@null" />
 
                     <TextView
-                            android:id="@+id/textViewLocalStorageInstructions"
+                            android:id="@+id/textViewInformationExternal"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingStart="7dp"

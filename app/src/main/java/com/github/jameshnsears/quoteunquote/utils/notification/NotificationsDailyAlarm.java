@@ -60,7 +60,7 @@ public class NotificationsDailyAlarm {
                     = IntentFactoryHelper.createClickPendingIntent(
                             context, widgetId, IntentFactoryHelper.DAILY_ALARM);
 
-            alarmManager.setExact(
+            alarmManager.setExactAndAllowWhileIdle(
                     AlarmManager.RTC_WAKEUP,
                     calendar.getTimeInMillis(),
                     alarmPendingIntent);

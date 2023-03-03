@@ -283,7 +283,12 @@ class TransferRestore : TransferCommon() {
 
         // we always move back to the Internal after a restore
         quotationsPreferences.databaseInternal = true
-        quotationsPreferences.databaseExternal = false
+        quotationsPreferences.databaseExternalCsv = false
+        quotationsPreferences.databaseExternalWeb = false
+        quotationsPreferences.databaseWebUrl = quotations.databaseWebUrl
+        quotationsPreferences.databaseWebXpathQuotation = quotations.databaseWebXpathQuotation
+        quotationsPreferences.databaseWebXpathSource = quotations.databaseWebXpathSource
+        quotationsPreferences.databaseWebKeepLatestOnly = quotations.databaseWebKeepLatestOnly
     }
 
     private fun restoreSettingsAppearance(

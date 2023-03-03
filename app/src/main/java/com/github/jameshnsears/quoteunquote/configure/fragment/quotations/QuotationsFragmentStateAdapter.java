@@ -34,12 +34,6 @@ public class QuotationsFragmentStateAdapter extends FragmentStateAdapter {
         }
     }
 
-    public static void alignSelectionFragmentWithSelectedDatabase(int widgetId, @NonNull Context context) {
-        QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, context);
-        quotationsPreferences.setContentSelection(ContentSelection.ALL);
-        quotationsPreferences.setContentSelectionAuthor("");
-    }
-
     @Override
     public int getItemCount() {
         return 2;

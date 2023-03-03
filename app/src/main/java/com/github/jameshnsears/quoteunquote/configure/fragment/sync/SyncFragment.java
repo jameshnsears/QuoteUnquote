@@ -509,7 +509,7 @@ public class SyncFragment extends FragmentCommon {
 
     public void enableButton(@NonNull final Button button, @NonNull final Boolean enabled) {
         button.setEnabled(enabled);
-        button.setAlpha(enabled ? 1 : 0.25f);
+        makeButtonAlpha(button, enabled);
     }
 
     public void alignLocalCodeWithRestoredcode() {
