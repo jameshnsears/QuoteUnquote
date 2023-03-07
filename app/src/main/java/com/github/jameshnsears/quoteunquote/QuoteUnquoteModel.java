@@ -921,6 +921,7 @@ public class QuoteUnquoteModel {
 
         final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
             if (digest.equals(ImportHelper.DEFAULT_DIGEST)) {
+                DatabaseRepository.useInternalDatabase = false;
                 databaseRepository.erase();
             }
 

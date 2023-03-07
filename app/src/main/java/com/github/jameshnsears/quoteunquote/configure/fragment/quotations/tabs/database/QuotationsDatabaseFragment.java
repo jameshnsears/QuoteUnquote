@@ -115,6 +115,19 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
         this.setHandleImportCsv();
 
         createExternalEditTextChangeListeners();
+
+//        if (BuildConfig.DEBUG) {
+//            String url = "https://www.bible.com/verse-of-the-day";
+//            if (BuildConfig.DATABASE_QUOTATIONS.contains(".db.prod")) {
+//                // javalin - Listening on http://localhost:7070/
+//                url = "http://10.0.2.2:7070/verse-of-the-day";
+//            }
+//            fragmentQuotationsTabDatabaseBinding.editTextUrl.setText(url);
+//            fragmentQuotationsTabDatabaseBinding.editTextXpathQuotation
+//                    .setText(getContext().getString(R.string.fragment_quotations_database_scrape_quotation_example));
+//            fragmentQuotationsTabDatabaseBinding.editTextXpathSource.setText(
+//                    getContext().getString(R.string.fragment_quotations_database_scrape_source_example));
+//        }
     }
 
     @Override
@@ -164,19 +177,6 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
     }
 
     private void setDatabase() {
-//        if (BuildConfig.DEBUG) {
-//            String url = "https://www.bible.com/verse-of-the-day";
-//            if (BuildConfig.DATABASE_QUOTATIONS.contains(".db.dev")) {
-//                // javalin - Listening on http://localhost:7070/
-//                url = "http://10.0.2.2:7070/verse-of-the-day";
-//            }
-//            fragmentQuotationsTabDatabaseBinding.editTextUrl.setText(url);
-//            fragmentQuotationsTabDatabaseBinding.editTextXpathQuotation
-//                    .setText(getContext().getString(R.string.fragment_quotations_database_scrape_quotation_example));
-//            fragmentQuotationsTabDatabaseBinding.editTextXpathSource.setText(
-//                    getContext().getString(R.string.fragment_quotations_database_scrape_source_example));
-//        }
-
         if (this.quotationsPreferences.getDatabaseInternal()) {
             setDatabaseInternal();
 
