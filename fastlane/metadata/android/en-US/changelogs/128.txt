@@ -1,0 +1,1 @@
+&bull; Make it easier to enter External database parameters

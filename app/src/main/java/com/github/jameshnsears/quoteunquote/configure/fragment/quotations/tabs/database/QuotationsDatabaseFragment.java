@@ -113,27 +113,69 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
         this.createListenerButtonImportWebPage();
 
         this.setHandleImportCsv();
+
+        createExternalEditTextChangeListeners();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+
+        quotationsPreferences.setDatabaseWebUrl(
+                fragmentQuotationsTabDatabaseBinding.editTextUrl.getText().toString()
+        );
+        quotationsPreferences.setDatabaseWebXpathQuotation(
+                fragmentQuotationsTabDatabaseBinding.editTextXpathQuotation.getText().toString()
+        );
+        quotationsPreferences.setDatabaseWebXpathSource(
+                fragmentQuotationsTabDatabaseBinding.editTextXpathSource.getText().toString()
+        );
+
         this.fragmentQuotationsTabDatabaseBinding = null;
     }
 
-    private void setDatabase() {
-        if (BuildConfig.DEBUG) {
-            String url = "https://www.bible.com/verse-of-the-day";
-            if (BuildConfig.DATABASE_QUOTATIONS.contains(".db.dev")) {
-                // javalin - Listening on http://localhost:7070/
-                url = "http://10.0.2.2:7070/verse-of-the-day";
+    private void createExternalEditTextChangeListeners() {
+        fragmentQuotationsTabDatabaseBinding.editTextUrl.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                Timber.d("editTextUrl=%s",
+                        fragmentQuotationsTabDatabaseBinding.editTextUrl.getText().toString());
+                quotationsPreferences.setDatabaseWebUrl(
+                        fragmentQuotationsTabDatabaseBinding.editTextUrl.getText().toString());
             }
-            fragmentQuotationsTabDatabaseBinding.editTextUrl.setText(url);
-            fragmentQuotationsTabDatabaseBinding.editTextXpathQuotation
-                    .setText(getContext().getString(R.string.fragment_quotations_database_scrape_quotation_example));
-            fragmentQuotationsTabDatabaseBinding.editTextXpathSource.setText(
-                    getContext().getString(R.string.fragment_quotations_database_scrape_source_example));
-        }
+        });
+
+        fragmentQuotationsTabDatabaseBinding.editTextXpathQuotation.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                Timber.d("editTextXpathQuotation=%s",
+                        fragmentQuotationsTabDatabaseBinding.editTextXpathQuotation.getText().toString());
+                quotationsPreferences.setDatabaseWebXpathQuotation(
+                        fragmentQuotationsTabDatabaseBinding.editTextXpathQuotation.getText().toString());
+            }
+        });
+
+        fragmentQuotationsTabDatabaseBinding.editTextXpathSource.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                Timber.d("editTextXpathSource=%s",
+                        fragmentQuotationsTabDatabaseBinding.editTextXpathSource.getText().toString());
+                quotationsPreferences.setDatabaseWebXpathSource(
+                        fragmentQuotationsTabDatabaseBinding.editTextXpathSource.getText().toString());
+            }
+        });
+    }
+
+    private void setDatabase() {
+//        if (BuildConfig.DEBUG) {
+//            String url = "https://www.bible.com/verse-of-the-day";
+//            if (BuildConfig.DATABASE_QUOTATIONS.contains(".db.dev")) {
+//                // javalin - Listening on http://localhost:7070/
+//                url = "http://10.0.2.2:7070/verse-of-the-day";
+//            }
+//            fragmentQuotationsTabDatabaseBinding.editTextUrl.setText(url);
+//            fragmentQuotationsTabDatabaseBinding.editTextXpathQuotation
+//                    .setText(getContext().getString(R.string.fragment_quotations_database_scrape_quotation_example));
+//            fragmentQuotationsTabDatabaseBinding.editTextXpathSource.setText(
+//                    getContext().getString(R.string.fragment_quotations_database_scrape_source_example));
+//        }
 
         if (this.quotationsPreferences.getDatabaseInternal()) {
             setDatabaseInternal();
@@ -159,6 +201,10 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
         this.fragmentQuotationsTabDatabaseBinding.switchKeepLatestResponseOnly.setChecked(
                 this.quotationsPreferences.getDatabaseWebKeepLatestOnly()
         );
+
+        fragmentQuotationsTabDatabaseBinding.editTextUrl.setText(quotationsPreferences.getDatabaseWebUrl());
+        fragmentQuotationsTabDatabaseBinding.editTextXpathQuotation.setText(quotationsPreferences.getDatabaseWebXpathQuotation());
+        fragmentQuotationsTabDatabaseBinding.editTextXpathSource.setText(quotationsPreferences.getDatabaseWebXpathSource());
     }
 
     private void setDatabaseInternal() {

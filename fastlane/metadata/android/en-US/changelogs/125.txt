@@ -1,5 +1,0 @@
-&bull; Automatically reload &amp; update widget for changed External .csv file (Android <= 10 only)
-&bull; Filter tab recognises change in Database tab immediately
-&bull; Fix typo in image asset
-&bull; Update database: remove two quotations; fix typos in several
-&bull; Bump, dependabot, dependencies
