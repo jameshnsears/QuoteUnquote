@@ -3,6 +3,8 @@
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
   <CurrentIssues>
     <ID>MagicNumber:Scraper.kt$Scraper$1000</ID>
+    <ID>MaxLineLength:ScraperTest.kt$ScraperTest$"But the God of all grace, who hath called us unto his eternal glory by Christ Jesus, after that ye have suffered a while, make you perfect, stablish, strengthen, settle"</ID>
+    <ID>MaxLineLength:ScraperTest.kt$ScraperTest$val document3 = scraper.getDocumentFromResources("/ExternalDatabaseWeb/3/Verse of the Day - 1 Peter 5_10 (KJV) _ The Bible App _ Bible.com.xml")</ID>
     <ID>NestedBlockDepth:TransferRestore.kt$TransferRestore$private fun restoreCurrent( context: Context, databaseRepository: DatabaseRepository, currentList: List&lt;Current&gt;, )</ID>
     <ID>NestedBlockDepth:TransferRestore.kt$TransferRestore$private fun restorePrevious( context: Context, databaseRepository: DatabaseRepository, previousList: List&lt;Previous&gt;, )</ID>
     <ID>SwallowedException:Scraper.kt$Scraper$e: Exception</ID>

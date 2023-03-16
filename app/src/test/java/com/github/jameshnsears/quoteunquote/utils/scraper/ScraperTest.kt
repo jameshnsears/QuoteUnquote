@@ -31,6 +31,31 @@ class ScraperTest {
         )
 
         assertEquals("Matthew 10:16 (KJV)", scraper.getSource(document2))
+
+        // 20230316 - UI changed
+        val document3 = scraper.getDocumentFromResources("/ExternalDatabaseWeb/3/Verse of the Day - 1 Peter 5_10 (KJV) _ The Bible App _ Bible.com.xml")
+        assertEquals(
+            "1 Peter 5:10 KJV",
+            scraper.getQuotation(
+                document3,
+                xpath = "//*[@id=\"react-app-VOTD\"]/div/div[2]/div[1]/div[1]/div/div/div/div[1]/div[2]/div/div/h3",
+            ),
+        )
+        // PROBLEM, the result is split into two nodes!
+        assertEquals(
+            "But the God of all grace, who hath called us unto his eternal glory by Christ Jesus, after that ye have suffered a while, make you perfect, stablish, strengthen, settle",
+            scraper.getSource(
+                document3,
+                xpath = "//*[@id=\"react-app-VOTD\"]/div/div[2]/div[1]/div[1]/div/div/div/div[2]/div/div/span/span[2]",
+            ),
+        )
+        assertEquals(
+            "you",
+            scraper.getSource(
+                document3,
+                xpath = "//*[@id=\"react-app-VOTD\"]/div/div[2]/div[1]/div[1]/div/div/div/div[2]/div/div/span/span[3]/span",
+            ),
+        )
     }
 
     @Test(expected = ScraperUrlException::class)

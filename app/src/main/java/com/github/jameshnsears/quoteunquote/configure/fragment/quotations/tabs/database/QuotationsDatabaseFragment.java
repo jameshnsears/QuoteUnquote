@@ -23,7 +23,6 @@ import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.ConfigureActivity;
 import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
-import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.QuotationsFilterFragment;
 import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentQuotationsTabDatabaseBinding;
@@ -35,7 +34,6 @@ import com.github.jameshnsears.quoteunquote.utils.scraper.ScraperData;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import timber.log.Timber;
@@ -54,25 +52,18 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
     @Nullable
     private ActivityResultLauncher<Intent> storageAccessFrameworkActivityResultCSV;
 
-    @Nullable
-    private QuotationsFilterFragment quotationsFilterFragment;
-
     public QuotationsDatabaseFragment() {
         // dark mode support
     }
 
-    public QuotationsDatabaseFragment(int widgetId,
-                                      QuotationsFilterFragment quotationsFilterFragment) {
+    public QuotationsDatabaseFragment(int widgetId) {
         super(widgetId);
-        this.quotationsFilterFragment = quotationsFilterFragment;
     }
 
     @NonNull
     public static QuotationsDatabaseFragment newInstance(
-            int widgetId,
-            QuotationsFilterFragment quotationsFilterFragment) {
-        QuotationsDatabaseFragment fragment = new QuotationsDatabaseFragment(
-                widgetId, quotationsFilterFragment);
+            int widgetId) {
+        QuotationsDatabaseFragment fragment = new QuotationsDatabaseFragment(widgetId);
         fragment.setArguments(null);
         return fragment;
     }
@@ -109,7 +100,7 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
         this.createListenerButtonImportCsv();
 
         this.createListenerRadioExternalWeb();
-        createListenerToolbarShareNoSource();
+        this.createListenerSwitchKeepLatestReponseOnly();
         this.createListenerButtonImportWebPage();
 
         this.setHandleImportCsv();
@@ -117,7 +108,7 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
         createExternalEditTextChangeListeners();
 
 //        if (BuildConfig.DEBUG) {
-//            String url = "https://www.bible.com/verse-of-the-day";
+            String url = "https://www.bible.com/verse-of-the-day";
 //            if (BuildConfig.DATABASE_QUOTATIONS.contains(".db.prod")) {
 //                // javalin - Listening on http://localhost:7070/
 //                url = "http://10.0.2.2:7070/verse-of-the-day";
@@ -319,7 +310,7 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
     }
 
 
-    private void createListenerToolbarShareNoSource() {
+    private void createListenerSwitchKeepLatestReponseOnly() {
         fragmentQuotationsTabDatabaseBinding.switchKeepLatestResponseOnly.setOnCheckedChangeListener((buttonView, isChecked) ->
                 this.quotationsPreferences.setDatabaseWebKeepLatestOnly(isChecked)
         );
@@ -459,14 +450,5 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
         quotationsPreferences.setContentSelection(ContentSelection.ALL);
         quotationsPreferences.setContentSelectionAuthorCount(-1);
         quotationsPreferences.setContentSelectionAuthor("");
-
-        quotationsFilterFragment.shutdown();
-        quotationsFilterFragment.initUi();
-
-        List<Integer> quotationsCountAsList = quoteUnquoteModel.authorsQuotationCountAsList();
-        quotationsFilterFragment.populateAuthorsQuotationCount(quotationsCountAsList);
-
-        int authorCount = quotationsPreferences.getContentSelectionAuthorCount().intValue();
-        quotationsFilterFragment.populateAuthors(quoteUnquoteModel.authorsAsList(authorCount));
     }
 }

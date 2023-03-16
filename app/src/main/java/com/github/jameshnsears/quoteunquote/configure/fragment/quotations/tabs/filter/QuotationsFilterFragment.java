@@ -51,7 +51,7 @@ import timber.log.Timber;
 @Keep
 public class QuotationsFilterFragment extends FragmentCommon {
     @NonNull
-    private final CompositeDisposable disposables = new CompositeDisposable();
+    public CompositeDisposable disposables = new CompositeDisposable();
     @Nullable
     public QuoteUnquoteModel quoteUnquoteModel;
     @Nullable
@@ -214,7 +214,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
     @Override
     public void onViewCreated(
             @NonNull final View view, @NonNull final Bundle savedInstanceState) {
-        initUi();
+        initUI();
 
         createListenerRadioAll();
         createListenerRadioSource();
@@ -233,7 +233,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
         setSelection();
     }
 
-    public void initUi() {
+    public void initUI() {
         setInitialCounts();
 
         setAllCount();
@@ -245,8 +245,6 @@ public class QuotationsFilterFragment extends FragmentCommon {
         setFavouriteCount();
 
         setSearch();
-
-        setSelection();
     }
 
     private void setInitialCounts() {

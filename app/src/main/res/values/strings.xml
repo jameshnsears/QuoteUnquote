@@ -59,8 +59,8 @@
     <string name="fragment_quotations_database_import_importing">Importing .csv file - please wait&#8230;</string>
     <string name="fragment_quotations_database_import_success">Success - .csv file imported</string>
     <string name="fragment_quotations_database_scrape">Web page</string>
-    <string name="fragment_quotations_database_scrape_url_hint" tools:ignore="TypographyEllipsis">http...</string>
-    <string name="fragment_quotations_database_scrape_quote_source_hint" tools:ignore="TypographyEllipsis">XPath...</string>
+    <string name="fragment_quotations_database_scrape_url_hint" tools:ignore="TypographyEllipsis">http / https...</string>
+    <string name="fragment_quotations_database_scrape_quote_source_hint" tools:ignore="TypographyEllipsis">XPath text node...</string>
     <string name="fragment_quotations_database_scrape_endpoint">URL</string>
     <string name="fragment_quotations_database_scrape_quotation">Quotation</string>
     <string name="fragment_quotations_database_scrape_quotation_example" tools:ignore="TypographyQuotes">//*[@id=\"votd_wrapper\"]/div/div/div[1]/div[2]/p[1]</string>
@@ -73,7 +73,7 @@
     <string name="fragment_quotations_database_scrape_xpath_error_quotation">Invalid quotation XPath</string>
     <string name="fragment_quotations_database_scrape_xpath_error_source">Invalid source XPath</string>
     <string name="fragment_quotations_database_scrape_test_success">Success - web page imported</string>
-    <string name="fragment_quotations_database_scrape_info">Use XPath to retrieve a Quotation &amp; Source from the URL; XPath must return a single element containing text; App Widget will poll every 60 minutes, starting at 00:00</string>
+    <string name="fragment_quotations_database_scrape_info">App Widget will poll every 60 minutes, starting at 00:00</string>
 
     <string name="fragment_appearance_title">Appearance</string>
     <string name="fragment_appearance_tab_style">Contents</string>

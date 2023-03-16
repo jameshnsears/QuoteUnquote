@@ -131,3 +131,19 @@ python3 -m http.server
 
 http://localhost:8000/
 ```
+
+### 12. Debug Symbols
+
+* app/build/outputs/mapping/googleplayRelease/mapping.txt
+
+### 13. GitHub Secrets
+* APPCENTER_ACCESS_TOKEN
+* CODECOVIO_TOKEN
+* GOOGLE_PLAY_JSON_DEVELOPMENT
+* GOOGLE_PLAY_JSON_PRODUCTION
+* KEYSTORE_JKS
+* LOCAL_PROPERTIES
+* LOCAL_PROPERTIES_CLOUDLIB
+* LOCAL_PROPERTIES_UTILSLIB
+* QODANA_TOKEN
+* SONAR_TOKEN

@@ -1,5 +1,0 @@
-&bull; Replace Database watch feature with web page xpath feature
-&bull; Improve App Widget performance
-&bull; Change Instructions text formatting
-&bull; Bump IDE to Android Studio Electric Eel | 2022.1.1 Patch 2
-&bull; Bump, dependabot, dependencies

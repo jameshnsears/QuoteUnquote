@@ -46,9 +46,9 @@ android {
         applicationId "com.github.jameshnsears.quoteunquote"
 
         // changelog version | min sdk | target sdk
-        versionCode 1292433
+        versionCode 1302433
         // semantic versioning
-        versionName "4.15.2"
+        versionName "4.15.3"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -88,7 +88,7 @@ android {
         release {
             minifyEnabled true
             shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
             buildConfigField("String", "GIT_HASH", "\"$gitHash\"")
             buildConfigField("String", "DATABASE_QUOTATIONS", "\"quotations.db.prod\"")
@@ -244,7 +244,7 @@ dependencies {
     testImplementation 'androidx.test:core-ktx:1.5.0'
     testImplementation 'androidx.test.ext:junit:1.1.5'
     testImplementation 'androidx.test:rules:1.5.0'
-    testImplementation 'ch.qos.logback:logback-classic:1.4.5'
+    testImplementation 'ch.qos.logback:logback-classic:1.4.6'
     testImplementation 'com.google.guava:guava:31.1-jre'
     testImplementation 'io.mockk:mockk:1.13.4'
     testImplementation 'junit:junit:4.13.2'

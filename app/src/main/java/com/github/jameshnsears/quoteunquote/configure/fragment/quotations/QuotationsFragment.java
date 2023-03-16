@@ -10,11 +10,15 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.view.ContextThemeWrapper;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentQuotationsBinding;
 import com.google.android.material.tabs.TabLayoutMediator;
+
+import io.reactivex.disposables.CompositeDisposable;
+import timber.log.Timber;
 
 @Keep
 public class QuotationsFragment extends FragmentCommon {
@@ -57,6 +61,26 @@ public class QuotationsFragment extends FragmentCommon {
 
         pagerAdapter = new QuotationsFragmentStateAdapter(this, widgetId);
         fragmentQuotationsBinding.viewPager2Quotations.setAdapter(pagerAdapter);
+        fragmentQuotationsBinding.viewPager2Quotations.setUserInputEnabled(false);
+
+        fragmentQuotationsBinding.viewPager2Quotations.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                if (position == 0) {
+                    Timber.d("onPageSelected=0");
+                    // re-init the filter, in-case we have switched between internal / external databases
+                    if (QuotationsFragmentStateAdapter.quotationsFilterFragment.disposables.size() == 0) {
+                        QuotationsFragmentStateAdapter.quotationsFilterFragment.disposables = new CompositeDisposable();
+                        QuotationsFragmentStateAdapter.quotationsFilterFragment.initUI();
+                    }
+
+                } else {
+                    Timber.d("onPageSelected=1");
+                    QuotationsFragmentStateAdapter.quotationsFilterFragment.shutdown();
+                }
+            }
+        });
 
         String[] tabs = {
                 getString(R.string.fragment_quotations_selection),

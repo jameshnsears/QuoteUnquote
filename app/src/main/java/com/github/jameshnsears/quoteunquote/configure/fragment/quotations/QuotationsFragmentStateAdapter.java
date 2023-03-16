@@ -18,8 +18,6 @@ public class QuotationsFragmentStateAdapter extends FragmentStateAdapter {
     public QuotationsFragmentStateAdapter(@NonNull final QuotationsFragment fa, final int widgetId) {
         super(fa);
         this.widgetId = widgetId;
-
-        quotationsFilterFragment = QuotationsFilterFragment.newInstance(widgetId);
     }
 
     @NonNull
@@ -27,10 +25,10 @@ public class QuotationsFragmentStateAdapter extends FragmentStateAdapter {
     public Fragment createFragment(final int pos) {
         switch (pos) {
             case 0:
-                return quotationsFilterFragment;
+                return quotationsFilterFragment = QuotationsFilterFragment.newInstance(widgetId);
 
             default:
-                return QuotationsDatabaseFragment.newInstance(widgetId, quotationsFilterFragment);
+                return QuotationsDatabaseFragment.newInstance(widgetId);
         }
     }
 

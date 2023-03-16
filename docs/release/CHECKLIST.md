@@ -36,6 +36,7 @@ find . -name "*.gpg"
 [ ] update app/schemas/com.github.jameshnsears.quoteunquote.database.quotation.AbstractQuotationDatabase/xx.json to match AbstractQuotationDatabase.java
 [ ] examine merged manifest, especially for sdk version and permissions
 [ ] deploy app-googleplay-release.aab
+[ ] deploy app/build/outputs/mapping/googleplayRelease/mapping.txt
 [ ] tag the release, and push tags
 [ ] delete production and extract development google-services.json
 [ ] store a -fdroid release on GitHub releases
