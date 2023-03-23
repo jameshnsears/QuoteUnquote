@@ -220,7 +220,7 @@ dependencies {
     implementation 'androidx.databinding:databinding-runtime:7.4.2'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.room:room-guava:2.5.0'
-    implementation 'androidx.room:room-runtime:2.5.0'
+    implementation 'androidx.room:room-runtime:2.5.1'
     implementation 'androidx.room:room-rxjava2:2.5.0'
     implementation 'com.github.skydoves:colorpickerpreference:2.0.6'
     implementation 'com.google.android.material:material:1.8.0'
