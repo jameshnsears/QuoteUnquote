@@ -35,15 +35,15 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
     private final int widgetId;
 
     @Nullable
-    private final QuotationEntity quotationEntity;
+    private QuotationEntity quotationEntity = null;
 
     @Nullable
-    private final String postion;
+    private String postion = "";
 
     @Nullable
     public QuoteUnquoteModel quoteUnquoteModel;
 
-    ListViewProvider(@NonNull final Context context, @NonNull final Intent intent) {
+    ListViewProvider(@NonNull Context context, @NonNull Intent intent) {
         synchronized (this) {
             this.context = context;
 
@@ -51,9 +51,15 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
 
             setQuoteUnquoteModel(new QuoteUnquoteModel(widgetId, context));
 
-            quotationEntity = getQuoteUnquoteModel().getCurrentQuotation(widgetId);
+            QuotationEntity currentQuotation = getQuoteUnquoteModel().getCurrentQuotation(widgetId);
 
-            postion = getQuoteUnquoteModel().getPosition(widgetId, quotationEntity.digest);
+            if (currentQuotation != null) {
+                quotationEntity = getQuoteUnquoteModel().getCurrentQuotation(widgetId);
+
+                postion = getQuoteUnquoteModel().getPosition(widgetId, quotationEntity.digest);
+            } else {
+                Timber.w("currentQuotation==null");
+            }
         }
     }
 

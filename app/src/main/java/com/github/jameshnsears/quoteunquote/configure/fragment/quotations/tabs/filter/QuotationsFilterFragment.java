@@ -248,6 +248,11 @@ public class QuotationsFilterFragment extends FragmentCommon {
     }
 
     private void setInitialCounts() {
+        if (fragmentQuotationsTabSelectionBinding == null) {
+            fragmentQuotationsTabSelectionBinding
+                    = FragmentQuotationsTabSelectionBinding.inflate(this.getLayoutInflater());
+        }
+
         fragmentQuotationsTabSelectionBinding.radioButtonAll.setText(
                 getResources().getString(R.string.fragment_quotations_selection_all,
                         0));
