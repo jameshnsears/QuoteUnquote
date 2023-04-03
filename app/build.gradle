@@ -46,9 +46,9 @@ android {
         applicationId "com.github.jameshnsears.quoteunquote"
 
         // changelog version | min sdk | target sdk
-        versionCode 1322433
+        versionCode 1332433
         // semantic versioning
-        versionName "4.16.0"
+        versionName "4.17.0"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -235,7 +235,7 @@ dependencies {
     implementation 'net.pwall.json:json-kotlin-schema:0.39'
     implementation 'org.apache.commons:commons-csv:1.10.0'
     implementation 'org.jsoup:jsoup:1.15.4'
-    implementation platform('com.google.firebase:firebase-bom:31.3.0')
+    implementation platform('com.google.firebase:firebase-bom:31.4.0')
     implementation project(path: ':cloudLib')
     implementation project(path: ':utilsLib')
 

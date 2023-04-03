@@ -39,3 +39,4 @@ local.properties
 /.idea/sonarlint/securityhotspotstore/index.pb
 /.idea/sonarlint/
 /bin/javalin/webpage/build/
+/app/fdroid/release/

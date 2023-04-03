@@ -1,5 +1,0 @@
-&bull; Change colour scheme to system default
-&bull; Improve database import and filter relationship
-&bull; Simplify configuration tab behaviour
-&bull; Improve CI & Deployment workflow
-&bull; Bump dependencies

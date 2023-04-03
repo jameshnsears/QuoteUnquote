@@ -1,0 +1,2 @@
+&bull; Tidy up layout on Filter tab.
+&bull; Bump dependencies.
