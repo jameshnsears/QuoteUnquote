@@ -1,0 +1,4 @@
+&bull; New browse favourites dialog, with Share
+&bull; Improve favourite card export button enablement
+&bull; Remove three, similar, quotations
+&bull; Bump dependencies, align git submodules

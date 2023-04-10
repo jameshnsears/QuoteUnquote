@@ -396,7 +396,7 @@ public class DatabaseRepository {
     }
 
     @NonNull
-    public List<FavouriteEntity> getFavouritesEntity() {
+    public List<FavouriteEntity> getFavourites() {
         if (useInternalDatabase()) {
             return favouriteDAO.getFavourites();
         } else {

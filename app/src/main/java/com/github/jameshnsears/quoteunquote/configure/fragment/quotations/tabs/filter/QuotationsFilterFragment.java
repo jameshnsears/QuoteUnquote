@@ -26,6 +26,7 @@ import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.ConfigureActivity;
 import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
+import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.browse.BrowseFavouritesDialogFragment;
 import com.github.jameshnsears.quoteunquote.database.quotation.AuthorPOJO;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentQuotationsTabSelectionBinding;
 import com.github.jameshnsears.quoteunquote.utils.ImportHelper;
@@ -224,6 +225,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
         createListenerAuthorsQuotationCount();
         createListenerAuthor();
 
+        createListenerBrowseFavouriteButton();
         createListenerFavouriteButtonExport();
 
         createListenerSearchFavouritesOnly();
@@ -438,18 +440,10 @@ public class QuotationsFilterFragment extends FragmentCommon {
                                 if (value == 0) {
                                     fragmentQuotationsTabSelectionBinding.radioButtonFavourites.setEnabled(false);
 
-                                    fragmentQuotationsTabSelectionBinding.buttonExport.setEnabled(false);
-                                    QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabSelectionBinding.buttonExport, false);
-                                    fragmentQuotationsTabSelectionBinding.textViewInformationExternal.setEnabled(false);
-
                                     // in case another widget instance changes favourites
                                     if (QuotationsFilterFragment.this.quotationsPreferences.getContentSelection().equals(ContentSelection.FAVOURITES)) {
                                         QuotationsFilterFragment.this.quotationsPreferences.setContentSelection(ContentSelection.ALL);
                                     }
-                                } else {
-                                    fragmentQuotationsTabSelectionBinding.buttonExport.setEnabled(true);
-                                    QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabSelectionBinding.buttonExport, true);
-                                    fragmentQuotationsTabSelectionBinding.textViewInformationExternal.setEnabled(true);
                                 }
 
                                 fragmentQuotationsTabSelectionBinding.radioButtonFavourites.setText(
@@ -549,6 +543,13 @@ public class QuotationsFilterFragment extends FragmentCommon {
 
     private void setCardFavourite(final boolean enabled) {
         this.fragmentQuotationsTabSelectionBinding.radioButtonFavourites.setChecked(enabled);
+        fragmentQuotationsTabSelectionBinding.buttonBrowseFavourites.setEnabled(enabled);
+        QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabSelectionBinding.buttonBrowseFavourites, enabled);
+
+        fragmentQuotationsTabSelectionBinding.buttonExport.setEnabled(enabled);
+        QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabSelectionBinding.buttonExport, enabled);
+
+        fragmentQuotationsTabSelectionBinding.textViewInformationExternal.setEnabled(enabled);
 
         if (enabled) {
             quotationsPreferences.setContentSelection(ContentSelection.FAVOURITES);
@@ -682,6 +683,14 @@ public class QuotationsFilterFragment extends FragmentCommon {
             public void onNothingSelected(final AdapterView<?> parent) {
                 // do nothing
             }
+        });
+    }
+
+    protected void createListenerBrowseFavouriteButton() {
+        fragmentQuotationsTabSelectionBinding.buttonBrowseFavourites.setOnClickListener(v -> {
+            BrowseFavouritesDialogFragment appearanceTextDialogQuotation
+                    = new BrowseFavouritesDialogFragment(quoteUnquoteModel, R.string.fragment_quotations_selection_favourites_dialog_browse);
+            appearanceTextDialogQuotation.show(getParentFragmentManager(), "");
         });
     }
 

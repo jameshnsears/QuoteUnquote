@@ -12,6 +12,7 @@ import com.github.jameshnsears.quoteunquote.cloud.transfer.Transfer;
 import com.github.jameshnsears.quoteunquote.cloud.transfer.backup.TransferBackup;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
 import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
+import com.github.jameshnsears.quoteunquote.database.history.FavouriteEntity;
 import com.github.jameshnsears.quoteunquote.database.quotation.AuthorPOJO;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
@@ -790,6 +791,33 @@ public class QuoteUnquoteModel {
         }
 
         return transferJson;
+    }
+
+    @NonNull
+    public List<QuotationEntity> getFavourites() {
+        final Future<List<QuotationEntity>> future = QuoteUnquoteWidget.getExecutorService().submit(()
+                ->  {
+            List<FavouriteEntity> favouritesDigestList = databaseRepository.getFavourites();
+            Collections.reverse(favouritesDigestList);
+
+            List<QuotationEntity> favouriteQuotationsList = new ArrayList<>();
+            for (FavouriteEntity favourite: favouritesDigestList) {
+                favouriteQuotationsList.add(databaseRepository.getQuotation(favourite.digest));
+            }
+
+            return favouriteQuotationsList;
+        });
+
+        List<QuotationEntity> favourites = new ArrayList<>();
+
+        try {
+            favourites = future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
+            Thread.currentThread().interrupt();
+        }
+
+        return favourites;
     }
 
     @Nullable

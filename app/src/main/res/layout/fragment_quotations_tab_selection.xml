@@ -202,6 +202,27 @@
                         android:paddingBottom="5dp">
 
                     <Button
+                            android:id="@+id/button_browse_favourites"
+                            android:layout_width="120dp"
+                            android:layout_height="48dp"
+                            android:contentDescription="@string/fragment_quotations_selection_favourites_browse"
+                            android:enabled="false"
+                            android:text="@string/fragment_quotations_selection_favourites_browse"
+                            android:textColor="@android:color/white"
+                            app:backgroundTint="@null"
+                            app:strokeColor="?attr/colorPrimary"
+                            app:strokeWidth="1dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp">
+
+                    <Button
                             android:id="@+id/buttonExport"
                             android:layout_width="120dp"
                             android:layout_height="48dp"
