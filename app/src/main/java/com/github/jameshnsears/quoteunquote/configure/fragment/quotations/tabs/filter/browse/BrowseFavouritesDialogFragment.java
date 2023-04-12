@@ -26,12 +26,15 @@ public class BrowseFavouritesDialogFragment extends DialogFragment {
     @Nullable
     public FragmentQuotationsBrowseFavouritesDialogBinding fragmentQuotationsBrowseFavouritesDialogBinding;
 
+    private int widgetId;
+
     @Nullable
     protected QuoteUnquoteModel quoteUnquoteModel;
 
     protected int title;
 
-    public BrowseFavouritesDialogFragment(QuoteUnquoteModel quoteUnquoteModel, int title) {
+    public BrowseFavouritesDialogFragment(int widgetId, QuoteUnquoteModel quoteUnquoteModel, int title) {
+        this.widgetId = widgetId;
         this.quoteUnquoteModel = quoteUnquoteModel;
         this.title = title;
     }
@@ -69,7 +72,7 @@ public class BrowseFavouritesDialogFragment extends DialogFragment {
 
         fragmentQuotationsBrowseFavouritesDialogBinding.recycleViewFavourites.addItemDecoration(divider);
 
-        BrowseFavouritesAdapter adapter = new BrowseFavouritesAdapter(getFavourites());
+        BrowseFavouritesAdapter adapter = new BrowseFavouritesAdapter(widgetId, getFavourites());
 
         fragmentQuotationsBrowseFavouritesDialogBinding.recycleViewFavourites.setAdapter(adapter);
     }

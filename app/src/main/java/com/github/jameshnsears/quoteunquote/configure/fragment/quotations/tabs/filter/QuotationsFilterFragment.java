@@ -29,8 +29,8 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.Quotat
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.browse.BrowseFavouritesDialogFragment;
 import com.github.jameshnsears.quoteunquote.database.quotation.AuthorPOJO;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentQuotationsTabSelectionBinding;
-import com.github.jameshnsears.quoteunquote.utils.ImportHelper;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
+import com.github.jameshnsears.quoteunquote.utils.ImportHelper;
 import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
@@ -543,6 +543,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
 
     private void setCardFavourite(final boolean enabled) {
         this.fragmentQuotationsTabSelectionBinding.radioButtonFavourites.setChecked(enabled);
+
         fragmentQuotationsTabSelectionBinding.buttonBrowseFavourites.setEnabled(enabled);
         QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabSelectionBinding.buttonBrowseFavourites, enabled);
 
@@ -550,6 +551,16 @@ public class QuotationsFilterFragment extends FragmentCommon {
         QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabSelectionBinding.buttonExport, enabled);
 
         fragmentQuotationsTabSelectionBinding.textViewInformationExternal.setEnabled(enabled);
+
+        if (quoteUnquoteModel.countFavouritesWithoutRx() > 0) {
+            fragmentQuotationsTabSelectionBinding.buttonBrowseFavourites.setEnabled(true);
+            QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabSelectionBinding.buttonBrowseFavourites, true);
+
+            fragmentQuotationsTabSelectionBinding.buttonExport.setEnabled(true);
+            QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabSelectionBinding.buttonExport, true);
+
+            fragmentQuotationsTabSelectionBinding.textViewInformationExternal.setEnabled(true);
+        }
 
         if (enabled) {
             quotationsPreferences.setContentSelection(ContentSelection.FAVOURITES);
@@ -688,8 +699,10 @@ public class QuotationsFilterFragment extends FragmentCommon {
 
     protected void createListenerBrowseFavouriteButton() {
         fragmentQuotationsTabSelectionBinding.buttonBrowseFavourites.setOnClickListener(v -> {
-            BrowseFavouritesDialogFragment appearanceTextDialogQuotation
-                    = new BrowseFavouritesDialogFragment(quoteUnquoteModel, R.string.fragment_quotations_selection_favourites_dialog_browse);
+            BrowseFavouritesDialogFragment appearanceTextDialogQuotation = new BrowseFavouritesDialogFragment(
+                    widgetId,
+                    quoteUnquoteModel,
+                    R.string.fragment_quotations_selection_favourites_dialog_browse);
             appearanceTextDialogQuotation.show(getParentFragmentManager(), "");
         });
     }

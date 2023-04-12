@@ -58,7 +58,7 @@
                         android:text="Source Source Source Source Source Source"
                         android:textColor="@drawable/recyclerview_edit_text_selector"
                         android:textSize="14sp"
-                        android:textStyle="bold|italic"
+                        android:textStyle="italic"
                         tools:ignore="TouchTargetSizeCheck" />
             </LinearLayout>
         </LinearLayout>

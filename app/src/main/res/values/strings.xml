@@ -51,7 +51,7 @@
     <string name="fragment_quotations_selection_search_no_results">No results found for search</string>
 
     <string name="fragment_quotations_selection_favourites_dialog_browse">Favourites</string>
-    <string name="fragment_quotations_selection_favourites_dialog_browse_share">Tap row to</string>
+    <string name="fragment_quotations_selection_favourites_dialog_browse_share">Tap row to invoke</string>
 
     <string name="fragment_quotations_database">Database</string>
     <string name="fragment_quotations_database_default">Internal</string>
@@ -184,6 +184,6 @@
     <string name="preview_description">Discover high quality Quotations!</string>
     <string name="preview_quotation">Nothing matters very much and very few things matter at all.\n</string>
     <string name="preview_author"><u>Arthur Balfour\n</u></string>
-    <string name="preview_position">\u2316  1/20576\u0020</string>
+    <string name="preview_position">\u2316  1/20575\u0020</string>
 
 </resources>

@@ -1,2 +1,0 @@
-&bull; Improve stability.
-&bull; Bump dependencies.

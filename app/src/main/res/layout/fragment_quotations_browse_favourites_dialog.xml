@@ -13,13 +13,12 @@
             android:id="@+id/textViewNotificationSizeWarning"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_toolbar_share_24"
             android:drawablePadding="10dp"
             android:paddingTop="0dp"
             android:paddingBottom="10dp"
             android:text="@string/fragment_quotations_selection_favourites_dialog_browse_share"
-            app:drawableStartCompat="@drawable/ic_info_24"
-    android:drawableEnd="@drawable/ic_toolbar_share_24" />
-
+            app:drawableStartCompat="@drawable/ic_info_24" />
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleViewFavourites"
@@ -28,5 +27,14 @@
             android:background="@drawable/browse_favourites"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:scrollbars="vertical"/>
+            android:scrollbars="vertical"
+            android:scrollbarSize="10dp"
+            android:scrollbarThumbVertical="@drawable/thumb_drawable"
+            android:scrollbarTrackVertical="@drawable/line_drawable" />
+<!--            app:fastScrollEnabled="true"-->
+<!--            app:fastScrollHorizontalThumbDrawable="@drawable/thumb_drawable"-->
+<!--            app:fastScrollHorizontalTrackDrawable="@drawable/line_drawable"-->
+<!--            app:fastScrollVerticalThumbDrawable="@drawable/thumb_drawable"-->
+<!--            app:fastScrollVerticalTrackDrawable="@drawable/line_drawable"-->
+
 </LinearLayout>
