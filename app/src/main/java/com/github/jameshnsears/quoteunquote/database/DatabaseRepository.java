@@ -423,6 +423,45 @@ public class DatabaseRepository {
     }
 
     @NonNull
+    public List<QuotationEntity> getSearchQuotations(@NonNull final String text, boolean favouritesOnly) {
+        List<QuotationEntity> searchQuotations = new ArrayList<QuotationEntity>();
+
+        if (favouritesOnly) {
+            if (useInternalDatabase()) {
+                for (String digest : favouriteDAO.getFavouriteDigests()) {
+                    QuotationEntity quotationEntity = quotationDAO.getQuotation(digest);
+                    if (isFavourite(quotationEntity.digest)) {
+                        if (quotationEntity.author.contains(text) || quotationEntity.quotation.contains(text)) {
+                            searchQuotations.add(quotationEntity);
+                        }
+                    }
+                }
+            } else {
+                for (String digest : favouriteExternalDAO.getFavouriteDigests()) {
+                    QuotationEntity quotationEntity = quotationExternalDAO.getQuotation(digest);
+                    if (isFavourite(quotationEntity.digest)) {
+                        if (quotationEntity.author.contains(text) || quotationEntity.quotation.contains(text)) {
+                            searchQuotations.add(quotationEntity);
+                        }
+                    }
+                }
+            }
+        } else {
+            if (useInternalDatabase()) {
+                for (String digest : quotationDAO.getSearchTextDigests("%" + text + "%")) {
+                    searchQuotations.add(quotationDAO.getQuotation(digest));
+                }
+            } else {
+                for (String digest : quotationExternalDAO.getSearchTextDigests("%" + text + "%")) {
+                    searchQuotations.add(quotationExternalDAO.getQuotation(digest));
+                }
+            }
+        }
+
+        return searchQuotations;
+    }
+
+    @NonNull
     public Integer countSearchText(@NonNull final String text, boolean favouritesOnly) {
         if (favouritesOnly) {
             int searchCount = 0;

@@ -15,8 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteModel;
 import com.github.jameshnsears.quoteunquote.R;
+import com.github.jameshnsears.quoteunquote.configure.fragment.dialog.browse.BrowseAdapter;
+import com.github.jameshnsears.quoteunquote.configure.fragment.dialog.browse.BrowseData;
+import com.github.jameshnsears.quoteunquote.configure.fragment.dialog.browse.BrowseDividerItemDecorator;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
-import com.github.jameshnsears.quoteunquote.databinding.FragmentQuotationsBrowseFavouritesDialogBinding;
+import com.github.jameshnsears.quoteunquote.databinding.FragmentQuotationsBrowseDialogBinding;
 import com.google.common.base.Strings;
 
 import java.util.ArrayList;
@@ -24,9 +27,9 @@ import java.util.List;
 
 public class BrowseFavouritesDialogFragment extends DialogFragment {
     @Nullable
-    public FragmentQuotationsBrowseFavouritesDialogBinding fragmentQuotationsBrowseFavouritesDialogBinding;
+    public FragmentQuotationsBrowseDialogBinding fragmentQuotationsBrowseDialogBinding;
 
-    private int widgetId;
+    protected int widgetId;
 
     @Nullable
     protected QuoteUnquoteModel quoteUnquoteModel;
@@ -45,8 +48,8 @@ public class BrowseFavouritesDialogFragment extends DialogFragment {
 
         LayoutInflater inflater = requireActivity().getLayoutInflater();
 
-        fragmentQuotationsBrowseFavouritesDialogBinding
-                = FragmentQuotationsBrowseFavouritesDialogBinding.inflate(inflater.cloneInContext(
+        fragmentQuotationsBrowseDialogBinding
+                = FragmentQuotationsBrowseDialogBinding.inflate(inflater.cloneInContext(
                 new ContextThemeWrapper(
                         getActivity(), R.style.Theme_MaterialComponents_DayNight)));
 
@@ -54,39 +57,39 @@ public class BrowseFavouritesDialogFragment extends DialogFragment {
 
         constructRecyclerView();
 
-        builder.setView(fragmentQuotationsBrowseFavouritesDialogBinding.getRoot());
+        builder.setView(fragmentQuotationsBrowseDialogBinding.getRoot());
         builder.setNegativeButton(R.string.fragment_appearance_cancel, (dialog, id) -> getDialog().cancel());
 
         return builder.create();
     }
 
     private void constructRecyclerView() {
-        fragmentQuotationsBrowseFavouritesDialogBinding.recycleViewFavourites
+        fragmentQuotationsBrowseDialogBinding.recycleViewBrowse
                 .setLayoutManager(new LinearLayoutManager(getActivity()));
 
         // doesn't look good when RecyclerView has rounded corners!
         RecyclerView.ItemDecoration divider
-                = new BrowseDividerItemDecorator(ContextCompat.getDrawable(getActivity(), R.drawable.recyclerview_row_favourites_divider));
+                = new BrowseDividerItemDecorator(ContextCompat.getDrawable(getActivity(), R.drawable.recyclerview_row_divider));
 
-        fragmentQuotationsBrowseFavouritesDialogBinding.recycleViewFavourites.addItemDecoration(divider);
+        fragmentQuotationsBrowseDialogBinding.recycleViewBrowse.addItemDecoration(divider);
 
-        fragmentQuotationsBrowseFavouritesDialogBinding.recycleViewFavourites.addItemDecoration(divider);
+        fragmentQuotationsBrowseDialogBinding.recycleViewBrowse.addItemDecoration(divider);
 
-        BrowseFavouritesAdapter adapter = new BrowseFavouritesAdapter(widgetId, getFavourites());
+        BrowseAdapter adapter = new BrowseAdapter(widgetId, getDataForRecyclerView());
 
-        fragmentQuotationsBrowseFavouritesDialogBinding.recycleViewFavourites.setAdapter(adapter);
+        fragmentQuotationsBrowseDialogBinding.recycleViewBrowse.setAdapter(adapter);
     }
 
     @NonNull
-    private List<BrowseFavouritesData> getFavourites() {
-        List<BrowseFavouritesData> browseFavouritesList = new ArrayList<>();
+    protected List<BrowseData> getDataForRecyclerView() {
+        List<BrowseData> browseFavouritesList = new ArrayList<>();
 
         List<QuotationEntity> favouriteQuotationsList = quoteUnquoteModel.getFavourites();
         int padding = String.valueOf(favouriteQuotationsList.size()).length();
 
         int index = 1;
         for (QuotationEntity favouriteQuotation: favouriteQuotationsList) {
-            browseFavouritesList.add(new BrowseFavouritesData(
+            browseFavouritesList.add(new BrowseData(
                     Strings.padStart("" + index, padding, '0'),
                     favouriteQuotation.quotation,
                     favouriteQuotation.author));
@@ -99,6 +102,6 @@ public class BrowseFavouritesDialogFragment extends DialogFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        fragmentQuotationsBrowseFavouritesDialogBinding = null;
+        fragmentQuotationsBrowseDialogBinding = null;
     }
 }

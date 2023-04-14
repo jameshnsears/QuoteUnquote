@@ -27,6 +27,7 @@ import com.github.jameshnsears.quoteunquote.configure.ConfigureActivity;
 import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.browse.BrowseFavouritesDialogFragment;
+import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.browse.BrowseSearchDialogFragment;
 import com.github.jameshnsears.quoteunquote.database.quotation.AuthorPOJO;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentQuotationsTabSelectionBinding;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
@@ -172,6 +173,14 @@ public class QuotationsFilterFragment extends FragmentCommon {
                 fragmentQuotationsTabSelectionBinding.radioButtonSearch.setText(
                         getResources().getString(R.string.fragment_quotations_selection_search, value));
                 quotationsPreferences.setContentSelectionSearchCount(value);
+
+                if (value > 0) {
+                    fragmentQuotationsTabSelectionBinding.buttonBrowseSearch.setEnabled(true);
+                    QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabSelectionBinding.buttonBrowseSearch, true);
+                } else {
+                    fragmentQuotationsTabSelectionBinding.buttonBrowseSearch.setEnabled(false);
+                    QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabSelectionBinding.buttonBrowseSearch, false);
+                }
             }
 
             @Override
@@ -229,6 +238,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
         createListenerFavouriteButtonExport();
 
         createListenerSearchFavouritesOnly();
+        createListenerBrowseSearchButton();
 
         handleExportResult();
 
@@ -574,6 +584,8 @@ public class QuotationsFilterFragment extends FragmentCommon {
         if (enabled) {
             quotationsPreferences.setContentSelection(ContentSelection.SEARCH);
         }
+
+        fragmentQuotationsTabSelectionBinding.buttonBrowseSearch.setEnabled(false);
     }
 
     protected void createListenerRadioAll() {
@@ -641,8 +653,14 @@ public class QuotationsFilterFragment extends FragmentCommon {
 
         if (quoteUnquoteModel.countFavouritesWithoutRx() > 0) {
             fragmentQuotationsTabSelectionBinding.switchSearchFavouritesOnly.setEnabled(enable);
+
+            fragmentQuotationsTabSelectionBinding.buttonBrowseSearch.setEnabled(true);
+            QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabSelectionBinding.buttonBrowseSearch, true);
         } else {
             fragmentQuotationsTabSelectionBinding.switchSearchFavouritesOnly.setEnabled(false);
+
+            fragmentQuotationsTabSelectionBinding.buttonBrowseSearch.setEnabled(false);
+            QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabSelectionBinding.buttonBrowseSearch, false);
         }
 
         if (quotationsPreferences.getContentSelectionSearchFavouritesOnly()) {
@@ -702,7 +720,17 @@ public class QuotationsFilterFragment extends FragmentCommon {
             BrowseFavouritesDialogFragment appearanceTextDialogQuotation = new BrowseFavouritesDialogFragment(
                     widgetId,
                     quoteUnquoteModel,
-                    R.string.fragment_quotations_selection_favourites_dialog_browse);
+                    R.string.fragment_quotations_selection_dialog_browse_favourites);
+            appearanceTextDialogQuotation.show(getParentFragmentManager(), "");
+        });
+    }
+
+    protected void createListenerBrowseSearchButton() {
+        fragmentQuotationsTabSelectionBinding.buttonBrowseSearch.setOnClickListener(v -> {
+            BrowseSearchDialogFragment appearanceTextDialogQuotation = new BrowseSearchDialogFragment(
+                    widgetId,
+                    quoteUnquoteModel,
+                    R.string.fragment_quotations_selection_dialog_browse_search);
             appearanceTextDialogQuotation.show(getParentFragmentManager(), "");
         });
     }

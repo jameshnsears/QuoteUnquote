@@ -1,4 +1,4 @@
-package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.browse;
+package com.github.jameshnsears.quoteunquote.configure.fragment.dialog.browse;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
@@ -17,17 +17,15 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
-import timber.log.Timber;
-
-public class BrowseFavouritesAdapter extends RecyclerView.Adapter<BrowseFavouritesAdapter.ViewHolder> {
+public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder> {
     static int widgetId;
 
     @Nullable
-    static List<BrowseFavouritesData> browseFavouritesData;
+    static List<BrowseData> browseDataList;
 
-    public BrowseFavouritesAdapter(int widgetId, List<BrowseFavouritesData> favourites) {
+    public BrowseAdapter(int widgetId, List<BrowseData> browseDataItems) {
         this.widgetId = widgetId;
-        browseFavouritesData = favourites;
+        browseDataList = browseDataItems;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder
@@ -61,16 +59,14 @@ public class BrowseFavouritesAdapter extends RecyclerView.Adapter<BrowseFavourit
 
         @Override
         public void onClick(View view) {
-            Timber.d("favouritesBrowseRow=%d", getAdapterPosition());
-
-            BrowseFavouritesData favourite = browseFavouritesData.get(getAdapterPosition());
+            BrowseData browseDataItem = browseDataList.get(getAdapterPosition());
 
             ConfigureActivity.launcherInvoked = true;
 
             AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, view.getContext());
-            String toShare = favourite.getQuotation() + "\n\n" + favourite.getSource();
+            String toShare = browseDataItem.getQuotation() + "\n\n" + browseDataItem.getSource();
             if (appearancePreferences.getAppearanceToolbarShareNoSource()) {
-                toShare = favourite.getQuotation();
+                toShare = browseDataItem.getQuotation();
             }
 
             view.getContext().startActivity(IntentFactoryHelper.createIntentShare(
@@ -83,7 +79,7 @@ public class BrowseFavouritesAdapter extends RecyclerView.Adapter<BrowseFavourit
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.recyclerview_row_favourites, viewGroup, false);
+                .inflate(R.layout.recyclerview_row, viewGroup, false);
 
         return new ViewHolder(view);
     }
@@ -91,19 +87,19 @@ public class BrowseFavouritesAdapter extends RecyclerView.Adapter<BrowseFavourit
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        BrowseFavouritesData favourite = browseFavouritesData.get(position);
+        BrowseData browseDataItem = browseDataList.get(position);
 
-        viewHolder.getTextViewSequentialIndex().setText(favourite.getIndex());
+        viewHolder.getTextViewSequentialIndex().setText(browseDataItem.getIndex());
 
-        viewHolder.getTextViewQuotation().setText(favourite.getQuotation());
+        viewHolder.getTextViewQuotation().setText(browseDataItem.getQuotation());
         viewHolder.getTextViewQuotation().setEnabled(false);
 
-        viewHolder.getTextViewSource().setText(favourite.getSource());
+        viewHolder.getTextViewSource().setText(browseDataItem.getSource());
         viewHolder.getTextViewSource().setEnabled(false);
     }
 
     @Override
     public int getItemCount() {
-        return browseFavouritesData.size();
+        return browseDataList.size();
     }
 }

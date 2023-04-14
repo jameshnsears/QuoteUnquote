@@ -205,9 +205,9 @@
                             android:id="@+id/button_browse_favourites"
                             android:layout_width="120dp"
                             android:layout_height="48dp"
-                            android:contentDescription="@string/fragment_quotations_selection_favourites_browse"
+                            android:contentDescription="@string/fragment_quotations_selection_browse"
                             android:enabled="false"
-                            android:text="@string/fragment_quotations_selection_favourites_browse"
+                            android:text="@string/fragment_quotations_selection_browse"
                             android:textColor="@android:color/white"
                             app:backgroundTint="@null"
                             app:strokeColor="?attr/colorPrimary"
@@ -309,6 +309,27 @@
                         android:maxLength="25"
                         android:textSize="14sp"
                         tools:ignore="TouchTargetSizeCheck" />
+
+            </LinearLayout>
+            
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp">
+
+                <Button
+                        android:id="@+id/button_browse_search"
+                        android:layout_width="120dp"
+                        android:layout_height="48dp"
+                        android:contentDescription="@string/fragment_quotations_selection_browse"
+                        android:enabled="false"
+                        android:text="@string/fragment_quotations_selection_browse"
+                        android:textColor="@android:color/white"
+                        app:backgroundTint="@null"
+                        app:strokeColor="?attr/colorPrimary"
+                        app:strokeWidth="1dp" />
 
             </LinearLayout>
 

@@ -1,0 +1,3 @@
+&bull; Browse dialog for Search
+&bull; Increase Browse dialog scroll bar width
+&bull; Bump dependencies

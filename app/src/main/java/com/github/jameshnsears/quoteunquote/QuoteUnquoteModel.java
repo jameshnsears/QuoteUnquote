@@ -758,6 +758,23 @@ public class QuoteUnquoteModel {
     }
 
     @NonNull
+    public List<QuotationEntity> getSearchQuotations(@NonNull final String text, boolean favouritesOnly) {
+        final Future<List<QuotationEntity>> future = QuoteUnquoteWidget.getExecutorService().submit(()
+                -> databaseRepository.getSearchQuotations(text, favouritesOnly));
+
+        List<QuotationEntity> searchResultsList = new ArrayList<>();
+
+        try {
+            searchResultsList = future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
+            Thread.currentThread().interrupt();
+        }
+
+        return searchResultsList;
+    }
+
+    @NonNull
     public Integer countQuotationWithSearchText(@NonNull final String text, boolean favouritesOnly) {
         final Future<Integer> future = QuoteUnquoteWidget.getExecutorService().submit(()
                 -> databaseRepository.countSearchText(text, favouritesOnly));
