@@ -40,3 +40,5 @@ local.properties
 /.idea/sonarlint/
 /bin/javalin/webpage/build/
 /app/fdroid/release/
+/app/jacoco.exec
+/app/google-services.json-production

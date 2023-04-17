@@ -23,7 +23,7 @@ import timber.log.Timber;
 public class ImportHelper {
     private static String[] headers = {"Author", "Quotation"};
 
-    public void csvExportFavourites(FileOutputStream fileOutputStream, ArrayList<QuotationEntity> exportableFavourites) throws IOException {
+    public void csvExport(FileOutputStream fileOutputStream, ArrayList<QuotationEntity> exportableFavourites) throws IOException {
         OutputStreamWriter outputStreamWriter = null;
         CSVPrinter csvPrinter = null;
 

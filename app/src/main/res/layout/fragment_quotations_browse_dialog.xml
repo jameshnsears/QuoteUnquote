@@ -25,8 +25,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/browse_favourites"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
             android:scrollbars="vertical"
             android:scrollbarSize="15dp"
             android:scrollbarThumbVertical="@drawable/recyclerview_scrollbar_thumb_drawable"

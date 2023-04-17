@@ -29,6 +29,7 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.Quotat
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.browse.BrowseFavouritesDialogFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.browse.BrowseSearchDialogFragment;
 import com.github.jameshnsears.quoteunquote.database.quotation.AuthorPOJO;
+import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentQuotationsTabSelectionBinding;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 import com.github.jameshnsears.quoteunquote.utils.ImportHelper;
@@ -61,11 +62,13 @@ public class QuotationsFilterFragment extends FragmentCommon {
     @Nullable
     public QuotationsPreferences quotationsPreferences;
     @Nullable
-    private DisposableObserver<Integer> disposableObserverExclusion;
+    private DisposableObserver<Integer> disposableObserverAllExclusion;
     @Nullable
     private DisposableObserver<Integer> disposableObserverSearch;
     @Nullable
-    private ActivityResultLauncher<Intent> activityResultLauncher;
+    private ActivityResultLauncher<Intent> activitExportFavouritesResultsLauncher;
+    @Nullable
+    private ActivityResultLauncher<Intent> activitExportSearchResultsLauncher;
 
     public QuotationsFilterFragment() {
         // dark mode support
@@ -142,8 +145,8 @@ public class QuotationsFilterFragment extends FragmentCommon {
         this.disposables.clear();
         this.disposables.dispose();
 
-        if (this.disposableObserverExclusion != null) {
-            this.disposableObserverExclusion.dispose();
+        if (this.disposableObserverAllExclusion != null) {
+            this.disposableObserverAllExclusion.dispose();
         }
 
         if (this.disposableObserverSearch != null) {
@@ -175,11 +178,11 @@ public class QuotationsFilterFragment extends FragmentCommon {
                 quotationsPreferences.setContentSelectionSearchCount(value);
 
                 if (value > 0) {
-                    fragmentQuotationsTabSelectionBinding.buttonBrowseSearch.setEnabled(true);
-                    QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabSelectionBinding.buttonBrowseSearch, true);
+                    setButtonSearchBrowse(true);
+                    setButtonSearchExport(true);
                 } else {
-                    fragmentQuotationsTabSelectionBinding.buttonBrowseSearch.setEnabled(false);
-                    QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabSelectionBinding.buttonBrowseSearch, false);
+                    setButtonSearchBrowse(false);
+                    setButtonSearchExport(false);
                 }
             }
 
@@ -200,7 +203,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
                 .map(charSequence -> {
                     final String keywords = charSequence.toString();
 
-                    if (!keywords.equals("")) {
+                    if (!keywords.equals("") && keywords.length() >= 4) {
                         Timber.d("%s", keywords);
 
                         // remove any prior, different, search results in the history
@@ -234,13 +237,14 @@ public class QuotationsFilterFragment extends FragmentCommon {
         createListenerAuthorsQuotationCount();
         createListenerAuthor();
 
-        createListenerBrowseFavouriteButton();
-        createListenerFavouriteButtonExport();
+        createListenerButtonFavouritesBrowse();
+        createListenerButtonFavouritesExport();
+        handleExportFavouritesResult();
 
         createListenerSearchFavouritesOnly();
-        createListenerBrowseSearchButton();
-
-        handleExportResult();
+        createListenerButtonSearchBrowse();
+        createListenerButtonSearchExport();
+        handleExportSearchResult();
 
         setSelection();
     }
@@ -317,7 +321,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
     }
 
     public void setExclusionsObserver() {
-        disposableObserverExclusion = new DisposableObserver<Integer>() {
+        disposableObserverAllExclusion = new DisposableObserver<Integer>() {
             @Override
             public void onNext(@NonNull final Integer allMinusExclusions) {
                 fragmentQuotationsTabSelectionBinding.radioButtonAll.setText(
@@ -350,7 +354,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
                     return quoteUnquoteModel.countAllMinusExclusions(widgetId).blockingGet();
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(disposableObserverExclusion);
+                .subscribe(disposableObserverAllExclusion);
     }
 
     public void setAuthorsQuotationCount() {
@@ -470,7 +474,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
     public void setSelection() {
         enableExclusion(false);
         enableAuthor(false);
-        enableSearch(false);
+        enableSearch();
 
         switch (quotationsPreferences.getContentSelection()) {
             case ALL:
@@ -510,15 +514,9 @@ public class QuotationsFilterFragment extends FragmentCommon {
     private void setSelectionSearch() {
         fragmentQuotationsTabSelectionBinding.radioButtonSearch.setChecked(true);
         enableExclusion(false);
-        enableSearch(true);
+        enableSearch();
 
         fragmentQuotationsTabSelectionBinding.radioButtonSearch.requestFocus();
-
-        if (quoteUnquoteModel.countFavouritesWithoutRx() > 0) {
-            fragmentQuotationsTabSelectionBinding.switchSearchFavouritesOnly.setEnabled(true);
-        } else {
-            fragmentQuotationsTabSelectionBinding.switchSearchFavouritesOnly.setEnabled(false);
-        }
 
         fragmentQuotationsTabSelectionBinding.switchSearchFavouritesOnly.setChecked(
                 quotationsPreferences.getContentSelectionSearchFavouritesOnly());
@@ -554,22 +552,18 @@ public class QuotationsFilterFragment extends FragmentCommon {
     private void setCardFavourite(final boolean enabled) {
         this.fragmentQuotationsTabSelectionBinding.radioButtonFavourites.setChecked(enabled);
 
-        fragmentQuotationsTabSelectionBinding.buttonBrowseFavourites.setEnabled(enabled);
-        QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabSelectionBinding.buttonBrowseFavourites, enabled);
+        fragmentQuotationsTabSelectionBinding.buttonFavouritesBrowse.setEnabled(enabled);
+        QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabSelectionBinding.buttonFavouritesBrowse, enabled);
 
-        fragmentQuotationsTabSelectionBinding.buttonExport.setEnabled(enabled);
-        QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabSelectionBinding.buttonExport, enabled);
-
-        fragmentQuotationsTabSelectionBinding.textViewInformationExternal.setEnabled(enabled);
+        fragmentQuotationsTabSelectionBinding.buttonFavouritesExport.setEnabled(enabled);
+        QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabSelectionBinding.buttonFavouritesExport, enabled);
 
         if (quoteUnquoteModel.countFavouritesWithoutRx() > 0) {
-            fragmentQuotationsTabSelectionBinding.buttonBrowseFavourites.setEnabled(true);
-            QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabSelectionBinding.buttonBrowseFavourites, true);
+            fragmentQuotationsTabSelectionBinding.buttonFavouritesBrowse.setEnabled(true);
+            QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabSelectionBinding.buttonFavouritesBrowse, true);
 
-            fragmentQuotationsTabSelectionBinding.buttonExport.setEnabled(true);
-            QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabSelectionBinding.buttonExport, true);
-
-            fragmentQuotationsTabSelectionBinding.textViewInformationExternal.setEnabled(true);
+            fragmentQuotationsTabSelectionBinding.buttonFavouritesExport.setEnabled(true);
+            QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabSelectionBinding.buttonFavouritesExport, true);
         }
 
         if (enabled) {
@@ -579,13 +573,11 @@ public class QuotationsFilterFragment extends FragmentCommon {
 
     private void setCardSearch(final boolean enabled) {
         this.fragmentQuotationsTabSelectionBinding.radioButtonSearch.setChecked(enabled);
-        enableSearch(enabled);
+        enableSearch();
 
         if (enabled) {
             quotationsPreferences.setContentSelection(ContentSelection.SEARCH);
         }
-
-        fragmentQuotationsTabSelectionBinding.buttonBrowseSearch.setEnabled(false);
     }
 
     protected void createListenerRadioAll() {
@@ -645,29 +637,32 @@ public class QuotationsFilterFragment extends FragmentCommon {
         fragmentQuotationsTabSelectionBinding.textViewQuotationCount.setEnabled(enable);
         fragmentQuotationsTabSelectionBinding.spinnerAuthorsCount.setEnabled(enable);
         fragmentQuotationsTabSelectionBinding.spinnerAuthors.setEnabled(enable);
-
     }
 
-    private void enableSearch(final boolean enable) {
-        fragmentQuotationsTabSelectionBinding.editTextSearchText.setEnabled(enable);
-
-        if (quoteUnquoteModel.countFavouritesWithoutRx() > 0) {
-            fragmentQuotationsTabSelectionBinding.switchSearchFavouritesOnly.setEnabled(enable);
-
-            fragmentQuotationsTabSelectionBinding.buttonBrowseSearch.setEnabled(true);
-            QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabSelectionBinding.buttonBrowseSearch, true);
-        } else {
-            fragmentQuotationsTabSelectionBinding.switchSearchFavouritesOnly.setEnabled(false);
-
-            fragmentQuotationsTabSelectionBinding.buttonBrowseSearch.setEnabled(false);
-            QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabSelectionBinding.buttonBrowseSearch, false);
-        }
+    private void enableSearch() {
+        fragmentQuotationsTabSelectionBinding.editTextSearchText.setEnabled(true);
 
         if (quotationsPreferences.getContentSelectionSearchFavouritesOnly()) {
             fragmentQuotationsTabSelectionBinding.switchSearchFavouritesOnly.setChecked(true);
         } else {
             fragmentQuotationsTabSelectionBinding.switchSearchFavouritesOnly.setChecked(false);
         }
+
+        if (quoteUnquoteModel.countFavouritesWithoutRx() > 0) {
+            fragmentQuotationsTabSelectionBinding.switchSearchFavouritesOnly.setEnabled(true);
+        } else {
+            fragmentQuotationsTabSelectionBinding.switchSearchFavouritesOnly.setEnabled(false);
+        }
+    }
+
+    public void setButtonSearchBrowse(boolean enabled) {
+        fragmentQuotationsTabSelectionBinding.buttonSearchBrowse.setEnabled(enabled);
+        QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabSelectionBinding.buttonSearchBrowse, enabled);
+    }
+
+    public void setButtonSearchExport(boolean enabled) {
+        fragmentQuotationsTabSelectionBinding.buttonSearchExport.setEnabled(enabled);
+        QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabSelectionBinding.buttonSearchExport, enabled);
     }
 
     public void createListenerAuthorsQuotationCount() {
@@ -715,8 +710,8 @@ public class QuotationsFilterFragment extends FragmentCommon {
         });
     }
 
-    protected void createListenerBrowseFavouriteButton() {
-        fragmentQuotationsTabSelectionBinding.buttonBrowseFavourites.setOnClickListener(v -> {
+    protected void createListenerButtonFavouritesBrowse() {
+        fragmentQuotationsTabSelectionBinding.buttonFavouritesBrowse.setOnClickListener(v -> {
             BrowseFavouritesDialogFragment appearanceTextDialogQuotation = new BrowseFavouritesDialogFragment(
                     widgetId,
                     quoteUnquoteModel,
@@ -725,8 +720,8 @@ public class QuotationsFilterFragment extends FragmentCommon {
         });
     }
 
-    protected void createListenerBrowseSearchButton() {
-        fragmentQuotationsTabSelectionBinding.buttonBrowseSearch.setOnClickListener(v -> {
+    protected void createListenerButtonSearchBrowse() {
+        fragmentQuotationsTabSelectionBinding.buttonSearchBrowse.setOnClickListener(v -> {
             BrowseSearchDialogFragment appearanceTextDialogQuotation = new BrowseSearchDialogFragment(
                     widgetId,
                     quoteUnquoteModel,
@@ -735,17 +730,32 @@ public class QuotationsFilterFragment extends FragmentCommon {
         });
     }
 
-    protected void createListenerFavouriteButtonExport() {
+    protected void createListenerButtonSearchExport() {
         // invoke Storage Access Framework
-        fragmentQuotationsTabSelectionBinding.buttonExport.setOnClickListener(v -> {
-            if (fragmentQuotationsTabSelectionBinding.buttonExport.isEnabled()) {
+        fragmentQuotationsTabSelectionBinding.buttonSearchExport.setOnClickListener(v -> {
+            if (fragmentQuotationsTabSelectionBinding.buttonSearchExport.isEnabled()) {
+                ConfigureActivity.launcherInvoked = true;
+
+                final Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                intent.setType("text/csv");
+                intent.putExtra(Intent.EXTRA_TITLE, "SearchResults.csv");
+                activitExportSearchResultsLauncher.launch(intent);
+            }
+        });
+    }
+
+    protected void createListenerButtonFavouritesExport() {
+        // invoke Storage Access Framework
+        fragmentQuotationsTabSelectionBinding.buttonFavouritesExport.setOnClickListener(v -> {
+            if (fragmentQuotationsTabSelectionBinding.buttonFavouritesExport.isEnabled()) {
                 ConfigureActivity.launcherInvoked = true;
 
                 final Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 intent.setType("text/csv");
                 intent.putExtra(Intent.EXTRA_TITLE, "Favourites.csv");
-                activityResultLauncher.launch(intent);
+                activitExportFavouritesResultsLauncher.launch(intent);
             }
         });
     }
@@ -760,9 +770,9 @@ public class QuotationsFilterFragment extends FragmentCommon {
         });
     }
 
-    protected final void handleExportResult() {
+    protected final void handleExportFavouritesResult() {
         // default: /storage/emulated/0/Download/Favourites.csv
-        activityResultLauncher = registerForActivityResult(
+        activitExportFavouritesResultsLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 activityResult -> {
                     if (activityResult.getResultCode() == Activity.RESULT_OK) {
@@ -775,7 +785,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
                                     = new FileOutputStream(parcelFileDescriptor.getFileDescriptor());
 
                             new ImportHelper()
-                                    .csvExportFavourites(
+                                    .csvExport(
                                             fileOutputStream,
                                             (ArrayList) quoteUnquoteModel.exportFavourites());
 
@@ -784,7 +794,47 @@ public class QuotationsFilterFragment extends FragmentCommon {
 
                             Toast.makeText(
                                     getContext(),
-                                    getContext().getString(R.string.fragment_quotations_selection_favourites_export_success),
+                                    getContext().getString(R.string.fragment_quotations_selection_export_success),
+                                    Toast.LENGTH_SHORT).show();
+                        } catch (final IOException e) {
+                            Timber.e(e.getMessage());
+                        }
+                    }
+
+                    ConfigureActivity.launcherInvoked = false;
+                });
+    }
+
+    protected final void handleExportSearchResult() {
+        // default: /storage/emulated/0/Download/SearchResults.csv
+        activitExportSearchResultsLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                activityResult -> {
+                    if (activityResult.getResultCode() == Activity.RESULT_OK) {
+
+                        try {
+                            final ParcelFileDescriptor parcelFileDescriptor
+                                    = getContext().getContentResolver().openFileDescriptor(
+                                    activityResult.getData().getData(), "w");
+                            final FileOutputStream fileOutputStream
+                                    = new FileOutputStream(parcelFileDescriptor.getFileDescriptor());
+
+                            List<QuotationEntity> searchResultsList = quoteUnquoteModel.getSearchQuotations(
+                                    quotationsPreferences.getContentSelectionSearch(),
+                                    quotationsPreferences.getContentSelectionSearchFavouritesOnly()
+                            );
+
+                            new ImportHelper()
+                                    .csvExport(
+                                            fileOutputStream,
+                                            (ArrayList) searchResultsList);
+
+                            fileOutputStream.close();
+                            parcelFileDescriptor.close();
+
+                            Toast.makeText(
+                                    getContext(),
+                                    getContext().getString(R.string.fragment_quotations_selection_export_success),
                                     Toast.LENGTH_SHORT).show();
                         } catch (final IOException e) {
                             Timber.e(e.getMessage());

@@ -48,9 +48,9 @@ project.afterEvaluate {
                 ])
 
                 reports {
-                    xml.enabled = true
+                    xml.required = true
                     xml.destination file("${project.buildDir}/reports/${sourceName.capitalize()}.xml")
-                    html.enabled = true
+                    html.required = true
                     html.destination file("$project.buildDir/reports/jacoco")
                 }
             }
@@ -72,9 +72,9 @@ project.afterEvaluate {
                 ])
 
                 reports {
-                    xml.enabled = true
+                    xml.required = true
                     xml.destination file("${project.buildDir}/reports/${sourceName.capitalize()}.xml")
-                    html.enabled = true
+                    html.required = true
                     html.destination file("$project.buildDir/reports/jacoco")
                 }
             }
@@ -96,9 +96,9 @@ project.afterEvaluate {
                 ])
 
                 reports {
-                    xml.enabled = true
+                    xml.required = true
                     xml.destination file("${project.buildDir}/reports/${sourceName.capitalize()}.xml")
-                    html.enabled = true
+                    html.required = true
                     html.destination file("$project.buildDir/reports/jacoco")
                 }
             }

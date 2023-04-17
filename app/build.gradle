@@ -46,9 +46,9 @@ android {
         applicationId "com.github.jameshnsears.quoteunquote"
 
         // changelog version | min sdk | target sdk
-        versionCode 1362433
+        versionCode 1382433
         // semantic versioning
-        versionName "4.20.0"
+        versionName "4.21.0"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -86,8 +86,9 @@ android {
         }
 
         release {
-            minifyEnabled true
-            shrinkResources true
+            // false == only occurs in migration to Android Studio Flamingo | 2022.2.1
+            minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
             buildConfigField("String", "GIT_HASH", "\"$gitHash\"")

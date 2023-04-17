@@ -37,28 +37,31 @@
 
                 <TextView
                         android:id="@+id/editTextViewQuotation"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:autofillHints=""
                         android:background="?attr/selectableItemBackground"
-                        android:paddingStart="5dp"
-                        android:paddingEnd="5dp"
-                        android:text="Quotation Quotation Quotation Quotation Quotation Quotation Quotation Quotation Quotation Quotation Quotation Quotation"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="10dp"
+                        android:text="Quotation"
                         android:textColor="@drawable/recyclerview_edit_text_selector"
-                        android:textSize="16sp" />
+                        android:textStyle="italic" />
 
                 <TextView
                         android:id="@+id/editTextViewSource"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:autofillHints=""
                         android:background="?attr/selectableItemBackground"
-                        android:paddingStart="5dp"
-                        android:paddingEnd="5dp"
-                        android:text="Source Source Source Source Source Source"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="10dp"
+                        android:text="Source"
                         android:textColor="@drawable/recyclerview_edit_text_selector"
-                        android:textSize="14sp"
-                        android:textStyle="italic"
+                        android:textStyle="normal"
                         tools:ignore="TouchTargetSizeCheck" />
             </LinearLayout>
         </LinearLayout>
