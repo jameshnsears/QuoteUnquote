@@ -435,7 +435,11 @@ public class DatabaseRepository {
                 for (String digest : favouriteDAO.getFavouriteDigests()) {
                     QuotationEntity quotationEntity = quotationDAO.getQuotation(digest);
                     if (isFavourite(quotationEntity.digest)) {
-                        if (quotationEntity.author.contains(text) || quotationEntity.quotation.contains(text)) {
+                        String author = quotationEntity.author.toLowerCase();
+                        String quotation = quotationEntity.quotation.toLowerCase();
+
+                        if (author.contains(text.toLowerCase())
+                                || quotation.contains(text.toLowerCase())) {
                             searchQuotations.add(quotationEntity);
                         }
                     }
@@ -444,7 +448,11 @@ public class DatabaseRepository {
                 for (String digest : favouriteExternalDAO.getFavouriteDigests()) {
                     QuotationEntity quotationEntity = quotationExternalDAO.getQuotation(digest);
                     if (isFavourite(quotationEntity.digest)) {
-                        if (quotationEntity.author.contains(text) || quotationEntity.quotation.contains(text)) {
+                        String author = quotationEntity.author.toLowerCase();
+                        String quotation = quotationEntity.quotation.toLowerCase();
+
+                        if (author.contains(text.toLowerCase())
+                                || quotation.contains(text.toLowerCase())) {
                             searchQuotations.add(quotationEntity);
                         }
                     }
@@ -472,14 +480,20 @@ public class DatabaseRepository {
             if (useInternalDatabase()) {
                 for (String digest : favouriteDAO.getFavouriteDigests()) {
                     QuotationEntity quotationEntity = quotationDAO.getQuotation(digest);
-                    if (quotationEntity.author.contains(text) || quotationEntity.quotation.contains(text)) {
+                    String author = quotationEntity.author.toLowerCase();
+                    String quotation = quotationEntity.quotation.toLowerCase();
+
+                    if (author.contains(text.toLowerCase()) || quotation.contains(text.toLowerCase())) {
                         searchCount += 1;
                     }
                 }
             } else {
                 for (String digest : favouriteExternalDAO.getFavouriteDigests()) {
                     QuotationEntity quotationEntity = quotationExternalDAO.getQuotation(digest);
-                    if (quotationEntity.author.contains(text) || quotationEntity.quotation.contains(text)) {
+                    String author = quotationEntity.author.toLowerCase();
+                    String quotation = quotationEntity.quotation.toLowerCase();
+
+                    if (author.contains(text.toLowerCase()) || quotation.contains(text.toLowerCase())) {
                         searchCount += 1;
                     }
                 }

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteModel;
 import com.github.jameshnsears.quoteunquote.R;
+import com.github.jameshnsears.quoteunquote.configure.fragment.dialog.browse.BrowseAdapter;
 import com.github.jameshnsears.quoteunquote.configure.fragment.dialog.browse.BrowseData;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
@@ -20,6 +21,7 @@ import java.util.List;
 public class BrowseSearchDialogFragment extends BrowseFavouritesDialogFragment {
     public BrowseSearchDialogFragment(int widgetId, QuoteUnquoteModel quoteUnquoteModel, int title) {
         super(widgetId, quoteUnquoteModel, title);
+        this.dialogType = BrowseAdapter.DIALOG.SEARCH;
     }
 
     @Override

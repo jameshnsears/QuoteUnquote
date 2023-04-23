@@ -1,0 +1,2 @@
+&bull; Fix Favourites Browse Dialog
+&bull; Fix Search case insensitivity
