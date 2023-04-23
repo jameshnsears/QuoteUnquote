@@ -63,15 +63,13 @@ public class BrowseFavouritesDialogFragment extends DialogFragment {
         return builder.create();
     }
 
-    private void constructRecyclerView() {
+    protected void constructRecyclerView() {
         fragmentQuotationsBrowseDialogBinding.recycleViewBrowse
                 .setLayoutManager(new LinearLayoutManager(getActivity()));
 
         // doesn't look good when RecyclerView has rounded corners!
         RecyclerView.ItemDecoration divider
                 = new BrowseDividerItemDecorator(ContextCompat.getDrawable(getActivity(), R.drawable.recyclerview_row_divider));
-
-        fragmentQuotationsBrowseDialogBinding.recycleViewBrowse.addItemDecoration(divider);
 
         fragmentQuotationsBrowseDialogBinding.recycleViewBrowse.addItemDecoration(divider);
 
@@ -92,7 +90,10 @@ public class BrowseFavouritesDialogFragment extends DialogFragment {
             browseFavouritesList.add(new BrowseData(
                     Strings.padStart("" + index, padding, '0'),
                     favouriteQuotation.quotation,
-                    favouriteQuotation.author));
+                    favouriteQuotation.author,
+                    false,
+                    favouriteQuotation.digest)
+            );
             index += 1;
         }
 

@@ -2,8 +2,10 @@ package com.github.jameshnsears.quoteunquote.utils.notification;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
+import android.app.NotificationChannelGroup;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -36,22 +38,27 @@ public class NotificationHelper {
     String notificationChannelBihourly;
 
     public NotificationHelper(@NonNull Context context) {
+        NotificationManager notificationManager =
+                (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+
+        final String channelGroupId = "group_id_01";
+
         notificationChannelDeviceUnlock = createNotificationChannel(
                 context,
-                context.getString(R.string.notification_channel_screen_unlock));
+                context.getString(R.string.notification_channel_screen_unlock),
+                channelGroupId);
 
         notificationChannelEventDaily = createNotificationChannel(
                 context,
-                context.getString(R.string.notification_channel_specific_time));
+                context.getString(R.string.notification_channel_specific_time),
+                channelGroupId);
 
         notificationChannelBihourly = createNotificationChannel(
                 context,
-                context.getString(R.string.notification_channel_every_two_hours));
+                context.getString(R.string.notification_channel_every_two_hours),
+                channelGroupId);
 
-        // for in-place updates
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationManager notificationManager =
-                    (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
             notificationManager.deleteNotificationChannel("Quotations");
         }
     }
@@ -83,6 +90,7 @@ public class NotificationHelper {
         );
     }
 
+    @SuppressLint("MissingPermission")
     private void displayNotification(
             @NonNull NotificationContent notificationContent,
             @NonNull String notificationChannelId,
@@ -247,8 +255,16 @@ public class NotificationHelper {
     @Nullable
     private String createNotificationChannel(
             @NonNull Context context,
-            @NonNull String notificationChannelId) {
+            @NonNull String notificationChannelId,
+            @NonNull String notificationChannelGroupId) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationManager notificationManager =
+                    (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+
+            NotificationChannelGroup notificationChannelGroup = new NotificationChannelGroup(
+                    notificationChannelGroupId,
+                    context.getString(R.string.fragment_notifications_recurring_event));
+            notificationManager.createNotificationChannelGroup(notificationChannelGroup);
 
             NotificationChannel notificationChannel = new NotificationChannel(
                     notificationChannelId,
@@ -258,8 +274,8 @@ public class NotificationHelper {
             notificationChannel.enableVibration(true);
             notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
             notificationChannel.setShowBadge(false);
-            NotificationManager notificationManager
-                    = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+            notificationChannel.setGroup(notificationChannelGroupId);
+
             notificationManager.createNotificationChannel(notificationChannel);
 
             return notificationChannelId;

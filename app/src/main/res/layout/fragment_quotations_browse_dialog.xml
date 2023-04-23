@@ -10,10 +10,9 @@
         android:theme="@style/AppTheme">
 
     <TextView
-            android:id="@+id/textViewNotificationSizeWarning"
+            android:id="@+id/textViewShareInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableEnd="@drawable/ic_toolbar_share_24"
             android:drawablePadding="10dp"
             android:paddingTop="0dp"
             android:paddingBottom="10dp"

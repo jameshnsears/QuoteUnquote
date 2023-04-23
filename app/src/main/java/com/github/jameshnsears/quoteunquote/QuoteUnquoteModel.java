@@ -254,25 +254,29 @@ public class QuoteUnquoteModel {
                             widgetId,
                             ContentSelection.FAVOURITES,
                             "",
-                            randomNext);
+                            randomNext,
+                            getContentPreferences(widgetId));
                 case AUTHOR:
                     return databaseRepository.getNextQuotation(
                             widgetId,
                             ContentSelection.AUTHOR,
                             getContentPreferences(widgetId).getContentSelectionAuthor(),
-                            randomNext);
+                            randomNext,
+                            getContentPreferences(widgetId));
                 case SEARCH:
                     return databaseRepository.getNextQuotation(
                             widgetId,
                             ContentSelection.SEARCH,
                             getContentPreferences(widgetId).getContentSelectionSearch(),
-                            randomNext);
+                            randomNext,
+                            getContentPreferences(widgetId));
                 default:
                     return databaseRepository.getNextQuotation(
                             widgetId,
                             ContentSelection.ALL,
                             getContentPreferences(widgetId).getContentSelectionAllExclusion(),
-                            randomNext);
+                            randomNext,
+                            getContentPreferences(widgetId));
             }
         });
 
@@ -440,12 +444,12 @@ public class QuoteUnquoteModel {
 
     public int countPreviousAuthor(final int widgetId) {
         return databaseRepository.countPreviousCriteria(widgetId, ContentSelection.AUTHOR,
-                getContentPreferences(widgetId).getContentSelectionAuthor());
+                getContentPreferences(widgetId));
     }
 
     public int countPreviousSearch(final int widgetId) {
         return databaseRepository.countPreviousCriteria(widgetId, ContentSelection.SEARCH,
-                getContentPreferences(widgetId).getContentSelectionSearch());
+                getContentPreferences(widgetId));
     }
 
     public int countFavouritesWithoutRx() {
@@ -510,7 +514,6 @@ public class QuoteUnquoteModel {
             Thread.currentThread().interrupt();
         }
 
-        Timber.d("isFavourite=%b", isFavourite);
         return isFavourite;
     }
 

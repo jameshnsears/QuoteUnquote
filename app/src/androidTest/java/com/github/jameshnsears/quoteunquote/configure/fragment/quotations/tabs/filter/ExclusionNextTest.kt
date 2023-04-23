@@ -58,6 +58,7 @@ class ExclusionNextTest : QuoteUnquoteModelUtility() {
                     WidgetIdHelper.WIDGET_ID_01,
                     ContentSelection.ALL,
                     quotationsPreferences.contentSelectionAllExclusion,
+                    quotationsPreferences,
                 )
                 .containsAll(listOf("d6789014", "d6789015", "d6789016")),
         )

@@ -14,11 +14,11 @@
             android:id="@+id/cardViewSelection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:contentPadding="5dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true">
+            app:cardUseCompatPadding="true"
+            app:contentPadding="5dp">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -80,11 +80,11 @@
             android:id="@+id/cardViewSource"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:contentPadding="5dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true">
+            app:cardUseCompatPadding="true"
+            app:contentPadding="5dp">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -160,11 +160,11 @@
             android:id="@+id/cardViewFavourites"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:contentPadding="5dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true">
+            app:cardUseCompatPadding="true"
+            app:contentPadding="5dp">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -240,11 +240,11 @@
             android:id="@+id/cardViewSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:contentPadding="5dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true">
+            app:cardUseCompatPadding="true"
+            app:contentPadding="5dp">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -270,8 +270,8 @@
                     android:layout_marginStart="5dp"
                     android:orientation="vertical"
                     android:paddingStart="0dp"
-                    android:paddingEnd="6dp"
                     android:paddingTop="0dp"
+                    android:paddingEnd="6dp"
                     android:paddingBottom="5dp">
 
                 <com.google.android.material.switchmaterial.SwitchMaterial

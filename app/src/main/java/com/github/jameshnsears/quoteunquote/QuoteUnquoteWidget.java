@@ -451,7 +451,9 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
 
         int favouritesCount = getQuoteUnquoteModel(widgetId, context).toggleFavourite(widgetId, digest);
 
-        if (quotationsPreferences.getContentSelection() == ContentSelection.FAVOURITES) {
+        if (quotationsPreferences.getContentSelection() == ContentSelection.FAVOURITES
+                || (quotationsPreferences.getContentSelection() == ContentSelection.SEARCH
+                && quotationsPreferences.getContentSelectionSearchFavouritesOnly() == true)) {
             if (favouritesCount == 0) {
                 noFavouritesSoMoveToAll(context, widgetId, quotationsPreferences);
             } else {

@@ -53,7 +53,8 @@
 
     <string name="fragment_quotations_selection_dialog_browse_favourites">Favourites</string>
     <string name="fragment_quotations_selection_dialog_browse_search">Search Results</string>
-    <string name="fragment_quotations_selection_dialog_browse_share">Tap row to invoke</string>
+    <string name="fragment_quotations_selection_dialog_browse_share">Tap to Share</string>
+    <string name="fragment_quotations_selection_dialog_browse_share_and_toggle">Tap to Share; Long Tap, toggle Favourite</string>
 
     <string name="fragment_quotations_database">Database</string>
     <string name="fragment_quotations_database_default">Internal</string>
@@ -79,7 +80,7 @@
     <string name="fragment_quotations_database_scrape_xpath_error_quotation">Invalid quotation XPath</string>
     <string name="fragment_quotations_database_scrape_xpath_error_source">Invalid source XPath</string>
     <string name="fragment_quotations_database_scrape_test_success">Success - web page imported</string>
-    <string name="fragment_quotations_database_scrape_info">App Widget will poll every 60 minutes, starting at 00:00</string>
+    <string name="fragment_quotations_database_scrape_info">App Widget will poll every 30 minutes, starting at 00:00</string>
 
     <string name="fragment_appearance_title">Appearance</string>
     <string name="fragment_appearance_tab_style">Contents</string>

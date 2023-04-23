@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.github.jameshnsears.quoteunquote.QuoteUnquoteModel;
 import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.ConfigureActivity;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences;
@@ -17,53 +18,63 @@ import java.util.List;
 
 import javax.annotation.Nullable;
 
+import timber.log.Timber;
+
 public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder> {
     static int widgetId;
 
     @Nullable
     static List<BrowseData> browseDataList;
 
-    public BrowseAdapter(int widgetId, List<BrowseData> browseDataItems) {
-        this.widgetId = widgetId;
+    public BrowseAdapter(final int widgetId, final List<BrowseData> browseDataItems) {
+        BrowseAdapter.widgetId = widgetId;
         browseDataList = browseDataItems;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener, View.OnLongClickListener {
         private final TextView textViewSequentialIndex;
         private final TextView textViewQuotation;
         private final TextView textViewSource;
+        private final TextView textViewFavourite;
 
-        public ViewHolder(View view) {
+        public ViewHolder(final View view) {
             super(view);
             view.setOnClickListener(this);
+            view.setOnLongClickListener(this);
 
-            textViewSequentialIndex = view.findViewById(R.id.textViewSequentialIndex);
+            this.textViewSequentialIndex = view.findViewById(R.id.textViewSequentialIndex);
 
-            textViewQuotation = view.findViewById(R.id.editTextViewQuotation);
+            this.textViewQuotation = view.findViewById(R.id.textViewQuotation);
 
-            textViewSource = view.findViewById(R.id.editTextViewSource);
+            this.textViewSource = view.findViewById(R.id.textViewSource);
+
+            this.textViewFavourite = view.findViewById(R.id.textViewFavourite);
         }
 
         public TextView getTextViewSequentialIndex() {
-            return textViewSequentialIndex;
+            return this.textViewSequentialIndex;
         }
 
         public TextView getTextViewQuotation() {
-            return textViewQuotation;
+            return this.textViewQuotation;
         }
 
         public TextView getTextViewSource() {
-            return textViewSource;
+            return this.textViewSource;
+        }
+
+        public TextView getTextViewFavourite() {
+            return this.textViewFavourite;
         }
 
         @Override
-        public void onClick(View view) {
-            BrowseData browseDataItem = browseDataList.get(getAdapterPosition());
+        public void onClick(final View view) {
+            BrowseData browseDataItem = BrowseAdapter.browseDataList.get(this.getAdapterPosition());
 
             ConfigureActivity.launcherInvoked = true;
 
-            AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, view.getContext());
+            final AppearancePreferences appearancePreferences = new AppearancePreferences(BrowseAdapter.widgetId, view.getContext());
             String toShare = browseDataItem.getQuotation() + "\n\n" + browseDataItem.getSource();
             if (appearancePreferences.getAppearanceToolbarShareNoSource()) {
                 toShare = browseDataItem.getQuotation();
@@ -74,11 +85,32 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
                     )
             );
         }
+
+        @Override
+        public boolean onLongClick(final View view) {
+            BrowseData browseDataItem = browseDataList.get(this.getAdapterPosition());
+
+            QuoteUnquoteModel quoteUnquoteModel = new QuoteUnquoteModel(widgetId, view.getContext());
+
+            boolean isFavourite = quoteUnquoteModel.isFavourite(browseDataItem.getDigest());
+
+            Timber.d("onLongClick: %d=%b", this.getAdapterPosition() + 1, isFavourite);
+
+            if (isFavourite) {
+                getTextViewFavourite().setVisibility(View.GONE);
+            } else {
+                getTextViewFavourite().setVisibility(View.VISIBLE);
+            }
+
+            quoteUnquoteModel.toggleFavourite(widgetId, browseDataItem.getDigest());
+
+            return true;
+        }
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext())
+    public ViewHolder onCreateViewHolder(final ViewGroup viewGroup, final int viewType) {
+        final View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.recyclerview_row, viewGroup, false);
 
         return new ViewHolder(view);
@@ -86,8 +118,8 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        BrowseData browseDataItem = browseDataList.get(position);
+    public void onBindViewHolder(final ViewHolder viewHolder, int position) {
+        final BrowseData browseDataItem = BrowseAdapter.browseDataList.get(position);
 
         viewHolder.getTextViewSequentialIndex().setText(browseDataItem.getIndex());
 
@@ -96,10 +128,17 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
 
         viewHolder.getTextViewSource().setText(browseDataItem.getSource());
         viewHolder.getTextViewSource().setEnabled(false);
+
+        QuoteUnquoteModel quoteUnquoteModel = new QuoteUnquoteModel(widgetId, viewHolder.itemView.getContext());
+        if (quoteUnquoteModel.isFavourite(browseDataItem.getDigest())) {
+            viewHolder.getTextViewFavourite().setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.getTextViewFavourite().setVisibility(View.GONE);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return browseDataList.size();
+        return BrowseAdapter.browseDataList.size();
     }
 }

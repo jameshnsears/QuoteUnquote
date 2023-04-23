@@ -1,3 +1,0 @@
-&bull; Minor improvements to browse / favourites functionality
-&bull; Remove one quotation; fix typo in second quotation
-&bull; Bump dependencies

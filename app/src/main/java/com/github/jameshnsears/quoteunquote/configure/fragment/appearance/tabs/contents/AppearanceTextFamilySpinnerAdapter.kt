@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.Typeface
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,10 +53,14 @@ class AppearanceTextFamilySpinnerAdapter(private val context: Context) : BaseAda
         view = view?.findViewById(android.R.id.text1) as TextView
         view.text = getItem(position)
 
-        when (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-            Configuration.UI_MODE_NIGHT_YES -> {
-                view.setTextColor(Color.WHITE)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {
+            when (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                Configuration.UI_MODE_NIGHT_YES -> {
+                    view.setTextColor(Color.WHITE)
+                }
             }
+        } else {
+            view.setTextColor(Color.BLACK)
         }
 
         when (getItem(position)) {

@@ -1,6 +1,7 @@
 package com.github.jameshnsears.quoteunquote.configure.fragment.quotations;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +22,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import timber.log.Timber;
 
 @Keep
-public class QuotationsFragment extends FragmentCommon {
+public class QuotationsFragment extends FragmentCommon implements DialogInterface.OnDismissListener {
     @Nullable
     public FragmentQuotationsBinding fragmentQuotationsBinding;
 
@@ -105,5 +106,10 @@ public class QuotationsFragment extends FragmentCommon {
         }
 
         super.onDestroyView();
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        QuotationsFragmentStateAdapter.quotationsFilterFragment.initUI();
     }
 }

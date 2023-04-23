@@ -118,9 +118,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
-                    android:paddingStart="6dp"
                     android:paddingTop="10dp"
-                    android:paddingEnd="0dp"
                     android:paddingBottom="13dp">
 
                 <View

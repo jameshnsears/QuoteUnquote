@@ -247,13 +247,9 @@ public class DatabaseRepository {
                 break;
 
             case SEARCH:
-                if (useInternalDatabase()) {
-                    countTotalNext = quotationDAO.getSearchTextDigests(
-                            "%" + quotationsPreferences.getContentSelectionSearch() + "%").size();
-                } else {
-                    countTotalNext = quotationExternalDAO.getSearchTextDigests(
-                            "%" + quotationsPreferences.getContentSelectionSearch() + "%").size();
-                }
+                countTotalNext = getSearchQuotations(
+                        quotationsPreferences.getContentSelectionSearch(),
+                        quotationsPreferences.getContentSelectionSearchFavouritesOnly()).size();
                 break;
 
             default:
@@ -270,25 +266,33 @@ public class DatabaseRepository {
     public int countPreviousCriteria(
             final int widgetId,
             @NonNull final ContentSelection contentSelection,
-            @NonNull final String criteria) {
+            @NonNull final QuotationsPreferences quotationsPreferences
+            ) {
         HashSet<String> previousDigests;
         HashSet<String> availableDigests;
 
         if (contentSelection == ContentSelection.AUTHOR) {
             previousDigests = new HashSet<>(getPreviousDigests(widgetId, ContentSelection.AUTHOR, ""));
             if (useInternalDatabase()) {
-                availableDigests = new HashSet<>(quotationDAO.getDigestsForAuthor(criteria));
+                availableDigests = new HashSet<>(quotationDAO.getDigestsForAuthor(
+                        quotationsPreferences.getContentSelectionAuthor()
+                ));
             } else {
-                availableDigests = new HashSet<>(quotationExternalDAO.getDigestsForAuthor(criteria));
+                availableDigests = new HashSet<>(quotationExternalDAO.getDigestsForAuthor(
+                        quotationsPreferences.getContentSelectionAuthor()
+                ));
             }
         } else {
             previousDigests = new HashSet<>(getPreviousDigests(widgetId, ContentSelection.SEARCH, ""));
-            if (useInternalDatabase()) {
-                availableDigests
-                        = new HashSet<>(quotationDAO.getSearchTextDigests("%" + criteria + "%"));
-            } else {
-                availableDigests
-                        = new HashSet<>(quotationExternalDAO.getSearchTextDigests("%" + criteria + "%"));
+
+            List<QuotationEntity> searchQuotations = getSearchQuotations(
+                    quotationsPreferences.getContentSelectionSearch(),
+                    quotationsPreferences.getContentSelectionSearchFavouritesOnly());
+
+            availableDigests = new HashSet<>();
+
+            for (QuotationEntity quotationEntity: searchQuotations) {
+                availableDigests.add(quotationEntity.digest);
             }
         }
 
@@ -578,14 +582,15 @@ public class DatabaseRepository {
             final int widgetId,
             @NonNull final ContentSelection contentSelection,
             @NonNull final String criteria,
-            final boolean randomNext) {
+            final boolean randomNext,
+            QuotationsPreferences quotationsPreferences) {
         Timber.d("contentType=%d; criteria=%s; randomNext=%b",
                 contentSelection.getContentSelection(), criteria, randomNext);
 
         return getNextQuotation(
                 widgetId,
                 randomNext,
-                getNextDigests(widgetId, contentSelection, criteria),
+                getNextDigests(widgetId, contentSelection, criteria, quotationsPreferences),
                 getPreviousDigests(widgetId, contentSelection, criteria),
                 contentSelection
         );
@@ -639,7 +644,8 @@ public class DatabaseRepository {
     public synchronized List<String> getNextDigests(
             int widgetId,
             @NonNull ContentSelection contentSelection,
-            @NonNull String criteria) {
+            @NonNull String criteria,
+            QuotationsPreferences quotationsPreferences) {
         // insertion order required
         final LinkedHashSet<String> nextQuotationDigests;
 
@@ -673,14 +679,16 @@ public class DatabaseRepository {
                 break;
 
             case SEARCH:
-                final LinkedHashSet<String> searchDigests;
-                if (useInternalDatabase()) {
-                    searchDigests
-                            = new LinkedHashSet<>(quotationDAO.getNextSearchTextDigests("%" + criteria + "%"));
-                } else {
-                    searchDigests
-                            = new LinkedHashSet<>(quotationExternalDAO.getNextSearchTextDigests("%" + criteria + "%"));
+                final LinkedHashSet<String> searchDigests = new LinkedHashSet<>();
+
+                List<QuotationEntity> searchQuotations = getSearchQuotations(
+                        quotationsPreferences.getContentSelectionSearch(),
+                        quotationsPreferences.getContentSelectionSearchFavouritesOnly());
+
+                for (QuotationEntity quotationEntity: searchQuotations) {
+                    searchDigests.add(quotationEntity.digest);
                 }
+
                 searchDigests.removeAll(previousDigests);
                 nextQuotationDigests = searchDigests;
                 break;
