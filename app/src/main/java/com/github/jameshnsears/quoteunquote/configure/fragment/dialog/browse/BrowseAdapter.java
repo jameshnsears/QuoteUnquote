@@ -23,12 +23,22 @@ import timber.log.Timber;
 public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder> {
     static int widgetId;
 
+    public enum DIALOG {
+        FAVOURITES,
+        SEARCH
+    }
+
+    static DIALOG dialogType = DIALOG.FAVOURITES;
+
     @Nullable
     static List<BrowseData> browseDataList;
 
-    public BrowseAdapter(final int widgetId, final List<BrowseData> browseDataItems) {
+    public BrowseAdapter(final int widgetId,
+                         final List<BrowseData> browseDataItems,
+                         DIALOG dialogType) {
         BrowseAdapter.widgetId = widgetId;
         browseDataList = browseDataItems;
+        this.dialogType = dialogType;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder
@@ -36,7 +46,7 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
         private final TextView textViewSequentialIndex;
         private final TextView textViewQuotation;
         private final TextView textViewSource;
-        private final TextView textViewFavourite;
+        private TextView textViewFavourite = null;
 
         public ViewHolder(final View view) {
             super(view);
@@ -88,6 +98,10 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
 
         @Override
         public boolean onLongClick(final View view) {
+            if (dialogType == DIALOG.FAVOURITES) {
+                return false;
+            }
+
             BrowseData browseDataItem = browseDataList.get(this.getAdapterPosition());
 
             QuoteUnquoteModel quoteUnquoteModel = new QuoteUnquoteModel(widgetId, view.getContext());
@@ -129,9 +143,13 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
         viewHolder.getTextViewSource().setText(browseDataItem.getSource());
         viewHolder.getTextViewSource().setEnabled(false);
 
-        QuoteUnquoteModel quoteUnquoteModel = new QuoteUnquoteModel(widgetId, viewHolder.itemView.getContext());
-        if (quoteUnquoteModel.isFavourite(browseDataItem.getDigest())) {
-            viewHolder.getTextViewFavourite().setVisibility(View.VISIBLE);
+        if (dialogType == DIALOG.SEARCH) {
+            QuoteUnquoteModel quoteUnquoteModel = new QuoteUnquoteModel(widgetId, viewHolder.itemView.getContext());
+            if (quoteUnquoteModel.isFavourite(browseDataItem.getDigest())) {
+                viewHolder.getTextViewFavourite().setVisibility(View.VISIBLE);
+            } else {
+                viewHolder.getTextViewFavourite().setVisibility(View.GONE);
+            }
         } else {
             viewHolder.getTextViewFavourite().setVisibility(View.GONE);
         }

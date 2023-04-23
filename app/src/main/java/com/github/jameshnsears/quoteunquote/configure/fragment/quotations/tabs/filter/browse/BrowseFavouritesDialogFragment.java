@@ -34,6 +34,9 @@ public class BrowseFavouritesDialogFragment extends DialogFragment {
     @Nullable
     protected QuoteUnquoteModel quoteUnquoteModel;
 
+    protected BrowseAdapter.DIALOG dialogType =
+            BrowseAdapter.DIALOG.FAVOURITES;
+
     protected int title;
 
     public BrowseFavouritesDialogFragment(int widgetId, QuoteUnquoteModel quoteUnquoteModel, int title) {
@@ -73,7 +76,10 @@ public class BrowseFavouritesDialogFragment extends DialogFragment {
 
         fragmentQuotationsBrowseDialogBinding.recycleViewBrowse.addItemDecoration(divider);
 
-        BrowseAdapter adapter = new BrowseAdapter(widgetId, getDataForRecyclerView());
+        BrowseAdapter adapter = new BrowseAdapter(
+                widgetId,
+                getDataForRecyclerView(),
+                dialogType);
 
         fragmentQuotationsBrowseDialogBinding.recycleViewBrowse.setAdapter(adapter);
     }
