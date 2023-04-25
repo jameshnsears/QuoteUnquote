@@ -211,7 +211,10 @@ public class QuoteUnquoteModel {
                         nextQuotation.digest);
             } else {
                 if (!isNextNew(widgetId, quotationsPreferences, randomNext) && randomNext) {
-                    nextQuotation = databaseRepository.getQuotation(previous.get(0));
+                    Timber.d("purge Previous");
+                    resetPrevious(widgetId, quotationsPreferences.getContentSelection());
+                    markAsCurrentDefault(widgetId);
+                    nextQuotation = getCurrentQuotation(widgetId);
                 }
             }
 

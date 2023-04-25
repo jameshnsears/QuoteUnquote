@@ -16,7 +16,7 @@
             android:drawablePadding="10dp"
             android:paddingTop="0dp"
             android:paddingBottom="10dp"
-            android:text="@string/fragment_quotations_selection_dialog_browse_share"
+            android:text="@string/fragment_quotations_selection_dialog_browse_share_and_toggle"
             app:drawableStartCompat="@drawable/ic_info_24" />
 
     <androidx.recyclerview.widget.RecyclerView

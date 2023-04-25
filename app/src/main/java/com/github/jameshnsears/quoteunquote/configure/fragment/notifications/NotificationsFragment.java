@@ -127,6 +127,12 @@ public class NotificationsFragment extends FragmentCommon {
     private void setNext() {
         fragmentNotificationsBinding.radioButtonNextRandom.setChecked(notificationsPreferences.getEventNextRandom());
         fragmentNotificationsBinding.radioButtonNextSequential.setChecked(notificationsPreferences.getEventNextSequential());
+
+        if (notificationsPreferences.getEventNextRandom()) {
+            fragmentNotificationsBinding.textViewInfoNextRandom.setEnabled(true);
+        } else {
+            fragmentNotificationsBinding.textViewInfoNextRandom.setEnabled(false);
+        }
     }
 
     private void setDisplay() {
@@ -156,6 +162,10 @@ public class NotificationsFragment extends FragmentCommon {
             if (notificationsPreferences.getEventNextRandom() != isChecked) {
                 notificationsPreferences.setEventNextRandom(isChecked);
             }
+
+            if (isChecked) {
+                fragmentNotificationsBinding.textViewInfoNextRandom.setEnabled(true);
+            }
         });
     }
 
@@ -164,6 +174,10 @@ public class NotificationsFragment extends FragmentCommon {
         radioButtonNextSequential.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (notificationsPreferences.getEventNextSequential() != isChecked) {
                 notificationsPreferences.setEventNextSequential(isChecked);
+            }
+
+            if (isChecked) {
+                fragmentNotificationsBinding.textViewInfoNextRandom.setEnabled(false);
             }
         });
     }

@@ -1,13 +1,13 @@
-From Reddit to Shakespeare, and beyond... Discover high quality Quotations!
-
 Improve your self-esteem with this easy to use App Widget :-)
 
-Key features:
-&bull; The Quotations! Carefully sourced and curated
+Discover high quality Quotations!
+
+Import Affirmations!
+
 &bull; Works offline
 &bull; Navigate through what you want, how you want
-&bull; Single tap to Wikipedia Source article
 &bull; Highly customisable
 &bull; Notification channels and actions
+&bull; Wikipedia Source article (Internal Database only)
 &bull; Backup and Restore, locally or remote
 &bull; User feedback drives development

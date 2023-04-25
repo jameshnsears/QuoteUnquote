@@ -46,9 +46,9 @@ android {
         applicationId "com.github.jameshnsears.quoteunquote"
 
         // changelog version | min sdk | target sdk
-        versionCode 1402433
+        versionCode 1412433
         // semantic versioning
-        versionName "4.22.1"
+        versionName "4.23.0"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -229,7 +229,7 @@ dependencies {
     implementation 'com.google.guava:guava:31.1-jre'
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.2.0'
     implementation 'com.jakewharton.timber:timber:5.0.1'
-    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.11.0'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.21'

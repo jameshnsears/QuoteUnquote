@@ -642,14 +642,17 @@ public class QuotationsFilterFragment extends FragmentCommon {
     }
 
     private void alignFavouriteWidgetsWithAvailability() {
-        if (quoteUnquoteModel.countFavouritesWithoutRx() > 0) {
+        int countFavourites = quoteUnquoteModel.countFavouritesWithoutRx();
+
+        fragmentQuotationsTabFilterBinding.radioButtonFavourites.setText(
+                getResources().getString(R.string.fragment_quotations_selection_favourites, countFavourites));
+
+        if (countFavourites > 0) {
             fragmentQuotationsTabFilterBinding.buttonFavouritesBrowse.setEnabled(true);
             QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabFilterBinding.buttonFavouritesBrowse, true);
 
             fragmentQuotationsTabFilterBinding.buttonFavouritesExport.setEnabled(true);
             QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabFilterBinding.buttonFavouritesExport, true);
-
-            ////////
 
             fragmentQuotationsTabFilterBinding.switchSearchFavouritesOnly.setEnabled(true);
         } else {
@@ -658,8 +661,6 @@ public class QuotationsFilterFragment extends FragmentCommon {
 
             fragmentQuotationsTabFilterBinding.buttonFavouritesExport.setEnabled(false);
             QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabFilterBinding.buttonFavouritesExport, false);
-
-            ////////
 
             this.fragmentQuotationsTabFilterBinding.switchSearchFavouritesOnly.setEnabled(false);
             this.fragmentQuotationsTabFilterBinding.switchSearchFavouritesOnly.setChecked(false);

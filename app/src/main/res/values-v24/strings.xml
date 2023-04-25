@@ -52,9 +52,10 @@
     <string name="fragment_quotations_selection_search_no_results">No results found for search</string>
 
     <string name="fragment_quotations_selection_dialog_browse_favourites">Favourites</string>
+    <string name="fragment_quotations_selection_dialog_browse_favourites_favourited">Quotation has been favourited</string>
+    <string name="fragment_quotations_selection_dialog_browse_favourites_unfavourited">Quotation has been unfavourited</string>
     <string name="fragment_quotations_selection_dialog_browse_search">Search Results</string>
-    <string name="fragment_quotations_selection_dialog_browse_share">Tap to Share</string>
-    <string name="fragment_quotations_selection_dialog_browse_share_and_toggle">Tap to Share; Long Tap, toggle Favourite</string>
+    <string name="fragment_quotations_selection_dialog_browse_share_and_toggle">Tap to Share; Long Tap to toggle Favourite</string>
 
     <string name="fragment_quotations_database">Database</string>
     <string name="fragment_quotations_database_default">Internal</string>
@@ -80,7 +81,7 @@
     <string name="fragment_quotations_database_scrape_xpath_error_quotation">Invalid quotation XPath</string>
     <string name="fragment_quotations_database_scrape_xpath_error_source">Invalid source XPath</string>
     <string name="fragment_quotations_database_scrape_test_success">Success - web page imported</string>
-    <string name="fragment_quotations_database_scrape_info">App Widget will poll every 30 minutes, starting at 00:00</string>
+    <string name="fragment_quotations_database_scrape_info">HTML 5 compatible response expected; App Widget will poll every 30 minutes, starting at 00:00</string>
 
     <string name="fragment_appearance_title">Appearance</string>
     <string name="fragment_appearance_tab_style">Contents</string>
@@ -143,6 +144,7 @@
     <string name="fragment_appearance_toolbar_next_sequential">Next, sequential</string>
     <string name="fragment_appearance_toolbar_position_indicator">Jump, last Previous</string>
     <string name="fragment_appearance_toolbar_next_random">Next, random</string>
+    <string name="fragment_appearance_navigation_info">Random quotations will recycle from the beginning</string>
 
     <string name="fragment_notifications_title">Notifications</string>
     <string name="fragment_notifications_where">Display</string>

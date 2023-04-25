@@ -2,6 +2,7 @@ package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
@@ -10,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -61,7 +63,7 @@ public class BrowseFavouritesDialogFragment extends DialogFragment {
         constructRecyclerView();
 
         builder.setView(fragmentQuotationsBrowseDialogBinding.getRoot());
-        builder.setNegativeButton(R.string.fragment_appearance_cancel, (dialog, id) -> getDialog().cancel());
+        builder.setNegativeButton(R.string.fragment_appearance_ok, (dialog, id) -> getDialog().cancel());
 
         return builder.create();
     }
@@ -110,5 +112,15 @@ public class BrowseFavouritesDialogFragment extends DialogFragment {
     public void onDestroyView() {
         super.onDestroyView();
         fragmentQuotationsBrowseDialogBinding = null;
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+
+        Fragment parentFragment = getParentFragment();
+        if (parentFragment instanceof DialogInterface.OnDismissListener) {
+            ((DialogInterface.OnDismissListener) parentFragment).onDismiss(dialog);
+        }
     }
 }

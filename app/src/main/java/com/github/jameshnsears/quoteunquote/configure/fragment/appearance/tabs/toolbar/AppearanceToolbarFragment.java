@@ -96,6 +96,13 @@ public class AppearanceToolbarFragment extends FragmentCommon {
 
         fragmentAppearanceTabToolbarBinding.toolbarSwitchJump.setChecked(appearancePreferences.getAppearanceToolbarJump());
         fragmentAppearanceTabToolbarBinding.toolbarSwitchNextRandom.setChecked(appearancePreferences.getAppearanceToolbarRandom());
+
+        if (appearancePreferences.getAppearanceToolbarRandom()) {
+            fragmentAppearanceTabToolbarBinding.textViewNextRandomInfo.setEnabled(true);
+        } else {
+            fragmentAppearanceTabToolbarBinding.textViewNextRandomInfo.setEnabled(false);
+        }
+
         fragmentAppearanceTabToolbarBinding.toolbarSwitchNextSequential.setChecked(appearancePreferences.getAppearanceToolbarSequential());
     }
 
@@ -178,9 +185,15 @@ public class AppearanceToolbarFragment extends FragmentCommon {
     }
 
     private void createListenerToolbarNextRandom() {
-        fragmentAppearanceTabToolbarBinding.toolbarSwitchNextRandom.setOnCheckedChangeListener((buttonView, isChecked) ->
-                appearancePreferences.setAppearanceToolbarRandom(isChecked)
-        );
+        fragmentAppearanceTabToolbarBinding.toolbarSwitchNextRandom.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            appearancePreferences.setAppearanceToolbarRandom(isChecked);
+
+            if (isChecked) {
+                fragmentAppearanceTabToolbarBinding.textViewNextRandomInfo.setEnabled(true);
+            } else {
+                fragmentAppearanceTabToolbarBinding.textViewNextRandomInfo.setEnabled(false);
+            }
+        });
     }
 
     private void createListenerToolbarNextSequential() {

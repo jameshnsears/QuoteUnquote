@@ -27,8 +27,6 @@ public class BrowseSearchDialogFragment extends BrowseFavouritesDialogFragment {
     @Override
     protected void constructRecyclerView() {
         super.constructRecyclerView();
-        fragmentQuotationsBrowseDialogBinding
-                .textViewShareInfo.setText(R.string.fragment_quotations_selection_dialog_browse_share_and_toggle);
     }
 
     @NonNull
@@ -57,15 +55,5 @@ public class BrowseSearchDialogFragment extends BrowseFavouritesDialogFragment {
         }
 
         return browseSearchList;
-    }
-
-    @Override
-    public void onDismiss(DialogInterface dialog) {
-        super.onDismiss(dialog);
-        Fragment parentFragment = getParentFragment();
-
-        if (parentFragment instanceof DialogInterface.OnDismissListener) {
-            ((DialogInterface.OnDismissListener) parentFragment).onDismiss(dialog);
-        }
     }
 }

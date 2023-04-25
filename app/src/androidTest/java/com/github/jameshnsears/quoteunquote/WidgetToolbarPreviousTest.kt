@@ -92,7 +92,6 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
         pressPrevious(quotationsPreferences, "d2345678", "1/3")
         pressNext(quotationsPreferences, "d3456789", "2/3", false)
         pressNext(quotationsPreferences, "d4567890", "3/3", false)
-
         pressNext(quotationsPreferences, "d4567890", "3/3", false)
         pressPrevious(quotationsPreferences, "d3456789", "2/3")
     }
@@ -149,6 +148,7 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
 
     @Test
     fun lastNextRandom() {
+        insertQuotationTestData01()
         insertQuotationTestData02()
 
         val quotationsPreferences =
@@ -158,12 +158,13 @@ class WidgetToolbarPreviousTest : QuoteUnquoteModelUtility() {
             )
         quotationsPreferences.contentSelection = ContentSelection.ALL
 
-        pressNext(quotationsPreferences, "", "1/3", true)
-        pressNext(quotationsPreferences, "", "2/3", true)
-        pressPrevious(quotationsPreferences, "", "1/3")
-        pressNext(quotationsPreferences, "", "3/3", true)
-        pressPrevious(quotationsPreferences, "", "2/3")
-        pressNext(quotationsPreferences, "", "3/3", true)
-        pressNext(quotationsPreferences, "", "3/3", true)
+        pressNext(quotationsPreferences, "", "1/5", true)
+        pressNext(quotationsPreferences, "", "2/5", true)
+        pressNext(quotationsPreferences, "", "3/5", true)
+        pressNext(quotationsPreferences, "", "4/5", true)
+        pressNext(quotationsPreferences, "", "5/5", true)
+
+        pressNext(quotationsPreferences, "", "1/5", true)
+        pressNext(quotationsPreferences, "", "2/5", true)
     }
 }

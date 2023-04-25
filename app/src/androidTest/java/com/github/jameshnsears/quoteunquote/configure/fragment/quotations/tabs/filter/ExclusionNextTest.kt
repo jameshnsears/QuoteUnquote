@@ -160,6 +160,6 @@ class ExclusionNextTest : QuoteUnquoteModelUtility() {
     current = q2.2/a2
 
       next, sequential * 3 =  q3.3/a3
-     */
+         */
     }
 }

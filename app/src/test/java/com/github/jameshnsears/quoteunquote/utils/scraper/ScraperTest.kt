@@ -33,7 +33,8 @@ class ScraperTest {
         assertEquals("Matthew 10:16 (KJV)", scraper.getSource(document2))
 
         // 20230316 - UI changed
-        val document3 = scraper.getDocumentFromResources("/ExternalDatabaseWeb/3/Verse of the Day - 1 Peter 5_10 (KJV) _ The Bible App _ Bible.com.xml")
+        val document3 =
+            scraper.getDocumentFromResources("/ExternalDatabaseWeb/3/Verse of the Day - 1 Peter 5_10 (KJV) _ The Bible App _ Bible.com.xml")
         assertEquals(
             "1 Peter 5:10 KJV",
             scraper.getQuotation(
@@ -103,5 +104,56 @@ class ScraperTest {
             scraper.getDocumentFromResources("/ExternalDatabaseWeb/1/Bible Verse of the Day _ YouVersion.xml")
 
         scraper.getSource(document, "/1")
+    }
+
+    @Test(expected = ScraperSourceException::class)
+    fun `xml - html element not supported by jsoup`() {
+        // curl https://ghq1fjr4d3.execute-api.eu-north-1.amazonaws.com/default/myQuotes -o myQuotes.txt
+        val document =
+            scraper.getDocumentFromResources("/ExternalDatabaseWeb/xml/myQuotes.txt")
+
+        assertEquals(
+            "Source1",
+            scraper.getSource(
+                document,
+                "/html/body/root/quotes/quote/source",
+            ),
+        )
+    }
+
+    @Test
+    fun `xml - with renamed element`() {
+        val document =
+            scraper.getDocumentFromResources("/ExternalDatabaseWeb/xml/myQuotes-fixed.txt")
+
+        assertEquals(
+            "Source1",
+            scraper.getSource(
+                document,
+                "/html/body/root/quotes/quote/s",
+            ),
+        )
+        assertEquals(
+            "Source1",
+            scraper.getSource(
+                document,
+                "//s",
+            ),
+        )
+
+        assertEquals(
+            "Quotation1",
+            scraper.getSource(
+                document,
+                "/html/body/root/quotes/quote/text",
+            ),
+        )
+        assertEquals(
+            "Quotation1",
+            scraper.getSource(
+                document,
+                "//text",
+            ),
+        )
     }
 }

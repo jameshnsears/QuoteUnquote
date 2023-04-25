@@ -55,7 +55,7 @@ class TransferRestore : TransferCommon() {
             -> widget same as 1 except all unique previous from 1 and 2 also in 1
         restore 2 widgets into 2 widgets
             -> widgets identical except all unique previous from 1 and 2 also in both
-        */
+         */
 
         restoreCurrent(context, databaseRepository, transfer.current)
         restorePrevious(context, databaseRepository, transfer.previous)

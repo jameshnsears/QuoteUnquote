@@ -1,10 +1,12 @@
 package com.github.jameshnsears.quoteunquote.configure.fragment.dialog.browse;
 
 import android.annotation.SuppressLint;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -98,10 +100,6 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
 
         @Override
         public boolean onLongClick(final View view) {
-            if (dialogType == DIALOG.FAVOURITES) {
-                return false;
-            }
-
             BrowseData browseDataItem = browseDataList.get(this.getAdapterPosition());
 
             QuoteUnquoteModel quoteUnquoteModel = new QuoteUnquoteModel(widgetId, view.getContext());
@@ -112,8 +110,20 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
 
             if (isFavourite) {
                 getTextViewFavourite().setVisibility(View.GONE);
+                Toast toast = Toast.makeText(
+                        view.getContext(),
+                        view.getContext().getString(R.string.fragment_quotations_selection_dialog_browse_favourites_unfavourited),
+                        Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.BOTTOM, 0, 50);
+                toast.show();
             } else {
                 getTextViewFavourite().setVisibility(View.VISIBLE);
+                Toast toast = Toast.makeText(
+                        view.getContext(),
+                        view.getContext().getString(R.string.fragment_quotations_selection_dialog_browse_favourites_favourited),
+                        Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.BOTTOM, 0, 50);
+                toast.show();
             }
 
             quoteUnquoteModel.toggleFavourite(widgetId, browseDataItem.getDigest());
@@ -143,13 +153,9 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
         viewHolder.getTextViewSource().setText(browseDataItem.getSource());
         viewHolder.getTextViewSource().setEnabled(false);
 
-        if (dialogType == DIALOG.SEARCH) {
-            QuoteUnquoteModel quoteUnquoteModel = new QuoteUnquoteModel(widgetId, viewHolder.itemView.getContext());
-            if (quoteUnquoteModel.isFavourite(browseDataItem.getDigest())) {
-                viewHolder.getTextViewFavourite().setVisibility(View.VISIBLE);
-            } else {
-                viewHolder.getTextViewFavourite().setVisibility(View.GONE);
-            }
+        QuoteUnquoteModel quoteUnquoteModel = new QuoteUnquoteModel(widgetId, viewHolder.itemView.getContext());
+        if (quoteUnquoteModel.isFavourite(browseDataItem.getDigest())) {
+            viewHolder.getTextViewFavourite().setVisibility(View.VISIBLE);
         } else {
             viewHolder.getTextViewFavourite().setVisibility(View.GONE);
         }

@@ -1,0 +1,1 @@
+<root><quotes><quote><s>Source1</s><text>Quotation1</text></quote></quotes></root>
