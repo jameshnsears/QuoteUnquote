@@ -19,6 +19,7 @@ public class QuotationsPreferences extends PreferencesFacade {
     public static final String CONTENT_FAVOURITES = "CONTENT_FAVOURITES";
     public static final String CONTENT_SEARCH = "CONTENT_SEARCH";
     public static final String CONTENT_SEARCH_FAVOURITES_ONLY = "CONTENT_SEARCH_FAVOURITES_ONLY";
+    public static final String CONTENT_SEARCH_REGEX = "CONTENT_SEARCH_REGEX";
     public static final String CONTENT_SEARCH_COUNT = "CONTENT_SEARCH_COUNT";
     public static final String CONTENT_SEARCH_TEXT = "CONTENT_SEARCH_TEXT";
 
@@ -137,6 +138,15 @@ public class QuotationsPreferences extends PreferencesFacade {
 
     public void setContentSelectionAuthor(@NonNull String value) {
         this.preferenceHelper.setPreference(this.getPreferenceKey(QuotationsPreferences.CONTENT_AUTHOR_NAME), value);
+    }
+
+    @NonNull
+    public boolean getContentSelectionSearchRegEx() {
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(QuotationsPreferences.CONTENT_SEARCH_REGEX), false);
+    }
+
+    public void setContentSelectionSearchRegEx(@NonNull boolean value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(QuotationsPreferences.CONTENT_SEARCH_REGEX), value);
     }
 
     @NonNull

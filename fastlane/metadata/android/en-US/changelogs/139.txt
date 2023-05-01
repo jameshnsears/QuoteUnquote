@@ -1,4 +1,0 @@
-&bull; Ensure Favourites only in Search card cross into App Widget
-&bull; Search Browse dialog shows Favourite icon
-&bull; Give Notification channels group a name
-&bull; Improved Theme support

@@ -152,6 +152,55 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp">
+
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                    <Button
+                            android:id="@+id/buttonSourceBrowse"
+                            android:layout_width="120dp"
+                            android:layout_height="48dp"
+                            android:contentDescription="@string/fragment_quotations_selection_browse"
+                            android:enabled="false"
+                            android:text="@string/fragment_quotations_selection_browse"
+                            android:textColor="@android:color/white"
+                            app:backgroundTint="@null"
+                            app:strokeColor="?attr/colorPrimary"
+                            app:strokeWidth="1dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                    <Button
+                            android:id="@+id/buttonSourceExport"
+                            android:layout_width="120dp"
+                            android:layout_height="48dp"
+                            android:contentDescription="@string/fragment_quotations_selection_export_button"
+                            android:enabled="false"
+                            android:text="@string/fragment_quotations_selection_export_button"
+                            android:textColor="@android:color/white"
+                            app:backgroundTint="@null"
+                            app:strokeColor="?attr/colorPrimary"
+                            app:strokeWidth="1dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
@@ -223,6 +272,7 @@
                             android:layout_width="120dp"
                             android:layout_height="48dp"
                             android:contentDescription="@string/fragment_quotations_selection_export_button"
+                            android:enabled="false"
                             android:text="@string/fragment_quotations_selection_export_button"
                             android:textColor="@android:color/white"
                             app:backgroundTint="@null"
@@ -282,12 +332,20 @@
                         android:paddingEnd="0dp"
                         android:text="@string/fragment_quotations_selection_search_favourites_only" />
 
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchRegEx"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fragment_quotations_selection_search_switch_regex" />
+
+
                 <EditText
                         android:id="@+id/editTextSearchText"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:ems="10"
+                        android:enabled="false"
                         android:gravity="start|top"
                         android:hint="@string/fragment_quotations_selection_search_instructions"
                         android:importantForAutofill="no"

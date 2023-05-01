@@ -36,10 +36,20 @@ public class BrowseSearchDialogFragment extends BrowseFavouritesDialogFragment {
 
         QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, getActivity());
 
-        List<QuotationEntity> searchQuotationsList = quoteUnquoteModel.getSearchQuotations(
-                quotationsPreferences.getContentSelectionSearch(),
-                quotationsPreferences.getContentSelectionSearchFavouritesOnly()
-        );
+        List<QuotationEntity> searchQuotationsList;
+
+        if (quotationsPreferences.getContentSelectionSearchRegEx()) {
+            searchQuotationsList = quoteUnquoteModel.getSearchQuotationsRegEx(
+                    quotationsPreferences.getContentSelectionSearch(),
+                    quotationsPreferences.getContentSelectionSearchFavouritesOnly()
+            );
+        } else {
+            searchQuotationsList = quoteUnquoteModel.getSearchQuotations(
+                    quotationsPreferences.getContentSelectionSearch(),
+                    quotationsPreferences.getContentSelectionSearchFavouritesOnly()
+            );
+        }
+
         int padding = String.valueOf(searchQuotationsList.size()).length();
 
         int index = 1;

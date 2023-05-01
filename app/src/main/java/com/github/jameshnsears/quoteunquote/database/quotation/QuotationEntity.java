@@ -11,7 +11,7 @@ import androidx.room.Index;
 public class QuotationEntity {
     @NonNull
     @ColumnInfo(name = "author", collate = ColumnInfo.NOCASE)
-    public final String author;
+    public String author;
 
     @NonNull
     @ColumnInfo(name = "quotation", collate = ColumnInfo.NOCASE)

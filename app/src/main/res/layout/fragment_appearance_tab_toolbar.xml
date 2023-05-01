@@ -232,19 +232,6 @@
                         tools:ignore="TextContrastCheck" />
             </LinearLayout>
 
-            <TextView
-                    android:id="@+id/textViewNextRandomInfo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="10dp"
-                    android:paddingVertical="10dp"
-                    android:paddingStart="4dp"
-                    android:paddingTop="5dp"
-                    android:paddingEnd="0dp"
-                    android:paddingBottom="0dp"
-                    android:text="@string/fragment_appearance_navigation_info"
-                    app:drawableStartCompat="@drawable/ic_info_24"/>
-
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>

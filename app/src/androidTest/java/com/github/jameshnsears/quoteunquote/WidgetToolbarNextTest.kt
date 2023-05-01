@@ -53,7 +53,6 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
             "d1234567",
             quoteUnquoteModelDouble.getLastPreviousDigest(
                 WidgetIdHelper.WIDGET_ID_01,
-                ContentSelection.ALL,
             ),
         )
 
@@ -68,7 +67,6 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
             "d2345678",
             quoteUnquoteModelDouble.getLastPreviousDigest(
                 WidgetIdHelper.WIDGET_ID_01,
-                ContentSelection.ALL,
             ),
         )
 
@@ -81,7 +79,6 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
             quoteUnquoteModelDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01)?.digest,
             quoteUnquoteModelDouble.getLastPreviousDigest(
                 WidgetIdHelper.WIDGET_ID_01,
-                ContentSelection.ALL,
             ),
         )
 
@@ -96,7 +93,6 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
             quoteUnquoteModelDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01)?.digest,
             quoteUnquoteModelDouble.getLastPreviousDigest(
                 WidgetIdHelper.WIDGET_ID_01,
-                ContentSelection.ALL,
             ),
         )
     }

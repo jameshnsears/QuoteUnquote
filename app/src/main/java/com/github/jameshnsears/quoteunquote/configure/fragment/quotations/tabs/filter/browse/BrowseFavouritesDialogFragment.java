@@ -39,12 +39,21 @@ public class BrowseFavouritesDialogFragment extends DialogFragment {
     protected BrowseAdapter.DIALOG dialogType =
             BrowseAdapter.DIALOG.FAVOURITES;
 
-    protected int title;
+    protected int titleResourceId;
 
-    public BrowseFavouritesDialogFragment(int widgetId, QuoteUnquoteModel quoteUnquoteModel, int title) {
+    protected String titleString;
+
+
+    public BrowseFavouritesDialogFragment(int widgetId, QuoteUnquoteModel quoteUnquoteModel, int titleResourceId) {
         this.widgetId = widgetId;
         this.quoteUnquoteModel = quoteUnquoteModel;
-        this.title = title;
+        this.titleResourceId = titleResourceId;
+    }
+
+    public BrowseFavouritesDialogFragment(int widgetId, QuoteUnquoteModel quoteUnquoteModel, String titleString) {
+        this.widgetId = widgetId;
+        this.quoteUnquoteModel = quoteUnquoteModel;
+        this.titleString = titleString;
     }
 
     @Override
@@ -58,12 +67,15 @@ public class BrowseFavouritesDialogFragment extends DialogFragment {
                 new ContextThemeWrapper(
                         getActivity(), R.style.Theme_MaterialComponents_DayNight)));
 
-        builder.setTitle(title);
+        if (titleString == null) {
+            builder.setTitle(titleResourceId);
+        } else {
+            builder.setTitle(titleString);
+        }
 
         constructRecyclerView();
 
         builder.setView(fragmentQuotationsBrowseDialogBinding.getRoot());
-        builder.setNegativeButton(R.string.fragment_appearance_ok, (dialog, id) -> getDialog().cancel());
 
         return builder.create();
     }

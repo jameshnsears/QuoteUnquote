@@ -229,7 +229,7 @@ public class NotificationHelper {
 
         if (!sequential) {
             icon = R.drawable.ic_toolbar_next_random_ff000000_24;
-            nextString = context.getString(R.string.fragment_appearance_toolbar_next_random);
+            nextString = context.getString(R.string.fragment_appearance_toolbar_next_random_action);
         }
 
         return new NotificationCompat.Action(

@@ -46,14 +46,17 @@
     <string name="fragment_quotations_selection_export_success">Success - export completed</string>
     <string name="fragment_quotations_selection_search"><b>Search: %d</b></string>
     <string name="fragment_quotations_selection_search_favourites_only">Favourites only</string>
-    <string name="fragment_quotations_selection_search_instructions">Case insensitive text search…</string>
-    <string name="fragment_quotations_selection_search_instructions_info">4 characters minimum</string>
+    <string name="fragment_quotations_selection_search_instructions">Search text…</string>
+    <string name="fragment_quotations_selection_search_switch_regex">Use Regular Expression</string>
+    <string name="fragment_quotations_selection_search_switch_regex_invalid">Invalid Regular Expression</string>
+    <string name="fragment_quotations_selection_search_instructions_info">Case insensitive; 4 characters minimum; search covers Quotation and Source</string>
 
     <string name="fragment_quotations_selection_search_no_results">No results found for search</string>
 
+    <string name="fragment_quotations_selection_dialog_browse_source">Source Results</string>
     <string name="fragment_quotations_selection_dialog_browse_favourites">Favourites</string>
-    <string name="fragment_quotations_selection_dialog_browse_favourites_favourited">Quotation has been favourited</string>
-    <string name="fragment_quotations_selection_dialog_browse_favourites_unfavourited">Quotation has been unfavourited</string>
+    <string name="fragment_quotations_selection_dialog_browse_favourites_favourited">Quotation is favourited</string>
+    <string name="fragment_quotations_selection_dialog_browse_favourites_unfavourited">Quotation is unfavourited</string>
     <string name="fragment_quotations_selection_dialog_browse_search">Search Results</string>
     <string name="fragment_quotations_selection_dialog_browse_share_and_toggle">Tap to Share; Long Tap to toggle Favourite</string>
 
@@ -143,8 +146,8 @@
     <string name="fragment_appearance_toolbar_share_exclude_source">Exclude Source from Share</string>
     <string name="fragment_appearance_toolbar_next_sequential">Next, sequential</string>
     <string name="fragment_appearance_toolbar_position_indicator">Jump, last Previous</string>
-    <string name="fragment_appearance_toolbar_next_random">Next, random</string>
-    <string name="fragment_appearance_navigation_info">Random quotations will recycle from the beginning</string>
+    <string name="fragment_appearance_toolbar_next_random">Next, random (recycles at end)</string>
+    <string name="fragment_appearance_toolbar_next_random_action">Next, random</string>
 
     <string name="fragment_notifications_title">Notifications</string>
     <string name="fragment_notifications_where">Display</string>
@@ -189,6 +192,6 @@
     <string name="preview_description">Discover high quality Quotations!</string>
     <string name="preview_quotation">Nothing matters very much and very few things matter at all.\n</string>
     <string name="preview_author"><u>Arthur Balfour\n</u></string>
-    <string name="preview_position">\u2316  1/20575\u0020</string>
+    <string name="preview_position">\u2316  1/20553\u0020</string>
 
 </resources>

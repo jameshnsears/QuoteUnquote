@@ -27,7 +27,8 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
 
     public enum DIALOG {
         FAVOURITES,
-        SEARCH
+        SEARCH,
+        SOURCE
     }
 
     static DIALOG dialogType = DIALOG.FAVOURITES;
@@ -150,8 +151,12 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
         viewHolder.getTextViewQuotation().setText(browseDataItem.getQuotation());
         viewHolder.getTextViewQuotation().setEnabled(false);
 
-        viewHolder.getTextViewSource().setText(browseDataItem.getSource());
-        viewHolder.getTextViewSource().setEnabled(false);
+        if (dialogType != DIALOG.SOURCE) {
+            viewHolder.getTextViewSource().setText(browseDataItem.getSource());
+            viewHolder.getTextViewSource().setEnabled(false);
+        } else {
+            viewHolder.getTextViewSource().setVisibility(View.GONE);
+        }
 
         QuoteUnquoteModel quoteUnquoteModel = new QuoteUnquoteModel(widgetId, viewHolder.itemView.getContext());
         if (quoteUnquoteModel.isFavourite(browseDataItem.getDigest())) {

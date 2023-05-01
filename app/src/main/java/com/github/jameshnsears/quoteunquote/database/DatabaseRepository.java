@@ -28,6 +28,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import io.reactivex.Single;
 import timber.log.Timber;
@@ -221,6 +223,27 @@ public class DatabaseRepository {
         return position;
     }
 
+    public ArrayList<QuotationEntity> getQuotationsForAuthor(@NonNull final String author) {
+        ArrayList<String> digestsForAuthor;
+        ArrayList<QuotationEntity> quotationEntityList = new ArrayList<>();
+
+        if (useInternalDatabase()) {
+            digestsForAuthor = new ArrayList(quotationDAO.getDigestsForAuthor(author));
+
+            for (String digest: digestsForAuthor) {
+                quotationEntityList.add(quotationDAO.getQuotation(digest));
+            }
+        } else {
+            digestsForAuthor = new ArrayList(quotationExternalDAO.getDigestsForAuthor(author));
+
+            for (String digest: digestsForAuthor) {
+                quotationEntityList.add(quotationExternalDAO.getQuotation(digest));
+            }
+        }
+
+        return quotationEntityList;
+    }
+
     public int countNext(
             @NonNull final QuotationsPreferences quotationsPreferences) {
         int countTotalNext;
@@ -247,9 +270,15 @@ public class DatabaseRepository {
                 break;
 
             case SEARCH:
-                countTotalNext = getSearchQuotations(
-                        quotationsPreferences.getContentSelectionSearch(),
-                        quotationsPreferences.getContentSelectionSearchFavouritesOnly()).size();
+                if (quotationsPreferences.getContentSelectionSearchRegEx()) {
+                    countTotalNext = getSearchQuotationsRegEx(
+                            quotationsPreferences.getContentSelectionSearch(),
+                            quotationsPreferences.getContentSelectionSearchFavouritesOnly()).size();
+                } else {
+                    countTotalNext = getSearchQuotations(
+                            quotationsPreferences.getContentSelectionSearch(),
+                            quotationsPreferences.getContentSelectionSearchFavouritesOnly()).size();
+                }
                 break;
 
             default:
@@ -427,6 +456,65 @@ public class DatabaseRepository {
     }
 
     @NonNull
+    public List<QuotationEntity> getSearchQuotationsRegEx(@NonNull final String regEx, boolean favouritesOnly) {
+        List<QuotationEntity> searchQuotations = new ArrayList<>();
+
+        Pattern pattern = Pattern.compile(regEx, Pattern.CASE_INSENSITIVE);
+
+        if (favouritesOnly) {
+            if (useInternalDatabase()) {
+                for (String digest : favouriteDAO.getFavouriteDigests()) {
+                    QuotationEntity quotationEntity = quotationDAO.getQuotation(digest);
+                    if (isFavourite(quotationEntity.digest)) {
+                        Matcher matcherAuthor = pattern.matcher(quotationEntity.author);
+                        Matcher matcherQuotation = pattern.matcher(quotationEntity.quotation);
+
+                        if (matcherAuthor.find() || matcherQuotation.find()) {
+                            searchQuotations.add(quotationEntity);
+                        }
+                    }
+                }
+            } else {
+                for (String digest : favouriteExternalDAO.getFavouriteDigests()) {
+                    QuotationEntity quotationEntity = quotationExternalDAO.getQuotation(digest);
+                    if (isFavourite(quotationEntity.digest)) {
+                        Matcher matcherAuthor = pattern.matcher(quotationEntity.author);
+                        Matcher matcherQuotation = pattern.matcher(quotationEntity.quotation);
+
+                        if (matcherAuthor.find() || matcherQuotation.find()) {
+                            searchQuotations.add(quotationEntity);
+                        }
+                    }
+                }
+            }
+
+            Collections.reverse(searchQuotations);
+        } else {
+            if (useInternalDatabase()) {
+                for (QuotationEntity quotationEntity : quotationDAO.getAllQuotations()) {
+                    Matcher matcherAuthor = pattern.matcher(quotationEntity.author);
+                    Matcher matcherQuotation = pattern.matcher(quotationEntity.quotation);
+
+                    if (matcherAuthor.find() || matcherQuotation.find()) {
+                        searchQuotations.add(quotationEntity);
+                    }
+                }
+            } else {
+                for (QuotationEntity quotationEntity : quotationExternalDAO.getAllQuotations()) {
+                    Matcher matcherAuthor = pattern.matcher(quotationEntity.author);
+                    Matcher matcherQuotation = pattern.matcher(quotationEntity.quotation);
+
+                    if (matcherAuthor.find() || matcherQuotation.find()) {
+                        searchQuotations.add(quotationEntity);
+                    }
+                }
+            }
+        }
+
+        return searchQuotations;
+    }
+
+    @NonNull
     public List<QuotationEntity> getSearchQuotations(@NonNull final String text, boolean favouritesOnly) {
         List<QuotationEntity> searchQuotations = new ArrayList<QuotationEntity>();
 
@@ -473,6 +561,60 @@ public class DatabaseRepository {
         }
 
         return searchQuotations;
+    }
+
+    @NonNull
+    public Integer countSearchTextRegEx(@NonNull final String regEx, boolean favouritesOnly) {
+        Pattern pattern = Pattern.compile(regEx, Pattern.CASE_INSENSITIVE);
+        int searchCount = 0;
+
+        if (favouritesOnly) {
+            if (useInternalDatabase()) {
+                for (String digest : favouriteDAO.getFavouriteDigests()) {
+                    QuotationEntity quotationEntity = quotationDAO.getQuotation(digest);
+
+                    Matcher matcherAuthor = pattern.matcher(quotationEntity.author);
+                    Matcher matcherQuotation = pattern.matcher(quotationEntity.quotation);
+
+                    if (matcherAuthor.find() || matcherQuotation.find()) {
+                        searchCount += 1;
+                    }
+                }
+            } else {
+                for (String digest : favouriteExternalDAO.getFavouriteDigests()) {
+                    QuotationEntity quotationEntity = quotationExternalDAO.getQuotation(digest);
+
+                    Matcher matcherAuthor = pattern.matcher(quotationEntity.author);
+                    Matcher matcherQuotation = pattern.matcher(quotationEntity.quotation);
+
+                    if (matcherAuthor.find() || matcherQuotation.find()) {
+                        searchCount += 1;
+                    }
+                }
+            }
+        } else {
+            if (useInternalDatabase()) {
+                for (QuotationEntity quotationEntity : quotationDAO.getAllQuotations()) {
+                    Matcher matcherAuthor = pattern.matcher(quotationEntity.author);
+                    Matcher matcherQuotation = pattern.matcher(quotationEntity.quotation);
+
+                    if (matcherAuthor.find() || matcherQuotation.find()) {
+                        searchCount += 1;
+                    }
+                }
+            } else {
+                for (QuotationEntity quotationEntity : quotationExternalDAO.getAllQuotations()) {
+                    Matcher matcherAuthor = pattern.matcher(quotationEntity.author);
+                    Matcher matcherQuotation = pattern.matcher(quotationEntity.quotation);
+
+                    if (matcherAuthor.find() || matcherQuotation.find()) {
+                        searchCount += 1;
+                    }
+                }
+            }
+        }
+
+        return searchCount;
     }
 
     @NonNull
@@ -695,18 +837,11 @@ public class DatabaseRepository {
                 break;
 
             case SEARCH:
-                final LinkedHashSet<String> searchDigests = new LinkedHashSet<>();
-
-                List<QuotationEntity> searchQuotations = getSearchQuotations(
-                        quotationsPreferences.getContentSelectionSearch(),
-                        quotationsPreferences.getContentSelectionSearchFavouritesOnly());
-
-                for (QuotationEntity quotationEntity: searchQuotations) {
-                    searchDigests.add(quotationEntity.digest);
+                if (quotationsPreferences.getContentSelectionSearchRegEx()) {
+                    nextQuotationDigests = getSearchDigestsRegEx(quotationsPreferences, previousDigests);
+                } else {
+                    nextQuotationDigests = getSearchDigests(quotationsPreferences, previousDigests);
                 }
-
-                searchDigests.removeAll(previousDigests);
-                nextQuotationDigests = searchDigests;
                 break;
 
             default:
@@ -726,6 +861,40 @@ public class DatabaseRepository {
         }
 
         return new ArrayList<>(nextQuotationDigests);
+    }
+
+    @NonNull
+    private LinkedHashSet<String> getSearchDigestsRegEx(
+            QuotationsPreferences quotationsPreferences, HashSet<String> previousDigests) {
+        final LinkedHashSet<String> searchDigests = new LinkedHashSet<>();
+
+        List<QuotationEntity> searchQuotations = getSearchQuotationsRegEx(
+                quotationsPreferences.getContentSelectionSearch(),
+                quotationsPreferences.getContentSelectionSearchFavouritesOnly());
+
+        for (QuotationEntity quotationEntity: searchQuotations) {
+            searchDigests.add(quotationEntity.digest);
+        }
+
+        searchDigests.removeAll(previousDigests);
+        return searchDigests;
+    }
+
+    @NonNull
+    private LinkedHashSet<String> getSearchDigests(
+            QuotationsPreferences quotationsPreferences, HashSet<String> previousDigests) {
+        final LinkedHashSet<String> searchDigests = new LinkedHashSet<>();
+
+        List<QuotationEntity> searchQuotations = getSearchQuotations(
+                quotationsPreferences.getContentSelectionSearch(),
+                quotationsPreferences.getContentSelectionSearchFavouritesOnly());
+
+        for (QuotationEntity quotationEntity: searchQuotations) {
+            searchDigests.add(quotationEntity.digest);
+        }
+
+        searchDigests.removeAll(previousDigests);
+        return searchDigests;
     }
 
     public int getRandomIndex(@NonNull final List<String> availableNextQuotations) {
