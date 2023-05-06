@@ -33,7 +33,8 @@
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabTextAppearance="@style/TextAppearance.Material3.TitleMedium" />
+            app:tabTextAppearance="@style/TabSize"
+            app:textAllCaps="false"/>
 
     <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager2Quotations"

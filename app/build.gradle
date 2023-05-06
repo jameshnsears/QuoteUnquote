@@ -46,9 +46,9 @@ android {
         applicationId "com.github.jameshnsears.quoteunquote"
 
         // changelog version | min sdk | target sdk
-        versionCode 1422433
+        versionCode 1432433
         // semantic versioning
-        versionName "4.24.0"
+        versionName "4.25.0"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -211,20 +211,20 @@ dependencies {
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
 
     googleplayImplementation 'com.google.firebase:firebase-analytics:21.2.2'
-    googleplayImplementation 'com.google.firebase:firebase-crashlytics:18.3.6'
+    googleplayImplementation 'com.google.firebase:firebase-crashlytics:18.3.7'
 
     implementation 'androidx.activity:activity-ktx:1.7.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.core:core-ktx:1.10.0'
-    implementation 'androidx.databinding:databinding-runtime:8.0.0'
+    implementation 'androidx.databinding:databinding-runtime:8.0.1'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.room:room-guava:2.5.1'
     implementation 'androidx.room:room-runtime:2.5.1'
     implementation 'androidx.room:room-rxjava2:2.5.1'
     implementation 'com.github.skydoves:colorpickerpreference:2.0.6'
-    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'com.google.android.material:material:1.9.0'
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.google.guava:guava:31.1-jre'
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.2.0'
@@ -236,7 +236,7 @@ dependencies {
     implementation 'net.pwall.json:json-kotlin-schema:0.39'
     implementation 'org.apache.commons:commons-csv:1.10.0'
     implementation 'org.jsoup:jsoup:1.16.1'
-    implementation platform('com.google.firebase:firebase-bom:31.5.0')
+    implementation platform('com.google.firebase:firebase-bom:32.0.0')
     implementation project(path: ':cloudLib')
     implementation project(path: ':utilsLib')
 
@@ -250,7 +250,7 @@ dependencies {
     testImplementation 'io.mockk:mockk:1.13.5'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
-    testImplementation 'org.robolectric:robolectric:4.10'
+    testImplementation 'org.robolectric:robolectric:4.10.2'
 }
 
 repositories {

@@ -35,7 +35,9 @@
                     android:paddingVertical="10dp"
                     android:paddingStart="12dp"
                     android:paddingEnd="0dp"
-                    android:text="@string/fragment_quotations_selection_all" />
+                    android:text="@string/fragment_quotations_selection_all"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
             <LinearLayout
                     android:layout_width="match_parent"
@@ -100,7 +102,9 @@
                     android:paddingVertical="10dp"
                     android:paddingStart="12dp"
                     android:paddingEnd="0dp"
-                    android:text="@string/fragment_quotations_selection_author" />
+                    android:text="@string/fragment_quotations_selection_author"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
             <LinearLayout
                     android:layout_width="match_parent"
@@ -231,7 +235,9 @@
                     android:paddingVertical="10dp"
                     android:paddingStart="12dp"
                     android:paddingEnd="0dp"
-                    android:text="@string/fragment_quotations_selection_favourites" />
+                    android:text="@string/fragment_quotations_selection_favourites"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
             <LinearLayout
                     android:layout_width="match_parent"
@@ -312,7 +318,9 @@
                     android:paddingVertical="10dp"
                     android:paddingStart="12dp"
                     android:paddingEnd="0dp"
-                    android:text="@string/fragment_quotations_selection_search" />
+                    android:text="@string/fragment_quotations_selection_search"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
             <LinearLayout
                     android:layout_width="match_parent"
@@ -415,6 +423,32 @@
                             app:strokeWidth="1dp" />
                 </LinearLayout>
             </LinearLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardViewForceEnableButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true"
+            app:contentPadding="5dp">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/switchForceEnableButtons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fragment_quotations_selection_enable_all_fields" />
 
         </LinearLayout>
 

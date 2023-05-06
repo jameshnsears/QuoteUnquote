@@ -22,6 +22,7 @@ public class QuotationsPreferences extends PreferencesFacade {
     public static final String CONTENT_SEARCH_REGEX = "CONTENT_SEARCH_REGEX";
     public static final String CONTENT_SEARCH_COUNT = "CONTENT_SEARCH_COUNT";
     public static final String CONTENT_SEARCH_TEXT = "CONTENT_SEARCH_TEXT";
+    public static final String CONTENT_SEARCH_FORCE_ENABLE_BUTTONS = "CONTENT_SEARCH_FORCE_ENABLE_BUTTONS";
 
     public static final String DATABASE_INTERNAL = "DATABASE_INTERNAL";
     public static final String DATABASE_EXTERNAL = "DATABASE_EXTERNAL";
@@ -120,6 +121,15 @@ public class QuotationsPreferences extends PreferencesFacade {
 
     public void setContentSelectionSearchFavouritesOnly(@NonNull boolean value) {
         this.preferenceHelper.setPreference(this.getPreferenceKey(QuotationsPreferences.CONTENT_SEARCH_FAVOURITES_ONLY), value);
+    }
+
+    @NonNull
+    public boolean getContentSelectionSearchForceEnableButtons() {
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(QuotationsPreferences.CONTENT_SEARCH_FORCE_ENABLE_BUTTONS), false);
+    }
+
+    public void setContentSelectionSearchForceEnableButtons(@NonNull boolean value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(QuotationsPreferences.CONTENT_SEARCH_FORCE_ENABLE_BUTTONS), value);
     }
 
     @NonNull

@@ -50,15 +50,14 @@
     <string name="fragment_quotations_selection_search_switch_regex">Use Regular Expression</string>
     <string name="fragment_quotations_selection_search_switch_regex_invalid">Invalid Regular Expression</string>
     <string name="fragment_quotations_selection_search_instructions_info">Case insensitive; 4 characters minimum; search covers Quotation and Source</string>
-
-    <string name="fragment_quotations_selection_search_no_results">No results found for search</string>
-
+    <string name="fragment_quotations_selection_search_no_results">No results found for Search</string>
     <string name="fragment_quotations_selection_dialog_browse_source">Source Results</string>
     <string name="fragment_quotations_selection_dialog_browse_favourites">Favourites</string>
     <string name="fragment_quotations_selection_dialog_browse_favourites_favourited">Quotation is favourited</string>
     <string name="fragment_quotations_selection_dialog_browse_favourites_unfavourited">Quotation is unfavourited</string>
     <string name="fragment_quotations_selection_dialog_browse_search">Search Results</string>
     <string name="fragment_quotations_selection_dialog_browse_share_and_toggle">Tap to Share; Long Tap to toggle Favourite</string>
+    <string name="fragment_quotations_selection_enable_all_fields">Force enable Browse &amp; Export</string>
 
     <string name="fragment_quotations_database">Database</string>
     <string name="fragment_quotations_database_default">Internal</string>
@@ -136,7 +135,7 @@
         <item>28</item>
     </integer-array>
     <string name="fragment_appearance_navigation">Toolbar</string>
-    <string name="fragment_appearance_toolbar_hide_separator">Hide separator</string>
+    <string name="fragment_appearance_toolbar_hide_separator">Hide toolbar separator</string>
     <string name="fragment_appearance_toolbar_colour_dialog_title">Button Colour</string>
     <string name="fragment_appearance_toolbar_buttons">Buttons</string>
     <string name="fragment_appearance_toolbar_first">First, clears Previous</string>

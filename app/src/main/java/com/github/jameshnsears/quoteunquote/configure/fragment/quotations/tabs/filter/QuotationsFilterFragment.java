@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.ParcelFileDescriptor;
-import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -138,6 +137,8 @@ public class QuotationsFilterFragment extends FragmentCommon {
         createListenerCardSearchBrowse();
         createListenerCardSearchExport();
 
+        createListenerCardForceEnableButtons();
+
         setCard();
     }
 
@@ -243,6 +244,8 @@ public class QuotationsFilterFragment extends FragmentCommon {
                 setCardAll(true);
                 break;
         }
+
+        setCardForceEnable();
     }
 
     private void setCardAll(final boolean enabled) {
@@ -277,9 +280,16 @@ public class QuotationsFilterFragment extends FragmentCommon {
         fragmentQuotationsTabFilterBinding.spinnerAuthorsCount.setEnabled(enabled);
         fragmentQuotationsTabFilterBinding.spinnerAuthors.setEnabled(enabled);
 
+        setCardSourceButtonBrowse(enabled);
+        setCardSourceButtonExport(enabled);
+    }
+
+    private void setCardSourceButtonBrowse(boolean enabled) {
         this.fragmentQuotationsTabFilterBinding.buttonSourceBrowse.setEnabled(enabled);
         QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabFilterBinding.buttonSourceBrowse, enabled);
+    }
 
+    private void setCardSourceButtonExport(boolean enabled) {
         this.fragmentQuotationsTabFilterBinding.buttonSourceExport.setEnabled(enabled);
         QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabFilterBinding.buttonSourceExport, enabled);
     }
@@ -360,7 +370,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
                 this.fragmentQuotationsTabFilterBinding.switchSearchFavouritesOnly.setChecked(true);
             }
         }
-        if (!enabled && quoteUnquoteModel.countFavouritesWithoutRx() > 0 ) {
+        if (!enabled && quoteUnquoteModel.countFavouritesWithoutRx() > 0) {
             this.fragmentQuotationsTabFilterBinding.switchSearchFavouritesOnly.setEnabled(false);
         }
         if (quoteUnquoteModel.countFavouritesWithoutRx() == 0) {
@@ -377,9 +387,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
         ///
 
         String keywords = quotationsPreferences.getContentSelectionSearch();
-        synchronized(this) {
-            fragmentQuotationsTabFilterBinding.editTextSearchText.setText(keywords);
-        }
+        fragmentQuotationsTabFilterBinding.editTextSearchText.setText(keywords);
 
         this.fragmentQuotationsTabFilterBinding.editTextSearchText.setEnabled(enabled);
         if (enabled) {
@@ -403,12 +411,10 @@ public class QuotationsFilterFragment extends FragmentCommon {
     }
 
     private void setCardSearchTextFocus() {
-        if (quotationsPreferences.getContentSelection() == ContentSelection.SEARCH) {
-            int selectionPosition
-                    = this.fragmentQuotationsTabFilterBinding.editTextSearchText.getText().length();
-            this.fragmentQuotationsTabFilterBinding.editTextSearchText.setSelection(selectionPosition);
-            this.fragmentQuotationsTabFilterBinding.editTextSearchText.requestFocus();
-        }
+        int selectionPosition
+                = this.fragmentQuotationsTabFilterBinding.editTextSearchText.getText().length();
+        this.fragmentQuotationsTabFilterBinding.editTextSearchText.setSelection(selectionPosition);
+        this.fragmentQuotationsTabFilterBinding.editTextSearchText.requestFocus();
     }
 
     void setCardSearchButtonBrowse(boolean enabled) {
@@ -421,12 +427,22 @@ public class QuotationsFilterFragment extends FragmentCommon {
         QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabFilterBinding.buttonSearchExport, enabled);
     }
 
+    private void setCardForceEnable() {
+        fragmentQuotationsTabFilterBinding.switchForceEnableButtons.setChecked(
+                quotationsPreferences.getContentSelectionSearchForceEnableButtons()
+        );
+
+        forceEnableButtons(quotationsPreferences.getContentSelectionSearchForceEnableButtons());
+    }
+
     ////////////////
 
     private void alignCards() {
         int countFavourites = quoteUnquoteModel.countFavouritesWithoutRx();
         alignCardFavourites(countFavourites);
         alignCardSearch(countFavourites);
+
+        forceEnableButtons(quotationsPreferences.getContentSelectionSearchForceEnableButtons());
     }
 
     private void alignCardFavourites(int countFavourites) {
@@ -593,6 +609,10 @@ public class QuotationsFilterFragment extends FragmentCommon {
     }
 
     private void setDisposableCardSearchCount() {
+        fragmentQuotationsTabFilterBinding.editTextSearchText.setText(
+                quotationsPreferences.getContentSelectionSearch()
+        );
+
         this.disposableObserverSearch = new DisposableObserver<Integer>() {
             @Override
             public void onNext(@NonNull final Integer value) {
@@ -600,14 +620,19 @@ public class QuotationsFilterFragment extends FragmentCommon {
                         getResources().getString(R.string.fragment_quotations_selection_search, value));
                 quotationsPreferences.setContentSelectionSearchCount(value);
 
-                if (quotationsPreferences.getContentSelection() == ContentSelection.SEARCH) {
-                    if (value > 0) {
+                if (value > 0) {
+                    if (quotationsPreferences.getContentSelection() == ContentSelection.SEARCH
+                        ||
+                            quotationsPreferences.getContentSelectionSearchForceEnableButtons()) {
                         setCardSearchButtonBrowse(true);
                         setCardSearchButtonExport(true);
                     } else {
                         setCardSearchButtonBrowse(false);
                         setCardSearchButtonExport(false);
                     }
+                } else {
+                    setCardSearchButtonBrowse(false);
+                    setCardSearchButtonExport(false);
                 }
             }
 
@@ -628,10 +653,9 @@ public class QuotationsFilterFragment extends FragmentCommon {
                 .map(charSequence -> {
                     final String keywords = charSequence.toString();
 
-                    if (!keywords.equals("") && keywords.length() >= 4) {
-                        Timber.d("%s", keywords);
-                        quotationsPreferences.setContentSelectionSearch(keywords);
+                    quotationsPreferences.setContentSelectionSearch(keywords);
 
+                    if (!keywords.equals("") && keywords.length() >= 4) {
                         if (quotationsPreferences.getContentSelectionSearchRegEx()) {
                             try {
                                 // https://regex101.com/
@@ -819,10 +843,8 @@ public class QuotationsFilterFragment extends FragmentCommon {
             quoteUnquoteModel.resetPrevious(widgetId, ContentSelection.SEARCH);
 
             String searchString = quotationsPreferences.getContentSelectionSearch();
-            synchronized(this) {
-                fragmentQuotationsTabFilterBinding.editTextSearchText.setText("");
-                fragmentQuotationsTabFilterBinding.editTextSearchText.setText(searchString);
-            }
+            fragmentQuotationsTabFilterBinding.editTextSearchText.setText("");
+            fragmentQuotationsTabFilterBinding.editTextSearchText.setText(searchString);
             quotationsPreferences.setContentSelectionSearch(searchString);
 
             setCardSearchTextFocus();
@@ -836,10 +858,8 @@ public class QuotationsFilterFragment extends FragmentCommon {
             quoteUnquoteModel.resetPrevious(widgetId, ContentSelection.SEARCH);
 
             String searchString = quotationsPreferences.getContentSelectionSearch();
-            synchronized(this) {
-                fragmentQuotationsTabFilterBinding.editTextSearchText.setText("");
-                fragmentQuotationsTabFilterBinding.editTextSearchText.setText(searchString);
-            }
+            fragmentQuotationsTabFilterBinding.editTextSearchText.setText("");
+            fragmentQuotationsTabFilterBinding.editTextSearchText.setText(searchString);
             quotationsPreferences.setContentSelectionSearch(searchString);
 
             setCardSearchTextFocus();
@@ -884,6 +904,75 @@ public class QuotationsFilterFragment extends FragmentCommon {
                 activityExportSearch.launch(intent);
             }
         });
+    }
+
+    private void createListenerCardForceEnableButtons() {
+        fragmentQuotationsTabFilterBinding.switchForceEnableButtons.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            fragmentQuotationsTabFilterBinding.switchForceEnableButtons.setChecked(isChecked);
+            quotationsPreferences.setContentSelectionSearchForceEnableButtons(isChecked);
+
+            forceEnableButtons(isChecked);
+        });
+    }
+
+    private void forceEnableButtons(boolean isChecked) {
+        if (isChecked) {
+            if (quotationsPreferences.getContentSelection() != ContentSelection.AUTHOR) {
+                fragmentQuotationsTabFilterBinding.textViewQuotationCount.setEnabled(true);
+                fragmentQuotationsTabFilterBinding.spinnerAuthorsCount.setEnabled(true);
+                fragmentQuotationsTabFilterBinding.spinnerAuthors.setEnabled(true);
+                setCardSourceButtonBrowse(true);
+                setCardSourceButtonExport(true);
+            }
+
+            if (quotationsPreferences.getContentSelection() != ContentSelection.FAVOURITES) {
+                if (quoteUnquoteModel.countFavouritesWithoutRx() > 0) {
+                    setCardFavouriteButtonBrowse(true);
+                    setCardFavouriteButtonExport(true);
+                }
+            }
+
+            if (quotationsPreferences.getContentSelection() != ContentSelection.SEARCH) {
+                if (quoteUnquoteModel.countFavouritesWithoutRx() > 0) {
+                    fragmentQuotationsTabFilterBinding.switchSearchFavouritesOnly.setEnabled(true);
+                }
+                fragmentQuotationsTabFilterBinding.switchRegEx.setEnabled(true);
+                fragmentQuotationsTabFilterBinding.editTextSearchText.setEnabled(true);
+                fragmentQuotationsTabFilterBinding.editTextSearchText.setText(
+                        quotationsPreferences.getContentSelectionSearch()
+                );
+                if (quotationsPreferences.getContentSelectionSearch().length() >= 4) {
+                    setCardSearchButtonBrowse(true);
+                    setCardSearchButtonExport(true);
+                }
+            }
+        } else {
+            if (quotationsPreferences.getContentSelection() != ContentSelection.AUTHOR) {
+                fragmentQuotationsTabFilterBinding.textViewQuotationCount.setEnabled(false);
+                fragmentQuotationsTabFilterBinding.spinnerAuthorsCount.setEnabled(false);
+                fragmentQuotationsTabFilterBinding.spinnerAuthors.setEnabled(false);
+                setCardSourceButtonBrowse(false);
+                setCardSourceButtonExport(false);
+            }
+
+            if (quotationsPreferences.getContentSelection() != ContentSelection.FAVOURITES) {
+                setCardFavouriteButtonBrowse(false);
+                setCardFavouriteButtonExport(false);
+            }
+
+            if (quotationsPreferences.getContentSelection() != ContentSelection.SEARCH) {
+                if (quoteUnquoteModel.countFavouritesWithoutRx() > 0) {
+                    fragmentQuotationsTabFilterBinding.switchSearchFavouritesOnly.setEnabled(false);
+                }
+                fragmentQuotationsTabFilterBinding.switchRegEx.setEnabled(false);
+                fragmentQuotationsTabFilterBinding.editTextSearchText.setEnabled(false);
+                fragmentQuotationsTabFilterBinding.editTextSearchText.setText(
+                        quotationsPreferences.getContentSelectionSearch()
+                );
+                setCardSearchButtonBrowse(false);
+                setCardSearchButtonExport(false);
+            }
+        }
     }
 
     ////////////////

@@ -47,7 +47,7 @@ public class AppearanceToolbarFragment extends FragmentCommon {
             @NonNull final LayoutInflater inflater,
             final @NonNull ViewGroup container,
             final @NonNull Bundle savedInstanceState) {
-        final Context context = new ContextThemeWrapper(getActivity(), R.style.Theme_MaterialComponents_DayNight);
+        final Context context = new ContextThemeWrapper(getActivity(), com.google.android.material.R.style.Theme_MaterialComponents_DayNight);
 
         appearancePreferences = new AppearancePreferences(this.widgetId, getContext());
 

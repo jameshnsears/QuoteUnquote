@@ -38,7 +38,9 @@
                     android:paddingVertical="10dp"
                     android:paddingStart="12dp"
                     android:paddingEnd="0dp"
-                    android:text="@string/fragment_quotations_database_default" />
+                    android:text="@string/fragment_quotations_database_default"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -78,7 +80,8 @@
                     android:paddingVertical="10dp"
                     android:paddingStart="12dp"
                     android:paddingEnd="0dp"
-                    android:text="@string/fragment_quotations_database_csv" />
+                    android:text="@string/fragment_quotations_database_csv"
+                    android:textSize="16sp" />
 
             <LinearLayout
                     android:layout_width="match_parent"
@@ -140,7 +143,8 @@
                     android:paddingVertical="10dp"
                     android:paddingStart="12dp"
                     android:paddingEnd="0dp"
-                    android:text="@string/fragment_quotations_database_scrape" />
+                    android:text="@string/fragment_quotations_database_scrape"
+                    android:textSize="16sp" />
 
             <LinearLayout
                     android:layout_width="match_parent"

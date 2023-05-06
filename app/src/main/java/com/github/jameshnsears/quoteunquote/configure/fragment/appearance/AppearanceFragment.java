@@ -45,7 +45,7 @@ public class AppearanceFragment extends FragmentCommon {
             @NonNull final LayoutInflater inflater,
             final @NonNull ViewGroup container,
             final @NonNull Bundle savedInstanceState) {
-        final Context context = new ContextThemeWrapper(getActivity(), R.style.Theme_MaterialComponents_DayNight);
+        final Context context = new ContextThemeWrapper(getActivity(), com.google.android.material.R.style.Theme_MaterialComponents_DayNight);
 
         fragmentAppearanceBinding = FragmentAppearanceBinding.inflate(inflater.cloneInContext(context));
         return fragmentAppearanceBinding.getRoot();

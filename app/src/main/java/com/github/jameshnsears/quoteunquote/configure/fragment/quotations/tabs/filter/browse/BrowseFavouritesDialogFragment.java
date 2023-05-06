@@ -65,7 +65,7 @@ public class BrowseFavouritesDialogFragment extends DialogFragment {
         fragmentQuotationsBrowseDialogBinding
                 = FragmentQuotationsBrowseDialogBinding.inflate(inflater.cloneInContext(
                 new ContextThemeWrapper(
-                        getActivity(), R.style.Theme_MaterialComponents_DayNight)));
+                        getActivity(), com.google.android.material.R.style.Theme_MaterialComponents_DayNight)));
 
         if (titleString == null) {
             builder.setTitle(titleResourceId);

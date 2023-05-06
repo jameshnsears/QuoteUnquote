@@ -61,7 +61,7 @@ public class AppearanceTextDialogFragment extends DialogFragment {
         fragmentAppearanceTabStyleDialogBinding
                 = FragmentAppearanceTabStyleDialogBinding.inflate(inflater.cloneInContext(
                 new ContextThemeWrapper(
-                        getActivity(), R.style.Theme_MaterialComponents_DayNight)));
+                        getActivity(), com.google.android.material.R.style.Theme_MaterialComponents_DayNight)));
 
         builder.setView(fragmentAppearanceTabStyleDialogBinding.getRoot())
                 .setPositiveButton(R.string.fragment_appearance_ok, new DialogInterface.OnClickListener() {

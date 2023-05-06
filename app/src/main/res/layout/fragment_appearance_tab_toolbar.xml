@@ -13,32 +13,6 @@
         android:theme="@style/AppTheme">
 
     <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardViewSeparator"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:contentPadding="5dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="2dp"
-            app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true">
-
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="10dp">
-
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                    android:id="@+id/toolbar_switch_hide_separator"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/fragment_appearance_toolbar_hide_separator" />
-
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardViewButtons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -231,6 +205,32 @@
                         android:text="@string/fragment_appearance_toolbar_next_random"
                         tools:ignore="TextContrastCheck" />
             </LinearLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardViewSeparator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="true"
+            app:contentPadding="5dp">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                    android:id="@+id/toolbar_switch_hide_separator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/fragment_appearance_toolbar_hide_separator" />
 
         </LinearLayout>
 

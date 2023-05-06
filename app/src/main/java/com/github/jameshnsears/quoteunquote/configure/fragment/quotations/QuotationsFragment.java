@@ -50,7 +50,7 @@ public class QuotationsFragment extends FragmentCommon implements DialogInterfac
             @NonNull final LayoutInflater inflater,
             final @NonNull ViewGroup container,
             final @NonNull Bundle savedInstanceState) {
-        final Context context = new ContextThemeWrapper(getActivity(), R.style.Theme_MaterialComponents_DayNight);
+        final Context context = new ContextThemeWrapper(getActivity(), com.google.android.material.R.style.Theme_MaterialComponents_DayNight);
 
         fragmentQuotationsBinding = FragmentQuotationsBinding.inflate(inflater.cloneInContext(context));
         return fragmentQuotationsBinding.getRoot();
