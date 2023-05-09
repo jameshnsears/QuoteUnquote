@@ -1,0 +1,3 @@
+&bull; Fix: restrict entries in Browse dialog, to prevent ANR - e.g. ([\s\S]*)
+&bull; Export Search term as export filename
+&bull; Bump a dependency

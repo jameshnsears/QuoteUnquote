@@ -1,3 +1,0 @@
-&bull; Toast confirmations in Browse dialogs
-&bull; Recycle quotations when random end reached
-&bull; Bump dependencies

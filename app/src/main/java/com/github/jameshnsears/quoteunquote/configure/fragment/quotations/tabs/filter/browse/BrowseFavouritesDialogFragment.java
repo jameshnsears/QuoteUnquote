@@ -43,6 +43,7 @@ public class BrowseFavouritesDialogFragment extends DialogFragment {
 
     protected String titleString;
 
+    protected int BROWSE_LIMIT = 1000;
 
     public BrowseFavouritesDialogFragment(int widgetId, QuoteUnquoteModel quoteUnquoteModel, int titleResourceId) {
         this.widgetId = widgetId;
@@ -103,7 +104,7 @@ public class BrowseFavouritesDialogFragment extends DialogFragment {
         List<BrowseData> browseFavouritesList = new ArrayList<>();
 
         List<QuotationEntity> favouriteQuotationsList = quoteUnquoteModel.getFavourites();
-        int padding = String.valueOf(favouriteQuotationsList.size()).length();
+        int padding = getPaddingSize(favouriteQuotationsList.size());
 
         int index = 1;
         for (QuotationEntity favouriteQuotation: favouriteQuotationsList) {
@@ -115,6 +116,10 @@ public class BrowseFavouritesDialogFragment extends DialogFragment {
                     favouriteQuotation.digest)
             );
             index += 1;
+
+            if (index > BROWSE_LIMIT) {
+                return browseFavouritesList;
+            }
         }
 
         return browseFavouritesList;
@@ -134,5 +139,15 @@ public class BrowseFavouritesDialogFragment extends DialogFragment {
         if (parentFragment instanceof DialogInterface.OnDismissListener) {
             ((DialogInterface.OnDismissListener) parentFragment).onDismiss(dialog);
         }
+    }
+
+    protected int getPaddingSize(int browseListSize) {
+        int BROWSE_LIMIT = 1000;
+        int padding = String.valueOf(browseListSize).length();
+        if (browseListSize > BROWSE_LIMIT) {
+            padding = String.valueOf(BROWSE_LIMIT).length();
+        }
+
+        return padding;
     }
 }

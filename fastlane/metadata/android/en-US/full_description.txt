@@ -8,6 +8,6 @@ Import Affirmations!
 &bull; Navigate through what you want, how you want
 &bull; Highly customisable
 &bull; Notification channels and actions
-&bull; Wikipedia Source article (Internal Database only)
+&bull; Wikipedia Source article (Internal database only)
 &bull; Backup and Restore, locally or remote
 &bull; User feedback drives development

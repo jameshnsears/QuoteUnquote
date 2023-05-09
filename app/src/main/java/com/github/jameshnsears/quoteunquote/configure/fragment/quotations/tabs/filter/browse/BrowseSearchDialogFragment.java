@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BrowseSearchDialogFragment extends BrowseFavouritesDialogFragment {
-    public BrowseSearchDialogFragment(int widgetId, QuoteUnquoteModel quoteUnquoteModel, int title) {
+    public BrowseSearchDialogFragment(int widgetId, QuoteUnquoteModel quoteUnquoteModel, String title) {
         super(widgetId, quoteUnquoteModel, title);
         this.dialogType = BrowseAdapter.DIALOG.SEARCH;
     }
@@ -50,7 +50,7 @@ public class BrowseSearchDialogFragment extends BrowseFavouritesDialogFragment {
             );
         }
 
-        int padding = String.valueOf(searchQuotationsList.size()).length();
+        int padding = getPaddingSize(searchQuotationsList.size());
 
         int index = 1;
         for (QuotationEntity searchQuotation: searchQuotationsList) {
@@ -62,6 +62,10 @@ public class BrowseSearchDialogFragment extends BrowseFavouritesDialogFragment {
                     searchQuotation.digest)
             );
             index += 1;
+
+            if (index > BROWSE_LIMIT) {
+                return browseSearchList;
+            }
         }
 
         return browseSearchList;

@@ -239,6 +239,19 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
+            <TextView
+                    android:id="@+id/textViewFavouritesInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:enabled="false"
+                    android:paddingStart="4dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="5dp"
+                    android:text="@string/fragment_quotations_selection_dialog_browse_favourites_limit"
+                    app:drawableStartCompat="@drawable/ic_info_24" />
+
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

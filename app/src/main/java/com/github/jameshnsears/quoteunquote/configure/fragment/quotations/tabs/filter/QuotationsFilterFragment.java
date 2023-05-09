@@ -344,6 +344,8 @@ public class QuotationsFilterFragment extends FragmentCommon {
     private void setCardFavourite(final boolean enabled) {
         this.fragmentQuotationsTabFilterBinding.radioButtonFavourites.setChecked(enabled);
 
+        this.fragmentQuotationsTabFilterBinding.textViewFavouritesInfo.setEnabled(enabled);
+
         setCardFavouriteButtonBrowse(enabled);
         setCardFavouriteButtonExport(enabled);
     }
@@ -871,7 +873,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
             BrowseSearchDialogFragment browseSearchDialogFragment = new BrowseSearchDialogFragment(
                     widgetId,
                     quoteUnquoteModel,
-                    R.string.fragment_quotations_selection_dialog_browse_search);
+                    quotationsPreferences.getContentSelectionSearch());
             browseSearchDialogFragment.show(getParentFragmentManager(), "");
         });
     }
@@ -900,7 +902,10 @@ public class QuotationsFilterFragment extends FragmentCommon {
                     );
                 }
 
-                intent.putExtra(Intent.EXTRA_TITLE, "Search.csv");
+                intent.putExtra(
+                        Intent.EXTRA_TITLE,
+                        quotationsPreferences.getContentSelectionSearch() + ".csv");
+
                 activityExportSearch.launch(intent);
             }
         });
