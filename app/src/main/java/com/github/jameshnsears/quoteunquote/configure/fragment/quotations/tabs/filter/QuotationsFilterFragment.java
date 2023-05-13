@@ -344,8 +344,6 @@ public class QuotationsFilterFragment extends FragmentCommon {
     private void setCardFavourite(final boolean enabled) {
         this.fragmentQuotationsTabFilterBinding.radioButtonFavourites.setChecked(enabled);
 
-        this.fragmentQuotationsTabFilterBinding.textViewFavouritesInfo.setEnabled(enabled);
-
         setCardFavouriteButtonBrowse(enabled);
         setCardFavouriteButtonExport(enabled);
     }
@@ -441,10 +439,18 @@ public class QuotationsFilterFragment extends FragmentCommon {
 
     private void alignCards() {
         int countFavourites = quoteUnquoteModel.countFavouritesWithoutRx();
+        alignCardSource();
         alignCardFavourites(countFavourites);
         alignCardSearch(countFavourites);
 
         forceEnableButtons(quotationsPreferences.getContentSelectionSearchForceEnableButtons());
+    }
+
+    private void alignCardSource() {
+        if (quotationsPreferences.getContentSelection() == ContentSelection.AUTHOR) {
+            setCardSourceButtonBrowse(true);
+            setCardSourceButtonExport(true);
+        }
     }
 
     private void alignCardFavourites(int countFavourites) {
@@ -765,6 +771,9 @@ public class QuotationsFilterFragment extends FragmentCommon {
 
     private void createListenerCardSourceBrowse() {
         fragmentQuotationsTabFilterBinding.buttonSourceBrowse.setOnClickListener(v -> {
+            setCardSourceButtonBrowse(false);
+            setCardSourceButtonExport(false);
+
             BrowseSourceDialogFragment browseSourceDialogFragment = new BrowseSourceDialogFragment(
                     widgetId,
                     quoteUnquoteModel,
@@ -803,6 +812,9 @@ public class QuotationsFilterFragment extends FragmentCommon {
 
     private void createListenerCardFavouritesBrowse() {
         fragmentQuotationsTabFilterBinding.buttonFavouritesBrowse.setOnClickListener(v -> {
+            setCardFavouriteButtonBrowse(false);
+            setCardFavouriteButtonExport(false);
+
             BrowseFavouritesDialogFragment browseFavouritesDialogFragment = new BrowseFavouritesDialogFragment(
                     widgetId,
                     quoteUnquoteModel,
@@ -870,11 +882,16 @@ public class QuotationsFilterFragment extends FragmentCommon {
 
     private void createListenerCardSearchBrowse() {
         fragmentQuotationsTabFilterBinding.buttonSearchBrowse.setOnClickListener(v -> {
+
+            setCardSearchButtonBrowse(false);
+            setCardSearchButtonExport(false);
+
             BrowseSearchDialogFragment browseSearchDialogFragment = new BrowseSearchDialogFragment(
                     widgetId,
                     quoteUnquoteModel,
                     quotationsPreferences.getContentSelectionSearch());
-            browseSearchDialogFragment.show(getParentFragmentManager(), "");
+
+            browseSearchDialogFragment.show(getParentFragmentManager(), "");;
         });
     }
 

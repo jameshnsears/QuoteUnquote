@@ -1,5 +1,0 @@
-&bull; Add Browse &amp; Export buttons to Filter Source card
-&bull; Add Regular expression capability to Filter Search card
-&bull; Improve Filter cards interactivity
-&bull; Improve quotation quality: drop some quotations
-&bull; Bump dependencies

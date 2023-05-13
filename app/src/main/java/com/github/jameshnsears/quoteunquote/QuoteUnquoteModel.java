@@ -133,7 +133,6 @@ public class QuoteUnquoteModel {
         try {
             lastPreviousDigest = future.get();
         } catch (@NonNull ExecutionException | InterruptedException e) {
-            Timber.e(e);
             Thread.currentThread().interrupt();
         }
 
@@ -152,7 +151,6 @@ public class QuoteUnquoteModel {
         try {
             quotationEntity = future.get();
         } catch (@NonNull ExecutionException | InterruptedException e) {
-            Timber.e(e);
             Thread.currentThread().interrupt();
         }
 
@@ -228,7 +226,6 @@ public class QuoteUnquoteModel {
         try {
             future.get();
         } catch (@NonNull ExecutionException | InterruptedException e) {
-            Timber.e(e);
             Thread.currentThread().interrupt();
         }
     }
@@ -544,7 +541,6 @@ public class QuoteUnquoteModel {
         try {
             future.get();
         } catch (@NonNull ExecutionException | InterruptedException e) {
-            Timber.e(e);
             Thread.currentThread().interrupt();
         }
     }
@@ -556,7 +552,6 @@ public class QuoteUnquoteModel {
         try {
             future.get();
         } catch (@NonNull ExecutionException | InterruptedException e) {
-            Timber.e(e);
             Thread.currentThread().interrupt();
         }
     }
@@ -605,7 +600,6 @@ public class QuoteUnquoteModel {
         try {
             future.get();
         } catch (@NonNull ExecutionException | InterruptedException e) {
-            Timber.e(e);
             Thread.currentThread().interrupt();
         }
     }
@@ -621,7 +615,6 @@ public class QuoteUnquoteModel {
         try {
             countAllMinusExclusions = future.get();
         } catch (ExecutionException | InterruptedException e) {
-            Timber.e(e);
             Thread.currentThread().interrupt();
         }
         return countAllMinusExclusions;

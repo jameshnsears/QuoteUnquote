@@ -43,9 +43,6 @@ public interface QuotationDAO {
     @Query("SELECT DIGEST FROM QUOTATIONS ORDER BY AUTHOR ASC, ROWID ASC")
     List<String> getNextAllDigests();
 
-    @Query("SELECT DIGEST FROM QUOTATIONS WHERE (QUOTATION LIKE :text COLLATE NOCASE OR AUTHOR LIKE :text COLLATE NOCASE) ORDER BY AUTHOR ASC, ROWID ASC")
-    List<String> getSearchTextDigests(String text);
-
     @Query("DELETE FROM QUOTATIONS")
     void erase();
 

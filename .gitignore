@@ -42,3 +42,4 @@ local.properties
 /app/fdroid/release/
 /app/jacoco.exec
 /app/google-services.json-production
+/bin/release.sh

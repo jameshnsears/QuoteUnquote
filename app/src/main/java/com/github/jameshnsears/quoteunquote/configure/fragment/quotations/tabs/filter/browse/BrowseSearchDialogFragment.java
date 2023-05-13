@@ -1,14 +1,8 @@
 package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.browse;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.os.Bundle;
-
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteModel;
-import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.fragment.dialog.browse.BrowseAdapter;
 import com.github.jameshnsears.quoteunquote.configure.fragment.dialog.browse.BrowseData;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
@@ -16,57 +10,78 @@ import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 import com.google.common.base.Strings;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
-public class BrowseSearchDialogFragment extends BrowseFavouritesDialogFragment {
-    public BrowseSearchDialogFragment(int widgetId, QuoteUnquoteModel quoteUnquoteModel, String title) {
+public class BrowseSearchDialogFragment extends BrowseDialogFragment {
+    private Set<String> favouriteDigests = new HashSet<>();
+
+    public BrowseSearchDialogFragment(final int widgetId, final QuoteUnquoteModel quoteUnquoteModel, final String title) {
         super(widgetId, quoteUnquoteModel, title);
-        this.dialogType = BrowseAdapter.DIALOG.SEARCH;
+        dialogType = BrowseAdapter.DIALOG.SEARCH;
+
+        cacheFavourites();
     }
 
-    @Override
-    protected void constructRecyclerView() {
-        super.constructRecyclerView();
+    private void cacheFavourites() {
+        List<QuotationEntity> favourites = this.quoteUnquoteModel.getFavourites();
+        for (QuotationEntity quotationEntity: favourites) {
+            favouriteDigests.add(quotationEntity.digest);
+        }
+    }
+
+    private boolean isFavourite(String digest) {
+        if (favouriteDigests.contains(digest)) {
+            return true;
+        }
+
+        return false;
     }
 
     @NonNull
     @Override
-    protected List<BrowseData> getDataForRecyclerView() {
-        List<BrowseData> browseSearchList = new ArrayList<>();
+    protected List<BrowseData> setCachedRecyclerViewData() {
+        final List<BrowseData> browseSearchList = new ArrayList<>();
 
-        QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, getActivity());
+        final QuotationsPreferences quotationsPreferences = new QuotationsPreferences(this.widgetId, this.getActivity());
 
-        List<QuotationEntity> searchQuotationsList;
+        final List<QuotationEntity> searchQuotationsList;
 
         if (quotationsPreferences.getContentSelectionSearchRegEx()) {
-            searchQuotationsList = quoteUnquoteModel.getSearchQuotationsRegEx(
+            searchQuotationsList = this.quoteUnquoteModel.getSearchQuotationsRegEx(
                     quotationsPreferences.getContentSelectionSearch(),
                     quotationsPreferences.getContentSelectionSearchFavouritesOnly()
             );
         } else {
-            searchQuotationsList = quoteUnquoteModel.getSearchQuotations(
+            searchQuotationsList = this.quoteUnquoteModel.getSearchQuotations(
                     quotationsPreferences.getContentSelectionSearch(),
                     quotationsPreferences.getContentSelectionSearchFavouritesOnly()
             );
         }
 
-        int padding = getPaddingSize(searchQuotationsList.size());
+        final int padding = String.valueOf(searchQuotationsList.size()).length();
 
         int index = 1;
-        for (QuotationEntity searchQuotation: searchQuotationsList) {
-            browseSearchList.add(new BrowseData(
-                    Strings.padStart("" + index, padding, '0'),
+        ConcurrentLinkedDeque<BrowseData> list = new ConcurrentLinkedDeque<>();
+
+        for (int i = 0; i < searchQuotationsList.size(); i ++) {
+            QuotationEntity searchQuotation = searchQuotationsList.get(i);
+
+            BrowseData browseData = new BrowseData(
+                    Strings.padStart(String.valueOf(index), padding, '0'),
                     searchQuotation.quotation,
                     searchQuotation.author,
-                    quoteUnquoteModel.isFavourite(searchQuotation.digest),
-                    searchQuotation.digest)
-            );
-            index += 1;
+                    isFavourite(searchQuotation.digest),
+                    searchQuotation.digest);
 
-            if (index > BROWSE_LIMIT) {
-                return browseSearchList;
-            }
+            list.add(browseData);
+
+            index += 1;
         }
+
+        browseSearchList.addAll(list);
 
         return browseSearchList;
     }

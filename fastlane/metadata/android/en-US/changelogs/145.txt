@@ -1,0 +1,3 @@
+&bull; Performance improvements: Search > Browse
+&bull; GitHub Action for GitHub Release
+&bull; Bump dependencies

@@ -1,0 +1,71 @@
+name: release-github-googleplay
+
+on:
+  push:
+    tags:
+      - '*-googleplay'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CACHE_VERSION: 1
+
+jobs:
+  release-github-googleplay:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: clone
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+          submodules: true
+
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: 17
+
+      - name: keystore.jks
+        env:
+          KEYSTORE_JKS: ${{ secrets.KEYSTORE_JKS }}
+        run: echo "$KEYSTORE_JKS" | base64 -d > app/keystore.jks
+
+      - name: google-services.json
+        env:
+          GOOGLE_PLAY_JSON_DEVELOPMENT: ${{ secrets.GOOGLE_PLAY_JSON_DEVELOPMENT }}
+        run: |
+          echo "${GOOGLE_PLAY_JSON_DEVELOPMENT}" | base64 -d > app/google-services.json
+          ls -al
+          ls -al app/src
+
+      - name: local.properties
+        env:
+          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
+          LOCAL_PROPERTIES_CLOUDLIB: ${{ secrets.LOCAL_PROPERTIES_CLOUDLIB }}
+          LOCAL_PROPERTIES_UTILSLIB: ${{ secrets.LOCAL_PROPERTIES_UTILSLIB }}
+        run: |
+          echo "${LOCAL_PROPERTIES}" | base64 -d > local.properties
+          echo "${LOCAL_PROPERTIES_CLOUDLIB}" | base64 -d > QuoteUnquote.cloudLib/cloudLib/local.properties
+          echo "${LOCAL_PROPERTIES_UTILSLIB}" | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
+
+      - name: build
+        run: ./gradlew assembleGoogleplayRelease --stacktrace
+
+      - name: install apksigner
+        run: sudo apt-get -y install apksigner
+
+      - name: sign
+        env:
+          KEYSTORE_ALIAS: ${{ secrets.KEYSTORE_ALIAS }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+        run: apksigner sign --ks app/keystore.jks --ks-key-alias $KEYSTORE_ALIAS --ks-pass env:KEYSTORE_PASSWORD --out ./app-googleplay-release-signed.apk ./app/build/outputs/apk/googleplay/release/app-googleplay-release.apk
+
+      - name: release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh repo set-default jameshnsears/QuoteUnquote
+          gh release create ${{ github.ref }} --latest -F ./bin/release-github-notes.md app-googleplay-release-signed.apk

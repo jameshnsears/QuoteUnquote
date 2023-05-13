@@ -526,8 +526,8 @@ public class DatabaseRepository {
                         String author = quotationEntity.author.toLowerCase();
                         String quotation = quotationEntity.quotation.toLowerCase();
 
-                        if (author.contains(text.toLowerCase())
-                                || quotation.contains(text.toLowerCase())) {
+                        if (author.indexOf(text.toLowerCase()) != -1
+                                || quotation.indexOf(text.toLowerCase()) != -1) {
                             searchQuotations.add(quotationEntity);
                         }
                     }
@@ -539,8 +539,8 @@ public class DatabaseRepository {
                         String author = quotationEntity.author.toLowerCase();
                         String quotation = quotationEntity.quotation.toLowerCase();
 
-                        if (author.contains(text.toLowerCase())
-                                || quotation.contains(text.toLowerCase())) {
+                        if (author.indexOf(text.toLowerCase()) != -1
+                                || quotation.indexOf(text.toLowerCase()) != -1) {
                             searchQuotations.add(quotationEntity);
                         }
                     }
@@ -549,14 +549,19 @@ public class DatabaseRepository {
 
             Collections.reverse(searchQuotations);
         } else {
+            List<QuotationEntity> allQuotations;
+
             if (useInternalDatabase()) {
-                for (String digest : quotationDAO.getSearchTextDigests("%" + text + "%")) {
-                    searchQuotations.add(quotationDAO.getQuotation(digest));
-                }
+                allQuotations = quotationDAO.getAllQuotations();
             } else {
-                for (String digest : quotationExternalDAO.getSearchTextDigests("%" + text + "%")) {
-                    searchQuotations.add(quotationExternalDAO.getQuotation(digest));
-                }
+                allQuotations = quotationExternalDAO.getAllQuotations();
+            }
+
+            for (QuotationEntity quotation : allQuotations) {
+                if (quotation.quotation.indexOf(text) != -1
+                        ||
+                        quotation.author.indexOf(text) != -1)
+                searchQuotations.add(quotation);
             }
         }
 
@@ -627,7 +632,8 @@ public class DatabaseRepository {
                     String author = quotationEntity.author.toLowerCase();
                     String quotation = quotationEntity.quotation.toLowerCase();
 
-                    if (author.contains(text.toLowerCase()) || quotation.contains(text.toLowerCase())) {
+                    if (author.indexOf(text.toLowerCase()) != -1
+                            || quotation.indexOf(text.toLowerCase()) != -1) {
                         searchCount += 1;
                     }
                 }
@@ -637,7 +643,8 @@ public class DatabaseRepository {
                     String author = quotationEntity.author.toLowerCase();
                     String quotation = quotationEntity.quotation.toLowerCase();
 
-                    if (author.contains(text.toLowerCase()) || quotation.contains(text.toLowerCase())) {
+                    if (author.indexOf(text.toLowerCase()) != -1
+                            || quotation.indexOf(text.toLowerCase()) != -1) {
                         searchCount += 1;
                     }
                 }

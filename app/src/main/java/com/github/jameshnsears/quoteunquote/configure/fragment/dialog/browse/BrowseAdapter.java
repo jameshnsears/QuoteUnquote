@@ -17,6 +17,7 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.Appear
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
 
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.annotation.Nullable;
 
@@ -28,19 +29,20 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
     public enum DIALOG {
         FAVOURITES,
         SEARCH,
-        SOURCE
+        SOURCE,
+        BASE,
     }
 
     static DIALOG dialogType = DIALOG.FAVOURITES;
 
     @Nullable
-    static List<BrowseData> browseDataList;
+    protected CopyOnWriteArrayList<BrowseData> browseDataList;
 
     public BrowseAdapter(final int widgetId,
                          final List<BrowseData> browseDataItems,
                          DIALOG dialogType) {
         BrowseAdapter.widgetId = widgetId;
-        browseDataList = browseDataItems;
+        browseDataList = new CopyOnWriteArrayList<>(browseDataItems);
         this.dialogType = dialogType;
     }
 
@@ -83,7 +85,7 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
 
         @Override
         public void onClick(final View view) {
-            BrowseData browseDataItem = BrowseAdapter.browseDataList.get(this.getAdapterPosition());
+            BrowseData browseDataItem = browseDataList.get(this.getAdapterPosition());
 
             ConfigureActivity.launcherInvoked = true;
 
@@ -144,7 +146,7 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, int position) {
-        final BrowseData browseDataItem = BrowseAdapter.browseDataList.get(position);
+        final BrowseData browseDataItem = browseDataList.get(position);
 
         viewHolder.getTextViewSequentialIndex().setText(browseDataItem.getIndex());
 
@@ -168,6 +170,11 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return BrowseAdapter.browseDataList.size();
+        return browseDataList.size();
+    }
+
+    public void addData(List<BrowseData> newData, int startPosition) {
+        browseDataList.addAll(startPosition, newData);
+        notifyItemRangeInserted(startPosition, newData.size());
     }
 }

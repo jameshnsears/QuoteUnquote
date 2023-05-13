@@ -12,35 +12,30 @@ import com.google.common.base.Strings;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BrowseSourceDialogFragment extends BrowseFavouritesDialogFragment {
-    public BrowseSourceDialogFragment(int widgetId, QuoteUnquoteModel quoteUnquoteModel, String title) {
+public class BrowseSourceDialogFragment extends BrowseDialogFragment {
+    public BrowseSourceDialogFragment(final int widgetId, final QuoteUnquoteModel quoteUnquoteModel, final String title) {
         super(widgetId, quoteUnquoteModel, title);
         this.dialogType = BrowseAdapter.DIALOG.SOURCE;
     }
 
-    @Override
-    protected void constructRecyclerView() {
-        super.constructRecyclerView();
-    }
-
     @NonNull
     @Override
-    protected List<BrowseData> getDataForRecyclerView() {
-        List<BrowseData> browseSearchList = new ArrayList<>();
+    protected List<BrowseData> setCachedRecyclerViewData() {
+        final List<BrowseData> browseSearchList = new ArrayList<>();
 
-        QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, getActivity());
+        final QuotationsPreferences quotationsPreferences = new QuotationsPreferences(this.widgetId, this.getActivity());
 
-        List<QuotationEntity> searchQuotationsList = quoteUnquoteModel.getQuotationsForAuthor(quotationsPreferences.getContentSelectionAuthor());
-        int padding = String.valueOf(searchQuotationsList.size()).length();
+        final List<QuotationEntity> sourceQuotationsList = this.quoteUnquoteModel.getQuotationsForAuthor(quotationsPreferences.getContentSelectionAuthor());
+        final int padding = String.valueOf(sourceQuotationsList.size()).length();
 
         int index = 1;
-        for (QuotationEntity searchQuotation: searchQuotationsList) {
+        for (final QuotationEntity sourceQuotation : sourceQuotationsList) {
             browseSearchList.add(new BrowseData(
-                    Strings.padStart("" + index, padding, '0'),
-                    searchQuotation.quotation,
-                    searchQuotation.author,
-                    quoteUnquoteModel.isFavourite(searchQuotation.digest),
-                    searchQuotation.digest)
+                    Strings.padStart(String.valueOf(index), padding, '0'),
+                    sourceQuotation.quotation,
+                    sourceQuotation.author,
+                    this.quoteUnquoteModel.isFavourite(sourceQuotation.digest),
+                    sourceQuotation.digest)
             );
             index += 1;
         }
