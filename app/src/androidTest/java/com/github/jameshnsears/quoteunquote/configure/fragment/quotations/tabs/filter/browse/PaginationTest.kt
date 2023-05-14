@@ -1,7 +1,7 @@
 package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.browse
 
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteModelUtility
-import com.github.jameshnsears.quoteunquote.configure.fragment.dialog.browse.BrowseData
+import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.browse.adapter.BrowseData
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import junit.framework.TestCase.assertEquals
 import org.junit.Test

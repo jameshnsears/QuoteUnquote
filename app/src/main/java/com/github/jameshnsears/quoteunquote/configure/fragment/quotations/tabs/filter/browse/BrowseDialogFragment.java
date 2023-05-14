@@ -17,9 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteModel;
 import com.github.jameshnsears.quoteunquote.R;
-import com.github.jameshnsears.quoteunquote.configure.fragment.dialog.browse.BrowseAdapter;
-import com.github.jameshnsears.quoteunquote.configure.fragment.dialog.browse.BrowseData;
-import com.github.jameshnsears.quoteunquote.configure.fragment.dialog.browse.BrowseDividerItemDecorator;
+import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.browse.adapter.BrowseAdapter;
+import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.browse.adapter.BrowseData;
+import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.browse.adapter.BrowseDividerItemDecorator;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentQuotationsBrowseDialogBinding;
 
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class BrowseDialogFragment extends DialogFragment {
 
     protected String titleString;
     protected List<BrowseData> cachedRecyclerViewData;
-    protected int PAGE_SIZE = 500;
+    protected int PAGE_SIZE = 2000;
     BrowseAdapter adapter;
     int currentPage;
 

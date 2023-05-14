@@ -1,4 +1,0 @@
-&bull; Force enable Browse &amp; Export card
-&bull; Increase font size in various places
-&bull; Reposition Hide separator card
-&bull; Bump dependencies & IDE to: Flamingo | 2022.2.1 Patch 1

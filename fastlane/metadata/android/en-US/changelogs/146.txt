@@ -1,0 +1,2 @@
+&bull; Align App Widget text vertically
+&bull; Increase Browse dialog scrollbar page size

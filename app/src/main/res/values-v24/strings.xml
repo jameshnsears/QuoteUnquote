@@ -188,7 +188,7 @@
     <string name="notification_action_favourite">Favourite</string>
     <string name="notification_action_unfavourite">Unfavourite</string>
 
-    <string name="preview_description">Discover high quality Quotations!</string>
+    <string name="preview_description">Discover high quality Quotations!\nImport Affirmations!</string>
     <string name="preview_quotation">Nothing matters very much and very few things matter at all.\n</string>
     <string name="preview_author"><u>Arthur Balfour\n</u></string>
     <string name="preview_position">\u2316  1/20553\u0020</string>

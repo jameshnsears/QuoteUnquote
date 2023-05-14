@@ -5,15 +5,24 @@
         android:orientation="vertical"
         tools:viewBindingIgnore="true">
 
-    <ListView
-            android:id="@+id/listViewQuotation"
+    <LinearLayout
+            android:id="@+id/linearLayoutQuotation"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:divider="@null"
-            android:dividerHeight="0dp"
-            android:drawSelectorOnTop="false"
-            android:paddingVertical="2dp" />
+            android:gravity="center"
+            android:orientation="vertical"
+            android:background="@android:color/white">
+
+        <ListView
+                android:id="@+id/listViewQuotation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:drawSelectorOnTop="false"
+                android:paddingVertical="2dp" />
+    </LinearLayout>
 
     <LinearLayout
             android:id="@+id/linearLayoutToolbar"
