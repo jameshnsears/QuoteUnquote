@@ -897,7 +897,6 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
 
         final String setBackgroundColor = "setBackgroundColor";
         remoteViews.setInt(R.id.linearLayoutQuotation, setBackgroundColor, transparencyMask);
-        remoteViews.setInt(R.id.listViewQuotation, setBackgroundColor, transparencyMask);
         remoteViews.setInt(R.id.imageButtonFirst, setBackgroundColor, transparencyMask);
         remoteViews.setInt(R.id.imageButtonPrevious, setBackgroundColor, transparencyMask);
         remoteViews.setInt(R.id.imageButtonFavourite, setBackgroundColor, transparencyMask);

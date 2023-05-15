@@ -22,7 +22,8 @@
                 android:divider="@null"
                 android:dividerHeight="0dp"
                 android:drawSelectorOnTop="false"
-                android:paddingVertical="2dp" />
+                android:paddingVertical="2dp"
+                android:background="#00000000" />
     </LinearLayout>
 
     <LinearLayout

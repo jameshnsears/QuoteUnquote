@@ -1,0 +1,1 @@
+&bull; Fix transparency issue with App Widget
