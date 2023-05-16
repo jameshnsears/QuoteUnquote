@@ -484,6 +484,10 @@ public class QuotationsFilterFragment extends FragmentCommon {
             setCardSearchButtonBrowse(false);
             setCardSearchButtonExport(false);
         } else {
+            this.fragmentQuotationsTabFilterBinding.switchSearchFavouritesOnly.setChecked(
+                    quotationsPreferences.getContentSelectionSearchFavouritesOnly()
+            );
+
             if (quotationsPreferences.getContentSelection() == ContentSelection.SEARCH) {
                 this.fragmentQuotationsTabFilterBinding.switchSearchFavouritesOnly.setEnabled(true);
             }

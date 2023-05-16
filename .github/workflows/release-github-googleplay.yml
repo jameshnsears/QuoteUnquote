@@ -63,9 +63,13 @@ jobs:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
         run: apksigner sign --ks app/keystore.jks --ks-key-alias $KEYSTORE_ALIAS --ks-pass env:KEYSTORE_PASSWORD --out ./app-googleplay-release-signed.apk ./app/build/outputs/apk/googleplay/release/app-googleplay-release.apk
 
+      - name: release note
+        run: |
+          bin/release-note.sh
+
       - name: release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh repo set-default jameshnsears/QuoteUnquote
-          gh release create ${{ github.ref }} --latest -F ./bin/release-github-notes.md app-googleplay-release-signed.apk
+          gh release create ${{ github.ref }} --latest -F release-github-notes.md app-googleplay-release-signed.apk

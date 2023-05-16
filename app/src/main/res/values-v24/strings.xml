@@ -14,6 +14,7 @@
     <string name="activity_instructions_configure_2">\u2022 Configuration changes are only recognised when the Configuration screen is exited with the Back button / Gesture</string>
     <string name="activity_instructions_configure_3">\u2022 Tap an <u>underlined</u> - Internal database only - Source for Wikipedia entry</string>
     <string name="activity_instructions_configure_4">\u2022 The \u2316 icon, next to the Quotation position count, denotes last previous Quotation</string>
+    <string name="activity_instructions_configure_5">\u2022 Optionally, import your own Comma Separated Values (CSV) file containing Quotations, or, Affirmations</string>
     <string name="activity_instructions_os_warning">Some devices might require Battery Saver settings to be appropriately configured</string>
     <string name="activity_instructions_resize">Resize the widget</string>
     <string name="activity_instructions_resize_instruction_1">1. Touch and hold the widget on your home screen</string>
@@ -61,6 +62,7 @@
 
     <string name="fragment_quotations_database">Database</string>
     <string name="fragment_quotations_database_default">Internal</string>
+    <string name="fragment_quotations_database_default_info">Discover high quality Quotations!</string>
     <string name="fragment_quotations_database_imported">External</string>
     <string name="fragment_quotations_database_csv">.csv file</string>
     <string name="fragment_quotations_database_button_import">Import</string>

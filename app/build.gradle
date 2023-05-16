@@ -46,9 +46,9 @@ android {
         applicationId "com.github.jameshnsears.quoteunquote"
 
         // changelog version | min sdk | target sdk
-        versionCode 1472433
+        versionCode 1482433
         // semantic versioning
-        versionName "4.26.1"
+        versionName "4.27.0"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -249,7 +249,7 @@ dependencies {
     testImplementation 'com.google.guava:guava:31.1-jre'
     testImplementation 'io.mockk:mockk:1.13.5'
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.0'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1'
     testImplementation 'org.robolectric:robolectric:4.10.2'
 }
 
