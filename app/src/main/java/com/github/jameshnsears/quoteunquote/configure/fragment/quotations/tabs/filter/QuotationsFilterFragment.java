@@ -680,7 +680,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
                                     quoteUnquoteModel.resetPrevious(this.widgetId, ContentSelection.SEARCH);
                                 }
 
-                                return quoteUnquoteModel.countQuotationWithSearchRegEx(
+                                return quoteUnquoteModel.countQuotationWithSearchTextRegEx(
                                         keywords, quotationsPreferences.getContentSelectionSearchFavouritesOnly());
                             } catch (PatternSyntaxException e) {
                                 Handler handler = new Handler(Looper.getMainLooper());

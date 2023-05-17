@@ -151,7 +151,7 @@ public class DatabaseRepository {
     public HashSet<String> getAllExcludedDigests(String exclusions) {
         HashSet<String> digestsExcluded = new HashSet<>();
 
-        for (String exclusion: exclusions.split(";")) {
+        for (String exclusion : exclusions.split(";")) {
             // 4 is the smallest author entry
             if (!"".equals(exclusion) && exclusion.length() >= 4) {
                 if (useInternalDatabase()) {
@@ -230,13 +230,13 @@ public class DatabaseRepository {
         if (useInternalDatabase()) {
             digestsForAuthor = new ArrayList(quotationDAO.getDigestsForAuthor(author));
 
-            for (String digest: digestsForAuthor) {
+            for (String digest : digestsForAuthor) {
                 quotationEntityList.add(quotationDAO.getQuotation(digest));
             }
         } else {
             digestsForAuthor = new ArrayList(quotationExternalDAO.getDigestsForAuthor(author));
 
-            for (String digest: digestsForAuthor) {
+            for (String digest : digestsForAuthor) {
                 quotationEntityList.add(quotationExternalDAO.getQuotation(digest));
             }
         }
@@ -285,7 +285,7 @@ public class DatabaseRepository {
                 // ALL:
                 countTotalNext
                         = countAllMinusExclusions(
-                                quotationsPreferences.getContentSelectionAllExclusion())
+                        quotationsPreferences.getContentSelectionAllExclusion())
                         .blockingGet();
                 break;
         }
@@ -296,7 +296,7 @@ public class DatabaseRepository {
             final int widgetId,
             @NonNull final ContentSelection contentSelection,
             @NonNull final QuotationsPreferences quotationsPreferences
-            ) {
+    ) {
         HashSet<String> previousDigests;
         HashSet<String> availableDigests;
 
@@ -320,7 +320,7 @@ public class DatabaseRepository {
 
             availableDigests = new HashSet<>();
 
-            for (QuotationEntity quotationEntity: searchQuotations) {
+            for (QuotationEntity quotationEntity : searchQuotations) {
                 availableDigests.add(quotationEntity.digest);
             }
         }
@@ -516,7 +516,7 @@ public class DatabaseRepository {
 
     @NonNull
     public List<QuotationEntity> getSearchQuotations(@NonNull final String text, boolean favouritesOnly) {
-        List<QuotationEntity> searchQuotations = new ArrayList<QuotationEntity>();
+        List<QuotationEntity> searchQuotations = new ArrayList<>();
 
         if (favouritesOnly) {
             if (useInternalDatabase()) {
@@ -557,11 +557,14 @@ public class DatabaseRepository {
                 allQuotations = quotationExternalDAO.getAllQuotations();
             }
 
-            for (QuotationEntity quotation : allQuotations) {
-                if (quotation.quotation.indexOf(text) != -1
-                        ||
-                        quotation.author.indexOf(text) != -1)
-                searchQuotations.add(quotation);
+            for (QuotationEntity currentQuotation : allQuotations) {
+                String author = currentQuotation.author.toLowerCase();
+                String quotation = currentQuotation.quotation.toLowerCase();
+
+                if (author.indexOf(text.toLowerCase()) != -1
+                        || quotation.indexOf(text.toLowerCase()) != -1) {
+                    searchQuotations.add(currentQuotation);
+                }
             }
         }
 
@@ -598,23 +601,20 @@ public class DatabaseRepository {
                 }
             }
         } else {
+            List<QuotationEntity> allQuotations;
+
             if (useInternalDatabase()) {
-                for (QuotationEntity quotationEntity : quotationDAO.getAllQuotations()) {
-                    Matcher matcherAuthor = pattern.matcher(quotationEntity.author);
-                    Matcher matcherQuotation = pattern.matcher(quotationEntity.quotation);
-
-                    if (matcherAuthor.find() || matcherQuotation.find()) {
-                        searchCount += 1;
-                    }
-                }
+                allQuotations = quotationDAO.getAllQuotations();
             } else {
-                for (QuotationEntity quotationEntity : quotationExternalDAO.getAllQuotations()) {
-                    Matcher matcherAuthor = pattern.matcher(quotationEntity.author);
-                    Matcher matcherQuotation = pattern.matcher(quotationEntity.quotation);
+                allQuotations = quotationExternalDAO.getAllQuotations();
+            }
 
-                    if (matcherAuthor.find() || matcherQuotation.find()) {
-                        searchCount += 1;
-                    }
+            for (QuotationEntity quotation : allQuotations) {
+                Matcher matcherAuthor = pattern.matcher(quotation.author);
+                Matcher matcherQuotation = pattern.matcher(quotation.quotation);
+
+                if (matcherAuthor.find() || matcherQuotation.find()) {
+                    searchCount += 1;
                 }
             }
         }
@@ -624,8 +624,9 @@ public class DatabaseRepository {
 
     @NonNull
     public Integer countSearchText(@NonNull final String text, boolean favouritesOnly) {
+        int searchCount = 0;
+
         if (favouritesOnly) {
-            int searchCount = 0;
             if (useInternalDatabase()) {
                 for (String digest : favouriteDAO.getFavouriteDigests()) {
                     QuotationEntity quotationEntity = quotationDAO.getQuotation(digest);
@@ -649,15 +650,27 @@ public class DatabaseRepository {
                     }
                 }
             }
-
-            return searchCount;
         } else {
+            List<QuotationEntity> allQuotations;
+
             if (useInternalDatabase()) {
-                return quotationDAO.countSearchText("%" + text + "%");
+                allQuotations = quotationDAO.getAllQuotations();
             } else {
-                return quotationExternalDAO.countSearchText("%" + text + "%");
+                allQuotations = quotationExternalDAO.getAllQuotations();
+            }
+
+            for (QuotationEntity currentQuotation : allQuotations) {
+                String author = currentQuotation.author.toLowerCase();
+                String quotation = currentQuotation.quotation.toLowerCase();
+
+                if (author.indexOf(text.toLowerCase()) != -1
+                        || quotation.indexOf(text.toLowerCase()) != -1) {
+                    searchCount += 1;
+                }
             }
         }
+
+        return searchCount;
     }
 
     @NonNull
@@ -879,7 +892,7 @@ public class DatabaseRepository {
                 quotationsPreferences.getContentSelectionSearch(),
                 quotationsPreferences.getContentSelectionSearchFavouritesOnly());
 
-        for (QuotationEntity quotationEntity: searchQuotations) {
+        for (QuotationEntity quotationEntity : searchQuotations) {
             searchDigests.add(quotationEntity.digest);
         }
 
@@ -896,7 +909,7 @@ public class DatabaseRepository {
                 quotationsPreferences.getContentSelectionSearch(),
                 quotationsPreferences.getContentSelectionSearchFavouritesOnly());
 
-        for (QuotationEntity quotationEntity: searchQuotations) {
+        for (QuotationEntity quotationEntity : searchQuotations) {
             searchDigests.add(quotationEntity.digest);
         }
 

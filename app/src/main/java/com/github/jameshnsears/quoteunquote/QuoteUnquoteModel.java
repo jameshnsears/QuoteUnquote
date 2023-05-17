@@ -790,7 +790,7 @@ public class QuoteUnquoteModel {
     }
 
     @NonNull
-    public Integer countQuotationWithSearchRegEx(@NonNull final String regEx, boolean favouritesOnly) {
+    public Integer countQuotationWithSearchTextRegEx(@NonNull final String regEx, boolean favouritesOnly) {
         final Future<Integer> future = QuoteUnquoteWidget.getExecutorService().submit(()
                 -> databaseRepository.countSearchTextRegEx(regEx, favouritesOnly));
 

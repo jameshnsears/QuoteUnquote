@@ -37,9 +37,6 @@ public interface QuotationDAO {
     @Query("SELECT DIGEST FROM QUOTATIONS WHERE AUTHOR = :author ORDER BY AUTHOR ASC, ROWID ASC")
     List<String> getNextAuthorDigest(String author);
 
-    @Query("SELECT COUNT(QUOTATION) FROM QUOTATIONS WHERE (QUOTATION LIKE :text COLLATE NOCASE OR AUTHOR LIKE :text COLLATE NOCASE)")
-    Integer countSearchText(String text);
-
     @Query("SELECT DIGEST FROM QUOTATIONS ORDER BY AUTHOR ASC, ROWID ASC")
     List<String> getNextAllDigests();
 

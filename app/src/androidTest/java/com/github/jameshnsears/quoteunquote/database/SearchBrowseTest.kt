@@ -84,7 +84,7 @@ class SearchBrowseTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             7,
-            quoteUnquoteModelDouble.countQuotationWithSearchRegEx(
+            quoteUnquoteModelDouble.countQuotationWithSearchTextRegEx(
                 "^a",
                 false,
             ),
@@ -95,7 +95,7 @@ class SearchBrowseTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             2,
-            quoteUnquoteModelDouble.countQuotationWithSearchRegEx(
+            quoteUnquoteModelDouble.countQuotationWithSearchTextRegEx(
                 "^a2",
                 true,
             ),
