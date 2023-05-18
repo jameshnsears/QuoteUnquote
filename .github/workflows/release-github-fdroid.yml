@@ -1,9 +1,9 @@
-name: release-github-googleplay
+name: release-github-fdroid
 
 on:
   push:
     tags:
-      - '*-googleplay'
+      - '*-fdroid'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -13,7 +13,7 @@ env:
   CACHE_VERSION: 1
 
 jobs:
-  release-github-googleplay:
+  release-github-fdroid:
     runs-on: ubuntu-latest
 
     steps:
@@ -52,7 +52,7 @@ jobs:
           echo "${LOCAL_PROPERTIES_UTILSLIB}" | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
 
       - name: build
-        run: ./gradlew assembleGoogleplayRelease --stacktrace
+        run: ./gradlew clean assembleFdroidRelease --stacktrace
 
       - name: install apksigner
         run: sudo apt-get -y install apksigner
@@ -61,7 +61,7 @@ jobs:
         env:
           KEYSTORE_ALIAS: ${{ secrets.KEYSTORE_ALIAS }}
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
-        run: apksigner sign --ks app/keystore.jks --ks-key-alias $KEYSTORE_ALIAS --ks-pass env:KEYSTORE_PASSWORD --out ./app-googleplay-release-signed.apk ./app/build/outputs/apk/googleplay/release/app-googleplay-release.apk
+        run: apksigner sign --ks app/keystore.jks --ks-key-alias $KEYSTORE_ALIAS --ks-pass env:KEYSTORE_PASSWORD --out ./app-fdroid-release-signed.apk ./app/build/outputs/apk/fdroid/release/app-fdroid-release-unsigned.apk
 
       - name: release note
         run: |
@@ -72,4 +72,4 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh repo set-default jameshnsears/QuoteUnquote
-          gh release create ${{ github.ref }} --latest -F release-github-notes.md app-googleplay-release-signed.apk
+          gh release create ${{ github.ref }} --latest -F release-github-notes.md app-fdroid-release-signed.apk

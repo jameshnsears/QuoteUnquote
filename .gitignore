@@ -44,3 +44,5 @@ local.properties
 /.Quote, Unquote.vpp.lck
 release-github-notes.md
 .scannerwork
+/app-fdroid-release-signed.apk
+/app-fdroid-release-signed.apk.idsig
