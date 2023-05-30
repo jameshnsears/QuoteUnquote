@@ -321,6 +321,24 @@ public class QuotationsFilterFragment extends FragmentCommon {
         if ("".equals(quotationsPreferences.getContentSelectionAuthor())) {
             quotationsPreferences.setContentSelectionAuthor(authors.get(0));
         }
+
+        if (authors.contains(quotationsPreferences.getContentSelectionAuthor())) {
+            // author is within quotation count range
+            setCardSourceSelectionName(quotationsPreferences.getContentSelectionAuthor());
+        } else {
+            quotationsPreferences.setContentSelectionAuthor(authors.get(0));
+            setCardSourceSelectionName(authors.get(0));
+        }
+    }
+
+    private void setCardSourceSelectionName(final String authorPreference) {
+        fragmentQuotationsTabFilterBinding.spinnerAuthors.setSelection(
+                quoteUnquoteModel.authorsIndex(authorPreference));
+
+        fragmentQuotationsTabFilterBinding.radioButtonAuthorIndividual.setText(
+                getResources().getString(
+                        R.string.fragment_quotations_selection_author,
+                        quoteUnquoteModel.countAuthorQuotations(authorPreference)));
     }
 
     private void setCardFavourite(final boolean enabled) {

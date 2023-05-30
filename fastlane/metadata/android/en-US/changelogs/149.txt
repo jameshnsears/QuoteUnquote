@@ -1,1 +1,0 @@
-&bull; Fix case defect in Search

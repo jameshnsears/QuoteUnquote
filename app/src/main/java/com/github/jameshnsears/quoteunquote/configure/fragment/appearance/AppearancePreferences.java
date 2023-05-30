@@ -199,7 +199,7 @@ public class AppearancePreferences extends PreferencesFacade {
     }
 
     public void setAppearanceForceFollowSystemTheme(final boolean value) {
-        preferenceHelper.setPreference("0:APPEARANCE_FORCE_FOLLOW_SYSTEM_THEME", value);
+        preferenceHelper.setPreference("0:APPEARANCE_FORCE_FOLLOW_SYSTEM_THEME", false);
     }
 
     public int getSystemTheme() {
