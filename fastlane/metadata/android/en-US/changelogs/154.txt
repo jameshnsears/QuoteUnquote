@@ -1,0 +1,1 @@
+&bull; Improve: follow system theme card

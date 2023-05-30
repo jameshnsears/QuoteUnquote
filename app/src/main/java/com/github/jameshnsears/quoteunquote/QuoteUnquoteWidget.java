@@ -383,7 +383,13 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
 
     private void onReceiveThemeChange(@NonNull Context context,
                                       @NonNull final AppWidgetManager appWidgetManager) {
-        onUpdate(context, appWidgetManager, appWidgetManager.getAppWidgetIds(new ComponentName(context, QuoteUnquoteWidget.class)));
+        int[] widgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, QuoteUnquoteWidget.class));
+
+        onUpdate(context, appWidgetManager, widgetIds);
+
+        for (final int knownWidgetId : widgetIds) {
+            appWidgetManager.notifyAppWidgetViewDataChanged(knownWidgetId, R.id.listViewQuotation);
+        }
     }
 
     private void onReceiveMyPackageReplaced(@NonNull Context context,
