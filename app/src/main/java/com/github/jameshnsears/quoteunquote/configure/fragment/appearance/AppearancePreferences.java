@@ -53,7 +53,7 @@ public class AppearancePreferences extends PreferencesFacade {
     public String getAppearancePositionTextColour() {
         String textColour = preferenceHelper.getPreferenceString(getPreferenceKey(APPEARANCE_POSITION_TEXT_COLOUR));
         if (textColour.equals("")) {
-            textColour = "#FF000000";
+            textColour = DEFAULT_COLOUR;
         }
         return textColour;
     }
@@ -86,7 +86,7 @@ public class AppearancePreferences extends PreferencesFacade {
     public String getAppearanceAuthorTextColour() {
         String textColour = preferenceHelper.getPreferenceString(getPreferenceKey(APPEARANCE_AUTHOR_TEXT_COLOUR));
         if (textColour.equals("")) {
-            textColour = "#FF000000";
+            textColour = DEFAULT_COLOUR;
         }
         return textColour;
     }
@@ -119,7 +119,7 @@ public class AppearancePreferences extends PreferencesFacade {
     public String getAppearanceQuotationTextColour() {
         String textColour = preferenceHelper.getPreferenceString(getPreferenceKey(APPEARANCE_QUOTATION_TEXT_COLOUR));
         if (textColour.equals("")) {
-            textColour = "#FF000000";
+            textColour = DEFAULT_COLOUR;
         }
         return textColour;
     }
@@ -194,12 +194,22 @@ public class AppearancePreferences extends PreferencesFacade {
         preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TOOLBAR_JUMP), value);
     }
 
-    public boolean getAppearanceToolbarHideSeparator() {
-        return preferenceHelper.getPreferenceBoolean("0:APPEARANCE_REMOVE_SPACE_ABOVE_TOOLBAR", true);
+    public boolean getAppearanceForceFollowSystemTheme() {
+        return preferenceHelper.getPreferenceBoolean("0:APPEARANCE_FORCE_FOLLOW_SYSTEM_THEME", false);
     }
 
-    public void setAppearanceToolbarHideSeparator(final boolean value) {
-        preferenceHelper.setPreference("0:APPEARANCE_REMOVE_SPACE_ABOVE_TOOLBAR", value);
+    public void setAppearanceForceFollowSystemTheme(final boolean value) {
+        preferenceHelper.setPreference("0:APPEARANCE_FORCE_FOLLOW_SYSTEM_THEME", value);
+    }
+
+    public int getSystemTheme() {
+        return preferenceHelper.getPreferenceInt("0:SYSTEM_THEME");
+    }
+
+    public void setSystemTheme(final int value) {
+        // UiModeManager.MODE_NIGHT_NO
+        // UiModeManager.MODE_NIGHT_YES
+        preferenceHelper.setPreference("0:SYSTEM_THEME", value);
     }
 
     public int getAppearanceTransparency() {
@@ -214,11 +224,13 @@ public class AppearancePreferences extends PreferencesFacade {
     public String getAppearanceColour() {
         String appearanceColour = preferenceHelper.getPreferenceString(getPreferenceKey(APPEARANCE_COLOUR));
         if (appearanceColour.equals("")) {
-            appearanceColour = "#FFFFFFFF";
+            appearanceColour = DEFAULT_COLOUR_BACKGROUND;
 
         }
         return appearanceColour;
     }
+
+    public static String DEFAULT_COLOUR_BACKGROUND = "#FFFFFFFF";
 
     public void setAppearanceColour(@NonNull final String value) {
         preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_COLOUR), value);
@@ -228,10 +240,12 @@ public class AppearancePreferences extends PreferencesFacade {
     public String getAppearanceToolbarColour() {
         String toolbarColour = preferenceHelper.getPreferenceString(getPreferenceKey(APPEARANCE_TOOLBAR_COLOUR));
         if (toolbarColour.equals("")) {
-            toolbarColour = "#FF000000";
+            toolbarColour = DEFAULT_COLOUR;
         }
         return toolbarColour;
     }
+
+    public static String DEFAULT_COLOUR = "#FF000000";
 
     public void setAppearanceToolbarColour(@NonNull final String value) {
         preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TOOLBAR_COLOUR), value);

@@ -1,4 +1,0 @@
-&bull; Fix defect in Search favourites switch
-&bull; Improve Instructions
-&bull; Improve GitHub Release note automation
-&bull; Bump dependency

@@ -22,7 +22,7 @@ public interface QuotationDAO {
     @Query("SELECT COUNT(QUOTATION) AS QUOTATION_COUNT FROM QUOTATIONS")
     Single<Integer> countAll();
 
-    @Query("SELECT DIGEST AS QUOTATION_COUNT FROM QUOTATIONS WHERE AUTHOR LIKE '%' || :exclusion || '%' COLLATE NOCASE")
+    @Query("SELECT DIGEST FROM QUOTATIONS WHERE AUTHOR LIKE '%' || :exclusion || '%' COLLATE NOCASE")
     List<String> getExclusionDigests(String exclusion);
 
     @Query("SELECT DIGEST FROM QUOTATIONS WHERE AUTHOR = :author ORDER BY ROWID ASC")
@@ -41,8 +41,8 @@ public interface QuotationDAO {
     List<String> getNextAllDigests();
 
     @Query("DELETE FROM QUOTATIONS")
-    void erase();
+    void eraseQuotations();
 
     @Query("DELETE FROM QUOTATIONS WHERE DIGEST = :digest")
-    void erase(String digest);
+    void eraseQuotations(String digest);
 }

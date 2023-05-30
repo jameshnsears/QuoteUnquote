@@ -95,6 +95,9 @@
               "APPEARANCE_REMOVE_SPACE_ABOVE_TOOLBAR": {
                 "type": "boolean"
               },
+              "APPEARANCE_FORCE_FOLLOW_SYSTEM_THEME": {
+                "type": "boolean"
+              },
               "APPEARANCE_TOOLBAR_COLOUR": {
                 "type": "string"
               },

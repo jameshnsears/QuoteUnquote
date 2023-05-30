@@ -939,7 +939,7 @@ public class DatabaseRepository {
             currentDAO.erase();
             favouriteDAO.erase();
         } else {
-            quotationExternalDAO.erase();
+            quotationExternalDAO.eraseQuotations();
 
             previousExternalDAO.erase();
             currentExternalDAO.erase();

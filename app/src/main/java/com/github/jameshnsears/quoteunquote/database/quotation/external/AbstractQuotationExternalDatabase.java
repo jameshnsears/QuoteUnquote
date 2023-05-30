@@ -20,15 +20,15 @@ public abstract class AbstractQuotationExternalDatabase extends RoomDatabase {
     public static AbstractQuotationExternalDatabase quotationExternalDatabase;
 
     @NonNull
-    public static AbstractQuotationExternalDatabase getDatabase(@NonNull Context context) {
+    public static AbstractQuotationExternalDatabase getDatabase(@NonNull final Context context) {
         synchronized (AbstractQuotationExternalDatabase.class) {
-            if (quotationExternalDatabase == null) {
-                quotationExternalDatabase = Room.databaseBuilder(context,
-                                AbstractQuotationExternalDatabase.class, DATABASE_NAME)
-                        .createFromAsset(DATABASE_NAME)
+            if (null == quotationExternalDatabase) {
+                AbstractQuotationExternalDatabase.quotationExternalDatabase = Room.databaseBuilder(context,
+                                AbstractQuotationExternalDatabase.class, AbstractQuotationExternalDatabase.DATABASE_NAME)
+                        .createFromAsset(AbstractQuotationExternalDatabase.DATABASE_NAME)
                         .build();
             }
-            return quotationExternalDatabase;
+            return AbstractQuotationExternalDatabase.quotationExternalDatabase;
         }
     }
 

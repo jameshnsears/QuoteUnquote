@@ -311,8 +311,8 @@ class TransferRestore : TransferCommon() {
         appearancePreferences.appearancePositionTextColour = appearance.appearancePositionTextColour
         appearancePreferences.appearancePositionTextSize = appearance.appearancePositionTextSize
         appearancePreferences.appearancePositionTextHide = appearance.appearancePositionTextHide
-        appearancePreferences.appearanceToolbarHideSeparator =
-            appearance.appearanceToolbarHideSeparator
+        appearancePreferences.appearanceForceFollowSystemTheme =
+            appearance.appearanceForceFollowSystemTheme
         appearancePreferences.appearanceToolbarColour = appearance.appearanceToolbarColour
         appearancePreferences.appearanceToolbarFavourite = appearance.appearanceToolbarFavourite
         appearancePreferences.appearanceToolbarFirst = appearance.appearanceToolbarFirst

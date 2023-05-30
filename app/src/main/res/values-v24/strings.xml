@@ -12,9 +12,11 @@
     <string name="activity_instructions_usage">Usage</string>
     <string name="activity_instructions_configure_1">\u2022 Once the widget is on a home screen, tap the Quotation text to re-configure the widget</string>
     <string name="activity_instructions_configure_2">\u2022 Configuration changes are only recognised when the Configuration screen is exited with the Back button / Gesture</string>
-    <string name="activity_instructions_configure_3">\u2022 Tap an <u>underlined</u> - Internal database only - Source for Wikipedia entry</string>
+    <string name="activity_instructions_configure_3">\u2022 Tap an <u>underlined</u> Source for Wikipedia entry</string>
     <string name="activity_instructions_configure_4">\u2022 The \u2316 icon, next to the Quotation position count, denotes last previous Quotation</string>
     <string name="activity_instructions_configure_5">\u2022 Optionally, import your own Comma Separated Values (CSV) file containing Quotations, or, Affirmations</string>
+    <string name="activity_instructions_configure_6">\u2022 Only the (optional) Database > External Web page &amp; Sync > Cloud features require an Internet connection</string>
+    <string name="activity_instructions_configure_7">\u2022 The Sync > Cloud feature stores only anonymous data in the Google Cloud Platform</string>
     <string name="activity_instructions_os_warning">Some devices might require Battery Saver settings to be appropriately configured</string>
     <string name="activity_instructions_resize">Resize the widget</string>
     <string name="activity_instructions_resize_instruction_1">1. Touch and hold the widget on your home screen</string>
@@ -57,7 +59,7 @@
     <string name="fragment_quotations_selection_dialog_browse_favourites_favourited">Quotation is favourited</string>
     <string name="fragment_quotations_selection_dialog_browse_favourites_unfavourited">Quotation is unfavourited</string>
     <string name="fragment_quotations_selection_dialog_browse_search">Search Results</string>
-    <string name="fragment_quotations_selection_dialog_browse_share_and_toggle">Tap to Share; Long tap, toggle Favourite</string>
+    <string name="fragment_quotations_selection_dialog_browse_share_and_toggle">Tap: Share; Long tap: toggle Favourite</string>
     <string name="fragment_quotations_selection_enable_all_fields">Force enable Browse &amp; Export</string>
 
     <string name="fragment_quotations_database">Database</string>
@@ -88,7 +90,7 @@
     <string name="fragment_quotations_database_scrape_info">HTML 5 compatible response expected; App Widget will poll every 30 minutes, starting at 00:00</string>
 
     <string name="fragment_appearance_title">Appearance</string>
-    <string name="fragment_appearance_tab_style">Contents</string>
+    <string name="fragment_appearance_tab_style">Style</string>
     <string name="fragment_appearance_background">Background</string>
     <string name="fragment_appearance_colour">Colour</string>
     <string name="fragment_appearance_background_colour_dialog_title">Background Colour</string>
@@ -137,7 +139,8 @@
         <item>28</item>
     </integer-array>
     <string name="fragment_appearance_navigation">Toolbar</string>
-    <string name="fragment_appearance_toolbar_hide_separator">Hide toolbar separator</string>
+    <string name="fragment_appearance_follow_system_theme">Follow system theme</string>
+    <string name="fragment_appearance_follow_system_theme_info">Forces App Widget to use Black &amp; White colours; have rounded corners</string>
     <string name="fragment_appearance_toolbar_colour_dialog_title">Button Colour</string>
     <string name="fragment_appearance_toolbar_buttons">Buttons</string>
     <string name="fragment_appearance_toolbar_first">First, clears Previous</string>
@@ -193,6 +196,6 @@
     <string name="preview_description">Discover high quality Quotations!\nImport Affirmations!</string>
     <string name="preview_quotation">Nothing matters very much and very few things matter at all.\n</string>
     <string name="preview_author"><u>Arthur Balfour\n</u></string>
-    <string name="preview_position">\u2316  1/20553\u0020</string>
+    <string name="preview_position">\u2316  1/20313\u0020</string>
 
 </resources>

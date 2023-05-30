@@ -10,26 +10,23 @@ import androidx.room.Index;
         primaryKeys = {"author", "quotation"})
 public class QuotationEntity {
     @NonNull
-    @ColumnInfo(name = "author", collate = ColumnInfo.NOCASE)
-    public String author;
-
-    @NonNull
     @ColumnInfo(name = "quotation", collate = ColumnInfo.NOCASE)
     public final String quotation;
-
     @NonNull
     @ColumnInfo(name = "wikipedia", collate = ColumnInfo.NOCASE)
     public final String wikipedia;
-
     @NonNull
     @ColumnInfo(name = "digest")
     public final String digest;
+    @NonNull
+    @ColumnInfo(name = "author", collate = ColumnInfo.NOCASE)
+    public String author;
 
     public QuotationEntity(
-            @NonNull final String digest,
-            @NonNull final String wikipedia,
-            @NonNull final String author,
-            @NonNull final String quotation) {
+            @NonNull String digest,
+            @NonNull String wikipedia,
+            @NonNull String author,
+            @NonNull String quotation) {
         this.author = author;
         this.wikipedia = wikipedia;
         this.quotation = quotation;
@@ -38,21 +35,21 @@ public class QuotationEntity {
 
     @NonNull
     public String theQuotation() {
-        return quotation + "\n";
+        return this.quotation + "\n";
     }
 
     @NonNull
     public String theAuthor() {
-        return author + "\n";
+        return this.author + "\n";
     }
 
     @NonNull
     public String shareQuotationAuthor() {
-        return quotation + "\n\n" + author;
+        return this.quotation + "\n\n" + this.author;
     }
 
     @NonNull
     public String shareQuotation() {
-        return quotation;
+        return this.quotation;
     }
 }

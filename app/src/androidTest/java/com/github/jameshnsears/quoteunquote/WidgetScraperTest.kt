@@ -18,6 +18,8 @@ class WidgetScraperTest : QuoteUnquoteModelUtility() {
         insertDefaultQuotation()
     }
 
+    // run in 29+ API only !
+
     @Test
     fun reuseDefault() {
         val quoteUnquoteWidget = spyk(QuoteUnquoteWidget())

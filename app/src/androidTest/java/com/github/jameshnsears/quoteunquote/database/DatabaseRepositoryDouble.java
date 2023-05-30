@@ -77,12 +77,12 @@ public final class DatabaseRepositoryDouble extends DatabaseRepository {
     }
 
     public void eraseAllDatabsaes() {
-        databaseRepositoryDouble.abstractQuotationDatabase.quotationDAO().erase();
+        databaseRepositoryDouble.abstractQuotationDatabase.quotationDAO().eraseQuotations();
         previousDAO.erase();
         currentDAO.erase();
         favouriteDAO.erase();
 
-        databaseRepositoryDouble.abstractQuotationExternalDatabase.quotationExternalDAO().erase();
+        databaseRepositoryDouble.abstractQuotationExternalDatabase.quotationExternalDAO().eraseQuotations();
         previousExternalDAO.erase();
         currentExternalDAO.erase();
         favouriteExternalDAO.erase();
@@ -110,9 +110,9 @@ public final class DatabaseRepositoryDouble extends DatabaseRepository {
 
     public void eraseQuotation(@NonNull String digest) {
         if (useInternalDatabase()) {
-            quotationDAO.erase(digest);
+            quotationDAO.eraseQuotations(digest);
         } else {
-            quotationExternalDAO.erase(digest);
+            quotationExternalDAO.eraseQuotations(digest);
         }
     }
 

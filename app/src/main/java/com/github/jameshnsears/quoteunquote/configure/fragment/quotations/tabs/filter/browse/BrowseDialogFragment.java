@@ -20,7 +20,7 @@ import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.browse.adapter.BrowseAdapter;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.browse.adapter.BrowseData;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.browse.adapter.BrowseDividerItemDecorator;
-import com.github.jameshnsears.quoteunquote.databinding.FragmentQuotationsBrowseDialogBinding;
+import com.github.jameshnsears.quoteunquote.databinding.FragmentQuotationsTabFilterBrowseDialogBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ import timber.log.Timber;
 
 public class BrowseDialogFragment extends DialogFragment {
     @Nullable
-    public FragmentQuotationsBrowseDialogBinding fragmentQuotationsBrowseDialogBinding;
+    public FragmentQuotationsTabFilterBrowseDialogBinding fragmentQuotationsTabFilterBrowseDialogBinding;
 
     protected int widgetId;
 
@@ -64,8 +64,8 @@ public class BrowseDialogFragment extends DialogFragment {
 
         final LayoutInflater inflater = this.requireActivity().getLayoutInflater();
 
-        this.fragmentQuotationsBrowseDialogBinding
-                = FragmentQuotationsBrowseDialogBinding.inflate(inflater.cloneInContext(
+        this.fragmentQuotationsTabFilterBrowseDialogBinding
+                = FragmentQuotationsTabFilterBrowseDialogBinding.inflate(inflater.cloneInContext(
                 new ContextThemeWrapper(
                         this.getActivity(), com.google.android.material.R.style.Theme_MaterialComponents_DayNight)));
 
@@ -77,22 +77,22 @@ public class BrowseDialogFragment extends DialogFragment {
 
         this.constructRecyclerView();
 
-        builder.setView(this.fragmentQuotationsBrowseDialogBinding.getRoot());
+        builder.setView(this.fragmentQuotationsTabFilterBrowseDialogBinding.getRoot());
 
         return builder.create();
     }
 
     protected void constructRecyclerView() {
-        this.fragmentQuotationsBrowseDialogBinding.recycleViewBrowse
+        this.fragmentQuotationsTabFilterBrowseDialogBinding.recycleViewBrowse
                 .setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
         // doesn't look good when RecyclerView has rounded corners!
         final RecyclerView.ItemDecoration divider
                 = new BrowseDividerItemDecorator(ContextCompat.getDrawable(this.getActivity(), R.drawable.recyclerview_row_divider));
 
-        this.fragmentQuotationsBrowseDialogBinding.recycleViewBrowse.addItemDecoration(divider);
+        this.fragmentQuotationsTabFilterBrowseDialogBinding.recycleViewBrowse.addItemDecoration(divider);
 
-        this.fragmentQuotationsBrowseDialogBinding.recycleViewBrowse.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        this.fragmentQuotationsTabFilterBrowseDialogBinding.recycleViewBrowse.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull final RecyclerView recyclerView, final int dx, final int dy) {
                 super.onScrolled(recyclerView, dx, dy);
@@ -120,7 +120,7 @@ public class BrowseDialogFragment extends DialogFragment {
                 this.getCachedRecyclerViewData(this.currentPage),
                 this.dialogType);
 
-        this.fragmentQuotationsBrowseDialogBinding.recycleViewBrowse.setAdapter(this.adapter);
+        this.fragmentQuotationsTabFilterBrowseDialogBinding.recycleViewBrowse.setAdapter(this.adapter);
     }
 
     public List<BrowseData> getCachedRecyclerViewData(final int currentPage) {
@@ -146,7 +146,7 @@ public class BrowseDialogFragment extends DialogFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        this.fragmentQuotationsBrowseDialogBinding = null;
+        this.fragmentQuotationsTabFilterBrowseDialogBinding = null;
     }
 
     @Override

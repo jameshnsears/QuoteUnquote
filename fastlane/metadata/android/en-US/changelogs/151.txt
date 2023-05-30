@@ -1,0 +1,6 @@
+&bull; New: follow system theme card
+&bull; New: add some missing Wikipedia Source links
+&bull; Remove: some similar quotations
+&bull; Remove: hide toolbar separator card
+&bull; Update: instructions
+&bull; Update: dependencies + IDE Android Studio Flamingo | 2022.2.1 Patch 2

@@ -254,15 +254,23 @@
                         tools:ignore="LabelFor" />
             </LinearLayout>
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                    android:id="@+id/switchKeepLatestResponseOnly"
+            <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:checked="true"
-                    android:paddingStart="7dp"
-                    android:paddingEnd="0dp"
-                    android:text="@string/fragment_quotations_database_scrape_erase" />
+                    android:orientation="vertical"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="0dp">
+
+                <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchKeepLatestResponseOnly"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:paddingStart="7dp"
+                        android:paddingEnd="0dp"
+                        android:text="@string/fragment_quotations_database_scrape_erase" />
+            </LinearLayout>
 
             <LinearLayout
                     android:layout_width="match_parent"

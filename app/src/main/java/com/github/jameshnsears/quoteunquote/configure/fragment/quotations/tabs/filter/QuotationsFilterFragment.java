@@ -119,19 +119,19 @@ public class QuotationsFilterFragment extends FragmentCommon {
             @NonNull final View view, @NonNull final Bundle savedInstanceState) {
         initUI();
 
-        createListenerCardAll();
+        createListenerCardAllRadio();
 
-        createListenerCardSource();
+        createListenerCardSourceRadio();
         createListenerCardSourceCount();
         createListenerCardSourceSelection();
         createListenerCardSourceBrowse();
         createListenerCardSourceExport();
 
-        createListenerCardFavourite();
+        createListenerCardFavouriteRadio();
         createListenerCardFavouritesBrowse();
         createListenerCardFavouritesExport();
 
-        createListenerCardSearch();
+        createListenerCardSearchRadio();
         createListenerCardSearchFavourites();
         createListenerCardSearchRegEx();
         createListenerCardSearchBrowse();
@@ -209,7 +209,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
                 getResources().getString(R.string.fragment_quotations_selection_all,
                         0));
 
-        fragmentQuotationsTabFilterBinding.radioButtonAuthor.setText(
+        fragmentQuotationsTabFilterBinding.radioButtonAuthorIndividual.setText(
                 getResources().getString(R.string.fragment_quotations_selection_author,
                         0));
 
@@ -226,13 +226,13 @@ public class QuotationsFilterFragment extends FragmentCommon {
 
     public void setCard() {
         setCardAll(false);
-        setCardSource(false);
+        setCardSourceIndividual(false);
         setCardFavourite(false);
         setCardSearch(false);
 
         switch (quotationsPreferences.getContentSelection()) {
             case AUTHOR:
-                setCardSource(true);
+                setCardSourceIndividual(true);
                 break;
             case FAVOURITES:
                 setCardFavourite(true);
@@ -273,8 +273,8 @@ public class QuotationsFilterFragment extends FragmentCommon {
         fragmentQuotationsTabFilterBinding.textViewExclusionInfo.setEnabled(enabled);
     }
 
-    private void setCardSource(final boolean enabled) {
-        this.fragmentQuotationsTabFilterBinding.radioButtonAuthor.setChecked(enabled);
+    private void setCardSourceIndividual(final boolean enabled) {
+        this.fragmentQuotationsTabFilterBinding.radioButtonAuthorIndividual.setChecked(enabled);
 
         fragmentQuotationsTabFilterBinding.textViewQuotationCount.setEnabled(enabled);
         fragmentQuotationsTabFilterBinding.spinnerAuthorsCount.setEnabled(enabled);
@@ -321,24 +321,6 @@ public class QuotationsFilterFragment extends FragmentCommon {
         if ("".equals(quotationsPreferences.getContentSelectionAuthor())) {
             quotationsPreferences.setContentSelectionAuthor(authors.get(0));
         }
-
-        if (authors.contains(quotationsPreferences.getContentSelectionAuthor())) {
-            // author is within quotation count range
-            setCardSourceSelectionName(quotationsPreferences.getContentSelectionAuthor());
-        } else {
-            quotationsPreferences.setContentSelectionAuthor(authors.get(0));
-            setCardSourceSelectionName(authors.get(0));
-        }
-    }
-
-    private void setCardSourceSelectionName(final String authorPreference) {
-        fragmentQuotationsTabFilterBinding.spinnerAuthors.setSelection(
-                quoteUnquoteModel.authorsIndex(authorPreference));
-
-        fragmentQuotationsTabFilterBinding.radioButtonAuthor.setText(
-                getResources().getString(
-                        R.string.fragment_quotations_selection_author,
-                        quoteUnquoteModel.countAuthorQuotations(authorPreference)));
     }
 
     private void setCardFavourite(final boolean enabled) {
@@ -708,7 +690,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
 
     ////////////////
 
-    private void createListenerCardAll() {
+    private void createListenerCardAllRadio() {
         final RadioButton radioButtonAll = this.fragmentQuotationsTabFilterBinding.radioButtonAll;
         radioButtonAll.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
@@ -718,9 +700,9 @@ public class QuotationsFilterFragment extends FragmentCommon {
         });
     }
 
-    private void createListenerCardSource() {
-        final RadioButton radioButtonAuthor = this.fragmentQuotationsTabFilterBinding.radioButtonAuthor;
-        radioButtonAuthor.setOnCheckedChangeListener((buttonView, isChecked) -> {
+    private void createListenerCardSourceRadio() {
+        final RadioButton radioButtonAuthorIndividual = this.fragmentQuotationsTabFilterBinding.radioButtonAuthorIndividual;
+        radioButtonAuthorIndividual.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 quotationsPreferences.setContentSelection(ContentSelection.AUTHOR);
                 setCard();
@@ -751,7 +733,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
             @Override
             public void onItemSelected(final AdapterView<?> parent, final View view, final int position, final long selectedItemId) {
                 final String author = fragmentQuotationsTabFilterBinding.spinnerAuthors.getSelectedItem().toString();
-                fragmentQuotationsTabFilterBinding.radioButtonAuthor.setText(
+                fragmentQuotationsTabFilterBinding.radioButtonAuthorIndividual.setText(
                         getResources().getString(R.string.fragment_quotations_selection_author,
                                 quoteUnquoteModel.countAuthorQuotations(author)
                         ));
@@ -804,7 +786,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
         });
     }
 
-    private void createListenerCardFavourite() {
+    private void createListenerCardFavouriteRadio() {
         final RadioButton radioButtonFavourites = this.fragmentQuotationsTabFilterBinding.radioButtonFavourites;
         radioButtonFavourites.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
@@ -844,7 +826,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
         });
     }
 
-    private void createListenerCardSearch() {
+    private void createListenerCardSearchRadio() {
         final RadioButton radioButtonSearch = this.fragmentQuotationsTabFilterBinding.radioButtonSearch;
         radioButtonSearch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {

@@ -71,7 +71,7 @@
 
                 <com.google.android.material.checkbox.MaterialCheckBox
                         android:id="@+id/toolbarSwitchFirst"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="false"
                         android:contentDescription="@string/fragment_appearance_toolbar_first"
@@ -90,7 +90,7 @@
 
                 <com.google.android.material.checkbox.MaterialCheckBox
                         android:id="@+id/toolbarSwitchPrevious"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true"
                         android:contentDescription="@string/fragment_appearance_toolbar_previous"
@@ -110,7 +110,7 @@
 
                 <com.google.android.material.checkbox.MaterialCheckBox
                         android:id="@+id/toolbarSwitchToggleFavourite"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true"
                         android:contentDescription="@string/fragment_appearance_toolbar_favourite"
@@ -130,7 +130,7 @@
 
                 <com.google.android.material.checkbox.MaterialCheckBox
                         android:id="@+id/toolbarSwitchShare"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true"
                         android:contentDescription="@string/fragment_appearance_toolbar_share"
@@ -157,7 +157,7 @@
 
                 <com.google.android.material.checkbox.MaterialCheckBox
                         android:id="@+id/toolbar_switch_jump"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/fragment_appearance_toolbar_position_indicator"
                         android:drawableStart="@drawable/ic_toolbar_jump_24"
@@ -175,7 +175,7 @@
 
                 <com.google.android.material.checkbox.MaterialCheckBox
                         android:id="@+id/toolbarSwitchNextSequential"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/fragment_appearance_toolbar_next_sequential"
                         android:drawableStart="@drawable/ic_toolbar_next_sequential_24"
@@ -193,7 +193,7 @@
 
                 <com.google.android.material.checkbox.MaterialCheckBox
                         android:id="@+id/toolbarSwitchNextRandom"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:checked="true"
                         android:contentDescription="@string/fragment_appearance_toolbar_next_random"
@@ -205,32 +205,6 @@
                         android:text="@string/fragment_appearance_toolbar_next_random"
                         tools:ignore="TextContrastCheck" />
             </LinearLayout>
-
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardViewSeparator"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="2dp"
-            app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true"
-            app:contentPadding="5dp">
-
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="10dp">
-
-            <com.google.android.material.switchmaterial.SwitchMaterial
-                    android:id="@+id/toolbar_switch_hide_separator"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/fragment_appearance_toolbar_hide_separator" />
 
         </LinearLayout>
 

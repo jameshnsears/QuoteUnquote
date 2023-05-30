@@ -96,7 +96,7 @@ open class TransferBackupSettings(val context: Context) {
             appearancePreferences.appearancePositionTextColour,
             appearancePreferences.appearancePositionTextHide,
 
-            appearancePreferences.appearanceToolbarHideSeparator,
+            appearancePreferences.appearanceForceFollowSystemTheme,
             appearancePreferences.appearanceToolbarColour,
             appearancePreferences.appearanceToolbarFirst,
             appearancePreferences.appearanceToolbarPrevious,

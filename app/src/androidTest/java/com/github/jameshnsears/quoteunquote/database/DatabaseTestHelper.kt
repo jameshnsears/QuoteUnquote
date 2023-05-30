@@ -19,7 +19,7 @@ abstract class DatabaseTestHelper {
     val context: Context = ApplicationProvider.getApplicationContext()
 
     @Before
-    fun before() {
+    open fun before() {
         databaseRepositoryDouble.eraseAllDatabsaes()
         PreferencesFacade.erase(context)
         DatabaseRepository.useInternalDatabase = true

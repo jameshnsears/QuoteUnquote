@@ -10,8 +10,7 @@ public enum ContentSelection {
     ALL(1),
     FAVOURITES(2),
     AUTHOR(3),
-    SEARCH(4),
-    REPORT(5);
+    SEARCH(4);
 
     @NonNull
     private final Integer code;

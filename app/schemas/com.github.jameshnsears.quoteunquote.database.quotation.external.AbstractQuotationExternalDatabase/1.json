@@ -6,14 +6,8 @@
     "entities": [
       {
         "tableName": "quotations",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`author` TEXT NOT NULL COLLATE NOCASE, `quotation` TEXT NOT NULL COLLATE NOCASE, `wikipedia` TEXT NOT NULL COLLATE NOCASE, `digest` TEXT NOT NULL, PRIMARY KEY(`author`, `quotation`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`quotation` TEXT NOT NULL COLLATE NOCASE, `wikipedia` TEXT NOT NULL COLLATE NOCASE, `digest` TEXT NOT NULL, `author` TEXT NOT NULL COLLATE NOCASE, PRIMARY KEY(`author`, `quotation`))",
         "fields": [
-          {
-            "fieldPath": "author",
-            "columnName": "author",
-            "affinity": "TEXT",
-            "notNull": true
-          },
           {
             "fieldPath": "quotation",
             "columnName": "quotation",
@@ -31,14 +25,20 @@
             "columnName": "digest",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "author",
+            "columnName": "author",
+            "affinity": "TEXT",
+            "notNull": true
           }
         ],
         "primaryKey": {
+          "autoGenerate": false,
           "columnNames": [
             "author",
             "quotation"
-          ],
-          "autoGenerate": false
+          ]
         },
         "indices": [
           {

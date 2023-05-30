@@ -4,10 +4,10 @@ import android.os.Build
 import androidx.fragment.app.testing.launchFragment
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.contents.AppearanceContentsFragmentDouble
-import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.contents.text.AppearanceTextDialogAuthorDouble
-import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.contents.text.AppearanceTextDialogPositionDouble
-import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.contents.text.AppearanceTextDialogQuotationDouble
+import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.style.AppearanceStyleFragmentDouble
+import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.style.dialog.StyleDialogAuthorDouble
+import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.style.dialog.StyleDialogPositionDouble
+import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.style.dialog.StyleDialogQuotationDouble
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.toolbar.AppearanceToolbarFragmentDouble
 import com.github.jameshnsears.quoteunquote.utils.logging.ShadowLoggingHelper
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
@@ -24,7 +24,7 @@ import org.robolectric.annotation.Config
 class AppearanceFragmentPreferencesTest : ShadowLoggingHelper() {
     @Test
     fun confirmInitialAppearanceStylePreferences() {
-        with(launchFragment<AppearanceContentsFragmentDouble>()) {
+        with(launchFragment<AppearanceStyleFragmentDouble>()) {
             onFragment { fragment ->
                 fragment.setBackgroundColour()
                 assertEquals("#FFFFFFFF", fragment.appearancePreferences?.appearanceColour)
@@ -55,7 +55,7 @@ class AppearanceFragmentPreferencesTest : ShadowLoggingHelper() {
 
     @Test
     fun confirmInitialTextPreferencesQuotation() {
-        with(launchFragment<AppearanceTextDialogQuotationDouble>()) {
+        with(launchFragment<StyleDialogQuotationDouble>()) {
             onFragment { fragment ->
                 fragment.setTextColour()
                 assertEquals(
@@ -71,7 +71,7 @@ class AppearanceFragmentPreferencesTest : ShadowLoggingHelper() {
 
     @Test
     fun confirmInitialTextPreferencesAuthor() {
-        with(launchFragment<AppearanceTextDialogAuthorDouble>()) {
+        with(launchFragment<StyleDialogAuthorDouble>()) {
             onFragment { fragment ->
                 fragment.setTextColour()
                 assertEquals(
@@ -90,7 +90,7 @@ class AppearanceFragmentPreferencesTest : ShadowLoggingHelper() {
 
     @Test
     fun confirmInitialTextPreferencesPosition() {
-        with(launchFragment<AppearanceTextDialogPositionDouble>()) {
+        with(launchFragment<StyleDialogPositionDouble>()) {
             onFragment { fragment ->
                 fragment.setTextColour()
                 assertEquals(
@@ -111,9 +111,6 @@ class AppearanceFragmentPreferencesTest : ShadowLoggingHelper() {
     fun confirmInitialToolbarPreferences() {
         with(launchFragment<AppearanceToolbarFragmentDouble>()) {
             onFragment { fragment ->
-                fragment.setHideSeparator()
-                assertTrue(fragment.appearancePreferences?.appearanceToolbarHideSeparator == true)
-
                 fragment.setToolbarColour()
                 assertThat(
                     fragment.appearancePreferences?.appearanceToolbarColour,
@@ -136,10 +133,6 @@ class AppearanceFragmentPreferencesTest : ShadowLoggingHelper() {
     fun confirmToolbarChangesToPreferences() {
         with(launchFragment<AppearanceToolbarFragmentDouble>()) {
             onFragment { fragment ->
-                fragment.fragmentAppearanceTabToolbarBinding?.toolbarSwitchHideSeparator?.isChecked =
-                    false
-                assertTrue(fragment.appearancePreferences?.appearanceToolbarHideSeparator == false)
-
                 fragment.fragmentAppearanceTabToolbarBinding?.toolbarSwitchFirst?.isChecked = true
                 assertTrue(fragment.appearancePreferences?.appearanceToolbarFirst == true)
 
@@ -167,7 +160,7 @@ class AppearanceFragmentPreferencesTest : ShadowLoggingHelper() {
 
     @Test
     fun emptyDeletedStylePreferences() {
-        with(launchFragment<AppearanceContentsFragmentDouble>()) {
+        with(launchFragment<AppearanceStyleFragmentDouble>()) {
             onFragment { fragment ->
                 fragment.appearancePreferences?.appearanceTransparency = 5
                 fragment.setTransparency()
@@ -184,7 +177,7 @@ class AppearanceFragmentPreferencesTest : ShadowLoggingHelper() {
 
     @Test
     fun emptyDisabledPreferences() {
-        with(launchFragment<AppearanceContentsFragmentDouble>()) {
+        with(launchFragment<AppearanceStyleFragmentDouble>()) {
             onFragment { fragment ->
                 fragment.appearancePreferences?.appearanceTransparency = 5
                 fragment.setTransparency()

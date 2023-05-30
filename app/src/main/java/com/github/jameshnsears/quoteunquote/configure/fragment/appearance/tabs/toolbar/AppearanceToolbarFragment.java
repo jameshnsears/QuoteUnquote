@@ -64,7 +64,6 @@ public class AppearanceToolbarFragment extends FragmentCommon {
     @Override
     public void onViewCreated(
             @NonNull final View view, @NonNull final Bundle savedInstanceState) {
-        createListenerHideSeparator();
 
         createListenerToolbarColourPicker();
         createListenerToolbarFirst();
@@ -76,7 +75,6 @@ public class AppearanceToolbarFragment extends FragmentCommon {
         createListenerToolbarNextRandom();
         createListenerToolbarNextSequential();
 
-        setHideSeparator();
         setToolbarColour();
         setToolbar();
     }
@@ -132,16 +130,6 @@ public class AppearanceToolbarFragment extends FragmentCommon {
         });
     }
 
-    public void setHideSeparator() {
-        fragmentAppearanceTabToolbarBinding.toolbarSwitchHideSeparator.setChecked(appearancePreferences.getAppearanceToolbarHideSeparator());
-    }
-
-    private void createListenerHideSeparator() {
-        fragmentAppearanceTabToolbarBinding.toolbarSwitchHideSeparator.setOnCheckedChangeListener((buttonView, isChecked) ->
-                appearancePreferences.setAppearanceToolbarHideSeparator(isChecked)
-        );
-    }
-
     private void createListenerToolbarFirst() {
         fragmentAppearanceTabToolbarBinding.toolbarSwitchFirst.setOnCheckedChangeListener((buttonView, isChecked) ->
                 appearancePreferences.setAppearanceToolbarFirst(isChecked)
@@ -191,10 +179,24 @@ public class AppearanceToolbarFragment extends FragmentCommon {
     }
 
     public void setToolbarColour() {
+        if (fragmentAppearanceTabToolbarBinding == null) {
+            return;
+        }
+
         String appearanceToolbarColour = appearancePreferences.getAppearanceToolbarColour();
         appearanceToolbarColour = appearanceToolbarColour.replace("#", "");
         int appearanceColourUnsignedInt = Integer.parseUnsignedInt(appearanceToolbarColour, 16);
         fragmentAppearanceTabToolbarBinding
                 .toolbarColourPickerButton.setBackgroundColor(appearanceColourUnsignedInt);
+
+        if (appearancePreferences.getAppearanceForceFollowSystemTheme()) {
+            fragmentAppearanceTabToolbarBinding.textViewToolbarColour.setEnabled(false);
+            fragmentAppearanceTabToolbarBinding.toolbarColourPickerButton.setEnabled(false);
+            makeButtonAlpha(fragmentAppearanceTabToolbarBinding.toolbarColourPickerButton, false);
+        } else {
+            fragmentAppearanceTabToolbarBinding.textViewToolbarColour.setEnabled(true);
+            fragmentAppearanceTabToolbarBinding.toolbarColourPickerButton.setEnabled(true);
+            makeButtonAlpha(fragmentAppearanceTabToolbarBinding.toolbarColourPickerButton, true);
+        }
     }
 }

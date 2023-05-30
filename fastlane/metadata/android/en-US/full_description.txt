@@ -1,13 +1,11 @@
 Improve your self-esteem with this easy to use App Widget :-)
 
-Discover high quality Quotations!
-
-Import Affirmations!
-
-&bull; Works offline
-&bull; Navigate through what you want, how you want
+&bull; High quality, curated, quotations
+&bull; Single tap to Wikipedia Source article
+&bull; Core functionality works offline
 &bull; Highly customisable
+&bull; Navigate through what you want, how you want
+&bull; Import affirmations
 &bull; Notification channels and actions
-&bull; Wikipedia Source article (Internal database only)
 &bull; Backup and Restore, locally or remote
 &bull; User feedback drives development

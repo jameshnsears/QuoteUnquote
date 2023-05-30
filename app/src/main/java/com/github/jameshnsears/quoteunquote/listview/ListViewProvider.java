@@ -1,5 +1,6 @@
 package com.github.jameshnsears.quoteunquote.listview;
 
+import android.app.UiModeManager;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +17,6 @@ import androidx.annotation.Nullable;
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteModel;
 import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences;
-import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
 
@@ -295,9 +295,18 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
     }
 
     private void setTextColour(RemoteViews remoteViews, int viewId, String colour) {
-        remoteViews.setTextColor(
-                viewId,
-                Color.parseColor(colour));
+        AppearancePreferences appearancePreferences = new AppearancePreferences(context);
+        if (appearancePreferences.getAppearanceForceFollowSystemTheme()) {
+            if (appearancePreferences.getSystemTheme() == UiModeManager.MODE_NIGHT_YES) {
+                remoteViews.setTextColor(viewId, Color.WHITE);
+            } else if (appearancePreferences.getSystemTheme() == UiModeManager.MODE_NIGHT_NO) {
+                remoteViews.setTextColor(viewId, Color.BLACK);
+            }
+        } else {
+            remoteViews.setTextColor(
+                    viewId,
+                    Color.parseColor(colour));
+        }
     }
 
     private void setTextSize(RemoteViews remoteViews, int viewId, int size) {

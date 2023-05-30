@@ -1,14 +1,11 @@
 package com.github.jameshnsears.quoteunquote.configure.fragment.quotations;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.database.QuotationsDatabaseFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.QuotationsFilterFragment;
-import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 
 public class QuotationsFragmentStateAdapter extends FragmentStateAdapter {
     private final int widgetId;
