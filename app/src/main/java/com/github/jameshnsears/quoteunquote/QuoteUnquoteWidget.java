@@ -7,6 +7,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -191,7 +192,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                             appearancePreferences.getAppearanceToolbarColour()
                     );
                 } else {
-                    setThemeToolbarButtons(context, widgetId, remoteViews, appearancePreferences.getSystemTheme());
+                    setThemeToolbarButtons(context, widgetId, remoteViews);
                 }
             }
 
@@ -223,11 +224,10 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
         AppearancePreferences appearancePreferences = new AppearancePreferences(context);
 
         if (appearancePreferences.getAppearanceForceFollowSystemTheme() == true) {
-            if (appearancePreferences.getSystemTheme() == UiModeManager.MODE_NIGHT_YES) {
+            if (isNightMode(context)) {
                 Timber.d("Theme: layout, night");
                 layout = R.layout.quote_unquote_widget_system_theme_night;
-
-            } else if (appearancePreferences.getSystemTheme() == UiModeManager.MODE_NIGHT_NO) {
+            } else {
                 Timber.d("Theme: layout, day");
                 layout = R.layout.quote_unquote_widget_system_theme_day;
             }
@@ -254,7 +254,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
 
             switch (intent.getAction()) {
                 case Intent.ACTION_CONFIGURATION_CHANGED:
-                    setTheme(context, appWidgetManager);
+                    onReceiveThemeChange(context, appWidgetManager);
                     break;
 
                 case Intent.ACTION_MY_PACKAGE_REPLACED:
@@ -353,47 +353,37 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             Timber.e("%s", e.getMessage());
         } finally {
             if (!intent.getAction().equals(AppWidgetManager.ACTION_APPWIDGET_DISABLED)) {
-                setTheme(context, appWidgetManager);
                 onUpdate(context, appWidgetManager, new int[]{widgetId});
             }
-        }
-    }
-
-    private void setTheme(@NonNull Context context, @NonNull final AppWidgetManager appWidgetManager) {
-        AppearancePreferences appearancePreferences = new AppearancePreferences(context);
-
-        int nightMode = getNightMode(context);
-        if (nightMode == UiModeManager.MODE_NIGHT_NO) {
-            Timber.d("Theme: day");
-            appearancePreferences.setSystemTheme(UiModeManager.MODE_NIGHT_NO);
-        } else if (nightMode == UiModeManager.MODE_NIGHT_YES) {
-            Timber.d("Theme: night");
-            appearancePreferences.setSystemTheme(UiModeManager.MODE_NIGHT_YES);
-        }
-
-        if (appearancePreferences.getAppearanceForceFollowSystemTheme()) {
-            Timber.d("Theme: apply");
-            onUpdate(context, appWidgetManager, appWidgetManager.getAppWidgetIds(new ComponentName(context, QuoteUnquoteWidget.class)));
         }
     }
 
     private void setThemeToolbarButtons(
             @NonNull Context context,
             int widgetId,
-            @NonNull RemoteViews remoteViews,
-            int systemTheme
+            @NonNull RemoteViews remoteViews
     ) {
-        if (systemTheme == UiModeManager.MODE_NIGHT_YES) {
+        if (isNightMode(context)) {
             setToolbarButtons(context, widgetId, remoteViews, "#FFFFFFFF");
-
-        } else if (systemTheme == UiModeManager.MODE_NIGHT_NO) {
+        } else {
             setToolbarButtons(context, widgetId, remoteViews, "#FF000000");
         }
     }
 
-    private int getNightMode(@NonNull Context context) {
-        UiModeManager uiModeManager = (UiModeManager) context.getSystemService(Context.UI_MODE_SERVICE);
-        return uiModeManager.getNightMode();
+    private boolean isNightMode(@NonNull Context context) {
+        boolean isNightMode = false;
+
+        if ((context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+                == Configuration.UI_MODE_NIGHT_YES) {
+                isNightMode = true;
+        }
+
+        return isNightMode;
+    }
+
+    private void onReceiveThemeChange(@NonNull Context context,
+                                      @NonNull final AppWidgetManager appWidgetManager) {
+        onUpdate(context, appWidgetManager, appWidgetManager.getAppWidgetIds(new ComponentName(context, QuoteUnquoteWidget.class)));
     }
 
     private void onReceiveMyPackageReplaced(@NonNull Context context,
@@ -924,8 +914,6 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
 
         manageAlarms(context, widgetId,
                 notificationsDailyAlarm, notificationsBihourlyAlarm, scraperAlarm);
-
-        setTheme(context, appWidgetManager);
     }
 
     private void manageAlarms(
@@ -1115,12 +1103,11 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
 
         AppearancePreferences appearancePreferences = new AppearancePreferences(context);
         if (appearancePreferences.getAppearanceForceFollowSystemTheme()) {
-            if (appearancePreferences.getSystemTheme() == UiModeManager.MODE_NIGHT_YES) {
+            if (isNightMode(context)) {
                 if (!isFavourite) {
                     remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_toolbar_favorite_ffffffff_24);
                 }
-
-            } else if (appearancePreferences.getSystemTheme() == UiModeManager.MODE_NIGHT_NO) {
+            } else {
                 if (!isFavourite) {
                     remoteViews.setImageViewResource(R.id.imageButtonFavourite, R.drawable.ic_toolbar_favorite_ff000000_24);
                 }

@@ -1,0 +1,1 @@
+&bull; Fix: follow system theme card

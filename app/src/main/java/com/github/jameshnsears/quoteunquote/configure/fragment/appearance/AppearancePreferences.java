@@ -199,17 +199,7 @@ public class AppearancePreferences extends PreferencesFacade {
     }
 
     public void setAppearanceForceFollowSystemTheme(final boolean value) {
-        preferenceHelper.setPreference("0:APPEARANCE_FORCE_FOLLOW_SYSTEM_THEME", false);
-    }
-
-    public int getSystemTheme() {
-        return preferenceHelper.getPreferenceInt("0:SYSTEM_THEME");
-    }
-
-    public void setSystemTheme(final int value) {
-        // UiModeManager.MODE_NIGHT_NO
-        // UiModeManager.MODE_NIGHT_YES
-        preferenceHelper.setPreference("0:SYSTEM_THEME", value);
+        preferenceHelper.setPreference("0:APPEARANCE_FORCE_FOLLOW_SYSTEM_THEME", value);
     }
 
     public int getAppearanceTransparency() {

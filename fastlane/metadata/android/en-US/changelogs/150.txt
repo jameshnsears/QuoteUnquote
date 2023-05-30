@@ -1,2 +1,0 @@
-&bull; Change GitHub Release Action to -fdroid
-&bull; Bump dependencies

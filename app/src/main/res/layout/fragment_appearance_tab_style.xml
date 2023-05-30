@@ -348,11 +348,10 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-
     <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardFollowSystemTheme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             app:cardCornerRadius="12dp"
             app:cardElevation="2dp"
             app:cardPreventCornerOverlap="true"

@@ -4,6 +4,7 @@ import android.app.UiModeManager;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.TypedValue;
@@ -297,9 +298,9 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
     private void setTextColour(RemoteViews remoteViews, int viewId, String colour) {
         AppearancePreferences appearancePreferences = new AppearancePreferences(context);
         if (appearancePreferences.getAppearanceForceFollowSystemTheme()) {
-            if (appearancePreferences.getSystemTheme() == UiModeManager.MODE_NIGHT_YES) {
+            if (isNightMode(context)) {
                 remoteViews.setTextColor(viewId, Color.WHITE);
-            } else if (appearancePreferences.getSystemTheme() == UiModeManager.MODE_NIGHT_NO) {
+            } else {
                 remoteViews.setTextColor(viewId, Color.BLACK);
             }
         } else {
@@ -307,6 +308,17 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
                     viewId,
                     Color.parseColor(colour));
         }
+    }
+
+    private boolean isNightMode(@NonNull Context context) {
+        boolean isNightMode = false;
+
+        if ((context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+                == Configuration.UI_MODE_NIGHT_YES) {
+            isNightMode = true;
+        }
+
+        return isNightMode;
     }
 
     private void setTextSize(RemoteViews remoteViews, int viewId, int size) {
