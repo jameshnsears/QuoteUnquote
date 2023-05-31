@@ -3,7 +3,8 @@ name: release-github-fdroid
 on:
   push:
     tags:
-      - ['*-fdroid', '*-beta']
+      - '*-fdroid'
+      - '*-beta'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
