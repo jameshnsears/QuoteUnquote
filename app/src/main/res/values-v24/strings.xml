@@ -140,7 +140,7 @@
     </integer-array>
     <string name="fragment_appearance_navigation">Toolbar</string>
     <string name="fragment_appearance_follow_system_theme">Follow system theme</string>
-    <string name="fragment_appearance_follow_system_theme_info">Forces App Widget to use Black &amp; White colours; have rounded corners</string>
+    <string name="fragment_appearance_follow_system_theme_info">Forces App Widget to use Black &amp; White colours</string>
     <string name="fragment_appearance_toolbar_colour_dialog_title">Button Colour</string>
     <string name="fragment_appearance_toolbar_buttons">Buttons</string>
     <string name="fragment_appearance_toolbar_first">First, clears Previous</string>

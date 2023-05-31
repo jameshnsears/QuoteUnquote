@@ -128,6 +128,11 @@ public class AppearanceStyleFragment extends FragmentCommon {
         setTextPosition();
 
         setFollowSystemTheme();
+
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.TIRAMISU) {
+            // it's just too flaky on anything else!
+            fragmentAppearanceTabStyleBinding.cardFollowSystemTheme.setVisibility(View.GONE);
+        }
     }
 
     public void setFollowSystemTheme() {

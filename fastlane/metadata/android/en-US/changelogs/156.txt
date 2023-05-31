@@ -1,0 +1,2 @@
+&bull; Fix: reddit quotation digest backward compatibility
+&bull; Fix: Follow system theme behaviour available from TIRAMISU only
