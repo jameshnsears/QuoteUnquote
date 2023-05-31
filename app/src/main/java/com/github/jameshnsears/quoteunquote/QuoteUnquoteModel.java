@@ -850,7 +850,11 @@ public class QuoteUnquoteModel {
 
             List<QuotationEntity> favouriteQuotationsList = new ArrayList<>();
             for (FavouriteEntity favourite : favouritesDigestList) {
-                favouriteQuotationsList.add(databaseRepository.getQuotation(favourite.digest));
+                // check quotation still exists, following an inplace .apk update
+                QuotationEntity quotationEntity = databaseRepository.getQuotation(favourite.digest);
+                if (quotationEntity != null) {
+                    favouriteQuotationsList.add(quotationEntity);
+                }
             }
 
             return favouriteQuotationsList;

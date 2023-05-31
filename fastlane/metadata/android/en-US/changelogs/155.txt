@@ -1,0 +1,1 @@
+&bull; Fix: ensure favourites sync with latest quotation database
