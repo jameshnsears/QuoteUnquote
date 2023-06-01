@@ -22,6 +22,9 @@ public interface QuotationDAO {
     @Query("SELECT COUNT(QUOTATION) AS QUOTATION_COUNT FROM QUOTATIONS")
     Single<Integer> countAll();
 
+    @Query("SELECT DIGEST FROM QUOTATIONS")
+    List<String> getDigests();
+
     @Query("SELECT DIGEST FROM QUOTATIONS WHERE AUTHOR LIKE '%' || :exclusion || '%' COLLATE NOCASE")
     List<String> getExclusionDigests(String exclusion);
 

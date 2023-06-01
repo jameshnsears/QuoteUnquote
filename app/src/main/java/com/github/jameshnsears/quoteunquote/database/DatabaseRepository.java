@@ -337,23 +337,27 @@ public class DatabaseRepository {
 
         if (useInternalDatabase()) {
             List<String> favouriteDigests = favouriteDAO.getFavouriteDigests();
+            final HashSet<String> quotationDigests
+                    = new HashSet<>(quotationDAO.getDigests());
 
-            for (String digest: favouriteDigests) {
-                if (quotationDAO.getQuotation(digest) != null) {
+            for (String favouriteDigest : favouriteDigests) {
+                if (quotationDigests.contains(favouriteDigest)) {
                     countFavouritesWithMatchingQuotations += 1;
                 } else {
-                    favouriteDAO.erase(digest);
+                    favouriteDAO.erase(favouriteDigest);
                 }
             }
 
         } else {
             List<String> favouriteDigests = favouriteExternalDAO.getFavouriteDigests();
+            final HashSet<String> quotationDigests
+                    = new HashSet<>(quotationExternalDAO.getDigests());
 
-            for (String digest: favouriteDigests) {
-                if (quotationExternalDAO.getQuotation(digest) != null) {
+            for (String favouriteDigest : favouriteDigests) {
+                if (quotationDigests.contains(favouriteDigest)) {
                     countFavouritesWithMatchingQuotations += 1;
                 } else {
-                    favouriteExternalDAO.erase(digest);
+                    favouriteExternalDAO.erase(favouriteDigest);
                 }
             }
         }
@@ -388,14 +392,24 @@ public class DatabaseRepository {
             previousDigests.removeAll(getAllExcludedDigests(criteria));
         }
 
-        for (String digest: previousDigests) {
-            if (useInternalDatabase()) {
-                if (quotationDAO.getQuotation(digest) == null) {
-                    previousDigests.remove(digest);
+        if (useInternalDatabase()) {
+            final HashSet<String> quotationDigests
+                    = new HashSet<>(quotationDAO.getDigests());
+
+            for (String previousDigest : previousDigests) {
+                if (!quotationDigests.contains(previousDigest)) {
+                    previousDigests.remove(previousDigest);
+                    previousDAO.erase(previousDigest);
                 }
-            } else {
-                if (quotationExternalDAO.getQuotation(digest) == null) {
-                    previousDigests.remove(digest);
+            }
+        } else {
+            final HashSet<String> quotationDigests
+                    = new HashSet<>(quotationExternalDAO.getDigests());
+
+            for (String previousDigest : previousDigests) {
+                if (!quotationDigests.contains(previousDigest)) {
+                    previousDigests.remove(previousDigest);
+                    previousExternalDAO.erase(previousDigest);
                 }
             }
         }
