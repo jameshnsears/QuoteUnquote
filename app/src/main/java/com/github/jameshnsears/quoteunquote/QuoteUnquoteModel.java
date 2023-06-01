@@ -752,7 +752,19 @@ public class QuoteUnquoteModel {
 
     @NonNull
     public Single<Integer> countFavourites() {
-        return databaseRepository.countFavourites();
+        final Future<Single<Integer>> future = QuoteUnquoteWidget.getExecutorService().submit(()
+                -> databaseRepository.countFavourites());
+
+        Single<Integer> countFavourites = Single.just(0);
+
+        try {
+            countFavourites = future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
+            Thread.currentThread().interrupt();
+        }
+
+        return countFavourites;
     }
 
     @NonNull

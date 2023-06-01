@@ -250,11 +250,7 @@ public class DatabaseRepository {
 
         switch (quotationsPreferences.getContentSelection()) {
             case FAVOURITES:
-                if (useInternalDatabase()) {
-                    countTotalNext = favouriteDAO.countFavourites().blockingGet();
-                } else {
-                    countTotalNext = favouriteExternalDAO.countFavourites().blockingGet();
-                }
+                countTotalNext = countFavourites().blockingGet();
                 break;
 
             case AUTHOR:
@@ -337,11 +333,32 @@ public class DatabaseRepository {
 
     @NonNull
     public Single<Integer> countFavourites() {
+        int countFavouritesWithMatchingQuotations = 0;
+
         if (useInternalDatabase()) {
-            return favouriteDAO.countFavourites();
+            List<String> favouriteDigests = favouriteDAO.getFavouriteDigests();
+
+            for (String digest: favouriteDigests) {
+                if (quotationDAO.getQuotation(digest) != null) {
+                    countFavouritesWithMatchingQuotations += 1;
+                } else {
+                    favouriteDAO.erase(digest);
+                }
+            }
+
         } else {
-            return favouriteExternalDAO.countFavourites();
+            List<String> favouriteDigests = favouriteExternalDAO.getFavouriteDigests();
+
+            for (String digest: favouriteDigests) {
+                if (quotationExternalDAO.getQuotation(digest) != null) {
+                    countFavouritesWithMatchingQuotations += 1;
+                } else {
+                    favouriteExternalDAO.erase(digest);
+                }
+            }
         }
+
+        return Single.just(countFavouritesWithMatchingQuotations);
     }
 
     @NonNull
@@ -370,6 +387,19 @@ public class DatabaseRepository {
         if (contentSelection.equals(ContentSelection.ALL)) {
             previousDigests.removeAll(getAllExcludedDigests(criteria));
         }
+
+        for (String digest: previousDigests) {
+            if (useInternalDatabase()) {
+                if (quotationDAO.getQuotation(digest) == null) {
+                    previousDigests.remove(digest);
+                }
+            } else {
+                if (quotationExternalDAO.getQuotation(digest) == null) {
+                    previousDigests.remove(digest);
+                }
+            }
+        }
+
         return previousDigests;
     }
 

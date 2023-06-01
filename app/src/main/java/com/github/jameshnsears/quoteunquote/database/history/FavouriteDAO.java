@@ -13,9 +13,6 @@ public interface FavouriteDAO {
     @Insert
     void markAsFavourite(FavouriteEntity favouriteEntity);
 
-    @Query("SELECT COUNT(*) FROM FAVOURITE")
-    Single<Integer> countFavourites();
-
     @Query("SELECT COUNT(*) FROM FAVOURITE WHERE DIGEST = :digest")
     Integer isFavourite(String digest);
 
