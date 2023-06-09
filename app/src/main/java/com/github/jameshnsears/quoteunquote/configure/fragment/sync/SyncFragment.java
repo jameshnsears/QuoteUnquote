@@ -175,11 +175,13 @@ public class SyncFragment extends FragmentCommon {
         if (syncPreferences.getArchiveGoogleCloud()) {
             fragmentSyncBinding.radioButtonSyncGoogleCloud.setChecked(true);
             fragmentSyncBinding.radioButtonSyncDevice.setChecked(false);
+            fragmentSyncBinding.editTextRemoteCodeValueLayout.setEnabled(true);
             fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(true);
             fragmentSyncBinding.editTextRemoteCodeValue.setText("");
         } else {
             fragmentSyncBinding.radioButtonSyncGoogleCloud.setChecked(false);
             fragmentSyncBinding.radioButtonSyncDevice.setChecked(true);
+            fragmentSyncBinding.editTextRemoteCodeValueLayout.setEnabled(false);
             fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(false);
             fragmentSyncBinding.editTextRemoteCodeValue.setText("");
         }
@@ -192,6 +194,7 @@ public class SyncFragment extends FragmentCommon {
                 syncPreferences.setArchiveGoogleCloud(true);
                 syncPreferences.setArchiveSharedStorage(false);
 
+                fragmentSyncBinding.editTextRemoteCodeValueLayout.setEnabled(true);
                 fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(true);
                 fragmentSyncBinding.editTextRemoteCodeValue.setText("");
             }
@@ -205,6 +208,7 @@ public class SyncFragment extends FragmentCommon {
                 syncPreferences.setArchiveGoogleCloud(false);
                 syncPreferences.setArchiveSharedStorage(true);
 
+                fragmentSyncBinding.editTextRemoteCodeValueLayout.setEnabled(false);
                 fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(false);
                 fragmentSyncBinding.editTextRemoteCodeValue.setText("");
             }
@@ -225,6 +229,7 @@ public class SyncFragment extends FragmentCommon {
             enableUI(false);
 
             if (syncPreferences.getArchiveGoogleCloud()) {
+                fragmentSyncBinding.editTextRemoteCodeValueLayout.setEnabled(false);
                 fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(false);
                 backupGoogleCloud();
             } else {
@@ -430,6 +435,7 @@ public class SyncFragment extends FragmentCommon {
             enableUI(false);
 
             if (syncPreferences.getArchiveGoogleCloud()) {
+                fragmentSyncBinding.editTextRemoteCodeValueLayout.setEnabled(false);
                 fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(false);
                 restoreGoogleCloud();
             } else {
@@ -451,6 +457,7 @@ public class SyncFragment extends FragmentCommon {
     public void enableUI(boolean enableUI) {
         fragmentSyncBinding.radioButtonSyncGoogleCloud.setEnabled(enableUI);
         fragmentSyncBinding.radioButtonSyncDevice.setEnabled(enableUI);
+        fragmentSyncBinding.editTextRemoteCodeValueLayout.setEnabled(enableUI);
         fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(enableUI);
         enableButton(fragmentSyncBinding.buttonBackup, enableUI);
         enableButton(fragmentSyncBinding.buttonRestore, enableUI);
@@ -458,9 +465,11 @@ public class SyncFragment extends FragmentCommon {
 
         if (syncPreferences.getArchiveGoogleCloud()) {
             fragmentSyncBinding.radioButtonSyncGoogleCloud.setChecked(true);
+            fragmentSyncBinding.editTextRemoteCodeValueLayout.setEnabled(true);
             fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(true);
         } else {
             fragmentSyncBinding.radioButtonSyncDevice.setChecked(true);
+            fragmentSyncBinding.editTextRemoteCodeValueLayout.setEnabled(false);
             fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(false);
         }
     }
@@ -497,6 +506,7 @@ public class SyncFragment extends FragmentCommon {
         }
 
         fragmentSyncBinding.radioButtonSyncDevice.setEnabled(false);
+        fragmentSyncBinding.editTextRemoteCodeValueLayout.setEnabled(false);
         fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(false);
 
         final Intent serviceIntent = new Intent(getContext(), CloudServiceRestore.class);

@@ -105,7 +105,7 @@
                             android:paddingEnd="48dp"
                             android:text="@string/fragment_archive_backup_local_code_value"
                             android:textIsSelectable="true"
-                            android:textSize="20sp" />
+                            android:textSize="16sp" />
 
                     <Button
                             android:id="@+id/buttonBackup"
@@ -127,18 +127,25 @@
                         android:paddingStart="7dp"
                         android:paddingEnd="0dp">
 
-                    <EditText
-                            android:id="@+id/editTextRemoteCodeValue"
-                            android:layout_width="wrap_content"
+                    <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/editTextRemoteCodeValueLayout"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:ems="10"
-                            android:importantForAutofill="no"
-                            android:inputType="textPersonName"
-                            android:maxLength="10"
-                            android:minHeight="48dp"
-                            android:textSize="20sp"
-                            tools:ignore="LabelFor,TextContrastCheck" />
+                            android:paddingStart="0dp"
+                            android:paddingEnd="10dp"
+                            android:hint="@string/fragment_archive_backup_local_code"
+                            app:endIconMode="clear_text">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/editTextRemoteCodeValue"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:inputType="textNoSuggestions"
+                                android:maxLength="10" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <Button
                             android:id="@+id/buttonRestore"
@@ -162,7 +169,7 @@
                         android:paddingStart="4dp"
                         android:paddingTop="5dp"
                         android:paddingEnd="0dp"
-                        android:paddingBottom="0dp"
+                        android:paddingBottom="5dp"
                         android:text="@string/fragment_archive_superseded"
                         android:textSize="14sp"
                         app:drawableStartCompat="@drawable/ic_info_24" />

@@ -1,2 +1,0 @@
-&bull; Fix: improve favourite and previous alignment if quotations database updated
-&bull; Bump dependency

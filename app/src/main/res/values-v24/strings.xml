@@ -68,14 +68,14 @@
     <string name="fragment_quotations_database_imported">External</string>
     <string name="fragment_quotations_database_csv">.csv file</string>
     <string name="fragment_quotations_database_button_import">Import</string>
-    <string name="fragment_quotations_database_external_instructions_1">Expected format is <b>Source||Quotation</b> per line; for an example .csv, export a Source and then Import it</string>
+    <string name="fragment_quotations_database_external_instructions_1">Expected format is <b>Source||Quotation</b> per line; for example .csv export a Source and then Import it</string>
     <string name="fragment_quotations_database_import_contents">Invalid .csv format: %1$s</string>
     <string name="fragment_quotations_database_import_importing">Importing .csv file - please wait&#8230;</string>
     <string name="fragment_quotations_database_import_success">Success - .csv file imported</string>
     <string name="fragment_quotations_database_scrape">Web page</string>
-    <string name="fragment_quotations_database_scrape_url_hint" tools:ignore="TypographyEllipsis">URL http / https...</string>
-    <string name="fragment_quotations_database_scrape_quote_quotation_hint" tools:ignore="TypographyEllipsis">Quotation XPath text node...</string>
-    <string name="fragment_quotations_database_scrape_quote_source_hint" tools:ignore="TypographyEllipsis">Source XPath text node...</string>
+    <string name="fragment_quotations_database_scrape_url_hint" tools:ignore="TypographyEllipsis">URL http / https…</string>
+    <string name="fragment_quotations_database_scrape_quote_quotation_hint" tools:ignore="TypographyEllipsis">Quotation XPath text node…</string>
+    <string name="fragment_quotations_database_scrape_quote_source_hint" tools:ignore="TypographyEllipsis">Source XPath text node…</string>
     <string name="fragment_quotations_database_scrape_quotation_example" tools:ignore="TypographyQuotes">//*[@id=\"votd_wrapper\"]/div/div/div[1]/div[2]/p[1]</string>
     <string name="fragment_quotations_database_scrape_source_example" tools:ignore="TypographyQuotes">//*[@id=\"votd_wrapper\"]/div/div/div[1]/div[2]/p[2]</string>
     <string name="fragment_quotations_database_scrape_erase">Keep latest response only</string>
@@ -153,7 +153,7 @@
 
     <string name="fragment_notifications_title">Notifications</string>
     <string name="fragment_notifications_where">Display</string>
-    <string name="fragment_notifications_movement">Movement</string>
+    <string name="fragment_notifications_movement">Action</string>
     <string name="fragment_notifications_widget">Widget</string>
     <string name="fragment_notifications_widget_and_notification">Notification &amp; Widget</string>
     <string name="fragment_notifications_notification_warning">Android limits the size of Notifications; some Quotations might not show in their entirety</string>
@@ -165,12 +165,13 @@
     <string name="fragment_archive_title">Sync</string>
     <string name="fragment_archive_select_cloud">Cloud</string>
     <string name="fragment_archive_select_filesystem">Device</string>
+    <string name="fragment_archive_backup_local_code">Sync code…</string>
     <string name="fragment_archive_backup_local_code_value">%s</string>
     <string name="fragment_archive_backup">Backup</string>
     <string name="fragment_archive_backup_sending">Backup - please wait&#8230;</string>
     <string name="fragment_archive_backup_success">Success - backup completed</string>
     <string name="fragment_archive_restore">Restore</string>
-    <string name="fragment_archive_superseded">Sync code will be superseded upon restore</string>
+    <string name="fragment_archive_superseded">Sync code will be superseded upon restore; a restore can take several seconds</string>
     <string name="fragment_archive_create_new_sync_code">New code</string>
     <string name="fragment_archive_restore_token_missing">Please enter 10 character code</string>
     <string name="fragment_archive_restore_token_invalid">Please enter a valid code</string>
