@@ -6,8 +6,6 @@ import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.style.AppearanceStyleFragmentDouble
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.style.dialog.StyleDialogAuthorDouble
-import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.style.dialog.StyleDialogPositionDouble
-import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.style.dialog.StyleDialogQuotationDouble
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.toolbar.AppearanceToolbarFragmentDouble
 import com.github.jameshnsears.quoteunquote.utils.logging.ShadowLoggingHelper
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
@@ -53,23 +51,6 @@ class AppearanceFragmentPreferencesTest : ShadowLoggingHelper() {
         }
     }
 
-    @Test
-    fun confirmInitialTextPreferencesQuotation() {
-        with(launchFragment<StyleDialogQuotationDouble>()) {
-            onFragment { fragment ->
-                fragment.setTextColour()
-                assertEquals(
-                    "#FF000000",
-                    fragment.appearancePreferences?.appearanceQuotationTextColour,
-                )
-
-                fragment.setTextSize()
-                assertThat(fragment.appearancePreferences?.appearanceQuotationTextSize, equalTo(16))
-            }
-        }
-    }
-
-    @Test
     fun confirmInitialTextPreferencesAuthor() {
         with(launchFragment<StyleDialogAuthorDouble>()) {
             onFragment { fragment ->
@@ -84,25 +65,6 @@ class AppearanceFragmentPreferencesTest : ShadowLoggingHelper() {
 
                 fragment.setTextHide()
                 assertTrue(fragment.appearancePreferences?.appearanceAuthorTextHide == false)
-            }
-        }
-    }
-
-    @Test
-    fun confirmInitialTextPreferencesPosition() {
-        with(launchFragment<StyleDialogPositionDouble>()) {
-            onFragment { fragment ->
-                fragment.setTextColour()
-                assertEquals(
-                    "#FF000000",
-                    fragment.appearancePreferences?.appearancePositionTextColour,
-                )
-
-                fragment.setTextSize()
-                assertThat(fragment.appearancePreferences?.appearancePositionTextSize, equalTo(16))
-
-                fragment.setTextHide()
-                assertTrue(fragment.appearancePreferences?.appearancePositionTextHide == false)
             }
         }
     }

@@ -22,13 +22,14 @@ public class StyleDialogAuthor extends StyleDialogFragment {
     @Override
     public void createListenerTextHide() {
         fragmentAppearanceTabStyleDialogBinding.switchHideAuthor.setOnCheckedChangeListener((buttonView, isChecked) ->
-                sharedPreferenceSetTextHide(isChecked)
+                hideText = isChecked
         );
     }
 
     public void setTextHide() {
         fragmentAppearanceTabStyleDialogBinding.switchHideAuthor
                 .setChecked(appearancePreferences.getAppearanceAuthorTextHide());
+        hideText = appearancePreferences.getAppearanceAuthorTextHide();
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.github.jameshnsears.quoteunquote.listview;
 
-import android.app.UiModeManager;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;

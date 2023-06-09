@@ -14,7 +14,7 @@ buildscript {
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.5'
         classpath 'io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.23.0'
         classpath 'org.jacoco:org.jacoco.core:0.8.10'
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.21'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.22'
         classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:4.1.0.3113'
         classpath 'com.diffplug.spotless:spotless-plugin-gradle:6.19.0'
 

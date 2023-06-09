@@ -23,6 +23,7 @@ import androidx.fragment.app.DialogFragment;
 import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentAppearanceTabStyleDialogBinding;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.skydoves.colorpickerview.ColorEnvelope;
 import com.skydoves.colorpickerview.ColorPickerDialog;
 import com.skydoves.colorpickerview.ColorPickerView;
@@ -46,6 +47,10 @@ public class StyleDialogFragment extends DialogFragment {
 
     protected int title;
 
+    private ColorEnvelope envelope;
+
+    protected boolean hideText = false;
+
     public StyleDialogFragment(int widgetId, int title) {
         Timber.d("%d", widgetId);
         this.widgetId = widgetId;
@@ -55,25 +60,25 @@ public class StyleDialogFragment extends DialogFragment {
     @SuppressLint("InflateParams")
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity(), R.style.CustomAlertDialog);
 
         LayoutInflater inflater = requireActivity().getLayoutInflater();
 
         fragmentAppearanceTabStyleDialogBinding
                 = FragmentAppearanceTabStyleDialogBinding.inflate(inflater.cloneInContext(
                 new ContextThemeWrapper(
-                        getActivity(), com.google.android.material.R.style.Theme_MaterialComponents_DayNight)));
+                        getActivity(), R.style.AppTheme)));
 
         builder.setView(fragmentAppearanceTabStyleDialogBinding.getRoot())
-                .setPositiveButton(R.string.fragment_appearance_ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        Bundle result = new Bundle();
-                        // we don't populate the bundle
-                        getParentFragmentManager().setFragmentResult("requestKey", result);
-                        getDialog().dismiss();
-                    }
+                .setPositiveButton(R.string.fragment_appearance_ok, (dialog, id) -> {
+                    sharedPreferenceSaveTextColour(envelope);
+                    sharedPreferenceSaveTextSize(fragmentAppearanceTabStyleDialogBinding.spinnerSize);
+                    sharedPreferenceSetTextHide(hideText);
 
+                    Bundle result = new Bundle();
+                    // we don't populate the bundle
+                    getParentFragmentManager().setFragmentResult("requestKey", result);
+                    getDialog().dismiss();
                 })
                 .setNegativeButton(R.string.fragment_appearance_cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -131,7 +136,7 @@ public class StyleDialogFragment extends DialogFragment {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(final AdapterView<?> parent, final View view, final int position, final long selectedItemId) {
-                sharedPreferenceSaveTextSize(spinner);
+                // do nothing, only save when OK pressed
             }
 
             @Override
@@ -143,7 +148,7 @@ public class StyleDialogFragment extends DialogFragment {
 
     private void createListenerTextColourPicker() {
         fragmentAppearanceTabStyleDialogBinding.textColourPickerButton.setOnClickListener(v -> {
-            ColorPickerDialog.Builder builder = new ColorPickerDialog.Builder(getContext())
+            ColorPickerDialog.Builder builder = new ColorPickerDialog.Builder(getContext(), R.style.CustomColourPickerAlertDialog)
                     .setTitle(getString(titleId))
                     .setPositiveButton(getString(R.string.fragment_appearance_ok),
                             (ColorEnvelopeListener) (envelope, fromUser) -> {
@@ -152,9 +157,8 @@ public class StyleDialogFragment extends DialogFragment {
                                         .textColourPickerButton
                                         .setBackgroundColor(envelope.getColor());
 
-                                sharedPreferenceSaveTextColour(envelope);
+                                this.envelope = envelope;
                             }
-
                     )
                     .setNegativeButton(getString(R.string.fragment_appearance_cancel),
                             (dialogInterface, i) -> dialogInterface.dismiss())
@@ -256,6 +260,7 @@ public class StyleDialogFragment extends DialogFragment {
         fragmentAppearanceTabStyleDialogBinding
                 .textColourPickerButton.setBackgroundColor(
                         Integer.parseUnsignedInt(appearanceTextColour, 16));
+        this.envelope = new ColorEnvelope(Integer.parseUnsignedInt(appearanceTextColour, 16));
     }
 
     public void setTextHide() {

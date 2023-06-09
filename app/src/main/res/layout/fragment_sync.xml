@@ -27,7 +27,7 @@
                 android:paddingEnd="10dp"
                 android:text="@string/fragment_archive_title"
                 android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                android:textSize="22sp"
+                android:textSize="24sp"
                 android:textStyle="bold" />
 
     </LinearLayout>
@@ -36,9 +36,9 @@
             android:id="@+id/cardViewSync"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:contentPadding="5dp"
+            app:contentPadding="3dp"
             app:cardCornerRadius="12dp"
-            app:cardElevation="2dp"
+            app:cardElevation="4dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
 
@@ -49,7 +49,7 @@
                 android:padding="5dp">
 
             <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
@@ -68,7 +68,8 @@
                             android:paddingVertical="10dp"
                             android:paddingStart="12dp"
                             android:paddingEnd="0dp"
-                            android:text="@string/fragment_archive_select_cloud" />
+                            android:text="@string/fragment_archive_select_cloud"
+                            android:textSize="16sp" />
 
                     <RadioButton
                             android:id="@+id/radioButtonSyncDevice"
@@ -79,7 +80,8 @@
                             android:paddingVertical="10dp"
                             android:paddingStart="12dp"
                             android:paddingEnd="0dp"
-                            android:text="@string/fragment_archive_select_filesystem" />
+                            android:text="@string/fragment_archive_select_filesystem"
+                            android:textSize="16sp" />
 
                 </RadioGroup>
 
@@ -94,15 +96,16 @@
 
                     <TextView
                             android:id="@+id/textViewLocalCodeValue"
-                            android:layout_width="185dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:minHeight="48dp"
                             android:paddingVertical="10dp"
                             android:paddingStart="5dp"
                             android:paddingEnd="48dp"
                             android:text="@string/fragment_archive_backup_local_code_value"
                             android:textIsSelectable="true"
-                            android:textSize="18sp" />
+                            android:textSize="20sp" />
 
                     <Button
                             android:id="@+id/buttonBackup"
@@ -110,9 +113,10 @@
                             android:layout_height="48dp"
                             android:text="@string/fragment_archive_backup"
                             android:textColor="@android:color/white"
+                            android:textSize="16sp"
+                            app:backgroundTint="@null"
                             app:strokeColor="?attr/colorPrimary"
-                            app:strokeWidth="1dp"
-                            app:backgroundTint="@null" />
+                            app:strokeWidth="1dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -125,14 +129,15 @@
 
                     <EditText
                             android:id="@+id/editTextRemoteCodeValue"
-                            android:layout_width="185dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:ems="10"
                             android:importantForAutofill="no"
                             android:inputType="textPersonName"
                             android:maxLength="10"
                             android:minHeight="48dp"
-                            android:textSize="18sp"
+                            android:textSize="20sp"
                             tools:ignore="LabelFor,TextContrastCheck" />
 
                     <Button
@@ -141,9 +146,10 @@
                             android:layout_height="48dp"
                             android:text="@string/fragment_archive_restore"
                             android:textColor="@android:color/white"
+                            android:textSize="16sp"
+                            app:backgroundTint="@null"
                             app:strokeColor="?attr/colorPrimary"
-                            app:strokeWidth="1dp"
-                            app:backgroundTint="@null" />
+                            app:strokeWidth="1dp" />
 
                 </LinearLayout>
 
@@ -158,6 +164,7 @@
                         android:paddingEnd="0dp"
                         android:paddingBottom="0dp"
                         android:text="@string/fragment_archive_superseded"
+                        android:textSize="14sp"
                         app:drawableStartCompat="@drawable/ic_info_24" />
 
                 <LinearLayout
@@ -175,11 +182,12 @@
                             android:gravity="center"
                             android:text="@string/fragment_archive_create_new_sync_code"
                             android:textColor="@android:color/white"
-                            app:strokeColor="?attr/colorPrimary"
-                            app:strokeWidth="1dp"
+                            android:textSize="16sp"
                             app:backgroundTint="@null"
+                            app:icon="@drawable/ic_sync_autorenew_24"
                             app:iconTint="@null"
-                            app:icon="@drawable/ic_sync_autorenew_24" />
+                            app:strokeColor="?attr/colorPrimary"
+                            app:strokeWidth="1dp" />
                 </LinearLayout>
 
             </LinearLayout>

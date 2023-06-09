@@ -17,10 +17,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="12dp"
-            app:cardElevation="2dp"
+            app:cardElevation="4dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true"
-            app:contentPadding="5dp">
+            app:contentPadding="3dp">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -39,7 +39,7 @@
                     android:paddingStart="12dp"
                     android:paddingEnd="0dp"
                     android:text="@string/fragment_quotations_database_default"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
             <TextView
@@ -53,6 +53,7 @@
                     android:paddingEnd="0dp"
                     android:paddingBottom="0dp"
                     android:text="@string/fragment_quotations_database_default_info"
+                    android:textSize="14sp"
                     app:drawableStartCompat="@drawable/ic_info_24" />
 
         </LinearLayout>
@@ -64,10 +65,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="12dp"
-            app:cardElevation="2dp"
+            app:cardElevation="4dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true"
-            app:contentPadding="5dp">
+            app:contentPadding="3dp">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -79,7 +80,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/fragment_quotations_database_imported"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
             <RadioButton
@@ -94,7 +95,7 @@
                     android:paddingStart="12dp"
                     android:paddingEnd="0dp"
                     android:text="@string/fragment_quotations_database_csv"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
 
             <LinearLayout
                     android:layout_width="match_parent"
@@ -112,6 +113,7 @@
                         android:layout_height="48dp"
                         android:text="@string/fragment_quotations_database_button_import"
                         android:textColor="@android:color/white"
+                        android:textSize="16sp"
                         app:backgroundTint="@null"
                         app:strokeColor="?attr/colorPrimary"
                         app:strokeWidth="1dp" />
@@ -128,6 +130,7 @@
                     android:paddingEnd="0dp"
                     android:paddingBottom="15dp"
                     android:text="@string/fragment_quotations_database_external_instructions_1"
+                    android:textSize="14sp"
                     app:drawableStartCompat="@drawable/ic_info_24" />
 
             <LinearLayout
@@ -157,7 +160,7 @@
                     android:paddingStart="12dp"
                     android:paddingEnd="0dp"
                     android:text="@string/fragment_quotations_database_scrape"
-                    android:textSize="16sp" />
+                    android:textSize="18sp" />
 
             <LinearLayout
                     android:layout_width="match_parent"
@@ -166,28 +169,23 @@
                     android:paddingStart="6dp"
                     android:paddingEnd="0dp">
 
-                <TextView
-                        android:id="@+id/textViewUrl"
-                        android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/editTextUrlLayout"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingStart="0dp"
-                        android:paddingEnd="5dp"
-                        android:text="@string/fragment_quotations_database_scrape_endpoint" />
+                        app:endIconMode="clear_text"
+                        android:hint="@string/fragment_quotations_database_scrape_url_hint">
 
-                <EditText
-                        android:id="@+id/editTextUrl"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:hint="@string/fragment_quotations_database_scrape_url_hint"
-                        android:importantForAutofill="no"
-                        android:inputType="textUri"
-                        android:maxLength="150"
-                        android:minHeight="48dp"
-                        android:textIsSelectable="true"
-                        android:textSize="14sp"
-                        tools:ignore="LabelFor" />
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editTextUrl"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLength="150"
+                            android:inputType="textNoSuggestions"
+                            android:layout_weight="1"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
             </LinearLayout>
 
             <LinearLayout
@@ -198,28 +196,23 @@
                     android:paddingStart="6dp"
                     android:paddingEnd="0dp">
 
-                <TextView
-                        android:id="@+id/textViewXpathQuotation"
-                        android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/editTextXpathQuotationLayout"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingStart="0dp"
-                        android:paddingEnd="5dp"
-                        android:text="@string/fragment_quotations_database_scrape_quotation" />
+                        app:endIconMode="clear_text"
+                        android:hint="@string/fragment_quotations_database_scrape_quote_quotation_hint">
 
-                <EditText
-                        android:id="@+id/editTextXpathQuotation"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:hint="@string/fragment_quotations_database_scrape_quote_source_hint"
-                        android:importantForAutofill="no"
-                        android:inputType="textPersonName"
-                        android:maxLength="150"
-                        android:minHeight="48dp"
-                        android:textIsSelectable="true"
-                        android:textSize="14sp"
-                        tools:ignore="LabelFor" />
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editTextXpathQuotation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLength="150"
+                            android:inputType="textNoSuggestions"
+                            android:layout_weight="1"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
             </LinearLayout>
 
             <LinearLayout
@@ -230,28 +223,23 @@
                     android:paddingStart="6dp"
                     android:paddingEnd="0dp">
 
-                <TextView
-                        android:id="@+id/textViewXpathSource"
-                        android:layout_width="wrap_content"
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/editTextXpathSourceLayout"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingStart="0dp"
-                        android:paddingEnd="5dp"
-                        android:text="@string/fragment_quotations_database_scrape_source" />
+                        app:endIconMode="clear_text"
+                        android:hint="@string/fragment_quotations_database_scrape_quote_source_hint">
 
-                <EditText
-                        android:id="@+id/editTextXpathSource"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:hint="@string/fragment_quotations_database_scrape_quote_source_hint"
-                        android:importantForAutofill="no"
-                        android:inputType="textPersonName"
-                        android:maxLength="150"
-                        android:minHeight="48dp"
-                        android:textIsSelectable="true"
-                        android:textSize="14sp"
-                        tools:ignore="LabelFor" />
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editTextXpathSource"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLength="150"
+                            android:inputType="textNoSuggestions"
+                            android:layout_weight="1"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
             </LinearLayout>
 
             <LinearLayout
@@ -261,7 +249,7 @@
                     android:paddingTop="5dp"
                     android:paddingBottom="0dp">
 
-                <com.google.android.material.switchmaterial.SwitchMaterial
+                <com.google.android.material.materialswitch.MaterialSwitch
                         android:id="@+id/switchKeepLatestResponseOnly"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -269,7 +257,8 @@
                         android:checked="true"
                         android:paddingStart="7dp"
                         android:paddingEnd="0dp"
-                        android:text="@string/fragment_quotations_database_scrape_erase" />
+                        android:text="@string/fragment_quotations_database_scrape_erase"
+                        android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -286,10 +275,9 @@
                         android:id="@+id/buttonImportWebPage"
                         android:layout_width="120dp"
                         android:layout_height="48dp"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
                         android:text="@string/fragment_quotations_database_button_import"
                         android:textColor="@android:color/white"
+                        android:textSize="16sp"
                         app:backgroundTint="@null"
                         app:strokeColor="?attr/colorPrimary"
                         app:strokeWidth="1dp" />
@@ -311,6 +299,7 @@
                         android:paddingEnd="0dp"
                         android:paddingBottom="5dp"
                         android:text="@string/fragment_quotations_database_scrape_info"
+                        android:textSize="14sp"
                         app:drawableStartCompat="@drawable/ic_info_24" />
             </LinearLayout>
 

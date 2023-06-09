@@ -21,6 +21,7 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.f
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.browse.adapter.BrowseData;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.browse.adapter.BrowseDividerItemDecorator;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentQuotationsTabFilterBrowseDialogBinding;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,14 +61,14 @@ public class BrowseDialogFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(final Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this.getActivity(), R.style.CustomAlertDialog);
 
         final LayoutInflater inflater = this.requireActivity().getLayoutInflater();
 
         this.fragmentQuotationsTabFilterBrowseDialogBinding
                 = FragmentQuotationsTabFilterBrowseDialogBinding.inflate(inflater.cloneInContext(
                 new ContextThemeWrapper(
-                        this.getActivity(), com.google.android.material.R.style.Theme_MaterialComponents_DayNight)));
+                        this.getActivity(), R.style.AppTheme)));
 
         if (null == titleString) {
             builder.setTitle(this.titleResourceId);

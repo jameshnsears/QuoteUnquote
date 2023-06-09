@@ -193,7 +193,7 @@ public class AppearanceStyleFragment extends FragmentCommon {
 
     private void createListenerBackgroundColourPicker() {
         fragmentAppearanceTabStyleBinding.backgroundColourPickerButton.setOnClickListener(v -> {
-            ColorPickerDialog.Builder builder = new ColorPickerDialog.Builder(getContext())
+            ColorPickerDialog.Builder builder = new ColorPickerDialog.Builder(getContext(), R.style.CustomColourPickerAlertDialog)
                     .setTitle(getString(R.string.fragment_appearance_background_colour_dialog_title))
                     .setPositiveButton(getString(R.string.fragment_appearance_ok),
                             (ColorEnvelopeListener) (envelope, fromUser) -> {

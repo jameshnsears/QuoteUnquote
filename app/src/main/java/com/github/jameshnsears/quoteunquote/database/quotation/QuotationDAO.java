@@ -19,7 +19,7 @@ public interface QuotationDAO {
     @Query("SELECT AUTHOR, QUOTATION, WIKIPEDIA, DIGEST FROM QUOTATIONS WHERE DIGEST = :digest ORDER BY AUTHOR ASC")
     QuotationEntity getQuotation(String digest);
 
-    @Query("SELECT COUNT(QUOTATION) AS QUOTATION_COUNT FROM QUOTATIONS")
+    @Query("SELECT COUNT(*) FROM QUOTATIONS")
     Single<Integer> countAll();
 
     @Query("SELECT DIGEST FROM QUOTATIONS")

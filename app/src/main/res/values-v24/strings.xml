@@ -68,17 +68,15 @@
     <string name="fragment_quotations_database_imported">External</string>
     <string name="fragment_quotations_database_csv">.csv file</string>
     <string name="fragment_quotations_database_button_import">Import</string>
-    <string name="fragment_quotations_database_external_instructions_1">Expected format is <b>Source||Quotation</b> per line</string>
+    <string name="fragment_quotations_database_external_instructions_1">Expected format is <b>Source||Quotation</b> per line; for an example .csv, export a Source and then Import it</string>
     <string name="fragment_quotations_database_import_contents">Invalid .csv format: %1$s</string>
     <string name="fragment_quotations_database_import_importing">Importing .csv file - please wait&#8230;</string>
     <string name="fragment_quotations_database_import_success">Success - .csv file imported</string>
     <string name="fragment_quotations_database_scrape">Web page</string>
-    <string name="fragment_quotations_database_scrape_url_hint" tools:ignore="TypographyEllipsis">http / https...</string>
-    <string name="fragment_quotations_database_scrape_quote_source_hint" tools:ignore="TypographyEllipsis">XPath text node...</string>
-    <string name="fragment_quotations_database_scrape_endpoint">URL</string>
-    <string name="fragment_quotations_database_scrape_quotation">Quotation</string>
+    <string name="fragment_quotations_database_scrape_url_hint" tools:ignore="TypographyEllipsis">URL http / https...</string>
+    <string name="fragment_quotations_database_scrape_quote_quotation_hint" tools:ignore="TypographyEllipsis">Quotation XPath text node...</string>
+    <string name="fragment_quotations_database_scrape_quote_source_hint" tools:ignore="TypographyEllipsis">Source XPath text node...</string>
     <string name="fragment_quotations_database_scrape_quotation_example" tools:ignore="TypographyQuotes">//*[@id=\"votd_wrapper\"]/div/div/div[1]/div[2]/p[1]</string>
-    <string name="fragment_quotations_database_scrape_source">Source</string>
     <string name="fragment_quotations_database_scrape_source_example" tools:ignore="TypographyQuotes">//*[@id=\"votd_wrapper\"]/div/div/div[1]/div[2]/p[2]</string>
     <string name="fragment_quotations_database_scrape_erase">Keep latest response only</string>
     <string name="fragment_quotations_database_scrape_fields_error_incomplete">Incomplete parameters</string>
@@ -87,7 +85,7 @@
     <string name="fragment_quotations_database_scrape_xpath_error_quotation">Invalid quotation XPath</string>
     <string name="fragment_quotations_database_scrape_xpath_error_source">Invalid source XPath</string>
     <string name="fragment_quotations_database_scrape_test_success">Success - web page imported</string>
-    <string name="fragment_quotations_database_scrape_info">HTML 5 compatible response expected; App Widget will poll every 30 minutes, starting at 00:00</string>
+    <string name="fragment_quotations_database_scrape_info">HTML 5 compatible response expected; App Widget will poll every 30 minutes, starting at 00:00; if in doubt, please raise Issue in GitHub</string>
 
     <string name="fragment_appearance_title">Appearance</string>
     <string name="fragment_appearance_tab_style">Style</string>
@@ -141,7 +139,7 @@
     <string name="fragment_appearance_navigation">Toolbar</string>
     <string name="fragment_appearance_follow_system_theme">Follow system theme</string>
     <string name="fragment_appearance_follow_system_theme_info">Forces App Widget to use Black &amp; White colours</string>
-    <string name="fragment_appearance_toolbar_colour_dialog_title">Button Colour</string>
+    <string name="fragment_appearance_toolbar_colour_dialog_title">Buttons Colour</string>
     <string name="fragment_appearance_toolbar_buttons">Buttons</string>
     <string name="fragment_appearance_toolbar_first">First, clears Previous</string>
     <string name="fragment_appearance_toolbar_previous">Previous</string>>
@@ -150,7 +148,7 @@
     <string name="fragment_appearance_toolbar_share_exclude_source">Exclude Source from Share</string>
     <string name="fragment_appearance_toolbar_next_sequential">Next, sequential</string>
     <string name="fragment_appearance_toolbar_position_indicator">Jump, last Previous</string>
-    <string name="fragment_appearance_toolbar_next_random">Next, random (recycles at end)</string>
+    <string name="fragment_appearance_toolbar_next_random">Next, random (recycles)</string>
     <string name="fragment_appearance_toolbar_next_random_action">Next, random</string>
 
     <string name="fragment_notifications_title">Notifications</string>
@@ -162,7 +160,7 @@
     <string name="fragment_notifications_notification_permission">Please enable Notification permission in Android settings</string>
     <string name="fragment_notifications_recurring_event">Recurring Event</string>
     <string name="fragment_notifications_screen_unlock">Screen unlock</string>
-    <string name="fragment_notifications_bihourly">Every 2 hours, starting at 00:00</string>
+    <string name="fragment_notifications_bihourly">Every 2 hours, from 00:00</string>
 
     <string name="fragment_archive_title">Sync</string>
     <string name="fragment_archive_select_cloud">Cloud</string>
@@ -189,7 +187,7 @@
     <string name="notification_channel_every_two_hours">Every two hours</string>
     <string name="notification_channel_screen_unlock">Screen unlock</string>
     <string name="notification_channel_specific_time">Specific time</string>
-    <string name="notification_action_exclude_source">Exclude Source from Notification</string>
+    <string name="notification_action_exclude_source">Exclude Notification Source</string>
     <string name="notification_action_favourite">Favourite</string>
     <string name="notification_action_unfavourite">Unfavourite</string>
 

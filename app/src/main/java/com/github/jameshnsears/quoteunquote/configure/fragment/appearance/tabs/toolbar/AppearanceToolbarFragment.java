@@ -100,7 +100,7 @@ public class AppearanceToolbarFragment extends FragmentCommon {
 
     private void createListenerToolbarColourPicker() {
         fragmentAppearanceTabToolbarBinding.toolbarColourPickerButton.setOnClickListener(v -> {
-            ColorPickerDialog.Builder builder = new ColorPickerDialog.Builder(getContext())
+            ColorPickerDialog.Builder builder = new ColorPickerDialog.Builder(getContext(), R.style.CustomColourPickerAlertDialog)
                     .setTitle(getString(R.string.fragment_appearance_toolbar_colour_dialog_title))
                     .setPositiveButton(getString(R.string.fragment_appearance_ok),
                             (ColorEnvelopeListener) (envelope, fromUser) -> {

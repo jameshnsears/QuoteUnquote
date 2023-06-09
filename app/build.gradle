@@ -46,9 +46,9 @@ android {
         applicationId "com.github.jameshnsears.quoteunquote"
 
         // changelog version | min sdk | target sdk
-        versionCode 1582433
+        versionCode 1592433
         // semantic versioning
-        versionName "4.30.0"
+        versionName "4.31.0"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -102,7 +102,7 @@ android {
         debug {
             testCoverageEnabled true
             buildConfigField("String", "GIT_HASH", "\"$gitHash\"")
-            buildConfigField("String", "DATABASE_QUOTATIONS", "\"quotations.db.dev\"")
+            buildConfigField("String", "DATABASE_QUOTATIONS", "\"quotations.db.prod\"")
         }
     }
 
@@ -206,7 +206,7 @@ dependencies {
 
     annotationProcessor 'androidx.room:room-compiler:2.5.1'
 
-    debugImplementation 'androidx.fragment:fragment-testing:1.5.7'
+    debugImplementation 'androidx.fragment:fragment-testing:1.6.0'
     debugImplementation 'androidx.test:core-ktx:1.5.0'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.11'
 
@@ -246,7 +246,7 @@ dependencies {
     testImplementation 'androidx.test.ext:junit:1.1.5'
     testImplementation 'androidx.test:rules:1.5.0'
     testImplementation 'ch.qos.logback:logback-classic:1.4.7'
-    testImplementation 'com.google.guava:guava:31.1-jre'
+    testImplementation 'com.google.guava:guava:32.0.0-jre'
     testImplementation 'io.mockk:mockk:1.13.5'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1'

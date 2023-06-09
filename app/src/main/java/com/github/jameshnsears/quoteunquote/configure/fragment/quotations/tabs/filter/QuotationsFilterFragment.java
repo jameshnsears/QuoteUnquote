@@ -190,7 +190,6 @@ public class QuotationsFilterFragment extends FragmentCommon {
         initCardCounts();
 
         setDisposableCardAllCount();
-        setDisposableCardAllCountExclusions();
         setDisposableCardSourceCount();
         setDisposableCardSource();
         setDisposableCardFavouriteCount();
@@ -269,6 +268,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
                 this.fragmentQuotationsTabFilterBinding.editTextResultsExclusion.setSelection(selectionPosition);
             }
         }
+        fragmentQuotationsTabFilterBinding.editTextResultsExclusionLayout.setEnabled(enabled);
         fragmentQuotationsTabFilterBinding.editTextResultsExclusion.setEnabled(enabled);
         fragmentQuotationsTabFilterBinding.textViewExclusionInfo.setEnabled(enabled);
     }
@@ -389,6 +389,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
         String keywords = quotationsPreferences.getContentSelectionSearch();
         fragmentQuotationsTabFilterBinding.editTextSearchText.setText(keywords);
 
+        this.fragmentQuotationsTabFilterBinding.editTextSearchTextLayout.setEnabled(enabled);
         this.fragmentQuotationsTabFilterBinding.editTextSearchText.setEnabled(enabled);
         if (enabled) {
             setCardSearchTextFocus();
@@ -497,30 +498,18 @@ public class QuotationsFilterFragment extends FragmentCommon {
     ////////////////
 
     private void setDisposableCardAllCount() {
-        disposables.add(quoteUnquoteModel.countAllMinusExclusions(widgetId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(
-                        new DisposableSingleObserver<Integer>() {
-                            @Override
-                            public void onSuccess(@NonNull final Integer value) {
-                                fragmentQuotationsTabFilterBinding.radioButtonAll.setText(
-                                        getResources().getString(R.string.fragment_quotations_selection_all, value));
-                            }
+        fragmentQuotationsTabFilterBinding.editTextResultsExclusion.setText(
+                quotationsPreferences.getContentSelectionAllExclusion()
+        );
 
-                            @Override
-                            public void onError(@NonNull final Throwable throwable) {
-                                Timber.d("onError=%s", throwable.getMessage());
-                            }
-                        }));
-    }
-
-    private void setDisposableCardAllCountExclusions() {
         disposableObserverAllExclusion = new DisposableObserver<Integer>() {
             @Override
-            public void onNext(@NonNull final Integer allMinusExclusions) {
-                fragmentQuotationsTabFilterBinding.radioButtonAll.setText(
-                        getResources().getString(R.string.fragment_quotations_selection_all, allMinusExclusions));
+            public void onNext(@NonNull final Integer value) {
+                Timber.d("value=%d", value.intValue());
+                if (value != 0) {
+                    fragmentQuotationsTabFilterBinding.radioButtonAll.setText(
+                            getResources().getString(R.string.fragment_quotations_selection_all, value));
+                }
             }
 
             @Override
@@ -963,6 +952,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
                     fragmentQuotationsTabFilterBinding.switchSearchFavouritesOnly.setEnabled(true);
                 }
                 fragmentQuotationsTabFilterBinding.switchRegEx.setEnabled(true);
+                fragmentQuotationsTabFilterBinding.editTextSearchTextLayout.setEnabled(true);
                 fragmentQuotationsTabFilterBinding.editTextSearchText.setEnabled(true);
                 fragmentQuotationsTabFilterBinding.editTextSearchText.setText(
                         quotationsPreferences.getContentSelectionSearch()
@@ -991,6 +981,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
                     fragmentQuotationsTabFilterBinding.switchSearchFavouritesOnly.setEnabled(false);
                 }
                 fragmentQuotationsTabFilterBinding.switchRegEx.setEnabled(false);
+                fragmentQuotationsTabFilterBinding.editTextSearchTextLayout.setEnabled(false);
                 fragmentQuotationsTabFilterBinding.editTextSearchText.setEnabled(false);
                 fragmentQuotationsTabFilterBinding.editTextSearchText.setText(
                         quotationsPreferences.getContentSelectionSearch()
