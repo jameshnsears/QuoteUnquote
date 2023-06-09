@@ -1,4 +1,5 @@
 <resources>
+
     <style name="AppTheme" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/md_theme_light_primary</item>
         <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
@@ -27,8 +28,17 @@
         <item name="colorOnSurfaceInverse">@color/md_theme_light_inverseOnSurface</item>
         <item name="colorPrimaryInverse">@color/md_theme_light_inversePrimary</item>
     </style>
+
     <style name="TabSize" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">18sp</item>
         <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="CustomAlertDialog" parent="MaterialAlertDialog.Material3">
+        <item name="dialogCornerRadius">12dp</item>
+    </style>
+
+    <style name="CustomColourPickerAlertDialog" parent="MaterialAlertDialog.Material3">
+        <item name="dialogCornerRadius">12dp</item>
     </style>
 </resources>

@@ -88,6 +88,7 @@ public class AppearanceFragment extends FragmentCommon {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        AppearanceFragmentStateAdapter.appearanceToolbarFragment = null;
         fragmentAppearanceBinding = null;
     }
 }

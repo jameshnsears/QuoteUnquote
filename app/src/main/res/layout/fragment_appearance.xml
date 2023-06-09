@@ -24,7 +24,7 @@
                 android:paddingEnd="10dp"
                 android:text="@string/fragment_appearance_title"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                android:textSize="22sp"
+                android:textSize="24sp"
                 android:textStyle="bold" />
 
     </LinearLayout>

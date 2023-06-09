@@ -32,9 +32,4 @@ public class StyleDialogQuotation extends StyleDialogFragment {
     public String sharedPreferenceGetTextColour() {
         return appearancePreferences.getAppearanceQuotationTextColour();
     }
-
-    @NonNull
-    public String sharedPreferenceGetTextStyle() {
-        return appearancePreferences.getAppearanceTextStyle();
-    }
 }

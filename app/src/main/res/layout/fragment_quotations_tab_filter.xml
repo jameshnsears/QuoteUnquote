@@ -15,10 +15,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="12dp"
-            app:cardElevation="2dp"
+            app:cardElevation="4dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true"
-            app:contentPadding="5dp">
+            app:contentPadding="3dp">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -36,7 +36,7 @@
                     android:paddingStart="12dp"
                     android:paddingEnd="0dp"
                     android:text="@string/fragment_quotations_selection_all"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
             <LinearLayout
@@ -44,20 +44,22 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                <EditText
-                        android:id="@+id/editTextResultsExclusion"
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/editTextResultsExclusionLayout"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:gravity="start|top"
                         android:hint="@string/fragment_quotations_selection_exclusion_instructions"
-                        android:importantForAutofill="no"
-                        android:inputType="text"
-                        android:maxLength="100"
-                        android:textSize="14sp"
-                        tools:ignore="TouchTargetSizeCheck" />
+                        app:endIconMode="clear_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editTextResultsExclusion"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textNoSuggestions"
+                            android:maxLength="100" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
                         android:id="@+id/textViewExclusionInfo"
@@ -70,6 +72,7 @@
                         android:paddingEnd="0dp"
                         android:paddingBottom="0dp"
                         android:text="@string/fragment_quotations_selection_exclusion_info"
+                        android:textSize="14sp"
                         app:drawableStartCompat="@drawable/ic_info_24" />
 
             </LinearLayout>
@@ -83,10 +86,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="12dp"
-            app:cardElevation="2dp"
+            app:cardElevation="4dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true"
-            app:contentPadding="5dp">
+            app:contentPadding="3dp">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -103,7 +106,7 @@
                     android:paddingStart="12dp"
                     android:paddingEnd="0dp"
                     android:text="@string/fragment_quotations_selection_author"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
             <LinearLayout
@@ -131,8 +134,10 @@
                             android:paddingVertical="5dp"
                             android:paddingStart="0dp"
                             android:paddingEnd="10dp"
-                            android:text="@string/fragment_quotations_selection_author_count" />
+                            android:text="@string/fragment_quotations_selection_author_count"
+                            android:textSize="16sp" />
 
+                    <!-- https://rmirabelle.medium.com/there-is-no-material-design-spinner-for-android-3261b7c77da8 -->
                     <Spinner
                             android:id="@+id/spinnerAuthorsCount"
                             android:layout_width="match_parent"
@@ -157,6 +162,7 @@
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:baselineAligned="false"
                     android:orientation="horizontal"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp">
@@ -176,6 +182,7 @@
                             android:enabled="false"
                             android:text="@string/fragment_quotations_selection_browse"
                             android:textColor="@android:color/white"
+                            android:textSize="16sp"
                             app:backgroundTint="@null"
                             app:strokeColor="?attr/colorPrimary"
                             app:strokeWidth="1dp" />
@@ -196,6 +203,7 @@
                             android:enabled="false"
                             android:text="@string/fragment_quotations_selection_export_button"
                             android:textColor="@android:color/white"
+                            android:textSize="16sp"
                             app:backgroundTint="@null"
                             app:strokeColor="?attr/colorPrimary"
                             app:strokeWidth="1dp" />
@@ -212,10 +220,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="12dp"
-            app:cardElevation="2dp"
+            app:cardElevation="4dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true"
-            app:contentPadding="5dp">
+            app:contentPadding="3dp">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -234,12 +242,13 @@
                     android:paddingStart="12dp"
                     android:paddingEnd="0dp"
                     android:text="@string/fragment_quotations_selection_favourites"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:baselineAligned="false"
                     android:orientation="horizontal"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp">
@@ -259,6 +268,7 @@
                             android:enabled="false"
                             android:text="@string/fragment_quotations_selection_browse"
                             android:textColor="@android:color/white"
+                            android:textSize="16sp"
                             app:backgroundTint="@null"
                             app:strokeColor="?attr/colorPrimary"
                             app:strokeWidth="1dp" />
@@ -279,6 +289,7 @@
                             android:enabled="false"
                             android:text="@string/fragment_quotations_selection_export_button"
                             android:textColor="@android:color/white"
+                            android:textSize="16sp"
                             app:backgroundTint="@null"
                             app:strokeColor="?attr/colorPrimary"
                             app:strokeWidth="1dp" />
@@ -295,10 +306,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="12dp"
-            app:cardElevation="2dp"
+            app:cardElevation="4dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true"
-            app:contentPadding="5dp">
+            app:contentPadding="3dp">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -317,7 +328,7 @@
                     android:paddingStart="12dp"
                     android:paddingEnd="0dp"
                     android:text="@string/fragment_quotations_selection_search"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
             <LinearLayout
@@ -337,13 +348,14 @@
                         android:paddingTop="0dp"
                         android:paddingBottom="5dp">
 
-                    <com.google.android.material.switchmaterial.SwitchMaterial
+                    <com.google.android.material.materialswitch.MaterialSwitch
                             android:id="@+id/switchSearchFavouritesOnly"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingStart="0dp"
                             android:paddingEnd="0dp"
-                            android:text="@string/fragment_quotations_selection_search_favourites_only" />
+                            android:text="@string/fragment_quotations_selection_search_favourites_only"
+                            android:textSize="16sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -351,29 +363,31 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:paddingTop="5dp"
-                        android:paddingBottom="0dp">
+                        android:paddingBottom="5dp">
 
-                    <com.google.android.material.switchmaterial.SwitchMaterial
+                    <com.google.android.material.materialswitch.MaterialSwitch
                             android:id="@+id/switchRegEx"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/fragment_quotations_selection_search_switch_regex" />
+                            android:text="@string/fragment_quotations_selection_search_switch_regex"
+                            android:textSize="16sp" />
                 </LinearLayout>
 
-                <EditText
-                        android:id="@+id/editTextSearchText"
+                <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/editTextSearchTextLayout"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:enabled="false"
-                        android:gravity="start|top"
+                        android:layout_height="wrap_content"
                         android:hint="@string/fragment_quotations_selection_search_instructions"
-                        android:importantForAutofill="no"
-                        android:inputType="text"
-                        android:maxLength="25"
-                        android:textSize="14sp"
-                        tools:ignore="TouchTargetSizeCheck" />
+                        app:endIconMode="clear_text">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editTextSearchText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="textNoSuggestions"
+                            android:maxLength="30" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
 
@@ -387,11 +401,13 @@
                     android:paddingEnd="0dp"
                     android:paddingBottom="5dp"
                     android:text="@string/fragment_quotations_selection_search_instructions_info"
+                    android:textSize="14sp"
                     app:drawableStartCompat="@drawable/ic_info_24" />
 
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:baselineAligned="false"
                     android:orientation="horizontal"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp">
@@ -411,6 +427,7 @@
                             android:enabled="false"
                             android:text="@string/fragment_quotations_selection_browse"
                             android:textColor="@android:color/white"
+                            android:textSize="16sp"
                             app:backgroundTint="@null"
                             app:strokeColor="?attr/colorPrimary"
                             app:strokeWidth="1dp" />
@@ -431,6 +448,7 @@
                             android:enabled="false"
                             android:text="@string/fragment_quotations_selection_export_button"
                             android:textColor="@android:color/white"
+                            android:textSize="16sp"
                             app:backgroundTint="@null"
                             app:strokeColor="?attr/colorPrimary"
                             app:strokeWidth="1dp" />
@@ -446,10 +464,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="12dp"
-            app:cardElevation="2dp"
+            app:cardElevation="4dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true"
-            app:contentPadding="5dp">
+            app:contentPadding="3dp">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -457,11 +475,12 @@
                 android:orientation="vertical"
                 android:padding="10dp">
 
-            <com.google.android.material.switchmaterial.SwitchMaterial
+            <com.google.android.material.materialswitch.MaterialSwitch
                     android:id="@+id/switchForceEnableButtons"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/fragment_quotations_selection_enable_all_fields" />
+                    android:text="@string/fragment_quotations_selection_enable_all_fields"
+                    android:textSize="16sp" />
 
         </LinearLayout>
 

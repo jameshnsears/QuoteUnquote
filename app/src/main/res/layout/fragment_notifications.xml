@@ -27,7 +27,7 @@
                 android:paddingEnd="10dp"
                 android:text="@string/fragment_notifications_title"
                 android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                android:textSize="22sp"
+                android:textSize="24sp"
                 android:textStyle="bold" />
 
     </LinearLayout>
@@ -37,10 +37,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="12dp"
-            app:cardElevation="2dp"
+            app:cardElevation="4dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true"
-            app:contentPadding="5dp">
+            app:contentPadding="3dp">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -55,7 +55,7 @@
                     android:paddingEnd="0dp"
                     android:paddingBottom="5dp"
                     android:text="@string/fragment_notifications_movement"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
             <RadioGroup
@@ -71,7 +71,8 @@
                         android:paddingVertical="10dp"
                         android:paddingStart="12dp"
                         android:paddingEnd="0dp"
-                        android:text="@string/fragment_appearance_toolbar_next_sequential" />
+                        android:text="@string/fragment_appearance_toolbar_next_sequential"
+                        android:textSize="16sp" />
 
                 <RadioButton
                         android:id="@+id/radioButtonNextRandom"
@@ -83,7 +84,8 @@
                         android:paddingVertical="10dp"
                         android:paddingStart="12dp"
                         android:paddingEnd="0dp"
-                        android:text="@string/fragment_appearance_toolbar_next_random" />
+                        android:text="@string/fragment_appearance_toolbar_next_random"
+                        android:textSize="16sp" />
 
             </RadioGroup>
 
@@ -95,9 +97,9 @@
             android:id="@+id/cardViewDisplay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:contentPadding="5dp"
+            app:contentPadding="3dp"
             app:cardCornerRadius="12dp"
-            app:cardElevation="2dp"
+            app:cardElevation="4dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
 
@@ -114,7 +116,7 @@
                     android:paddingEnd="0dp"
                     android:paddingBottom="5dp"
                     android:text="@string/fragment_notifications_where"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
             <RadioGroup
@@ -134,7 +136,8 @@
                         android:paddingVertical="10dp"
                         android:paddingStart="12dp"
                         android:paddingEnd="0dp"
-                        android:text="@string/fragment_notifications_widget" />
+                        android:text="@string/fragment_notifications_widget"
+                        android:textSize="16sp" />
 
                 <RadioButton
                         android:id="@+id/radioButtonWhereAsNotification"
@@ -145,15 +148,17 @@
                         android:paddingVertical="10dp"
                         android:paddingStart="12dp"
                         android:paddingEnd="0dp"
-                        android:text="@string/fragment_notifications_widget_and_notification" />
+                        android:text="@string/fragment_notifications_widget_and_notification"
+                        android:textSize="16sp" />
 
-                <com.google.android.material.switchmaterial.SwitchMaterial
+                <com.google.android.material.materialswitch.MaterialSwitch
                         android:id="@+id/switchExcludeSourceFromNotification"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingStart="7dp"
                         android:paddingEnd="0dp"
-                        android:text="@string/notification_action_exclude_source" />
+                        android:text="@string/notification_action_exclude_source"
+                        android:textSize="16sp" />
 
                 <TextView
                         android:id="@+id/textViewNotificationSizeWarning"
@@ -166,6 +171,7 @@
                         android:paddingEnd="0dp"
                         android:paddingBottom="0dp"
                         android:text="@string/fragment_notifications_notification_warning"
+                        android:textSize="14sp"
                         app:drawableStartCompat="@drawable/ic_info_24" />
 
             </RadioGroup>
@@ -178,9 +184,9 @@
             android:id="@+id/cardViewEvent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:contentPadding="5dp"
+            app:contentPadding="3dp"
             app:cardCornerRadius="12dp"
-            app:cardElevation="2dp"
+            app:cardElevation="4dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true">
 
@@ -195,29 +201,10 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
-                    android:paddingBottom="0dp"
+                    android:paddingBottom="5dp"
                     android:text="@string/fragment_notifications_recurring_event"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingStart="0dp"
-                    android:paddingEnd="0dp">
-
-                <CheckBox
-                        android:id="@+id/checkBoxBihourly"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:drawableStart="@drawable/ic_notifications_bihourly_24"
-                        android:drawablePadding="20dp"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="0dp"
-                        android:text="@string/fragment_notifications_bihourly" />
-
-            </LinearLayout>
 
             <LinearLayout
                     android:layout_width="match_parent"
@@ -234,7 +221,19 @@
                         android:drawablePadding="20dp"
                         android:paddingStart="10dp"
                         android:paddingEnd="0dp"
-                        android:text="@string/fragment_notifications_screen_unlock" />
+                        android:text="@string/fragment_notifications_screen_unlock"
+                        android:textSize="16sp" />
+
+                <CheckBox
+                        android:id="@+id/checkBoxBihourly"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:drawableStart="@drawable/ic_notifications_bihourly_24"
+                        android:drawablePadding="20dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="0dp"
+                        android:text="@string/fragment_notifications_bihourly"
+                        android:textSize="16sp" />
 
                 <LinearLayout
                         android:layout_width="wrap_content"
@@ -249,7 +248,8 @@
                             android:drawablePadding="20dp"
                             android:paddingStart="10dp"
                             android:paddingEnd="0dp"
-                            android:text="@string/notification_channel_specific_time" />
+                            android:text="@string/notification_channel_specific_time"
+                            android:textSize="16sp" />
 
                 </LinearLayout>
 

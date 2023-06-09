@@ -32,7 +32,7 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.s
 import com.github.jameshnsears.quoteunquote.databinding.FragmentAppearanceTabStyleBinding;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.slider.Slider;
-import com.skydoves.colorpickerview.ColorPickerDialog;
+import com.skydoves.colorpickerview.QuoteUnquoteColorPickerDialog;
 import com.skydoves.colorpickerview.ColorPickerView;
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
 
@@ -193,7 +193,7 @@ public class AppearanceStyleFragment extends FragmentCommon {
 
     private void createListenerBackgroundColourPicker() {
         fragmentAppearanceTabStyleBinding.backgroundColourPickerButton.setOnClickListener(v -> {
-            ColorPickerDialog.Builder builder = new ColorPickerDialog.Builder(getContext())
+            QuoteUnquoteColorPickerDialog.Builder builder = new QuoteUnquoteColorPickerDialog.Builder(getContext(), R.style.CustomColourPickerAlertDialog)
                     .setTitle(getString(R.string.fragment_appearance_background_colour_dialog_title))
                     .setPositiveButton(getString(R.string.fragment_appearance_ok),
                             (ColorEnvelopeListener) (envelope, fromUser) -> {

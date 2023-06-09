@@ -15,7 +15,7 @@ import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentAppearanceTabToolbarBinding;
-import com.skydoves.colorpickerview.ColorPickerDialog;
+import com.skydoves.colorpickerview.QuoteUnquoteColorPickerDialog;
 import com.skydoves.colorpickerview.ColorPickerView;
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
 
@@ -100,7 +100,7 @@ public class AppearanceToolbarFragment extends FragmentCommon {
 
     private void createListenerToolbarColourPicker() {
         fragmentAppearanceTabToolbarBinding.toolbarColourPickerButton.setOnClickListener(v -> {
-            ColorPickerDialog.Builder builder = new ColorPickerDialog.Builder(getContext())
+            QuoteUnquoteColorPickerDialog.Builder builder = new QuoteUnquoteColorPickerDialog.Builder(getContext(), R.style.CustomColourPickerAlertDialog)
                     .setTitle(getString(R.string.fragment_appearance_toolbar_colour_dialog_title))
                     .setPositiveButton(getString(R.string.fragment_appearance_ok),
                             (ColorEnvelopeListener) (envelope, fromUser) -> {

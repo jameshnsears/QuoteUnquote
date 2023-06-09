@@ -608,16 +608,15 @@ public class QuoteUnquoteModel {
     public Single<Integer> countAllMinusExclusions(final int widgetId) {
         final Future<Single<Integer>> future = QuoteUnquoteWidget.getExecutorService().submit(() ->
                 databaseRepository.countAllMinusExclusions(
-                        getContentPreferences(widgetId).getContentSelectionAllExclusion()));
-
-        Single<Integer> countAllMinusExclusions = Single.just(0);
+                        getContentPreferences(widgetId).getContentSelectionAllExclusion())
+        );
 
         try {
-            countAllMinusExclusions = future.get();
+            return future.get();
         } catch (ExecutionException | InterruptedException e) {
             Thread.currentThread().interrupt();
+            return Single.just(0);
         }
-        return countAllMinusExclusions;
     }
 
     @NonNull

@@ -22,13 +22,14 @@ public class StyleDialogPosition extends StyleDialogFragment {
     @Override
     public void createListenerTextHide() {
         fragmentAppearanceTabStyleDialogBinding.switchHidePosition.setOnCheckedChangeListener((buttonView, isChecked) ->
-                sharedPreferenceSetTextHide(isChecked)
+                hideText = isChecked
         );
     }
 
     public void setTextHide() {
         fragmentAppearanceTabStyleDialogBinding.switchHidePosition
                 .setChecked(appearancePreferences.getAppearancePositionTextHide());
+        hideText = appearancePreferences.getAppearancePositionTextHide();
     }
 
     @Override

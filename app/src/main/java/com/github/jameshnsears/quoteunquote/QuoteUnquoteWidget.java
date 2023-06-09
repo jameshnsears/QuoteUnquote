@@ -1,6 +1,5 @@
 package com.github.jameshnsears.quoteunquote;
 
-import android.app.UiModeManager;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
@@ -396,6 +395,8 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                                             @NonNull final AppWidgetManager appWidgetManager) {
         int[] widgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, QuoteUnquoteWidget.class));
         for (final int knownWidgetId : widgetIds) {
+            Timber.d("onReceiveMyPackageReplaced: %d", knownWidgetId);
+
             getQuoteUnquoteModel(knownWidgetId, context).alignHistoryWithQuotations(knownWidgetId);
             appWidgetManager.notifyAppWidgetViewDataChanged(knownWidgetId, R.id.listViewQuotation);
         }

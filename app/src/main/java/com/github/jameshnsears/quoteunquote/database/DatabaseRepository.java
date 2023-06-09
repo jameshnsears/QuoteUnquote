@@ -333,36 +333,11 @@ public class DatabaseRepository {
 
     @NonNull
     public Single<Integer> countFavourites() {
-        int countFavouritesWithMatchingQuotations = 0;
-
         if (useInternalDatabase()) {
-            List<String> favouriteDigests = favouriteDAO.getFavouriteDigests();
-            final HashSet<String> quotationDigests
-                    = new HashSet<>(quotationDAO.getDigests());
-
-            for (String favouriteDigest : favouriteDigests) {
-                if (quotationDigests.contains(favouriteDigest)) {
-                    countFavouritesWithMatchingQuotations += 1;
-                } else {
-                    favouriteDAO.erase(favouriteDigest);
-                }
-            }
-
+            return favouriteDAO.countFavourites();
         } else {
-            List<String> favouriteDigests = favouriteExternalDAO.getFavouriteDigests();
-            final HashSet<String> quotationDigests
-                    = new HashSet<>(quotationExternalDAO.getDigests());
-
-            for (String favouriteDigest : favouriteDigests) {
-                if (quotationDigests.contains(favouriteDigest)) {
-                    countFavouritesWithMatchingQuotations += 1;
-                } else {
-                    favouriteExternalDAO.erase(favouriteDigest);
-                }
-            }
+            return favouriteExternalDAO.countFavourites();
         }
-
-        return Single.just(countFavouritesWithMatchingQuotations);
     }
 
     @NonNull
@@ -392,28 +367,6 @@ public class DatabaseRepository {
             previousDigests.removeAll(getAllExcludedDigests(criteria));
         }
 
-        if (useInternalDatabase()) {
-            final HashSet<String> quotationDigests
-                    = new HashSet<>(quotationDAO.getDigests());
-
-            for (String previousDigest : previousDigests) {
-                if (!quotationDigests.contains(previousDigest)) {
-                    previousDigests.remove(previousDigest);
-                    previousDAO.erase(previousDigest);
-                }
-            }
-        } else {
-            final HashSet<String> quotationDigests
-                    = new HashSet<>(quotationExternalDAO.getDigests());
-
-            for (String previousDigest : previousDigests) {
-                if (!quotationDigests.contains(previousDigest)) {
-                    previousDigests.remove(previousDigest);
-                    previousExternalDAO.erase(previousDigest);
-                }
-            }
-        }
-
         return previousDigests;
     }
 
@@ -433,11 +386,22 @@ public class DatabaseRepository {
         if (useInternalDatabase()) {
             for (PreviousEntity previousEntity : previousDAO.getAllPrevious()) {
                 if (quotationDAO.getQuotation(previousEntity.digest) == null) {
-                    Timber.d("align=%s", previousEntity.digest);
+                    Timber.d("alignPrevious=%s", previousEntity.digest);
                     alignmentRequired = true;
                     currentDAO.erase(previousEntity.digest);
                     previousDAO.erase(previousEntity.digest);
-                    favouriteDAO.erase(previousEntity.digest);
+                }
+            }
+
+            List<String> favouriteDigests = favouriteDAO.getFavouriteDigests();
+            final HashSet<String> quotationDigests
+                    = new HashSet<>(quotationDAO.getDigests());
+            for (String favouriteDigest : favouriteDigests) {
+                if (!quotationDigests.contains(favouriteDigest)) {
+                    Timber.d("alignFavourite=%s", favouriteDigest);
+                    alignmentRequired = true;
+
+                    favouriteDAO.erase(favouriteDigest);
                 }
             }
         } else {
@@ -447,7 +411,18 @@ public class DatabaseRepository {
                     alignmentRequired = true;
                     currentExternalDAO.erase(previousEntity.digest);
                     previousExternalDAO.erase(previousEntity.digest);
-                    favouriteExternalDAO.erase(previousEntity.digest);
+                }
+            }
+
+            List<String> favouriteDigests = favouriteExternalDAO.getFavouriteDigests();
+            final HashSet<String> quotationDigests
+                    = new HashSet<>(quotationExternalDAO.getDigests());
+            for (String favouriteDigest : favouriteDigests) {
+                if (!quotationDigests.contains(favouriteDigest)) {
+                    Timber.d("alignFavourite=%s", favouriteDigest);
+                    alignmentRequired = true;
+
+                    favouriteExternalDAO.erase(favouriteDigest);
                 }
             }
         }

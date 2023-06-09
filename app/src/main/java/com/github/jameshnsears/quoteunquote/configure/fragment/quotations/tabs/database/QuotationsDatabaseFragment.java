@@ -265,6 +265,15 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
                 updateQuotationsUI();
             }
         });
+
+        radioButtonDatabaseInternal.setOnClickListener(v -> {
+            fragmentQuotationsTabDatabaseBinding.editTextUrl.clearFocus();
+            fragmentQuotationsTabDatabaseBinding.editTextUrlLayout.clearFocus();
+            fragmentQuotationsTabDatabaseBinding.editTextXpathQuotation.clearFocus();
+            fragmentQuotationsTabDatabaseBinding.editTextXpathQuotationLayout.clearFocus();
+            fragmentQuotationsTabDatabaseBinding.editTextXpathSource.clearFocus();
+            fragmentQuotationsTabDatabaseBinding.editTextXpathSourceLayout.clearFocus();
+        });
     }
 
     private void createListenerRadioExternalCsv() {
