@@ -25,6 +25,7 @@ import androidx.core.content.ContextCompat;
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteModel;
 import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
+import com.github.jameshnsears.quoteunquote.configure.fragment.QuoteUnquoteColorPickerDialog;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.style.dialog.StyleDialogAuthor;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.style.dialog.StyleDialogPosition;
@@ -32,7 +33,6 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.s
 import com.github.jameshnsears.quoteunquote.databinding.FragmentAppearanceTabStyleBinding;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.slider.Slider;
-import com.skydoves.colorpickerview.QuoteUnquoteColorPickerDialog;
 import com.skydoves.colorpickerview.ColorPickerView;
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
 

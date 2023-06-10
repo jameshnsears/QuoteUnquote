@@ -1,1 +1,0 @@
-&bull; Performance improvement

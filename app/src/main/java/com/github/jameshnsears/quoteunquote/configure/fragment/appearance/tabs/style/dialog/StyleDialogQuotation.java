@@ -2,8 +2,6 @@ package com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.
 
 import android.widget.Spinner;
 
-import androidx.annotation.NonNull;
-
 import com.github.jameshnsears.quoteunquote.R;
 import com.skydoves.colorpickerview.ColorEnvelope;
 

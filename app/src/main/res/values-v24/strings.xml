@@ -68,7 +68,7 @@
     <string name="fragment_quotations_database_imported">External</string>
     <string name="fragment_quotations_database_csv">.csv file</string>
     <string name="fragment_quotations_database_button_import">Import</string>
-    <string name="fragment_quotations_database_external_instructions_1">Expected format is <b>Source||Quotation</b> per line; for example .csv export a Source and then Import it</string>
+    <string name="fragment_quotations_database_external_instructions_1">Expected format is <b>Source||Quotation</b> per line; an example .csv can be created by exporting a Source and then importing it</string>
     <string name="fragment_quotations_database_import_contents">Invalid .csv format: %1$s</string>
     <string name="fragment_quotations_database_import_importing">Importing .csv file - please wait&#8230;</string>
     <string name="fragment_quotations_database_import_success">Success - .csv file imported</string>
@@ -92,7 +92,7 @@
     <string name="fragment_appearance_background">Background</string>
     <string name="fragment_appearance_colour">Colour</string>
     <string name="fragment_appearance_background_colour_dialog_title">Background Colour</string>
-    <string name="fragment_appearance_cancel" tools:ignore="ButtonCase">CANCEL</string>
+    <string name="fragment_appearance_cancel">Cancel</string>
     <string name="fragment_appearance_ok">OK</string>
     <string name="fragment_appearance_transparency">Transparency %</string>
     <string name="fragment_appearance_text">Text</string>
@@ -159,8 +159,11 @@
     <string name="fragment_notifications_notification_warning">Android limits the size of Notifications; some Quotations might not show in their entirety</string>
     <string name="fragment_notifications_notification_permission">Please enable Notification permission in Android settings</string>
     <string name="fragment_notifications_recurring_event">Recurring Event</string>
-    <string name="fragment_notifications_screen_unlock">Screen unlock</string>
+    <string name="fragment_notifications_screen_unlock">Screen Unlock</string>
     <string name="fragment_notifications_bihourly">Every 2 hours, from 00:00</string>
+    <string name="fragment_notifications_time">Specific</string>
+    <string name="fragment_notifications_time_textfield">Time…</string>
+    <string name="fragment_notifications_time_dialog">Recurring Event Specific Time</string>
 
     <string name="fragment_archive_title">Sync</string>
     <string name="fragment_archive_select_cloud">Cloud</string>
@@ -171,7 +174,7 @@
     <string name="fragment_archive_backup_sending">Backup - please wait&#8230;</string>
     <string name="fragment_archive_backup_success">Success - backup completed</string>
     <string name="fragment_archive_restore">Restore</string>
-    <string name="fragment_archive_superseded">Sync code will be superseded upon restore; a restore can take several seconds</string>
+    <string name="fragment_archive_superseded">Sync code will be superseded upon restore; Backup &amp; Restore can take several seconds to complete</string>
     <string name="fragment_archive_create_new_sync_code">New code</string>
     <string name="fragment_archive_restore_token_missing">Please enter 10 character code</string>
     <string name="fragment_archive_restore_token_invalid">Please enter a valid code</string>

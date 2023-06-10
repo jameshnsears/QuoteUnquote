@@ -13,9 +13,9 @@ import androidx.appcompat.view.ContextThemeWrapper;
 
 import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
+import com.github.jameshnsears.quoteunquote.configure.fragment.QuoteUnquoteColorPickerDialog;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentAppearanceTabToolbarBinding;
-import com.skydoves.colorpickerview.QuoteUnquoteColorPickerDialog;
 import com.skydoves.colorpickerview.ColorPickerView;
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
 

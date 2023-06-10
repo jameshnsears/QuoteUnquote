@@ -52,7 +52,6 @@ class NotificationsFragmentPreferencesTest : ShadowLoggingHelper() {
                     IsEqual.equalTo(0),
                 )
 
-                fragment.setDailyTime()
                 fragment.notificationsPreferences?.eventDaily = true
                 fragment.notificationsPreferences?.eventDailyTimeHour = 7
                 fragment.notificationsPreferences?.eventDailyTimeMinute = 30

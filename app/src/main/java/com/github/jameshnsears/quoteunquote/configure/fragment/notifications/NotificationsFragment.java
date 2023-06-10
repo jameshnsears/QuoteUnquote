@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -25,6 +24,10 @@ import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.ConfigureActivity;
 import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentNotificationsBinding;
+import com.google.android.material.timepicker.MaterialTimePicker;
+import com.google.android.material.timepicker.TimeFormat;
+
+import java.util.Locale;
 
 @Keep
 public class NotificationsFragment extends FragmentCommon {
@@ -92,12 +95,15 @@ public class NotificationsFragment extends FragmentCommon {
     @Override
     public void onViewCreated(
             @NonNull final View view, @NonNull final Bundle savedInstanceState) {
-        setNext();
+        setAction();
+
         setDisplay();
+
         setDeviceUnlock();
-        setDaily();
-        setDailyTime();
+
         setBihourly();
+
+        setSpecificTime();
 
         createListenerNextRandom();
         createListenerNextSequential();
@@ -105,26 +111,69 @@ public class NotificationsFragment extends FragmentCommon {
         createListenerDisplayRadioGroup();
         createListenerExcludeSourceFromNotification();
 
-        createListenerBihourly();
         createListenerDeviceUnlock();
+
+        createListenerBihourly();
+
+        createListenerSpecificTime();
         createListenerDaily();
-        createListenerDailyTime();
     }
 
-    private void setDaily() {
+    public void createListenerSpecificTime() {
+        fragmentNotificationsBinding.specificTime.setOnClickListener(view -> {
+            MaterialTimePicker picker =
+                    new MaterialTimePicker.Builder()
+                            .setTimeFormat(TimeFormat.CLOCK_24H)
+                            .setHour(notificationsPreferences.getEventDailyTimeHour())
+                            .setMinute(notificationsPreferences.getEventDailyTimeMinute())
+                            .setTitleText(getContext().getString(R.string.fragment_notifications_time_dialog))
+                            .build();
+
+            picker.show(getParentFragmentManager(),picker.toString());
+
+            picker.addOnPositiveButtonClickListener(v -> {
+                notificationsPreferences.setEventDailyTimeHour(picker.getHour());
+                notificationsPreferences.setEventDailyTimeMinute(picker.getMinute());
+
+                fragmentNotificationsBinding.specificTime.setText(String.format(
+                        Locale.getDefault(),
+                        "%02d: %02d", picker.getHour(), picker.getMinute()
+                ));
+            });
+        });
+    }
+
+    private void setSpecificTime() {
         final boolean booleanDaily = notificationsPreferences.getEventDaily();
 
         fragmentNotificationsBinding.checkBoxDailyAt.setChecked(booleanDaily);
 
-        final TimePicker timePicker = fragmentNotificationsBinding.timePickerDailyAt;
+        fragmentNotificationsBinding.specificTimeLayout.setEnabled(false);
+        fragmentNotificationsBinding.specificTime.setEnabled(false);
+        fragmentNotificationsBinding.specificTime.setFocusable(false);
+        fragmentNotificationsBinding.specificTime.setClickable(true);
 
-        timePicker.setEnabled(false);
         if (booleanDaily) {
-            timePicker.setEnabled(true);
+            fragmentNotificationsBinding.specificTimeLayout.setEnabled(true);
+            fragmentNotificationsBinding.specificTime.setEnabled(true);
         }
+
+        int hour = (notificationsPreferences.getEventDailyTimeHour() == -1) ? 6 : notificationsPreferences.getEventDailyTimeHour();
+        int minute = (notificationsPreferences.getEventDailyTimeMinute() == -1) ? 0 : notificationsPreferences.getEventDailyTimeMinute();
+
+        notificationsPreferences.setEventDailyTimeHour(hour);
+        notificationsPreferences.setEventDailyTimeMinute(minute);
+
+        String timeToDisplay = String.format(
+                Locale.getDefault(),
+                "%02d: %02d",
+                hour,
+                minute
+        );
+        fragmentNotificationsBinding.specificTime.setText(timeToDisplay);
     }
 
-    private void setNext() {
+    private void setAction() {
         fragmentNotificationsBinding.radioButtonNextRandom.setChecked(notificationsPreferences.getEventNextRandom());
         fragmentNotificationsBinding.radioButtonNextSequential.setChecked(notificationsPreferences.getEventNextSequential());
     }
@@ -224,29 +273,16 @@ public class NotificationsFragment extends FragmentCommon {
                 notificationsPreferences.setEventDaily(isChecked);
             }
 
-            final TimePicker timePicker = fragmentNotificationsBinding.timePickerDailyAt;
+            fragmentNotificationsBinding.specificTimeLayout.setEnabled(false);
+            fragmentNotificationsBinding.specificTime.setEnabled(false);
+            fragmentNotificationsBinding.specificTime.setFocusable(false);
 
-            timePicker.setEnabled(false);
             if (isChecked) {
-                timePicker.setEnabled(true);
+                fragmentNotificationsBinding.specificTimeLayout.setEnabled(true);
+                fragmentNotificationsBinding.specificTime.setEnabled(true);
+                fragmentNotificationsBinding.specificTime.setFocusable(true);
             }
         });
-    }
-
-    private void createListenerDailyTime() {
-        final TimePicker timePicker = fragmentNotificationsBinding.timePickerDailyAt;
-        timePicker.setOnTimeChangedListener((view1, hourOfDay, minute) -> {
-                    int h = timePicker.getHour();
-                    if (notificationsPreferences.getEventDailyTimeHour() != h) {
-                        notificationsPreferences.setEventDailyTimeHour(h);
-                    }
-
-                    int m = timePicker.getMinute();
-                    if (notificationsPreferences.getEventDailyTimeMinute() != m) {
-                        notificationsPreferences.setEventDailyTimeMinute(m);
-                    }
-                }
-        );
     }
 
     private void createListenerBihourly() {
@@ -257,29 +293,6 @@ public class NotificationsFragment extends FragmentCommon {
             }
         });
     }
-
-    protected void setDailyTime() {
-        final TimePicker timePicker = fragmentNotificationsBinding.timePickerDailyAt;
-
-        final int hourOfDay = notificationsPreferences.getEventDailyTimeHour();
-        if (hourOfDay == -1) {
-            notificationsPreferences.setEventDailyTimeHour(6);
-            timePicker.setHour(6);
-        } else {
-            timePicker.setHour(hourOfDay);
-        }
-
-        final int minute = notificationsPreferences.getEventDailyTimeMinute();
-        if (minute == -1) {
-            notificationsPreferences.setEventDailyTimeMinute(0);
-            timePicker.setMinute(0);
-        } else {
-            timePicker.setMinute(minute);
-        }
-
-        timePicker.setIs24HourView(false);
-    }
-
     private void setBihourly() {
         fragmentNotificationsBinding.checkBoxBihourly.setChecked(notificationsPreferences.getEventBihourly());
     }

@@ -1,6 +1,5 @@
 package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.browse;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;

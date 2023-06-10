@@ -20,11 +20,11 @@ import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.fragment.app.DialogFragment;
 
 import com.github.jameshnsears.quoteunquote.R;
+import com.github.jameshnsears.quoteunquote.configure.fragment.QuoteUnquoteColorPickerDialog;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentAppearanceTabStyleDialogBinding;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.skydoves.colorpickerview.ColorEnvelope;
-import com.skydoves.colorpickerview.QuoteUnquoteColorPickerDialog;
 import com.skydoves.colorpickerview.ColorPickerView;
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener;
 
