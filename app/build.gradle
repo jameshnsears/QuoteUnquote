@@ -204,7 +204,7 @@ dependencies {
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
     androidTestImplementation 'io.mockk:mockk-android:1.13.5'
 
-    annotationProcessor 'androidx.room:room-compiler:2.5.1'
+    annotationProcessor 'androidx.room:room-compiler:2.5.2'
 
     debugImplementation 'androidx.fragment:fragment-testing:1.6.0'
     debugImplementation 'androidx.test:core-ktx:1.5.0'
