@@ -22,94 +22,98 @@ class WidgetScraperTest : QuoteUnquoteModelUtility() {
 
     @Test
     fun reuseDefault() {
-        val quoteUnquoteWidget = spyk(QuoteUnquoteWidget())
-        every {
-            quoteUnquoteWidget.getQuotationsPreferences(
-                any(),
-                any(),
-            )
-        } returns
-            getQuotationsPreferences(
+        if (canWorkWithMockk()) {
+            val quoteUnquoteWidget = spyk(QuoteUnquoteWidget())
+            every {
+                quoteUnquoteWidget.getQuotationsPreferences(
+                    any(),
+                    any(),
+                )
+            } returns
+                getQuotationsPreferences(
+                    context,
+                    WidgetIdHelper.WIDGET_ID_01,
+                    false,
+                    true,
+                )
+
+            quoteUnquoteWidget.quoteUnquoteModel = quoteUnquoteModelDouble
+
+            quoteUnquoteWidget.displayAppropriateScrapedQuotation(
                 context,
                 WidgetIdHelper.WIDGET_ID_01,
-                false,
-                true,
+                "q1",
+                "a1",
             )
 
-        quoteUnquoteWidget.quoteUnquoteModel = quoteUnquoteModelDouble
-
-        quoteUnquoteWidget.displayAppropriateScrapedQuotation(
-            context,
-            WidgetIdHelper.WIDGET_ID_01,
-            "q1",
-            "a1",
-        )
-
-        assertEquals(
-            ImportHelper.DEFAULT_DIGEST,
-            databaseRepositoryDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01).digest,
-        )
+            assertEquals(
+                ImportHelper.DEFAULT_DIGEST,
+                databaseRepositoryDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01).digest,
+            )
+        }
     }
 
     @Test
     fun new() {
-        val quoteUnquoteWidget = spyk(QuoteUnquoteWidget())
-        every {
-            quoteUnquoteWidget.getQuotationsPreferences(
-                any(),
-                any(),
+        if (canWorkWithMockk()) {
+            val quoteUnquoteWidget = spyk(QuoteUnquoteWidget())
+            every {
+                quoteUnquoteWidget.getQuotationsPreferences(
+                    any(),
+                    any(),
+                )
+            } returns
+                getQuotationsPreferences(
+                    context,
+                    WidgetIdHelper.WIDGET_ID_01,
+                    false,
+                    true,
+                )
+
+            quoteUnquoteWidget.quoteUnquoteModel = quoteUnquoteModelDouble
+
+            val secondQuotation = QuotationEntity(
+                ImportHelper.makeDigest("q2", "a2"),
+                "?",
+                "a2",
+                "q2",
             )
-        } returns
-            getQuotationsPreferences(
+            quoteUnquoteWidget.displayAppropriateScrapedQuotation(
                 context,
                 WidgetIdHelper.WIDGET_ID_01,
-                false,
-                true,
+                secondQuotation.quotation,
+                secondQuotation.author,
             )
 
-        quoteUnquoteWidget.quoteUnquoteModel = quoteUnquoteModelDouble
+            assertEquals(
+                "1/1",
+                quoteUnquoteModelDouble.getCurrentPosition(
+                    WidgetIdHelper.WIDGET_ID_01,
+                    QuotationsPreferences(WidgetIdHelper.WIDGET_ID_01, context),
+                ),
+            )
 
-        val secondQuotation = QuotationEntity(
-            ImportHelper.makeDigest("q2", "a2"),
-            "?",
-            "a2",
-            "q2",
-        )
-        quoteUnquoteWidget.displayAppropriateScrapedQuotation(
-            context,
-            WidgetIdHelper.WIDGET_ID_01,
-            secondQuotation.quotation,
-            secondQuotation.author,
-        )
-
-        assertEquals(
-            "1/1",
-            quoteUnquoteModelDouble.getCurrentPosition(
+            val thirdQuotation = QuotationEntity(
+                ImportHelper.makeDigest("q2", "a2"),
+                "?",
+                "a1",
+                "q1",
+            )
+            quoteUnquoteWidget.displayAppropriateScrapedQuotation(
+                context,
                 WidgetIdHelper.WIDGET_ID_01,
-                QuotationsPreferences(WidgetIdHelper.WIDGET_ID_01, context),
-            ),
-        )
+                thirdQuotation.quotation,
+                thirdQuotation.author,
+            )
 
-        val thirdQuotation = QuotationEntity(
-            ImportHelper.makeDigest("q2", "a2"),
-            "?",
-            "a1",
-            "q1",
-        )
-        quoteUnquoteWidget.displayAppropriateScrapedQuotation(
-            context,
-            WidgetIdHelper.WIDGET_ID_01,
-            thirdQuotation.quotation,
-            thirdQuotation.author,
-        )
-
-        assertEquals(
-            "1/1",
-            quoteUnquoteModelDouble.getCurrentPosition(
-                WidgetIdHelper.WIDGET_ID_01,
-                QuotationsPreferences(WidgetIdHelper.WIDGET_ID_01, context),
-            ),
-        )
+            assertEquals(
+                "1/1",
+                quoteUnquoteModelDouble.getCurrentPosition(
+                    WidgetIdHelper.WIDGET_ID_01,
+                    QuotationsPreferences(WidgetIdHelper.WIDGET_ID_01, context),
+                ),
+            )
+        }
     }
 
     private fun getQuotationsPreferences(

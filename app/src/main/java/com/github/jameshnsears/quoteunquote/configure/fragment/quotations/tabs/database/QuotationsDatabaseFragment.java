@@ -29,6 +29,7 @@ import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 import com.github.jameshnsears.quoteunquote.utils.ImportHelper;
 import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
 import com.github.jameshnsears.quoteunquote.utils.scraper.ScraperData;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -107,7 +108,7 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
         createExternalEditTextChangeListeners();
 
 //        if (BuildConfig.DEBUG) {
-            String url = "https://www.bible.com/verse-of-the-day";
+        String url = "https://www.bible.com/verse-of-the-day";
 //            if (BuildConfig.DATABASE_QUOTATIONS.contains(".db.prod")) {
 //                // javalin - Listening on http://localhost:7070/
 //                url = "http://10.0.2.2:7070/verse-of-the-day";
@@ -334,7 +335,7 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
                     String xpathSource = getWebXpathSource();
 
                     if (url.equals("") || xpathQuotation.equals("") | xpathSource.equals("")
-                    || url.length() < 10) {
+                            || url.length() < 10) {
                         Toast.makeText(
                                 getContext(),
                                 getContext().getString(R.string.fragment_quotations_database_scrape_fields_error_incomplete),
@@ -396,11 +397,13 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
                 activityResult -> {
                     Timber.d("%d", activityResult.getResultCode());
 
+                    Toast toast = Toast.makeText(
+                            this.getContext(),
+                            this.getContext().getString(R.string.fragment_quotations_database_import_importing),
+                            Toast.LENGTH_SHORT);
+
                     if (activityResult.getResultCode() == Activity.RESULT_OK) {
-                        Toast.makeText(
-                                this.getContext(),
-                                this.getContext().getString(R.string.fragment_quotations_database_import_importing),
-                                Toast.LENGTH_SHORT).show();
+                        toast.show();
 
                         ParcelFileDescriptor parcelFileDescriptor = null;
                         FileInputStream fileInputStream = null;
@@ -423,18 +426,20 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
 
                             importWasSuccessful();
 
+                            toast.cancel();
                             Toast.makeText(
                                     this.getContext(),
                                     this.getContext().getString(R.string.fragment_quotations_database_import_success),
                                     Toast.LENGTH_SHORT).show();
 
                         } catch (final ImportHelper.ImportHelperException | IOException e) {
-                            Toast.makeText(
-                                    this.getContext(),
+                            toast.cancel();
+                            Snackbar.make(
+                                    this.fragmentQuotationsTabDatabaseBinding.getRoot(),
                                     this.getContext().getString(
                                             R.string.fragment_quotations_database_import_contents,
                                             e.getMessage()),
-                                    Toast.LENGTH_LONG).show();
+                                    Snackbar.LENGTH_LONG).show();
                         } finally {
                             try {
                                 if (fileInputStream != null) {

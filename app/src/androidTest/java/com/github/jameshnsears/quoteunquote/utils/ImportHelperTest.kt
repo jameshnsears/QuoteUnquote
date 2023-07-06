@@ -9,6 +9,17 @@ import java.io.InputStream
 
 class ImportHelperTest : QuoteUnquoteModelUtility() {
     @Test
+    fun csvImportKaa() {
+        //  original Kaa.csv (in git history) could not be imported due to some quotes being on multiple lines.
+        val inputStream: InputStream = getCsvAsset("Kaa.csv")
+
+        val importHelper = ImportHelper()
+        val quotationEntityLinkedHashSet = importHelper.csvImportDatabase(inputStream)
+
+        assertEquals(762, quotationEntityLinkedHashSet.size)
+    }
+
+    @Test
     fun csvExportOfFavourites() {
         val inputStream: InputStream = getCsvAsset("Favourites.csv")
 
@@ -49,7 +60,7 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
             fail()
         } catch (exception: ImportHelper.ImportHelperException) {
             assertEquals(
-                "Index for header 'Quotation' is 1 but CSVRecord only has 1 values!",
+                "0 : Index for header 'Quotation' is 1 but CSVRecord only has 1 values!",
                 exception.message,
             )
         }

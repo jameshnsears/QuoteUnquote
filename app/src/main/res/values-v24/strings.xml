@@ -69,7 +69,7 @@
     <string name="fragment_quotations_database_csv">.csv file</string>
     <string name="fragment_quotations_database_button_import">Import</string>
     <string name="fragment_quotations_database_external_instructions_1">Expected format is <b>Source||Quotation</b> per line; an example .csv can be created by exporting a Source and then importing it</string>
-    <string name="fragment_quotations_database_import_contents">Invalid .csv format: %1$s</string>
+    <string name="fragment_quotations_database_import_contents">Invalid .csv format, line: %1$s</string>
     <string name="fragment_quotations_database_import_importing">Importing .csv file - please wait&#8230;</string>
     <string name="fragment_quotations_database_import_success">Success - .csv file imported</string>
     <string name="fragment_quotations_database_scrape">Web page</string>

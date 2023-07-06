@@ -10,15 +10,15 @@ apply from: '../detekt.gradle'
 apply from: '../checkstyle.gradle'
 apply from: '../sonarcube.gradle'
 
-def localPropertiesFile = rootProject.file("local.properties")
-def localProperties = new Properties()
+final def localPropertiesFile = rootProject.file("local.properties")
+final def localProperties = new Properties()
 
 if (!localPropertiesFile.exists()) {
     localProperties.setProperty("RELEASE_STORE_PASSWORD", "")
     localProperties.setProperty("RELEASE_KEY_PASSWORD", "")
     localProperties.setProperty("RELEASE_KEY_ALIAS", "")
     localProperties.setProperty("RELEASE_STORE_FILE", "keystore.jks")
-    Writer writer = new FileWriter(localPropertiesFile, false)
+    final Writer writer = new FileWriter(localPropertiesFile, false)
     localProperties.store(writer, "empty, as creating the file is done manually via gpg")
     writer.close()
 
@@ -28,7 +28,7 @@ if (!localPropertiesFile.exists()) {
 localProperties.load(new FileInputStream(localPropertiesFile))
 
 android {
-    compileSdk 33
+    compileSdk 34
 
     signingConfigs {
         googleplay {
@@ -41,14 +41,14 @@ android {
 
     defaultConfig {
         minSdkVersion 24
-        targetSdkVersion 33
+        targetSdkVersion 34
 
         applicationId "com.github.jameshnsears.quoteunquote"
 
         // changelog version | min sdk | target sdk
-        versionCode 1612433
+        versionCode 1622433
         // semantic versioning
-        versionName "4.33.0"
+        versionName "4.34.0"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -194,7 +194,7 @@ android {
 
 dependencies {
     androidTestImplementation 'androidx.arch.core:core-testing:2.2.0'
-    androidTestImplementation 'androidx.room:room-testing:2.5.1'
+    androidTestImplementation 'androidx.room:room-testing:2.5.2'
     androidTestImplementation 'androidx.test:core:1.5.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
@@ -204,11 +204,11 @@ dependencies {
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
     androidTestImplementation 'io.mockk:mockk-android:1.13.5'
 
-    annotationProcessor 'androidx.room:room-compiler:2.5.1'
+    annotationProcessor 'androidx.room:room-compiler:2.5.2'
 
     debugImplementation 'androidx.fragment:fragment-testing:1.6.0'
     debugImplementation 'androidx.test:core-ktx:1.5.0'
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.11'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
 
     googleplayImplementation 'com.google.firebase:firebase-analytics:21.3.0'
     googleplayImplementation 'com.google.firebase:firebase-crashlytics:18.3.7'
@@ -236,20 +236,20 @@ dependencies {
     implementation 'net.pwall.json:json-kotlin-schema:0.39'
     implementation 'org.apache.commons:commons-csv:1.10.0'
     implementation 'org.jsoup:jsoup:1.16.1'
-    implementation platform('com.google.firebase:firebase-bom:32.1.0')
+    implementation platform('com.google.firebase:firebase-bom:32.1.1')
     implementation project(path: ':cloudLib')
     implementation project(path: ':utilsLib')
 
     testImplementation 'androidx.arch.core:core-testing:2.2.0'
-    testImplementation 'androidx.room:room-testing:2.5.1'
+    testImplementation 'androidx.room:room-testing:2.5.2'
     testImplementation 'androidx.test:core-ktx:1.5.0'
     testImplementation 'androidx.test.ext:junit:1.1.5'
     testImplementation 'androidx.test:rules:1.5.0'
-    testImplementation 'ch.qos.logback:logback-classic:1.4.7'
+    testImplementation 'ch.qos.logback:logback-classic:1.4.8'
     testImplementation 'com.google.guava:guava:32.0.0-jre'
     testImplementation 'io.mockk:mockk:1.13.5'
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.2'
     testImplementation 'org.robolectric:robolectric:4.10.3'
 }
 

@@ -35,7 +35,9 @@
 
 ## 3. Build Instructions
 
-After cloning extract .gpg files = BuildConfig / GitHub Action Secrets values.
+After cloning extract .gpg files - BuildConfig / GitHub Action Secrets values.
+
+The app can be built on Windows 11 but the ./bin folder contains bash scripts (that work with git bash; some require gh cli).
 
 ### 3.1. CLI
 

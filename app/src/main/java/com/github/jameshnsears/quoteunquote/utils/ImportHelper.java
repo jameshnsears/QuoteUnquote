@@ -1,6 +1,7 @@
 package com.github.jameshnsears.quoteunquote.utils;
 
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
+import com.github.jameshnsears.quoteunquote.utils.logging.MethodLineLoggingTree;
 import com.google.common.hash.Hashing;
 
 import org.apache.commons.csv.CSVFormat;
@@ -72,13 +73,18 @@ public class ImportHelper {
     }
 
     public LinkedHashSet<QuotationEntity> csvImportDatabase(InputStream inputStream) throws ImportHelperException {
+        if (BuildConfig.DEBUG && Timber.treeCount() == 0) {
+            Timber.plant(new MethodLineLoggingTree());
+        }
+
         CSVParser parser = null;
 
         LinkedHashSet<QuotationEntity> quotationEntityLinkedHashSet = new LinkedHashSet<>();
 
+        int recordCount = 0;
+
         try {
             parser = CSVParser.parse(inputStream, Charset.defaultCharset(), getCsvFormatForImport());
-            int recordCount = 0;
             for (CSVRecord record : parser) {
                 String author = record.get("Author");
                 testNotEmptyAuthor(author);
@@ -90,6 +96,7 @@ public class ImportHelper {
                 String digest = makeDigest(recordCount, author, quotation);
 
                 recordCount += 1;
+                Timber.d("recordCount=%d", recordCount);
 
                 QuotationEntity q = new QuotationEntity(
                         digest,
@@ -102,7 +109,7 @@ public class ImportHelper {
             }
         } catch (IllegalStateException | IllegalArgumentException | IOException exception) {
             Timber.e("%s", exception.getMessage());
-            throw new ImportHelperException(exception.getMessage());
+            throw new ImportHelperException(recordCount + " : " + exception.getMessage());
         } finally {
             if (parser != null) {
                 try {

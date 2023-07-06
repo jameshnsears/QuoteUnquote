@@ -1,4 +1,0 @@
-&bull; Fix Style dialog Cancel / OK behaviour
-&bull; Closer alignment with Material 3
-&bull; Performance improvements
-&bull; Bump dependencies

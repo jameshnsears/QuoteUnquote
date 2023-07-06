@@ -10,6 +10,7 @@
                 <map>
                   <entry key="52000e504bc43567" value="120" />
                   <entry key="Duration" value="90" />
+                  <entry key="Nexus_4_API_24" value="120" />
                   <entry key="Pixel_5_API_24" value="120" />
                   <entry key="Pixel_5_API_29" value="120" />
                   <entry key="R5CT120RKRN" value="120" />
@@ -54,6 +55,19 @@
                 <map>
                   <entry key="Duration" value="90" />
                   <entry key="Pixel_5_API_24" value="120" />
+                  <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="-813046304">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Nexus_4_API_24" value="120" />
                   <entry key="Tests" value="360" />
                 </map>
               </option>
