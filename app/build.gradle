@@ -202,7 +202,7 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.5.0'
     androidTestImplementation 'androidx.test:runner:1.5.2'
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
-    androidTestImplementation 'io.mockk:mockk-android:1.13.5'
+    androidTestImplementation 'io.mockk:mockk-android:1.13.7'
 
     annotationProcessor 'androidx.room:room-compiler:2.5.2'
 
@@ -247,7 +247,7 @@ dependencies {
     testImplementation 'androidx.test:rules:1.5.0'
     testImplementation 'ch.qos.logback:logback-classic:1.4.8'
     testImplementation 'com.google.guava:guava:32.0.0-jre'
-    testImplementation 'io.mockk:mockk:1.13.5'
+    testImplementation 'io.mockk:mockk:1.13.7'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.2'
     testImplementation 'org.robolectric:robolectric:4.10.3'
