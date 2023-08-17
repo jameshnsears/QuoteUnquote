@@ -206,7 +206,7 @@ dependencies {
 
     annotationProcessor 'androidx.room:room-compiler:2.5.2'
 
-    debugImplementation 'androidx.fragment:fragment-testing:1.6.0'
+    debugImplementation 'androidx.fragment:fragment-testing:1.6.1'
     debugImplementation 'androidx.test:core-ktx:1.5.0'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
 
