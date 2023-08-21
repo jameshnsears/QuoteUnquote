@@ -8,10 +8,10 @@
     <string name="activity_instructions_2">2. Tap </string>
     <string name="activity_instructions_3">3. Scroll though the widgets until you find the Quote Unquote widget</string>
     <string name="activity_instructions_4">4. Touch and slide the widget to where you want it. Lift your finger</string>
-    <string name="activity_instructions_5">5. Use Android\'s Back button / Gesture to leave the Configuration screen and place the widget on your home screen</string>
+    <string name="activity_instructions_5">5. Use Android\’s Back button / gesture to leave the Configuration screen and place the widget on your home screen</string>
     <string name="activity_instructions_usage">Usage</string>
     <string name="activity_instructions_configure_1">\u2022 Once the widget is on a home screen, tap the Quotation text to re-configure the widget</string>
-    <string name="activity_instructions_configure_2">\u2022 Configuration changes are only recognised when the Configuration screen is exited with the Back button / Gesture</string>
+    <string name="activity_instructions_configure_2">\u2022 Configuration changes are only recognised when the Configuration screen is exited with the Back button / gesture</string>
     <string name="activity_instructions_configure_3">\u2022 Tap an <u>underlined</u> Source for Wikipedia entry</string>
     <string name="activity_instructions_configure_4">\u2022 The \u2316 icon, next to the Quotation position count, denotes last previous Quotation</string>
     <string name="activity_instructions_configure_5">\u2022 Optionally, import your own Comma Separated Values (CSV) file containing Quotations, or, Affirmations</string>
@@ -20,9 +20,9 @@
     <string name="activity_instructions_os_warning">Some devices might require Battery Saver settings to be appropriately configured</string>
     <string name="activity_instructions_resize">Resize the widget</string>
     <string name="activity_instructions_resize_instruction_1">1. Touch and hold the widget on your home screen</string>
-    <string name="activity_instructions_resize_instruction_2">2. Lift your finger. You\'ll find an outline with dots on the sides</string>
+    <string name="activity_instructions_resize_instruction_2">2. Lift your finger. You\’ll find an outline with dots on the sides</string>
     <string name="activity_instructions_resize_instruction_3">3. To resize the widget, drag the dots</string>
-    <string name="activity_instructions_resize_instruction_4">4. When you\'re done, tap outside the widget</string>
+    <string name="activity_instructions_resize_instruction_4">4. When you\’re done, tap outside the widget</string>
     <string name="activity_instructions_version">%1$s/%2$s</string>
     <string name="activity_instructions_oss">Open-source software</string>
     <string name="activity_instructions_github">GitHub</string>
@@ -158,6 +158,7 @@
     <string name="fragment_notifications_widget_and_notification">Notification &amp; Widget</string>
     <string name="fragment_notifications_notification_warning">Android limits the size of Notifications; some Quotations might not show in their entirety</string>
     <string name="fragment_notifications_notification_permission">Please enable Notification permission in Android settings</string>
+    <string name="fragment_notifications_exact_alarm_warning">The Alarm &amp; reminders permission needs to be granted for time based events</string>
     <string name="fragment_notifications_recurring_event">Recurring Event</string>
     <string name="fragment_notifications_screen_unlock">Screen Unlock</string>
     <string name="fragment_notifications_bihourly">Every 2 hours, from 00:00</string>

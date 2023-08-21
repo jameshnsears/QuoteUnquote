@@ -1,6 +1,12 @@
 package com.github.jameshnsears.quoteunquote.configure.fragment.notifications;
 
+import static android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM;
+import static android.view.View.VISIBLE;
+
 import android.Manifest;
+import android.app.AlarmManager;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -37,7 +43,7 @@ public class NotificationsFragment extends FragmentCommon {
     @Nullable
     public NotificationsPreferences notificationsPreferences;
 
-    private ActivityResultLauncher<String> requestPermissionLauncher =
+    private ActivityResultLauncher<String> requestPermissionLauncherNotifications =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
                 if (!isGranted) {
                     QuoteUnquoteWidget.notificationPermissionDeniedCount += 1;
@@ -101,6 +107,8 @@ public class NotificationsFragment extends FragmentCommon {
 
         setDeviceUnlock();
 
+        handleSpecialPermissionForExactAlarm();
+
         setBihourly();
 
         setSpecificTime();
@@ -119,6 +127,32 @@ public class NotificationsFragment extends FragmentCommon {
         createListenerDaily();
     }
 
+    private void handleSpecialPermissionForExactAlarm() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+
+            fragmentNotificationsBinding.textViewExactTimeWarning.setVisibility(VISIBLE);
+
+            AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+            if (!alarmManager.canScheduleExactAlarms()) {
+                fragmentNotificationsBinding.checkBoxBihourly.setChecked(false);
+                notificationsPreferences.setEventBihourly(false);
+
+                fragmentNotificationsBinding.checkBoxDailyAt.setChecked(false);
+                notificationsPreferences.setEventDaily(false);
+            } else {
+                if (fragmentNotificationsBinding.checkBoxBihourly.isChecked()) {
+                    notificationsPreferences.setEventBihourly(true);
+                }
+
+                if (fragmentNotificationsBinding.checkBoxDailyAt.isChecked()) {
+                    notificationsPreferences.setEventDaily(true);
+                }
+            }
+        } else {
+            fragmentNotificationsBinding.textViewExactTimeWarning.setVisibility(View.GONE);
+        }
+    }
+
     public void createListenerSpecificTime() {
         fragmentNotificationsBinding.specificTime.setOnClickListener(view -> {
             MaterialTimePicker picker =
@@ -129,7 +163,7 @@ public class NotificationsFragment extends FragmentCommon {
                             .setTitleText(getContext().getString(R.string.fragment_notifications_time_dialog))
                             .build();
 
-            picker.show(getParentFragmentManager(),picker.toString());
+            picker.show(getParentFragmentManager(), picker.toString());
 
             picker.addOnPositiveButtonClickListener(v -> {
                 notificationsPreferences.setEventDailyTimeHour(picker.getHour());
@@ -237,7 +271,7 @@ public class NotificationsFragment extends FragmentCommon {
 
                             ConfigureActivity.launcherInvoked = true;
 
-                            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+                            requestPermissionLauncherNotifications.launch(Manifest.permission.POST_NOTIFICATIONS);
 
                             break;
                         }
@@ -266,33 +300,61 @@ public class NotificationsFragment extends FragmentCommon {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        handleSpecialPermissionForExactAlarm();
+    }
+
     private void createListenerDaily() {
         final CheckBox checkBoxDailyAt = fragmentNotificationsBinding.checkBoxDailyAt;
         checkBoxDailyAt.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (notificationsPreferences.getEventDaily() != isChecked) {
-                notificationsPreferences.setEventDaily(isChecked);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+                if (!alarmManager.canScheduleExactAlarms()) {
+                    ConfigureActivity.launcherInvoked = true;
+                    startActivity(new Intent(ACTION_REQUEST_SCHEDULE_EXACT_ALARM));
+                } else {
+                    if (notificationsPreferences.getEventDaily() != isChecked) {
+                        notificationsPreferences.setEventDaily(isChecked);
+                    }
+
+                    fragmentNotificationsBinding.specificTimeLayout.setEnabled(false);
+                    fragmentNotificationsBinding.specificTime.setEnabled(false);
+                    fragmentNotificationsBinding.specificTime.setFocusable(false);
+
+                    if (isChecked) {
+                        fragmentNotificationsBinding.specificTimeLayout.setEnabled(true);
+                        fragmentNotificationsBinding.specificTime.setEnabled(true);
+                        fragmentNotificationsBinding.specificTime.setFocusable(true);
+                    }
+                }
+
             }
 
-            fragmentNotificationsBinding.specificTimeLayout.setEnabled(false);
-            fragmentNotificationsBinding.specificTime.setEnabled(false);
-            fragmentNotificationsBinding.specificTime.setFocusable(false);
-
-            if (isChecked) {
-                fragmentNotificationsBinding.specificTimeLayout.setEnabled(true);
-                fragmentNotificationsBinding.specificTime.setEnabled(true);
-                fragmentNotificationsBinding.specificTime.setFocusable(true);
-            }
         });
     }
 
     private void createListenerBihourly() {
         final CheckBox checkBoxBihourly = fragmentNotificationsBinding.checkBoxBihourly;
         checkBoxBihourly.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (notificationsPreferences.getEventBihourly() != isChecked) {
-                notificationsPreferences.setEventBihourly(isChecked);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+                if (!alarmManager.canScheduleExactAlarms()) {
+                    ConfigureActivity.launcherInvoked = true;
+
+                    startActivity(new Intent(ACTION_REQUEST_SCHEDULE_EXACT_ALARM));
+                } else {
+                    if (notificationsPreferences.getEventBihourly() != isChecked) {
+                        notificationsPreferences.setEventBihourly(isChecked);
+                    }
+                }
             }
         });
     }
+
     private void setBihourly() {
         fragmentNotificationsBinding.checkBoxBihourly.setChecked(notificationsPreferences.getEventBihourly());
     }

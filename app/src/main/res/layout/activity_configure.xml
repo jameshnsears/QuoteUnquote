@@ -43,7 +43,7 @@
             android:id="@+id/configureNavigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:labelVisibilityMode="selected"
+            app:labelVisibilityMode="unlabeled"
             app:menu="@menu/bottom_navigation_menu" />
 
 </LinearLayout>

@@ -1,5 +1,6 @@
 package com.github.jameshnsears.quoteunquote;
 
+import android.annotation.SuppressLint;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
@@ -8,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -63,6 +65,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
     @Nullable
     private NotificationCoordinator notificationCoordinator;
 
+    @SuppressLint({"UnspecifiedRegisterReceiverFlag", "InlinedApi"})
     private static void registerReceivers(@NonNull Context contextIn) {
         if (!receiversRegistered) {
             Context context = contextIn.getApplicationContext();
@@ -78,7 +81,11 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
 
             IntentFilter quickBootPowerOn = new IntentFilter();
             quickBootPowerOn.addAction("android.intent.action.QUICKBOOT_POWERON");
-            context.registerReceiver(receiver, quickBootPowerOn);
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+                context.registerReceiver(receiver, quickBootPowerOn);
+            } else {
+                context.registerReceiver(receiver, quickBootPowerOn,Context.RECEIVER_EXPORTED);
+            }
 
             IntentFilter themeChange = new IntentFilter();
             themeChange.addAction(Intent.ACTION_CONFIGURATION_CHANGED);

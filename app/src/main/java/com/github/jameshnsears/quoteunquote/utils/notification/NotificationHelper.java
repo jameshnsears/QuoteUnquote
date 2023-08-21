@@ -68,7 +68,7 @@ public class NotificationHelper {
         displayNotification(
                 notificationContent,
                 notificationChannelDeviceUnlock,
-                R.drawable.ic_notification_icon_screen_unlock
+                R.drawable.ic_notification_icon_common
         );
     }
 
@@ -77,7 +77,7 @@ public class NotificationHelper {
         displayNotification(
                 notificationContent,
                 notificationChannelEventDaily,
-                R.drawable.ic_notification_icon_specific_time
+                R.drawable.ic_notification_icon_common
         );
     }
 
@@ -86,7 +86,7 @@ public class NotificationHelper {
         displayNotification(
                 notificationContent,
                 notificationChannelBihourly,
-                R.drawable.ic_notification_icon_every_two_hours
+                R.drawable.ic_notification_icon_common
         );
     }
 

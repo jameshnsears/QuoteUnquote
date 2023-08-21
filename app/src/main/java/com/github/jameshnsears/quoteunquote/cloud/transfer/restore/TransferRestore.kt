@@ -1,6 +1,10 @@
 package com.github.jameshnsears.quoteunquote.cloud.transfer.restore
 
+import android.app.AlarmManager
 import android.content.Context
+import android.os.Build
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.getSystemService
 import com.github.jameshnsears.quoteunquote.cloud.transfer.Appearance
 import com.github.jameshnsears.quoteunquote.cloud.transfer.Current
 import com.github.jameshnsears.quoteunquote.cloud.transfer.Favourite
@@ -241,16 +245,32 @@ class TransferRestore : TransferCommon() {
                 widgetId,
                 context,
             )
+
         notificationsPreferences.eventDaily = schedule.eventDaily
         notificationsPreferences.eventDailyTimeHour = schedule.eventDailyHour
         notificationsPreferences.eventDailyTimeMinute = schedule.eventDailyMinute
-        notificationsPreferences.eventDeviceUnlock = schedule.eventDeviceUnlock
+
+        notificationsPreferences.eventBihourly = schedule.eventEventBihourly
+
         notificationsPreferences.setEventDisplayWidgetAndNotification(schedule.eventDisplayWidgetAndNotification)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val alarmManager: AlarmManager = context.getSystemService<AlarmManager>()!!
+            if (!alarmManager.canScheduleExactAlarms()) {
+                notificationsPreferences.eventDaily = false
+                notificationsPreferences.eventBihourly = false
+            }
+
+            if (!NotificationManagerCompat.from(context).areNotificationsEnabled()) {
+                notificationsPreferences.setEventDisplayWidgetAndNotification(false)
+            }
+        }
+
+        notificationsPreferences.eventDeviceUnlock = schedule.eventDeviceUnlock
         notificationsPreferences.excludeSourceFromNotification = schedule.eventExcludeSourceFromNotification
         notificationsPreferences.eventDisplayWidget = schedule.eventDisplayWidget
         notificationsPreferences.eventNextRandom = schedule.eventNextRandom
         notificationsPreferences.eventNextSequential = schedule.eventNextSequential
-        notificationsPreferences.eventBihourly = schedule.eventEventBihourly
     }
 
     private fun restoreSettingsQuotations(
