@@ -10,7 +10,6 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.Appear
 import com.github.jameshnsears.quoteunquote.configure.fragment.notifications.NotificationsPreferences
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
-import timber.log.Timber
 
 // Settings are set on demand in the UI
 open class TransferBackupSettings(val context: Context) {
@@ -45,7 +44,6 @@ open class TransferBackupSettings(val context: Context) {
             ContentSelection.AUTHOR -> author = true
             ContentSelection.FAVOURITES -> favourites = true
             ContentSelection.SEARCH -> search = true
-            else -> Timber.e("unknown contentSelection")
         }
 
         return Quotations(

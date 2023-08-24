@@ -1,0 +1,4 @@
+&bull; Update quotations database
+&bull; JDK 17 support
+&bull; Update Google Play Store video
+&bull; Bump dependencies

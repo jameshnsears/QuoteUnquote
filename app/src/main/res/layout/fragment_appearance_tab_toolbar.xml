@@ -33,14 +33,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="5dp"
-                        android:text="@string/fragment_appearance_toolbar_buttons"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
                 <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

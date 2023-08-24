@@ -140,7 +140,6 @@
     <string name="fragment_appearance_follow_system_theme">Follow system theme</string>
     <string name="fragment_appearance_follow_system_theme_info">Forces App Widget to use Black &amp; White colours</string>
     <string name="fragment_appearance_toolbar_colour_dialog_title">Buttons Colour</string>
-    <string name="fragment_appearance_toolbar_buttons">Buttons</string>
     <string name="fragment_appearance_toolbar_first">First, clears Previous</string>
     <string name="fragment_appearance_toolbar_previous">Previous</string>>
     <string name="fragment_appearance_toolbar_favourite">Favourite, toggle</string>
@@ -199,6 +198,6 @@
     <string name="preview_description">Discover high quality Quotations!\nImport Affirmations!</string>
     <string name="preview_quotation">Nothing matters very much and very few things matter at all.\n</string>
     <string name="preview_author"><u>Arthur Balfour\n</u></string>
-    <string name="preview_position">\u2316  1/20313\u0020</string>
+    <string name="preview_position">\u2316  1/20310\u0020</string>
 
 </resources>

@@ -505,7 +505,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
         disposableObserverAllExclusion = new DisposableObserver<Integer>() {
             @Override
             public void onNext(@NonNull final Integer value) {
-                Timber.d("value=%d", value.intValue());
+                Timber.d("value=%d", value);
                 if (value != 0) {
                     fragmentQuotationsTabFilterBinding.radioButtonAll.setText(
                             getResources().getString(R.string.fragment_quotations_selection_all, value));

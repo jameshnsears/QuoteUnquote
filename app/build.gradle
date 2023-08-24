@@ -46,9 +46,9 @@ android {
         applicationId "com.github.jameshnsears.quoteunquote"
 
         // changelog version | min sdk | target sdk
-        versionCode 1632434
+        versionCode 1652434
         // semantic versioning
-        versionName "4.35.0"
+        versionName "4.36.0"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -107,11 +107,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
+
     kotlinOptions {
-        jvmTarget = '11'
+        jvmTarget = 17
     }
 
     flavorDimensions 'Version'
@@ -218,7 +219,7 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.core:core-ktx:1.10.1'
-    implementation 'androidx.databinding:databinding-runtime:8.1.0'
+    implementation 'androidx.databinding:databinding-runtime:8.1.1'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.room:room-guava:2.5.2'
     implementation 'androidx.room:room-runtime:2.5.2'
