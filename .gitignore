@@ -47,3 +47,4 @@ release-github-notes.md
 /app-fdroid-release-signed.apk
 /app-fdroid-release-signed.apk.idsig
 /app/fdroid/debug/output-metadata.json
+/app/keystore.readme

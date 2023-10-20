@@ -46,9 +46,9 @@ android {
         applicationId "com.github.jameshnsears.quoteunquote"
 
         // changelog version | min sdk | target sdk
-        versionCode 1652434
+        versionCode 1662434
         // semantic versioning
-        versionName "4.36.0"
+        versionName "4.36.1"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -203,7 +203,7 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.5.0'
     androidTestImplementation 'androidx.test:runner:1.5.2'
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
-    androidTestImplementation 'io.mockk:mockk-android:1.13.7'
+    androidTestImplementation 'io.mockk:mockk-android:1.13.8'
 
     annotationProcessor 'androidx.room:room-compiler:2.5.2'
 
@@ -212,32 +212,32 @@ dependencies {
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
 
     googleplayImplementation 'com.google.firebase:firebase-analytics:21.3.0'
-    googleplayImplementation 'com.google.firebase:firebase-crashlytics:18.4.0'
+    googleplayImplementation 'com.google.firebase:firebase-crashlytics:18.5.0'
 
-    implementation 'androidx.activity:activity-ktx:1.7.2'
+    implementation 'androidx.activity:activity-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.core:core-ktx:1.10.1'
-    implementation 'androidx.databinding:databinding-runtime:8.1.1'
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.databinding:databinding-runtime:8.1.2'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.room:room-guava:2.5.2'
-    implementation 'androidx.room:room-runtime:2.5.2'
-    implementation 'androidx.room:room-rxjava2:2.5.2'
+    implementation 'androidx.room:room-runtime:2.6.0'
+    implementation 'androidx.room:room-rxjava2:2.6.0'
     implementation 'com.github.skydoves:colorpickerpreference:2.0.6'
-    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'com.google.android.material:material:1.10.0'
     implementation 'com.google.code.gson:gson:2.10.1'
-    implementation 'com.google.guava:guava:32.1.2-jre'
+    implementation 'com.google.guava:guava:32.1.3-jre'
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.2.0'
     implementation 'com.jakewharton.timber:timber:5.0.1'
-    implementation 'com.squareup.okhttp3:okhttp:4.11.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
-    implementation 'net.pwall.json:json-kotlin-schema:0.40'
+    implementation 'net.pwall.json:json-kotlin-schema:0.42'
     implementation 'org.apache.commons:commons-csv:1.10.0'
     implementation 'org.jsoup:jsoup:1.16.1'
-    implementation platform('com.google.firebase:firebase-bom:32.2.2')
+    implementation platform('com.google.firebase:firebase-bom:32.3.1')
     implementation project(path: ':cloudLib')
     implementation project(path: ':utilsLib')
 
@@ -247,8 +247,8 @@ dependencies {
     testImplementation 'androidx.test.ext:junit:1.1.5'
     testImplementation 'androidx.test:rules:1.5.0'
     testImplementation 'ch.qos.logback:logback-classic:1.4.11'
-    testImplementation 'com.google.guava:guava:32.1.2-jre'
-    testImplementation 'io.mockk:mockk:1.13.7'
+    testImplementation 'com.google.guava:guava:32.1.3-jre'
+    testImplementation 'io.mockk:mockk:1.13.8'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3'
     testImplementation 'org.robolectric:robolectric:4.10.3'

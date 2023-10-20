@@ -377,22 +377,31 @@
                     android:id="@+id/toolbar_switch_hide_separator"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/fragment_appearance_follow_system_theme"
+                    android:text="@string/fragment_appearance_follow_system_theme_follow"
                     android:textSize="16sp" />
 
             <TextView
                     android:id="@+id/textViewExclusionInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawablePadding="10dp"
-                    android:paddingVertical="10dp"
-                    android:paddingStart="4dp"
                     android:paddingTop="5dp"
+                    android:paddingBottom="10dp"
+                    android:paddingStart="0dp"
                     android:paddingEnd="0dp"
-                    android:paddingBottom="0dp"
                     android:text="@string/fragment_appearance_follow_system_theme_info"
                     android:textSize="14sp"
                     app:drawableStartCompat="@drawable/ic_info_24" />
+
+            <TextView
+                    android:id="@+id/textViewExclusion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="5dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/fragment_appearance_follow_system_theme"
+                    android:textSize="14sp" />
 
         </LinearLayout>
 

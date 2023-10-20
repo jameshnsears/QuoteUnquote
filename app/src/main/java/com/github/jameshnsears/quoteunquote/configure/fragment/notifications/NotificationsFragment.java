@@ -59,6 +59,7 @@ public class NotificationsFragment extends FragmentCommon {
                     notificationsPreferences.setEventDisplayWidget(false);
                     notificationsPreferences.setEventDisplayWidgetAndNotification(true);
                     fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(true);
+                    fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(true);
                     fragmentNotificationsBinding.textViewNotificationSizeWarning.setEnabled(true);
                 }
 
@@ -130,6 +131,7 @@ public class NotificationsFragment extends FragmentCommon {
     private void handleSpecialPermissionForExactAlarm() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
 
+            fragmentNotificationsBinding.textViewExactTimeWarningInfo.setVisibility(VISIBLE);
             fragmentNotificationsBinding.textViewExactTimeWarning.setVisibility(VISIBLE);
 
             AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
@@ -149,6 +151,7 @@ public class NotificationsFragment extends FragmentCommon {
                 }
             }
         } else {
+            fragmentNotificationsBinding.textViewExactTimeWarningInfo.setVisibility(View.GONE);
             fragmentNotificationsBinding.textViewExactTimeWarning.setVisibility(View.GONE);
         }
     }
@@ -219,10 +222,12 @@ public class NotificationsFragment extends FragmentCommon {
         if (fragmentNotificationsBinding.radioButtonWhereAsNotification.isChecked()) {
             fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(true);
 
+            fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(true);
             fragmentNotificationsBinding.textViewNotificationSizeWarning.setEnabled(true);
         } else {
             fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(false);
 
+            fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(false);
             fragmentNotificationsBinding.textViewNotificationSizeWarning.setEnabled(false);
         }
 
@@ -260,6 +265,7 @@ public class NotificationsFragment extends FragmentCommon {
                     notificationsPreferences.setEventDisplayWidgetAndNotification(false);
 
                     fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(false);
+                    fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(false);
                     fragmentNotificationsBinding.textViewNotificationSizeWarning.setEnabled(false);
                     break;
 
@@ -279,6 +285,7 @@ public class NotificationsFragment extends FragmentCommon {
                     notificationsPreferences.setEventDisplayWidget(false);
                     notificationsPreferences.setEventDisplayWidgetAndNotification(true);
                     fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(true);
+                    fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(true);
                     fragmentNotificationsBinding.textViewNotificationSizeWarning.setEnabled(true);
                     break;
             }

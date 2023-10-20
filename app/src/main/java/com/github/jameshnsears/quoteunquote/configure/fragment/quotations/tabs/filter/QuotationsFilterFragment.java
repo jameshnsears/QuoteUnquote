@@ -271,6 +271,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
         fragmentQuotationsTabFilterBinding.editTextResultsExclusionLayout.setEnabled(enabled);
         fragmentQuotationsTabFilterBinding.editTextResultsExclusion.setEnabled(enabled);
         fragmentQuotationsTabFilterBinding.textViewExclusionInfo.setEnabled(enabled);
+        fragmentQuotationsTabFilterBinding.textViewExclusion.setEnabled(enabled);
     }
 
     private void setCardSourceIndividual(final boolean enabled) {
@@ -398,6 +399,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
         ///
 
         this.fragmentQuotationsTabFilterBinding.textViewSearchMinimumInfo.setEnabled(enabled);
+        this.fragmentQuotationsTabFilterBinding.textViewSearchMinimum.setEnabled(enabled);
 
         ///
 

@@ -13,13 +13,13 @@ jobs:
   qodana:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 1
           submodules: true
 
       - name: qodana scan
-        uses: JetBrains/qodana-action@v2023.2.1
+        uses: JetBrains/qodana-action@v2023.2.8
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
 

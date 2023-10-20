@@ -209,9 +209,19 @@
                                 android:drawablePadding="10dp"
                                 android:paddingTop="10dp"
                                 android:paddingBottom="5dp"
-                                android:text="@string/activity_instructions_os_warning"
+                                android:text="@string/activity_instructions_os_warning_info"
                                 android:textSize="14sp"
                                 app:drawableStartCompat="@drawable/ic_info_24" />
+
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
+                                android:paddingStart="5dp"
+                                android:paddingEnd="0dp"
+                                android:text="@string/activity_instructions_os_warning"
+                                android:textSize="14sp"/>
                     </LinearLayout>
 
                 </LinearLayout>
