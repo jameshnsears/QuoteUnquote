@@ -102,14 +102,14 @@ jobs:
 
       - name: artifact logcat
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: fdroid-logcat-${{ matrix.api-level }}
           path: logcat.txt
 
       - name: artifact
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: fdroid-${{ matrix.api-level }}
           path: |
@@ -209,14 +209,14 @@ jobs:
 
       - name: artifact logcat
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: googleplay-logcat-${{ matrix.api-level }}
           path: logcat.txt
 
       - name: artifact
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: googleplay-${{ matrix.api-level }}
           path: |
