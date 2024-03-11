@@ -34,12 +34,16 @@ class WidgetToolbarRandomizationTest : QuoteUnquoteModelUtility() {
         insertQuotationTestData03()
         assertEquals(
             7,
-            quoteUnquoteModelDouble.countAllMinusExclusions(WidgetIdHelper.WIDGET_ID_01).blockingGet(),
+            quoteUnquoteModelDouble.countAllMinusExclusions(WidgetIdHelper.WIDGET_ID_01)
+                .blockingGet(),
         )
 
         assertEquals(
             0,
-            quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL),
+            quoteUnquoteModelDouble.countPrevious(
+                WidgetIdHelper.WIDGET_ID_01,
+                ContentSelection.ALL,
+            ),
         )
     }
 

@@ -84,7 +84,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
                 context.registerReceiver(receiver, quickBootPowerOn);
             } else {
-                context.registerReceiver(receiver, quickBootPowerOn,Context.RECEIVER_EXPORTED);
+                context.registerReceiver(receiver, quickBootPowerOn, Context.RECEIVER_EXPORTED);
             }
 
             IntentFilter themeChange = new IntentFilter();
@@ -381,7 +381,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
 
         if ((context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
                 == Configuration.UI_MODE_NIGHT_YES) {
-                isNightMode = true;
+            isNightMode = true;
         }
 
         return isNightMode;

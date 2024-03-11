@@ -10,12 +10,12 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/widget_listview_quotation"
             android:fontFamily="serif"
+            android:gravity="center"
             android:paddingStart="?android:attr/listPreferredItemPaddingStart"
             android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
             android:textAllCaps="false"
             android:textAppearance="?android:attr/textAppearanceListItemSmall"
-            android:textStyle="italic"
-            android:gravity="center"  />
+            android:textStyle="italic" />
 
     <TextView
             android:id="@+id/textViewRowAuthor"
@@ -23,12 +23,12 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/widget_listview_author"
             android:fontFamily="serif"
+            android:gravity="center"
             android:paddingStart="?android:attr/listPreferredItemPaddingStart"
             android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
             android:textAllCaps="false"
             android:textAppearance="?android:attr/textAppearanceListItemSmall"
-            android:textStyle="italic"
-            android:gravity="center"  />
+            android:textStyle="italic" />
 
     <TextView
             android:id="@+id/textViewRowPosition"

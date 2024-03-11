@@ -1,7 +1,6 @@
 package com.github.jameshnsears.quoteunquote.utils;
 
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
-import com.github.jameshnsears.quoteunquote.utils.logging.MethodLineLoggingTree;
 import com.google.common.hash.Hashing;
 
 import org.apache.commons.csv.CSVFormat;
@@ -22,7 +21,15 @@ import java.util.LinkedHashSet;
 import timber.log.Timber;
 
 public class ImportHelper {
+    public static String DEFAULT_DIGEST = "00000000";
     private static String[] headers = {"Author", "Quotation"};
+
+    public static String makeDigest(String quotation, String author) {
+        String rawString = quotation + author;
+        return Hashing.sha256()
+                .hashBytes(rawString.getBytes(StandardCharsets.UTF_8))
+                .toString().substring(0, 8);
+    }
 
     public void csvExport(FileOutputStream fileOutputStream, ArrayList<QuotationEntity> exportableFavourites) throws IOException {
         OutputStreamWriter outputStreamWriter = null;
@@ -73,10 +80,6 @@ public class ImportHelper {
     }
 
     public LinkedHashSet<QuotationEntity> csvImportDatabase(InputStream inputStream) throws ImportHelperException {
-        if (BuildConfig.DEBUG && Timber.treeCount() == 0) {
-            Timber.plant(new MethodLineLoggingTree());
-        }
-
         CSVParser parser = null;
 
         LinkedHashSet<QuotationEntity> quotationEntityLinkedHashSet = new LinkedHashSet<>();
@@ -127,8 +130,6 @@ public class ImportHelper {
         return quotationEntityLinkedHashSet;
     }
 
-    public static String DEFAULT_DIGEST = "00000000";
-
     private String makeDigest(int recordCount, String author, String quotation) {
         String digest;
         if (recordCount == 0) {
@@ -149,13 +150,6 @@ public class ImportHelper {
         if (author.equals("")) {
             throw new ImportHelperException("empty author");
         }
-    }
-
-    public static String makeDigest(String quotation, String author) {
-        String rawString = quotation + author;
-        return Hashing.sha256()
-                .hashBytes(rawString.getBytes(StandardCharsets.UTF_8))
-                .toString().substring(0, 8);
     }
 
     public class ImportHelperException extends Exception {

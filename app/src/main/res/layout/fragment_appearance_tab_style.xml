@@ -16,11 +16,11 @@
             android:id="@+id/cardViewBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:contentPadding="3dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="4dp"
             app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true">
+            app:cardUseCompatPadding="true"
+            app:contentPadding="3dp">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -128,11 +128,11 @@
             android:id="@+id/cardViewText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:contentPadding="3dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="4dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true"
+            app:contentPadding="3dp"
             app:contentPaddingBottom="5dp">
 
         <LinearLayout
@@ -214,8 +214,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp">
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp">
 
                 <com.google.android.material.materialswitch.MaterialSwitch
                         android:id="@+id/switchForceItalicRegular"
@@ -232,8 +232,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingBottom="5dp"
-                    android:paddingTop="5dp">
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp">
 
                 <com.google.android.material.materialswitch.MaterialSwitch
                         android:id="@+id/switchCenter"
@@ -384,10 +384,10 @@
                     android:id="@+id/textViewExclusionInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="10dp"
                     android:paddingStart="0dp"
+                    android:paddingTop="5dp"
                     android:paddingEnd="0dp"
+                    android:paddingBottom="10dp"
                     android:text="@string/fragment_appearance_follow_system_theme_info"
                     android:textSize="14sp"
                     app:drawableStartCompat="@drawable/ic_info_24" />

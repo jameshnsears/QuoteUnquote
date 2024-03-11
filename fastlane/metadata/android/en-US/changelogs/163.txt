@@ -1,6 +1,0 @@
-&bull; Android 14 support
-&bull; Simplify bottom navigation menu
-&bull; Fix cosmetic issue with Appearance > Style > Text > Position button
-&bull; Improve Sync > Restore button vertical layout
-&bull; Simplify Notification icon
-&bull; Bump all dependencies

@@ -20,7 +20,10 @@ class AddDisplayedResultToPreviousAllTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             1,
-            quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL),
+            quoteUnquoteModelDouble.countPrevious(
+                WidgetIdHelper.WIDGET_ID_01,
+                ContentSelection.ALL,
+            ),
         )
 
         assertEquals(
@@ -42,7 +45,10 @@ class AddDisplayedResultToPreviousAllTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             2,
-            quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL),
+            quoteUnquoteModelDouble.countPrevious(
+                WidgetIdHelper.WIDGET_ID_01,
+                ContentSelection.ALL,
+            ),
         )
 
         assertEquals(
@@ -69,7 +75,10 @@ class AddDisplayedResultToPreviousAllTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             3,
-            quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL),
+            quoteUnquoteModelDouble.countPrevious(
+                WidgetIdHelper.WIDGET_ID_01,
+                ContentSelection.ALL,
+            ),
         )
 
         assertEquals(
@@ -89,7 +98,10 @@ class AddDisplayedResultToPreviousAllTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             0,
-            quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL),
+            quoteUnquoteModelDouble.countPrevious(
+                WidgetIdHelper.WIDGET_ID_01,
+                ContentSelection.ALL,
+            ),
         )
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
 

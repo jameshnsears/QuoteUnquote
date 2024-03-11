@@ -33,15 +33,12 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
     private final Context context;
 
     private final int widgetId;
-
-    @Nullable
-    private QuotationEntity quotationEntity = null;
-
-    @Nullable
-    private String postion = "";
-
     @Nullable
     public QuoteUnquoteModel quoteUnquoteModel;
+    @Nullable
+    private QuotationEntity quotationEntity = null;
+    @Nullable
+    private String postion = "";
 
     ListViewProvider(@NonNull Context context, @NonNull Intent intent) {
         synchronized (this) {
@@ -222,7 +219,7 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
                         appearancePreferences.getAppearanceTextStyle(),
                         appearancePreferences.getAppearanceTextForceItalicRegular(),
                         appearancePreferences.getAppearanceTextCenter()
-                        )
+                )
         );
 
         if (!quotationList.isEmpty()

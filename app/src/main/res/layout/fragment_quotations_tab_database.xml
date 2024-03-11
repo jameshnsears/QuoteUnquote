@@ -45,10 +45,10 @@
                     android:id="@+id/textViewInternalInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
                     android:paddingStart="4dp"
+                    android:paddingTop="10dp"
                     android:paddingEnd="0dp"
+                    android:paddingBottom="10dp"
                     android:text="@string/fragment_quotations_database_default_info"
                     android:textSize="14sp"
                     app:drawableStartCompat="@drawable/ic_info_24" />
@@ -62,7 +62,7 @@
                     android:paddingEnd="0dp"
                     android:paddingBottom="10dp"
                     android:text="@string/fragment_quotations_database_default"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -132,10 +132,10 @@
                     android:id="@+id/textViewExamplesInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
                     android:paddingStart="4dp"
+                    android:paddingTop="10dp"
                     android:paddingEnd="0dp"
+                    android:paddingBottom="10dp"
                     android:text="@string/fragment_quotations_database_external_instructions_1_info"
                     android:textSize="14sp"
                     app:drawableStartCompat="@drawable/ic_info_24" />
@@ -149,7 +149,7 @@
                     android:paddingEnd="0dp"
                     android:paddingBottom="10dp"
                     android:text="@string/fragment_quotations_database_external_instructions_1"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
 
             <LinearLayout
                     android:layout_width="match_parent"
@@ -191,16 +191,16 @@
                         android:id="@+id/editTextUrlLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:endIconMode="clear_text"
-                        android:hint="@string/fragment_quotations_database_scrape_url_hint">
+                        android:hint="@string/fragment_quotations_database_scrape_url_hint"
+                        app:endIconMode="clear_text">
 
                     <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editTextUrl"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:maxLength="150"
+                            android:layout_weight="1"
                             android:inputType="textNoSuggestions"
-                            android:layout_weight="1"/>
+                            android:maxLength="150" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -218,16 +218,16 @@
                         android:id="@+id/editTextXpathQuotationLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:endIconMode="clear_text"
-                        android:hint="@string/fragment_quotations_database_scrape_quote_quotation_hint">
+                        android:hint="@string/fragment_quotations_database_scrape_quote_quotation_hint"
+                        app:endIconMode="clear_text">
 
                     <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editTextXpathQuotation"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:maxLength="150"
+                            android:layout_weight="1"
                             android:inputType="textNoSuggestions"
-                            android:layout_weight="1"/>
+                            android:maxLength="150" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -245,16 +245,16 @@
                         android:id="@+id/editTextXpathSourceLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:endIconMode="clear_text"
-                        android:hint="@string/fragment_quotations_database_scrape_quote_source_hint">
+                        android:hint="@string/fragment_quotations_database_scrape_quote_source_hint"
+                        app:endIconMode="clear_text">
 
                     <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editTextXpathSource"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:maxLength="150"
+                            android:layout_weight="1"
                             android:inputType="textNoSuggestions"
-                            android:layout_weight="1"/>
+                            android:maxLength="150" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -311,10 +311,10 @@
                         android:id="@+id/textViewInformationWebInfo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
                         android:paddingStart="4dp"
+                        android:paddingTop="10dp"
                         android:paddingEnd="0dp"
+                        android:paddingBottom="10dp"
 
                         android:text="@string/fragment_quotations_database_scrape_info"
                         android:textSize="14sp"
@@ -329,7 +329,7 @@
                         android:paddingEnd="0dp"
                         android:paddingBottom="10dp"
                         android:text="@string/fragment_quotations_database_scrape"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
             </LinearLayout>
 
         </LinearLayout>

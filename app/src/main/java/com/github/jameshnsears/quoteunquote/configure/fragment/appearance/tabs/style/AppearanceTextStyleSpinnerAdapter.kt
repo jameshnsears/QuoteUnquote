@@ -72,6 +72,7 @@ class AppearanceTextStyleSpinnerAdapter(private val context: Context) : BaseAdap
                 view.setTypeface(null, Typeface.ITALIC)
                 view.setShadowLayer(1F, 2F, 2F, Color.BLACK)
             }
+
             "Regular" -> view.setTypeface(null, Typeface.NORMAL)
             "Regular, Shadow" -> {
                 view.setTypeface(null, Typeface.NORMAL)

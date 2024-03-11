@@ -11,7 +11,14 @@ import org.junit.Test
 class ExclusionCountTest : QuoteUnquoteModelUtility() {
     private fun insertExclusionQuotationTestData() {
         val quotationEntityList: MutableList<QuotationEntity> = ArrayList()
-        quotationEntityList.add(QuotationEntity(DatabaseRepository.getDefaultQuotationDigest(), "w1", "aaaa1", "q1"))
+        quotationEntityList.add(
+            QuotationEntity(
+                DatabaseRepository.getDefaultQuotationDigest(),
+                "w1",
+                "aaaa1",
+                "q1",
+            ),
+        )
         quotationEntityList.add(QuotationEntity("d6789012", "w1", "aaaa2", "q2"))
         quotationEntityList.add(QuotationEntity("d6789013", "w1", "aaaa2", "q3"))
         quotationEntityList.add(QuotationEntity("d6789014", "w1", "aaaa3", "q4"))

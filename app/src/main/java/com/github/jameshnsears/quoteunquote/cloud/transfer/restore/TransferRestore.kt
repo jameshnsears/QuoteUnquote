@@ -267,7 +267,8 @@ class TransferRestore : TransferCommon() {
         }
 
         notificationsPreferences.eventDeviceUnlock = schedule.eventDeviceUnlock
-        notificationsPreferences.excludeSourceFromNotification = schedule.eventExcludeSourceFromNotification
+        notificationsPreferences.excludeSourceFromNotification =
+            schedule.eventExcludeSourceFromNotification
         notificationsPreferences.eventDisplayWidget = schedule.eventDisplayWidget
         notificationsPreferences.eventNextRandom = schedule.eventNextRandom
         notificationsPreferences.eventNextSequential = schedule.eventNextSequential
@@ -340,7 +341,8 @@ class TransferRestore : TransferCommon() {
         appearancePreferences.appearanceToolbarRandom = appearance.appearanceToolbarRandom
         appearancePreferences.appearanceToolbarSequential = appearance.appearanceToolbarSequential
         appearancePreferences.appearanceToolbarShare = appearance.appearanceToolbarShare
-        appearancePreferences.appearanceToolbarShareNoSource = appearance.appearanceToolbarShareNoSource
+        appearancePreferences.appearanceToolbarShareNoSource =
+            appearance.appearanceToolbarShareNoSource
         appearancePreferences.appearanceToolbarJump = appearance.appearanceToolbarJump
     }
 }

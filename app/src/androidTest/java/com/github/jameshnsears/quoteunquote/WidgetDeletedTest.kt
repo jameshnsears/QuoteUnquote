@@ -39,8 +39,14 @@ class WidgetDeletedTest : QuoteUnquoteModelUtility() {
             assertTrue(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_02) == 3)
             assertTrue(quoteUnquoteModelDouble.countFavourites().blockingGet() == 1)
 
-            assertEquals(0, PreferencesFacade.countPreferences(context, WidgetIdHelper.WIDGET_ID_01))
-            assertEquals(1, PreferencesFacade.countPreferences(context, WidgetIdHelper.WIDGET_ID_02))
+            assertEquals(
+                0,
+                PreferencesFacade.countPreferences(context, WidgetIdHelper.WIDGET_ID_01),
+            )
+            assertEquals(
+                1,
+                PreferencesFacade.countPreferences(context, WidgetIdHelper.WIDGET_ID_02),
+            )
             assertFalse(syncPreferences.transferLocalCode.isEmpty())
         }
     }

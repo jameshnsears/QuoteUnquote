@@ -56,6 +56,8 @@ import timber.log.Timber;
 
 @Keep
 public class QuotationsFilterFragment extends FragmentCommon {
+    @Nullable
+    public static List<QuotationEntity> activityExportQuotationEntityList;
     @NonNull
     public CompositeDisposable disposables = new CompositeDisposable();
     @Nullable
@@ -74,8 +76,6 @@ public class QuotationsFilterFragment extends FragmentCommon {
     private ActivityResultLauncher<Intent> activityExportSearch = activityExport();
     @NonNull
     private ActivityResultLauncher<Intent> activityExportSource = activityExport();
-    @Nullable
-    public static List<QuotationEntity> activityExportQuotationEntityList;
 
     public QuotationsFilterFragment() {
     }
@@ -89,6 +89,22 @@ public class QuotationsFilterFragment extends FragmentCommon {
         final QuotationsFilterFragment fragment = new QuotationsFilterFragment(widgetId);
         fragment.setArguments(null);
         return fragment;
+    }
+
+    public static void ensureFragmentContentSearchConsistency(
+            final int widgetId,
+            @NonNull Context context
+    ) {
+        final QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, context);
+
+        if (quotationsPreferences.getContentSelection() == ContentSelection.SEARCH
+                && quotationsPreferences.getContentSelectionSearchCount() == 0) {
+            quotationsPreferences.setContentSelection(ContentSelection.ALL);
+            Toast.makeText(
+                    context,
+                    context.getString(R.string.fragment_quotations_selection_search_no_results),
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -142,6 +158,8 @@ public class QuotationsFilterFragment extends FragmentCommon {
         setCard();
     }
 
+    ////////////////
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -153,8 +171,6 @@ public class QuotationsFilterFragment extends FragmentCommon {
         this.shutdown();
     }
 
-    ////////////////
-
     public void shutdown() {
         this.disposables.clear();
         this.disposables.dispose();
@@ -165,22 +181,6 @@ public class QuotationsFilterFragment extends FragmentCommon {
 
         if (this.disposableObserverSearch != null) {
             this.disposableObserverSearch.dispose();
-        }
-    }
-
-    public static void ensureFragmentContentSearchConsistency(
-            final int widgetId,
-            @NonNull Context context
-    ) {
-        final QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, context);
-
-        if (quotationsPreferences.getContentSelection() == ContentSelection.SEARCH
-                && quotationsPreferences.getContentSelectionSearchCount() == 0) {
-            quotationsPreferences.setContentSelection(ContentSelection.ALL);
-            Toast.makeText(
-                    context,
-                    context.getString(R.string.fragment_quotations_selection_search_no_results),
-                    Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -625,7 +625,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
 
                 if (value > 0) {
                     if (quotationsPreferences.getContentSelection() == ContentSelection.SEARCH
-                        ||
+                            ||
                             quotationsPreferences.getContentSelectionSearchForceEnableButtons()) {
                         setCardSearchButtonBrowse(true);
                         setCardSearchButtonExport(true);
@@ -886,7 +886,8 @@ public class QuotationsFilterFragment extends FragmentCommon {
                     quoteUnquoteModel,
                     quotationsPreferences.getContentSelectionSearch());
 
-            browseSearchDialogFragment.show(getParentFragmentManager(), "");;
+            browseSearchDialogFragment.show(getParentFragmentManager(), "");
+            ;
         });
     }
 

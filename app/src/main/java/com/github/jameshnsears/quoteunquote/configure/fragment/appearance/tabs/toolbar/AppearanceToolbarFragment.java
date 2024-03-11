@@ -144,13 +144,13 @@ public class AppearanceToolbarFragment extends FragmentCommon {
 
     private void createListenerToolbarToggleFavourite() {
         fragmentAppearanceTabToolbarBinding.toolbarSwitchToggleFavourite.setOnCheckedChangeListener((buttonView, isChecked) ->
-            appearancePreferences.setAppearanceToolbarFavourite(isChecked));
+                appearancePreferences.setAppearanceToolbarFavourite(isChecked));
     }
 
     private void createListenerToolbarShare() {
         fragmentAppearanceTabToolbarBinding.toolbarSwitchShare.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                appearancePreferences.setAppearanceToolbarShare(isChecked);
-                fragmentAppearanceTabToolbarBinding.toolbarSwitchShareNoSource.setEnabled(isChecked);
+            appearancePreferences.setAppearanceToolbarShare(isChecked);
+            fragmentAppearanceTabToolbarBinding.toolbarSwitchShareNoSource.setEnabled(isChecked);
         });
     }
 

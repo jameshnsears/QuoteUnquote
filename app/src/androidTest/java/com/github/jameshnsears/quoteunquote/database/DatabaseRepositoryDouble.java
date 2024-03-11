@@ -28,6 +28,14 @@ public final class DatabaseRepositoryDouble extends DatabaseRepository {
         this.context = context;
     }
 
+    public static synchronized DatabaseRepositoryDouble getInstance(@NonNull Context context) {
+        if (databaseRepositoryDouble == null) {
+            databaseRepositoryDouble = new DatabaseRepositoryDouble(context);
+        }
+
+        return databaseRepositoryDouble;
+    }
+
     private void createHistoryDatabaseExternal() {
         abstractHistoryExternalDatabase = Room.inMemoryDatabaseBuilder(
                         ApplicationProvider.getApplicationContext(),
@@ -66,14 +74,6 @@ public final class DatabaseRepositoryDouble extends DatabaseRepository {
                 .allowMainThreadQueries()
                 .build();
         quotationDAO = abstractQuotationDatabase.quotationDAO();
-    }
-
-    public static synchronized DatabaseRepositoryDouble getInstance(@NonNull Context context) {
-        if (databaseRepositoryDouble == null) {
-            databaseRepositoryDouble = new DatabaseRepositoryDouble(context);
-        }
-
-        return databaseRepositoryDouble;
     }
 
     public void eraseAllDatabsaes() {

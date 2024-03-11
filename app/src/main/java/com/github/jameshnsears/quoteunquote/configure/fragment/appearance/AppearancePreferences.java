@@ -37,6 +37,8 @@ public class AppearancePreferences extends PreferencesFacade {
     public static final String APPEARANCE_TOOLBAR_JUMP = "APPEARANCE_TOOLBAR_JUMP";
     public static final String APPEARANCE_TOOLBAR_RANDOM = "APPEARANCE_TOOLBAR_RANDOM";
     public static final String APPEARANCE_TOOLBAR_SEQUENTIAL = "APPEARANCE_TOOLBAR_SEQUENTIAL";
+    public static String DEFAULT_COLOUR_BACKGROUND = "#FFFFFFFF";
+    public static String DEFAULT_COLOUR = "#FF000000";
 
     public AppearancePreferences(
             @NonNull final Context applicationContext) {
@@ -162,9 +164,8 @@ public class AppearancePreferences extends PreferencesFacade {
         return textSize;
     }
 
-    public void setAppearanceTextForceItalicRegular(final boolean value) {
-        preferenceHelper.setPreference(
-                getPreferenceKey(APPEARANCE_TEXT_FORCE_ITALIC_REGULAR), value);
+    public void setAppearanceQuotationTextSize(final int value) {
+        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TEXT_SIZE), value);
     }
 
     public boolean getAppearanceTextForceItalicRegular() {
@@ -172,9 +173,9 @@ public class AppearancePreferences extends PreferencesFacade {
                 getPreferenceKey(APPEARANCE_TEXT_FORCE_ITALIC_REGULAR), true);
     }
 
-    public void setAppearanceTextCenter(final boolean value) {
+    public void setAppearanceTextForceItalicRegular(final boolean value) {
         preferenceHelper.setPreference(
-                getPreferenceKey(APPEARANCE_TEXT_CENTER), value);
+                getPreferenceKey(APPEARANCE_TEXT_FORCE_ITALIC_REGULAR), value);
     }
 
     public boolean getAppearanceTextCenter() {
@@ -182,8 +183,9 @@ public class AppearancePreferences extends PreferencesFacade {
                 getPreferenceKey(APPEARANCE_TEXT_CENTER), true);
     }
 
-    public void setAppearanceQuotationTextSize(final int value) {
-        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TEXT_SIZE), value);
+    public void setAppearanceTextCenter(final boolean value) {
+        preferenceHelper.setPreference(
+                getPreferenceKey(APPEARANCE_TEXT_CENTER), value);
     }
 
     public boolean getAppearanceToolbarJump() {
@@ -220,8 +222,6 @@ public class AppearancePreferences extends PreferencesFacade {
         return appearanceColour;
     }
 
-    public static String DEFAULT_COLOUR_BACKGROUND = "#FFFFFFFF";
-
     public void setAppearanceColour(@NonNull final String value) {
         preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_COLOUR), value);
     }
@@ -234,8 +234,6 @@ public class AppearancePreferences extends PreferencesFacade {
         }
         return toolbarColour;
     }
-
-    public static String DEFAULT_COLOUR = "#FF000000";
 
     public void setAppearanceToolbarColour(@NonNull final String value) {
         preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TOOLBAR_COLOUR), value);

@@ -34,21 +34,16 @@ import java.util.List;
 import timber.log.Timber;
 
 public class StyleDialogFragment extends DialogFragment {
-    protected int titleId;
-
     @Nullable
     public AppearancePreferences appearancePreferences;
-
     @Nullable
     public FragmentAppearanceTabStyleDialogBinding fragmentAppearanceTabStyleDialogBinding;
-
+    protected int titleId;
     protected int widgetId;
 
     protected int title;
-
-    private ColorEnvelope envelope;
-
     protected boolean hideText = false;
+    private ColorEnvelope envelope;
 
     public StyleDialogFragment(int widgetId, int title) {
         Timber.d("%d", widgetId);

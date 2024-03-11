@@ -49,12 +49,6 @@ public class AppearanceStyleFragment extends FragmentCommon {
     @Nullable
     public AppearancePreferences appearancePreferences;
 
-    enum TextStyle {
-        Quotation,
-        Author,
-        Position
-    }
-
     public AppearanceStyleFragment() {
         // dark mode support
     }
@@ -622,5 +616,11 @@ public class AppearanceStyleFragment extends FragmentCommon {
                 textView.setTypeface(typeFace, Typeface.NORMAL);
                 break;
         }
+    }
+
+    enum TextStyle {
+        Quotation,
+        Author,
+        Position
     }
 }

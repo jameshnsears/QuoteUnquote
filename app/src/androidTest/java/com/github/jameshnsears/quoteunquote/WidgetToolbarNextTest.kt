@@ -32,7 +32,10 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             0,
-            quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL),
+            quoteUnquoteModelDouble.countPrevious(
+                WidgetIdHelper.WIDGET_ID_01,
+                ContentSelection.ALL,
+            ),
         )
 
         // next
@@ -124,7 +127,10 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
 
         assertEquals(
             0,
-            quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL),
+            quoteUnquoteModelDouble.countPrevious(
+                WidgetIdHelper.WIDGET_ID_01,
+                ContentSelection.ALL,
+            ),
         )
 
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, randomNext)

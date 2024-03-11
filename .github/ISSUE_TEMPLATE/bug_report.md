@@ -6,7 +6,7 @@ title: '...'
 ---
 
 **Version of the app**
-Version: [e.g.  4.5.0-googleplay]
+Version: [e.g. 4.5.0-googleplay]
 
 **Describe the bug**
 Please describe the bug.

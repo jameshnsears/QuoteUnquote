@@ -10,6 +10,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/widget_listview_quotation"
             android:fontFamily="sans-serif"
+            android:gravity="center"
             android:paddingStart="?android:attr/listPreferredItemPaddingStart"
             android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
             android:shadowColor="@android:color/black"
@@ -17,8 +18,7 @@
             android:shadowDy="2"
             android:shadowRadius="1"
             android:textAllCaps="false"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall"
-            android:gravity="center" />
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
     <TextView
             android:id="@+id/textViewRowAuthor"
@@ -26,6 +26,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/widget_listview_author"
             android:fontFamily="sans-serif"
+            android:gravity="center"
             android:paddingStart="?android:attr/listPreferredItemPaddingStart"
             android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
             android:shadowColor="@android:color/black"
@@ -33,8 +34,7 @@
             android:shadowDy="2"
             android:shadowRadius="1"
             android:textAllCaps="false"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall"
-            android:gravity="center" />
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
     <TextView
             android:id="@+id/textViewRowPosition"

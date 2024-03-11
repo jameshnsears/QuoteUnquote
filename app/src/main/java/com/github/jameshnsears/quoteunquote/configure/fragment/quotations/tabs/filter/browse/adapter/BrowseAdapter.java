@@ -25,16 +25,7 @@ import timber.log.Timber;
 
 public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder> {
     static int widgetId;
-
-    public enum DIALOG {
-        FAVOURITES,
-        SEARCH,
-        SOURCE,
-        BASE,
-    }
-
     static DIALOG dialogType = DIALOG.FAVOURITES;
-
     @Nullable
     protected CopyOnWriteArrayList<BrowseData> browseDataList;
 
@@ -44,6 +35,56 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
         BrowseAdapter.widgetId = widgetId;
         browseDataList = new CopyOnWriteArrayList<>(browseDataItems);
         this.dialogType = dialogType;
+    }
+
+    @Override
+    public ViewHolder onCreateViewHolder(final ViewGroup viewGroup, final int viewType) {
+        final View view = LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.recyclerview_row, viewGroup, false);
+
+        return new ViewHolder(view);
+    }
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    public void onBindViewHolder(final ViewHolder viewHolder, int position) {
+        final BrowseData browseDataItem = browseDataList.get(position);
+
+        viewHolder.getTextViewSequentialIndex().setText(browseDataItem.getIndex());
+
+        viewHolder.getTextViewQuotation().setText(browseDataItem.getQuotation());
+        viewHolder.getTextViewQuotation().setEnabled(false);
+
+        if (dialogType != DIALOG.SOURCE) {
+            viewHolder.getTextViewSource().setText(browseDataItem.getSource());
+            viewHolder.getTextViewSource().setEnabled(false);
+        } else {
+            viewHolder.getTextViewSource().setVisibility(View.GONE);
+        }
+
+        QuoteUnquoteModel quoteUnquoteModel = new QuoteUnquoteModel(widgetId, viewHolder.itemView.getContext());
+        if (quoteUnquoteModel.isFavourite(browseDataItem.getDigest())) {
+            viewHolder.getTextViewFavourite().setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.getTextViewFavourite().setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        return browseDataList.size();
+    }
+
+    public void addData(List<BrowseData> newData, int startPosition) {
+        browseDataList.addAll(startPosition, newData);
+        notifyItemRangeInserted(startPosition, newData.size());
+    }
+
+    public enum DIALOG {
+        FAVOURITES,
+        SEARCH,
+        SOURCE,
+        BASE,
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder
@@ -133,48 +174,5 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
 
             return true;
         }
-    }
-
-    @Override
-    public ViewHolder onCreateViewHolder(final ViewGroup viewGroup, final int viewType) {
-        final View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.recyclerview_row, viewGroup, false);
-
-        return new ViewHolder(view);
-    }
-
-    @SuppressLint("SetTextI18n")
-    @Override
-    public void onBindViewHolder(final ViewHolder viewHolder, int position) {
-        final BrowseData browseDataItem = browseDataList.get(position);
-
-        viewHolder.getTextViewSequentialIndex().setText(browseDataItem.getIndex());
-
-        viewHolder.getTextViewQuotation().setText(browseDataItem.getQuotation());
-        viewHolder.getTextViewQuotation().setEnabled(false);
-
-        if (dialogType != DIALOG.SOURCE) {
-            viewHolder.getTextViewSource().setText(browseDataItem.getSource());
-            viewHolder.getTextViewSource().setEnabled(false);
-        } else {
-            viewHolder.getTextViewSource().setVisibility(View.GONE);
-        }
-
-        QuoteUnquoteModel quoteUnquoteModel = new QuoteUnquoteModel(widgetId, viewHolder.itemView.getContext());
-        if (quoteUnquoteModel.isFavourite(browseDataItem.getDigest())) {
-            viewHolder.getTextViewFavourite().setVisibility(View.VISIBLE);
-        } else {
-            viewHolder.getTextViewFavourite().setVisibility(View.GONE);
-        }
-    }
-
-    @Override
-    public int getItemCount() {
-        return browseDataList.size();
-    }
-
-    public void addData(List<BrowseData> newData, int startPosition) {
-        browseDataList.addAll(startPosition, newData);
-        notifyItemRangeInserted(startPosition, newData.size());
     }
 }

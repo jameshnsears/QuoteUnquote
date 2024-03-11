@@ -172,10 +172,10 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingTop="15dp"
-                        android:paddingBottom="10dp"
                         android:paddingStart="3dp"
+                        android:paddingTop="15dp"
                         android:paddingEnd="0dp"
+                        android:paddingBottom="10dp"
                         android:text="@string/fragment_archive_superseded_info"
                         android:textSize="14sp"
                         app:drawableStartCompat="@drawable/ic_info_24" />
@@ -188,7 +188,7 @@
                         android:paddingEnd="0dp"
                         android:paddingBottom="15dp"
                         android:text="@string/fragment_archive_superseded"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
 
                 <LinearLayout
                         android:layout_width="match_parent"

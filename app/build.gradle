@@ -46,9 +46,9 @@ android {
         applicationId "com.github.jameshnsears.quoteunquote"
 
         // changelog version | min sdk | target sdk
-        versionCode 1662434
+        versionCode 1672434
         // semantic versioning
-        versionName "4.36.1"
+        versionName "4.37.0"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -86,7 +86,6 @@ android {
         }
 
         release {
-            // false == only occurs in migration to Android Studio Flamingo | 2022.2.1
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -179,15 +178,20 @@ android {
     }
 
     buildFeatures {
+        buildConfig = true
         viewBinding = true
     }
 
     lint {
+        disable 'InvalidPackage'
+        disable "Instantiatable"
+        checkReleaseBuilds false
         abortOnError false
+        htmlReport true
+        warningsAsErrors false
         baseline file("$rootDir/config/lint/baseline.xml")
         checkAllWarnings true
         htmlReport true
-        warningsAsErrors true
         xmlReport true
     }
     namespace 'com.github.jameshnsears.quoteunquote'
@@ -195,63 +199,63 @@ android {
 
 dependencies {
     androidTestImplementation 'androidx.arch.core:core-testing:2.2.0'
-    androidTestImplementation 'androidx.room:room-testing:2.5.2'
+    androidTestImplementation 'androidx.room:room-testing:2.6.1'
     androidTestImplementation 'androidx.test:core:1.5.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.ext:junit-ktx:1.1.5'
     androidTestImplementation 'androidx.test:rules:1.5.0'
     androidTestImplementation 'androidx.test:runner:1.5.2'
-    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
-    androidTestImplementation 'io.mockk:mockk-android:1.13.8'
+    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.3.0'
+    androidTestImplementation 'io.mockk:mockk-android:1.13.10'
 
-    annotationProcessor 'androidx.room:room-compiler:2.5.2'
+    annotationProcessor 'androidx.room:room-compiler:2.6.1'
 
-    debugImplementation 'androidx.fragment:fragment-testing:1.6.1'
+    debugImplementation 'androidx.fragment:fragment-testing:1.6.2'
     debugImplementation 'androidx.test:core-ktx:1.5.0'
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.13'
 
-    googleplayImplementation 'com.google.firebase:firebase-analytics:21.3.0'
-    googleplayImplementation 'com.google.firebase:firebase-crashlytics:18.5.0'
+    googleplayImplementation 'com.google.firebase:firebase-analytics:21.5.1'
+    googleplayImplementation 'com.google.firebase:firebase-crashlytics:18.6.2'
 
-    implementation 'androidx.activity:activity-ktx:1.8.0'
+    implementation 'androidx.activity:activity-ktx:1.8.2'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.core:core-ktx:1.12.0'
-    implementation 'androidx.databinding:databinding-runtime:8.1.2'
+    implementation 'androidx.databinding:databinding-runtime:8.3.0'
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'androidx.room:room-guava:2.5.2'
-    implementation 'androidx.room:room-runtime:2.6.0'
-    implementation 'androidx.room:room-rxjava2:2.6.0'
+    implementation 'androidx.room:room-guava:2.6.1'
+    implementation 'androidx.room:room-runtime:2.6.1'
+    implementation 'androidx.room:room-rxjava2:2.6.1'
     implementation 'com.github.skydoves:colorpickerpreference:2.0.6'
-    implementation 'com.google.android.material:material:1.10.0'
+    implementation 'com.google.android.material:material:1.11.0'
     implementation 'com.google.code.gson:gson:2.10.1'
-    implementation 'com.google.guava:guava:32.1.3-jre'
+    implementation 'com.google.guava:guava:33.0.0-jre'
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.2.0'
     implementation 'com.jakewharton.timber:timber:5.0.1'
     implementation 'com.squareup.okhttp3:okhttp:4.12.0'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
-    implementation 'net.pwall.json:json-kotlin-schema:0.42'
+    implementation 'net.pwall.json:json-kotlin-schema:0.47'
     implementation 'org.apache.commons:commons-csv:1.10.0'
-    implementation 'org.jsoup:jsoup:1.16.1'
-    implementation platform('com.google.firebase:firebase-bom:32.3.1')
+    implementation 'org.jsoup:jsoup:1.17.2'
+    implementation platform('com.google.firebase:firebase-bom:32.7.4')
     implementation project(path: ':cloudLib')
     implementation project(path: ':utilsLib')
 
     testImplementation 'androidx.arch.core:core-testing:2.2.0'
-    testImplementation 'androidx.room:room-testing:2.5.2'
+    testImplementation 'androidx.room:room-testing:2.6.1'
     testImplementation 'androidx.test:core-ktx:1.5.0'
     testImplementation 'androidx.test.ext:junit:1.1.5'
     testImplementation 'androidx.test:rules:1.5.0'
-    testImplementation 'ch.qos.logback:logback-classic:1.4.11'
+    testImplementation 'ch.qos.logback:logback-classic:1.4.14'  // app:updateLintBaseline: Failed to transform logback-core-1.5.3.jar
     testImplementation 'com.google.guava:guava:32.1.3-jre'
-    testImplementation 'io.mockk:mockk:1.13.8'
+    testImplementation 'io.mockk:mockk:1.13.10'
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3'
-    testImplementation 'org.robolectric:robolectric:4.10.3'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0'
+    testImplementation 'org.robolectric:robolectric:4.11.1'
 }
 
 repositories {

@@ -35,7 +35,7 @@ public abstract class AbstractHistoryExternalDatabase extends RoomDatabase {
             Timber.d("%b", historyExternalDatabase == null);
             if (historyExternalDatabase == null) {
                 historyExternalDatabase = Room.databaseBuilder(context,
-                        AbstractHistoryExternalDatabase.class, DATABASE_NAME)
+                                AbstractHistoryExternalDatabase.class, DATABASE_NAME)
                         .build();
             }
 

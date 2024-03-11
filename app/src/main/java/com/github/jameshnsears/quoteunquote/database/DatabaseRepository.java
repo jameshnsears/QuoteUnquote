@@ -129,6 +129,10 @@ public class DatabaseRepository {
         }
     }
 
+    public static boolean useInternalDatabase() {
+        return useInternalDatabase;
+    }
+
     @NonNull
     public Single<Integer> countAll() {
         if (useInternalDatabase()) {
@@ -178,10 +182,6 @@ public class DatabaseRepository {
         }
 
         return previousExternalDAO.countPrevious(widgetId, contentSelection);
-    }
-
-    public static boolean useInternalDatabase() {
-        return useInternalDatabase;
     }
 
     public int countPreviousDigest(

@@ -17,7 +17,12 @@ open class WidgetDisabledTest : QuoteUnquoteModelUtility() {
             setupDatabase()
 
             val quoteUnquoteWidget = spyk<QuoteUnquoteWidget>()
-            every { quoteUnquoteWidget.getQuoteUnquoteModel(WidgetIdHelper.WIDGET_ID_01, any()) } returns quoteUnquoteModelDouble
+            every {
+                quoteUnquoteWidget.getQuoteUnquoteModel(
+                    WidgetIdHelper.WIDGET_ID_01,
+                    any(),
+                )
+            } returns quoteUnquoteModelDouble
 
             quoteUnquoteWidget.onEnabled(context)
             val contentPreferences =

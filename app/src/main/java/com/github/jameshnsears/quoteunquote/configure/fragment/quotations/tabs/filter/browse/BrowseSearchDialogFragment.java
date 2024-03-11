@@ -27,7 +27,7 @@ public class BrowseSearchDialogFragment extends BrowseDialogFragment {
 
     private void cacheFavourites() {
         List<QuotationEntity> favourites = this.quoteUnquoteModel.getFavourites();
-        for (QuotationEntity quotationEntity: favourites) {
+        for (QuotationEntity quotationEntity : favourites) {
             favouriteDigests.add(quotationEntity.digest);
         }
     }
@@ -66,7 +66,7 @@ public class BrowseSearchDialogFragment extends BrowseDialogFragment {
         int index = 1;
         ConcurrentLinkedDeque<BrowseData> list = new ConcurrentLinkedDeque<>();
 
-        for (int i = 0; i < searchQuotationsList.size(); i ++) {
+        for (int i = 0; i < searchQuotationsList.size(); i++) {
             QuotationEntity searchQuotation = searchQuotationsList.get(i);
 
             BrowseData browseData = new BrowseData(

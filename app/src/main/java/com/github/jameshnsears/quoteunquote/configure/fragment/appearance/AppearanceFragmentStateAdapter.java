@@ -8,9 +8,8 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.s
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.toolbar.AppearanceToolbarFragment;
 
 public class AppearanceFragmentStateAdapter extends FragmentStateAdapter {
-    private final int widgetId;
-
     public static AppearanceToolbarFragment appearanceToolbarFragment;
+    private final int widgetId;
 
     public AppearanceFragmentStateAdapter(@NonNull final AppearanceFragment fa, final int widgetId) {
         super(fa);

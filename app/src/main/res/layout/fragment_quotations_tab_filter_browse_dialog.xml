@@ -20,11 +20,11 @@
             android:scrollbarThumbVertical="@drawable/recyclerview_scrollbar_thumb_drawable"
             android:scrollbarTrackVertical="@drawable/recyclerview_scrollbar_drawable"
             android:scrollbars="vertical" />
-<!--            app:fastScrollEnabled="true"-->
-<!--            app:fastScrollHorizontalThumbDrawable="@drawable/thumb_drawable"-->
-<!--            app:fastScrollHorizontalTrackDrawable="@drawable/line_drawable"-->
-<!--            app:fastScrollVerticalThumbDrawable="@drawable/thumb_drawable"-->
-<!--            app:fastScrollVerticalTrackDrawable="@drawable/line_drawable"-->
+    <!--            app:fastScrollEnabled="true"-->
+    <!--            app:fastScrollHorizontalThumbDrawable="@drawable/thumb_drawable"-->
+    <!--            app:fastScrollHorizontalTrackDrawable="@drawable/line_drawable"-->
+    <!--            app:fastScrollVerticalThumbDrawable="@drawable/thumb_drawable"-->
+    <!--            app:fastScrollVerticalTrackDrawable="@drawable/line_drawable"-->
 
     <TextView
             android:id="@+id/textViewShareInfo"

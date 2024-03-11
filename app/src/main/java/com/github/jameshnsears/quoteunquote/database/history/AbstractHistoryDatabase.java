@@ -36,7 +36,7 @@ public abstract class AbstractHistoryDatabase extends RoomDatabase {
             Timber.d("%b", historyDatabase == null);
             if (historyDatabase == null) {
                 historyDatabase = Room.databaseBuilder(context,
-                        AbstractHistoryDatabase.class, DATABASE_NAME)
+                                AbstractHistoryDatabase.class, DATABASE_NAME)
                         .addMigrations(MIGRATION_1_2)
                         .fallbackToDestructiveMigration()
                         .build();

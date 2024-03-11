@@ -8,9 +8,8 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.d
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.QuotationsFilterFragment;
 
 public class QuotationsFragmentStateAdapter extends FragmentStateAdapter {
-    private final int widgetId;
-
     public static QuotationsFilterFragment quotationsFilterFragment;
+    private final int widgetId;
 
     public QuotationsFragmentStateAdapter(@NonNull final QuotationsFragment fa, final int widgetId) {
         super(fa);

@@ -67,20 +67,25 @@ class AppearanceTextFamilySpinnerAdapter(private val context: Context) : BaseAda
             "Cursive",
             -> view.typeface =
                 Typeface.createFromAsset(context.assets, "font/DancingScript_Regular.ttf")
+
             "Monospace",
             -> view.typeface =
                 Typeface.createFromAsset(context.assets, "font/DroidSansMono.ttf")
+
             "Sans Serif",
             -> view.typeface =
                 Typeface.createFromAsset(context.assets, "font/Roboto_Regular.ttf")
+
             "Sans Serif Condensed",
             -> view.typeface = Typeface.createFromAsset(
                 context.assets,
                 "font/RobotoCondensed_Regular.ttf",
             )
+
             "Sans Serif Medium",
             -> view.typeface =
                 Typeface.createFromAsset(context.assets, "font/Roboto_Medium.ttf")
+
             "Serif",
             -> view.typeface =
                 Typeface.createFromAsset(context.assets, "font/NotoSerif_Regular.ttf")

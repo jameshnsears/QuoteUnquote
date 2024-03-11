@@ -1,0 +1,4 @@
+&bull; Remove RegEx length limit
+&bull; Update quotations database
+&bull; Migrate to Android Studio Hedgehog | 2023.1.1 Patch 2 + PyCharm 2023.3.4 (Community Edition)
+&bull; Bump dependencies

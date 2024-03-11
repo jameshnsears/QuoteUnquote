@@ -34,6 +34,14 @@ public class QuotationsPreferences extends PreferencesFacade {
 
     public static final String DATABASE_EXTERNAL_CONTENT = "DATABASE_EXTERNAL_CONTENT";
 
+    public QuotationsPreferences(@NonNull Context applicationContext) {
+        super(0, applicationContext);
+    }
+
+    public QuotationsPreferences(int widgetId, @NonNull Context applicationContext) {
+        super(widgetId, applicationContext);
+    }
+
     @NonNull
     public boolean getDatabaseWebKeepLatestOnly() {
         return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(QuotationsPreferences.DATABASE_WEB_KEEP_LATEST_ONLY), true);
@@ -104,14 +112,6 @@ public class QuotationsPreferences extends PreferencesFacade {
 
     public void setDatabaseExternalWeb(@NonNull boolean value) {
         this.preferenceHelper.setPreference(this.getPreferenceKey(QuotationsPreferences.DATABASE_EXTERNAL_WEB), value);
-    }
-
-    public QuotationsPreferences(@NonNull Context applicationContext) {
-        super(0, applicationContext);
-    }
-
-    public QuotationsPreferences(int widgetId, @NonNull Context applicationContext) {
-        super(widgetId, applicationContext);
     }
 
     @NonNull

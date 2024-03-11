@@ -18,7 +18,12 @@ class WidgetToolbarFirstTest : QuoteUnquoteModelUtility() {
     fun setup() {
         insertQuotationTestData01()
 
-        every { quoteUnquoteWidget.getQuoteUnquoteModel(WidgetIdHelper.WIDGET_ID_01, any()) } returns quoteUnquoteModelDouble
+        every {
+            quoteUnquoteWidget.getQuoteUnquoteModel(
+                WidgetIdHelper.WIDGET_ID_01,
+                any(),
+            )
+        } returns quoteUnquoteModelDouble
 
         every {
             appWidgetManager.notifyAppWidgetViewDataChanged(

@@ -216,12 +216,12 @@
                         <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:paddingTop="5dp"
-                                android:paddingBottom="5dp"
                                 android:paddingStart="5dp"
+                                android:paddingTop="5dp"
                                 android:paddingEnd="0dp"
+                                android:paddingBottom="5dp"
                                 android:text="@string/activity_instructions_os_warning"
-                                android:textSize="14sp"/>
+                                android:textSize="14sp" />
                     </LinearLayout>
 
                 </LinearLayout>

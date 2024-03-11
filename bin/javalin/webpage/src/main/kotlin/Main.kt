@@ -20,8 +20,8 @@ fun main() {
     }
 }
 
-fun returnCorrectFile() : String {
-    pagesServed ++
+fun returnCorrectFile(): String {
+    pagesServed++
     if (pagesServed % 2 == 0) {
         return readResourceFile("Psalm.html")
     }

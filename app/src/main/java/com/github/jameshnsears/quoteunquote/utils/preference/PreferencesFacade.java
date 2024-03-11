@@ -23,11 +23,6 @@ public class PreferencesFacade {
         init(applicationContext);
     }
 
-    private void init(@NonNull Context applicationContext) {
-        this.applicationContext = applicationContext;
-        preferenceHelper = new PreferenceHelper(PreferencesFacade.PREFERENCES_FILENAME, applicationContext);
-    }
-
     public PreferencesFacade(int theWidgetId, @NonNull Context applicationContext) {
         widgetId = theWidgetId;
         init(applicationContext);
@@ -43,6 +38,11 @@ public class PreferencesFacade {
 
     public static int countPreferences(@NonNull Context context, int widgetId) {
         return PreferenceHelper.countPreferences(PreferencesFacade.PREFERENCES_FILENAME, context, widgetId);
+    }
+
+    private void init(@NonNull Context applicationContext) {
+        this.applicationContext = applicationContext;
+        preferenceHelper = new PreferenceHelper(PreferencesFacade.PREFERENCES_FILENAME, applicationContext);
     }
 
     @NonNull

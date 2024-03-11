@@ -66,10 +66,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:drawablePadding="10dp"
-                        android:paddingTop="15dp"
-                        android:paddingBottom="5dp"
                         android:paddingStart="4dp"
+                        android:paddingTop="15dp"
                         android:paddingEnd="0dp"
+                        android:paddingBottom="5dp"
                         android:text="@string/fragment_quotations_selection_exclusion_info"
                         android:textSize="14sp"
                         app:drawableStartCompat="@drawable/ic_info_24" />
@@ -83,7 +83,7 @@
                         android:paddingEnd="0dp"
                         android:paddingBottom="10dp"
                         android:text="@string/fragment_quotations_selection_exclusion"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -394,8 +394,7 @@
                             android:id="@+id/editTextSearchText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textNoSuggestions"
-                            android:maxLength="30" />
+                            android:inputType="textNoSuggestions"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -405,10 +404,10 @@
                     android:id="@+id/textViewSearchMinimumInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="5dp"
                     android:paddingStart="4dp"
+                    android:paddingTop="10dp"
                     android:paddingEnd="0dp"
+                    android:paddingBottom="5dp"
                     android:text="@string/fragment_quotations_selection_search_instructions_info"
                     android:textSize="14sp"
                     app:drawableStartCompat="@drawable/ic_info_24" />
@@ -423,7 +422,7 @@
                     android:paddingEnd="0dp"
                     android:paddingBottom="10dp"
                     android:text="@string/fragment_quotations_selection_search_instructions"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
 
             <LinearLayout
                     android:layout_width="match_parent"

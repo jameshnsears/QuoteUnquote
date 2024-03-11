@@ -3,15 +3,15 @@
 ## 1. Produce .aab - manually
 
 * increment version:
-  * app/build.grade
-    * versionCode n         <- play console, increment per release
-    * versionName "1.0.0"   <- appears to users
+    * app/build.grade
+        * versionCode n         <- play console, increment per release
+        * versionName "1.0.0"   <- appears to users
 * README.md
 * Android Studio > Build > Generate Signed Bundle / APK... > Android App Bundle
-  * using 'keystore.jks'
-  * key alias: upload
-  * Build Variant: release
-  * Signature Versions: V1 & V2
+    * using 'keystore.jks'
+    * key alias: upload
+    * Build Variant: release
+    * Signature Versions: V1 & V2
 * app/release/app-release.aab
 
 ---
@@ -41,7 +41,8 @@
 * SonarLint - SonarSource
 * MetricsReloaded - <https://plugins.jetbrains.com/plugin/93-metricsreloaded>
 * ADB Idea - <https://plugins.jetbrains.com/plugin/7380-adb-idea>
-* JSON To Kotlin Class (JsonToKotlinClass) - <https://plugins.jetbrains.com/plugin/9960-json-to-kotlin-class-jsontokotlinclass>-
+* JSON To Kotlin Class (
+  JsonToKotlinClass) - <https://plugins.jetbrains.com/plugin/9960-json-to-kotlin-class-jsontokotlinclass>-
 * Qodana - JetBrains
 * Docker - JetBrains
 
@@ -137,6 +138,7 @@ http://localhost:8000/
 * app/build/outputs/mapping/googleplayRelease/mapping.txt
 
 ### 13. GitHub Secrets
+
 * APPCENTER_ACCESS_TOKEN
 * CODECOVIO_TOKEN
 * GOOGLE_PLAY_JSON_DEVELOPMENT
