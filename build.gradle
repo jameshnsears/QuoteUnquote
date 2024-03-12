@@ -13,7 +13,7 @@ buildscript {
         classpath 'com.google.gms:google-services:4.4.0'
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.9'
         classpath 'io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.23.5'
-        classpath 'org.jacoco:org.jacoco.core:0.8.8'
+        classpath 'org.jacoco:org.jacoco.core:0.8.11'
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.10'
         classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:4.4.1.3373'
         classpath 'com.diffplug.spotless:spotless-plugin-gradle:6.22.0'
