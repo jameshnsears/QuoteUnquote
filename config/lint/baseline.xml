@@ -277,39 +277,6 @@
     </issue>
 
     <issue
-        id="NewerVersionAvailable"
-        message="A newer version of com.google.guava:guava than 32.1.3-jre is available: 33.0.0-jre"
-        errorLine1="    implementation &apos;com.google.guava:guava:32.1.3-jre&apos;"
-        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="build.gradle"
-            line="234"
-            column="20"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
-        message="A newer version of ch.qos.logback:logback-classic than 1.4.14 is available: 1.5.3"
-        errorLine1="    testImplementation &apos;ch.qos.logback:logback-classic:1.4.14&apos;  // lint baseline: Failed to transform logback-core-1.5.3.jar"
-        errorLine2="                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="build.gradle"
-            line="253"
-            column="24"/>
-    </issue>
-
-    <issue
-        id="NewerVersionAvailable"
-        message="A newer version of com.google.guava:guava than 32.1.3-jre is available: 33.0.0-jre"
-        errorLine1="    testImplementation &apos;com.google.guava:guava:32.1.3-jre&apos;"
-        errorLine2="                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="build.gradle"
-            line="254"
-            column="24"/>
-    </issue>
-
-    <issue
         id="DataExtractionRules"
         message="The attribute `android:allowBackup` is deprecated from Android 12 and higher and may be removed in future versions. Consider adding the attribute `android:dataExtractionRules` specifying an `@xml` resource which configures cloud backups and device transfers on Android 12 and higher."
         errorLine1="            android:allowBackup=&quot;false&quot;"

@@ -1,0 +1,5 @@
+&bull; Fix Android 11 alarm permission issue
+&bull; Migrate GCP functions to latest python runtime due to runtime EOL
+&bull; Migrate IDE to Android Studio Iguana | 2023.2.1 Patch 2
+&bull; Migrate IDE to PyCharm 2024.1 (Community Edition)
+&bull; Bump dependencies

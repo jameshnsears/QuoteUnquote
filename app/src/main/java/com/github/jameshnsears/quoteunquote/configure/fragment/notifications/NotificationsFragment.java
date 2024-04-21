@@ -142,17 +142,23 @@ public class NotificationsFragment extends FragmentCommon {
                 fragmentNotificationsBinding.checkBoxDailyAt.setChecked(false);
                 notificationsPreferences.setEventDaily(false);
             } else {
-                if (fragmentNotificationsBinding.checkBoxBihourly.isChecked()) {
-                    notificationsPreferences.setEventBihourly(true);
-                }
-
-                if (fragmentNotificationsBinding.checkBoxDailyAt.isChecked()) {
-                    notificationsPreferences.setEventDaily(true);
-                }
+                handleSpecialPermissionForExactAlarmCommon();
             }
         } else {
+            handleSpecialPermissionForExactAlarmCommon();
+
             fragmentNotificationsBinding.textViewExactTimeWarningInfo.setVisibility(View.GONE);
             fragmentNotificationsBinding.textViewExactTimeWarning.setVisibility(View.GONE);
+        }
+    }
+
+    private void handleSpecialPermissionForExactAlarmCommon() {
+        if (fragmentNotificationsBinding.checkBoxBihourly.isChecked()) {
+            notificationsPreferences.setEventBihourly(true);
+        }
+
+        if (fragmentNotificationsBinding.checkBoxDailyAt.isChecked()) {
+            notificationsPreferences.setEventDaily(true);
         }
     }
 
@@ -324,24 +330,30 @@ public class NotificationsFragment extends FragmentCommon {
                     ConfigureActivity.launcherInvoked = true;
                     startActivity(new Intent(ACTION_REQUEST_SCHEDULE_EXACT_ALARM));
                 } else {
-                    if (notificationsPreferences.getEventDaily() != isChecked) {
-                        notificationsPreferences.setEventDaily(isChecked);
-                    }
-
-                    fragmentNotificationsBinding.specificTimeLayout.setEnabled(false);
-                    fragmentNotificationsBinding.specificTime.setEnabled(false);
-                    fragmentNotificationsBinding.specificTime.setFocusable(false);
-
-                    if (isChecked) {
-                        fragmentNotificationsBinding.specificTimeLayout.setEnabled(true);
-                        fragmentNotificationsBinding.specificTime.setEnabled(true);
-                        fragmentNotificationsBinding.specificTime.setFocusable(true);
-                    }
+                    createListenerDailyCommon(isChecked);
                 }
 
+            } else {
+                createListenerDailyCommon(isChecked);
             }
 
         });
+    }
+
+    private void createListenerDailyCommon(boolean isChecked) {
+        if (notificationsPreferences.getEventDaily() != isChecked) {
+            notificationsPreferences.setEventDaily(isChecked);
+        }
+
+        fragmentNotificationsBinding.specificTimeLayout.setEnabled(false);
+        fragmentNotificationsBinding.specificTime.setEnabled(false);
+        fragmentNotificationsBinding.specificTime.setFocusable(false);
+
+        if (isChecked) {
+            fragmentNotificationsBinding.specificTimeLayout.setEnabled(true);
+            fragmentNotificationsBinding.specificTime.setEnabled(true);
+            fragmentNotificationsBinding.specificTime.setFocusable(true);
+        }
     }
 
     private void createListenerBihourly() {
@@ -351,15 +363,20 @@ public class NotificationsFragment extends FragmentCommon {
                 AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
                 if (!alarmManager.canScheduleExactAlarms()) {
                     ConfigureActivity.launcherInvoked = true;
-
                     startActivity(new Intent(ACTION_REQUEST_SCHEDULE_EXACT_ALARM));
                 } else {
-                    if (notificationsPreferences.getEventBihourly() != isChecked) {
-                        notificationsPreferences.setEventBihourly(isChecked);
-                    }
+                    createListenerBihourlyCommon(isChecked);
                 }
+            } else {
+                createListenerBihourlyCommon(isChecked);
             }
         });
+    }
+
+    private void createListenerBihourlyCommon(boolean isChecked) {
+        if (notificationsPreferences.getEventBihourly() != isChecked) {
+            notificationsPreferences.setEventBihourly(isChecked);
+        }
     }
 
     private void setBihourly() {
