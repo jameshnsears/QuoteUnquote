@@ -223,7 +223,7 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.core:core-ktx:1.13.0'
-    implementation 'androidx.databinding:databinding-runtime:8.3.2'
+    implementation 'androidx.databinding:databinding-runtime:8.4.0'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.room:room-guava:2.6.1'
     implementation 'androidx.room:room-runtime:2.6.1'
