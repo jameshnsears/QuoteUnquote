@@ -34,7 +34,6 @@
             android:paddingTop="15dp"
             android:paddingBottom="5dp"
             android:text="@string/fragment_quotations_selection_dialog_browse_share_and_toggle"
-            android:textSize="14sp"
             app:drawableStartCompat="@drawable/ic_info_24" />
 
 </LinearLayout>

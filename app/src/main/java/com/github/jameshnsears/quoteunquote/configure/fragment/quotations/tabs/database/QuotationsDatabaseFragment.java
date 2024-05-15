@@ -90,7 +90,9 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
     @Override
     public void onViewCreated(
             @NonNull View view, @NonNull Bundle savedInstanceState) {
-        this.fragmentQuotationsTabDatabaseBinding.textViewExamples.setMovementMethod(LinkMovementMethod.getInstance());
+        this.fragmentQuotationsTabDatabaseBinding.textViewExamples1.setMovementMethod(LinkMovementMethod.getInstance());
+        this.fragmentQuotationsTabDatabaseBinding.textViewExamples2.setMovementMethod(LinkMovementMethod.getInstance());
+        this.fragmentQuotationsTabDatabaseBinding.textViewExamples3.setMovementMethod(LinkMovementMethod.getInstance());
         this.fragmentQuotationsTabDatabaseBinding.textViewExamplesInfo.setMovementMethod(LinkMovementMethod.getInstance());
 
         this.setDatabase();

@@ -271,7 +271,9 @@ public class QuotationsFilterFragment extends FragmentCommon {
         fragmentQuotationsTabFilterBinding.editTextResultsExclusionLayout.setEnabled(enabled);
         fragmentQuotationsTabFilterBinding.editTextResultsExclusion.setEnabled(enabled);
         fragmentQuotationsTabFilterBinding.textViewExclusionInfo.setEnabled(enabled);
-        fragmentQuotationsTabFilterBinding.textViewExclusion.setEnabled(enabled);
+        fragmentQuotationsTabFilterBinding.textViewExclusion1.setEnabled(enabled);
+        fragmentQuotationsTabFilterBinding.textViewExclusion2.setEnabled(enabled);
+        fragmentQuotationsTabFilterBinding.textViewExclusion3.setEnabled(enabled);
     }
 
     private void setCardSourceIndividual(final boolean enabled) {
@@ -399,7 +401,9 @@ public class QuotationsFilterFragment extends FragmentCommon {
         ///
 
         this.fragmentQuotationsTabFilterBinding.textViewSearchMinimumInfo.setEnabled(enabled);
-        this.fragmentQuotationsTabFilterBinding.textViewSearchMinimum.setEnabled(enabled);
+        this.fragmentQuotationsTabFilterBinding.textViewSearchMinimum1.setEnabled(enabled);
+        this.fragmentQuotationsTabFilterBinding.textViewSearchMinimum2.setEnabled(enabled);
+        this.fragmentQuotationsTabFilterBinding.textViewSearchMinimum3.setEnabled(enabled);
 
         ///
 

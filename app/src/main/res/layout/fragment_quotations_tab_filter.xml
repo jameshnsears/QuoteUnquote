@@ -71,19 +71,37 @@
                         android:paddingEnd="0dp"
                         android:paddingBottom="5dp"
                         android:text="@string/fragment_quotations_selection_exclusion_info"
-                        android:textSize="14sp"
                         app:drawableStartCompat="@drawable/ic_info_24" />
 
                 <TextView
-                        android:id="@+id/textViewExclusion"
+                        android:id="@+id/textViewExclusion1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="9dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="0dp"
+                        android:paddingBottom="5dp"
+                        android:text="@string/fragment_quotations_selection_exclusion_1" />
+
+                <TextView
+                        android:id="@+id/textViewExclusion2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="9dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="0dp"
+                        android:paddingBottom="5dp"
+                        android:text="@string/fragment_quotations_selection_exclusion_2" />
+
+                <TextView
+                        android:id="@+id/textViewExclusion3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingStart="9dp"
                         android:paddingTop="5dp"
                         android:paddingEnd="0dp"
                         android:paddingBottom="10dp"
-                        android:text="@string/fragment_quotations_selection_exclusion"
-                        android:textSize="14sp" />
+                        android:text="@string/fragment_quotations_selection_exclusion_3" />
 
             </LinearLayout>
 
@@ -409,20 +427,38 @@
                     android:paddingEnd="0dp"
                     android:paddingBottom="5dp"
                     android:text="@string/fragment_quotations_selection_search_instructions_info"
-                    android:textSize="14sp"
                     app:drawableStartCompat="@drawable/ic_info_24" />
 
 
             <TextView
-                    android:id="@+id/textViewSearchMinimum"
+                    android:id="@+id/textViewSearchMinimum1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="9dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="5dp"
+                    android:text="@string/fragment_quotations_selection_search_instructions_1" />
+
+            <TextView
+                    android:id="@+id/textViewSearchMinimum2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="9dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="5dp"
+                    android:text="@string/fragment_quotations_selection_search_instructions_2" />
+            
+            <TextView
+                    android:id="@+id/textViewSearchMinimum3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="9dp"
                     android:paddingTop="5dp"
                     android:paddingEnd="0dp"
                     android:paddingBottom="10dp"
-                    android:text="@string/fragment_quotations_selection_search_instructions"
-                    android:textSize="14sp" />
+                    android:text="@string/fragment_quotations_selection_search_instructions_3" />
 
             <LinearLayout
                     android:layout_width="match_parent"

@@ -15,7 +15,7 @@ env:
 jobs:
   checkstyle:
     name: checkstyle
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: clone
@@ -61,7 +61,7 @@ jobs:
 
   detekt:
     name: detekt
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
     steps:
       - name: clone
         uses: actions/checkout@v4
@@ -106,7 +106,7 @@ jobs:
 
   ktlint:
     name: ktlint
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
     steps:
       - name: clone
         uses: actions/checkout@v4
@@ -152,7 +152,7 @@ jobs:
   lintGooglePlayDebug:
     name: lintGooglePlayDebug
     needs: [ checkstyle, detekt, ktlint ]
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
     steps:
       - name: clone
         uses: actions/checkout@v4
@@ -198,7 +198,7 @@ jobs:
   lintFdroidDebug:
     name: lintFdroidDebug
     needs: [ checkstyle, detekt, ktlint ]
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
     steps:
       - name: clone
         uses: actions/checkout@v4

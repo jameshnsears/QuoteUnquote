@@ -784,11 +784,24 @@ public class DatabaseRepository {
         Timber.d("contentType=%d; criteria=%s; randomNext=%b",
                 contentSelection.getContentSelection(), criteria, randomNext);
 
+        List<String> nextDigests = getNextDigests(widgetId, contentSelection, criteria, quotationsPreferences);
+        List<String> previousDigests = getPreviousDigests(widgetId, contentSelection, criteria);
+
+        if (!randomNext) {
+            // Next, Sequential
+            if (nextDigests.size() == 0) {
+                // recycle
+                erasePrevious(widgetId, contentSelection, previousDigests);
+                nextDigests = getNextDigests(widgetId, contentSelection, criteria, quotationsPreferences);
+                previousDigests = getPreviousDigests(widgetId, contentSelection, criteria);
+            }
+        }
+
         return getNextQuotation(
                 widgetId,
                 randomNext,
-                getNextDigests(widgetId, contentSelection, criteria, quotationsPreferences),
-                getPreviousDigests(widgetId, contentSelection, criteria),
+                nextDigests,
+                previousDigests,
                 contentSelection
         );
     }
@@ -805,6 +818,7 @@ public class DatabaseRepository {
         QuotationEntity nextQuotation;
 
         if (!randomNext) {
+            // next, sequential
             if (previousDigests.isEmpty()) {
                 nextQuotation = getQuotation(nextDigests.get(0));
             } else {
@@ -815,17 +829,11 @@ public class DatabaseRepository {
                     indexInPrevious -= 1;
                     nextQuotation = getQuotation(previousDigests.get(indexInPrevious));
                 } else {
-                    if (!nextDigests.isEmpty()) {
-                        // use a new quotation
-                        nextQuotation = getQuotation(nextDigests.get(0));
-                    } else {
-                        // we've run out of new quotations
-                        nextQuotation = currentQuotation;
-                        markAsCurrent(widgetId, getLastPreviousDigest(widgetId, contentSelection));
-                    }
+                    nextQuotation = getQuotation(nextDigests.get(0));
                 }
             }
         } else {
+            // next, random
             if (!nextDigests.isEmpty()) {
                 nextQuotation = getQuotation(nextDigests.get(getRandomIndex(nextDigests)));
             } else {
@@ -949,6 +957,19 @@ public class DatabaseRepository {
         } else {
             favouriteExternalDAO.erase(digest);
             previousExternalDAO.erase(widgetId, ContentSelection.FAVOURITES, digest);
+        }
+    }
+
+    public void erasePrevious(
+            int widgetId,
+            @NonNull ContentSelection contentSelection,
+            @NonNull List<String> previousDigests) {
+        for (String digest : previousDigests) {
+            if (useInternalDatabase()) {
+                previousDAO.erase(widgetId, contentSelection, digest);
+            } else {
+                previousExternalDAO.erase(widgetId, contentSelection, digest);
+            }
         }
     }
 

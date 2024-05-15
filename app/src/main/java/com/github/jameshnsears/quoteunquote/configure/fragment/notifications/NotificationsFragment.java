@@ -60,7 +60,8 @@ public class NotificationsFragment extends FragmentCommon {
                     notificationsPreferences.setEventDisplayWidgetAndNotification(true);
                     fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(true);
                     fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(true);
-                    fragmentNotificationsBinding.textViewNotificationSizeWarning.setEnabled(true);
+                    fragmentNotificationsBinding.textViewNotificationSizeWarning1.setEnabled(true);
+                    fragmentNotificationsBinding.textViewNotificationSizeWarning2.setEnabled(true);
                 }
 
                 ConfigureActivity.launcherInvoked = false;
@@ -229,12 +230,14 @@ public class NotificationsFragment extends FragmentCommon {
             fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(true);
 
             fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(true);
-            fragmentNotificationsBinding.textViewNotificationSizeWarning.setEnabled(true);
+            fragmentNotificationsBinding.textViewNotificationSizeWarning1.setEnabled(true);
+            fragmentNotificationsBinding.textViewNotificationSizeWarning2.setEnabled(true);
         } else {
             fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(false);
 
             fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(false);
-            fragmentNotificationsBinding.textViewNotificationSizeWarning.setEnabled(false);
+            fragmentNotificationsBinding.textViewNotificationSizeWarning1.setEnabled(false);
+            fragmentNotificationsBinding.textViewNotificationSizeWarning2.setEnabled(false);
         }
 
         fragmentNotificationsBinding.switchExcludeSourceFromNotification.setChecked(notificationsPreferences.getExcludeSourceFromNotification());
@@ -272,7 +275,8 @@ public class NotificationsFragment extends FragmentCommon {
 
                     fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(false);
                     fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(false);
-                    fragmentNotificationsBinding.textViewNotificationSizeWarning.setEnabled(false);
+                    fragmentNotificationsBinding.textViewNotificationSizeWarning1.setEnabled(false);
+                    fragmentNotificationsBinding.textViewNotificationSizeWarning2.setEnabled(false);
                     break;
 
                 case R.id.radioButtonWhereAsNotification:
@@ -292,7 +296,8 @@ public class NotificationsFragment extends FragmentCommon {
                     notificationsPreferences.setEventDisplayWidgetAndNotification(true);
                     fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(true);
                     fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(true);
-                    fragmentNotificationsBinding.textViewNotificationSizeWarning.setEnabled(true);
+                    fragmentNotificationsBinding.textViewNotificationSizeWarning1.setEnabled(true);
+                    fragmentNotificationsBinding.textViewNotificationSizeWarning2.setEnabled(true);
                     break;
             }
         });

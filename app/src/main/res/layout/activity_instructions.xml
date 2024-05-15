@@ -66,16 +66,14 @@
                             android:layout_height="wrap_content"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
-                            android:text="@string/activity_instructions_different_ways"
-                            android:textSize="14sp" />
+                            android:text="@string/activity_instructions_different_ways" />
 
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
-                            android:text="@string/activity_instructions_1"
-                            android:textSize="14sp" />
+                            android:text="@string/activity_instructions_1" />
 
                     <TextView
                             android:layout_width="wrap_content"
@@ -85,7 +83,6 @@
                             android:paddingBottom="5dp"
                             android:text="@string/activity_instructions_2"
                             android:textAlignment="center"
-                            android:textSize="14sp"
                             app:drawableEndCompat="@drawable/ic_notifications_widgets_24" />
 
                     <TextView
@@ -93,24 +90,21 @@
                             android:layout_height="wrap_content"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
-                            android:text="@string/activity_instructions_3"
-                            android:textSize="14sp" />
+                            android:text="@string/activity_instructions_3" />
 
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
-                            android:text="@string/activity_instructions_4"
-                            android:textSize="14sp" />
+                            android:text="@string/activity_instructions_4" />
 
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
-                            android:text="@string/activity_instructions_5"
-                            android:textSize="14sp" />
+                            android:text="@string/activity_instructions_5" />
 
                 </LinearLayout>
 
@@ -147,56 +141,49 @@
                             android:layout_height="wrap_content"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
-                            android:text="@string/activity_instructions_configure_1"
-                            android:textSize="14sp" />
+                            android:text="@string/activity_instructions_configure_1" />
 
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
-                            android:text="@string/activity_instructions_configure_2"
-                            android:textSize="14sp" />
+                            android:text="@string/activity_instructions_configure_2" />
 
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
-                            android:text="@string/activity_instructions_configure_3"
-                            android:textSize="14sp" />
+                            android:text="@string/activity_instructions_configure_3" />
 
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
-                            android:text="@string/activity_instructions_configure_4"
-                            android:textSize="14sp" />
+                            android:text="@string/activity_instructions_configure_4" />
 
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
-                            android:text="@string/activity_instructions_configure_5"
-                            android:textSize="14sp" />
+                            android:text="@string/activity_instructions_configure_5" />
 
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
-                            android:text="@string/activity_instructions_configure_6"
-                            android:textSize="14sp" />
+                            android:text="@string/activity_instructions_configure_6" />
 
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
-                            android:text="@string/activity_instructions_configure_7"
-                            android:textSize="14sp" />
+                            android:text="@string/activity_instructions_configure_7" />
 
                     <LinearLayout
                             android:layout_width="match_parent"
@@ -210,7 +197,6 @@
                                 android:paddingTop="10dp"
                                 android:paddingBottom="5dp"
                                 android:text="@string/activity_instructions_os_warning_info"
-                                android:textSize="14sp"
                                 app:drawableStartCompat="@drawable/ic_info_24" />
 
                         <TextView
@@ -220,8 +206,7 @@
                                 android:paddingTop="5dp"
                                 android:paddingEnd="0dp"
                                 android:paddingBottom="5dp"
-                                android:text="@string/activity_instructions_os_warning"
-                                android:textSize="14sp" />
+                                android:text="@string/activity_instructions_os_warning" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -259,32 +244,28 @@
                             android:layout_height="wrap_content"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
-                            android:text="@string/activity_instructions_resize_instruction_1"
-                            android:textSize="14sp" />
+                            android:text="@string/activity_instructions_resize_instruction_1" />
 
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
-                            android:text="@string/activity_instructions_resize_instruction_2"
-                            android:textSize="14sp" />
+                            android:text="@string/activity_instructions_resize_instruction_2" />
 
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
-                            android:text="@string/activity_instructions_resize_instruction_3"
-                            android:textSize="14sp" />
+                            android:text="@string/activity_instructions_resize_instruction_3" />
 
                     <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingTop="5dp"
                             android:paddingBottom="5dp"
-                            android:text="@string/activity_instructions_resize_instruction_4"
-                            android:textSize="14sp" />
+                            android:text="@string/activity_instructions_resize_instruction_4" />
 
                 </LinearLayout>
 

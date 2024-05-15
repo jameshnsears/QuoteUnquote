@@ -26,13 +26,14 @@ find . -name "*.gpg"
 
 ```text
 [ ] API level 24 emulator: get latest /sdcard/Download/Quote_Unquote_ori_portrait.png for featureGraphic.png
-[ ] API level 34, Pixel 6: get latest screenshots 
+[ ] API level 34, Pixel 4a: get latest screenshots 
 ```
 
 ## General
 
 ```text
 [ ] test application install on top of prior version, see step 5. in NOTES.md
+[ ] align assets; including strings.xml count value and example_appwidget_preview.png (API 24)
 [ ] delete development and extract production app/google-services.json
 [ ] update versionCode + versionName in app/build.gradle
 [ ] make sure changelogs/xxx.txt matches versionCode

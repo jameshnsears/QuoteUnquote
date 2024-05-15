@@ -10,7 +10,7 @@ import androidx.room.RoomDatabase;
 
 import com.github.jameshnsears.quoteunquote.BuildConfig;
 
-@Database(entities = {QuotationEntity.class}, version = 43)
+@Database(entities = {QuotationEntity.class}, version = 44)
 public abstract class AbstractQuotationDatabase extends RoomDatabase {
     @Nullable
     public static AbstractQuotationDatabase quotationDatabase;

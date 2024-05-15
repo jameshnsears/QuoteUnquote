@@ -1,5 +1,0 @@
-&bull; Include UTF-8 requirement for .csv import
-&bull; Fix Android 14 app widget preview layout
-&bull; Update quotations database
-&bull; Move to Android Studio Giraffe | 2022.3.1 Patch 2
-&bull; Bump dependencies

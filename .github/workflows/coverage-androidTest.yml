@@ -17,7 +17,7 @@ env:
 jobs:
   fdroid:
     name: fdroid
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
     timeout-minutes: 30
     strategy:
       fail-fast: true
@@ -30,6 +30,12 @@ jobs:
         with:
           fetch-depth: 1
           submodules: true
+
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
 
       - uses: actions/setup-java@v4
         with:
@@ -124,7 +130,7 @@ jobs:
 
   googleplay:
     name: googleplay
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
     timeout-minutes: 30
     strategy:
       fail-fast: true
@@ -137,6 +143,12 @@ jobs:
         with:
           fetch-depth: 1
           submodules: true
+
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
 
       - uses: actions/setup-java@v4
         with:

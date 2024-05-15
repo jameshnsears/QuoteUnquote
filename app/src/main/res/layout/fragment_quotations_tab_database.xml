@@ -50,7 +50,6 @@
                     android:paddingEnd="0dp"
                     android:paddingBottom="10dp"
                     android:text="@string/fragment_quotations_database_default_info"
-                    android:textSize="14sp"
                     app:drawableStartCompat="@drawable/ic_info_24" />
 
             <TextView
@@ -61,8 +60,7 @@
                     android:paddingTop="5dp"
                     android:paddingEnd="0dp"
                     android:paddingBottom="10dp"
-                    android:text="@string/fragment_quotations_database_default"
-                    android:textSize="14sp" />
+                    android:text="@string/fragment_quotations_database_default" />
 
         </LinearLayout>
 
@@ -137,19 +135,37 @@
                     android:paddingEnd="0dp"
                     android:paddingBottom="10dp"
                     android:text="@string/fragment_quotations_database_external_instructions_1_info"
-                    android:textSize="14sp"
                     app:drawableStartCompat="@drawable/ic_info_24" />
 
             <TextView
-                    android:id="@+id/textViewExamples"
+                    android:id="@+id/textViewExamples1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="9dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="5dp"
+                    android:text="@string/fragment_quotations_database_external_instructions_1" />
+
+            <TextView
+                    android:id="@+id/textViewExamples2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="9dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="5dp"
+                    android:text="@string/fragment_quotations_database_external_instructions_2" />
+
+            <TextView
+                    android:id="@+id/textViewExamples3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="9dp"
                     android:paddingTop="5dp"
                     android:paddingEnd="0dp"
                     android:paddingBottom="10dp"
-                    android:text="@string/fragment_quotations_database_external_instructions_1"
-                    android:textSize="14sp" />
+                    android:text="@string/fragment_quotations_database_external_instructions_3" />
 
             <LinearLayout
                     android:layout_width="match_parent"
@@ -315,21 +331,58 @@
                         android:paddingTop="10dp"
                         android:paddingEnd="0dp"
                         android:paddingBottom="10dp"
-
                         android:text="@string/fragment_quotations_database_scrape_info"
-                        android:textSize="14sp"
                         app:drawableStartCompat="@drawable/ic_info_24" />
 
                 <TextView
-                        android:id="@+id/textViewInformationWeb"
+                        android:id="@+id/textViewInformationWeb1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="9dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="0dp"
+                        android:paddingBottom="5dp"
+                        android:text="@string/fragment_quotations_database_scrape_1" />
+
+                <TextView
+                        android:id="@+id/textViewInformationWeb2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="9dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="0dp"
+                        android:paddingBottom="5dp"
+                        android:text="@string/fragment_quotations_database_scrape_2" />
+
+                <TextView
+                        android:id="@+id/textViewInformationWeb3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="9dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="0dp"
+                        android:paddingBottom="5dp"
+                        android:text="@string/fragment_quotations_database_scrape_3" />
+
+                <TextView
+                        android:id="@+id/textViewInformationWeb4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="9dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="0dp"
+                        android:paddingBottom="5dp"
+                        android:text="@string/fragment_quotations_database_scrape_4" />
+
+                <TextView
+                        android:id="@+id/textViewInformationWeb5"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingStart="9dp"
                         android:paddingTop="5dp"
                         android:paddingEnd="0dp"
                         android:paddingBottom="10dp"
-                        android:text="@string/fragment_quotations_database_scrape"
-                        android:textSize="14sp" />
+                        android:text="@string/fragment_quotations_database_scrape_5" />
             </LinearLayout>
 
         </LinearLayout>

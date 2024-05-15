@@ -169,19 +169,27 @@
                         android:paddingEnd="0dp"
                         android:paddingBottom="10dp"
                         android:text="@string/fragment_notifications_notification_warning_info"
-                        android:textSize="14sp"
                         app:drawableStartCompat="@drawable/ic_info_24" />
 
                 <TextView
-                        android:id="@+id/textViewNotificationSizeWarning"
+                        android:id="@+id/textViewNotificationSizeWarning1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="10dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="0dp"
+                        android:paddingBottom="5dp"
+                        android:text="@string/fragment_notifications_notification_warning_1" />
+
+                <TextView
+                        android:id="@+id/textViewNotificationSizeWarning2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingStart="10dp"
                         android:paddingTop="5dp"
                         android:paddingEnd="0dp"
                         android:paddingBottom="10dp"
-                        android:text="@string/fragment_notifications_notification_warning"
-                        android:textSize="14sp" />
+                        android:text="@string/fragment_notifications_notification_warning_2" />
 
             </RadioGroup>
 
@@ -289,7 +297,6 @@
                         android:paddingEnd="0dp"
                         android:paddingBottom="10dp"
                         android:text="@string/fragment_notifications_exact_alarm_warning_info"
-                        android:textSize="14sp"
                         android:visibility="gone"
                         app:drawableStartCompat="@drawable/ic_info_24" />
 
@@ -302,7 +309,6 @@
                         android:paddingEnd="0dp"
                         android:paddingBottom="10dp"
                         android:text="@string/fragment_notifications_exact_alarm_warning"
-                        android:textSize="14sp"
                         android:visibility="gone" />
 
             </LinearLayout>

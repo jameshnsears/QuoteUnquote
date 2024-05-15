@@ -3,6 +3,8 @@ package com.github.jameshnsears.quoteunquote.utils.scraper
 import io.mockk.every
 import io.mockk.spyk
 import kotlinx.coroutines.test.runTest
+import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -154,6 +156,29 @@ class ScraperTest {
                 document,
                 "//text",
             ),
+        )
+    }
+
+    @Test
+    fun buatmudah() {
+        val document =
+            scraper.getDocumentFromResources("/ExternalDatabaseWeb/buatmudah/quote.xml")
+
+        assertThat(
+            scraper.getSource(
+                document,
+                "//quote/text",
+            ),
+            `is`("Isi quote"),
+        )
+
+        // had to replace "source" tag with "s"
+        assertThat(
+            scraper.getSource(
+                document,
+                "//quote/s",
+            ),
+            `is`("sumber"),
         )
     }
 }

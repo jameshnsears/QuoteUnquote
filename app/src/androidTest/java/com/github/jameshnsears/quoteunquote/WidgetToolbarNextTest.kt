@@ -143,7 +143,7 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
     }
 
     @Test
-    fun nextAuthor() {
+    fun nextAuthorWithRecycling() {
         insertQuotationTestData01()
         insertQuotationTestData02()
         insertQuotationTestData03()
@@ -160,9 +160,12 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
 
+        assertEquals(3, quoteUnquoteModelDouble.countPreviousAuthor(WidgetIdHelper.WIDGET_ID_01))
+
+        // recycle
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
 
-        assertEquals(3, quoteUnquoteModelDouble.countPreviousAuthor(WidgetIdHelper.WIDGET_ID_01))
+        assertEquals(1, quoteUnquoteModelDouble.countPreviousAuthor(WidgetIdHelper.WIDGET_ID_01))
 
         // each time user selects a new author then the prior history is deleted
         quoteUnquoteModelDouble.resetPrevious(WidgetIdHelper.WIDGET_ID_01, ContentSelection.AUTHOR)
@@ -222,10 +225,11 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
             quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
         }
 
+        // recycle
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
 
         assertEquals(
-            4,
+            1,
             quoteUnquoteModelDouble.countPreviousSearch(WidgetIdHelper.WIDGET_ID_01),
         )
     }
