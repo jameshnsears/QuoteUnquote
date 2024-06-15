@@ -31,7 +31,7 @@ public class NotificationsDailyAlarm {
         notificationsPreferences = new NotificationsPreferences(theWidgetId, widgetContext);
     }
 
-    @SuppressLint("MissingPermission")
+    @SuppressLint({"MissingPermission", "ScheduleExactAlarm"})
     public void setAlarm() {
         if (notificationsPreferences.getEventDaily()) {
 
@@ -74,7 +74,7 @@ public class NotificationsDailyAlarm {
                     (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
                 alarmManager.cancel(IntentFactoryHelper.createClickPendingIntent(
-                        context, widgetId, IntentFactoryHelper.BIHOURLY_ALARM));
+                        context, widgetId, IntentFactoryHelper.CUSTOMISABLE_INTERVAL_ALARM));
             }
         }
     }

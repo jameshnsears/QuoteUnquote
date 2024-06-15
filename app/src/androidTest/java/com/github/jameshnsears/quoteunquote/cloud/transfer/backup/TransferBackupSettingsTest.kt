@@ -6,6 +6,7 @@ import com.github.jameshnsears.quoteunquote.cloud.transfer.GsonTestHelper
 import com.github.jameshnsears.quoteunquote.cloud.transfer.Quotations
 import com.github.jameshnsears.quoteunquote.cloud.transfer.Schedule
 import com.github.jameshnsears.quoteunquote.cloud.transfer.Settings
+import com.github.jameshnsears.quoteunquote.cloud.transfer.Sync
 import com.github.jameshnsears.quoteunquote.cloud.transfer.TransferUtility
 import io.mockk.every
 import io.mockk.mockkObject
@@ -73,12 +74,17 @@ class TransferBackupSettingsTest : GsonTestHelper() {
                 expectedQuotations(),
                 expectedAppearance(),
                 expectedSchedule(),
+                expectedSync(),
                 1,
             ),
         )
 
         return settingsList
     }
+
+    private fun expectedSync() = Sync(
+        false,
+    )
 
     private fun expectedSchedule() = Schedule(
         false,
@@ -91,6 +97,9 @@ class TransferBackupSettingsTest : GsonTestHelper() {
         -1,
         -1,
         false,
+        0,
+        23,
+        1,
     )
 
     private fun expectedAppearance() = Appearance(

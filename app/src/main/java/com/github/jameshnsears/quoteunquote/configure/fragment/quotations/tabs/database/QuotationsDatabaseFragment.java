@@ -27,14 +27,12 @@ import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentQuotationsTabDatabaseBinding;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 import com.github.jameshnsears.quoteunquote.utils.ImportHelper;
-import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
 import com.github.jameshnsears.quoteunquote.utils.scraper.ScraperData;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.LinkedHashSet;
-import java.util.concurrent.ConcurrentHashMap;
 
 import timber.log.Timber;
 
@@ -348,11 +346,6 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
                                 this.getContext(),
                                 this.getContext().getString(R.string.fragment_quotations_database_scrape_importing),
                                 Toast.LENGTH_SHORT).show();
-
-                        ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
-                        properties.put("WebPage",
-                                "url=" + url + "; xpathQuotation=" + xpathQuotation + "; xpathSource=" + xpathSource);
-                        AuditEventHelper.auditEvent("WEB_PAGE", properties);
 
                         ScraperData scraperData = quoteUnquoteModel.getWebPage(
                                 getContext(), url, xpathQuotation, xpathSource);

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# https://github.com/cli/cli/blob/trunk/docs/install_linux.md
+
 source envvars.sh
 
 if [ $# -ne 2 ]; then

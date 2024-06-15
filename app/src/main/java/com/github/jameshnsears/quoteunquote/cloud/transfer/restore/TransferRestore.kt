@@ -12,6 +12,7 @@ import com.github.jameshnsears.quoteunquote.cloud.transfer.Previous
 import com.github.jameshnsears.quoteunquote.cloud.transfer.Quotations
 import com.github.jameshnsears.quoteunquote.cloud.transfer.Schedule
 import com.github.jameshnsears.quoteunquote.cloud.transfer.Settings
+import com.github.jameshnsears.quoteunquote.cloud.transfer.Sync
 import com.github.jameshnsears.quoteunquote.cloud.transfer.Transfer
 import com.github.jameshnsears.quoteunquote.cloud.transfer.TransferCommon
 import com.github.jameshnsears.quoteunquote.cloud.transfer.TransferRestoreRequest
@@ -19,6 +20,7 @@ import com.github.jameshnsears.quoteunquote.cloud.transfer.TransferUtility
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences
 import com.github.jameshnsears.quoteunquote.configure.fragment.notifications.NotificationsPreferences
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences
+import com.github.jameshnsears.quoteunquote.configure.fragment.sync.SyncPreferences
 import com.github.jameshnsears.quoteunquote.database.DatabaseRepository
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
@@ -227,6 +229,11 @@ class TransferRestore : TransferCommon() {
                 context,
                 settings.schedule,
             )
+            restoreSettingsSync(
+                widgetId,
+                context,
+                settings.sync,
+            )
 
             // move to next settingsList if it's available, else reuse last one
             if (settingsListIndex < settingsList.size - 1) {
@@ -250,7 +257,28 @@ class TransferRestore : TransferCommon() {
         notificationsPreferences.eventDailyTimeHour = schedule.eventDailyHour
         notificationsPreferences.eventDailyTimeMinute = schedule.eventDailyMinute
 
-        notificationsPreferences.eventBihourly = schedule.eventEventBihourly
+        if (schedule.eventEventCustomisableInterval != null) {
+            notificationsPreferences.customisableInterval = schedule.eventEventCustomisableInterval
+        }
+
+        if (schedule.eventEventCustomisableIntervalHourFrom != null) {
+            Timber.d("from = %d", schedule.eventEventCustomisableIntervalHourFrom)
+            notificationsPreferences.customisableIntervalHourFrom =
+                schedule.eventEventCustomisableIntervalHourFrom
+        }
+
+        if (schedule.eventEventCustomisableIntervalHourTo != null) {
+            Timber.d("to = %d", schedule.eventEventCustomisableIntervalHourTo)
+            notificationsPreferences.customisableIntervalHourTo =
+                schedule.eventEventCustomisableIntervalHourTo
+        }
+
+        if (schedule.eventEventCustomisableIntervalHours != null) {
+            Timber.d("hours = %d", schedule.eventEventCustomisableIntervalHours)
+
+            notificationsPreferences.customisableIntervalHours =
+                schedule.eventEventCustomisableIntervalHours
+        }
 
         notificationsPreferences.setEventDisplayWidgetAndNotification(schedule.eventDisplayWidgetAndNotification)
 
@@ -258,7 +286,7 @@ class TransferRestore : TransferCommon() {
             val alarmManager: AlarmManager = context.getSystemService<AlarmManager>()!!
             if (!alarmManager.canScheduleExactAlarms()) {
                 notificationsPreferences.eventDaily = false
-                notificationsPreferences.eventBihourly = false
+                notificationsPreferences.customisableInterval = false
             }
 
             if (!NotificationManagerCompat.from(context).areNotificationsEnabled()) {
@@ -344,5 +372,16 @@ class TransferRestore : TransferCommon() {
         appearancePreferences.appearanceToolbarShareNoSource =
             appearance.appearanceToolbarShareNoSource
         appearancePreferences.appearanceToolbarJump = appearance.appearanceToolbarJump
+    }
+
+    private fun restoreSettingsSync(
+        widgetId: Int,
+        context: Context,
+        sync: Sync,
+    ) {
+        val syncPreferences = SyncPreferences(widgetId, context)
+        if (sync != null && sync.syncAutoCloudBackup != null) {
+            syncPreferences.autoCloudBackup = sync.syncAutoCloudBackup
+        }
     }
 }

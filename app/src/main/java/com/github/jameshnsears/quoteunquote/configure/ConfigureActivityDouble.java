@@ -6,7 +6,6 @@ import androidx.annotation.Nullable;
 
 import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.databinding.ActivityConfigureBinding;
-import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
 
 import timber.log.Timber;
 
@@ -19,8 +18,6 @@ public class ConfigureActivityDouble extends ConfigureActivity {
     public void onCreate(@Nullable final Bundle bundle) {
         Timber.d("onCreate");
         super.onCreate(bundle);
-
-        AuditEventHelper.createInstance(getApplication());
 
         widgetId = 1;
 

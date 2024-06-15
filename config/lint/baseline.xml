@@ -1,265 +1,171 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues format="5" by="lint Jellyfish | 2023.3.1">
+<issues by="lint Jellyfish | 2023.3.1" format="5">
 
-    <issue
-        id="SimpleDateFormat"
-        message="To get local formatting use `getDateInstance()`, `getDateTimeInstance()`, or `getTimeInstance()`, or use `new SimpleDateFormat(String template, Locale locale)` with for example `Locale.US` for ASCII dates.">
+    <issue id="SimpleDateFormat"
+            message="To get local formatting use `getDateInstance()`, `getDateTimeInstance()`, or `getTimeInstance()`, or use `new SimpleDateFormat(String template, Locale locale)` with for example `Locale.US` for ASCII dates.">
         <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/utils/logging/StdioTree.java"
-            line="11"/>
+                file="src/main/java/com/github/jameshnsears/quoteunquote/utils/logging/StdioTree.java"
+                line="11" />
     </issue>
 
-    <issue
-        id="SimpleDateFormat"
-        message="To get local formatting use `getDateInstance()`, `getDateTimeInstance()`, or `getTimeInstance()`, or use `new SimpleDateFormat(String template, Locale locale)` with for example `Locale.US` for ASCII dates.">
+    <issue id="SimpleDateFormat"
+            message="To get local formatting use `getDateInstance()`, `getDateTimeInstance()`, or `getTimeInstance()`, or use `new SimpleDateFormat(String template, Locale locale)` with for example `Locale.US` for ASCII dates.">
         <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/utils/logging/StdioTree.java"
-            line="11"/>
+                file="src/main/java/com/github/jameshnsears/quoteunquote/utils/logging/StdioTree.java"
+                line="11" />
     </issue>
 
-    <issue
-        id="VectorRaster"
-        message="Limit vector icons sizes to 200×200 to keep icon drawing fast; see https://developer.android.com/studio/write/vector-asset-studio#when for more">
-        <location
-            file="src/main/res/drawable/ic_instructions_footer_github_logo.xml"
-            line="2"/>
+    <issue id="VectorRaster"
+            message="Limit vector icons sizes to 200×200 to keep icon drawing fast; see https://developer.android.com/studio/write/vector-asset-studio#when for more">
+        <location file="src/main/res/drawable/ic_instructions_footer_github_logo.xml" line="2" />
     </issue>
 
-    <issue
-        id="ObsoleteSdkInt"
-        message="Unnecessary; SDK_INT is always >= 31">
-        <location
-            file="src/main/res/xml/quote_unquote_widget_info.xml"
-            line="18"/>
+    <issue id="ObsoleteSdkInt" message="Unnecessary; SDK_INT is always >= 31">
+        <location file="src/main/res/xml/quote_unquote_widget_info.xml" line="18" />
     </issue>
 
-    <issue
-        id="ObsoleteSdkInt"
-        message="This folder configuration (`v24`) is unnecessary; `minSdkVersion` is 24. Merge all the resources in this folder into `values-night`.">
-        <location
-            file="src/main/res/values-night-v24"/>
+    <issue id="ObsoleteSdkInt"
+            message="This folder configuration (`v24`) is unnecessary; `minSdkVersion` is 24. Merge all the resources in this folder into `values-night`.">
+        <location file="src/main/res/values-night-v24" />
     </issue>
 
-    <issue
-        id="ObsoleteSdkInt"
-        message="This folder configuration (`v24`) is unnecessary; `minSdkVersion` is 24. Merge all the resources in this folder into `values`.">
-        <location
-            file="src/main/res/values-v24"/>
+    <issue id="ObsoleteSdkInt"
+            message="This folder configuration (`v24`) is unnecessary; `minSdkVersion` is 24. Merge all the resources in this folder into `values`.">
+        <location file="src/main/res/values-v24" />
     </issue>
 
-    <issue
-        id="VectorPath"
-        message="Very long vector path (822 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
-        <location
-            file="src/main/res/drawable/app_icon.xml"
-            line="17"/>
+    <issue id="VectorPath"
+            message="Very long vector path (822 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location file="src/main/res/drawable/app_icon.xml" line="17" />
     </issue>
 
-    <issue
-        id="VectorPath"
-        message="Very long vector path (803 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
-        <location
-            file="src/main/res/drawable/ic_appearance_visibility_off_24.xml"
-            line="9"/>
+    <issue id="VectorPath"
+            message="Very long vector path (803 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location file="src/main/res/drawable/ic_appearance_visibility_off_24.xml" line="9" />
     </issue>
 
-    <issue
-        id="VectorPath"
-        message="Very long vector path (804 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
-        <location
-            file="src/main/res/drawable/ic_instructions_footer_github_logo.xml"
-            line="29"/>
+    <issue id="VectorPath"
+            message="Very long vector path (804 characters), which is bad for performance. Considering reducing precision, removing minor details or rasterizing vector.">
+        <location file="src/main/res/drawable/ic_instructions_footer_github_logo.xml" line="29" />
     </issue>
 
-    <issue
-        id="DisableBaselineAlignment"
-        message="Set `android:baselineAligned=&quot;false&quot;` on this element for better performance">
-        <location
-            file="src/main/res/layout/fragment_sync.xml"
-            line="121"/>
+    <issue id="DisableBaselineAlignment"
+            message="Set `android:baselineAligned=&quot;false&quot;` on this element for better performance">
+        <location file="src/main/res/layout/fragment_sync.xml" line="121" />
     </issue>
 
-    <issue
-        id="UnusedResources"
-        message="The resource `R.xml.backup_descriptor` appears to be unused">
-        <location
-            file="src/main/res/xml/backup_descriptor.xml"
-            line="2"/>
+    <issue id="UnusedResources"
+            message="The resource `R.xml.backup_descriptor` appears to be unused">
+        <location file="src/main/res/xml/backup_descriptor.xml" line="2" />
     </issue>
 
-    <issue
-        id="UnusedResources"
-        message="The resource `R.color.seed` appears to be unused">
-        <location
-            file="src/main/res/values/colors.xml"
-            line="2"/>
+    <issue id="UnusedResources" message="The resource `R.color.seed` appears to be unused">
+        <location file="src/main/res/values/colors.xml" line="2" />
     </issue>
 
-    <issue
-        id="UnusedResources"
-        message="The resource `R.color.md_theme_light_shadow` appears to be unused">
-        <location
-            file="src/main/res/values/colors.xml"
-            line="29"/>
+    <issue id="UnusedResources"
+            message="The resource `R.color.md_theme_light_shadow` appears to be unused">
+        <location file="src/main/res/values/colors.xml" line="29" />
     </issue>
 
-    <issue
-        id="UnusedResources"
-        message="The resource `R.color.md_theme_light_surfaceTint` appears to be unused">
-        <location
-            file="src/main/res/values/colors.xml"
-            line="30"/>
+    <issue id="UnusedResources"
+            message="The resource `R.color.md_theme_light_surfaceTint` appears to be unused">
+        <location file="src/main/res/values/colors.xml" line="30" />
     </issue>
 
-    <issue
-        id="UnusedResources"
-        message="The resource `R.color.md_theme_light_outlineVariant` appears to be unused">
-        <location
-            file="src/main/res/values/colors.xml"
-            line="31"/>
+    <issue id="UnusedResources"
+            message="The resource `R.color.md_theme_light_outlineVariant` appears to be unused">
+        <location file="src/main/res/values/colors.xml" line="31" />
     </issue>
 
-    <issue
-        id="UnusedResources"
-        message="The resource `R.color.md_theme_light_scrim` appears to be unused">
-        <location
-            file="src/main/res/values/colors.xml"
-            line="32"/>
+    <issue id="UnusedResources"
+            message="The resource `R.color.md_theme_light_scrim` appears to be unused">
+        <location file="src/main/res/values/colors.xml" line="32" />
     </issue>
 
-    <issue
-        id="UnusedResources"
-        message="The resource `R.color.md_theme_dark_shadow` appears to be unused">
-        <location
-            file="src/main/res/values/colors.xml"
-            line="59"/>
+    <issue id="UnusedResources"
+            message="The resource `R.color.md_theme_dark_shadow` appears to be unused">
+        <location file="src/main/res/values/colors.xml" line="59" />
     </issue>
 
-    <issue
-        id="UnusedResources"
-        message="The resource `R.color.md_theme_dark_surfaceTint` appears to be unused">
-        <location
-            file="src/main/res/values/colors.xml"
-            line="60"/>
+    <issue id="UnusedResources"
+            message="The resource `R.color.md_theme_dark_surfaceTint` appears to be unused">
+        <location file="src/main/res/values/colors.xml" line="60" />
     </issue>
 
-    <issue
-        id="UnusedResources"
-        message="The resource `R.color.md_theme_dark_outlineVariant` appears to be unused">
-        <location
-            file="src/main/res/values/colors.xml"
-            line="61"/>
+    <issue id="UnusedResources"
+            message="The resource `R.color.md_theme_dark_outlineVariant` appears to be unused">
+        <location file="src/main/res/values/colors.xml" line="61" />
     </issue>
 
-    <issue
-        id="UnusedResources"
-        message="The resource `R.drawable.recyclerview_edit_text_selector` appears to be unused">
-        <location
-            file="src/main/res/drawable/recyclerview_edit_text_selector.xml"
-            line="1"/>
+    <issue id="UnusedResources"
+            message="The resource `R.drawable.recyclerview_edit_text_selector` appears to be unused">
+        <location file="src/main/res/drawable/recyclerview_edit_text_selector.xml" line="1" />
     </issue>
 
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.activity_instructions_github` appears to be unused">
-        <location
-            file="src/main/res/values-v24/strings.xml"
-            line="29"/>
+    <issue id="UnusedResources"
+            message="The resource `R.string.activity_instructions_github` appears to be unused">
+        <location file="src/main/res/values-v24/strings.xml" line="29" />
     </issue>
 
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.configure_navigation_bar_schedule` appears to be unused">
-        <location
-            file="src/main/res/values-v24/strings.xml"
-            line="33"/>
+    <issue id="UnusedResources"
+            message="The resource `R.string.configure_navigation_bar_schedule` appears to be unused">
+        <location file="src/main/res/values-v24/strings.xml" line="33" />
     </issue>
 
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.configure_navigation_bar_transfer` appears to be unused">
-        <location
-            file="src/main/res/values-v24/strings.xml"
-            line="34"/>
+    <issue id="UnusedResources"
+            message="The resource `R.string.configure_navigation_bar_transfer` appears to be unused">
+        <location file="src/main/res/values-v24/strings.xml" line="34" />
     </issue>
 
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.fragment_quotations_selection_dialog_browse_source` appears to be unused">
-        <location
-            file="src/main/res/values-v24/strings.xml"
-            line="60"/>
+    <issue id="UnusedResources"
+            message="The resource `R.string.fragment_quotations_selection_dialog_browse_source` appears to be unused">
+        <location file="src/main/res/values-v24/strings.xml" line="60" />
     </issue>
 
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.fragment_quotations_selection_dialog_browse_search` appears to be unused">
-        <location
-            file="src/main/res/values-v24/strings.xml"
-            line="64"/>
+    <issue id="UnusedResources"
+            message="The resource `R.string.fragment_quotations_selection_dialog_browse_search` appears to be unused">
+        <location file="src/main/res/values-v24/strings.xml" line="64" />
     </issue>
 
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.fragment_quotations_database_scrape_quotation_example` appears to be unused">
-        <location
-            file="src/main/res/values-v24/strings.xml"
-            line="84"/>
+    <issue id="UnusedResources"
+            message="The resource `R.string.fragment_quotations_database_scrape_quotation_example` appears to be unused">
+        <location file="src/main/res/values-v24/strings.xml" line="84" />
     </issue>
 
-    <issue
-        id="UnusedResources"
-        message="The resource `R.string.fragment_quotations_database_scrape_source_example` appears to be unused">
-        <location
-            file="src/main/res/values-v24/strings.xml"
-            line="85"/>
+    <issue id="UnusedResources"
+            message="The resource `R.string.fragment_quotations_database_scrape_source_example` appears to be unused">
+        <location file="src/main/res/values-v24/strings.xml" line="85" />
     </issue>
 
-    <issue
-        id="UselessParent"
-        message="This `LinearLayout` layout or its `LinearLayout` parent is unnecessary">
-        <location
-            file="src/main/res/layout/fragment_sync.xml"
-            line="50"/>
+    <issue id="UselessParent"
+            message="This `LinearLayout` layout or its `LinearLayout` parent is unnecessary">
+        <location file="src/main/res/layout/fragment_sync.xml" line="50" />
     </issue>
 
-    <issue
-        id="UselessParent"
-        message="This `LinearLayout` layout or its `LinearLayout` parent is unnecessary; transfer the `background` attribute to the other view">
-        <location
-            file="src/main/res/layout/quote_unquote_widget_preview.xml"
-            line="18"/>
+    <issue id="UselessParent"
+            message="This `LinearLayout` layout or its `LinearLayout` parent is unnecessary; transfer the `background` attribute to the other view">
+        <location file="src/main/res/layout/quote_unquote_widget_preview.xml" line="18" />
     </issue>
 
-    <issue
-        id="IconLocation"
-        message="Found bitmap drawable `res/drawable/example_appwidget_preview.png` in densityless folder">
-        <location
-            file="src/main/res/drawable/example_appwidget_preview.png"/>
+    <issue id="IconLocation"
+            message="Found bitmap drawable `res/drawable/example_appwidget_preview.png` in densityless folder">
+        <location file="src/main/res/drawable/example_appwidget_preview.png" />
     </issue>
 
-    <issue
-        id="HardcodedText"
-        message="Hardcoded string &quot;1&quot;, should use `@string` resource">
-        <location
-            file="src/main/res/layout/recyclerview_row.xml"
-            line="28"/>
+    <issue id="HardcodedText"
+            message="Hardcoded string &quot;1&quot;, should use `@string` resource">
+        <location file="src/main/res/layout/recyclerview_row.xml" line="28" />
     </issue>
 
-    <issue
-        id="HardcodedText"
-        message="Hardcoded string &quot;Quotation&quot;, should use `@string` resource">
-        <location
-            file="src/main/res/layout/recyclerview_row.xml"
-            line="60"/>
+    <issue id="HardcodedText"
+            message="Hardcoded string &quot;Quotation&quot;, should use `@string` resource">
+        <location file="src/main/res/layout/recyclerview_row.xml" line="60" />
     </issue>
 
-    <issue
-        id="HardcodedText"
-        message="Hardcoded string &quot;Source&quot;, should use `@string` resource">
-        <location
-            file="src/main/res/layout/recyclerview_row.xml"
-            line="74"/>
+    <issue id="HardcodedText"
+            message="Hardcoded string &quot;Source&quot;, should use `@string` resource">
+        <location file="src/main/res/layout/recyclerview_row.xml" line="74" />
     </issue>
 
 </issues>

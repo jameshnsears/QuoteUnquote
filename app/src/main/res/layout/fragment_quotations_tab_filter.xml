@@ -380,6 +380,8 @@
                             android:id="@+id/switchSearchFavouritesOnly"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_toolbar_favorite_24"
+                            android:drawablePadding="20dp"
                             android:paddingStart="0dp"
                             android:paddingEnd="0dp"
                             android:text="@string/fragment_quotations_selection_search_favourites_only"
@@ -397,6 +399,8 @@
                             android:id="@+id/switchRegEx"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_regular_expression_24"
+                            android:drawablePadding="20dp"
                             android:text="@string/fragment_quotations_selection_search_switch_regex"
                             android:textSize="16sp" />
                 </LinearLayout>
@@ -412,7 +416,7 @@
                             android:id="@+id/editTextSearchText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:inputType="textNoSuggestions"/>
+                            android:inputType="textNoSuggestions" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -449,7 +453,7 @@
                     android:paddingEnd="0dp"
                     android:paddingBottom="5dp"
                     android:text="@string/fragment_quotations_selection_search_instructions_2" />
-            
+
             <TextView
                     android:id="@+id/textViewSearchMinimum3"
                     android:layout_width="match_parent"

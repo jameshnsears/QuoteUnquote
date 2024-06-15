@@ -14,9 +14,6 @@ import com.github.jameshnsears.quoteunquote.cloud.transfer.restore.TransferResto
 import com.github.jameshnsears.quoteunquote.configure.fragment.sync.SyncFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.sync.SyncPreferences;
 import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
-import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
-
-import java.util.concurrent.ConcurrentHashMap;
 
 import timber.log.Timber;
 
@@ -41,8 +38,6 @@ public class CloudServiceRestore extends CloudService {
                             context.getString(R.string.fragment_archive_internet_missing),
                             Toast.LENGTH_SHORT).show());
                 } else {
-                    auditRestore(intent);
-
                     int widgetId = intent.getIntExtra("widgetId", 0);
 
                     SyncPreferences syncPreferences = new SyncPreferences(widgetId, context);
@@ -102,11 +97,5 @@ public class CloudServiceRestore extends CloudService {
         }
 
         return Service.START_NOT_STICKY;
-    }
-
-    protected void auditRestore(@NonNull Intent intent) {
-        final ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
-        properties.put("code", intent.getStringExtra("remoteCodeValue"));
-        AuditEventHelper.auditEvent("RESTORE", properties);
     }
 }

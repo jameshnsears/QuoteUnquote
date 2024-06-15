@@ -5,10 +5,12 @@ import com.github.jameshnsears.quoteunquote.cloud.transfer.Appearance
 import com.github.jameshnsears.quoteunquote.cloud.transfer.Quotations
 import com.github.jameshnsears.quoteunquote.cloud.transfer.Schedule
 import com.github.jameshnsears.quoteunquote.cloud.transfer.Settings
+import com.github.jameshnsears.quoteunquote.cloud.transfer.Sync
 import com.github.jameshnsears.quoteunquote.cloud.transfer.TransferUtility
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences
 import com.github.jameshnsears.quoteunquote.configure.fragment.notifications.NotificationsPreferences
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences
+import com.github.jameshnsears.quoteunquote.configure.fragment.sync.SyncPreferences
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 
 // Settings are set on demand in the UI
@@ -24,12 +26,21 @@ open class TransferBackupSettings(val context: Context) {
                     settingsQuotations(widgetIds[widgetIdsIndex], context),
                     settingsAppearance(widgetIds[widgetIdsIndex], context),
                     settingsSchedule(widgetIds[widgetIdsIndex], context),
+                    settingsSync(widgetIds[widgetIdsIndex], context),
                     widgetIds[widgetIdsIndex],
                 ),
             )
         }
 
         return settingsList
+    }
+
+    fun settingsSync(widgetId: Int, context: Context): Sync {
+        val syncPreferences = SyncPreferences(widgetId, context)
+
+        return Sync(
+            syncPreferences.autoCloudBackup,
+        )
     }
 
     fun settingsQuotations(widgetId: Int, context: Context): Quotations {
@@ -124,7 +135,10 @@ open class TransferBackupSettings(val context: Context) {
             notificationsPreferences.eventDeviceUnlock,
             notificationsPreferences.eventDailyTimeMinute,
             notificationsPreferences.eventDailyTimeHour,
-            notificationsPreferences.eventBihourly,
+            notificationsPreferences.customisableInterval,
+            notificationsPreferences.customisableIntervalHourFrom,
+            notificationsPreferences.customisableIntervalHourTo,
+            notificationsPreferences.customisableIntervalHours,
         )
     }
 }

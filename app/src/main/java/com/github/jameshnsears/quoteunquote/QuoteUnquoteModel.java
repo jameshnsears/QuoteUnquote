@@ -17,7 +17,6 @@ import com.github.jameshnsears.quoteunquote.database.quotation.AuthorPOJO;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 import com.github.jameshnsears.quoteunquote.utils.ImportHelper;
-import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
 import com.github.jameshnsears.quoteunquote.utils.scraper.Scraper;
 import com.github.jameshnsears.quoteunquote.utils.scraper.ScraperData;
 import com.github.jameshnsears.quoteunquote.utils.scraper.ScraperQuotationException;
@@ -31,7 +30,6 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -473,7 +471,6 @@ public class QuoteUnquoteModel {
 
             if (!favourites.contains(digest)) {
                 databaseRepository.markAsFavourite(digest);
-                auditFavourite(digest);
             } else {
                 databaseRepository.eraseFavourite(widgetId, digest);
             }
@@ -490,15 +487,6 @@ public class QuoteUnquoteModel {
         }
 
         return favouritesCount;
-    }
-
-    private void auditFavourite(@NonNull String digest) {
-        QuotationEntity quotationEntity = getQuotation(digest);
-
-        ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
-        properties.put("Favourite",
-                "digest=" + digest + "; author=" + quotationEntity.author + "; quotation=" + quotationEntity.quotation);
-        AuditEventHelper.auditEvent("FAVOURITE", properties);
     }
 
     public boolean isFavourite(@NonNull final String digest) {

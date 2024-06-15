@@ -46,9 +46,9 @@ android {
         applicationId "com.github.jameshnsears.quoteunquote"
 
         // changelog version | min sdk | target sdk
-        versionCode 1692434
+        versionCode 1702434
         // semantic versioning
-        versionName "4.39.0"
+        versionName "4.40.0"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -207,31 +207,30 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.5.0'
     androidTestImplementation 'androidx.test:runner:1.5.2'
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.3.0'
-    androidTestImplementation 'io.mockk:mockk-android:1.13.10'
+    androidTestImplementation 'io.mockk:mockk-android:1.13.11'
 
     annotationProcessor 'androidx.room:room-compiler:2.6.1'
 
-    debugImplementation 'androidx.fragment:fragment-testing:1.7.0'
+    debugImplementation 'androidx.fragment:fragment-testing:1.8.0'
     debugImplementation 'androidx.test:core-ktx:1.5.0'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.14'
 
-    googleplayImplementation 'com.google.firebase:firebase-analytics:22.0.0'
-    googleplayImplementation 'com.google.firebase:firebase-crashlytics:19.0.0'
+    googleplayImplementation platform('com.google.firebase:firebase-bom:33.1.0')
 
     implementation 'androidx.activity:activity-ktx:1.9.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.core:core-ktx:1.13.1'
-    implementation 'androidx.databinding:databinding-runtime:8.4.0'
+    implementation 'androidx.databinding:databinding-runtime:8.5.0'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.room:room-guava:2.6.1'
     implementation 'androidx.room:room-runtime:2.6.1'
     implementation 'androidx.room:room-rxjava2:2.6.1'
     implementation 'com.github.skydoves:colorpickerpreference:2.0.6'
     implementation 'com.google.android.material:material:1.12.0'
-    implementation 'com.google.code.gson:gson:2.10.1'
-    implementation 'com.google.guava:guava:33.2.0-jre'
+    implementation 'com.google.code.gson:gson:2.11.0'
+    implementation 'com.google.guava:guava:33.2.1-jre'
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.2.0'
     implementation 'com.jakewharton.timber:timber:5.0.1'
     implementation 'com.squareup.okhttp3:okhttp:4.12.0'
@@ -241,7 +240,6 @@ dependencies {
     implementation 'net.pwall.json:json-kotlin-schema:0.47'
     implementation 'org.apache.commons:commons-csv:1.10.0'
     implementation 'org.jsoup:jsoup:1.17.2'
-    implementation platform('com.google.firebase:firebase-bom:33.0.0')
     implementation project(path: ':cloudLib')
     implementation project(path: ':utilsLib')
 
@@ -251,11 +249,11 @@ dependencies {
     testImplementation 'androidx.test.ext:junit:1.1.5'
     testImplementation 'androidx.test:rules:1.5.0'
     testImplementation 'ch.qos.logback:logback-classic:1.5.6'
-    testImplementation 'com.google.guava:guava:33.2.0-jre'
-    testImplementation 'io.mockk:mockk:1.13.10'
+    testImplementation 'com.google.guava:guava:33.2.1-jre'
+    testImplementation 'io.mockk:mockk:1.13.11'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1'
-    testImplementation 'org.robolectric:robolectric:4.12.1'
+    testImplementation 'org.robolectric:robolectric:4.12.2'
 }
 
 repositories {

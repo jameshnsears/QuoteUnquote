@@ -34,14 +34,12 @@ import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentQuotationsTabFilterBinding;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 import com.github.jameshnsears.quoteunquote.utils.ImportHelper;
-import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -251,12 +249,6 @@ public class QuotationsFilterFragment extends FragmentCommon {
         this.fragmentQuotationsTabFilterBinding.radioButtonAll.setChecked(enabled);
 
         final String editTextKeywords = quotationsPreferences.getContentSelectionAllExclusion();
-
-        if (enabled && editTextKeywords.length() > 0) {
-            final ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
-            properties.put("Text", editTextKeywords);
-            AuditEventHelper.auditEvent("EXCLUSIONS", properties);
-        }
 
         fragmentQuotationsTabFilterBinding.editTextResultsExclusion.setText(editTextKeywords);
 
@@ -752,11 +744,6 @@ public class QuotationsFilterFragment extends FragmentCommon {
                         ));
 
                 if (!quotationsPreferences.getContentSelectionAuthor().equals(author)) {
-                    Timber.d("author=%s", author);
-                    final ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
-                    properties.put("Author", author);
-                    AuditEventHelper.auditEvent("AUTHOR", properties);
-
                     quotationsPreferences.setContentSelectionAuthor(author);
                 }
             }

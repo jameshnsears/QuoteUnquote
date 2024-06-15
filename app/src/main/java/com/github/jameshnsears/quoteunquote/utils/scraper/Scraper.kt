@@ -17,7 +17,7 @@ class Scraper {
         try {
             val response = OkHttpClient().newCall(requestBuilder(url)).execute()
             val html = response.body?.string()
-            return Jsoup.parse(html)
+            return Jsoup.parse(html!!)
         } catch (e: Exception) {
             Timber.e("scraper: Exception=%s", e.message)
             throw ScraperUrlException(e.message)

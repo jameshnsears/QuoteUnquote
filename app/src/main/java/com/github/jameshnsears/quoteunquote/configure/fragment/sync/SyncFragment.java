@@ -125,7 +125,8 @@ public class SyncFragment extends FragmentCommon {
                 if (intent.getAction().equals(CLOUD_SERVICE_COMPLETED)) {
                     enableUI(true);
 
-                    alignLocalCodeWithRestoredcode();
+                    alignLocalCodeWithRestoredCode();
+                    alignCloudBackup();
                 }
             }
         };
@@ -148,6 +149,8 @@ public class SyncFragment extends FragmentCommon {
             @NonNull final View view, @NonNull final Bundle savedInstanceState) {
         setSyncFields();
 
+        setLastSuccessfulBackupTimestamp();
+
         setLocalCode();
 
         createListenerRadioGoogleCloud();
@@ -155,6 +158,8 @@ public class SyncFragment extends FragmentCommon {
         createListenerButtonBackup();
         createListenerButtonRestore();
         createListenerButtonNewCode();
+
+        createListenerSwitchAutoCloudBackup();
 
         handleDeviceBackupResult();
         handleDeviceRestoreResult();
@@ -185,6 +190,12 @@ public class SyncFragment extends FragmentCommon {
             fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(false);
             fragmentSyncBinding.editTextRemoteCodeValue.setText("");
         }
+
+        if (syncPreferences.getAutoCloudBackup()) {
+            fragmentSyncBinding.switchAutoCloudBackup.setChecked(true);
+        } else {
+            fragmentSyncBinding.switchAutoCloudBackup.setChecked(false);
+        }
     }
 
     private void createListenerRadioGoogleCloud() {
@@ -214,6 +225,16 @@ public class SyncFragment extends FragmentCommon {
             }
         });
     }
+
+    protected void setLastSuccessfulBackupTimestamp() {
+        fragmentSyncBinding.textViewLastSuccessfulBackupTimestamp.setText(
+                String.format(
+                        fragmentSyncBinding.textViewLastSuccessfulBackupTimestamp.getText().toString(),
+                        syncPreferences.getLastSuccessfulCloudBackupTimestamp()
+                )
+        );
+    }
+
 
     protected void setLocalCode() {
         if ("".equals(syncPreferences.getTransferLocalCode())) {
@@ -332,7 +353,9 @@ public class SyncFragment extends FragmentCommon {
 
                                         DatabaseRepository.useInternalDatabase = true;
 
-                                        alignLocalCodeWithRestoredcode();
+                                        alignLocalCodeWithRestoredCode();
+
+                                        alignCloudBackup();
 
                                         Toast.makeText(
                                                 getContext(),
@@ -454,6 +477,14 @@ public class SyncFragment extends FragmentCommon {
         });
     }
 
+    protected void createListenerSwitchAutoCloudBackup() {
+        fragmentSyncBinding.switchAutoCloudBackup.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    Timber.d("%b", isChecked);
+                    syncPreferences.setAutoCloudBackup(isChecked);
+                }
+        );
+    }
+
     public void enableUI(boolean enableUI) {
         fragmentSyncBinding.radioButtonSyncGoogleCloud.setEnabled(enableUI);
         fragmentSyncBinding.radioButtonSyncDevice.setEnabled(enableUI);
@@ -474,11 +505,10 @@ public class SyncFragment extends FragmentCommon {
         }
     }
 
-    private void backupGoogleCloud() {
+    public void backupGoogleCloud() {
         final Intent serviceIntent = new Intent(getContext(), CloudServiceBackup.class);
         serviceIntent.putExtra(
                 "localCodeValue", fragmentSyncBinding.textViewLocalCodeValue.getText().toString());
-
         getContext().startService(serviceIntent);
     }
 
@@ -522,8 +552,12 @@ public class SyncFragment extends FragmentCommon {
         makeButtonAlpha(button, enabled);
     }
 
-    public void alignLocalCodeWithRestoredcode() {
+    public void alignLocalCodeWithRestoredCode() {
         fragmentSyncBinding.textViewLocalCodeValue.setText(syncPreferences.getTransferLocalCode());
         fragmentSyncBinding.editTextRemoteCodeValue.setText("");
+    }
+
+    public void alignCloudBackup() {
+        fragmentSyncBinding.switchAutoCloudBackup.setChecked(syncPreferences.getAutoCloudBackup());
     }
 }

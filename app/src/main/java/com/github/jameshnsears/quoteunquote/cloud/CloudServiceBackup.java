@@ -10,9 +10,6 @@ import androidx.annotation.NonNull;
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteModel;
 import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.fragment.sync.SyncFragment;
-import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
-
-import java.util.concurrent.ConcurrentHashMap;
 
 import timber.log.Timber;
 
@@ -45,12 +42,11 @@ public class CloudServiceBackup extends CloudService {
                     // "large" amounts of data can not be sent as an Intent extra
                     QuoteUnquoteModel quoteUnquoteModel = new QuoteUnquoteModel(-1, context);
                     if (cloudTransfer.backup(quoteUnquoteModel.transferBackup(context))) {
+
                         handler.post(() -> Toast.makeText(
                                 context,
                                 context.getString(R.string.fragment_archive_backup_success),
                                 Toast.LENGTH_SHORT).show());
-
-                        auditBackup(intent);
                     } else {
                         handler.post(() -> Toast.makeText(
                                 context,
@@ -70,11 +66,5 @@ public class CloudServiceBackup extends CloudService {
         }
 
         return Service.START_NOT_STICKY;
-    }
-
-    private void auditBackup(@NonNull Intent intent) {
-        final ConcurrentHashMap<String, String> properties = new ConcurrentHashMap<>();
-        properties.put("code", intent.getStringExtra("localCodeValue"));
-        AuditEventHelper.auditEvent("BACKUP", properties);
     }
 }

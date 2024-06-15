@@ -23,7 +23,6 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.f
 import com.github.jameshnsears.quoteunquote.configure.fragment.sync.SyncFragment;
 import com.github.jameshnsears.quoteunquote.databinding.ActivityConfigureBinding;
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
-import com.github.jameshnsears.quoteunquote.utils.audit.AuditEventHelper;
 
 import timber.log.Timber;
 
@@ -51,7 +50,6 @@ public class ConfigureActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        // https://stackoverflow.com/questions/15658687/how-to-use-onresume
         Timber.d("onResume");
         super.onResume();
     }
@@ -103,7 +101,6 @@ public class ConfigureActivity extends AppCompatActivity {
     }
 
     protected void init() {
-        AuditEventHelper.createInstance(getApplication());
         final Intent intent = getIntent();
         final Bundle extras = intent.getExtras();
 

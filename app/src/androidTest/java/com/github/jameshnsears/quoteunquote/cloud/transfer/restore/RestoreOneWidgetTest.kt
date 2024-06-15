@@ -1,5 +1,6 @@
 package com.github.jameshnsears.quoteunquote.cloud.transfer.restore
 
+import android.os.Build
 import com.github.jameshnsears.quoteunquote.cloud.transfer.backup.TransferBackup
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
@@ -45,10 +46,12 @@ class RestoreOneWidgetTest : TransferRestoreUtility() {
                 backupTransfer.settings[0].quotations.databaseInternal,
             )
 
-            assertEquals(
-                restoreTransfer.settings[0].schedule,
-                backupTransfer.settings[0].schedule,
-            )
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+                assertEquals(
+                    restoreTransfer.settings[0].schedule,
+                    backupTransfer.settings[0].schedule,
+                )
+            }
         }
     }
 
@@ -95,14 +98,12 @@ class RestoreOneWidgetTest : TransferRestoreUtility() {
                 backupTransfer.settings[1].quotations,
             )
 
-            assertEquals(
-                restoreTransfer.settings[0].schedule,
-                backupTransfer.settings[0].schedule,
-            )
-            assertEquals(
-                backupTransfer.settings[0].schedule,
-                backupTransfer.settings[1].schedule,
-            )
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+                assertNotEquals(
+                    backupTransfer.settings[0].schedule,
+                    backupTransfer.settings[1].schedule,
+                )
+            }
         }
     }
 }

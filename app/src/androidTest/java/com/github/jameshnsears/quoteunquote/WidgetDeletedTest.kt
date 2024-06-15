@@ -7,8 +7,9 @@ import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import io.mockk.every
 import io.mockk.spyk
 import junit.framework.TestCase.assertEquals
+import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.Matchers.`is`
 import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class WidgetDeletedTest : QuoteUnquoteModelUtility() {
@@ -31,13 +32,17 @@ class WidgetDeletedTest : QuoteUnquoteModelUtility() {
                     0,
                     context,
                 )
-            assertTrue(syncPreferences.transferLocalCode.length == 10)
+            assertThat(syncPreferences.transferLocalCode.length, `is`(10))
+
+            assertEquals("N/A", syncPreferences.lastSuccessfulCloudBackupTimestamp)
+            assertFalse(syncPreferences.autoCloudBackup)
+
             quoteUnquoteWidget.onDeleted(context, intArrayOf(WidgetIdHelper.WIDGET_ID_01))
 
             // assert
-            assertTrue(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01) == 0)
-            assertTrue(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_02) == 3)
-            assertTrue(quoteUnquoteModelDouble.countFavourites().blockingGet() == 1)
+            assertThat(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01), `is`(0))
+            assertThat(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_02), `is`(3))
+            assertThat(quoteUnquoteModelDouble.countFavourites().blockingGet(), `is`(1))
 
             assertEquals(
                 0,
@@ -57,19 +62,19 @@ class WidgetDeletedTest : QuoteUnquoteModelUtility() {
         setDefaultQuotationAll(WidgetIdHelper.WIDGET_ID_01)
         setDefaultQuotationAuthor(WidgetIdHelper.WIDGET_ID_01)
         setDefaultQuotationSearch(WidgetIdHelper.WIDGET_ID_01)
-        assertTrue(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01) == 3)
+        assertThat(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01), `is`(3))
 
         setDefaultQuotationAll(WidgetIdHelper.WIDGET_ID_02)
         setDefaultQuotationAuthor(WidgetIdHelper.WIDGET_ID_02)
         setDefaultQuotationSearch(WidgetIdHelper.WIDGET_ID_02)
-        assertTrue(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_02) == 3)
+        assertThat(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_02), `is`(3))
 
         markDefaultQuotationAsFavourite()
-        assertTrue(quoteUnquoteModelDouble.countFavourites().blockingGet() == 1)
+        assertThat(quoteUnquoteModelDouble.countFavourites().blockingGet(), `is`(1))
 
         // double check only 1 still a favourite
         markDefaultQuotationAsFavourite()
-        assertTrue(quoteUnquoteModelDouble.countFavourites().blockingGet() == 1)
+        assertThat(quoteUnquoteModelDouble.countFavourites().blockingGet(), `is`(1))
     }
 
     private fun setupSharedPreferences() {

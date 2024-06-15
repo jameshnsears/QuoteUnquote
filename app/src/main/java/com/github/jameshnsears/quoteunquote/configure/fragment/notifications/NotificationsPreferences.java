@@ -16,10 +16,52 @@ public class NotificationsPreferences extends PreferencesFacade {
     public static final String EVENT_DEVICE_UNLOCK = "EVENT_DEVICE_UNLOCK";
     public static final String EVENT_DAILY_MINUTE = "EVENT_DAILY_MINUTE";
     public static final String EVENT_DAILY_HOUR = "EVENT_DAILY_HOUR";
-    public static final String EVENT_BIHOURLY = "EVENT_BIHOURLY";
+    public static final String EVENT_CUSTOMISABLE_INTERVAL = "EVENT_CUSTOMISABLE_INTERVAL";
+    public static final String EVENT_CUSTOMISABLE_INTERVAL_HOUR_FROM = "EVENT_CUSTOMISABLE_INTERVAL_HOUR_FROM";
+    public static final String EVENT_CUSTOMISABLE_INTERVAL_HOUR_TO = "EVENT_CUSTOMISABLE_INTERVAL_HOUR_TO";
+    public static final String EVENT_CUSTOMISABLE_INTERVAL_HOURS = "EVENT_CUSTOMISABLE_INTERVAL_HOURS";
 
     public NotificationsPreferences(int widgetId, @NonNull Context applicationContext) {
         super(widgetId, applicationContext);
+    }
+
+    public int getCustomisableIntervalHours() {
+        int hours = this.preferenceHelper.getPreferenceInt(this.getPreferenceKey(NotificationsPreferences.EVENT_CUSTOMISABLE_INTERVAL_HOURS));
+        if (hours == -1) {
+            return 1;
+        } else {
+            return hours;
+        }
+    }
+
+    public void setCustomisableIntervalHours(int value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(NotificationsPreferences.EVENT_CUSTOMISABLE_INTERVAL_HOURS), value);
+    }
+
+    public int getCustomisableIntervalHourTo() {
+        int hour = this.preferenceHelper.getPreferenceInt(this.getPreferenceKey(NotificationsPreferences.EVENT_CUSTOMISABLE_INTERVAL_HOUR_TO));
+        if (hour == -1) {
+            return 23;
+        } else {
+            return hour;
+        }
+    }
+
+    public void setCustomisableIntervalHourTo(int value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(NotificationsPreferences.EVENT_CUSTOMISABLE_INTERVAL_HOUR_TO), value);
+    }
+
+    public int getCustomisableIntervalHourFrom() {
+        int hour = this.preferenceHelper.getPreferenceInt(this.getPreferenceKey(NotificationsPreferences.EVENT_CUSTOMISABLE_INTERVAL_HOUR_FROM));
+        if (hour == -1) {
+            return 0;
+        } else {
+            return hour;
+        }
+    }
+
+    public void setCustomisableIntervalHourFrom(int value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(NotificationsPreferences.EVENT_CUSTOMISABLE_INTERVAL_HOUR_FROM), value);
     }
 
     public boolean getEventNextRandom() {
@@ -78,12 +120,12 @@ public class NotificationsPreferences extends PreferencesFacade {
         this.preferenceHelper.setPreference(this.getPreferenceKey(NotificationsPreferences.EVENT_DEVICE_UNLOCK), value);
     }
 
-    public boolean getEventBihourly() {
-        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(NotificationsPreferences.EVENT_BIHOURLY), false);
+    public boolean getCustomisableInterval() {
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(NotificationsPreferences.EVENT_CUSTOMISABLE_INTERVAL), false);
     }
 
-    public void setEventBihourly(boolean value) {
-        this.preferenceHelper.setPreference(this.getPreferenceKey(NotificationsPreferences.EVENT_BIHOURLY), value);
+    public void setCustomisableInterval(boolean value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(NotificationsPreferences.EVENT_CUSTOMISABLE_INTERVAL), value);
     }
 
     public int getEventDailyTimeMinute() {

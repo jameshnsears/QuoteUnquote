@@ -34,7 +34,7 @@ class NotificationsFragmentPreferencesTest : ShadowLoggingHelper() {
                     fragment.notificationsPreferences?.eventDailyTimeMinute,
                     IsEqual.equalTo(0),
                 )
-                assertTrue(fragment.notificationsPreferences?.eventBihourly == false)
+                assertTrue(fragment.notificationsPreferences?.customisableInterval == false)
             }
         }
     }

@@ -31,14 +31,12 @@ public class ScraperAlarm {
         quotationsPreferences = new QuotationsPreferences(theWidgetId, widgetContext);
     }
 
-    @SuppressLint("MissingPermission")
+    @SuppressLint({"MissingPermission", "ScheduleExactAlarm"})
     public void setAlarm() {
         if (quotationsPreferences.getDatabaseExternalWeb()) {
 
             Calendar calendar = Calendar.getInstance();
             int currentMinute = calendar.get(Calendar.MINUTE);
-
-//            calendar.add(Calendar.MINUTE, 1);
 
             if (currentMinute == 0 || currentMinute == 30) {
                 calendar.add(Calendar.MINUTE, 30);

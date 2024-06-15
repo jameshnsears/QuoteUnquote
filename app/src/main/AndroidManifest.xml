@@ -52,8 +52,7 @@
 
         <activity
                 android:name=".configure.ConfigureActivityDouble"
-                android:exported="true">
-        </activity>
+                android:exported="true"></activity>
 
         <service
                 android:name=".listview.ListViewService"

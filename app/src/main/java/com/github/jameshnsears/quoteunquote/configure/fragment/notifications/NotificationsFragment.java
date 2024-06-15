@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -33,7 +35,11 @@ import com.github.jameshnsears.quoteunquote.databinding.FragmentNotificationsBin
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
+
+import timber.log.Timber;
 
 @Keep
 public class NotificationsFragment extends FragmentCommon {
@@ -61,7 +67,6 @@ public class NotificationsFragment extends FragmentCommon {
                     fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(true);
                     fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(true);
                     fragmentNotificationsBinding.textViewNotificationSizeWarning1.setEnabled(true);
-                    fragmentNotificationsBinding.textViewNotificationSizeWarning2.setEnabled(true);
                 }
 
                 ConfigureActivity.launcherInvoked = false;
@@ -111,7 +116,11 @@ public class NotificationsFragment extends FragmentCommon {
 
         handleSpecialPermissionForExactAlarm();
 
-        setBihourly();
+        setCustomisableInterval();
+        setCustomisableIntervalSliderHours();
+        setCustomisableIntervalSpinnerHours(
+                notificationsPreferences.getCustomisableIntervalHourTo() - notificationsPreferences.getCustomisableIntervalHourFrom()
+        );
 
         setSpecificTime();
 
@@ -123,7 +132,9 @@ public class NotificationsFragment extends FragmentCommon {
 
         createListenerDeviceUnlock();
 
-        createListenerBihourly();
+        createListenerCustomisableInterval();
+        createListenerCustomisableIntervalSliderHours();
+        createListenerCustomisableIntervalSpinnerHours();
 
         createListenerSpecificTime();
         createListenerDaily();
@@ -137,8 +148,8 @@ public class NotificationsFragment extends FragmentCommon {
 
             AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
             if (!alarmManager.canScheduleExactAlarms()) {
-                fragmentNotificationsBinding.checkBoxBihourly.setChecked(false);
-                notificationsPreferences.setEventBihourly(false);
+                fragmentNotificationsBinding.checkBoxCustomisableInterval.setChecked(false);
+                notificationsPreferences.setCustomisableInterval(false);
 
                 fragmentNotificationsBinding.checkBoxDailyAt.setChecked(false);
                 notificationsPreferences.setEventDaily(false);
@@ -154,8 +165,8 @@ public class NotificationsFragment extends FragmentCommon {
     }
 
     private void handleSpecialPermissionForExactAlarmCommon() {
-        if (fragmentNotificationsBinding.checkBoxBihourly.isChecked()) {
-            notificationsPreferences.setEventBihourly(true);
+        if (fragmentNotificationsBinding.checkBoxCustomisableInterval.isChecked()) {
+            notificationsPreferences.setCustomisableInterval(true);
         }
 
         if (fragmentNotificationsBinding.checkBoxDailyAt.isChecked()) {
@@ -231,13 +242,11 @@ public class NotificationsFragment extends FragmentCommon {
 
             fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(true);
             fragmentNotificationsBinding.textViewNotificationSizeWarning1.setEnabled(true);
-            fragmentNotificationsBinding.textViewNotificationSizeWarning2.setEnabled(true);
         } else {
             fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(false);
 
             fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(false);
             fragmentNotificationsBinding.textViewNotificationSizeWarning1.setEnabled(false);
-            fragmentNotificationsBinding.textViewNotificationSizeWarning2.setEnabled(false);
         }
 
         fragmentNotificationsBinding.switchExcludeSourceFromNotification.setChecked(notificationsPreferences.getExcludeSourceFromNotification());
@@ -276,7 +285,6 @@ public class NotificationsFragment extends FragmentCommon {
                     fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(false);
                     fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(false);
                     fragmentNotificationsBinding.textViewNotificationSizeWarning1.setEnabled(false);
-                    fragmentNotificationsBinding.textViewNotificationSizeWarning2.setEnabled(false);
                     break;
 
                 case R.id.radioButtonWhereAsNotification:
@@ -297,7 +305,6 @@ public class NotificationsFragment extends FragmentCommon {
                     fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(true);
                     fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(true);
                     fragmentNotificationsBinding.textViewNotificationSizeWarning1.setEnabled(true);
-                    fragmentNotificationsBinding.textViewNotificationSizeWarning2.setEnabled(true);
                     break;
             }
         });
@@ -361,30 +368,148 @@ public class NotificationsFragment extends FragmentCommon {
         }
     }
 
-    private void createListenerBihourly() {
-        final CheckBox checkBoxBihourly = fragmentNotificationsBinding.checkBoxBihourly;
-        checkBoxBihourly.setOnCheckedChangeListener((buttonView, isChecked) -> {
+    private void createListenerCustomisableInterval() {
+        final CheckBox checkBoxCustomisableInterval = fragmentNotificationsBinding.checkBoxCustomisableInterval;
+        checkBoxCustomisableInterval.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
                 if (!alarmManager.canScheduleExactAlarms()) {
                     ConfigureActivity.launcherInvoked = true;
                     startActivity(new Intent(ACTION_REQUEST_SCHEDULE_EXACT_ALARM));
                 } else {
-                    createListenerBihourlyCommon(isChecked);
+                    notificationsPreferences.setCustomisableInterval(isChecked);
+                    setCustomisableInterval();
                 }
             } else {
-                createListenerBihourlyCommon(isChecked);
+                notificationsPreferences.setCustomisableInterval(isChecked);
+                setCustomisableInterval();
+            }
+
+            Timber.d("%b", isChecked);
+        });
+    }
+
+    private void setCustomisableInterval() {
+        Boolean enabled = notificationsPreferences.getCustomisableInterval();
+
+        fragmentNotificationsBinding.checkBoxCustomisableInterval.setChecked(enabled);
+
+        fragmentNotificationsBinding.textViewActivetime.setEnabled(enabled);
+        fragmentNotificationsBinding.sliderActiveHours.setEnabled(enabled);
+        fragmentNotificationsBinding.sliderActiveHours.setEnabled(enabled);
+        fragmentNotificationsBinding.sliderActiveHours.setClickable(enabled);
+        fragmentNotificationsBinding.sliderActiveHours.setFocusable(enabled);
+
+        fragmentNotificationsBinding.textViewCustomisableIntervalEvery.setEnabled(enabled);
+        fragmentNotificationsBinding.spinnerCustomisableIntervalHour.setEnabled(enabled);
+        fragmentNotificationsBinding.textViewCustomisableIntervalEveryHours.setEnabled(enabled);
+
+        notificationsPreferences.setCustomisableInterval(enabled);
+    }
+
+    private void setCustomisableIntervalSliderHours() {
+        Integer from = notificationsPreferences.getCustomisableIntervalHourFrom();
+        Integer to = notificationsPreferences.getCustomisableIntervalHourTo();
+
+        int[] hoursArray = getResources().getIntArray(R.array.fragment_notifications_quiet_time_array);
+        if (from == -1) {
+            from = hoursArray[0];
+        }
+        if (to == -1) {
+            to = hoursArray[1];
+        }
+
+        fragmentNotificationsBinding.sliderActiveHours.setValues(from.floatValue(), to.floatValue());
+
+        notificationsPreferences.setCustomisableIntervalHourFrom(from);
+        notificationsPreferences.setCustomisableIntervalHourTo(to);
+    }
+
+    private void createListenerCustomisableIntervalSliderHours() {
+        fragmentNotificationsBinding.sliderActiveHours.addOnChangeListener((slider, value, fromUser) -> {
+            List<Float> values = slider.getValues();
+            int from = values.get(0).intValue();
+            int to = values.get(1).intValue();
+
+            Timber.d("%d", from);
+            notificationsPreferences.setCustomisableIntervalHourFrom(from);
+
+            Timber.d("%d", to);
+            notificationsPreferences.setCustomisableIntervalHourTo(to);
+
+            setCustomisableIntervalSpinnerHours(
+                    notificationsPreferences.getCustomisableIntervalHourTo() - notificationsPreferences.getCustomisableIntervalHourFrom()
+            );
+        });
+    }
+
+    private void createListenerCustomisableIntervalSpinnerHours() {
+        fragmentNotificationsBinding.spinnerCustomisableIntervalHour.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                int hourPosition = fragmentNotificationsBinding.spinnerCustomisableIntervalHour.getSelectedItemPosition();
+                int[] hourArray = getResources().getIntArray(R.array.fragment_notifications_customisable_hour);
+
+                Timber.d("spinner.selection=%d", hourArray[hourPosition]);
+                notificationsPreferences.setCustomisableIntervalHours(hourArray[hourPosition]);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
             }
         });
     }
 
-    private void createListenerBihourlyCommon(boolean isChecked) {
-        if (notificationsPreferences.getEventBihourly() != isChecked) {
-            notificationsPreferences.setEventBihourly(isChecked);
-        }
-    }
+    private void setCustomisableIntervalSpinnerHours(int sliderHours) {
+        Timber.d("spinner.sliderHours=0..%d", sliderHours);
 
-    private void setBihourly() {
-        fragmentNotificationsBinding.checkBoxBihourly.setChecked(notificationsPreferences.getEventBihourly());
+        int[] sizeArray = getResources().getIntArray(R.array.fragment_notifications_customisable_hour);
+        List<String> spinnerArray = new ArrayList<>();
+
+        /*
+        0       1
+        1       1       2
+        2       1               3
+        3       1       2               4
+        4       1
+        5       1       2       3
+        6       1
+        7       1       2               4
+         */
+        if (sliderHours >= 0) {
+            spinnerArray.add("" + sizeArray[0]);
+        }
+
+        if (sliderHours >= 1) {
+            spinnerArray.add("" + sizeArray[1]);
+        }
+
+        if (sliderHours >= 2) {
+            spinnerArray.add("" + sizeArray[2]);
+        }
+
+        if (sliderHours >= 3) {
+            spinnerArray.add("" + sizeArray[3]);
+        }
+
+        Timber.d("spinner.spinnerArray=%s", spinnerArray.toString());
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                getContext(),
+                R.layout.spinner_item,
+                spinnerArray);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        fragmentNotificationsBinding.spinnerCustomisableIntervalHour.setAdapter(adapter);
+
+        if (sliderHours < notificationsPreferences.getCustomisableIntervalHours()) {
+            fragmentNotificationsBinding.spinnerCustomisableIntervalHour.setSelection(0);
+            notificationsPreferences.setCustomisableIntervalHours(1);
+        } else {
+            int savedHours = notificationsPreferences.getCustomisableIntervalHours();
+            fragmentNotificationsBinding.spinnerCustomisableIntervalHour.setSelection(
+                    savedHours - 1
+            );
+        }
     }
 }

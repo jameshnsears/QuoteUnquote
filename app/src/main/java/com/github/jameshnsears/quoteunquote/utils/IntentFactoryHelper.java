@@ -45,9 +45,10 @@ public class IntentFactoryHelper {
     @NonNull
     public static final String DAILY_ALARM = "DAILY_ALARM";
     @NonNull
-    public static final String BIHOURLY_ALARM = "BIHOURLY_ALARM";
+    public static final String CUSTOMISABLE_INTERVAL_ALARM = "CUSTOMISABLE_INTERVAL_ALARM";
     @NonNull
-    public static final String SCRAPER_ALARM = "WEB_PAGE_ALARM";
+    public static final String SCRAPER_ALARM = "SCRAPER_ALARM";
+    public static final String AUTO_CLOUD_BACKUP_ALARM = "AUTO_CLOUD_BACKUP_ALARM";
     @NonNull
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 

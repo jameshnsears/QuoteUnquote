@@ -95,13 +95,9 @@
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
                         android:paddingStart="10dp"
+                        android:paddingTop="5dp"
                         android:paddingEnd="10dp">
 
-                    <!--
-                     Comment out .Slider to preview due to defect in:
-                     Android Studio Dolphin | 2021.3.1 Patch 1
-                     Build #AI-213.7172.25.2113.9123335, built on September 30, 2022
-                     -->
                     <com.google.android.material.slider.Slider
                             android:id="@+id/seekBarTransparency"
                             android:layout_width="match_parent"
@@ -286,7 +282,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingTop="10dp">
+                    android:paddingTop="15dp">
 
                 <Button
                         android:id="@+id/buttonAuthor"
@@ -322,7 +318,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingTop="10dp">
+                    android:paddingTop="15dp">
 
                 <Button
                         android:id="@+id/buttonPosition"
