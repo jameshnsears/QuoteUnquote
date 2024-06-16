@@ -109,7 +109,7 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
         createExternalEditTextChangeListeners();
 
 //        if (BuildConfig.DEBUG) {
-        String url = "https://www.bible.com/verse-of-the-day";
+//        String url = "https://www.bible.com/verse-of-the-day";
 //            if (BuildConfig.DATABASE_QUOTATIONS.contains(".db.prod")) {
 //                // javalin - Listening on http://localhost:7070/
 //                url = "http://10.0.2.2:7070/verse-of-the-day";
@@ -457,7 +457,5 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
     private void updateQuotationsUI() {
         QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, getContext());
         quotationsPreferences.setContentSelection(ContentSelection.ALL);
-        quotationsPreferences.setContentSelectionAuthorCount(-1);
-        quotationsPreferences.setContentSelectionAuthor("");
     }
 }

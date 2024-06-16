@@ -225,8 +225,10 @@
     <string name="fragment_archive_internet_missing">Check network / wait &amp; retry</string>
     <string name="fragment_archive_sync_to_cloud_on_favourite">Auto cloud backup</string>
     <string name="fragment_archive_sync_to_cloud_on_favourite_most_recent">Last backup: %s</string>
+    <string name="fragment_archive_sync_to_cloud_on_favourite_info_0">\u2022 The Alarm &amp; reminders permission needs to be granted for this feature</string>
     <string name="fragment_archive_sync_to_cloud_on_favourite_info_1">\u2022 Each time you Favorite / Unfavourite</string>
     <string name="fragment_archive_sync_to_cloud_on_favourite_info_2">\u2022 Backup takes place after approximately 1 minute of app widget inactivity</string>
+
 
     <string name="widget_listview_quotation">Quotation</string>
     <string name="widget_listview_author">Source</string>

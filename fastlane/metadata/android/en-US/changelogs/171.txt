@@ -1,0 +1,3 @@
+&bull; Fix Auto cloud backup - now asks for permission if none already set
+&bull; Improve switching between Internal &amp; External always defaults to All
+&bull; Improve Notifications > Specific behaviour when Notification Permission first granted

@@ -1,6 +1,7 @@
 package com.github.jameshnsears.quoteunquote;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
@@ -22,7 +23,6 @@ import androidx.core.app.NotificationManagerCompat;
 import com.github.jameshnsears.quoteunquote.cloud.CloudService;
 import com.github.jameshnsears.quoteunquote.cloud.CloudServiceBackup;
 import com.github.jameshnsears.quoteunquote.cloud.CloudServiceRestore;
-import com.github.jameshnsears.quoteunquote.cloud.CloudTransfer;
 import com.github.jameshnsears.quoteunquote.cloud.CloudTransferHelper;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences;
 import com.github.jameshnsears.quoteunquote.configure.fragment.notifications.NotificationsPreferences;
@@ -45,12 +45,8 @@ import com.github.jameshnsears.quoteunquote.utils.scraper.ScraperData;
 import com.github.jameshnsears.quoteunquote.utils.sync.AutoCloudBackupAlarm;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import timber.log.Timber;
@@ -706,38 +702,16 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull final AutoCloudBackupAlarm autoCloudBackupAlarm) {
         Timber.d("autoCloudBackupAlarm.onReceiveAutoCloudBackupAlarm");
 
-        autoCloudBackupAlarm.resetAlarm();
-
-        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
-            CloudTransfer cloudTransfer = new CloudTransfer();
-
-            if (cloudTransfer.isInternetAvailable(context)) {
-                final QuoteUnquoteModel quoteUnquoteModel = new QuoteUnquoteModel(-1, context);
-                boolean result = cloudTransfer.backup(quoteUnquoteModel.transferBackup(context));
-
-                if (result) {
-                    Timber.d("autoCloudBackupAlarm.success");
-                    final SyncPreferences syncPreferences = new SyncPreferences(widgetId, context);
-
-                    final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    final Date now = new Date();
-                    final String formattedDate = formatter.format(now);
-
-                    Timber.d("autoCloudBackupAlarm.saveCloudBackupTimestamp: %s", formattedDate);
-
-                    syncPreferences.setLastSuccessfulCloudBackupTimestamp(formattedDate);
-                } else {
-                    Timber.d("autoCloudBackupAlarm.fail");
-                }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            if (!alarmManager.canScheduleExactAlarms()) {
+                SyncPreferences syncPreferences = new SyncPreferences(widgetId, context);
+                syncPreferences.setAutoCloudBackup(false);
+                return;
             }
-        });
-
-        try {
-            future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
         }
+
+        getQuoteUnquoteModel(widgetId, context).autoClobuBackup(widgetId, autoCloudBackupAlarm);
     }
 
     private void onReceiveScraperAlarm(

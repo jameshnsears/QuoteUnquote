@@ -74,6 +74,7 @@ public class QuotationsFragment extends FragmentCommon implements DialogInterfac
                     if (QuotationsFragmentStateAdapter.quotationsFilterFragment.disposables.size() == 0) {
                         QuotationsFragmentStateAdapter.quotationsFilterFragment.disposables = new CompositeDisposable();
                         QuotationsFragmentStateAdapter.quotationsFilterFragment.initUI();
+                        QuotationsFragmentStateAdapter.quotationsFilterFragment.setCard();
                     }
 
                 } else {

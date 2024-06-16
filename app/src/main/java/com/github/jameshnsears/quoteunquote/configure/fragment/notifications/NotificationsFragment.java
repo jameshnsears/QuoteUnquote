@@ -171,6 +171,8 @@ public class NotificationsFragment extends FragmentCommon {
 
         if (fragmentNotificationsBinding.checkBoxDailyAt.isChecked()) {
             notificationsPreferences.setEventDaily(true);
+            fragmentNotificationsBinding.specificTimeLayout.setEnabled(true);
+            fragmentNotificationsBinding.specificTime.setEnabled(true);
         }
     }
 
@@ -466,16 +468,6 @@ public class NotificationsFragment extends FragmentCommon {
         int[] sizeArray = getResources().getIntArray(R.array.fragment_notifications_customisable_hour);
         List<String> spinnerArray = new ArrayList<>();
 
-        /*
-        0       1
-        1       1       2
-        2       1               3
-        3       1       2               4
-        4       1
-        5       1       2       3
-        6       1
-        7       1       2               4
-         */
         if (sliderHours >= 0) {
             spinnerArray.add("" + sizeArray[0]);
         }

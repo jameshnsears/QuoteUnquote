@@ -272,6 +272,17 @@
                     app:drawableStartCompat="@drawable/ic_info_24" />
 
             <TextView
+                    android:id="@+id/textViewPermissionWarning"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/fragment_archive_sync_to_cloud_on_favourite_info_0"
+                    android:visibility="gone" />
+
+            <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="8dp"

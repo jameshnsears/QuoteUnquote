@@ -1,10 +1,15 @@
 package com.github.jameshnsears.quoteunquote.configure.fragment.sync;
 
+import static android.app.Activity.RESULT_OK;
+import static android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM;
+
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.view.LayoutInflater;
@@ -95,6 +100,25 @@ public class SyncFragment extends FragmentCommon {
         super.onResume();
 
         registerButtonIntentReceiver();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+
+            AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+            if (!alarmManager.canScheduleExactAlarms()) {
+                fragmentSyncBinding.switchAutoCloudBackup.setChecked(false);
+                syncPreferences.setAutoCloudBackup(false);
+            } else {
+                if (fragmentSyncBinding.switchAutoCloudBackup.isChecked()) {
+
+                    syncPreferences.setAutoCloudBackup(true);
+                } else {
+
+                    syncPreferences.setAutoCloudBackup(false);
+                }
+            }
+        }
+
+        Timber.d("syncPreferences.getAutoCloudBackup=%b", syncPreferences.getAutoCloudBackup());
     }
 
     private void registerButtonIntentReceiver() {
@@ -149,9 +173,9 @@ public class SyncFragment extends FragmentCommon {
             @NonNull final View view, @NonNull final Bundle savedInstanceState) {
         setSyncFields();
 
-        setLastSuccessfulBackupTimestamp();
-
         setLocalCode();
+
+        setLastSuccessfulBackup();
 
         createListenerRadioGoogleCloud();
         createListenerRadioDevice();
@@ -226,15 +250,18 @@ public class SyncFragment extends FragmentCommon {
         });
     }
 
-    protected void setLastSuccessfulBackupTimestamp() {
+    protected void setLastSuccessfulBackup() {
         fragmentSyncBinding.textViewLastSuccessfulBackupTimestamp.setText(
                 String.format(
                         fragmentSyncBinding.textViewLastSuccessfulBackupTimestamp.getText().toString(),
                         syncPreferences.getLastSuccessfulCloudBackupTimestamp()
                 )
         );
-    }
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            fragmentSyncBinding.textViewPermissionWarning.setVisibility(View.VISIBLE);
+        }
+    }
 
     protected void setLocalCode() {
         if ("".equals(syncPreferences.getTransferLocalCode())) {
@@ -277,7 +304,7 @@ public class SyncFragment extends FragmentCommon {
         storageAccessFrameworkActivityResultBackup = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 activityResult -> {
-                    if (activityResult.getResultCode() == Activity.RESULT_OK) {
+                    if (activityResult.getResultCode() == RESULT_OK) {
                         ParcelFileDescriptor parcelFileDescriptor = null;
                         FileOutputStream fileOutputStream = null;
                         try {
@@ -337,7 +364,7 @@ public class SyncFragment extends FragmentCommon {
                     } else {
 
                         try {
-                            if (activityResult.getResultCode() == Activity.RESULT_OK) {
+                            if (activityResult.getResultCode() == RESULT_OK) {
                                 try {
                                     final String jsonString = getRestoreJson(activityResult);
 
@@ -479,8 +506,21 @@ public class SyncFragment extends FragmentCommon {
 
     protected void createListenerSwitchAutoCloudBackup() {
         fragmentSyncBinding.switchAutoCloudBackup.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                    Timber.d("%b", isChecked);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+
+                        AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+                        if (!alarmManager.canScheduleExactAlarms()) {
+                            ConfigureActivity.launcherInvoked = true;
+                            startActivity(new Intent(ACTION_REQUEST_SCHEDULE_EXACT_ALARM));
+                        } else {
+                            syncPreferences.setAutoCloudBackup(isChecked);
+                        }
+
+                    } else {
                     syncPreferences.setAutoCloudBackup(isChecked);
+                }
+
+                    Timber.d("syncPreferences.getAutoCloudBackup=%b", syncPreferences.getAutoCloudBackup());
                 }
         );
     }

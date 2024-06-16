@@ -156,8 +156,6 @@ public class QuotationsFilterFragment extends FragmentCommon {
         setCard();
     }
 
-    ////////////////
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -181,8 +179,6 @@ public class QuotationsFilterFragment extends FragmentCommon {
             this.disposableObserverSearch.dispose();
         }
     }
-
-    ////////////////
 
     public void initUI() {
         initCardCounts();
@@ -218,8 +214,6 @@ public class QuotationsFilterFragment extends FragmentCommon {
                 getResources().getString(R.string.fragment_quotations_selection_search,
                         0));
     }
-
-    ////////////////
 
     public void setCard() {
         setCardAll(false);
@@ -434,8 +428,6 @@ public class QuotationsFilterFragment extends FragmentCommon {
         forceEnableButtons(quotationsPreferences.getContentSelectionSearchForceEnableButtons());
     }
 
-    ////////////////
-
     private void alignCards() {
         int countFavourites = quoteUnquoteModel.countFavouritesWithoutRx();
         alignCardSource();
@@ -492,8 +484,6 @@ public class QuotationsFilterFragment extends FragmentCommon {
             }
         }
     }
-
-    ////////////////
 
     private void setDisposableCardAllCount() {
         fragmentQuotationsTabFilterBinding.editTextResultsExclusion.setText(
@@ -692,8 +682,6 @@ public class QuotationsFilterFragment extends FragmentCommon {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(disposableObserverSearch);
     }
-
-    ////////////////
 
     private void createListenerCardAllRadio() {
         final RadioButton radioButtonAll = this.fragmentQuotationsTabFilterBinding.radioButtonAll;
@@ -985,8 +973,6 @@ public class QuotationsFilterFragment extends FragmentCommon {
             }
         }
     }
-
-    ////////////////
 
     private ActivityResultLauncher<Intent> activityExport() {
         return registerForActivityResult(
