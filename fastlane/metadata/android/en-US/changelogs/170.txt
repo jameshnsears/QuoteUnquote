@@ -1,8 +1,0 @@
-&bull; Auto cloud backup
-&bull; Customisable Interval
-&bull; Improve widget layout without toolbar buttons
-&bull; Remove auditing (keep crashlytics)
-&bull; Improve instructions
-&bull; Update database
-&bull; Minor refactorings
-&bull; Bump: dependencies; IDE - Android Studio Jellyfish | 2023.3.1 Patch 2

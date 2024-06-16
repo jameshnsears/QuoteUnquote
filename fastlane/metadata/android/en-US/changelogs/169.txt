@@ -1,5 +1,0 @@
-&bull; Tidy up instructions, especially External Web page usage
-&bull; Make Next, sequential action recycle (as well as Next, random)
-&bull; Update quotations database
-&bull; Move to Android Studio Jellyfish | 2023.3.1
-&bull; Bump: dependencies; GitHub Actions
