@@ -833,22 +833,29 @@ public class QuoteUnquoteModel {
             CloudTransfer cloudTransfer = new CloudTransfer();
 
             if (cloudTransfer.isInternetAvailable(context)) {
-                final QuoteUnquoteModel quoteUnquoteModel = new QuoteUnquoteModel(-1, context);
-                boolean result = cloudTransfer.backup(quoteUnquoteModel.transferBackup(context));
+                int retryAttempts = 3;
 
-                if (result) {
-                    Timber.d("autoCloudBackupAlarm.success");
-                    final SyncPreferences syncPreferences = new SyncPreferences(widgetId, context);
+                while (retryAttempts > 0) {
+                    final QuoteUnquoteModel quoteUnquoteModel = new QuoteUnquoteModel(-1, context);
+                    boolean result = cloudTransfer.backup(quoteUnquoteModel.transferBackup(context));
 
-                    final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    final Date now = new Date();
-                    final String formattedDate = formatter.format(now);
+                    if (result) {
+                        Timber.d("autoCloudBackupAlarm.success");
+                        final SyncPreferences syncPreferences = new SyncPreferences(widgetId, context);
 
-                    Timber.d("autoCloudBackupAlarm.saveCloudBackupTimestamp: %s", formattedDate);
+                        final SimpleDateFormat formatter = new SimpleDateFormat("EEEE, HH:mm:ss");
+                        final Date now = new Date();
+                        final String formattedDate = formatter.format(now);
 
-                    syncPreferences.setLastSuccessfulCloudBackupTimestamp(formattedDate);
-                } else {
-                    Timber.d("autoCloudBackupAlarm.fail");
+                        Timber.d("autoCloudBackupAlarm.saveCloudBackupTimestamp: %s", formattedDate);
+
+                        syncPreferences.setLastSuccessfulCloudBackupTimestamp(formattedDate);
+
+                        retryAttempts = 0;
+                    } else {
+                        Timber.d("autoCloudBackupAlarm.fail: retryAttempts=%d", retryAttempts);
+                        retryAttempts --;
+                    }
                 }
             }
         });

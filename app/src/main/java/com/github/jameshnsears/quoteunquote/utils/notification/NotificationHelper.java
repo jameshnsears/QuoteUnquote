@@ -35,7 +35,7 @@ public class NotificationHelper {
     @Nullable
     String notificationChannelEventDaily;
     @Nullable
-    String notificationChannelBihourly;
+    String notificationChannelCustomisableInterval;
 
     public NotificationHelper(@NonNull Context context) {
         NotificationManager notificationManager =
@@ -53,9 +53,9 @@ public class NotificationHelper {
                 context.getString(R.string.notification_channel_specific_time),
                 channelGroupId);
 
-        notificationChannelBihourly = createNotificationChannel(
+        notificationChannelCustomisableInterval = createNotificationChannel(
                 context,
-                context.getString(R.string.notification_channel_every_two_hours),
+                context.getString(R.string.notification_channel_customisable_interval),
                 channelGroupId);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -81,11 +81,11 @@ public class NotificationHelper {
         );
     }
 
-    public void displayNotificationBihourly(
+    public void displayNotificationCustomisableinterval(
             @NonNull NotificationContent notificationContent) {
         displayNotification(
                 notificationContent,
-                notificationChannelBihourly,
+                notificationChannelCustomisableInterval,
                 R.drawable.ic_notification_icon_common
         );
     }

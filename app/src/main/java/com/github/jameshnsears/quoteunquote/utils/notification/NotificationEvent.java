@@ -8,7 +8,7 @@ public class NotificationEvent {
     @NonNull
     public static final String EVENT_DAILY = "EVENT_DAILY";
     @NonNull
-    public static final String CUSTOMISABLE_INTERVAL = "BIHOURLY";
+    public static final String CUSTOMISABLE_INTERVAL = "CUSTOMISABLE_INTERVAL";
     @NonNull
     public static final String TOOLBAR_PRESSED_FAVOURITE = "TOOLBAR_PRESSED_FAVOURITE";
 

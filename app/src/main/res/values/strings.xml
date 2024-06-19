@@ -234,7 +234,7 @@
     <string name="widget_listview_author">Source</string>
     <string name="widget_listview_position">Position</string>
 
-    <string name="notification_channel_every_two_hours">Every two hours</string>
+    <string name="notification_channel_customisable_interval">Customisable Interval</string>
     <string name="notification_channel_screen_unlock">Screen unlock</string>
     <string name="notification_channel_specific_time">Specific time</string>
     <string name="notification_action_exclude_source">Exclude Notification Source</string>

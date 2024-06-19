@@ -470,7 +470,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             NotificationsDailyAlarm notificationsDailyAlarm = new NotificationsDailyAlarm(context, widgetId);
             notificationsDailyAlarm.setAlarm();
 
-            Timber.d("setBihourlyAlarm: %d", widgetId);
+            Timber.d("setCustomisableIntervalAlarm: %d", widgetId);
             NotificationsCustomisableIntervalAlarm notificationsCustomisableIntervalAlarm = new NotificationsCustomisableIntervalAlarm(context, widgetId);
             notificationsCustomisableIntervalAlarm.setAlarm();
 
@@ -858,7 +858,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                 break;
 
             case NotificationEvent.CUSTOMISABLE_INTERVAL:
-                getNotificationHelper(context).displayNotificationBihourly(notificationContent);
+                getNotificationHelper(context).displayNotificationCustomisableinterval(notificationContent);
                 break;
 
             case NotificationEvent.TOOLBAR_PRESSED_FAVOURITE:
@@ -872,7 +872,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                         break;
 
                     case NotificationEvent.CUSTOMISABLE_INTERVAL:
-                        getNotificationHelper(context).displayNotificationBihourly(notificationContent);
+                        getNotificationHelper(context).displayNotificationCustomisableinterval(notificationContent);
                         break;
                 }
 
