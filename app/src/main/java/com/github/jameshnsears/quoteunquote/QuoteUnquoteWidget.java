@@ -334,8 +334,12 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                     break;
 
                 /*
+
+                // this now no longer works on API 34:
                 adb shell
                 am broadcast -a android.intent.action.BOOT_COMPLETED
+
+                adb reboot
                 */
                 case Intent.ACTION_BOOT_COMPLETED:
                 case Intent.ACTION_REBOOT:
