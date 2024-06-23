@@ -341,6 +341,9 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
 
                 adb reboot
                 */
+
+                // TODO - works fine on API 24 device, but not API 33 / 34?
+                // TODO try on genymotion as API 33 / 34 emulator too flaky
                 case Intent.ACTION_BOOT_COMPLETED:
                 case Intent.ACTION_REBOOT:
                 case IntentFactoryHelper.ACTIVITY_FINISHED_CONFIGURATION:
