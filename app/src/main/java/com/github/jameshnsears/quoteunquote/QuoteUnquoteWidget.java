@@ -318,6 +318,15 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
 
                 case Intent.ACTION_USER_PRESENT:
                     startDatabaseConnectivity(widgetId, context);
+
+                    onReceiveActivityFinishedConfiguration(
+                            context,
+                            widgetId,
+                            notificationsDailyAlarm,
+                            notificationsCustomisableIntervalAlarm,
+                            autoCloudBackupAlarm,
+                            scraperAlarm);
+
                     onReceiveDeviceUnlock(context, appWidgetManager);
                     break;
 
@@ -334,16 +343,12 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                     break;
 
                 /*
-
-                // this now no longer works on API 34:
+                # this now no longer works on API 34:
                 adb shell
                 am broadcast -a android.intent.action.BOOT_COMPLETED
 
                 adb reboot
                 */
-
-                // TODO - works fine on API 24 device, but not API 33 / 34?
-                // TODO try on genymotion as API 33 / 34 emulator too flaky
                 case Intent.ACTION_BOOT_COMPLETED:
                 case Intent.ACTION_REBOOT:
                 case IntentFactoryHelper.ACTIVITY_FINISHED_CONFIGURATION:
