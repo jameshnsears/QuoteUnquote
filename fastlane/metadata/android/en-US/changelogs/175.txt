@@ -1,2 +1,3 @@
+&bull; Minor improvement for Doze support after reboot
 &bull; Update database
-&bull; Bump dependency
+&bull; Bump dependencies

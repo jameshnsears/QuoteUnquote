@@ -318,15 +318,6 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
 
                 case Intent.ACTION_USER_PRESENT:
                     startDatabaseConnectivity(widgetId, context);
-
-                    onReceiveActivityFinishedConfiguration(
-                            context,
-                            widgetId,
-                            notificationsDailyAlarm,
-                            notificationsCustomisableIntervalAlarm,
-                            autoCloudBackupAlarm,
-                            scraperAlarm);
-
                     onReceiveDeviceUnlock(context, appWidgetManager);
                     break;
 
