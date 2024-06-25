@@ -18,7 +18,7 @@
     <string name="activity_instructions_configure_6">\u2022 Only the (optional) Database > External Web page &amp; Sync > Cloud features require an Internet connection</string>
     <string name="activity_instructions_configure_7">\u2022 The Sync > Cloud feature stores only anonymous data in the Google Cloud Platform</string>
     <string name="activity_instructions_os_warning_info"></string>
-    <string name="activity_instructions_os_warning">\u2022 After restarting your device please revisit the apps Notifications page to reinitialise notifications (due to Doze behaviour)</string>
+    <string name="activity_instructions_os_warning">\u2022 After restarting your device please revisit the apps Notifications tab to reinitialise (this due to Doze behaviour)</string>
     <string name="activity_instructions_resize">Resize the widget</string>
     <string name="activity_instructions_resize_instruction_1">\u2022 Touch and hold the widget on your home screen</string>
     <string name="activity_instructions_resize_instruction_2">\u2022 Lift your finger. You\’ll find an outline with dots on the sides</string>
