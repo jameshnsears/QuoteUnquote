@@ -1,3 +1,3 @@
-&bull; Minor improvement for Doze support after reboot
+&bull; Update instructions for Doze
 &bull; Update database
-&bull; Bump dependencies
+&bull; Bump: dependencies; IDE - Android Studio Koala | 2024.1.1
