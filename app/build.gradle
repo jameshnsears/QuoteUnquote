@@ -200,7 +200,7 @@ android {
 dependencies {
     androidTestImplementation 'androidx.arch.core:core-testing:2.2.0'
     androidTestImplementation 'androidx.room:room-testing:2.6.1'
-    androidTestImplementation 'androidx.test:core:1.5.0'
+    androidTestImplementation 'androidx.test:core:1.6.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.ext:junit-ktx:1.1.5'
@@ -212,7 +212,7 @@ dependencies {
     annotationProcessor 'androidx.room:room-compiler:2.6.1'
 
     debugImplementation 'androidx.fragment:fragment-testing:1.8.0'
-    debugImplementation 'androidx.test:core-ktx:1.5.0'
+    debugImplementation 'androidx.test:core-ktx:1.6.1'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.14'
 
     googleplayImplementation platform('com.google.firebase:firebase-bom:33.1.0')
@@ -245,7 +245,7 @@ dependencies {
 
     testImplementation 'androidx.arch.core:core-testing:2.2.0'
     testImplementation 'androidx.room:room-testing:2.6.1'
-    testImplementation 'androidx.test:core-ktx:1.5.0'
+    testImplementation 'androidx.test:core-ktx:1.6.1'
     testImplementation 'androidx.test.ext:junit:1.1.5'
     testImplementation 'androidx.test:rules:1.5.0'
     testImplementation 'ch.qos.logback:logback-classic:1.5.6'
