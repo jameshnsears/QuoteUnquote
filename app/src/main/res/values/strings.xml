@@ -18,7 +18,7 @@
     <string name="activity_instructions_configure_6">\u2022 Only the (optional) Database > External Web page &amp; Sync > Cloud features require an Internet connection</string>
     <string name="activity_instructions_configure_7">\u2022 The Sync > Cloud feature stores only anonymous data in the Google Cloud Platform</string>
     <string name="activity_instructions_os_warning_info"></string>
-    <string name="activity_instructions_os_warning">\u2022 Some devices might require Battery Saver settings to be appropriately configured</string>
+    <string name="activity_instructions_os_warning">\u2022 Revisit the Configuration > Notifications page to reinitialise notifications after device restart</string>
     <string name="activity_instructions_resize">Resize the widget</string>
     <string name="activity_instructions_resize_instruction_1">\u2022 Touch and hold the widget on your home screen</string>
     <string name="activity_instructions_resize_instruction_2">\u2022 Lift your finger. You\’ll find an outline with dots on the sides</string>
@@ -244,6 +244,6 @@
     <string name="preview_description">Discover high quality Quotations!\nImport Affirmations!</string>
     <string name="preview_quotation">Nothing matters very much and very few things matter at all.\n</string>
     <string name="preview_author"><u>Arthur Balfour\n</u></string>
-    <string name="preview_position">\u2316  1/20291\u0020</string>
+    <string name="preview_position">\u2316  1/20290\u0020</string>
 
 </resources>

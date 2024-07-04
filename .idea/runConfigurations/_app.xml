@@ -14,7 +14,6 @@
     <option name="MODE" value="default_activity" />
     <option name="CLEAR_LOGCAT" value="true" />
     <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
-    <option name="INSPECTION_WITHOUT_ACTIVITY_RESTART" value="false" />
     <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
     <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
     <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
@@ -63,6 +62,7 @@
     <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
     <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
     <method v="2">
+      <option name="Gradle.BeforeRunTask" enabled="true" tasks="clean" externalProjectPath="$PROJECT_DIR$" vmOptions="" scriptParameters="" />
       <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       <option name="Gradle.BeforeRunTask" enabled="false" tasks="uninstallFdroidDebug" externalProjectPath="$PROJECT_DIR$" vmOptions="" scriptParameters="" />
       <option name="Gradle.BeforeRunTask" enabled="true" tasks="uninstallGoogleplayDebug" externalProjectPath="$PROJECT_DIR$" vmOptions="" scriptParameters="" />
