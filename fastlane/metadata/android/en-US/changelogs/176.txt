@@ -1,0 +1,2 @@
+&bull; Edit CSV in-app
+&bull; Bump: dependencies
