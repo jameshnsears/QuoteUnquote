@@ -8,11 +8,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.github.jameshnsears.quoteunquote.cloud.CloudTransfer;
 import com.github.jameshnsears.quoteunquote.cloud.transfer.Transfer;
 import com.github.jameshnsears.quoteunquote.cloud.transfer.backup.TransferBackup;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
-import com.github.jameshnsears.quoteunquote.configure.fragment.sync.SyncPreferences;
 import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
 import com.github.jameshnsears.quoteunquote.database.history.FavouriteEntity;
 import com.github.jameshnsears.quoteunquote.database.quotation.AuthorPOJO;
@@ -24,14 +22,11 @@ import com.github.jameshnsears.quoteunquote.utils.scraper.ScraperData;
 import com.github.jameshnsears.quoteunquote.utils.scraper.ScraperQuotationException;
 import com.github.jameshnsears.quoteunquote.utils.scraper.ScraperSourceException;
 import com.github.jameshnsears.quoteunquote.utils.scraper.ScraperUrlException;
-import com.github.jameshnsears.quoteunquote.utils.sync.AutoCloudBackupAlarm;
 
 import org.jsoup.nodes.Document;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
@@ -823,49 +818,6 @@ public class QuoteUnquoteModel {
         }
 
         return searchCount;
-    }
-
-    public void autoClobuBackup(
-            final int widgetId, @NonNull final AutoCloudBackupAlarm autoCloudBackupAlarm) {
-        autoCloudBackupAlarm.resetAlarm();
-
-        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
-            CloudTransfer cloudTransfer = new CloudTransfer();
-
-            if (cloudTransfer.isInternetAvailable(context)) {
-                int retryAttempts = 3;
-
-                while (retryAttempts > 0) {
-                    final QuoteUnquoteModel quoteUnquoteModel = new QuoteUnquoteModel(-1, context);
-                    boolean result = cloudTransfer.backup(quoteUnquoteModel.transferBackup(context));
-
-                    if (result) {
-                        Timber.d("autoCloudBackupAlarm.success");
-                        final SyncPreferences syncPreferences = new SyncPreferences(widgetId, context);
-
-                        final SimpleDateFormat formatter = new SimpleDateFormat("EEEE, HH:mm:ss");
-                        final Date now = new Date();
-                        final String formattedDate = formatter.format(now);
-
-                        Timber.d("autoCloudBackupAlarm.saveCloudBackupTimestamp: %s", formattedDate);
-
-                        syncPreferences.setLastSuccessfulCloudBackupTimestamp(formattedDate);
-
-                        retryAttempts = 0;
-                    } else {
-                        Timber.d("autoCloudBackupAlarm.fail: retryAttempts=%d", retryAttempts);
-                        retryAttempts --;
-                    }
-                }
-            }
-        });
-
-        try {
-            future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
     }
 
     @NonNull

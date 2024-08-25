@@ -84,22 +84,20 @@ public class ImportHelper {
 
         LinkedHashSet<QuotationEntity> quotationEntityLinkedHashSet = new LinkedHashSet<>();
 
-        int recordCount = 0;
+        int lineNumber = 0;
 
         try {
             parser = CSVParser.parse(inputStream, Charset.defaultCharset(), getCsvFormatForImport());
             for (CSVRecord record : parser) {
+                lineNumber += 1;
+
                 String author = record.get("Author");
-                testNotEmptyAuthor(author);
+                testNotEmptyAuthor(lineNumber, author);
 
                 String quotation = record.get("Quotation");
-                testNotEmptyQuotation(quotation);
+                testNotEmptyQuotation(lineNumber, quotation);
 
-
-                String digest = makeDigest(recordCount, author, quotation);
-
-                recordCount += 1;
-                Timber.d("recordCount=%d", recordCount);
+                String digest = makeDigest(lineNumber, author, quotation);
 
                 QuotationEntity q = new QuotationEntity(
                         digest,
@@ -112,7 +110,7 @@ public class ImportHelper {
             }
         } catch (IllegalStateException | IllegalArgumentException | IOException exception) {
             Timber.e("%s", exception.getMessage());
-            throw new ImportHelperException(recordCount + " : " + exception.getMessage());
+            throw new ImportHelperException(lineNumber, exception.getMessage());
         } finally {
             if (parser != null) {
                 try {
@@ -124,7 +122,7 @@ public class ImportHelper {
         }
 
         if (quotationEntityLinkedHashSet.size() == 0) {
-            throw new ImportHelperException("empty file");
+            throw new ImportHelperException(-1, "empty file");
         }
 
         return quotationEntityLinkedHashSet;
@@ -140,21 +138,24 @@ public class ImportHelper {
         return digest;
     }
 
-    private void testNotEmptyQuotation(String quotation) throws ImportHelperException {
-        if (quotation.equals("") || quotation.length() <= 1) {
-            throw new ImportHelperException("empty quotation");
+    private void testNotEmptyQuotation(int lineNumber, String quotation) throws ImportHelperException {
+        if (quotation.isEmpty()) {
+            throw new ImportHelperException(lineNumber, "empty quotation");
         }
     }
 
-    private void testNotEmptyAuthor(String author) throws ImportHelperException {
-        if (author.equals("")) {
-            throw new ImportHelperException("empty author");
+    private void testNotEmptyAuthor(int lineNumber, String author) throws ImportHelperException {
+        if (author.isEmpty()) {
+            throw new ImportHelperException(lineNumber, "empty author");
         }
     }
 
     public class ImportHelperException extends Exception {
-        public ImportHelperException(String errorMessage) {
+        public int lineNumber = 0;
+
+        public ImportHelperException(int lineNumber, String errorMessage) {
             super(errorMessage);
+            this.lineNumber = lineNumber;
         }
     }
 }

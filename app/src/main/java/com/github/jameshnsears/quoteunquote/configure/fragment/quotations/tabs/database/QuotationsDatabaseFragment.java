@@ -31,6 +31,7 @@ import com.github.jameshnsears.quoteunquote.utils.scraper.ScraperData;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.LinkedHashSet;
 
@@ -428,14 +429,40 @@ public class QuotationsDatabaseFragment extends FragmentCommon {
                                     this.getContext().getString(R.string.fragment_quotations_database_import_success),
                                     Toast.LENGTH_SHORT).show();
 
-                        } catch (final ImportHelper.ImportHelperException | IOException e) {
+                        } catch (final ImportHelper.ImportHelperException e) {
                             toast.cancel();
+
+                            String message = "";
+                            if (e.lineNumber == -1) {
+                                message = this.getContext().getString(
+                                        R.string.fragment_quotations_database_import_contents_0,
+                                        e.getMessage()
+                                );
+
+                            } else {
+                                message = this.getContext().getString(
+                                        R.string.fragment_quotations_database_import_contents_1,
+                                        e.lineNumber,
+                                        e.getMessage()
+                                );
+                            }
+
+                            Snackbar.make(
+                                    this.fragmentQuotationsTabDatabaseBinding.getRoot(),
+                                    message,
+                                    Snackbar.LENGTH_LONG).show();
+
+                        } catch (final FileNotFoundException e) {
+                            toast.cancel();
+
                             Snackbar.make(
                                     this.fragmentQuotationsTabDatabaseBinding.getRoot(),
                                     this.getContext().getString(
-                                            R.string.fragment_quotations_database_import_contents,
-                                            e.getMessage()),
+                                            R.string.fragment_quotations_database_import_contents_0,
+                                            e.getMessage()
+                                    ),
                                     Snackbar.LENGTH_LONG).show();
+
                         } finally {
                             try {
                                 if (fileInputStream != null) {

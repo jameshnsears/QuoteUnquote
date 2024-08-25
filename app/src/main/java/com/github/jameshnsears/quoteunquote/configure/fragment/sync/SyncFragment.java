@@ -216,7 +216,16 @@ public class SyncFragment extends FragmentCommon {
         }
 
         if (syncPreferences.getAutoCloudBackup()) {
-            fragmentSyncBinding.switchAutoCloudBackup.setChecked(true);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+                if (!alarmManager.canScheduleExactAlarms()) {
+                    fragmentSyncBinding.switchAutoCloudBackup.setChecked(false);
+                } else {
+                    fragmentSyncBinding.switchAutoCloudBackup.setChecked(true);
+                }
+            } else {
+                fragmentSyncBinding.switchAutoCloudBackup.setChecked(true);
+            }
         } else {
             fragmentSyncBinding.switchAutoCloudBackup.setChecked(false);
         }
@@ -365,6 +374,11 @@ public class SyncFragment extends FragmentCommon {
 
                         try {
                             if (activityResult.getResultCode() == RESULT_OK) {
+                                Toast.makeText(
+                                        getContext(),
+                                        getContext().getString(R.string.fragment_archive_restore_receiving),
+                                        Toast.LENGTH_SHORT).show();
+
                                 try {
                                     final String jsonString = getRestoreJson(activityResult);
 
@@ -517,8 +531,8 @@ public class SyncFragment extends FragmentCommon {
                         }
 
                     } else {
-                    syncPreferences.setAutoCloudBackup(isChecked);
-                }
+                        syncPreferences.setAutoCloudBackup(isChecked);
+                    }
 
                     Timber.d("syncPreferences.getAutoCloudBackup=%b", syncPreferences.getAutoCloudBackup());
                 }

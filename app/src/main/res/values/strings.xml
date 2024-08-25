@@ -46,7 +46,7 @@
     <string name="fragment_quotations_selection_exclusion_3">\u2022 Separate each Source with a semicolon</string>
 
     <string name="fragment_quotations_selection_author"><b>Source: %d</b></string>
-    <string name="fragment_quotations_selection_author_count">Quotation count &gt;=</string>
+    <string name="fragment_quotations_selection_author_count">Count &gt;=</string>
     <string name="fragment_quotations_selection_author_name">Selected Source</string>
     <string name="fragment_quotations_selection_favourites"><b>Favourite: %d</b></string>
     <string name="fragment_quotations_selection_browse">Browse</string>
@@ -60,7 +60,7 @@
     <string name="fragment_quotations_selection_search_instructions_info"></string>
     <string name="fragment_quotations_selection_search_instructions_1">\u2022 Case insensitive</string>
     <string name="fragment_quotations_selection_search_instructions_2">\u2022 4 characters minimum</string>
-    <string name="fragment_quotations_selection_search_instructions_3">\u2022 Search covers Quotation and Source</string>
+    <string name="fragment_quotations_selection_search_instructions_3">\u2022 Search covers all content</string>
 
     <string name="fragment_quotations_selection_search_no_results">No results found for Search</string>
     <string name="fragment_quotations_selection_dialog_browse_source">Source Results</string>
@@ -82,8 +82,8 @@
     <string name="fragment_quotations_database_external_instructions_1">\u2022 Expected format is <b>Source||Quotation</b> per line</string>
     <string name="fragment_quotations_database_external_instructions_2">\u2022 An example .csv can be created by exporting a Source and then importing it</string>
     <string name="fragment_quotations_database_external_instructions_3">\u2022 For best results import a UTF-8 encoded file</string>
-
-    <string name="fragment_quotations_database_import_contents">Invalid .csv format, line: %1$s</string>
+    <string name="fragment_quotations_database_import_contents_0">Invalid .csv, %1$s</string>
+    <string name="fragment_quotations_database_import_contents_1">Invalid .csv, line: %1$d: %2$s</string>
     <string name="fragment_quotations_database_import_importing">Importing .csv file - please wait&#8230;</string>
     <string name="fragment_quotations_database_import_success">Success - .csv file imported</string>
     <string name="fragment_quotations_database_scrape_web_page">Web page</string>
@@ -169,7 +169,7 @@
     <string name="fragment_appearance_toolbar_position_indicator">Jump, last Previous</string>
     <string name="fragment_appearance_toolbar_next_random">Next, random</string>
     <string name="fragment_appearance_toolbar_next_random_action">Next, random</string>
-    <string name="fragment_appearance_toolbar_next_info">Quotation sequence will recycle once end is reached</string>
+    <string name="fragment_appearance_toolbar_next_info">Sequence will recycle once end is reached</string>
 
     <string name="fragment_notifications_title">Notifications</string>
     <string name="fragment_notifications_where">Display</string>
@@ -177,7 +177,7 @@
     <string name="fragment_notifications_widget">Widget</string>
     <string name="fragment_notifications_widget_and_notification">Notification &amp; Widget</string>
     <string name="fragment_notifications_notification_warning_info"></string>
-    <string name="fragment_notifications_notification_warning_1">Android limits the size of Notifications, some Quotations might not show in their entirety</string>
+    <string name="fragment_notifications_notification_warning_1">Android limits the size of Notifications, some content might not show in its entirety</string>
     <string name="fragment_notifications_notification_permission">Please enable Notification permission in Android settings</string>
     <string name="fragment_notifications_exact_alarm_warning_info"></string>
     <string name="fragment_notifications_exact_alarm_warning">The Alarm &amp; reminders permission needs to be granted for time based events</string>
@@ -204,7 +204,7 @@
     <string name="fragment_notifications_time_dialog">Recurring Event Specific Time</string>
 
     <string name="fragment_archive_title">Sync</string>
-    <string name="fragment_archive_select_cloud">Cloud</string>
+    <string name="fragment_archive_select_cloud">Cloud (GCP free tier)</string>
     <string name="fragment_archive_select_filesystem">Device</string>
     <string name="fragment_archive_backup_local_code">Sync code…</string>
     <string name="fragment_archive_backup_local_code_value">%s</string>
@@ -229,7 +229,6 @@
     <string name="fragment_archive_sync_to_cloud_on_favourite_info_1">\u2022 Each time you Favorite / Unfavourite</string>
     <string name="fragment_archive_sync_to_cloud_on_favourite_info_2">\u2022 Backup takes place after approximately 1 minute of app widget inactivity</string>
 
-
     <string name="widget_listview_quotation">Quotation</string>
     <string name="widget_listview_author">Source</string>
     <string name="widget_listview_position">Position</string>
@@ -245,5 +244,4 @@
     <string name="preview_quotation">Nothing matters very much and very few things matter at all.\n</string>
     <string name="preview_author"><u>Arthur Balfour\n</u></string>
     <string name="preview_position">\u2316  1/20290\u0020</string>
-
 </resources>

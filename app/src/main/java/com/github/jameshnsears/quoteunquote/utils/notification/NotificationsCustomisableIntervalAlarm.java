@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -19,6 +18,7 @@ import timber.log.Timber;
 public class NotificationsCustomisableIntervalAlarm extends NotificationsDailyAlarm {
     int nextAlarmHour;
     boolean nextAlarmDay;
+
     public NotificationsCustomisableIntervalAlarm(
             @NonNull Context widgetContext, int theWidgetId) {
         super(widgetContext, theWidgetId);
@@ -41,15 +41,13 @@ public class NotificationsCustomisableIntervalAlarm extends NotificationsDailyAl
                 calendar.set(Calendar.HOUR_OF_DAY, from);
                 nextAlarmHour = from;
                 nextAlarmDay = false;
-            }
-            else if (currentHour() > to) {
+            } else if (currentHour() > to) {
                 calendar.set(Calendar.HOUR_OF_DAY, from);
                 nextAlarmHour = from;
                 calendar.add(Calendar.DAY_OF_YEAR, 1);
                 nextAlarmDay = true;
-            }
-            else {
-                for (int alarmHour = from ; alarmHour <= to; alarmHour += hours) {
+            } else {
+                for (int alarmHour = from; alarmHour <= to; alarmHour += hours) {
                     if (alarmHour > currentHour()) {
                         calendar.set(Calendar.HOUR_OF_DAY, alarmHour);
                         nextAlarmHour = alarmHour;

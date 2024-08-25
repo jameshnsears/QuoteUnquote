@@ -59,8 +59,9 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
             importHelper.csvImportDatabase(inputStream)
             fail()
         } catch (exception: ImportHelper.ImportHelperException) {
+            assertEquals(3, exception.lineNumber)
             assertEquals(
-                "0 : Index for header 'Quotation' is 1 but CSVRecord only has 1 values!",
+                "Index for header 'Quotation' is 1 but CSVRecord only has 1 values!",
                 exception.message,
             )
         }
@@ -75,6 +76,7 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
             importHelper.csvImportDatabase(inputStream)
             fail()
         } catch (exception: ImportHelper.ImportHelperException) {
+            assertEquals(4, exception.lineNumber)
             assertEquals(
                 "empty quotation",
                 exception.message,
@@ -91,6 +93,7 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
             importHelper.csvImportDatabase(inputStream)
             fail()
         } catch (exception: ImportHelper.ImportHelperException) {
+            assertEquals(1, exception.lineNumber)
             assertEquals("empty author", exception.message)
         }
     }
@@ -104,6 +107,7 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
             importHelper.csvImportDatabase(inputStream)
             fail()
         } catch (exception: ImportHelper.ImportHelperException) {
+            assertEquals(2, exception.lineNumber)
             assertEquals(
                 "empty quotation",
                 exception.message,
@@ -120,6 +124,7 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
             importHelper.csvImportDatabase(inputStream)
             fail()
         } catch (exception: ImportHelper.ImportHelperException) {
+            assertEquals(-1, exception.lineNumber)
             assertEquals("empty file", exception.message)
         }
     }

@@ -1,7 +1,6 @@
 package com.github.jameshnsears.quoteunquote;
 
 import android.annotation.SuppressLint;
-import android.app.AlarmManager;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
@@ -19,7 +18,12 @@ import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.work.Data;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
+import com.github.jameshnsears.quoteunquote.cloud.AutoCloudBackup;
 import com.github.jameshnsears.quoteunquote.cloud.CloudService;
 import com.github.jameshnsears.quoteunquote.cloud.CloudServiceBackup;
 import com.github.jameshnsears.quoteunquote.cloud.CloudServiceRestore;
@@ -27,7 +31,6 @@ import com.github.jameshnsears.quoteunquote.cloud.CloudTransferHelper;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences;
 import com.github.jameshnsears.quoteunquote.configure.fragment.notifications.NotificationsPreferences;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
-import com.github.jameshnsears.quoteunquote.configure.fragment.sync.SyncPreferences;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 import com.github.jameshnsears.quoteunquote.listview.ListViewService;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
@@ -42,7 +45,6 @@ import com.github.jameshnsears.quoteunquote.utils.notification.NotificationsDail
 import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade;
 import com.github.jameshnsears.quoteunquote.utils.scraper.ScraperAlarm;
 import com.github.jameshnsears.quoteunquote.utils.scraper.ScraperData;
-import com.github.jameshnsears.quoteunquote.utils.sync.AutoCloudBackupAlarm;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 import java.util.concurrent.ExecutorService;
@@ -126,13 +128,23 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
     }
 
     private static void setAutoCloudBackupAlarm(@NonNull Context context, int widgetId) {
-        SyncPreferences syncPreferences = new SyncPreferences(widgetId, context);
-        if (syncPreferences.getAutoCloudBackup()) {
-            Timber.d("autoCloudBackupAlarm.setAutoCloudBackupAlarm");
-            AutoCloudBackupAlarm autoCloudBackupAlarm = new AutoCloudBackupAlarm(context, widgetId);
-            autoCloudBackupAlarm.resetAlarm();
-            autoCloudBackupAlarm.setAlarm();
-        }
+        Timber.d("autoBackupGoogleCloud");
+
+        Data data = new Data.Builder()
+                .putInt("widgetId", widgetId)
+                .build();
+
+        OneTimeWorkRequest backupWorkRequest = new OneTimeWorkRequest.Builder(AutoCloudBackup.class)
+                .setInputData(data)
+                .setInitialDelay(60, TimeUnit.SECONDS)
+                .build();
+
+        WorkManager.getInstance(context)
+                .enqueueUniqueWork(
+                        AutoCloudBackup.WORK_TAG,
+                        ExistingWorkPolicy.REPLACE,
+                        backupWorkRequest
+                );
     }
 
     @NonNull
@@ -305,7 +317,6 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             final NotificationsDailyAlarm notificationsDailyAlarm = new NotificationsDailyAlarm(context, widgetId);
             final NotificationsCustomisableIntervalAlarm notificationsCustomisableIntervalAlarm = new NotificationsCustomisableIntervalAlarm(context, widgetId);
             final ScraperAlarm scraperAlarm = new ScraperAlarm(context, widgetId);
-            final AutoCloudBackupAlarm autoCloudBackupAlarm = new AutoCloudBackupAlarm(context, widgetId);
 
             switch (intent.getAction()) {
                 case Intent.ACTION_CONFIGURATION_CHANGED:
@@ -348,7 +359,6 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                             widgetId,
                             notificationsDailyAlarm,
                             notificationsCustomisableIntervalAlarm,
-                            autoCloudBackupAlarm,
                             scraperAlarm);
                     break;
 
@@ -358,10 +368,6 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
 
                 case IntentFactoryHelper.CUSTOMISABLE_INTERVAL_ALARM:
                     onReceiveCustomisableIntervalAlarm(context, widgetId, notificationsCustomisableIntervalAlarm);
-                    break;
-
-                case IntentFactoryHelper.AUTO_CLOUD_BACKUP_ALARM:
-                    onReceiveAutoCloudBackupAlarm(context, widgetId, autoCloudBackupAlarm);
                     break;
 
                 case IntentFactoryHelper.SCRAPER_ALARM:
@@ -699,24 +705,6 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
         scheduleEvent(context, widgetId, NotificationEvent.CUSTOMISABLE_INTERVAL);
     }
 
-    private void onReceiveAutoCloudBackupAlarm(
-            @NonNull final Context context,
-            final int widgetId,
-            @NonNull final AutoCloudBackupAlarm autoCloudBackupAlarm) {
-        Timber.d("autoCloudBackupAlarm.onReceiveAutoCloudBackupAlarm");
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            if (!alarmManager.canScheduleExactAlarms()) {
-                SyncPreferences syncPreferences = new SyncPreferences(widgetId, context);
-                syncPreferences.setAutoCloudBackup(false);
-                return;
-            }
-        }
-
-        getQuoteUnquoteModel(widgetId, context).autoClobuBackup(widgetId, autoCloudBackupAlarm);
-    }
-
     private void onReceiveScraperAlarm(
             @NonNull final Context context,
             final int widgetId,
@@ -996,7 +984,6 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             final int widgetId,
             @NonNull final NotificationsDailyAlarm notificationsDailyAlarm,
             @NonNull final NotificationsCustomisableIntervalAlarm notificationsCustomisableIntervalAlarm,
-            @NonNull final AutoCloudBackupAlarm autoCloudBackupAlarm,
             @NonNull final ScraperAlarm scraperAlarm) {
 
         if (getQuoteUnquoteModel(widgetId, context).getCurrentQuotation(widgetId) == null) {
@@ -1009,14 +996,13 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
         }
 
         manageAlarms(context, widgetId,
-                notificationsDailyAlarm, notificationsCustomisableIntervalAlarm, autoCloudBackupAlarm, scraperAlarm);
+                notificationsDailyAlarm, notificationsCustomisableIntervalAlarm, scraperAlarm);
     }
 
     private void manageAlarms(
             @NonNull Context context, int widgetId,
             @NonNull NotificationsDailyAlarm notificationsDailyAlarm,
             @NonNull NotificationsCustomisableIntervalAlarm notificationsCustomisableIntervalAlarm,
-            @NonNull AutoCloudBackupAlarm autoCloudBackupAlarm,
             @NonNull ScraperAlarm scraperAlarm) {
 
         QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, context);
@@ -1037,12 +1023,6 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             notificationsCustomisableIntervalAlarm.setAlarm();
         } else {
             notificationsCustomisableIntervalAlarm.resetAlarm();
-        }
-
-        SyncPreferences syncPreferences = new SyncPreferences(widgetId, context);
-        Timber.d("autoCloudBackupAlarm.manageAlarms");
-        if (!syncPreferences.getAutoCloudBackup()) {
-            autoCloudBackupAlarm.resetAlarm();
         }
     }
 
