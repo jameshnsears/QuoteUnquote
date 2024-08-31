@@ -1,0 +1,3 @@
+&bull; Fix CSV import regression
+&bull; Rename &amp; de-clutter Database tab in configuration
+&bull; Bump dependencies

@@ -6,216 +6,212 @@
             errorLine2="                                                               ~~~~~~~~~~~"
             id="DefaultLocale"
             message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
-        <location
-                column="64"
-                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java" line="545" />
+        <location column="64"
+                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
+                line="545" />
     </issue>
 
     <issue errorLine1="                        String quotation = quotationEntity.quotation.toLowerCase();"
             errorLine2="                                                                     ~~~~~~~~~~~"
             id="DefaultLocale"
             message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
-        <location
-                column="70"
-                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java" line="546" />
+        <location column="70"
+                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
+                line="546" />
     </issue>
 
     <issue errorLine1="                        if (author.indexOf(text.toLowerCase()) != -1"
             errorLine2="                                                ~~~~~~~~~~~"
             id="DefaultLocale"
             message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
-        <location
-                column="49"
-                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java" line="548" />
+        <location column="49"
+                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
+                line="548" />
     </issue>
 
     <issue errorLine1="                                || quotation.indexOf(text.toLowerCase()) != -1) {"
             errorLine2="                                                          ~~~~~~~~~~~"
             id="DefaultLocale"
             message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
-        <location
-                column="59"
-                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java" line="549" />
+        <location column="59"
+                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
+                line="549" />
     </issue>
 
     <issue errorLine1="                        String author = quotationEntity.author.toLowerCase();"
             errorLine2="                                                               ~~~~~~~~~~~"
             id="DefaultLocale"
             message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
-        <location
-                column="64"
-                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java" line="558" />
+        <location column="64"
+                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
+                line="558" />
     </issue>
 
     <issue errorLine1="                        String quotation = quotationEntity.quotation.toLowerCase();"
             errorLine2="                                                                     ~~~~~~~~~~~"
             id="DefaultLocale"
             message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
-        <location
-                column="70"
-                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java" line="559" />
+        <location column="70"
+                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
+                line="559" />
     </issue>
 
     <issue errorLine1="                        if (author.indexOf(text.toLowerCase()) != -1"
             errorLine2="                                                ~~~~~~~~~~~"
             id="DefaultLocale"
             message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
-        <location
-                column="49"
-                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java" line="561" />
+        <location column="49"
+                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
+                line="561" />
     </issue>
 
     <issue errorLine1="                                || quotation.indexOf(text.toLowerCase()) != -1) {"
             errorLine2="                                                          ~~~~~~~~~~~"
             id="DefaultLocale"
             message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
-        <location
-                column="59"
-                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java" line="562" />
+        <location column="59"
+                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
+                line="562" />
     </issue>
 
     <issue errorLine1="                String author = currentQuotation.author.toLowerCase();"
             errorLine2="                                                        ~~~~~~~~~~~"
             id="DefaultLocale"
             message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
-        <location
-                column="57"
-                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java" line="580" />
+        <location column="57"
+                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
+                line="580" />
     </issue>
 
     <issue errorLine1="                String quotation = currentQuotation.quotation.toLowerCase();"
             errorLine2="                                                              ~~~~~~~~~~~"
             id="DefaultLocale"
             message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
-        <location
-                column="63"
-                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java" line="581" />
+        <location column="63"
+                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
+                line="581" />
     </issue>
 
     <issue errorLine1="                if (author.indexOf(text.toLowerCase()) != -1"
-            errorLine2="                                        ~~~~~~~~~~~"
-            id="DefaultLocale"
+            errorLine2="                                        ~~~~~~~~~~~" id="DefaultLocale"
             message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
-        <location
-                column="41"
-                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java" line="583" />
+        <location column="41"
+                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
+                line="583" />
     </issue>
 
     <issue errorLine1="                        || quotation.indexOf(text.toLowerCase()) != -1) {"
             errorLine2="                                                  ~~~~~~~~~~~"
             id="DefaultLocale"
             message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
-        <location
-                column="51"
-                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java" line="584" />
+        <location column="51"
+                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
+                line="584" />
     </issue>
 
     <issue errorLine1="                    String author = quotationEntity.author.toLowerCase();"
             errorLine2="                                                           ~~~~~~~~~~~"
             id="DefaultLocale"
             message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
-        <location
-                column="60"
-                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java" line="652" />
+        <location column="60"
+                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
+                line="652" />
     </issue>
 
     <issue errorLine1="                    String quotation = quotationEntity.quotation.toLowerCase();"
             errorLine2="                                                                 ~~~~~~~~~~~"
             id="DefaultLocale"
             message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
-        <location
-                column="66"
-                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java" line="653" />
+        <location column="66"
+                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
+                line="653" />
     </issue>
 
     <issue errorLine1="                    if (author.indexOf(text.toLowerCase()) != -1"
-            errorLine2="                                            ~~~~~~~~~~~"
-            id="DefaultLocale"
+            errorLine2="                                            ~~~~~~~~~~~" id="DefaultLocale"
             message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
-        <location
-                column="45"
-                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java" line="655" />
+        <location column="45"
+                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
+                line="655" />
     </issue>
 
     <issue errorLine1="                            || quotation.indexOf(text.toLowerCase()) != -1) {"
             errorLine2="                                                      ~~~~~~~~~~~"
             id="DefaultLocale"
             message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
-        <location
-                column="55"
-                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java" line="656" />
+        <location column="55"
+                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
+                line="656" />
     </issue>
 
     <issue errorLine1="                    String author = quotationEntity.author.toLowerCase();"
             errorLine2="                                                           ~~~~~~~~~~~"
             id="DefaultLocale"
             message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
-        <location
-                column="60"
-                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java" line="663" />
+        <location column="60"
+                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
+                line="663" />
     </issue>
 
     <issue errorLine1="                    String quotation = quotationEntity.quotation.toLowerCase();"
             errorLine2="                                                                 ~~~~~~~~~~~"
             id="DefaultLocale"
             message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
-        <location
-                column="66"
-                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java" line="664" />
+        <location column="66"
+                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
+                line="664" />
     </issue>
 
     <issue errorLine1="                    if (author.indexOf(text.toLowerCase()) != -1"
-            errorLine2="                                            ~~~~~~~~~~~"
-            id="DefaultLocale"
+            errorLine2="                                            ~~~~~~~~~~~" id="DefaultLocale"
             message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
-        <location
-                column="45"
-                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java" line="666" />
+        <location column="45"
+                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
+                line="666" />
     </issue>
 
     <issue errorLine1="                            || quotation.indexOf(text.toLowerCase()) != -1) {"
             errorLine2="                                                      ~~~~~~~~~~~"
             id="DefaultLocale"
             message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
-        <location
-                column="55"
-                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java" line="667" />
+        <location column="55"
+                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
+                line="667" />
     </issue>
 
     <issue errorLine1="                String author = currentQuotation.author.toLowerCase();"
             errorLine2="                                                        ~~~~~~~~~~~"
             id="DefaultLocale"
             message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
-        <location
-                column="57"
-                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java" line="682" />
+        <location column="57"
+                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
+                line="682" />
     </issue>
 
     <issue errorLine1="                String quotation = currentQuotation.quotation.toLowerCase();"
             errorLine2="                                                              ~~~~~~~~~~~"
             id="DefaultLocale"
             message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
-        <location
-                column="63"
-                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java" line="683" />
+        <location column="63"
+                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
+                line="683" />
     </issue>
 
     <issue errorLine1="                if (author.indexOf(text.toLowerCase()) != -1"
-            errorLine2="                                        ~~~~~~~~~~~"
-            id="DefaultLocale"
+            errorLine2="                                        ~~~~~~~~~~~" id="DefaultLocale"
             message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
-        <location
-                column="41"
-                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java" line="685" />
+        <location column="41"
+                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
+                line="685" />
     </issue>
 
     <issue errorLine1="                        || quotation.indexOf(text.toLowerCase()) != -1) {"
             errorLine2="                                                  ~~~~~~~~~~~"
             id="DefaultLocale"
             message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
-        <location
-                column="51"
-                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java" line="686" />
+        <location column="51"
+                file="src/main/java/com/github/jameshnsears/quoteunquote/database/DatabaseRepository.java"
+                line="686" />
     </issue>
 
     <issue errorLine1="                        final SimpleDateFormat formatter = new SimpleDateFormat(&quot;EEEE, HH:mm:ss&quot;);"
@@ -223,12 +219,12 @@
             id="SimpleDateFormat"
             message="To get local formatting use `getDateInstance()`, `getDateTimeInstance()`, or `getTimeInstance()`, or use `new SimpleDateFormat(String template, Locale locale)` with for example `Locale.US` for ASCII dates.">
         <location column="60"
-                file="src/main/java/com/github/jameshnsears/quoteunquote/QuoteUnquoteModel.java" line="846" />
+                file="src/main/java/com/github/jameshnsears/quoteunquote/QuoteUnquoteModel.java"
+                line="846" />
     </issue>
 
     <issue errorLine1="        android:width=&quot;620dp&quot;"
-            errorLine2="                       ~~~~~"
-            id="VectorRaster"
+            errorLine2="                       ~~~~~" id="VectorRaster"
             message="Limit vector icons sizes to 200×200 to keep icon drawing fast; see https://developer.android.com/studio/write/vector-asset-studio#when for more">
         <location column="24" file="src/main/res/drawable/ic_instructions_footer_github_logo.xml"
                 line="2" />
@@ -274,77 +270,68 @@
         <location column="31" file="src/main/res/drawable/ic_regular_expression_24.xml" line="9" />
     </issue>
 
-    <issue errorLine1="                &lt;LinearLayout"
-            errorLine2="                 ~~~~~~~~~~~~"
+    <issue errorLine1="                &lt;LinearLayout" errorLine2="                 ~~~~~~~~~~~~"
             id="DisableBaselineAlignment"
             message="Set `android:baselineAligned=&quot;false&quot;` on this element for better performance">
         <location column="18" file="src/main/res/layout/fragment_sync.xml" line="121" />
     </issue>
 
-    <issue errorLine1="&lt;full-backup-content />"
-            errorLine2="~~~~~~~~~~~~~~~~~~~~~~~"
-            id="UnusedResources" message="The resource `R.xml.backup_descriptor` appears to be unused">
+    <issue errorLine1="&lt;full-backup-content />" errorLine2="~~~~~~~~~~~~~~~~~~~~~~~"
+            id="UnusedResources"
+            message="The resource `R.xml.backup_descriptor` appears to be unused">
         <location column="1" file="src/main/res/xml/backup_descriptor.xml" line="2" />
     </issue>
 
-    <issue errorLine1="    &lt;color name=&quot;seed&quot;>#6750A4&lt;/color>" errorLine2="           ~~~~~~~~~~~"
-            id="UnusedResources"
+    <issue errorLine1="    &lt;color name=&quot;seed&quot;>#6750A4&lt;/color>"
+            errorLine2="           ~~~~~~~~~~~" id="UnusedResources"
             message="The resource `R.color.seed` appears to be unused">
         <location column="12" file="src/main/res/values/colors.xml" line="2" />
     </issue>
 
     <issue errorLine1="    &lt;color name=&quot;md_theme_light_shadow&quot;>#000000&lt;/color>"
-            errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            id="UnusedResources"
+            errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
             message="The resource `R.color.md_theme_light_shadow` appears to be unused">
         <location column="12" file="src/main/res/values/colors.xml" line="29" />
     </issue>
 
     <issue errorLine1="    &lt;color name=&quot;md_theme_light_surfaceTint&quot;>#6750A4&lt;/color>"
-            errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            id="UnusedResources"
+            errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
             message="The resource `R.color.md_theme_light_surfaceTint` appears to be unused">
         <location column="12" file="src/main/res/values/colors.xml" line="30" />
     </issue>
 
     <issue errorLine1="    &lt;color name=&quot;md_theme_light_outlineVariant&quot;>#CAC4D0&lt;/color>"
-            errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            id="UnusedResources"
+            errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
             message="The resource `R.color.md_theme_light_outlineVariant` appears to be unused">
         <location column="12" file="src/main/res/values/colors.xml" line="31" />
     </issue>
 
     <issue errorLine1="    &lt;color name=&quot;md_theme_light_scrim&quot;>#000000&lt;/color>"
-            errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            id="UnusedResources"
+            errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
             message="The resource `R.color.md_theme_light_scrim` appears to be unused">
         <location column="12" file="src/main/res/values/colors.xml" line="32" />
     </issue>
 
     <issue errorLine1="    &lt;color name=&quot;md_theme_dark_shadow&quot;>#000000&lt;/color>"
-            errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            id="UnusedResources"
+            errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
             message="The resource `R.color.md_theme_dark_shadow` appears to be unused">
         <location column="12" file="src/main/res/values/colors.xml" line="59" />
     </issue>
 
     <issue errorLine1="    &lt;color name=&quot;md_theme_dark_surfaceTint&quot;>#D0BCFF&lt;/color>"
-            errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            id="UnusedResources"
+            errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
             message="The resource `R.color.md_theme_dark_surfaceTint` appears to be unused">
         <location column="12" file="src/main/res/values/colors.xml" line="60" />
     </issue>
 
     <issue errorLine1="    &lt;color name=&quot;md_theme_dark_outlineVariant&quot;>#49454F&lt;/color>"
-            errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            id="UnusedResources"
+            errorLine2="           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
             message="The resource `R.color.md_theme_dark_outlineVariant` appears to be unused">
         <location column="12" file="src/main/res/values/colors.xml" line="61" />
     </issue>
 
     <issue errorLine1="&lt;selector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;>"
-            errorLine2="^"
-            id="UnusedResources"
+            errorLine2="^" id="UnusedResources"
             message="The resource `R.drawable.recyclerview_edit_text_selector` appears to be unused">
         <location column="1" file="src/main/res/drawable/recyclerview_edit_text_selector.xml"
                 line="1" />
@@ -358,22 +345,19 @@
     </issue>
 
     <issue errorLine1="    &lt;string name=&quot;activity_instructions_github&quot;>GitHub&lt;/string>"
-            errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            id="UnusedResources"
+            errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
             message="The resource `R.string.activity_instructions_github` appears to be unused">
         <location column="13" file="src/main/res/values/strings.xml" line="29" />
     </issue>
 
     <issue errorLine1="    &lt;string name=&quot;configure_navigation_bar_schedule&quot;>Schedule&lt;/string>"
-            errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            id="UnusedResources"
+            errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
             message="The resource `R.string.configure_navigation_bar_schedule` appears to be unused">
         <location column="13" file="src/main/res/values/strings.xml" line="33" />
     </issue>
 
     <issue errorLine1="    &lt;string name=&quot;configure_navigation_bar_transfer&quot;>Transfer&lt;/string>"
-            errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-            id="UnusedResources"
+            errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" id="UnusedResources"
             message="The resource `R.string.configure_navigation_bar_transfer` appears to be unused">
         <location column="13" file="src/main/res/values/strings.xml" line="34" />
     </issue>
@@ -406,22 +390,21 @@
         <location column="13" file="src/main/res/values/strings.xml" line="94" />
     </issue>
 
-    <issue errorLine1="            &lt;LinearLayout"
-            errorLine2="             ~~~~~~~~~~~~"
-            id="UselessParent" message="This `LinearLayout` layout or its `LinearLayout` parent is unnecessary">
+    <issue errorLine1="            &lt;LinearLayout" errorLine2="             ~~~~~~~~~~~~"
+            id="UselessParent"
+            message="This `LinearLayout` layout or its `LinearLayout` parent is unnecessary">
         <location column="14" file="src/main/res/layout/fragment_sync.xml" line="50" />
     </issue>
 
-    <issue errorLine1="    &lt;LinearLayout"
-            errorLine2="     ~~~~~~~~~~~~"
-            id="UselessParent" message="This `LinearLayout` layout or its `LinearLayout` parent is possibly unnecessary; transfer the `background` attribute to the other view">
+    <issue errorLine1="    &lt;LinearLayout" errorLine2="     ~~~~~~~~~~~~" id="UselessParent"
+            message="This `LinearLayout` layout or its `LinearLayout` parent is possibly unnecessary; transfer the `background` attribute to the other view">
         <location column="6" file="src/main/res/layout/quote_unquote_widget_no_toolbar.xml"
                 line="8" />
     </issue>
 
-    <issue errorLine1="        &lt;LinearLayout"
-            errorLine2="         ~~~~~~~~~~~~"
-            id="UselessParent" message="This `LinearLayout` layout or its `LinearLayout` parent is unnecessary; transfer the `background` attribute to the other view">
+    <issue errorLine1="        &lt;LinearLayout" errorLine2="         ~~~~~~~~~~~~"
+            id="UselessParent"
+            message="This `LinearLayout` layout or its `LinearLayout` parent is unnecessary; transfer the `background` attribute to the other view">
         <location column="10" file="src/main/res/layout/quote_unquote_widget_preview.xml"
                 line="18" />
     </issue>
@@ -435,28 +418,25 @@
             errorLine2="                                                              ~~~~"
             id="WeekBasedYear"
             message="`DateFormat` character &apos;Y&apos; in YYYY is the week-era-year; did you mean &apos;y&apos;?">
-        <location
-                column="63"
-                file="src/main/java/com/github/jameshnsears/quoteunquote/utils/sync/AutoCloudBackupAlarm.java" line="40" />
+        <location column="63"
+                file="src/main/java/com/github/jameshnsears/quoteunquote/utils/sync/AutoCloudBackupAlarm.java"
+                line="40" />
     </issue>
 
     <issue errorLine1="                android:text=&quot;1&quot;"
-            errorLine2="                ~~~~~~~~~~~~~~~~"
-            id="HardcodedText"
+            errorLine2="                ~~~~~~~~~~~~~~~~" id="HardcodedText"
             message="Hardcoded string &quot;1&quot;, should use `@string` resource">
         <location column="17" file="src/main/res/layout/recyclerview_row.xml" line="28" />
     </issue>
 
     <issue errorLine1="                android:text=&quot;Quotation&quot;"
-            errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~"
-            id="HardcodedText"
+            errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~" id="HardcodedText"
             message="Hardcoded string &quot;Quotation&quot;, should use `@string` resource">
         <location column="17" file="src/main/res/layout/recyclerview_row.xml" line="60" />
     </issue>
 
     <issue errorLine1="                android:text=&quot;Source&quot;"
-            errorLine2="                ~~~~~~~~~~~~~~~~~~~~~"
-            id="HardcodedText"
+            errorLine2="                ~~~~~~~~~~~~~~~~~~~~~" id="HardcodedText"
             message="Hardcoded string &quot;Source&quot;, should use `@string` resource">
         <location column="17" file="src/main/res/layout/recyclerview_row.xml" line="74" />
     </issue>

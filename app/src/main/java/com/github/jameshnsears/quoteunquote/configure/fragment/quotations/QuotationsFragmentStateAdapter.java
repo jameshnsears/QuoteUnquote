@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.database.QuotationsDatabaseFragment;
+import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.QuotationsContentFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.QuotationsFilterFragment;
 
 public class QuotationsFragmentStateAdapter extends FragmentStateAdapter {
@@ -24,7 +24,7 @@ public class QuotationsFragmentStateAdapter extends FragmentStateAdapter {
                 return quotationsFilterFragment = QuotationsFilterFragment.newInstance(widgetId);
 
             default:
-                return QuotationsDatabaseFragment.newInstance(widgetId);
+                return QuotationsContentFragment.newInstance(widgetId);
         }
     }
 

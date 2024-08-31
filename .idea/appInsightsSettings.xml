@@ -28,9 +28,9 @@
               <option name="connection">
                 <ConnectionSetting>
                   <option name="appId" value="com.github.jameshnsears.quoteunquote" />
-                  <option name="mobileSdkAppId" value="1:554512452648:android:5d908cea89322fe2ec391d" />
-                  <option name="projectId" value="sage-cycling-303508" />
-                  <option name="projectNumber" value="554512452648" />
+                  <option name="mobileSdkAppId" value="1:809917028211:android:4c298748eae73cb9d0d706" />
+                  <option name="projectId" value="august-apricot-303508" />
+                  <option name="projectNumber" value="809917028211" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

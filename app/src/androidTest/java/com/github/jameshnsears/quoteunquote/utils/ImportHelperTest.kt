@@ -2,6 +2,7 @@ package com.github.jameshnsears.quoteunquote.utils
 
 import androidx.test.platform.app.InstrumentationRegistry
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteModelUtility
+import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.fail
 import org.junit.Test
@@ -17,6 +18,13 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
         val quotationEntityLinkedHashSet = importHelper.csvImportDatabase(inputStream)
 
         assertEquals(762, quotationEntityLinkedHashSet.size)
+
+        quoteUnquoteModelDouble.insertQuotationsExternal(quotationEntityLinkedHashSet)
+        quoteUnquoteModelDouble.setDefault(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL)
+        assertEquals(
+            "00000000",
+            quoteUnquoteModelDouble.databaseRepository!!.previous[0].digest,
+        )
     }
 
     @Test

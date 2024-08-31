@@ -2,18 +2,24 @@
 <SmellBaseline>
   <ManuallySuppressedIssues></ManuallySuppressedIssues>
   <CurrentIssues>
+    <ID>FunctionNaming:ContentCsvComposable.kt$@Composable fun Greeting( stateFlow: StateFlow&lt;Boolean&gt;, name: String, )</ID>
+    <ID>FunctionNaming:ContentCsvComposable.kt$@Preview(apiLevel = 34) @Composable fun PreviewGreeting()</ID>
+    <ID>LongMethod:ContentCsvFragment.kt$ContentCsvFragment$private fun setHandleImportCsv()</ID>
     <ID>MagicNumber:AutoCloudBackup.kt$AutoCloudBackup$60_000L</ID>
     <ID>MagicNumber:Scraper.kt$Scraper$1000</ID>
     <ID>MaxLineLength:ScraperTest.kt$ScraperTest$"But the God of all grace, who hath called us unto his eternal glory by Christ Jesus, after that ye have suffered a while, make you perfect, stablish, strengthen, settle"</ID>
     <ID>NestedBlockDepth:TransferRestore.kt$TransferRestore$private fun restoreCurrent( context: Context, databaseRepository: DatabaseRepository, currentList: List&lt;Current&gt;, )</ID>
     <ID>NestedBlockDepth:TransferRestore.kt$TransferRestore$private fun restorePrevious( context: Context, databaseRepository: DatabaseRepository, previousList: List&lt;Previous&gt;, )</ID>
+    <ID>ProtectedMemberInFinalClass:ContentCsvFragment.kt$ContentCsvFragment$protected fun createListenerButtonImportCsv()</ID>
     <ID>SwallowedException:Scraper.kt$Scraper$e: Exception</ID>
     <ID>SwallowedException:Scraper.kt$Scraper$e: ScraperXpathException</ID>
     <ID>ThrowsCount:Scraper.kt$Scraper$private fun getXpath(document: Document, xpath: String): String</ID>
     <ID>TooGenericExceptionCaught:Scraper.kt$Scraper$e: Exception</ID>
     <ID>TooManyFunctions:TransferRestore.kt$TransferRestore : TransferCommon</ID>
+    <ID>UnusedPrivateProperty:ContentCsvComposable.kt$val state = stateFlow.collectAsState()</ID>
     <ID>UnusedPrivateProperty:DatabaseQuotationsRandomTest.kt$DatabaseQuotationsRandomTest$i</ID>
     <ID>UtilityClassWithPublicConstructor:ListViewLayoutIdHelper.kt$ListViewLayoutIdHelper</ID>
     <ID>UtilityClassWithPublicConstructor:SyncJsonSchemaValidation.kt$SyncJsonSchemaValidation</ID>
+    <ID>VariableNaming:ContentCsvComposable.kt$val _stateFlow = MutableStateFlow(true)</ID>
   </CurrentIssues>
 </SmellBaseline>

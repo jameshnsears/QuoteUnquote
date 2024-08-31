@@ -71,12 +71,12 @@
     <string name="fragment_quotations_selection_dialog_browse_share_and_toggle">Tap: Share; Long tap: toggle Favourite</string>
     <string name="fragment_quotations_selection_enable_all_fields">Force enable Browse &amp; Export</string>
 
-    <string name="fragment_quotations_database">Database</string>
-    <string name="fragment_quotations_database_default_internal">Internal</string>
+    <string name="fragment_quotations_database">Content</string>
+    <string name="fragment_quotations_database_default_internal">Internal Database</string>
     <string name="fragment_quotations_database_default_info"></string>
     <string name="fragment_quotations_database_default">Discover high quality Quotations!</string>
     <string name="fragment_quotations_database_imported">External</string>
-    <string name="fragment_quotations_database_csv">.csv file</string>
+    <string name="fragment_quotations_database_csv">CSV file</string>
     <string name="fragment_quotations_database_button_import">Import</string>
     <string name="fragment_quotations_database_external_instructions_1_info"></string>
     <string name="fragment_quotations_database_external_instructions_1">\u2022 Expected format is <b>Source||Quotation</b> per line</string>
@@ -227,7 +227,7 @@
     <string name="fragment_archive_sync_to_cloud_on_favourite_most_recent">Last backup: %s</string>
     <string name="fragment_archive_sync_to_cloud_on_favourite_info_0">\u2022 The Alarm &amp; reminders permission needs to be granted for this feature</string>
     <string name="fragment_archive_sync_to_cloud_on_favourite_info_1">\u2022 Each time you Favorite / Unfavourite</string>
-    <string name="fragment_archive_sync_to_cloud_on_favourite_info_2">\u2022 Backup takes place after approximately 1 minute of app widget inactivity</string>
+    <string name="fragment_archive_sync_to_cloud_on_favourite_info_2">\u2022 Backup takes place after approximately 1 minute of app widget inactivity, with unlimitied retries</string>
 
     <string name="widget_listview_quotation">Quotation</string>
     <string name="widget_listview_author">Source</string>

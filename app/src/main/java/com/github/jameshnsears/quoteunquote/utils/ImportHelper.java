@@ -130,7 +130,7 @@ public class ImportHelper {
 
     private String makeDigest(int recordCount, String author, String quotation) {
         String digest;
-        if (recordCount == 0) {
+        if (recordCount == 1) {
             digest = DEFAULT_DIGEST;
         } else {
             digest = makeDigest(quotation, author);

@@ -143,6 +143,7 @@ public class NotificationsFragment extends FragmentCommon {
     private void handleSpecialPermissionForExactAlarm() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
 
+            fragmentNotificationsBinding.textViewExactTimeWarningDivider.setVisibility(VISIBLE);
             fragmentNotificationsBinding.textViewExactTimeWarningInfo.setVisibility(VISIBLE);
             fragmentNotificationsBinding.textViewExactTimeWarning.setVisibility(VISIBLE);
 
@@ -159,6 +160,7 @@ public class NotificationsFragment extends FragmentCommon {
         } else {
             handleSpecialPermissionForExactAlarmCommon();
 
+            fragmentNotificationsBinding.textViewExactTimeWarningDivider.setVisibility(View.GONE);
             fragmentNotificationsBinding.textViewExactTimeWarningInfo.setVisibility(View.GONE);
             fragmentNotificationsBinding.textViewExactTimeWarning.setVisibility(View.GONE);
         }

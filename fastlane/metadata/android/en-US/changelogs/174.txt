@@ -1,3 +1,0 @@
-&bull; Rename notification channel
-&bull; Add retry to Auto cloud backup
-&bull; Simplified date format in Auto cloud backup
