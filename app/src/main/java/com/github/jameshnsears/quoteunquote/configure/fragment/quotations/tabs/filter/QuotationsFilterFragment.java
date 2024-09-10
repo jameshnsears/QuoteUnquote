@@ -151,8 +151,6 @@ public class QuotationsFilterFragment extends FragmentCommon {
         createListenerCardSearchBrowse();
         createListenerCardSearchExport();
 
-        createListenerCardForceEnableButtons();
-
         setCard();
     }
 
@@ -236,7 +234,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
                 break;
         }
 
-        setCardForceEnable();
+        forceEnableButtons(true);
     }
 
     private void setCardAll(final boolean enabled) {
@@ -259,7 +257,6 @@ public class QuotationsFilterFragment extends FragmentCommon {
         fragmentQuotationsTabFilterBinding.textViewExclusionInfo.setEnabled(enabled);
         fragmentQuotationsTabFilterBinding.textViewExclusion1.setEnabled(enabled);
         fragmentQuotationsTabFilterBinding.textViewExclusion2.setEnabled(enabled);
-        fragmentQuotationsTabFilterBinding.textViewExclusion3.setEnabled(enabled);
     }
 
     private void setCardSourceIndividual(final boolean enabled) {
@@ -386,13 +383,6 @@ public class QuotationsFilterFragment extends FragmentCommon {
 
         ///
 
-        this.fragmentQuotationsTabFilterBinding.textViewSearchMinimumInfo.setEnabled(enabled);
-        this.fragmentQuotationsTabFilterBinding.textViewSearchMinimum1.setEnabled(enabled);
-        this.fragmentQuotationsTabFilterBinding.textViewSearchMinimum2.setEnabled(enabled);
-        this.fragmentQuotationsTabFilterBinding.textViewSearchMinimum3.setEnabled(enabled);
-
-        ///
-
         if (enabled && quotationsPreferences.getContentSelectionSearchCount() > 0) {
             setCardSearchButtonBrowse(true);
             setCardSearchButtonExport(true);
@@ -418,14 +408,6 @@ public class QuotationsFilterFragment extends FragmentCommon {
     void setCardSearchButtonExport(boolean enabled) {
         fragmentQuotationsTabFilterBinding.buttonSearchExport.setEnabled(enabled);
         QuotationsFilterFragment.this.makeButtonAlpha(fragmentQuotationsTabFilterBinding.buttonSearchExport, enabled);
-    }
-
-    private void setCardForceEnable() {
-        fragmentQuotationsTabFilterBinding.switchForceEnableButtons.setChecked(
-                quotationsPreferences.getContentSelectionSearchForceEnableButtons()
-        );
-
-        forceEnableButtons(quotationsPreferences.getContentSelectionSearchForceEnableButtons());
     }
 
     private void alignCards() {
@@ -900,15 +882,6 @@ public class QuotationsFilterFragment extends FragmentCommon {
 
                 activityExportSearch.launch(intent);
             }
-        });
-    }
-
-    private void createListenerCardForceEnableButtons() {
-        fragmentQuotationsTabFilterBinding.switchForceEnableButtons.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            fragmentQuotationsTabFilterBinding.switchForceEnableButtons.setChecked(isChecked);
-            quotationsPreferences.setContentSelectionSearchForceEnableButtons(isChecked);
-
-            forceEnableButtons(isChecked);
         });
     }
 

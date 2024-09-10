@@ -125,7 +125,7 @@ public class QuotationsPreferences extends PreferencesFacade {
 
     @NonNull
     public boolean getContentSelectionSearchForceEnableButtons() {
-        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(QuotationsPreferences.CONTENT_SEARCH_FORCE_ENABLE_BUTTONS), false);
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(QuotationsPreferences.CONTENT_SEARCH_FORCE_ENABLE_BUTTONS), true);
     }
 
     public void setContentSelectionSearchForceEnableButtons(@NonNull boolean value) {

@@ -20,7 +20,8 @@
             app:cardElevation="4dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true"
-            app:contentPadding="3dp">
+            app:contentPadding="3dp"
+            app:strokeColor="?attr/colorOutline">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -91,18 +92,8 @@
                     android:paddingStart="9dp"
                     android:paddingTop="5dp"
                     android:paddingEnd="0dp"
-                    android:paddingBottom="5dp"
-                    android:text="@string/fragment_quotations_database_external_instructions_2" />
-
-            <TextView
-                    android:id="@+id/textViewExamples3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="9dp"
-                    android:paddingTop="5dp"
-                    android:paddingEnd="0dp"
                     android:paddingBottom="10dp"
-                    android:text="@string/fragment_quotations_database_external_instructions_3" />
+                    android:text="@string/fragment_quotations_database_external_instructions_2" />
 
         </LinearLayout>
 

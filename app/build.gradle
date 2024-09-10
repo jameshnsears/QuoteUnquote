@@ -47,9 +47,9 @@ android {
         applicationId "com.github.jameshnsears.quoteunquote"
 
         // changelog version | min sdk | target sdk
-        versionCode 1772434
+        versionCode 1782435
         // semantic versioning
-        versionName "4.43.1"
+        versionName "4.44.0"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -156,6 +156,8 @@ android {
         androidTest {
             assets.srcDirs += files("$projectDir/schemas".toString())
             assets.srcDirs += 'src/androidTest/assets/'
+            java.srcDirs += 'src/androidTest/java'
+            java.srcDirs += 'src/androidTest/kotlin'
         }
         fdroid {
             assets.srcDirs = ['src/main/assets']
@@ -231,13 +233,13 @@ dependencies {
 
     annotationProcessor 'androidx.room:room-compiler:2.6.1'
 
-    debugImplementation 'androidx.fragment:fragment-testing:1.8.2'
+    debugImplementation 'androidx.fragment:fragment-testing:1.8.3'
     debugImplementation 'androidx.test:core-ktx:1.6.1'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.14'
 
     googleplayImplementation platform('com.google.firebase:firebase-bom:33.2.0')
 
-    implementation 'androidx.activity:activity-ktx:1.9.1'
+    implementation 'androidx.activity:activity-ktx:1.9.2'
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -257,7 +259,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
-    implementation 'net.pwall.json:json-kotlin-schema:0.48'
+    implementation 'net.pwall.json:json-kotlin-schema:0.50'
     implementation 'org.apache.commons:commons-csv:1.11.0'
     implementation 'org.jsoup:jsoup:1.18.1'
     implementation 'androidx.work:work-runtime-ktx:2.9.1'
@@ -265,7 +267,7 @@ dependencies {
     implementation project(path: ':cloudLib')
     implementation project(path: ':utilsLib')
 
-    implementation platform('androidx.compose:compose-bom:2024.08.00')
+    implementation platform('androidx.compose:compose-bom:2024.09.00')
     debugImplementation 'androidx.compose.ui:ui-tooling-preview'
     implementation 'androidx.activity:activity-compose'
     implementation 'androidx.compose.material3:material3'
@@ -280,7 +282,7 @@ dependencies {
     testImplementation 'androidx.test:core-ktx:1.6.1'
     testImplementation 'androidx.test.ext:junit:1.2.1'
     testImplementation 'androidx.test:rules:1.6.1'
-    testImplementation 'ch.qos.logback:logback-classic:1.5.7'
+    testImplementation 'ch.qos.logback:logback-classic:1.5.8'
     testImplementation 'com.google.guava:guava:33.3.0-jre'
     testImplementation 'io.mockk:mockk:1.13.12'
     testImplementation 'junit:junit:4.13.2'

@@ -1,0 +1,2 @@
+&bull; Simplify instructions
+&bull; Bump dependencies

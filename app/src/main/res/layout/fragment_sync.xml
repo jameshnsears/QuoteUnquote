@@ -39,7 +39,8 @@
             app:cardElevation="4dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true"
-            app:contentPadding="3dp">
+            app:contentPadding="3dp"
+            app:strokeColor="?attr/colorOutline">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -185,17 +186,8 @@
                         android:paddingStart="8dp"
                         android:paddingTop="5dp"
                         android:paddingEnd="0dp"
-                        android:paddingBottom="5dp"
-                        android:text="@string/fragment_archive_superseded_1" />
-
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="8dp"
-                        android:paddingTop="5dp"
-                        android:paddingEnd="0dp"
                         android:paddingBottom="15dp"
-                        android:text="@string/fragment_archive_superseded_2" />
+                        android:text="@string/fragment_archive_superseded_1" />
 
                 <LinearLayout
                         android:layout_width="match_parent"
@@ -234,7 +226,8 @@
             app:cardElevation="4dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true"
-            app:contentPadding="3dp">
+            app:contentPadding="3dp"
+            app:strokeColor="?attr/colorOutline">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -290,15 +283,6 @@
                     android:paddingEnd="0dp"
                     android:paddingBottom="5dp"
                     android:text="@string/fragment_archive_sync_to_cloud_on_favourite_info_1" />
-
-            <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="8dp"
-                    android:paddingTop="5dp"
-                    android:paddingEnd="0dp"
-                    android:paddingBottom="5dp"
-                    android:text="@string/fragment_archive_sync_to_cloud_on_favourite_info_2" />
 
         </LinearLayout>
 

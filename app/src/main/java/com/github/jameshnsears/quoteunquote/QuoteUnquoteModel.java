@@ -15,13 +15,13 @@ import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
 import com.github.jameshnsears.quoteunquote.database.history.FavouriteEntity;
 import com.github.jameshnsears.quoteunquote.database.quotation.AuthorPOJO;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
+import com.github.jameshnsears.quoteunquote.scraper.Scraper;
+import com.github.jameshnsears.quoteunquote.scraper.ScraperData;
+import com.github.jameshnsears.quoteunquote.scraper.ScraperQuotationException;
+import com.github.jameshnsears.quoteunquote.scraper.ScraperSourceException;
+import com.github.jameshnsears.quoteunquote.scraper.ScraperUrlException;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 import com.github.jameshnsears.quoteunquote.utils.ImportHelper;
-import com.github.jameshnsears.quoteunquote.utils.scraper.Scraper;
-import com.github.jameshnsears.quoteunquote.utils.scraper.ScraperData;
-import com.github.jameshnsears.quoteunquote.utils.scraper.ScraperQuotationException;
-import com.github.jameshnsears.quoteunquote.utils.scraper.ScraperSourceException;
-import com.github.jameshnsears.quoteunquote.utils.scraper.ScraperUrlException;
 
 import org.jsoup.nodes.Document;
 

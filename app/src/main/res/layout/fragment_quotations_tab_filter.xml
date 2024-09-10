@@ -18,7 +18,8 @@
             app:cardElevation="4dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true"
-            app:contentPadding="3dp">
+            app:contentPadding="3dp"
+            app:strokeColor="?attr/colorOutline">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -90,18 +91,8 @@
                         android:paddingStart="9dp"
                         android:paddingTop="5dp"
                         android:paddingEnd="0dp"
-                        android:paddingBottom="5dp"
-                        android:text="@string/fragment_quotations_selection_exclusion_2" />
-
-                <TextView
-                        android:id="@+id/textViewExclusion3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="9dp"
-                        android:paddingTop="5dp"
-                        android:paddingEnd="0dp"
                         android:paddingBottom="10dp"
-                        android:text="@string/fragment_quotations_selection_exclusion_3" />
+                        android:text="@string/fragment_quotations_selection_exclusion_2" />
 
             </LinearLayout>
 
@@ -117,7 +108,8 @@
             app:cardElevation="4dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true"
-            app:contentPadding="3dp">
+            app:contentPadding="3dp"
+            app:strokeColor="?attr/colorOutline">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -251,7 +243,8 @@
             app:cardElevation="4dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true"
-            app:contentPadding="3dp">
+            app:contentPadding="3dp"
+            app:strokeColor="?attr/colorOutline">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -337,7 +330,8 @@
             app:cardElevation="4dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true"
-            app:contentPadding="3dp">
+            app:contentPadding="3dp"
+            app:strokeColor="?attr/colorOutline">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -433,7 +427,6 @@
                     android:text="@string/fragment_quotations_selection_search_instructions_info"
                     app:drawableStartCompat="@drawable/ic_info_24" />
 
-
             <TextView
                     android:id="@+id/textViewSearchMinimum1"
                     android:layout_width="match_parent"
@@ -441,28 +434,8 @@
                     android:paddingStart="9dp"
                     android:paddingTop="5dp"
                     android:paddingEnd="0dp"
-                    android:paddingBottom="5dp"
-                    android:text="@string/fragment_quotations_selection_search_instructions_1" />
-
-            <TextView
-                    android:id="@+id/textViewSearchMinimum2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="9dp"
-                    android:paddingTop="5dp"
-                    android:paddingEnd="0dp"
-                    android:paddingBottom="5dp"
-                    android:text="@string/fragment_quotations_selection_search_instructions_2" />
-
-            <TextView
-                    android:id="@+id/textViewSearchMinimum3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="9dp"
-                    android:paddingTop="5dp"
-                    android:paddingEnd="0dp"
                     android:paddingBottom="10dp"
-                    android:text="@string/fragment_quotations_selection_search_instructions_3" />
+                    android:text="@string/fragment_quotations_selection_search_instructions_1" />
 
             <LinearLayout
                     android:layout_width="match_parent"
@@ -514,33 +487,6 @@
                             app:strokeWidth="1dp" />
                 </LinearLayout>
             </LinearLayout>
-
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardViewForceEnableButtons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="4dp"
-            app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true"
-            app:contentPadding="3dp">
-
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="10dp">
-
-            <com.google.android.material.materialswitch.MaterialSwitch
-                    android:id="@+id/switchForceEnableButtons"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/fragment_quotations_selection_enable_all_fields"
-                    android:textSize="16sp" />
 
         </LinearLayout>
 

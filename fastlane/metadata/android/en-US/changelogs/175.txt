@@ -1,4 +1,0 @@
-&bull; Ensure Notifications also support auto cloud backup
-&bull; Update instructions for Doze
-&bull; Update database
-&bull; Bump: dependencies; IDE - Android Studio Koala | 2024.1.1

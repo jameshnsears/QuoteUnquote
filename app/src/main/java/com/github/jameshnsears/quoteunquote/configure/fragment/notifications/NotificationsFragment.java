@@ -4,12 +4,14 @@ import static android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM;
 import static android.view.View.VISIBLE;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -372,6 +374,25 @@ public class NotificationsFragment extends FragmentCommon {
         }
     }
 
+    private ActivityResultLauncher<Intent> requestExactAlarmLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                Boolean isChecked = false;
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+                    if (alarmManager.canScheduleExactAlarms()) {
+                        isChecked = true;
+                    }
+                } else {
+                    isChecked = true;
+                }
+
+                notificationsPreferences.setCustomisableInterval(isChecked);
+                setCustomisableInterval();
+            }
+    );
+
     private void createListenerCustomisableInterval() {
         final CheckBox checkBoxCustomisableInterval = fragmentNotificationsBinding.checkBoxCustomisableInterval;
         checkBoxCustomisableInterval.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -379,7 +400,8 @@ public class NotificationsFragment extends FragmentCommon {
                 AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
                 if (!alarmManager.canScheduleExactAlarms()) {
                     ConfigureActivity.launcherInvoked = true;
-                    startActivity(new Intent(ACTION_REQUEST_SCHEDULE_EXACT_ALARM));
+                    Intent intent = new Intent(ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
+                    requestExactAlarmLauncher.launch(intent);
                 } else {
                     notificationsPreferences.setCustomisableInterval(isChecked);
                     setCustomisableInterval();

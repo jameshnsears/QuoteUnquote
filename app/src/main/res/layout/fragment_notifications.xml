@@ -40,7 +40,8 @@
             app:cardElevation="4dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true"
-            app:contentPadding="3dp">
+            app:contentPadding="3dp"
+            app:strokeColor="?attr/colorOutline">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -120,7 +121,8 @@
             app:cardElevation="4dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true"
-            app:contentPadding="3dp">
+            app:contentPadding="3dp"
+            app:strokeColor="?attr/colorOutline">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -213,7 +215,8 @@
             app:cardElevation="4dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="true"
-            app:contentPadding="3dp">
+            app:contentPadding="3dp"
+            app:strokeColor="?attr/colorOutline">
 
         <LinearLayout
                 android:layout_width="match_parent"

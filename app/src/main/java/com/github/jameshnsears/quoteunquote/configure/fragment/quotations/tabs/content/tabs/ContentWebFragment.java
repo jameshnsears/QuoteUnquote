@@ -15,8 +15,8 @@ import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
 import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentQuotationsTabDatabaseTabWebBinding;
+import com.github.jameshnsears.quoteunquote.scraper.ScraperData;
 import com.github.jameshnsears.quoteunquote.utils.ImportHelper;
-import com.github.jameshnsears.quoteunquote.utils.scraper.ScraperData;
 
 import timber.log.Timber;
 
@@ -176,50 +176,50 @@ public class ContentWebFragment extends ContentFragment {
         fragmentQuotationsTabDatabaseTabWebBinding.buttonImportWebPage.setOnClickListener(v -> {
             if (fragmentQuotationsTabDatabaseTabWebBinding.buttonImportWebPage.isPressed()) {
 
-                    String url = getWebUrl();
-                    String xpathQuotation = getWebXpathQuotation();
-                    String xpathSource = getWebXpathSource();
+                String url = getWebUrl();
+                String xpathQuotation = getWebXpathQuotation();
+                String xpathSource = getWebXpathSource();
 
-                    if ("".equals(url) || "".equals(xpathQuotation) | "".equals(xpathSource)
-                            || 10 > url.length()) {
-                        useInternalDatabase();
+                if ("".equals(url) || "".equals(xpathQuotation) | "".equals(xpathSource)
+                        || 10 > url.length()) {
+                    useInternalDatabase();
+
+                    Toast.makeText(
+                            getContext(),
+                            getContext().getString(R.string.fragment_quotations_database_scrape_fields_error_incomplete),
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(
+                            this.getContext(),
+                            this.getContext().getString(R.string.fragment_quotations_database_scrape_importing),
+                            Toast.LENGTH_SHORT).show();
+
+                    ScraperData scraperData = quoteUnquoteModel.getWebPage(
+                            getContext(), url, xpathQuotation, xpathSource);
+
+                    if (scraperData.getScrapeResult()) {
+                        quoteUnquoteModel.insertWebPage(
+                                widgetId,
+                                scraperData.getQuotation(),
+                                scraperData.getSource(),
+                                ImportHelper.DEFAULT_DIGEST
+                        );
+
+                        usingWebPage();
+
+                        importWasSuccessful();
+
+                        this.fragmentQuotationsTabDatabaseTabWebBinding.radioButtonDatabaseExternalWeb.setEnabled(false);
 
                         Toast.makeText(
                                 getContext(),
-                                getContext().getString(R.string.fragment_quotations_database_scrape_fields_error_incomplete),
+                                getContext().getString(R.string.fragment_quotations_database_scrape_test_success),
                                 Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(
-                                this.getContext(),
-                                this.getContext().getString(R.string.fragment_quotations_database_scrape_importing),
-                                Toast.LENGTH_SHORT).show();
-
-                        ScraperData scraperData = quoteUnquoteModel.getWebPage(
-                                getContext(), url, xpathQuotation, xpathSource);
-
-                        if (scraperData.getScrapeResult()) {
-                            quoteUnquoteModel.insertWebPage(
-                                    widgetId,
-                                    scraperData.getQuotation(),
-                                    scraperData.getSource(),
-                                    ImportHelper.DEFAULT_DIGEST
-                            );
-
-                            usingWebPage();
-
-                            importWasSuccessful();
-
-                            this.fragmentQuotationsTabDatabaseTabWebBinding.radioButtonDatabaseExternalWeb.setEnabled(false);
-
-                            Toast.makeText(
-                                    getContext(),
-                                    getContext().getString(R.string.fragment_quotations_database_scrape_test_success),
-                                    Toast.LENGTH_SHORT).show();
-                        } else {
-                            useInternalDatabase();
-                        }
+                        useInternalDatabase();
                     }
                 }
+            }
         });
     }
 }

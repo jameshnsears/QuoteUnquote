@@ -33,6 +33,7 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.notifications.Not
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 import com.github.jameshnsears.quoteunquote.listview.ListViewService;
+import com.github.jameshnsears.quoteunquote.scraper.ScraperData;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 import com.github.jameshnsears.quoteunquote.utils.ImportHelper;
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
@@ -44,7 +45,6 @@ import com.github.jameshnsears.quoteunquote.utils.notification.NotificationsCust
 import com.github.jameshnsears.quoteunquote.utils.notification.NotificationsDailyAlarm;
 import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade;
 import com.github.jameshnsears.quoteunquote.utils.scraper.ScraperAlarm;
-import com.github.jameshnsears.quoteunquote.utils.scraper.ScraperData;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 import java.util.concurrent.ExecutorService;

@@ -21,26 +21,14 @@
 
 ---
 
-## 2. High Level Design
-
-### 2.1. Deployment Diagram
-
-![Deployment Diagram](https://github.com/jameshnsears/QuoteUnquote/blob/main/docs/uml/Deployment%20Diagram.jpg?raw=true)
-
-### 2.2. androidTest ROOM Class Diagram
-
-![androidTest ROOM Class Diagram](https://github.com/jameshnsears/QuoteUnquote/blob/main/docs/uml/androidTest%20ROOM%20Class%20Diagram.jpg?raw=true)
-
----
-
-## 3. Build Instructions
+## 2. Build Instructions
 
 After cloning extract .gpg files - BuildConfig / GitHub Action Secrets values.
 
 The app can be built on Windows 11 but the ./bin folder contains bash scripts (that work with git
 bash; some require gh cli).
 
-### 3.1. CLI
+### 2.1. CLI
 
 ```text
 git clone https://github.com/jameshnsears/QuoteUnquote
@@ -50,7 +38,7 @@ git submodule foreach git pull origin main
 git submodule
 ```
 
-### 3.2. Android Studio
+### 2.2. Android Studio
 
 ```text
 Android Studio > Get from Version Control
@@ -75,7 +63,7 @@ Choose a Build Variant
  > run a Run/Debug Configuration
 ```
 
-### 3.3. PyCharm
+### 2.3. PyCharm
 
 ```text
 After a clone...

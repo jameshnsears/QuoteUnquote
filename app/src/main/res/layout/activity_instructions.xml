@@ -43,7 +43,8 @@
                     app:cardElevation="4dp"
                     app:cardPreventCornerOverlap="true"
                     app:cardUseCompatPadding="true"
-                    app:contentPadding="3dp">
+                    app:contentPadding="3dp"
+                    app:strokeColor="?attr/colorOutline">
 
                 <LinearLayout
                         android:layout_width="match_parent"
@@ -60,13 +61,6 @@
                             android:text="@string/activity_instructions_placement"
                             android:textSize="20sp"
                             android:textStyle="bold" />
-
-                    <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            android:text="@string/activity_instructions_different_ways" />
 
                     <TextView
                             android:layout_width="match_parent"
@@ -118,7 +112,8 @@
                     app:cardElevation="4dp"
                     app:cardPreventCornerOverlap="true"
                     app:cardUseCompatPadding="true"
-                    app:contentPadding="3dp">
+                    app:contentPadding="3dp"
+                    app:strokeColor="?attr/colorOutline">
 
                 <LinearLayout
                         android:layout_width="match_parent"
@@ -172,20 +167,6 @@
                             android:text="@string/activity_instructions_configure_5" />
 
                     <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            android:text="@string/activity_instructions_configure_6" />
-
-                    <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingTop="5dp"
-                            android:paddingBottom="5dp"
-                            android:text="@string/activity_instructions_configure_7" />
-
-                    <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingTop="5dp"
@@ -204,7 +185,8 @@
                     app:cardElevation="4dp"
                     app:cardPreventCornerOverlap="true"
                     app:cardUseCompatPadding="true"
-                    app:contentPadding="3dp">
+                    app:contentPadding="3dp"
+                    app:strokeColor="?attr/colorOutline">
 
                 <LinearLayout
                         android:layout_width="match_parent"
