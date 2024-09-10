@@ -521,6 +521,22 @@ public class QuoteUnquoteModel {
         return quotationEntity;
     }
 
+    public List<QuotationEntity> getQuotationsAll() {
+        final Future<List<QuotationEntity>> future = QuoteUnquoteWidget.getExecutorService().submit(()
+                -> databaseRepository.getAllQuotations());
+
+        List<QuotationEntity> listQuotationEntity = null;
+
+        try {
+            listQuotationEntity = future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
+            Thread.currentThread().interrupt();
+        }
+
+        return listQuotationEntity;
+    }
+
     public void delete(final int widgetId) {
         final Future future = QuoteUnquoteWidget.getExecutorService().submit(() ->
                 databaseRepository.erase(widgetId)
@@ -1059,5 +1075,27 @@ public class QuoteUnquoteModel {
         }
 
         return "";
+    }
+
+    public boolean isDuplicate(
+            String source,
+            String quotation
+    ) {
+        return false;
+    }
+
+    public void append(
+         String source,
+         String quotation
+    ) {
+
+    }
+
+    public void update(
+        String digest,
+        String source,
+        String quotation
+    ) {
+
     }
 }

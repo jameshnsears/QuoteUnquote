@@ -51,8 +51,8 @@
     <string name="fragment_quotations_selection_search"><b>Search: %d</b></string>
     <string name="fragment_quotations_selection_search_favourites_only">Favourites only</string>
     <string name="fragment_quotations_selection_search_instructions_text">Search text…</string>
-    <string name="fragment_quotations_selection_search_switch_regex">Use Regular Expression</string>
-    <string name="fragment_quotations_selection_search_switch_regex_invalid">Invalid Regular Expression</string>
+    <string name="fragment_quotations_selection_search_switch_regex">Regular expression</string>
+    <string name="fragment_quotations_selection_search_switch_regex_invalid">Invalid regular expression</string>
     <string name="fragment_quotations_selection_search_instructions_info"></string>
     <string name="fragment_quotations_selection_search_instructions_1">4 characters minimum</string>
 
@@ -60,20 +60,34 @@
     <string name="fragment_quotations_selection_dialog_browse_source">Source Results</string>
     <string name="fragment_quotations_selection_dialog_browse_favourites">Favourites</string>
     <string name="fragment_quotations_selection_dialog_browse_search">Search Results</string>
-    <string name="fragment_quotations_selection_dialog_browse_share_and_toggle">Tap to Share; Long tap to toggle Favourite</string>
+    <string name="fragment_quotations_selection_dialog_browse_share_and_toggle_01">\u2022 Tap to share</string>
+    <string name="fragment_quotations_selection_dialog_browse_share_and_toggle_02">\u2022 Long tap to toggle favourite</string>
 
     <string name="fragment_quotations_database">Content</string>
     <string name="fragment_quotations_database_default_internal">Internal Database</string>
     <string name="fragment_quotations_database_default_info"></string>
     <string name="fragment_quotations_database_default">Discover high quality Quotations!</string>
     <string name="fragment_quotations_database_imported">External</string>
+
     <string name="fragment_quotations_database_csv">CSV file</string>
+    <string name="fragment_quotations_database_csv_inplace_edit">Edit</string>>
+    <string name="fragment_quotations_database_csv_inplace_source">Source…</string>
+    <string name="fragment_quotations_database_csv_inplace_quotation">Quotation…</string>
+    <string name="fragment_quotations_database_csv_inplace_save">Save</string>
+    <string name="fragment_quotations_database_csv_inplace_delete">Delete</string>
+    <string name="fragment_quotations_database_csv_inplace_instruction_01">\u2022 Tap row to select / deselect</string>
+    <string name="fragment_quotations_database_csv_inplace_instruction_02">\u2022 Save will append if row not selected</string>
+    <string name="fragment_quotations_database_csv_inplace_save_update">Save - updated</string>
+    <string name="fragment_quotations_database_csv_inplace_save_append">Save - appended</string>
+    <string name="fragment_quotations_database_csv_inplace_save_warning_duplicate">Unable to Save - duplicate</string>
+    <string name="fragment_quotations_database_csv_inplace_deleted">Deleted</string>
+    <string name="fragment_quotations_database_csv_inplace_warning_empty_database">Switching to Internal Database</string>
+
     <string name="fragment_quotations_database_button_import">Import</string>
     <string name="fragment_quotations_database_external_instructions_1_info"></string>
-    <string name="fragment_quotations_database_external_instructions_1">\u2022 CSV file should be UTF-8 encoded</string>
-    <string name="fragment_quotations_database_external_instructions_2">\u2022 Export from Internal Database for an example</string>
-    <string name="fragment_quotations_database_import_contents_0">Invalid: %1$s</string>
-    <string name="fragment_quotations_database_import_contents_1">Invalid: line: %1$d: %2$s</string>
+    <string name="fragment_quotations_database_external_instructions_1">Export from Internal Database for a UTF-8 encoded example</string>
+    <string name="fragment_quotations_database_import_contents_0">Invalid - %1$s</string>
+    <string name="fragment_quotations_database_import_contents_1">Invalid - line: %1$d: %2$s</string>
     <string name="fragment_quotations_database_import_importing">Importing - please wait&#8230;</string>
     <string name="fragment_quotations_database_import_success">Success - file imported</string>
     <string name="fragment_quotations_database_scrape_web_page">Web</string>
@@ -94,7 +108,7 @@
     <string name="fragment_quotations_database_scrape_2">\u2022 Response must contain only a single Quotation and Source</string>
     <string name="fragment_quotations_database_scrape_3">\u2022 Beware that an XML response, in the app, is wrapped in &lt;html&gt;&lt;body&gt;… &lt;/body&gt;&lt;/html&gt;</string>
     <string name="fragment_quotations_database_scrape_4">\u2022 App Widget polls every 30 minutes</string>
-    <string name="fragment_quotations_database_scrape_5">\u2022 If in doubt please raise GitHub Issue</string>
+    <string name="fragment_quotations_database_scrape_5">\u2022 Raise GitHub Issue if in doubt</string>
 
     <string name="fragment_appearance_title">Appearance</string>
     <string name="fragment_appearance_tab_style">Style</string>
@@ -148,7 +162,7 @@
     <string name="fragment_appearance_navigation">Toolbar</string>
     <string name="fragment_appearance_follow_system_theme_follow">Follow system theme</string>
     <string name="fragment_appearance_follow_system_theme_info"></string>
-    <string name="fragment_appearance_follow_system_theme">Forces App Widget to use Black &amp; White colours</string>
+    <string name="fragment_appearance_follow_system_theme">Force black &amp; white colours</string>
     <string name="fragment_appearance_toolbar_colour_dialog_title">Buttons Colour</string>
     <string name="fragment_appearance_toolbar_first">First, clears Previous</string>
     <string name="fragment_appearance_toolbar_previous">Previous</string>>
@@ -231,5 +245,5 @@
     <string name="preview_description">Discover high quality Quotations!\nImport Affirmations!</string>
     <string name="preview_quotation">Nothing matters very much and very few things matter at all.\n</string>
     <string name="preview_author"><u>Arthur Balfour\n</u></string>
-    <string name="preview_position">\u2316  1/20290\u0020</string>
+    <string name="preview_position">\u2316  1/20284\u0020</string>
 </resources>

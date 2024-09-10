@@ -67,6 +67,7 @@
                             android:layout_weight="1"
                             android:paddingStart="0dp"
                             android:paddingEnd="5dp"
+                            android:textColor="@android:color/white"
                             app:strokeColor="?attr/colorPrimary"
                             app:strokeWidth="1dp"
                             tools:ignore="SpeakableTextPresentCheck" />
@@ -259,10 +260,8 @@
                         android:text="@string/fragment_appearance_button_quotation"
                         android:textColor="@android:color/white"
                         android:textSize="16sp"
-                        app:backgroundTint="@null"
                         app:iconTint="@null"
                         app:strokeColor="?attr/colorPrimary"
-                        app:strokeWidth="1dp"
                         tools:ignore="DuplicateSpeakableTextCheck" />
 
                 <TextView
@@ -294,11 +293,9 @@
                         android:text="@string/fragment_appearance_button_author"
                         android:textColor="@android:color/white"
                         android:textSize="16sp"
-                        app:backgroundTint="@null"
                         app:icon="@drawable/ic_appearance_visibility_off_24"
                         app:iconTint="@null"
                         app:strokeColor="?attr/colorPrimary"
-                        app:strokeWidth="1dp"
                         tools:ignore="DuplicateSpeakableTextCheck" />
 
                 <TextView
@@ -330,11 +327,9 @@
                         android:text="@string/fragment_appearance_button_position"
                         android:textColor="@android:color/white"
                         android:textSize="16sp"
-                        app:backgroundTint="@null"
                         app:icon="@drawable/ic_appearance_visibility_off_24"
                         app:iconTint="@null"
                         app:strokeColor="?attr/colorPrimary"
-                        app:strokeWidth="1dp"
                         tools:ignore="DuplicateSpeakableTextCheck" />
 
                 <TextView

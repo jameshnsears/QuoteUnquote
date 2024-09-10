@@ -1,0 +1,37 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/material3_primary</item>
+        <item name="colorPrimaryVariant">@color/material3_primary_variant</item>
+        <item name="colorOnPrimary">@color/material3_on_primary</item>
+
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">@color/material3_secondary</item>
+        <item name="colorOnSecondary">@color/material3_on_secondary</item>
+
+        <!-- Background color -->
+        <item name="android:colorBackground">@color/material3_background</item>
+
+        <!-- Surface color -->
+        <item name="colorSurface">@color/material3_surface</item>
+        <item name="colorOnSurface">@color/material3_on_surface</item>
+
+        <!-- Error color -->
+        <item name="colorError">@color/material3_error</item>
+        <item name="colorOnError">@color/material3_on_error</item>
+    </style>
+
+    <style name="TabSize" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">18sp</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="CustomAlertDialog" parent="MaterialAlertDialog.Material3">
+        <item name="dialogCornerRadius">12dp</item>
+    </style>
+
+    <style name="CustomColourPickerAlertDialog" parent="MaterialAlertDialog.Material3">
+        <item name="dialogCornerRadius">12dp</item>
+    </style>
+</resources>

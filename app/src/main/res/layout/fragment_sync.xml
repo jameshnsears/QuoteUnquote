@@ -114,9 +114,7 @@
                             android:text="@string/fragment_archive_backup"
                             android:textColor="@android:color/white"
                             android:textSize="16sp"
-                            app:backgroundTint="@null"
-                            app:strokeColor="?attr/colorPrimary"
-                            app:strokeWidth="1dp" />
+                            app:strokeColor="?attr/colorPrimary" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -162,9 +160,7 @@
                                 android:text="@string/fragment_archive_restore"
                                 android:textColor="@android:color/white"
                                 android:textSize="16sp"
-                                app:backgroundTint="@null"
-                                app:strokeColor="?attr/colorPrimary"
-                                app:strokeWidth="1dp" />
+                                app:strokeColor="?attr/colorPrimary" />
 
                     </LinearLayout>
 
@@ -205,11 +201,7 @@
                             android:text="@string/fragment_archive_create_new_sync_code"
                             android:textColor="@android:color/white"
                             android:textSize="16sp"
-                            app:backgroundTint="@null"
-                            app:icon="@drawable/ic_sync_autorenew_24"
-                            app:iconTint="@null"
-                            app:strokeColor="?attr/colorPrimary"
-                            app:strokeWidth="1dp" />
+                            app:strokeColor="?attr/colorPrimary" />
                 </LinearLayout>
 
             </LinearLayout>
