@@ -267,7 +267,7 @@ dependencies {
     implementation project(path: ':cloudLib')
     implementation project(path: ':utilsLib')
 
-    implementation platform('androidx.compose:compose-bom:2024.09.00')
+    implementation platform('androidx.compose:compose-bom:2024.09.02')
     debugImplementation 'androidx.compose.ui:ui-tooling-preview'
     implementation 'androidx.activity:activity-compose'
     implementation 'androidx.compose.material3:material3'
