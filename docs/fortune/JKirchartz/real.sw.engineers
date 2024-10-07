@@ -1,0 +1,71 @@
+REAL SOFTWARE ENGINEERS DON'T READ DUMPS
+%
+Real software engineers don't read dumps. They never generate them, and on
+the rare occasions that they come across them, they are vaguely amused.
+%
+Real software engineers don't comment their code. The identifiers are so
+mnemonic they don't have to.
+%
+Real software engineers don't write applications programs, they implement
+algorithms. If someone has an application that the algorithm might help
+with, that's nice. Don't ask them to write the user interface, though.
+%
+Real software engineers eat quiche.
+%
+lf it doesn't have recursive function calls, real software engineers don't
+program in it. Real software engineers don't program in assembler. They
+become queasy at the very thought.
+%
+Real software engineers don't debug programs, they verify correctness.
+This process doesn't necessarily involve executing anything on a computer,
+except perhaps a Correctness Verification Aid package.
+%
+Real software engineers like C's structured constructs, but they are
+suspicious of it because they have heard that it lets you get ``close to
+the machine.''
+%
+Real software engineers play tennis. In general, they don't like any sport
+that involves getting hot and sweaty and gross when out of range of a
+shower. (Thus mountain climbing is Right Out.) They will occasionally wear
+their tennis togs to work, but only on very sunny days.
+%
+Real software engineers admire PASCAL for its discipline and Spartan
+purity, but they find it difficult to actually program in. They don't tell
+this to their friends, because they are afraid it means that they are
+somehow Unworthy.
+%
+Real software engineers work from 9 to 5, because that is the way the job
+is described in the formal spec. Working late would feel like using an
+undocumented external procedure.
+%
+Real software engineers write in languages that have not actually been
+implemented for any machine, and for which only the formal spec (in BNF)
+is available. This keeps them from having to take any machine dependencies
+into account. Machine dependencies make real software engineers very
+uneasy.
+%
+Real software engineers don't write in ADA, because the standards bodies
+have not quite decided on a formal spec yet.
+%
+Real software engineers like writing their own compilers, preferably in
+PROLOG (they also like writing them in unimplemented languages, but it
+turns out to be difficult to actually RUN these).
+%
+Real software engineers regret the existence of COBOL, FORTRAN and BASIC.
+Pinl is getting there, but it is not nearly disciplined enough; far too
+much built in function.
+%
+Real software engineers aren't too happy about the existence of users,
+either. Users always seem to have the wrong idea about what the
+implementation and verification of algorithms is all about.
+%
+Real software engineers don't like the idea of some inexplicable and
+greasy hardware several aisles away that may stop working at any moment.
+They have a great distrust of hardware people, and wish that systems could
+be virtual at ALL levels. They would like personal computers (you know no
+one's going to trip over something and kill your DFA in mid-transit),
+except that they need 8 megabytes to run their Correctness Verification
+Aid packages.
+%
+Real software engineers think better while playing WFF `N' PROOF.
+%
