@@ -21,15 +21,15 @@ class QuoteUnquoteModelTest : QuoteUnquoteModelUtility() {
 
         assertTrue(
             quoteUnquoteModelDouble.isDuplicate(
-                "external_a2",
+                "external_a1",
                 "external_q1"
             )
         )
 
         assertFalse(
             quoteUnquoteModelDouble.isDuplicate(
-                "external_a0",
-                "external_q0"
+                "external_a2",
+                "external_q2"
             )
         )
     }
@@ -38,15 +38,14 @@ class QuoteUnquoteModelTest : QuoteUnquoteModelUtility() {
     fun append() {
         DatabaseRepository.useInternalDatabase = false
 
-        assertEquals(3, quoteUnquoteModelDouble.quotationsAll.size)
+        assertEquals(2, quoteUnquoteModelDouble.quotationsAll.size)
 
-        // TODO create new digest
         quoteUnquoteModelDouble.append(
-            "a1",
-            "q1"
+            "external_a2",
+            "external_q2"
         )
 
-        assertEquals(4, quoteUnquoteModelDouble.quotationsAll.size)
+        assertEquals(3, quoteUnquoteModelDouble.quotationsAll.size)
     }
 
     @Test
