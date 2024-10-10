@@ -1081,7 +1081,28 @@ public class QuoteUnquoteModel {
             String author,
             String quotation
     ) {
-        return false;
+        final Future<Boolean> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+            List<QuotationEntity> quotationsForAuthor = getQuotationsForAuthor(author);
+
+            for (QuotationEntity quotationAuthor : quotationsForAuthor) {
+                if (quotationAuthor.quotation.equals(quotation)) {
+                    return true;
+                }
+            }
+
+            return false;
+        });
+
+        boolean isDuplicate = false;
+
+        try {
+            isDuplicate = future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
+            Thread.currentThread().interrupt();
+        }
+
+        return isDuplicate;
     }
 
     public void append(

@@ -17,19 +17,19 @@ import org.junit.Test
 class QuoteUnquoteModelTest : QuoteUnquoteModelUtility() {
     @Test
     fun isDuplicate() {
-        DatabaseRepository.useInternalDatabase = false
+        insertExternalQuotations()
 
         assertTrue(
             quoteUnquoteModelDouble.isDuplicate(
-                "a1",
-                "q1"
+                "external_a2",
+                "external_q1"
             )
         )
 
         assertFalse(
             quoteUnquoteModelDouble.isDuplicate(
-                "a1000",
-                "q1000"
+                "external_a0",
+                "external_q0"
             )
         )
     }

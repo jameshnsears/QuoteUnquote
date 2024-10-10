@@ -22,7 +22,7 @@
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="ContentCsvInPlaceEditDialogTest">
+      <SelectionState runConfigName="QuoteUnquoteModelTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
