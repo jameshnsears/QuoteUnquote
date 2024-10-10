@@ -172,7 +172,7 @@ private fun InPlaceEditTextSourceQuotationFields(
     )
 
     val digest by conventCsvViewModel.digest.collectAsState()
-    val textFieldSource by conventCsvViewModel.source.collectAsState()
+    val textFieldAuthor by conventCsvViewModel.author.collectAsState()
     val textFieldQuotation by conventCsvViewModel.quotation.collectAsState()
 
     Row(
@@ -184,11 +184,11 @@ private fun InPlaceEditTextSourceQuotationFields(
         Column(modifier = Modifier.fillMaxHeight()) {
             OutlinedTextField(
                 colors = textFieldColors,
-                value = textFieldSource,
-                onValueChange = { newTextFieldSource ->
+                value = textFieldAuthor,
+                onValueChange = { newTextFieldAuthor ->
                     conventCsvViewModel.populateTextFields(
                         digest,
-                        newTextFieldSource,
+                        newTextFieldAuthor,
                         textFieldQuotation,
                     )
                 },
@@ -203,7 +203,7 @@ private fun InPlaceEditTextSourceQuotationFields(
                     .fillMaxWidth()
                     .padding(top = 8.dp, bottom = 8.dp),
                 trailingIcon = {
-                    if (textFieldSource.isNotEmpty()) {
+                    if (textFieldAuthor.isNotEmpty()) {
                         IconButton(onClick = {
                             conventCsvViewModel.populateTextFields(
                                 quotation = textFieldQuotation,
@@ -233,7 +233,7 @@ private fun InPlaceEditTextSourceQuotationFields(
                 onValueChange = { newTextFieldQuotation ->
                     conventCsvViewModel.populateTextFields(
                         digest,
-                        textFieldSource,
+                        textFieldAuthor,
                         newTextFieldQuotation,
                     )
                 },
@@ -251,7 +251,7 @@ private fun InPlaceEditTextSourceQuotationFields(
                     if (textFieldQuotation.isNotEmpty()) {
                         IconButton(onClick = {
                             conventCsvViewModel.populateTextFields(
-                                author = textFieldSource,
+                                author = textFieldAuthor,
                             )
                         }) {
                             Icon(
@@ -273,7 +273,7 @@ private fun InPlaceEditSaveDeleteButtons(
     val context = LocalContext.current
 
     val digest by conventCsvViewModel.digest.collectAsState()
-    val textFieldSource by conventCsvViewModel.source.collectAsState()
+    val textFieldAuthor by conventCsvViewModel.author.collectAsState()
     val textFieldQuotation by conventCsvViewModel.quotation.collectAsState()
 
     val messageSaveUpdated = stringResource(R.string.fragment_quotations_database_csv_inplace_save_update)
@@ -302,7 +302,7 @@ private fun InPlaceEditSaveDeleteButtons(
                         else -> Toast.makeText(context, messageWarningDuplicate, Toast.LENGTH_SHORT).show()
                     }
                 },
-                enabled = (textFieldSource.isNotEmpty() && textFieldQuotation.isNotEmpty()),
+                enabled = (textFieldAuthor.isNotEmpty() && textFieldQuotation.isNotEmpty()),
             ) {
                 Text(
                     stringResource(id = R.string.fragment_quotations_database_csv_inplace_save),

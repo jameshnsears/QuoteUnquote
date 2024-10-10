@@ -20,8 +20,8 @@ class ConventCsvViewModel(val quoteUnquoteModel: QuoteUnquoteModel) : ViewModel(
     private val _digest = MutableStateFlow("")
     val digest: StateFlow<String> = _digest.asStateFlow()
 
-    private val _source = MutableStateFlow("")
-    val source: StateFlow<String> = _source.asStateFlow()
+    private val _author = MutableStateFlow("")
+    val author: StateFlow<String> = _author.asStateFlow()
 
     private val _quotation = MutableStateFlow("")
     val quotation: StateFlow<String> = _quotation.asStateFlow()
@@ -36,7 +36,7 @@ class ConventCsvViewModel(val quoteUnquoteModel: QuoteUnquoteModel) : ViewModel(
         Timber.d("quotation=$quotation")
 
         _digest.value = digest
-        _source.value = author
+        _author.value = author
         _quotation.value = quotation
     }
 
@@ -55,7 +55,7 @@ class ConventCsvViewModel(val quoteUnquoteModel: QuoteUnquoteModel) : ViewModel(
             if (digest.value.isEmpty()) {
                 viewModelScope.launch {
                     quoteUnquoteModel.append(
-                        _source.value,
+                        _author.value,
                         _quotation.value
                     )
                     _list.value = quoteUnquoteModel.quotationsAll
@@ -68,7 +68,7 @@ class ConventCsvViewModel(val quoteUnquoteModel: QuoteUnquoteModel) : ViewModel(
                 viewModelScope.launch {
                     quoteUnquoteModel.update(
                         _digest.value,
-                        _source.value,
+                        _author.value,
                         _quotation.value
                     )
                     _list.value = quoteUnquoteModel.quotationsAll
@@ -83,7 +83,7 @@ class ConventCsvViewModel(val quoteUnquoteModel: QuoteUnquoteModel) : ViewModel(
 
     private fun isDuplicate() : Boolean {
         return quoteUnquoteModel.isDuplicate(
-            _source.value,
+            _author.value,
             _quotation.value
         )
     }

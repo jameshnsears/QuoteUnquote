@@ -1078,23 +1078,31 @@ public class QuoteUnquoteModel {
     }
 
     public boolean isDuplicate(
-            String source,
+            String author,
             String quotation
     ) {
         return false;
     }
 
     public void append(
-         String source,
+            String author,
          String quotation
     ) {
 
     }
 
     public void update(
-        String digest,
-        String source,
-        String quotation
+            String digest,
+            String author,
+            String quotation
+    ) {
+
+    }
+
+    public void delete(
+            String digest,
+            String author,
+            String quotation
     ) {
 
     }

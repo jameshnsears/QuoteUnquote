@@ -16,6 +16,95 @@ import org.junit.Test
 
 class QuoteUnquoteModelTest : QuoteUnquoteModelUtility() {
     @Test
+    fun isDuplicate() {
+        DatabaseRepository.useInternalDatabase = false
+
+        assertTrue(
+            quoteUnquoteModelDouble.isDuplicate(
+                "a1",
+                "q1"
+            )
+        )
+
+        assertFalse(
+            quoteUnquoteModelDouble.isDuplicate(
+                "a1000",
+                "q1000"
+            )
+        )
+    }
+
+    @Test
+    fun append() {
+        DatabaseRepository.useInternalDatabase = false
+
+        assertEquals(3, quoteUnquoteModelDouble.quotationsAll.size)
+
+        // TODO create new digest
+        quoteUnquoteModelDouble.append(
+            "a1",
+            "q1"
+        )
+
+        assertEquals(4, quoteUnquoteModelDouble.quotationsAll.size)
+    }
+
+    @Test
+    fun update() {
+        DatabaseRepository.useInternalDatabase = false
+
+        var firstQuotation = quoteUnquoteModelDouble.allQuotations[0]
+        assertEquals("00000000", firstQuotation.digest)
+        assertEquals("a1", firstQuotation.author)
+        assertEquals("q1", firstQuotation.quotation)
+
+        quoteUnquoteModelDouble.update(
+            "00000000",
+            "a1000",
+            "q1000"
+        )
+
+        firstQuotation = quoteUnquoteModelDouble.allQuotations[0]
+        assertEquals("00000000", firstQuotation.digest)
+        assertEquals("a1000", firstQuotation.author)
+        assertEquals("q1000", firstQuotation.quotation)
+
+        //////////////////
+
+        var secondQuotation = quoteUnquoteModelDouble.allQuotations[1]
+        assertEquals("ddddd", secondQuotation.digest)
+        assertEquals("a2", secondQuotation.author)
+        assertEquals("q2", secondQuotation.quotation)
+
+        quoteUnquoteModelDouble.update(
+            "ddddd",
+            "a1000",
+            "q1000"
+        )
+
+        secondQuotation = quoteUnquoteModelDouble.allQuotations[1]
+        assertEquals("ccccc", secondQuotation.digest)
+        assertEquals("a1000", secondQuotation.author)
+        assertEquals("q1000", secondQuotation.quotation)
+    }
+
+    @Test
+    fun delete() {
+        DatabaseRepository.useInternalDatabase = false
+
+        assertEquals(3, quoteUnquoteModelDouble.quotationsAll.size)
+
+        // TODO need to reassign default + need test for deleting no default
+        quoteUnquoteModelDouble.delete(
+            "00000000",
+            "a1",
+            "q1"
+        )
+
+        assertEquals(2, quoteUnquoteModelDouble.quotationsAll.size)
+    }
+
+    @Test
     fun authorsSorted() {
         val sortedList =
             quoteUnquoteModelDouble.authorsSorted(
