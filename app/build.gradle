@@ -282,7 +282,7 @@ dependencies {
     testImplementation 'androidx.test:core-ktx:1.6.1'
     testImplementation 'androidx.test.ext:junit:1.2.1'
     testImplementation 'androidx.test:rules:1.6.1'
-    testImplementation 'ch.qos.logback:logback-classic:1.5.8'
+    testImplementation 'ch.qos.logback:logback-classic:1.5.10'
     testImplementation 'com.google.guava:guava:33.3.0-jre'
     testImplementation 'io.mockk:mockk:1.13.12'
     testImplementation 'junit:junit:4.13.2'
