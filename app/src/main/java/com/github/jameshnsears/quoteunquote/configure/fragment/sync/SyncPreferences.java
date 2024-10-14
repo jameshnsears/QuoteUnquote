@@ -8,7 +8,6 @@ import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade;
 
 public class SyncPreferences extends PreferencesFacade {
     public static final String ARCHIVE_GOOGLE_CLOUD = "ARCHIVE_GOOGLE_CLOUD";
-    public static final String ARCHIVE_GOOGLE_CLOUD_TIMESTAMP = "ARCHIVE_GOOGLE_CLOUD_TIMESTAMP";
     public static final String ARCHIVE_GOOGLE_CLOUD_AUTO_BACKUP = "ARCHIVE_GOOGLE_CLOUD_AUTO_BACKUP";
     public static final String ARCHIVE_SHARED_STORAGE = "ARCHIVE_SHARED_STORAGE";
 
@@ -19,7 +18,7 @@ public class SyncPreferences extends PreferencesFacade {
     @NonNull
     public String getLastSuccessfulCloudBackupTimestamp() {
         String lastCloudTimestamp
-                = this.preferenceHelper.getPreferenceString(this.getPreferenceKey(ARCHIVE_GOOGLE_CLOUD_TIMESTAMP));
+                = this.preferenceHelper.getPreferenceString(this.getLastBackupTimestamp());
 
         if (lastCloudTimestamp.equals("")) {
             return "N/A";
@@ -29,7 +28,7 @@ public class SyncPreferences extends PreferencesFacade {
     }
 
     public void setLastSuccessfulCloudBackupTimestamp(@NonNull final String value) {
-        this.preferenceHelper.setPreference(this.getPreferenceKey(ARCHIVE_GOOGLE_CLOUD_TIMESTAMP), value);
+        this.preferenceHelper.setPreference(this.getLastBackupTimestamp(), value);
     }
 
     public boolean getAutoCloudBackup() {

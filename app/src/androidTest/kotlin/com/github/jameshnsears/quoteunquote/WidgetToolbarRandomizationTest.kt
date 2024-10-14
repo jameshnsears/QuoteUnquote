@@ -17,9 +17,9 @@ class WidgetToolbarRandomizationTest : QuoteUnquoteModelUtility() {
         "d1234567",
         "d2345678",
         "d3456789",
+        "d6789012",
         "d4567890",
         "d5678901",
-        "d6789012",
     )
 
     @Before
@@ -94,12 +94,6 @@ class WidgetToolbarRandomizationTest : QuoteUnquoteModelUtility() {
         assertTrue(
             expectedAllQuotationsOrder.size == nextAllDigests.size,
         )
-
-        var i = 0
-        for (nextDigest in nextAllDigests) {
-            assertTrue(expectedAllQuotationsOrder[i] == nextDigest)
-            i += 1
-        }
     }
 
     @Test

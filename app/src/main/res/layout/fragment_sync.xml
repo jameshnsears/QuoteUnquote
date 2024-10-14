@@ -52,7 +52,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp">
 
                 <RadioGroup
                         android:id="@+id/radioGroupArchive"
@@ -114,9 +116,7 @@
                             android:text="@string/fragment_archive_backup"
                             android:textColor="@android:color/white"
                             android:textSize="16sp"
-                            app:backgroundTint="@null"
-                            app:strokeColor="?attr/colorPrimary"
-                            app:strokeWidth="1dp" />
+                            app:strokeColor="?attr/colorPrimary" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -134,7 +134,7 @@
                             android:layout_weight="1"
                             android:hint="@string/fragment_archive_backup_local_code"
                             android:paddingStart="0dp"
-                            android:paddingEnd="10dp"
+                            android:paddingEnd="20dp"
                             app:endIconMode="clear_text">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -144,7 +144,7 @@
                                 android:layout_weight="1"
                                 android:inputType="textNoSuggestions"
                                 android:maxLength="10"
-                                android:textSize="18sp" />
+                                android:textSize="16sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -162,9 +162,7 @@
                                 android:text="@string/fragment_archive_restore"
                                 android:textColor="@android:color/white"
                                 android:textSize="16sp"
-                                app:backgroundTint="@null"
-                                app:strokeColor="?attr/colorPrimary"
-                                app:strokeWidth="1dp" />
+                                app:strokeColor="?attr/colorPrimary" />
 
                     </LinearLayout>
 
@@ -195,7 +193,7 @@
                         android:gravity="center_vertical"
                         android:paddingStart="7dp"
                         android:paddingEnd="0dp"
-                        android:paddingBottom="5dp">
+                        android:paddingBottom="10dp">
 
                     <Button
                             android:id="@+id/buttonNewCode"
@@ -205,11 +203,7 @@
                             android:text="@string/fragment_archive_create_new_sync_code"
                             android:textColor="@android:color/white"
                             android:textSize="16sp"
-                            app:backgroundTint="@null"
-                            app:icon="@drawable/ic_sync_autorenew_24"
-                            app:iconTint="@null"
-                            app:strokeColor="?attr/colorPrimary"
-                            app:strokeWidth="1dp" />
+                            app:strokeColor="?attr/colorPrimary" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -233,7 +227,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:paddingStart="20dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="10dp">
 
             <com.google.android.material.materialswitch.MaterialSwitch
                     android:id="@+id/switchAutoCloudBackup"

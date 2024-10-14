@@ -18,6 +18,46 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
+        <entry key="-1732921471">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Pixel_7a_API_24" value="120" />
+                  <entry key="Tests" value="360" />
+                  <entry key="samsung SM-A528B" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="-1607113120">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Tests" value="360" />
+                  <entry key="samsung SM-A528B" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="-1308960134">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Tests" value="360" />
+                  <entry key="samsung SM-A528B" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
         <entry key="-1219772593">
           <value>
             <AndroidTestResultsTableState>
@@ -52,6 +92,20 @@
                   <entry key="Duration" value="90" />
                   <entry key="Pixel_5_API_29" value="120" />
                   <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="-1190117693">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Pixel_7a_API_24" value="120" />
+                  <entry key="Tests" value="360" />
+                  <entry key="samsung SM-A528B" value="120" />
                 </map>
               </option>
             </AndroidTestResultsTableState>
@@ -180,6 +234,19 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
+        <entry key="700164203">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Pixel_7a_API_24" value="120" />
+                  <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
         <entry key="957374633">
           <value>
             <AndroidTestResultsTableState>
@@ -188,6 +255,47 @@
                   <entry key="Duration" value="90" />
                   <entry key="Pixel_4a_API_30" value="120" />
                   <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="1339900024">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Pixel_7a_API_24" value="120" />
+                  <entry key="Tests" value="360" />
+                  <entry key="samsung SM-A528B" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="1376963082">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Tests" value="360" />
+                  <entry key="samsung SM-A528B" value="120" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
+        <entry key="1992436249">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Pixel_7a_API_24" value="120" />
+                  <entry key="Tests" value="360" />
+                  <entry key="samsung SM-A528B" value="120" />
                 </map>
               </option>
             </AndroidTestResultsTableState>

@@ -510,7 +510,7 @@ public class DatabaseRepository {
             Collections.reverse(searchQuotations);
         } else {
             if (useInternalDatabase()) {
-                for (QuotationEntity quotationEntity : quotationDAO.getAllQuotations()) {
+                for (QuotationEntity quotationEntity : getAllQuotations()) {
                     Matcher matcherAuthor = pattern.matcher(quotationEntity.author);
                     Matcher matcherQuotation = pattern.matcher(quotationEntity.quotation);
 
@@ -519,7 +519,7 @@ public class DatabaseRepository {
                     }
                 }
             } else {
-                for (QuotationEntity quotationEntity : quotationExternalDAO.getAllQuotations()) {
+                for (QuotationEntity quotationEntity : getAllQuotations()) {
                     Matcher matcherAuthor = pattern.matcher(quotationEntity.author);
                     Matcher matcherQuotation = pattern.matcher(quotationEntity.quotation);
 
@@ -568,15 +568,7 @@ public class DatabaseRepository {
 
             Collections.reverse(searchQuotations);
         } else {
-            List<QuotationEntity> allQuotations;
-
-            if (useInternalDatabase()) {
-                allQuotations = quotationDAO.getAllQuotations();
-            } else {
-                allQuotations = quotationExternalDAO.getAllQuotations();
-            }
-
-            for (QuotationEntity currentQuotation : allQuotations) {
+            for (QuotationEntity currentQuotation : getAllQuotations()) {
                 String author = currentQuotation.author.toLowerCase();
                 String quotation = currentQuotation.quotation.toLowerCase();
 
@@ -620,15 +612,7 @@ public class DatabaseRepository {
                 }
             }
         } else {
-            List<QuotationEntity> allQuotations;
-
-            if (useInternalDatabase()) {
-                allQuotations = quotationDAO.getAllQuotations();
-            } else {
-                allQuotations = quotationExternalDAO.getAllQuotations();
-            }
-
-            for (QuotationEntity quotation : allQuotations) {
+            for (QuotationEntity quotation : getAllQuotations()) {
                 Matcher matcherAuthor = pattern.matcher(quotation.author);
                 Matcher matcherQuotation = pattern.matcher(quotation.quotation);
 
@@ -670,15 +654,7 @@ public class DatabaseRepository {
                 }
             }
         } else {
-            List<QuotationEntity> allQuotations;
-
-            if (useInternalDatabase()) {
-                allQuotations = quotationDAO.getAllQuotations();
-            } else {
-                allQuotations = quotationExternalDAO.getAllQuotations();
-            }
-
-            for (QuotationEntity currentQuotation : allQuotations) {
+            for (QuotationEntity currentQuotation : getAllQuotations()) {
                 String author = currentQuotation.author.toLowerCase();
                 String quotation = currentQuotation.quotation.toLowerCase();
 
@@ -694,11 +670,24 @@ public class DatabaseRepository {
 
     @NonNull
     public List<QuotationEntity> getAllQuotations() {
+        // ensure order is same as that shown in widget when using Next, sequential
+        List<QuotationEntity> getAllQuotations = new ArrayList<>();
+
         if (useInternalDatabase()) {
-            return quotationDAO.getAllQuotations();
+            QuotationEntity defaultQuotation = quotationDAO.getQuotation(DatabaseRepository.getDefaultQuotationDigest());
+            if (defaultQuotation != null) {
+                getAllQuotations.add(quotationDAO.getQuotation(DatabaseRepository.getDefaultQuotationDigest()));
+            }
+            getAllQuotations.addAll(quotationDAO.getAllQuotations());
         } else {
-            return quotationExternalDAO.getAllQuotations();
+            QuotationEntity defaultQuotation = quotationExternalDAO.getQuotation(DatabaseRepository.getDefaultQuotationDigest());
+            if (defaultQuotation != null) {
+                getAllQuotations.add(defaultQuotation);
+            }
+            getAllQuotations.addAll(quotationExternalDAO.getAllQuotations());
         }
+
+        return getAllQuotations;
     }
 
     public QuotationEntity getQuotation(@NonNull final String digest) {
@@ -1032,5 +1021,31 @@ public class DatabaseRepository {
 
     public void insertQuotationExternal(QuotationEntity quotationEntity) {
         quotationExternalDAO.insertQuotation(quotationEntity);
+    }
+
+    public void updateQuotationUsingDigest(String digest, String author, String quotation) {
+        quotationExternalDAO.updateQuotationUsingDigest(
+                digest,
+                author,
+                quotation);
+    }
+
+    public void updateQuotationUsingAuthorQuotation(String digest, String author, String quotation) {
+        quotationExternalDAO.updateQuotationUsingAuthorQuotation(
+                digest,
+                author,
+                quotation);
+    }
+
+    public void deleteQuotation(String digest) {
+        quotationExternalDAO.eraseQuotations(digest);
+    }
+
+    public void deleteFavourite(String digest) {
+        favouriteExternalDAO.erase(digest);
+    }
+
+    public void deletePrevious(String digest) {
+        previousExternalDAO.erase(digest);
     }
 }

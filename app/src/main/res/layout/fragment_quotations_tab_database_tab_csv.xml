@@ -43,24 +43,79 @@
 
             <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="0dp"
+                    android:layout_height="match_parent"
+                    android:baselineAligned="false"
                     android:orientation="horizontal"
-                    android:paddingStart="6dp"
-                    android:paddingTop="3dp"
-                    android:paddingEnd="0dp"
+                    android:paddingTop="5dp"
                     android:paddingBottom="5dp">
 
-                <Button
-                        android:id="@+id/buttonImport"
-                        android:layout_width="120dp"
-                        android:layout_height="48dp"
-                        android:text="@string/fragment_quotations_database_button_import"
-                        android:textColor="@android:color/white"
-                        android:textSize="16sp"
-                        app:backgroundTint="@null"
-                        app:strokeColor="?attr/colorPrimary"
-                        app:strokeWidth="1dp" />
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                    <Button
+                            android:id="@+id/buttonImport"
+                            android:layout_width="120dp"
+                            android:layout_height="48dp"
+                            android:text="@string/fragment_quotations_database_button_import"
+                            android:textColor="@android:color/white"
+                            android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                    <Button
+                            android:id="@+id/buttonInPlaceExport"
+                            android:layout_width="120dp"
+                            android:layout_height="48dp"
+                            android:text="@string/fragment_quotations_database_csv_inplace_export"
+                            android:textColor="@android:color/white"
+                            android:textSize="16sp" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="5dp">
+
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal"/>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                    <Button
+                            android:id="@+id/buttonInPlaceEdit"
+                            android:layout_width="120dp"
+                            android:layout_height="48dp"
+                            android:text="@string/fragment_quotations_database_csv_inplace_edit"
+                            android:textColor="@android:color/white"
+                            android:textSize="16sp" />
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -69,21 +124,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="4dp"
-                    android:paddingTop="10dp"
-                    android:paddingEnd="0dp"
                     android:paddingBottom="10dp"
                     android:text="@string/fragment_quotations_database_external_instructions_1_info"
                     app:drawableStartCompat="@drawable/ic_info_24" />
-
-            <TextView
-                    android:id="@+id/textViewExamples1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="9dp"
-                    android:paddingTop="5dp"
-                    android:paddingEnd="0dp"
-                    android:paddingBottom="5dp"
-                    android:text="@string/fragment_quotations_database_external_instructions_1" />
 
             <TextView
                     android:id="@+id/textViewExamples2"
@@ -93,15 +136,10 @@
                     android:paddingTop="5dp"
                     android:paddingEnd="0dp"
                     android:paddingBottom="10dp"
-                    android:text="@string/fragment_quotations_database_external_instructions_2" />
+                    android:text="@string/fragment_quotations_database_external_instructions_1" />
 
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
-
-    <androidx.compose.ui.platform.ComposeView
-            android:id="@+id/composeViewCsv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
 
 </LinearLayout>

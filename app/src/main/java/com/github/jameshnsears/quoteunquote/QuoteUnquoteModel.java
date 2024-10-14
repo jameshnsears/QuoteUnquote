@@ -521,6 +521,22 @@ public class QuoteUnquoteModel {
         return quotationEntity;
     }
 
+    public List<QuotationEntity> getAllQuotations() {
+        final Future<List<QuotationEntity>> future = QuoteUnquoteWidget.getExecutorService().submit(()
+                -> databaseRepository.getAllQuotations());
+
+        List<QuotationEntity> listQuotationEntity = null;
+
+        try {
+            listQuotationEntity = future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
+            Thread.currentThread().interrupt();
+        }
+
+        return listQuotationEntity;
+    }
+
     public void delete(final int widgetId) {
         final Future future = QuoteUnquoteWidget.getExecutorService().submit(() ->
                 databaseRepository.erase(widgetId)
@@ -1059,5 +1075,146 @@ public class QuoteUnquoteModel {
         }
 
         return "";
+    }
+
+    public boolean isDuplicate(
+            String author,
+            String quotation
+    ) {
+        final Future<Boolean> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+            List<QuotationEntity> quotationsForAuthor = getQuotationsForAuthor(author);
+
+            for (QuotationEntity quotationAuthor : quotationsForAuthor) {
+                if (quotationAuthor.quotation.equals(quotation)) {
+                    return true;
+                }
+            }
+
+            return false;
+        });
+
+        boolean isDuplicate = false;
+
+        try {
+            isDuplicate = future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
+            Thread.currentThread().interrupt();
+        }
+
+        return isDuplicate;
+    }
+
+    public void append(
+            String author,
+            String quotation
+    ) {
+        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+            LinkedHashSet<QuotationEntity> quotationEntityLinkedHashSet = new LinkedHashSet<>();
+
+            String digest = ImportHelper.DEFAULT_DIGEST;
+            if (databaseRepository.getAllQuotations().size() > 0) {
+                digest = ImportHelper.makeDigest(author, quotation);
+            }
+
+            quotationEntityLinkedHashSet.add(
+                    new QuotationEntity(
+                            digest,
+                            "?",
+                            author,
+                            quotation
+                    )
+            );
+
+            databaseRepository.insertQuotationsExternal(quotationEntityLinkedHashSet);
+        });
+
+        try {
+            future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    public void update(
+            String digest,
+            String author,
+            String quotation
+    ) {
+        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+            databaseRepository.updateQuotationUsingDigest(
+                digest,
+                author,
+                quotation
+            );
+        });
+
+        try {
+            future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    public void delete(
+            int widgetId,
+            String digest
+    ) {
+        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+            List<QuotationEntity> allQuotations = getAllQuotations();
+            for (QuotationEntity quotationEntity : allQuotations) {
+                if (quotationEntity.digest.equals(digest)){
+                    allQuotations.remove(quotationEntity);
+                    break;
+                }
+            }
+
+            databaseRepository.deleteQuotation(digest);
+
+            databaseRepository.deleteFavourite(digest);
+
+            databaseRepository.deletePrevious(digest);
+
+            if (digest.equals(ImportHelper.DEFAULT_DIGEST) && allQuotations.size() > 0) {
+                databaseRepository.updateQuotationUsingAuthorQuotation(
+                        ImportHelper.DEFAULT_DIGEST,
+                        allQuotations.get(0).author,
+                        allQuotations.get(0).quotation
+                );
+
+                boolean wasFavourite = databaseRepository.isFavourite(allQuotations.get(0).digest);
+                if (wasFavourite) {
+                    databaseRepository.markAsFavourite(ImportHelper.DEFAULT_DIGEST);
+                }
+
+                databaseRepository.deleteFavourite(allQuotations.get(0).digest);
+
+                databaseRepository.deletePrevious(allQuotations.get(0).digest);
+            }
+
+            if (allQuotations.size() != 0) {
+                if (databaseRepository.getPrevious().size() == 0) {
+                    databaseRepository.markAsCurrent(
+                            widgetId,
+                            ImportHelper.DEFAULT_DIGEST
+                    );
+
+                    databaseRepository.markAsPrevious(
+                            widgetId,
+                            ContentSelection.ALL,
+                            ImportHelper.DEFAULT_DIGEST
+                    );
+                }
+            }
+        });
+
+        try {
+            future.get();
+        } catch (@NonNull ExecutionException | InterruptedException e) {
+            Timber.e(e);
+            Thread.currentThread().interrupt();
+        }
     }
 }

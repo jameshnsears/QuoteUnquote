@@ -10,11 +10,17 @@ import io.reactivex.Single;
 
 @Dao
 public interface QuotationDAO {
-    @Query("SELECT AUTHOR, QUOTATION, WIKIPEDIA, DIGEST FROM QUOTATIONS")
+    @Query("SELECT AUTHOR, QUOTATION, WIKIPEDIA, DIGEST FROM QUOTATIONS WHERE digest NOT IN ('00000000', '1624c314') ORDER BY AUTHOR ASC")
     List<QuotationEntity> getAllQuotations();
 
     @Insert
     void insertQuotation(QuotationEntity quotationEntity);
+
+    @Query("UPDATE QUOTATIONS SET author = :author, quotation = :quotation WHERE digest = :digest")
+    void updateQuotationUsingDigest(String digest, String author, String quotation);
+
+    @Query("UPDATE QUOTATIONS SET digest = :digest WHERE author = :author AND quotation = :quotation")
+    void updateQuotationUsingAuthorQuotation(String digest, String author, String quotation);
 
     @Query("SELECT AUTHOR, QUOTATION, WIKIPEDIA, DIGEST FROM QUOTATIONS WHERE DIGEST = :digest ORDER BY AUTHOR ASC")
     QuotationEntity getQuotation(String digest);

@@ -31,7 +31,7 @@ public class ContentFragment extends FragmentCommon {
         quotationsPreferences = new QuotationsPreferences(this.widgetId, this.getContext());
     }
 
-    protected void updateQuotationsUI() {
+    protected void updateQuotationsPreferences() {
         QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, getContext());
         quotationsPreferences.setContentSelection(ContentSelection.ALL);
     }
@@ -42,7 +42,7 @@ public class ContentFragment extends FragmentCommon {
 
         DatabaseRepository.useInternalDatabase = false;
 
-        updateQuotationsUI();
+        updateQuotationsPreferences();
     }
 
     protected void useInternalDatabase() {
@@ -51,6 +51,6 @@ public class ContentFragment extends FragmentCommon {
         this.quotationsPreferences.setDatabaseExternalWeb(false);
         DatabaseRepository.useInternalDatabase = true;
 
-        updateQuotationsUI();
+        updateQuotationsPreferences();
     }
 }

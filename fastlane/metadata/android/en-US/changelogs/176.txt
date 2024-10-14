@@ -1,3 +1,0 @@
-&bull; Improve auto cloud backup by using WorkManager
-&bull; Improve CSV import error message with line #
-&bull; Bump dependencies; target API 35

@@ -1,9 +1,11 @@
 package com.github.jameshnsears.quoteunquote
 
 import com.github.jameshnsears.quoteunquote.database.DatabaseRepository
+import com.github.jameshnsears.quoteunquote.database.DatabaseRepositoryDouble
 import com.github.jameshnsears.quoteunquote.database.quotation.AuthorPOJO
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
+import com.github.jameshnsears.quoteunquote.utils.ImportHelper
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -15,6 +17,163 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class QuoteUnquoteModelTest : QuoteUnquoteModelUtility() {
+    @Test
+    fun isDuplicate() {
+        insertExternalQuotations()
+
+        assertTrue(
+            quoteUnquoteModelDouble.isDuplicate(
+                "external_a1",
+                "external_q1",
+            ),
+        )
+
+        assertFalse(
+            quoteUnquoteModelDouble.isDuplicate(
+                "external_a2",
+                "external_q2",
+            ),
+        )
+    }
+
+    @Test
+    fun append() {
+        insertExternalQuotations()
+
+        assertEquals(2, quoteUnquoteModelDouble.allQuotations.size)
+
+        quoteUnquoteModelDouble.append(
+            "external_a2",
+            "external_q2",
+        )
+
+        assertEquals(3, quoteUnquoteModelDouble.allQuotations.size)
+        assertNotEquals(ImportHelper.DEFAULT_DIGEST, quoteUnquoteModelDouble.allQuotations[2].digest)
+    }
+
+    @Test
+    fun appendWhenQuotationsListEmpty() {
+        DatabaseRepositoryDouble.useInternalDatabase = false
+
+        assertEquals(0, quoteUnquoteModelDouble.allQuotations.size)
+
+        quoteUnquoteModelDouble.append(
+            "external_a0",
+            "external_q0",
+        )
+
+        assertEquals(1, quoteUnquoteModelDouble.allQuotations.size)
+        assertEquals(ImportHelper.DEFAULT_DIGEST, quoteUnquoteModelDouble.allQuotations[0].digest)
+    }
+
+    @Test
+    fun update() {
+        insertExternalQuotations()
+
+        var secondQuotation = quoteUnquoteModelDouble.allQuotations[1]
+        assertEquals("00000001", secondQuotation.digest)
+        assertEquals("external_a1", secondQuotation.author)
+        assertEquals("external_q1", secondQuotation.quotation)
+
+        // the digest doesn't change
+        quoteUnquoteModelDouble.update(
+            "00000001",
+            "aa",
+            "qq",
+        )
+
+        secondQuotation = quoteUnquoteModelDouble.allQuotations[1]
+        assertEquals("00000001", secondQuotation.digest)
+        assertEquals("aa", secondQuotation.author)
+        assertEquals("qq", secondQuotation.quotation)
+    }
+
+    @Test
+    fun deleteNonDefault() {
+        insertExternalQuotations()
+
+        assertEquals(2, quoteUnquoteModelDouble.allQuotations.size)
+
+        var secondQuotation = quoteUnquoteModelDouble.allQuotations[1]
+        assertEquals("00000001", secondQuotation.digest)
+        assertEquals("external_a1", secondQuotation.author)
+        assertEquals("external_q1", secondQuotation.quotation)
+
+        quoteUnquoteModelDouble.delete(WidgetIdHelper.WIDGET_ID_01, "00000001")
+
+        assertEquals(1, quoteUnquoteModelDouble.allQuotations.size)
+    }
+
+    @Test
+    fun deleteDefault() {
+        insertExternalQuotations()
+
+        assertEquals(2, quoteUnquoteModelDouble.allQuotations.size)
+
+        var firstQuotation = quoteUnquoteModelDouble.allQuotations[0]
+        assertEquals(ImportHelper.DEFAULT_DIGEST, firstQuotation.digest)
+        assertEquals("external_a0", firstQuotation.author)
+        assertEquals("external_q0", firstQuotation.quotation)
+
+        val secondQuotation = quoteUnquoteModelDouble.allQuotations[1]
+        assertEquals("00000001", secondQuotation.digest)
+        assertEquals("external_a1", secondQuotation.author)
+        assertEquals("external_q1", secondQuotation.quotation)
+
+        quoteUnquoteModelDouble.delete(WidgetIdHelper.WIDGET_ID_01, ImportHelper.DEFAULT_DIGEST)
+
+        assertEquals(1, quoteUnquoteModelDouble.allQuotations.size)
+
+        firstQuotation = quoteUnquoteModelDouble.allQuotations[0]
+        assertEquals(ImportHelper.DEFAULT_DIGEST, firstQuotation.digest)
+        assertEquals("external_a1", firstQuotation.author)
+        assertEquals("external_q1", firstQuotation.quotation)
+    }
+
+    @Test
+    fun deleteAll() {
+        insertExternalQuotations()
+
+        assertFalse(DatabaseRepositoryDouble.useInternalDatabase)
+        assertEquals(2, quoteUnquoteModelDouble.allQuotations.size)
+
+        quoteUnquoteModelDouble.delete(WidgetIdHelper.WIDGET_ID_01, ImportHelper.DEFAULT_DIGEST)
+
+        assertEquals("external_a1", quoteUnquoteModelDouble.allQuotations[0].author)
+        assertEquals("external_q1", quoteUnquoteModelDouble.allQuotations[0].quotation)
+
+        val previousDigests = quoteUnquoteModelDouble.getPreviousDigests(
+            WidgetIdHelper.WIDGET_ID_01,
+            ContentSelection.ALL,
+            "",
+        )
+        assertEquals(ImportHelper.DEFAULT_DIGEST, previousDigests[0])
+
+        val currentDigest = quoteUnquoteModelDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01)
+        assertEquals(ImportHelper.DEFAULT_DIGEST, currentDigest?.digest)
+
+        quoteUnquoteModelDouble.delete(WidgetIdHelper.WIDGET_ID_01, ImportHelper.DEFAULT_DIGEST)
+
+        assertEquals(0, quoteUnquoteModelDouble.allQuotations.size)
+    }
+
+    @Test
+    fun deleteAllThenAppend() {
+        insertExternalQuotations()
+
+        assertFalse(DatabaseRepositoryDouble.useInternalDatabase)
+
+        assertEquals(2, quoteUnquoteModelDouble.allQuotations.size)
+        quoteUnquoteModelDouble.delete(WidgetIdHelper.WIDGET_ID_01, ImportHelper.DEFAULT_DIGEST)
+        quoteUnquoteModelDouble.delete(WidgetIdHelper.WIDGET_ID_01, ImportHelper.DEFAULT_DIGEST)
+
+        assertEquals(0, quoteUnquoteModelDouble.allQuotations.size)
+
+        quoteUnquoteModelDouble.append("a", "q")
+        assertEquals(1, quoteUnquoteModelDouble.allQuotations.size)
+        assertEquals(ImportHelper.DEFAULT_DIGEST, quoteUnquoteModelDouble.allQuotations[0].digest)
+    }
+
     @Test
     fun authorsSorted() {
         val sortedList =
@@ -43,24 +202,6 @@ class QuoteUnquoteModelTest : QuoteUnquoteModelUtility() {
         val builder = GsonBuilder()
         builder.setPrettyPrinting()
         return builder.create()
-    }
-
-    @Test
-    fun transferBackup() {
-        val expectedJson = """{
-  "code": "",
-  "current": [],
-  "favourite": [],
-  "previous": [],
-  "settings": []
-}"""
-
-        val actualJson = quoteUnquoteModelDouble.transferBackup(context)
-
-        assertEquals(
-            gson().toJson(expectedJson),
-            gson().toJson(actualJson),
-        )
     }
 
     @Test

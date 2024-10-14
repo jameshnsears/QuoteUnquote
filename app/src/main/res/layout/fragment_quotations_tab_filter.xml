@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="5dp">
+                android:padding="10dp">
 
             <RadioButton
                     android:id="@+id/radioButtonAll"
@@ -43,7 +43,9 @@
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="5dp">
 
                 <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/editTextResultsExclusionLayout"
@@ -115,7 +117,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="5dp">
+                android:padding="10dp">
 
             <RadioButton
                     android:id="@+id/radioButtonAuthorIndividual"
@@ -203,9 +205,7 @@
                             android:text="@string/fragment_quotations_selection_browse"
                             android:textColor="@android:color/white"
                             android:textSize="16sp"
-                            app:backgroundTint="@null"
-                            app:strokeColor="?attr/colorPrimary"
-                            app:strokeWidth="1dp" />
+                            app:strokeColor="?attr/colorPrimary" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -224,9 +224,7 @@
                             android:text="@string/fragment_quotations_selection_export_button"
                             android:textColor="@android:color/white"
                             android:textSize="16sp"
-                            app:backgroundTint="@null"
-                            app:strokeColor="?attr/colorPrimary"
-                            app:strokeWidth="1dp" />
+                            app:strokeColor="?attr/colorPrimary" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -250,7 +248,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="5dp">
+                android:padding="10dp">
 
             <RadioButton
                     android:id="@+id/radioButtonFavourites"
@@ -290,9 +288,7 @@
                             android:text="@string/fragment_quotations_selection_browse"
                             android:textColor="@android:color/white"
                             android:textSize="16sp"
-                            app:backgroundTint="@null"
-                            app:strokeColor="?attr/colorPrimary"
-                            app:strokeWidth="1dp" />
+                            app:strokeColor="?attr/colorPrimary" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -311,9 +307,7 @@
                             android:text="@string/fragment_quotations_selection_export_button"
                             android:textColor="@android:color/white"
                             android:textSize="16sp"
-                            app:backgroundTint="@null"
-                            app:strokeColor="?attr/colorPrimary"
-                            app:strokeWidth="1dp" />
+                            app:strokeColor="?attr/colorPrimary" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -337,7 +331,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="5dp">
+                android:padding="10dp">
 
             <RadioButton
                     android:id="@+id/radioButtonSearch"
@@ -432,7 +426,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="9dp"
-                    android:paddingTop="5dp"
+                    android:paddingTop="10dp"
                     android:paddingEnd="0dp"
                     android:paddingBottom="10dp"
                     android:text="@string/fragment_quotations_selection_search_instructions_1" />
@@ -461,9 +455,7 @@
                             android:text="@string/fragment_quotations_selection_browse"
                             android:textColor="@android:color/white"
                             android:textSize="16sp"
-                            app:backgroundTint="@null"
-                            app:strokeColor="?attr/colorPrimary"
-                            app:strokeWidth="1dp" />
+                            app:strokeColor="?attr/colorPrimary" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -482,9 +474,7 @@
                             android:text="@string/fragment_quotations_selection_export_button"
                             android:textColor="@android:color/white"
                             android:textSize="16sp"
-                            app:backgroundTint="@null"
-                            app:strokeColor="?attr/colorPrimary"
-                            app:strokeWidth="1dp" />
+                            app:strokeColor="?attr/colorPrimary" />
                 </LinearLayout>
             </LinearLayout>
 

@@ -34,6 +34,8 @@ class AutoCloudBackup(
             }
 
             val widgetId = inputData.getInt("widgetId", 0)
+            Timber.d("widgetId=$widgetId")
+
             val syncPreferences = SyncPreferences(widgetId, context)
             val formatter = SimpleDateFormat("EEEE, HH:mm:ss")
             val now = Date()

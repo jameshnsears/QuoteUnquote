@@ -1,0 +1,37 @@
+<resources>
+
+    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary brand color -->
+        <item name="colorPrimary">@color/material3_primary_dark</item>
+        <item name="colorPrimaryVariant">@color/material3_primary_variant_dark</item>
+        <item name="colorOnPrimary">@color/material3_on_primary_dark</item>
+
+        <!-- Secondary brand color -->
+        <item name="colorSecondary">@color/material3_secondary_dark</item>
+        <item name="colorOnSecondary">@color/material3_on_secondary_dark</item>
+
+        <!-- Background color -->
+        <item name="android:colorBackground">@color/material3_background_dark</item>
+
+        <!-- Surface color -->
+        <item name="colorSurface">@color/material3_surface_dark</item>
+        <item name="colorOnSurface">@color/material3_on_surface_dark</item>
+
+        <!-- Error color -->
+        <item name="colorError">@color/material3_error_dark</item>
+        <item name="colorOnError">@color/material3_on_error_dark</item>
+    </style>
+
+    <style name="TabSize" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">18sp</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
+    <style name="CustomAlertDialog" parent="MaterialAlertDialog.Material3">
+        <item name="dialogCornerRadius">12dp</item>
+    </style>
+
+    <style name="CustomColourPickerAlertDialog" parent="MaterialAlertDialog.Material3">
+        <item name="dialogCornerRadius">12dp</item>
+    </style>
+</resources>
