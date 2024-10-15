@@ -70,6 +70,8 @@
     <string name="fragment_quotations_database_imported">External</string>
 
     <string name="fragment_quotations_database_csv">CSV file</string>
+    <string name="fragment_quotations_database_csv_fortune">Fortune file</string>
+    <string name="fragment_quotations_database_csv_fortune_info">\u2022&#160;&#160;A text file with quotations, each separated by the character % on its own line. See: https://en.m.wikipedia.org/wiki/Fortune_(Unix)</string>
     <string name="fragment_quotations_database_csv_inplace_edit">Edit</string>>
     <string name="fragment_quotations_database_csv_inplace_export">Export</string>>
     <string name="fragment_quotations_database_csv_inplace_source">Source…</string>
