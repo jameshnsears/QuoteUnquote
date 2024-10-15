@@ -1,4 +1,4 @@
-package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.tabs.csv
+package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.tabs.files.csv
 
 import android.app.Activity
 import android.content.Intent
@@ -29,7 +29,7 @@ import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 
-class ContentCsvFragment(widgetId: Int) : ContentFragment(widgetId) {
+class FilesCsvFragment(widgetId: Int) : ContentFragment(widgetId) {
     private var _binding: FragmentQuotationsTabDatabaseTabCsvBinding? = null
 
     private val fragmentQuotationsTabDatabaseTabCsvBinding get() = _binding!!

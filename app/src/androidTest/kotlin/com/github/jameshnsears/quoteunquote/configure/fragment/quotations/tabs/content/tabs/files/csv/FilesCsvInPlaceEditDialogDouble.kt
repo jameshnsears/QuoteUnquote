@@ -1,4 +1,4 @@
-package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.tabs.csv
+package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.tabs.files.csv
 
 import android.os.Bundle
 import androidx.test.core.app.ApplicationProvider
@@ -8,7 +8,7 @@ import com.github.jameshnsears.quoteunquote.database.DatabaseRepositoryDouble
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 
-class ContentCsvInPlaceEditDialogDouble() : ContentCsvInPlaceEditDialog() {
+class FilesCsvInPlaceEditDialogDouble() : ContentCsvInPlaceEditDialog() {
     private var databaseRepositoryDouble: DatabaseRepositoryDouble =
         DatabaseRepositoryDouble.getInstance(ApplicationProvider.getApplicationContext())
 

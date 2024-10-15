@@ -1,4 +1,4 @@
-package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.tabs.csv
+package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.tabs.files.csv
 
 import android.os.Bundle
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -17,7 +17,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 
-class ContentCsvInPlaceEditDialogTest : QuoteUnquoteModelUtility() {
+class FilesCsvInPlaceEditDialogTest : QuoteUnquoteModelUtility() {
     @get:Rule
     val activityScenarioRule = ActivityScenarioRule(ConfigureActivityDouble::class.java)
 
@@ -30,7 +30,7 @@ class ContentCsvInPlaceEditDialogTest : QuoteUnquoteModelUtility() {
 
         val widgetId = 1
 
-        val scenario = launchFragmentInContainer<ContentCsvInPlaceEditDialogDouble>(
+        val scenario = launchFragmentInContainer<FilesCsvInPlaceEditDialogDouble>(
             fragmentArgs = Bundle().apply {
                 putInt("widgetId", widgetId)
             },

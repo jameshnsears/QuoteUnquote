@@ -1,4 +1,4 @@
-package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.tabs.csv
+package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.tabs.files.csv
 
 import android.content.res.Configuration
 import android.widget.Toast
@@ -52,7 +52,7 @@ import timber.log.Timber
 
 @Composable
 fun InPlaceEdit(
-    conventCsvViewModel: ConventCsvViewModel,
+    filesCsvViewModel: FilesCsvViewModel,
 ) {
     val isDarkTheme = isSystemInDarkTheme()
 
@@ -66,13 +66,13 @@ fun InPlaceEdit(
         Column(
             modifier = Modifier.padding(start = 8.dp, end = 8.dp),
         ) {
-            InPlaceEditList(conventCsvViewModel)
+            InPlaceEditList(filesCsvViewModel)
 
             HorizontalDivider(color = if (isDarkTheme) Color.DarkGray else Color.LightGray)
 
-            InPlaceEditSaveDeleteButtons(conventCsvViewModel)
+            InPlaceEditSaveDeleteButtons(filesCsvViewModel)
 
-            InPlaceEditTextSourceQuotationFields(conventCsvViewModel)
+            InPlaceEditTextSourceQuotationFields(filesCsvViewModel)
 
             InPlaceEditInstructions()
         }
@@ -81,12 +81,12 @@ fun InPlaceEdit(
 
 @Composable
 fun InPlaceEditList(
-    conventCsvViewModel: ConventCsvViewModel,
+    filesCsvViewModel: FilesCsvViewModel,
 ) {
     val isDarkTheme = isSystemInDarkTheme()
 
-    val list by conventCsvViewModel.list.collectAsState()
-    val selectedItemIndex by conventCsvViewModel.selectedItemIndex.collectAsState()
+    val list by filesCsvViewModel.list.collectAsState()
+    val selectedItemIndex by filesCsvViewModel.selectedItemIndex.collectAsState()
 
     val focusManager = LocalFocusManager.current
 
@@ -105,16 +105,16 @@ fun InPlaceEditList(
                         .clickable {
                             Timber.d(quotation.digest)
 
-                            conventCsvViewModel.setSelectedItemIndex(if (isSelected) null else index)
+                            filesCsvViewModel.setSelectedItemIndex(if (isSelected) null else index)
 
                             if (!isSelected) {
-                                conventCsvViewModel.populateTextFields(
+                                filesCsvViewModel.populateTextFields(
                                     quotation.digest,
                                     quotation.author,
                                     quotation.quotation,
                                 )
                             } else {
-                                conventCsvViewModel.populateTextFields()
+                                filesCsvViewModel.populateTextFields()
                             }
 
                             focusManager.clearFocus()
@@ -158,7 +158,7 @@ fun InPlaceEditList(
 
 @Composable
 private fun InPlaceEditTextSourceQuotationFields(
-    conventCsvViewModel: ConventCsvViewModel,
+    filesCsvViewModel: FilesCsvViewModel,
 ) {
     val isDarkTheme = isSystemInDarkTheme()
 
@@ -173,9 +173,9 @@ private fun InPlaceEditTextSourceQuotationFields(
         unfocusedTrailingIconColor = Color.Transparent,
     )
 
-    val digest by conventCsvViewModel.digest.collectAsState()
-    val textFieldAuthor by conventCsvViewModel.author.collectAsState()
-    val textFieldQuotation by conventCsvViewModel.quotation.collectAsState()
+    val digest by filesCsvViewModel.digest.collectAsState()
+    val textFieldAuthor by filesCsvViewModel.author.collectAsState()
+    val textFieldQuotation by filesCsvViewModel.quotation.collectAsState()
 
     Row(
         modifier = Modifier
@@ -188,7 +188,7 @@ private fun InPlaceEditTextSourceQuotationFields(
                 colors = textFieldColors,
                 value = textFieldAuthor,
                 onValueChange = { newTextFieldAuthor ->
-                    conventCsvViewModel.populateTextFields(
+                    filesCsvViewModel.populateTextFields(
                         digest,
                         newTextFieldAuthor,
                         textFieldQuotation,
@@ -208,7 +208,7 @@ private fun InPlaceEditTextSourceQuotationFields(
                 trailingIcon = {
                     if (textFieldAuthor.isNotEmpty()) {
                         IconButton(onClick = {
-                            conventCsvViewModel.populateTextFields(
+                            filesCsvViewModel.populateTextFields(
                                 quotation = textFieldQuotation,
                             )
                         }) {
@@ -225,7 +225,7 @@ private fun InPlaceEditTextSourceQuotationFields(
                 colors = textFieldColors,
                 value = textFieldQuotation,
                 onValueChange = { newTextFieldQuotation ->
-                    conventCsvViewModel.populateTextFields(
+                    filesCsvViewModel.populateTextFields(
                         digest,
                         textFieldAuthor,
                         newTextFieldQuotation,
@@ -246,7 +246,7 @@ private fun InPlaceEditTextSourceQuotationFields(
                 trailingIcon = {
                     if (textFieldQuotation.isNotEmpty()) {
                         IconButton(onClick = {
-                            conventCsvViewModel.populateTextFields(
+                            filesCsvViewModel.populateTextFields(
                                 author = textFieldAuthor,
                             )
                         }) {
@@ -264,7 +264,7 @@ private fun InPlaceEditTextSourceQuotationFields(
 
 @Composable
 private fun InPlaceEditSaveDeleteButtons(
-    conventCsvViewModel: ConventCsvViewModel,
+    filesCsvViewModel: FilesCsvViewModel,
 ) {
     val isDarkTheme = isSystemInDarkTheme()
 
@@ -277,9 +277,9 @@ private fun InPlaceEditSaveDeleteButtons(
 
     val context = LocalContext.current
 
-    val digest by conventCsvViewModel.digest.collectAsState()
-    val textFieldAuthor by conventCsvViewModel.author.collectAsState()
-    val textFieldQuotation by conventCsvViewModel.quotation.collectAsState()
+    val digest by filesCsvViewModel.digest.collectAsState()
+    val textFieldAuthor by filesCsvViewModel.author.collectAsState()
+    val textFieldQuotation by filesCsvViewModel.quotation.collectAsState()
 
     val messageWarningDuplicate = stringResource(R.string.fragment_quotations_database_csv_inplace_save_warning_duplicate)
 
@@ -298,7 +298,7 @@ private fun InPlaceEditSaveDeleteButtons(
                     .height(41.dp)
                     .width(120.dp),
                 onClick = {
-                    when (conventCsvViewModel.buttonSavePressed()) {
+                    when (filesCsvViewModel.buttonSavePressed()) {
                         2 -> Toast.makeText(context, messageWarningDuplicate, Toast.LENGTH_SHORT).show()
                     }
                 },
@@ -317,7 +317,7 @@ private fun InPlaceEditSaveDeleteButtons(
                     .height(41.dp)
                     .width(120.dp),
                 onClick = {
-                    conventCsvViewModel.buttonDeletePressed()
+                    filesCsvViewModel.buttonDeletePressed()
                 },
                 enabled = digest.isNotEmpty(),
             ) {
@@ -415,7 +415,7 @@ private fun PreviewInPlaceEdit() {
 
     MaterialTheme {
         InPlaceEdit(
-            ConventCsvViewModel(
+            FilesCsvViewModel(
                 1,
                 QuoteUnquoteModelDummy(),
             ),

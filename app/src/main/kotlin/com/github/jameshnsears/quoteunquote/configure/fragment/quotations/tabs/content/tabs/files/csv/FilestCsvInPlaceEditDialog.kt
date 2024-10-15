@@ -1,4 +1,4 @@
-package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.tabs.csv
+package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.tabs.files.csv
 
 import android.content.DialogInterface
 import android.os.Bundle
@@ -54,13 +54,13 @@ open class ContentCsvInPlaceEditDialog() : DialogFragment() {
 
         quoteUnquoteModel = QuoteUnquoteModel(widgetId, requireContext())
 
-        val viewModelFactory = ConventCsvViewModelFactory(widgetId, quoteUnquoteModel)
+        val viewModelFactory = FilesCsvViewModelFactory(widgetId, quoteUnquoteModel)
 
         val composeView = view.findViewById<ComposeView>(R.id.composeViewCsv)
         composeView.setContent {
             InPlaceEdit(
                 ViewModelProvider(this, viewModelFactory)
-                    .get(ConventCsvViewModel::class.java),
+                    .get(FilesCsvViewModel::class.java),
             )
         }
 
