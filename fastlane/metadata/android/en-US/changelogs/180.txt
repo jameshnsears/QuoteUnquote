@@ -1,2 +1,2 @@
 &bull; CSV fortune import
-&bull; Bump dependencies
+&bull; Bump dependencies; IDE: Android Studio Ladybug | 2024.2.1 Patch 1
