@@ -88,32 +88,40 @@ public class ImportHelper {
         LinkedHashSet<QuotationEntity> quotationEntityLinkedHashSet = new LinkedHashSet<>();
         {
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-            int lineNumber = 0;
+            int fileLineNumber = 0;
+            int quotationLineNumber = 0;
 
             try {
                 StringBuilder fortune = new StringBuilder();
                 String line;
 
                 while ((line = reader.readLine()) != null) {
-                    lineNumber += 1;
+                    fileLineNumber += 1;
 
                     if (line.trim().equals("%")) {
                         addFortune(
-                                lineNumber,
+                                fileLineNumber,
                                 filePath,
                                 fortune.toString().trim(),
                                 quotationEntityLinkedHashSet
                         );
 
                         fortune.setLength(0);
+                        quotationLineNumber = 0;
                     } else {
                         fortune.append(line).append("\n");
+                        quotationLineNumber += 1;
+                    }
+
+                    if (quotationLineNumber > 50) {
+                        Timber.e(filePath);
+                        throw new ImportHelperException(quotationLineNumber, "quotation too big");
                     }
                 }
 
                 if (fortune.length() > 0) {
                     addFortune(
-                            lineNumber,
+                            fileLineNumber,
                             filePath,
                             fortune.toString().trim(),
                             quotationEntityLinkedHashSet
@@ -124,7 +132,7 @@ public class ImportHelper {
 
             } catch (IOException exception) {
                 Timber.e("%s", exception.getMessage());
-                throw new ImportHelperException(lineNumber, exception.getMessage());
+                throw new ImportHelperException(fileLineNumber, exception.getMessage());
             }
         }
     }
@@ -218,7 +226,7 @@ public class ImportHelper {
     }
 
     public class ImportHelperException extends Exception {
-        public int lineNumber = 0;
+        public int lineNumber;
 
         public ImportHelperException(int lineNumber, String errorMessage) {
             super(errorMessage);

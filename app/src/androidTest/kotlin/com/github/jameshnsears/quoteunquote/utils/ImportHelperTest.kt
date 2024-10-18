@@ -138,7 +138,48 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
     }
 
     @Test
-    fun fortuneImportValid() {
+    fun fortuneImportValidSpecific() {
+        val importHelper = ImportHelper()
+
+        val aClaude = "fortune/JKirchartz/AClaude"
+        assertEquals(
+            18,
+            importHelper.fortuneImportDatabase(
+                aClaude,
+                getImportAsset(aClaude)
+            ).size
+        )
+
+        val wblake = "fortune/JKirchartz/wblake"
+        assertEquals(
+            81,
+            importHelper.fortuneImportDatabase(
+                wblake,
+                getImportAsset(wblake)
+            ).size
+        )
+
+        val art = "fortune/www.shlomifish.org/art"
+        assertEquals(
+            474,
+            importHelper.fortuneImportDatabase(
+                art,
+                getImportAsset(art)
+            ).size
+        )
+
+        val zippy = "fortune/www.shlomifish.org/zippy"
+        assertEquals(
+            548,
+            importHelper.fortuneImportDatabase(
+                zippy,
+                getImportAsset(zippy)
+            ).size
+        )
+    }
+
+    @Test
+    fun fortuneImportValidBulkTest() {
         val assetManager = InstrumentationRegistry.getInstrumentation().context.assets
 
         val importHelper = ImportHelper()
@@ -155,10 +196,14 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
                 if (assetManager.list(filePath)?.isNotEmpty() == true) {
                     queue.add(filePath)
                 } else {
-                    importHelper.fortuneImportDatabase(
-                        filePath,
-                        assetManager.open(filePath)
-                    )
+                    try {
+                        importHelper.fortuneImportDatabase(
+                            filePath,
+                            assetManager.open(filePath)
+                        )
+                    } catch (e: Exception) {
+                        fail(e.message)
+                    }
                 }
             }
         }
