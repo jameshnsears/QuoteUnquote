@@ -2,6 +2,7 @@ package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.
 
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.github.jameshnsears.quoteunquote.utils.ImportHelper
 import com.github.jameshnsears.quoteunquote.utils.logging.ShadowLoggingHelper
 import org.junit.Assert.assertFalse
 import org.junit.Test
@@ -13,6 +14,8 @@ import org.robolectric.annotation.Config
 class FilesFortuneTest : ShadowLoggingHelper() {
     @Test
     fun importFortune() {
+        val importHelper = ImportHelper()
+        importHelper.fortuneImportDatabase()
         assertFalse( 1 == 2)
     }
 }
