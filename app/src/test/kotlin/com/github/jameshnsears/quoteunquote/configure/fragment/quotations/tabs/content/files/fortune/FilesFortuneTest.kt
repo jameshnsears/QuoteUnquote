@@ -1,4 +1,4 @@
-package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.tabs.files.fortune
+package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.files.fortune
 
 import android.os.Build
 import androidx.test.ext.junit.runners.AndroidJUnit4

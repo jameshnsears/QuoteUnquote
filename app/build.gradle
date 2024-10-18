@@ -221,7 +221,7 @@ android {
 
 dependencies {
     androidTestImplementation 'androidx.arch.core:core-testing:2.2.0'
-    androidTestImplementation 'androidx.compose.ui:ui-test-junit4-android:1.7.3'
+    androidTestImplementation 'androidx.compose.ui:ui-test-junit4-android:1.7.4'
     androidTestImplementation 'androidx.room:room-testing:2.6.1'
     androidTestImplementation 'androidx.test:core:1.6.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
@@ -240,7 +240,7 @@ dependencies {
 
     googleplayImplementation platform('com.google.firebase:firebase-bom:33.4.0')
 
-    implementation 'androidx.activity:activity-ktx:1.9.2'
+    implementation 'androidx.activity:activity-ktx:1.9.3'
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -268,7 +268,7 @@ dependencies {
     implementation project(path: ':cloudLib')
     implementation project(path: ':utilsLib')
 
-    implementation platform('androidx.compose:compose-bom:2024.09.03')
+    implementation platform('androidx.compose:compose-bom:2024.10.00')
     debugImplementation 'androidx.compose.ui:ui-tooling-preview'
     implementation 'androidx.activity:activity-compose'
     implementation 'androidx.compose.material3:material3'

@@ -1,4 +1,4 @@
-package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.tabs.files.csv
+package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.files.csv
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

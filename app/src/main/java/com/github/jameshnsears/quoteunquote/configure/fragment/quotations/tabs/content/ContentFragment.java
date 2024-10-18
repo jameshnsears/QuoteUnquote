@@ -1,4 +1,4 @@
-package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.tabs;
+package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content;
 
 import android.os.Bundle;
 

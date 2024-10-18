@@ -1,4 +1,4 @@
-package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.tabs.files.csv
+package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.files.csv
 
 import android.app.Activity
 import android.content.Intent
@@ -15,7 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.github.jameshnsears.quoteunquote.R
 import com.github.jameshnsears.quoteunquote.configure.ConfigureActivity
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences
-import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.tabs.ContentFragment
+import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.ContentFragment
 import com.github.jameshnsears.quoteunquote.database.DatabaseRepository
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity
 import com.github.jameshnsears.quoteunquote.databinding.FragmentQuotationsTabDatabaseTabCsvBinding

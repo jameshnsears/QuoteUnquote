@@ -1,4 +1,4 @@
-package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.tabs.internal;
+package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.internal;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
-import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.tabs.ContentFragment;
+import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.ContentFragment;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentQuotationsTabDatabaseTabInternalBinding;
 
 import timber.log.Timber;

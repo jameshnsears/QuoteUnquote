@@ -16,9 +16,9 @@ import com.github.jameshnsears.quoteunquote.QuoteUnquoteModel;
 import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
-import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.tabs.files.csv.FilesCsvFragment;
-import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.tabs.internal.ContentInternalFragment;
-import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.tabs.web.ContentWebFragment;
+import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.files.csv.FilesCsvFragment;
+import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.internal.ContentInternalFragment;
+import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.web.ContentWebFragment;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentQuotationsTabDatabaseBinding;
 import com.google.android.material.tabs.TabLayout;
 
