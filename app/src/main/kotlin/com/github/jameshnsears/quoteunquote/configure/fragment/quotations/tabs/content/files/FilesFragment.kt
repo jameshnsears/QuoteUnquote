@@ -241,10 +241,13 @@ class FilesFragment(widgetId: Int) : ContentFragment(widgetId) {
                         }
                         else {
                             quoteUnquoteModel!!.insertQuotationsExternal(
-                                importHelper.fortuneImportDatabase(fileInputStream)
+                                importHelper.fortuneImportDatabase(
+                                    activityResult.data!!.data!!.path,
+                                    fileInputStream
+                                )
                             )
                         }
-                        
+
                         fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isEnabled =
                             false
                         fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isChecked =

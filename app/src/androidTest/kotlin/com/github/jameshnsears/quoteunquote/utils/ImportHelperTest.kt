@@ -155,7 +155,10 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
                 if (assetManager.list(filePath)?.isNotEmpty() == true) {
                     queue.add(filePath)
                 } else {
-                    importHelper.fortuneImportDatabase(assetManager.open(filePath))
+                    importHelper.fortuneImportDatabase(
+                        filePath,
+                        assetManager.open(filePath)
+                    )
                 }
             }
         }
