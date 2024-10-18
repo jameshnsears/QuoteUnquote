@@ -12,7 +12,7 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
     @Test
     fun csvImportKaa() {
         //  original Kaa.csv (in git history) could not be imported due to some quotes being on multiple lines.
-        val inputStream: InputStream = getCsvAsset("Kaa.csv")
+        val inputStream: InputStream = getImportAsset("Kaa.csv")
 
         val importHelper = ImportHelper()
         val quotationEntityLinkedHashSet = importHelper.csvImportDatabase(inputStream)
@@ -29,7 +29,7 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
 
     @Test
     fun csvExportOfFavourites() {
-        val inputStream: InputStream = getCsvAsset("Favourites.csv")
+        val inputStream: InputStream = getImportAsset("Favourites.csv")
 
         val importHelper = ImportHelper()
         val quotationEntityLinkedHashSet = importHelper.csvImportDatabase(inputStream)
@@ -39,7 +39,7 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
 
     @Test
     fun csvImportDatabaseWithHeader() {
-        val inputStream: InputStream = getCsvAsset("ImportWithHeader.csv")
+        val inputStream: InputStream = getImportAsset("ImportWithHeader.csv")
 
         val importHelper = ImportHelper()
         val quotationEntityLinkedHashSet = importHelper.csvImportDatabase(inputStream)
@@ -50,7 +50,7 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
 
     @Test
     fun csvImportDatabaseWithoutHeader() {
-        val inputStream: InputStream = getCsvAsset("ImportMissingHeader.csv")
+        val inputStream: InputStream = getImportAsset("ImportMissingHeader.csv")
 
         val importHelper = ImportHelper()
         val quotationEntityLinkedHashSet = importHelper.csvImportDatabase(inputStream)
@@ -60,7 +60,7 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
 
     @Test
     fun csvImportDatabaseOnlyAuthorNoDelimiter() {
-        val inputStream: InputStream = getCsvAsset("ImportOnlyAuthorNoDelimiter.csv")
+        val inputStream: InputStream = getImportAsset("ImportOnlyAuthorNoDelimiter.csv")
 
         val importHelper = ImportHelper()
         try {
@@ -77,7 +77,7 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
 
     @Test
     fun csvImportDatabaseOnlyAuthorWithDelimiter() {
-        val inputStream: InputStream = getCsvAsset("ImportOnlyAuthorWithDelimiter.csv")
+        val inputStream: InputStream = getImportAsset("ImportOnlyAuthorWithDelimiter.csv")
 
         val importHelper = ImportHelper()
         try {
@@ -94,7 +94,7 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
 
     @Test
     fun csvImportDatabaseEmptyButWithDelimiter() {
-        val inputStream: InputStream = getCsvAsset("ImportEmptyButWithDelimiter.csv")
+        val inputStream: InputStream = getImportAsset("ImportEmptyButWithDelimiter.csv")
 
         val importHelper = ImportHelper()
         try {
@@ -108,7 +108,7 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
 
     @Test
     fun csvImportDatabaseMissingQuotation() {
-        val inputStream: InputStream = getCsvAsset("ImportMissingQuotation.csv")
+        val inputStream: InputStream = getImportAsset("ImportMissingQuotation.csv")
 
         val importHelper = ImportHelper()
         try {
@@ -125,7 +125,7 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
 
     @Test
     fun csvImportDatabaseImportEmpty() {
-        val inputStream: InputStream = getCsvAsset("ImportEmpty.csv")
+        val inputStream: InputStream = getImportAsset("ImportEmpty.csv")
 
         val importHelper = ImportHelper()
         try {
@@ -137,7 +137,31 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
         }
     }
 
-    private fun getCsvAsset(filename: String) =
+    @Test
+    fun fortuneImportValid() {
+        val assetManager = InstrumentationRegistry.getInstrumentation().context.assets
+
+        val importHelper = ImportHelper()
+
+        val queue = ArrayDeque<String>()
+        queue.add("fortune")
+
+        while (queue.isNotEmpty()) {
+            val path = queue.removeFirst()
+            val files = assetManager.list(path)?.toList() ?: emptyList()
+
+            for (file in files) {
+                val filePath = if (path.isNotEmpty()) "$path/$file" else file
+                if (assetManager.list(filePath)?.isNotEmpty() == true) {
+                    queue.add(filePath)
+                } else {
+                    importHelper.fortuneImportDatabase(assetManager.open(filePath))
+                }
+            }
+        }
+    }
+
+    private fun getImportAsset(filename: String) =
         InstrumentationRegistry.getInstrumentation().context.resources.assets
             .open(
                 filename,

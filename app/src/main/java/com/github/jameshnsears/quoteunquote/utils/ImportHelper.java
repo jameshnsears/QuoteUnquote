@@ -81,6 +81,11 @@ public class ImportHelper {
 
     public LinkedHashSet<QuotationEntity> fortuneImportDatabase(InputStream inputStream) throws ImportHelperException {
         LinkedHashSet<QuotationEntity> quotationEntityLinkedHashSet = new LinkedHashSet<>();
+
+
+//                    val fileContent = inputStream.bufferedReader().use { it.readText() }
+//                    println("File: $filePath\nContent:\n$fileContent")
+
         return quotationEntityLinkedHashSet;
     }
 

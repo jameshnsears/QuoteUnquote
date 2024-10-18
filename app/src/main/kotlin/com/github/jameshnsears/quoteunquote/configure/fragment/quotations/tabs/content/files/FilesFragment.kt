@@ -208,212 +208,137 @@ class FilesFragment(widgetId: Int) : ContentFragment(widgetId) {
         }
     }
 
+    private fun import(
+        activityResult: ActivityResult,
+        isCsvFile: Boolean
+    ) {
+                Timber.Forest.d("%d", activityResult.resultCode)
+                val toast = Toast.makeText(
+                    this.context,
+                    this.requireContext()
+                        .getString(R.string.fragment_quotations_database_import_importing),
+                    Toast.LENGTH_SHORT,
+                )
+
+                if (Activity.RESULT_OK == activityResult.resultCode) {
+                    toast.show()
+
+                    var parcelFileDescriptor: ParcelFileDescriptor? = null
+                    var fileInputStream: FileInputStream? = null
+
+                    try {
+                        parcelFileDescriptor =
+                            this.requireContext().contentResolver.openFileDescriptor(
+                                activityResult.data!!.data!!, "r",
+                            )
+                        fileInputStream = FileInputStream(parcelFileDescriptor!!.fileDescriptor)
+
+                        val importHelper = ImportHelper()
+                        if (isCsvFile) {
+                            quoteUnquoteModel!!.insertQuotationsExternal(
+                                importHelper.csvImportDatabase(fileInputStream)
+                            )
+                        }
+                        else {
+                            quoteUnquoteModel!!.insertQuotationsExternal(
+                                importHelper.fortuneImportDatabase(fileInputStream)
+                            )
+                        }
+                        
+                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isEnabled =
+                            false
+                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isChecked =
+                            false
+
+                        importWasSuccessful()
+
+                        toast.cancel()
+                        Toast.makeText(
+                            this.context,
+                            this.requireContext()
+                                .getString(R.string.fragment_quotations_database_import_success),
+                            Toast.LENGTH_SHORT,
+                        ).show()
+                    } catch (e: ImportHelper.ImportHelperException) {
+                        toast.cancel()
+
+                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isEnabled =
+                            false
+                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isChecked =
+                            false
+
+                        useInternalDatabase()
+
+                        val message = if (-1 == e.lineNumber) {
+                            this.requireContext().getString(
+                                R.string.fragment_quotations_database_import_contents_0,
+                                e.message,
+                            )
+                        } else {
+                            this.requireContext().getString(
+                                R.string.fragment_quotations_database_import_contents_1,
+                                e.lineNumber,
+                                e.message,
+                            )
+                        }
+
+                        Snackbar.make(
+                            fragmentQuotationsTabDatabaseTabCsvBinding.root,
+                            message,
+                            BaseTransientBottomBar.LENGTH_LONG,
+                        ).show()
+                    } catch (e: FileNotFoundException) {
+                        toast.cancel()
+
+                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isEnabled =
+                            false
+                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isChecked =
+                            false
+
+                        useInternalDatabase()
+
+                        Snackbar.make(
+                            fragmentQuotationsTabDatabaseTabCsvBinding.root,
+                            this.requireContext().getString(
+                                R.string.fragment_quotations_database_import_contents_0,
+                                e.message,
+                            ),
+                            BaseTransientBottomBar.LENGTH_LONG,
+                        ).show()
+                    } finally {
+                        try {
+                            fileInputStream?.close()
+                            parcelFileDescriptor?.close()
+                        } catch (e: IOException) {
+                            Timber.Forest.e(e.message)
+                        }
+                    }
+                }
+                ConfigureActivity.launcherInvoked = false
+
+    }
+
     private fun setHandlerImportFortune() {
         this.storageAccessFrameworkActivityImportFortune =
             this.registerForActivityResult<Intent, ActivityResult>(
                 ActivityResultContracts.StartActivityForResult(),
             ) { activityResult: ActivityResult ->
-                Timber.Forest.d("%d", activityResult.resultCode)
-                val toast = Toast.makeText(
-                    this.context,
-                    this.requireContext()
-                        .getString(R.string.fragment_quotations_database_import_importing),
-                    Toast.LENGTH_SHORT,
+                import(
+                    activityResult,
+                    false
                 )
-
-                if (Activity.RESULT_OK == activityResult.resultCode) {
-                    toast.show()
-
-                    var parcelFileDescriptor: ParcelFileDescriptor? = null
-                    var fileInputStream: FileInputStream? = null
-
-                    try {
-                        parcelFileDescriptor =
-                            this.requireContext().contentResolver.openFileDescriptor(
-                                activityResult.data!!.data!!, "r",
-                            )
-                        fileInputStream = FileInputStream(parcelFileDescriptor!!.fileDescriptor)
-
-                        val importHelper = ImportHelper()
-                        val quotations =
-                            importHelper.fortuneImportDatabase(fileInputStream)
-                        quoteUnquoteModel!!.insertQuotationsExternal(quotations)
-
-                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isEnabled =
-                            false
-                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isChecked =
-                            false
-
-                        importWasSuccessful()
-
-                        toast.cancel()
-                        Toast.makeText(
-                            this.context,
-                            this.requireContext()
-                                .getString(R.string.fragment_quotations_database_import_success),
-                            Toast.LENGTH_SHORT,
-                        ).show()
-                    } catch (e: ImportHelper.ImportHelperException) {
-                        toast.cancel()
-
-                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isEnabled =
-                            false
-                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isChecked =
-                            false
-
-                        useInternalDatabase()
-
-                        val message = if (-1 == e.lineNumber) {
-                            this.requireContext().getString(
-                                R.string.fragment_quotations_database_import_contents_0,
-                                e.message,
-                            )
-                        } else {
-                            this.requireContext().getString(
-                                R.string.fragment_quotations_database_import_contents_1,
-                                e.lineNumber,
-                                e.message,
-                            )
-                        }
-
-                        Snackbar.make(
-                            fragmentQuotationsTabDatabaseTabCsvBinding.root,
-                            message,
-                            BaseTransientBottomBar.LENGTH_LONG,
-                        ).show()
-                    } catch (e: FileNotFoundException) {
-                        toast.cancel()
-
-                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isEnabled =
-                            false
-                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isChecked =
-                            false
-
-                        useInternalDatabase()
-
-                        Snackbar.make(
-                            fragmentQuotationsTabDatabaseTabCsvBinding.root,
-                            this.requireContext().getString(
-                                R.string.fragment_quotations_database_import_contents_0,
-                                e.message,
-                            ),
-                            BaseTransientBottomBar.LENGTH_LONG,
-                        ).show()
-                    } finally {
-                        try {
-                            fileInputStream?.close()
-                            parcelFileDescriptor?.close()
-                        } catch (e: IOException) {
-                            Timber.Forest.e(e.message)
-                        }
-                    }
-                }
-                ConfigureActivity.launcherInvoked = false
             }
     }
 
     private fun setHandleImportCsv() {
-        // default: /storage/emulated/0/Download/
         this.storageAccessFrameworkActivityImportCSV =
             this.registerForActivityResult<Intent, ActivityResult>(
                 ActivityResultContracts.StartActivityForResult(),
             ) { activityResult: ActivityResult ->
-                Timber.Forest.d("%d", activityResult.resultCode)
-                val toast = Toast.makeText(
-                    this.context,
-                    this.requireContext()
-                        .getString(R.string.fragment_quotations_database_import_importing),
-                    Toast.LENGTH_SHORT,
+                import(
+                    activityResult,
+                    true
                 )
-
-                if (Activity.RESULT_OK == activityResult.resultCode) {
-                    toast.show()
-
-                    var parcelFileDescriptor: ParcelFileDescriptor? = null
-                    var fileInputStream: FileInputStream? = null
-
-                    try {
-                        parcelFileDescriptor =
-                            this.requireContext().contentResolver.openFileDescriptor(
-                                activityResult.data!!.data!!, "r",
-                            )
-                        fileInputStream = FileInputStream(parcelFileDescriptor!!.fileDescriptor)
-
-                        val importHelper = ImportHelper()
-                        val quotations =
-                            importHelper.csvImportDatabase(fileInputStream)
-                        quoteUnquoteModel!!.insertQuotationsExternal(quotations)
-
-                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isEnabled =
-                            true
-                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isChecked =
-                            true
-
-                        importWasSuccessful()
-
-                        toast.cancel()
-                        Toast.makeText(
-                            this.context,
-                            this.requireContext()
-                                .getString(R.string.fragment_quotations_database_import_success),
-                            Toast.LENGTH_SHORT,
-                        ).show()
-                    } catch (e: ImportHelper.ImportHelperException) {
-                        toast.cancel()
-
-                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isEnabled =
-                            false
-                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isChecked =
-                            false
-
-                        useInternalDatabase()
-
-                        val message = if (-1 == e.lineNumber) {
-                            this.requireContext().getString(
-                                R.string.fragment_quotations_database_import_contents_0,
-                                e.message,
-                            )
-                        } else {
-                            this.requireContext().getString(
-                                R.string.fragment_quotations_database_import_contents_1,
-                                e.lineNumber,
-                                e.message,
-                            )
-                        }
-
-                        Snackbar.make(
-                            fragmentQuotationsTabDatabaseTabCsvBinding.root,
-                            message,
-                            BaseTransientBottomBar.LENGTH_LONG,
-                        ).show()
-                    } catch (e: FileNotFoundException) {
-                        toast.cancel()
-
-                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isEnabled =
-                            false
-                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isChecked =
-                            false
-
-                        useInternalDatabase()
-
-                        Snackbar.make(
-                            fragmentQuotationsTabDatabaseTabCsvBinding.root,
-                            this.requireContext().getString(
-                                R.string.fragment_quotations_database_import_contents_0,
-                                e.message,
-                            ),
-                            BaseTransientBottomBar.LENGTH_LONG,
-                        ).show()
-                    } finally {
-                        try {
-                            fileInputStream?.close()
-                            parcelFileDescriptor?.close()
-                        } catch (e: IOException) {
-                            Timber.Forest.e(e.message)
-                        }
-                    }
-                }
-                ConfigureActivity.launcherInvoked = false
             }
     }
 
