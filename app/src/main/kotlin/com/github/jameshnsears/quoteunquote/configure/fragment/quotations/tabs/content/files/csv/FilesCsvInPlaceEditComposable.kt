@@ -196,7 +196,7 @@ private fun InPlaceEditTextSourceQuotationFields(
                 },
                 label = {
                     Text(
-                        text = stringResource(R.string.fragment_quotations_database_csv_inplace_source),
+                        text = stringResource(R.string.fragment_quotations_database_file_csv_inplace_source),
                     )
                 },
                 singleLine = true,
@@ -233,7 +233,7 @@ private fun InPlaceEditTextSourceQuotationFields(
                 },
                 label = {
                     Text(
-                        text = stringResource(R.string.fragment_quotations_database_csv_inplace_quotation),
+                        text = stringResource(R.string.fragment_quotations_database_file_csv_inplace_quotation),
                     )
                 },
                 maxLines = 4,
@@ -281,7 +281,7 @@ private fun InPlaceEditSaveDeleteButtons(
     val textFieldAuthor by filesCsvViewModel.author.collectAsState()
     val textFieldQuotation by filesCsvViewModel.quotation.collectAsState()
 
-    val messageWarningDuplicate = stringResource(R.string.fragment_quotations_database_csv_inplace_save_warning_duplicate)
+    val messageWarningDuplicate = stringResource(R.string.fragment_quotations_database_file_csv_inplace_save_warning_duplicate)
 
     Row(
         modifier = Modifier
@@ -305,7 +305,7 @@ private fun InPlaceEditSaveDeleteButtons(
                 enabled = (textFieldAuthor.isNotEmpty() && textFieldQuotation.isNotEmpty()),
             ) {
                 Text(
-                    stringResource(id = R.string.fragment_quotations_database_csv_inplace_save),
+                    stringResource(id = R.string.fragment_quotations_database_file_csv_inplace_save),
                 )
             }
 
@@ -322,7 +322,7 @@ private fun InPlaceEditSaveDeleteButtons(
                 enabled = digest.isNotEmpty(),
             ) {
                 Text(
-                    stringResource(id = R.string.fragment_quotations_database_csv_inplace_delete),
+                    stringResource(id = R.string.fragment_quotations_database_file_csv_inplace_delete),
                 )
             }
         }
@@ -356,7 +356,7 @@ private fun InPlaceEditInstructions() {
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
-            text = stringResource(R.string.fragment_quotations_database_csv_inplace_instruction_01),
+            text = stringResource(R.string.fragment_quotations_database_file_csv_inplace_instruction_01),
             fontSize = 14.sp,
             lineHeight = 16.sp,
             color = if (isDarkTheme) darkThemeInstructions else lightThemeInstructions,
@@ -370,7 +370,7 @@ private fun InPlaceEditInstructions() {
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
-            text = stringResource(R.string.fragment_quotations_database_csv_inplace_instruction_02),
+            text = stringResource(R.string.fragment_quotations_database_file_csv_inplace_instruction_02),
             fontSize = 14.sp,
             lineHeight = 16.sp,
             color = if (isDarkTheme) darkThemeInstructions else lightThemeInstructions,

@@ -30,33 +30,35 @@
                 android:padding="10dp">
 
             <RadioButton
-                    android:id="@+id/radio_button_database_external_csv"
+                    android:id="@+id/radio_button_database_external_file"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:checked="false"
                     android:paddingVertical="10dp"
                     android:paddingStart="12dp"
                     android:paddingEnd="0dp"
-                    android:text="@string/fragment_quotations_database_csv"
+                    android:text="@string/fragment_quotations_database_file"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
             <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:baselineAligned="false"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingTop="5dp"
                     android:paddingBottom="12dp">
 
-                <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="left"
-                        android:orientation="horizontal"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp">
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="16sp"
+                            android:paddingStart="9dp"
+                            android:paddingTop="5dp"
+                            android:paddingEnd="0dp"
+                            android:paddingBottom="0dp"
+                            android:text="@string/fragment_quotations_database_file_csv" />
 
                     <Button
                             android:id="@+id/buttonImport"
@@ -65,8 +67,6 @@
                             android:text="@string/fragment_quotations_database_button_import"
                             android:textColor="@android:color/white"
                             android:textSize="16sp" />
-
-                </LinearLayout>
 
             </LinearLayout>
 
@@ -101,36 +101,24 @@
                         android:background="?android:attr/listDivider" />
             </LinearLayout>
 
-            <RadioButton
-                    android:id="@+id/radio_button_database_external_fortune"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:checked="false"
-                    android:paddingVertical="10dp"
-                    android:paddingStart="12dp"
-                    android:paddingEnd="0dp"
-                    android:text="@string/fragment_quotations_database_csv_fortune"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
             <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:baselineAligned="false"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:paddingTop="5dp"
-                    android:paddingBottom="0dp">
+                    android:paddingBottom="12dp">
 
-                <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="left"
-                        android:orientation="horizontal"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="10dp"
-                        android:paddingTop="0dp"
-                        android:paddingBottom="12dp">
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textSize="16sp"
+                            android:paddingStart="9dp"
+                            android:paddingTop="5dp"
+                            android:paddingEnd="0dp"
+                            android:paddingBottom="0dp"
+                            android:text="@string/fragment_quotations_database_file_fortune" />
 
                     <Button
                             android:id="@+id/buttonImportFortune"
@@ -139,8 +127,6 @@
                             android:text="@string/fragment_quotations_database_button_import"
                             android:textColor="@android:color/white"
                             android:textSize="16sp" />
-
-                </LinearLayout>
 
             </LinearLayout>
 
@@ -159,8 +145,17 @@
                     android:paddingStart="9dp"
                     android:paddingTop="5dp"
                     android:paddingEnd="0dp"
+                    android:paddingBottom="5dp"
+                    android:text="@string/fragment_quotations_database_file_fortune_info_01" />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="9dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="0dp"
                     android:paddingBottom="0dp"
-                    android:text="@string/fragment_quotations_database_csv_fortune_info" />
+                    android:text="@string/fragment_quotations_database_file_fortune_info_02" />
 
             <LinearLayout
                     android:layout_width="match_parent"
@@ -194,7 +189,7 @@
                             android:id="@+id/buttonInPlaceExport"
                             android:layout_width="120dp"
                             android:layout_height="48dp"
-                            android:text="@string/fragment_quotations_database_csv_inplace_export"
+                            android:text="@string/fragment_quotations_database_file_inplace_export"
                             android:textColor="@android:color/white"
                             android:textSize="16sp" />
                 </LinearLayout>
@@ -211,7 +206,7 @@
                             android:id="@+id/buttonInPlaceEdit"
                             android:layout_width="120dp"
                             android:layout_height="48dp"
-                            android:text="@string/fragment_quotations_database_csv_inplace_edit"
+                            android:text="@string/fragment_quotations_database_file_inplace_edit"
                             android:textColor="@android:color/white"
                             android:textSize="16sp" />
                 </LinearLayout>

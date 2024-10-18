@@ -47,7 +47,7 @@ open class ContentCsvInPlaceEditDialog() : DialogFragment() {
         savedInstanceState: Bundle?,
     ): View? {
         val view = inflater.inflate(
-            R.layout.fragment_quotations_tab_database_tab_csv_edit,
+            R.layout.fragment_quotations_tab_database_tab_files_csv_edit,
             container,
             false,
         )

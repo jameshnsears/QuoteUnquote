@@ -79,6 +79,11 @@ public class ImportHelper {
                 .build();
     }
 
+    public LinkedHashSet<QuotationEntity> fortuneImportDatabase(InputStream inputStream) throws ImportHelperException {
+        LinkedHashSet<QuotationEntity> quotationEntityLinkedHashSet = new LinkedHashSet<>();
+        return quotationEntityLinkedHashSet;
+    }
+
     public LinkedHashSet<QuotationEntity> csvImportDatabase(InputStream inputStream) throws ImportHelperException {
         CSVParser parser = null;
 

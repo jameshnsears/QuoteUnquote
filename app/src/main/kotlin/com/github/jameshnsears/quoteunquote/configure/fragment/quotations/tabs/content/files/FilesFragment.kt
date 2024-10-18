@@ -1,4 +1,4 @@
-package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.files.csv
+package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.files
 
 import android.app.Activity
 import android.content.Intent
@@ -16,11 +16,12 @@ import com.github.jameshnsears.quoteunquote.R
 import com.github.jameshnsears.quoteunquote.configure.ConfigureActivity
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.ContentFragment
+import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.files.csv.ContentCsvInPlaceEditDialog
+import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.files.csv.OnDialogDismissedListener
 import com.github.jameshnsears.quoteunquote.database.DatabaseRepository
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity
-import com.github.jameshnsears.quoteunquote.databinding.FragmentQuotationsTabDatabaseTabCsvBinding
+import com.github.jameshnsears.quoteunquote.databinding.FragmentQuotationsTabDatabaseTabFilesBinding
 import com.github.jameshnsears.quoteunquote.utils.ImportHelper
-import com.github.jameshnsears.quoteunquote.utils.ImportHelper.ImportHelperException
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import timber.log.Timber
@@ -29,8 +30,8 @@ import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 
-class FilesCsvFragment(widgetId: Int) : ContentFragment(widgetId) {
-    private var _binding: FragmentQuotationsTabDatabaseTabCsvBinding? = null
+class FilesFragment(widgetId: Int) : ContentFragment(widgetId) {
+    private var _binding: FragmentQuotationsTabDatabaseTabFilesBinding? = null
 
     private val fragmentQuotationsTabDatabaseTabCsvBinding get() = _binding!!
 
@@ -39,6 +40,8 @@ class FilesCsvFragment(widgetId: Int) : ContentFragment(widgetId) {
     private var storageAccessFrameworkActivityImportCSV: ActivityResultLauncher<Intent>? = null
 
     private var storageAccessFrameworkActivityExportCsv: ActivityResultLauncher<Intent>? = null
+
+    private var storageAccessFrameworkActivityImportFortune: ActivityResultLauncher<Intent>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,7 +53,7 @@ class FilesCsvFragment(widgetId: Int) : ContentFragment(widgetId) {
             this.requireContext(),
         )
 
-        _binding = FragmentQuotationsTabDatabaseTabCsvBinding.inflate(inflater, container, false)
+        _binding = FragmentQuotationsTabDatabaseTabFilesBinding.inflate(inflater, container, false)
 
         return fragmentQuotationsTabDatabaseTabCsvBinding.root
     }
@@ -64,16 +67,16 @@ class FilesCsvFragment(widgetId: Int) : ContentFragment(widgetId) {
         Timber.d("onViewCreated.ContentCsvFragment")
 
         if (quotationsPreferences!!.databaseExternalCsv) {
-            fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalCsv.isEnabled =
+            fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isEnabled =
                 true
-            fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalCsv.isChecked =
+            fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isChecked =
                 true
             fragmentQuotationsTabDatabaseTabCsvBinding.buttonInPlaceExport.isEnabled = true
             fragmentQuotationsTabDatabaseTabCsvBinding.buttonInPlaceEdit.isEnabled = true
         } else {
-            fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalCsv.isEnabled =
+            fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isEnabled =
                 false
-            fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalCsv.isChecked =
+            fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isChecked =
                 false
             fragmentQuotationsTabDatabaseTabCsvBinding.buttonInPlaceExport.isEnabled = false
             fragmentQuotationsTabDatabaseTabCsvBinding.buttonInPlaceEdit.isEnabled = false
@@ -87,22 +90,26 @@ class FilesCsvFragment(widgetId: Int) : ContentFragment(widgetId) {
 
         setHandleExportCsv()
 
+        setHandlerImportFortune()
+
         createListenerButtonImportCsv()
 
         createListenerButtonInPlaceExport()
 
         createListenerButtonInPlaceEdit()
+
+        createListenerButtonInPlaceImportFortune()
     }
 
     private fun enableRadioIfExternalDatabaseContainsData() {
         if (quoteUnquoteModel!!.externalDatabaseContainsQuotations()) {
-            fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalCsv.isEnabled = true
+            fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isEnabled = true
         }
     }
 
     private fun createListenerRadioCsv() {
         val radioButtonDatabaseInternal =
-            fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalCsv
+            fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile
         radioButtonDatabaseInternal.setOnCheckedChangeListener { buttonView: CompoundButton?, _: Boolean ->
             usingCsv()
         }
@@ -150,15 +157,26 @@ class FilesCsvFragment(widgetId: Int) : ContentFragment(widgetId) {
         }
     }
 
+    private fun createListenerButtonInPlaceImportFortune() {
+        fragmentQuotationsTabDatabaseTabCsvBinding.buttonImportFortune.setOnClickListener {
+            if (fragmentQuotationsTabDatabaseTabCsvBinding.buttonImport.isEnabled) {
+                ConfigureActivity.launcherInvoked = true
+
+                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+                intent.addCategory(Intent.CATEGORY_OPENABLE)
+                intent.setType("*/*")
+                this.storageAccessFrameworkActivityImportFortune!!.launch(intent)
+            }
+        }
+    }
+
     fun dialogDismissed() {
         if (quoteUnquoteModel!!.allQuotations.isEmpty()) {
-            fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalCsv.isEnabled =
+            fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isEnabled =
                 false
-            fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalCsv.isChecked =
+            fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isChecked =
                 false
             fragmentQuotationsTabDatabaseTabCsvBinding.buttonInPlaceExport.isEnabled =
-                false
-            fragmentQuotationsTabDatabaseTabCsvBinding.buttonInPlaceEdit.isEnabled =
                 false
 
             useInternalDatabase()
@@ -166,7 +184,7 @@ class FilesCsvFragment(widgetId: Int) : ContentFragment(widgetId) {
             Toast.makeText(
                 this.context,
                 this.requireContext()
-                    .getString(R.string.fragment_quotations_database_csv_inplace_warning_empty_database),
+                    .getString(R.string.fragment_quotations_database_file_csv_inplace_warning_empty_database),
                 Toast.LENGTH_LONG,
             ).show()
         }
@@ -190,13 +208,12 @@ class FilesCsvFragment(widgetId: Int) : ContentFragment(widgetId) {
         }
     }
 
-    private fun setHandleImportCsv() {
-        // default: /storage/emulated/0/Download/
-        this.storageAccessFrameworkActivityImportCSV =
+    private fun setHandlerImportFortune() {
+        this.storageAccessFrameworkActivityImportFortune =
             this.registerForActivityResult<Intent, ActivityResult>(
                 ActivityResultContracts.StartActivityForResult(),
             ) { activityResult: ActivityResult ->
-                Timber.d("%d", activityResult.resultCode)
+                Timber.Forest.d("%d", activityResult.resultCode)
                 val toast = Toast.makeText(
                     this.context,
                     this.requireContext()
@@ -219,13 +236,13 @@ class FilesCsvFragment(widgetId: Int) : ContentFragment(widgetId) {
 
                         val importHelper = ImportHelper()
                         val quotations =
-                            importHelper.csvImportDatabase(fileInputStream)
+                            importHelper.fortuneImportDatabase(fileInputStream)
                         quoteUnquoteModel!!.insertQuotationsExternal(quotations)
 
-                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalCsv.isEnabled =
-                            true
-                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalCsv.isChecked =
-                            true
+                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isEnabled =
+                            false
+                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isChecked =
+                            false
 
                         importWasSuccessful()
 
@@ -236,12 +253,12 @@ class FilesCsvFragment(widgetId: Int) : ContentFragment(widgetId) {
                                 .getString(R.string.fragment_quotations_database_import_success),
                             Toast.LENGTH_SHORT,
                         ).show()
-                    } catch (e: ImportHelperException) {
+                    } catch (e: ImportHelper.ImportHelperException) {
                         toast.cancel()
 
-                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalCsv.isEnabled =
+                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isEnabled =
                             false
-                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalCsv.isChecked =
+                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isChecked =
                             false
 
                         useInternalDatabase()
@@ -267,9 +284,9 @@ class FilesCsvFragment(widgetId: Int) : ContentFragment(widgetId) {
                     } catch (e: FileNotFoundException) {
                         toast.cancel()
 
-                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalCsv.isEnabled =
+                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isEnabled =
                             false
-                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalCsv.isChecked =
+                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isChecked =
                             false
 
                         useInternalDatabase()
@@ -287,7 +304,112 @@ class FilesCsvFragment(widgetId: Int) : ContentFragment(widgetId) {
                             fileInputStream?.close()
                             parcelFileDescriptor?.close()
                         } catch (e: IOException) {
-                            Timber.e(e.message)
+                            Timber.Forest.e(e.message)
+                        }
+                    }
+                }
+                ConfigureActivity.launcherInvoked = false
+            }
+    }
+
+    private fun setHandleImportCsv() {
+        // default: /storage/emulated/0/Download/
+        this.storageAccessFrameworkActivityImportCSV =
+            this.registerForActivityResult<Intent, ActivityResult>(
+                ActivityResultContracts.StartActivityForResult(),
+            ) { activityResult: ActivityResult ->
+                Timber.Forest.d("%d", activityResult.resultCode)
+                val toast = Toast.makeText(
+                    this.context,
+                    this.requireContext()
+                        .getString(R.string.fragment_quotations_database_import_importing),
+                    Toast.LENGTH_SHORT,
+                )
+
+                if (Activity.RESULT_OK == activityResult.resultCode) {
+                    toast.show()
+
+                    var parcelFileDescriptor: ParcelFileDescriptor? = null
+                    var fileInputStream: FileInputStream? = null
+
+                    try {
+                        parcelFileDescriptor =
+                            this.requireContext().contentResolver.openFileDescriptor(
+                                activityResult.data!!.data!!, "r",
+                            )
+                        fileInputStream = FileInputStream(parcelFileDescriptor!!.fileDescriptor)
+
+                        val importHelper = ImportHelper()
+                        val quotations =
+                            importHelper.csvImportDatabase(fileInputStream)
+                        quoteUnquoteModel!!.insertQuotationsExternal(quotations)
+
+                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isEnabled =
+                            true
+                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isChecked =
+                            true
+
+                        importWasSuccessful()
+
+                        toast.cancel()
+                        Toast.makeText(
+                            this.context,
+                            this.requireContext()
+                                .getString(R.string.fragment_quotations_database_import_success),
+                            Toast.LENGTH_SHORT,
+                        ).show()
+                    } catch (e: ImportHelper.ImportHelperException) {
+                        toast.cancel()
+
+                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isEnabled =
+                            false
+                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isChecked =
+                            false
+
+                        useInternalDatabase()
+
+                        val message = if (-1 == e.lineNumber) {
+                            this.requireContext().getString(
+                                R.string.fragment_quotations_database_import_contents_0,
+                                e.message,
+                            )
+                        } else {
+                            this.requireContext().getString(
+                                R.string.fragment_quotations_database_import_contents_1,
+                                e.lineNumber,
+                                e.message,
+                            )
+                        }
+
+                        Snackbar.make(
+                            fragmentQuotationsTabDatabaseTabCsvBinding.root,
+                            message,
+                            BaseTransientBottomBar.LENGTH_LONG,
+                        ).show()
+                    } catch (e: FileNotFoundException) {
+                        toast.cancel()
+
+                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isEnabled =
+                            false
+                        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isChecked =
+                            false
+
+                        useInternalDatabase()
+
+                        Snackbar.make(
+                            fragmentQuotationsTabDatabaseTabCsvBinding.root,
+                            this.requireContext().getString(
+                                R.string.fragment_quotations_database_import_contents_0,
+                                e.message,
+                            ),
+                            BaseTransientBottomBar.LENGTH_LONG,
+                        ).show()
+                    } finally {
+                        try {
+                            fileInputStream?.close()
+                            parcelFileDescriptor?.close()
+                        } catch (e: IOException) {
+                            Timber.Forest.e(e.message)
                         }
                     }
                 }
@@ -314,7 +436,7 @@ class FilesCsvFragment(widgetId: Int) : ContentFragment(widgetId) {
                         )
 
                         fileOutputStream.close()
-                        parcelFileDescriptor!!.close()
+                        parcelFileDescriptor.close()
 
                         Toast.makeText(
                             context,
@@ -322,7 +444,7 @@ class FilesCsvFragment(widgetId: Int) : ContentFragment(widgetId) {
                             Toast.LENGTH_SHORT,
                         ).show()
                     } catch (e: IOException) {
-                        Timber.e(e.message)
+                        Timber.Forest.e(e.message)
                     }
                 }
                 ConfigureActivity.launcherInvoked = false
