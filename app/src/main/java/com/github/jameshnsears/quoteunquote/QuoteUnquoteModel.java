@@ -1144,9 +1144,9 @@ public class QuoteUnquoteModel {
     ) {
         final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
             databaseRepository.updateQuotationUsingDigest(
-                digest,
-                author,
-                quotation
+                    digest,
+                    author,
+                    quotation
             );
         });
 
@@ -1165,7 +1165,7 @@ public class QuoteUnquoteModel {
         final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
             List<QuotationEntity> allQuotations = getAllQuotations();
             for (QuotationEntity quotationEntity : allQuotations) {
-                if (quotationEntity.digest.equals(digest)){
+                if (quotationEntity.digest.equals(digest)) {
                     allQuotations.remove(quotationEntity);
                     break;
                 }

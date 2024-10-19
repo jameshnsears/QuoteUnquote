@@ -9,9 +9,11 @@ import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.csv.QuoteMode;
 
+import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -79,7 +81,98 @@ public class ImportHelper {
                 .build();
     }
 
-    public LinkedHashSet<QuotationEntity> csvImportDatabase(InputStream inputStream) throws ImportHelperException {
+    public LinkedHashSet<QuotationEntity> importFortune(
+            String filePath,
+            InputStream inputStream
+    ) throws ImportHelperException {
+        LinkedHashSet<QuotationEntity> quotationEntityLinkedHashSet = new LinkedHashSet<>();
+        {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            int fortuneLineNumber = 0;
+            int quotationLineNumber = 0;
+
+            try {
+                StringBuilder fortune = new StringBuilder();
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    if (line.trim().equals("%")) {
+                        fortuneLineNumber += 1;
+
+                        addFortune(
+                                fortuneLineNumber,
+                                filePath,
+                                fortune.toString().trim(),
+                                quotationEntityLinkedHashSet
+                        );
+
+                        fortune.setLength(0);
+                        quotationLineNumber = 0;
+                    } else {
+                        fortune.append(line).append("\n");
+                        quotationLineNumber += 1;
+                    }
+
+                    if (quotationLineNumber > 50) {
+                        Timber.e(filePath);
+                        throw new ImportHelperException(quotationLineNumber,
+                                "quotation too big / invalid format"
+                        );
+                    }
+                }
+
+                if (fortune.length() > 0 && !(fortune.toString().equals("\n\n"))) {
+                    fortuneLineNumber += 1;
+
+                    addFortune(
+                            fortuneLineNumber,
+                            filePath,
+                            fortune.toString().trim(),
+                            quotationEntityLinkedHashSet
+                    );
+                }
+
+                if (quotationEntityLinkedHashSet.isEmpty()) {
+                    throw new ImportHelperException(quotationLineNumber, "no quotations found");
+                }
+
+            } catch (IOException exception) {
+                Timber.e("%s", exception.getMessage());
+                throw new ImportHelperException(fortuneLineNumber, exception.getMessage());
+            }
+
+            return quotationEntityLinkedHashSet;
+        }
+    }
+
+    private void addFortune(
+            int fortuneLineNumber,
+            String filePath,
+            String fortune,
+            LinkedHashSet<QuotationEntity> quotationEntityLinkedHashSet
+    ) {
+        if (!fortune.isEmpty() && !fortune.equals('%')) {
+            Timber.d("fortuneLineNumber=%d; fortune=%s", fortuneLineNumber, fortune);
+
+            if (quotationEntityLinkedHashSet.size() == 0) {
+                fortuneLineNumber = 1;
+            }
+
+            QuotationEntity quotationEntity = new QuotationEntity(
+                    makeDigest(fortuneLineNumber, filePath, fortune),
+                    "?",
+                    filePath.substring(1 + filePath.lastIndexOf('/')),
+                    fortune);
+
+            if (!quotationEntityLinkedHashSet.contains(quotationEntity)) {
+                quotationEntityLinkedHashSet.add(quotationEntity);
+            }
+        }
+    }
+
+    public LinkedHashSet<QuotationEntity> importCsv(
+            InputStream inputStream
+    ) throws ImportHelperException {
         CSVParser parser = null;
 
         LinkedHashSet<QuotationEntity> quotationEntityLinkedHashSet = new LinkedHashSet<>();
@@ -97,15 +190,13 @@ public class ImportHelper {
                 String quotation = record.get("Quotation");
                 testNotEmptyQuotation(lineNumber, quotation);
 
-                String digest = makeDigest(lineNumber, author, quotation);
-
-                QuotationEntity q = new QuotationEntity(
-                        digest,
+                QuotationEntity quotationEntity = new QuotationEntity(
+                        makeDigest(lineNumber, author, quotation),
                         "?",
                         author,
                         quotation);
-                if (!quotationEntityLinkedHashSet.contains(q)) {
-                    quotationEntityLinkedHashSet.add(q);
+                if (!quotationEntityLinkedHashSet.contains(quotationEntity)) {
+                    quotationEntityLinkedHashSet.add(quotationEntity);
                 }
             }
         } catch (IllegalStateException | IllegalArgumentException | IOException exception) {
@@ -151,7 +242,7 @@ public class ImportHelper {
     }
 
     public class ImportHelperException extends Exception {
-        public int lineNumber = 0;
+        public int lineNumber;
 
         public ImportHelperException(int lineNumber, String errorMessage) {
             super(errorMessage);

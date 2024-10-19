@@ -48,7 +48,10 @@ class QuoteUnquoteModelTest : QuoteUnquoteModelUtility() {
         )
 
         assertEquals(3, quoteUnquoteModelDouble.allQuotations.size)
-        assertNotEquals(ImportHelper.DEFAULT_DIGEST, quoteUnquoteModelDouble.allQuotations[2].digest)
+        assertNotEquals(
+            ImportHelper.DEFAULT_DIGEST,
+            quoteUnquoteModelDouble.allQuotations[2].digest,
+        )
     }
 
     @Test

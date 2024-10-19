@@ -69,21 +69,25 @@
     <string name="fragment_quotations_database_default">\u2022&#160;&#160;Discover high quality Quotations!</string>
     <string name="fragment_quotations_database_imported">External</string>
 
-    <string name="fragment_quotations_database_csv">CSV file</string>
-    <string name="fragment_quotations_database_csv_inplace_edit">Edit</string>>
-    <string name="fragment_quotations_database_csv_inplace_export">Export</string>>
-    <string name="fragment_quotations_database_csv_inplace_source">Source…</string>
-    <string name="fragment_quotations_database_csv_inplace_quotation">Quotation…</string>
-    <string name="fragment_quotations_database_csv_inplace_save">Save</string>
-    <string name="fragment_quotations_database_csv_inplace_delete">Delete</string>
-    <string name="fragment_quotations_database_csv_inplace_instruction_01">\u2022&#160;&#160;Tap row text to select / deselect</string>
-    <string name="fragment_quotations_database_csv_inplace_instruction_02">\u2022&#160;&#160;If no row selected, Save will insert / append based on Source order</string>
-    <string name="fragment_quotations_database_csv_inplace_save_warning_duplicate">Unable to Save - duplicate</string>
-    <string name="fragment_quotations_database_csv_inplace_warning_empty_database">Internal Database selected</string>
+    <string name="fragment_quotations_database_file">External file</string>
+    <string name="fragment_quotations_database_file_inplace_edit">Edit</string>
+    <string name="fragment_quotations_database_file_inplace_export">Export</string>
+    <string name="fragment_quotations_database_file_csv">CSV file</string>
+    <string name="fragment_quotations_database_file_csv_inplace_source">Source…</string>
+    <string name="fragment_quotations_database_file_csv_inplace_quotation">Quotation…</string>
+    <string name="fragment_quotations_database_file_csv_inplace_save">Save</string>
+    <string name="fragment_quotations_database_file_csv_inplace_delete">Delete</string>
+    <string name="fragment_quotations_database_file_csv_inplace_instruction_01">\u2022&#160;&#160;Tap row text to select / deselect</string>
+    <string name="fragment_quotations_database_file_csv_inplace_instruction_02">\u2022&#160;&#160;If no row selected, Save will insert / append based on Source order</string>
+    <string name="fragment_quotations_database_file_csv_inplace_save_warning_duplicate">Unable to Save - duplicate</string>
+    <string name="fragment_quotations_database_file_csv_inplace_warning_empty_database">Internal Database selected</string>
+    <string name="fragment_quotations_database_file_fortune">Fortune file</string>
+    <string name="fragment_quotations_database_file_fortune_info_01">\u2022&#160;&#160;A text file with quotations, each separated by the character % on its own line. See: https://en.m.wikipedia.org/wiki/Fortune_(Unix)</string>
+    <string name="fragment_quotations_database_file_fortune_info_02">\u2022&#160;&#160;The filename is used to populate the Source field</string>
 
     <string name="fragment_quotations_database_button_import">Import</string>
     <string name="fragment_quotations_database_external_instructions_1_info"></string>
-    <string name="fragment_quotations_database_external_instructions_1">\u2022&#160;&#160;Export from Internal Database for a UTF-8 encoded example</string>
+    <string name="fragment_quotations_database_external_instructions_1">\u2022&#160;&#160;Export from Internal Database for a UTF-8 encoded .csv example file</string>
     <string name="fragment_quotations_database_import_contents_0">Invalid - %1$s</string>
     <string name="fragment_quotations_database_import_contents_1">Invalid - line: %1$d: %2$s</string>
     <string name="fragment_quotations_database_import_importing">Importing - please wait&#8230;</string>
@@ -163,7 +167,7 @@
     <string name="fragment_appearance_follow_system_theme">\u2022&#160;&#160;Force black &amp; white colours</string>
     <string name="fragment_appearance_toolbar_colour_dialog_title">Toolbar Colour</string>
     <string name="fragment_appearance_toolbar_first">First, clears Previous</string>
-    <string name="fragment_appearance_toolbar_previous">Previous</string>>
+    <string name="fragment_appearance_toolbar_previous">Previous</string>
     <string name="fragment_appearance_toolbar_favourite">Favourite, toggle</string>
     <string name="fragment_appearance_toolbar_share">Share</string>
     <string name="fragment_appearance_toolbar_share_exclude_source">Exclude Source</string>
