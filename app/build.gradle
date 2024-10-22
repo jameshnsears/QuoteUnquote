@@ -239,7 +239,7 @@ dependencies {
     debugImplementation 'androidx.test:core-ktx:1.6.1'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.14'
 
-    googleplayImplementation platform('com.google.firebase:firebase-bom:33.4.0')
+    googleplayImplementation platform('com.google.firebase:firebase-bom:33.5.0')
 
     implementation 'androidx.activity:activity-ktx:1.9.3'
     implementation 'androidx.appcompat:appcompat:1.7.0'
