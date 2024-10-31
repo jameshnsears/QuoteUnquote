@@ -264,8 +264,8 @@ dependencies {
     implementation 'net.pwall.json:json-kotlin-schema:0.50'
     implementation 'org.apache.commons:commons-csv:1.12.0'
     implementation 'org.jsoup:jsoup:1.18.1'
-    implementation 'androidx.work:work-runtime-ktx:2.9.1'
-    implementation 'androidx.work:work-runtime:2.9.1'
+    implementation 'androidx.work:work-runtime-ktx:2.10.0'
+    implementation 'androidx.work:work-runtime:2.10.0'
     implementation project(path: ':cloudLib')
     implementation project(path: ':utilsLib')
 
