@@ -67,19 +67,9 @@ class FilesFragment(widgetId: Int) : ContentFragment(widgetId) {
         Timber.d("onViewCreated.ContentCsvFragment")
 
         if (quotationsPreferences!!.databaseExternalCsv) {
-            fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isEnabled =
-                true
-            fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isChecked =
-                true
-            fragmentQuotationsTabDatabaseTabCsvBinding.buttonExport.isEnabled = true
-            fragmentQuotationsTabDatabaseTabCsvBinding.buttonEdit.isEnabled = true
+            initButtons(true)
         } else {
-            fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isEnabled =
-                false
-            fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isChecked =
-                false
-            fragmentQuotationsTabDatabaseTabCsvBinding.buttonExport.isEnabled = false
-            fragmentQuotationsTabDatabaseTabCsvBinding.buttonEdit.isEnabled = false
+            initButtons(false)
         }
 
         enableRadioIfExternalDatabaseContainsData()
@@ -101,6 +91,19 @@ class FilesFragment(widgetId: Int) : ContentFragment(widgetId) {
         createListenerButtonInPlaceImportFortune()
     }
 
+    private fun initButtons(enabled: Boolean) {
+        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isEnabled =
+            enabled
+        fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isChecked =
+            enabled
+
+        fragmentQuotationsTabDatabaseTabCsvBinding.buttonExport.isEnabled = enabled
+        makeButtonAlpha(fragmentQuotationsTabDatabaseTabCsvBinding.buttonExport, enabled)
+
+        fragmentQuotationsTabDatabaseTabCsvBinding.buttonEdit.isEnabled = enabled
+        makeButtonAlpha(fragmentQuotationsTabDatabaseTabCsvBinding.buttonEdit, enabled)
+    }
+
     private fun enableRadioIfExternalDatabaseContainsData() {
         if (quoteUnquoteModel!!.externalDatabaseContainsQuotations()) {
             fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isEnabled =
@@ -112,11 +115,17 @@ class FilesFragment(widgetId: Int) : ContentFragment(widgetId) {
         val radioButtonDatabaseInternal =
             fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile
         radioButtonDatabaseInternal.setOnCheckedChangeListener { buttonView: CompoundButton?, _: Boolean ->
-            usingCsv()
+            usingExternalFile()
+
+            fragmentQuotationsTabDatabaseTabCsvBinding.buttonExport.isEnabled = true
+            makeButtonAlpha(fragmentQuotationsTabDatabaseTabCsvBinding.buttonExport, true)
+
+            fragmentQuotationsTabDatabaseTabCsvBinding.buttonEdit.isEnabled = true
+            makeButtonAlpha(fragmentQuotationsTabDatabaseTabCsvBinding.buttonEdit, true)
         }
     }
 
-    private fun usingCsv() {
+    private fun usingExternalFile() {
         quotationsPreferences!!.databaseInternal = false
         quotationsPreferences!!.databaseExternalCsv = true
         quotationsPreferences!!.databaseExternalWeb = false
@@ -248,15 +257,7 @@ class FilesFragment(widgetId: Int) : ContentFragment(widgetId) {
                     )
                 }
 
-                fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isEnabled =
-                    true
-                fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isChecked =
-                    true
-
-                fragmentQuotationsTabDatabaseTabCsvBinding.buttonExport.isEnabled =
-                    true
-                fragmentQuotationsTabDatabaseTabCsvBinding.buttonEdit.isEnabled =
-                    true
+                initButtons(true)
 
                 importWasSuccessful()
 
@@ -270,10 +271,7 @@ class FilesFragment(widgetId: Int) : ContentFragment(widgetId) {
             } catch (e: ImportHelper.ImportHelperException) {
                 toast.cancel()
 
-                fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isEnabled =
-                    false
-                fragmentQuotationsTabDatabaseTabCsvBinding.radioButtonDatabaseExternalFile.isChecked =
-                    false
+                initButtons(false)
 
                 useInternalDatabase()
 

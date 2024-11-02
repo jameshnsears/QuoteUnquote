@@ -47,7 +47,7 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:paddingStart="6dp"
-                    android:paddingEnd="5dp">
+                    android:paddingEnd="6dp">
 
                 <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/editTextUrlLayout"
@@ -74,7 +74,7 @@
                     android:orientation="horizontal"
                     android:paddingVertical="5dp"
                     android:paddingStart="6dp"
-                    android:paddingEnd="5dp">
+                    android:paddingEnd="6dp">
 
                 <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/editTextXpathQuotationLayout"
@@ -101,7 +101,7 @@
                     android:orientation="horizontal"
                     android:paddingVertical="5dp"
                     android:paddingStart="6dp"
-                    android:paddingEnd="5dp">
+                    android:paddingEnd="6dp">
 
                 <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/editTextXpathSourceLayout"
@@ -126,7 +126,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:paddingStart="0dp"
                     android:paddingTop="5dp"
+                    android:paddingEnd="6dp"
                     android:paddingBottom="0dp">
 
                 <com.google.android.material.materialswitch.MaterialSwitch
@@ -184,7 +186,7 @@
                         android:layout_height="wrap_content"
                         android:paddingStart="9dp"
                         android:paddingTop="5dp"
-                        android:paddingEnd="0dp"
+                        android:paddingEnd="6dp"
                         android:paddingBottom="5dp"
                         android:text="@string/fragment_quotations_database_scrape_1" />
 
@@ -194,7 +196,7 @@
                         android:layout_height="wrap_content"
                         android:paddingStart="9dp"
                         android:paddingTop="5dp"
-                        android:paddingEnd="0dp"
+                        android:paddingEnd="6dp"
                         android:paddingBottom="5dp"
                         android:text="@string/fragment_quotations_database_scrape_2" />
 
@@ -204,7 +206,7 @@
                         android:layout_height="wrap_content"
                         android:paddingStart="9dp"
                         android:paddingTop="5dp"
-                        android:paddingEnd="0dp"
+                        android:paddingEnd="6dp"
                         android:paddingBottom="5dp"
                         android:text="@string/fragment_quotations_database_scrape_3" />
 

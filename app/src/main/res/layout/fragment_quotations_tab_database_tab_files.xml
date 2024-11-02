@@ -46,7 +46,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
+                    android:paddingStart="0dp"
                     android:paddingTop="5dp"
+                    android:paddingEnd="6dp"
                     android:paddingBottom="12dp">
 
                 <TextView
@@ -83,7 +85,7 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="9dp"
                     android:paddingTop="5dp"
-                    android:paddingEnd="0dp"
+                    android:paddingEnd="6dp"
                     android:paddingBottom="0dp"
                     android:text="@string/fragment_quotations_database_external_instructions_1" />
 
@@ -106,7 +108,9 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
+                    android:paddingStart="0dp"
                     android:paddingTop="5dp"
+                    android:paddingEnd="5dp"
                     android:paddingBottom="12dp">
 
                 <TextView
@@ -144,7 +148,7 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="9dp"
                     android:paddingTop="5dp"
-                    android:paddingEnd="0dp"
+                    android:paddingEnd="5dp"
                     android:paddingBottom="5dp"
                     android:text="@string/fragment_quotations_database_file_fortune_info_01" />
 
@@ -190,9 +194,12 @@
                             android:id="@+id/button_export"
                             android:layout_width="120dp"
                             android:layout_height="48dp"
+                            android:enabled="false"
                             android:text="@string/fragment_quotations_database_file_inplace_export"
                             android:textColor="@android:color/white"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            app:strokeColor="?attr/colorPrimary" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -207,9 +214,12 @@
                             android:id="@+id/button_edit"
                             android:layout_width="120dp"
                             android:layout_height="48dp"
+                            android:enabled="false"
                             android:text="@string/fragment_quotations_database_file_inplace_edit"
                             android:textColor="@android:color/white"
-                            android:textSize="16sp" />
+                            android:textSize="16sp"
+                            app:strokeColor="?attr/colorPrimary" />
+
                 </LinearLayout>
 
             </LinearLayout>

@@ -66,7 +66,7 @@
     <string name="fragment_quotations_database">Content</string>
     <string name="fragment_quotations_database_default_internal">Internal Database</string>
     <string name="fragment_quotations_database_default_info"></string>
-    <string name="fragment_quotations_database_default">\u2022&#160;&#160;Discover high quality Quotations!</string>
+    <string name="fragment_quotations_database_default">\u2022&#160;&#160;Discover High Quality quotations!</string>
     <string name="fragment_quotations_database_imported">External</string>
 
     <string name="fragment_quotations_database_file">External file</string>
@@ -244,7 +244,7 @@
     <string name="notification_action_favourite">Favourite</string>
     <string name="notification_action_unfavourite">Unfavourite</string>
 
-    <string name="preview_description">Discover high quality Quotations!\nImport Affirmations!</string>
+    <string name="preview_description">Discover High Quality quotations!\nImport Affirmations!</string>
     <string name="preview_quotation">Nothing matters very much and very few things matter at all.\n</string>
     <string name="preview_author"><u>Arthur Balfour\n</u></string>
     <string name="preview_position">\u2316  1/20272\u0020</string>
