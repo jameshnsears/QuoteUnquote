@@ -29,6 +29,12 @@ public class ContentWebFragment extends ContentFragment {
     @Nullable
     public QuotationsPreferences quotationsPreferences;
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        rememberScreen(Screen.ContentWeb, getContext());
+    }
+
     public ContentWebFragment(int widgetId) {
         super(widgetId);
     }
@@ -48,8 +54,6 @@ public class ContentWebFragment extends ContentFragment {
     @Override
     public void onViewCreated(
             @NonNull View view, @NonNull Bundle savedInstanceState) {
-        Timber.d("onViewCreated.ContentWebFragment");
-
         if (this.quotationsPreferences.getDatabaseExternalWeb()) {
             this.fragmentQuotationsTabDatabaseTabWebBinding.radioButtonDatabaseExternalWeb.setChecked(true);
             this.fragmentQuotationsTabDatabaseTabWebBinding.radioButtonDatabaseExternalWeb.setEnabled(true);

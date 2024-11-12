@@ -47,9 +47,9 @@ android {
         applicationId "com.github.jameshnsears.quoteunquote"
 
         // changelog version | min sdk | target sdk
-        versionCode 1812435
+        versionCode 1822435
         // semantic versioning
-        versionName "4.46.1"
+        versionName "4.47.0"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -232,25 +232,31 @@ dependencies {
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.3.0'
     androidTestImplementation 'io.mockk:mockk-android:1.13.13'
     androidTestImplementation 'org.jetbrains.kotlin:kotlin-test-junit:2.0.21'
-
     annotationProcessor 'androidx.room:room-compiler:2.6.1'
-
+    debugImplementation 'androidx.compose.ui:ui-tooling-preview'
     debugImplementation 'androidx.fragment:fragment-testing:1.8.5'
     debugImplementation 'androidx.test:core-ktx:1.6.1'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.14'
-
     googleplayImplementation platform('com.google.firebase:firebase-bom:33.5.1')
-
+    implementation 'androidx.activity:activity-compose'
     implementation 'androidx.activity:activity-ktx:1.9.3'
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.compose.material3:material3'
+    implementation 'androidx.compose.material:material'
+    implementation 'androidx.compose.ui:ui'
+    implementation 'androidx.compose.ui:ui-tooling'
     implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
+    implementation 'androidx.core:core-ktx'
     implementation 'androidx.core:core-ktx:1.15.0'
     implementation 'androidx.databinding:databinding-runtime:8.7.2'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.room:room-guava:2.6.1'
     implementation 'androidx.room:room-runtime:2.6.1'
     implementation 'androidx.room:room-rxjava2:2.6.1'
+    implementation 'androidx.work:work-runtime:2.10.0'
+    implementation 'androidx.work:work-runtime-ktx:2.10.0'
     implementation 'com.github.skydoves:colorpickerpreference:2.0.6'
     implementation 'com.google.android.material:material:1.12.0'
     implementation 'com.google.code.gson:gson:2.11.0'
@@ -264,21 +270,9 @@ dependencies {
     implementation 'net.pwall.json:json-kotlin-schema:0.50'
     implementation 'org.apache.commons:commons-csv:1.12.0'
     implementation 'org.jsoup:jsoup:1.18.1'
-    implementation 'androidx.work:work-runtime-ktx:2.10.0'
-    implementation 'androidx.work:work-runtime:2.10.0'
+    implementation platform('androidx.compose:compose-bom:2024.10.01')
     implementation project(path: ':cloudLib')
     implementation project(path: ':utilsLib')
-
-    implementation platform('androidx.compose:compose-bom:2024.10.01')
-    debugImplementation 'androidx.compose.ui:ui-tooling-preview'
-    implementation 'androidx.activity:activity-compose'
-    implementation 'androidx.compose.material3:material3'
-    implementation 'androidx.compose.material:material'
-    implementation 'androidx.compose.ui:ui'
-    implementation 'androidx.compose.ui:ui-tooling'
-    implementation 'androidx.core:core-ktx'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx'
-
     testImplementation 'androidx.arch.core:core-testing:2.2.0'
     testImplementation 'androidx.room:room-testing:2.6.1'
     testImplementation 'androidx.test:core-ktx:1.6.1'

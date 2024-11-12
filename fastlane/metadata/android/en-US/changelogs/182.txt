@@ -1,0 +1,4 @@
+&bull; Add re-entrant navigation
+&bull; Update database
+&bull; Bump dependencies &amp; IDE: Android Studio Ladybug | 2024.2.1 Patch 2
+

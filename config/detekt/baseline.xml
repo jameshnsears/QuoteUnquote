@@ -11,8 +11,8 @@
     <ID>FunctionNaming:FilesCsvInPlaceEditComposable.kt$@Composable private fun PreviewInPlaceEdit()</ID>
     <ID>FunctionNaming:FilesCsvInPlaceEditComposable.kt$@Preview( apiLevel = 34, widthDp = 400, ) @Composable fun PreviewInPlaceEditLight()</ID>
     <ID>FunctionNaming:FilesCsvInPlaceEditComposable.kt$@Preview( apiLevel = 34, widthDp = 400, showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, ) @Composable fun PreviewInPlaceEditDark()</ID>
+    <ID>LongMethod:ContentFilesFragment.kt$ContentFilesFragment$private fun import( activityResult: ActivityResult, isCsvFile: Boolean, )</ID>
     <ID>LongMethod:FilesCsvInPlaceEditComposable.kt$@Composable private fun InPlaceEditTextSourceQuotationFields( filesCsvViewModel: FilesCsvViewModel, )</ID>
-    <ID>LongMethod:FilesFragment.kt$FilesFragment$private fun import( activityResult: ActivityResult, isCsvFile: Boolean, )</ID>
     <ID>MagicNumber:AutoCloudBackup.kt$AutoCloudBackup$60_000L</ID>
     <ID>MagicNumber:FilesCsvInPlaceEditComposable.kt$0xffcac4d0</ID>
     <ID>MagicNumber:Scraper.kt$Scraper$1000</ID>
@@ -23,7 +23,7 @@
     <ID>SwallowedException:Scraper.kt$Scraper$e: ScraperXpathException</ID>
     <ID>ThrowsCount:Scraper.kt$Scraper$private fun getXpath(document: Document, xpath: String): String</ID>
     <ID>TooGenericExceptionCaught:Scraper.kt$Scraper$e: Exception</ID>
-    <ID>TooManyFunctions:FilesFragment.kt$FilesFragment : ContentFragment</ID>
+    <ID>TooManyFunctions:ContentFilesFragment.kt$ContentFilesFragment : ContentFragment</ID>
     <ID>TooManyFunctions:TransferRestore.kt$TransferRestore : TransferCommon</ID>
     <ID>UnusedPrivateProperty:DatabaseQuotationsRandomTest.kt$DatabaseQuotationsRandomTest$i</ID>
     <ID>UtilityClassWithPublicConstructor:ListViewLayoutIdHelper.kt$ListViewLayoutIdHelper</ID>

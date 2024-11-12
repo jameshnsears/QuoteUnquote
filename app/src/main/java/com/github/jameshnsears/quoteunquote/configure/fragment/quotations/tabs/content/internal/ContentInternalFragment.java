@@ -14,8 +14,6 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.Quotat
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.ContentFragment;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentQuotationsTabDatabaseTabInternalBinding;
 
-import timber.log.Timber;
-
 @Keep
 public class ContentInternalFragment extends ContentFragment {
     @Nullable
@@ -23,6 +21,12 @@ public class ContentInternalFragment extends ContentFragment {
 
     @Nullable
     public QuotationsPreferences quotationsPreferences;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        rememberScreen(Screen.ContentInternal, getContext());
+    }
 
     public ContentInternalFragment(int widgetId) {
         super(widgetId);
@@ -43,8 +47,6 @@ public class ContentInternalFragment extends ContentFragment {
     @Override
     public void onViewCreated(
             @NonNull View view, @NonNull Bundle savedInstanceState) {
-        Timber.d("onViewCreated.ContentInternalFragment");
-
         if (this.quotationsPreferences.getDatabaseInternal()) {
             this.fragmentQuotationsTabDatabaseTabInternalBinding.radioButtonDatabaseInternal.setChecked(true);
         } else {

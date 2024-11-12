@@ -75,6 +75,12 @@ public class QuotationsFilterFragment extends FragmentCommon {
     @NonNull
     private ActivityResultLauncher<Intent> activityExportSource = activityExport();
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        rememberScreen(Screen.QuotationsFilter, getContext());
+    }
+
     public QuotationsFilterFragment() {
     }
 

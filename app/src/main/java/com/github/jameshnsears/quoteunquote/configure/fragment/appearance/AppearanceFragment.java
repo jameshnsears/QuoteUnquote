@@ -15,6 +15,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
+import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentAppearanceBinding;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -77,12 +78,21 @@ public class AppearanceFragment extends FragmentCommon {
                 getString(R.string.fragment_appearance_tab_style),
                 getString(R.string.fragment_appearance_navigation)
         };
+
         new TabLayoutMediator(
                 fragmentAppearanceBinding.tabLayout,
                 fragmentAppearanceBinding.viewPager2Appearance,
                 true,
                 false,
                 (tab, position) -> tab.setText(tabs[position])).attach();
+
+        String screen =
+                new QuotationsPreferences(widgetId, getContext()).getScreen();
+        if (screen.equals(Screen.AppearanceToolbar.name)) {
+            fragmentAppearanceBinding.viewPager2Appearance.setCurrentItem(1);
+        } else {
+            fragmentAppearanceBinding.viewPager2Appearance.setCurrentItem(0);
+        }
     }
 
     @Override

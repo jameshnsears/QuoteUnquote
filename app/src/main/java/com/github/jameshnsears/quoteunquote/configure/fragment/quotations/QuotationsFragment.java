@@ -65,25 +65,32 @@ public class QuotationsFragment extends FragmentCommon implements DialogInterfac
         fragmentQuotationsBinding.viewPager2Quotations.setUserInputEnabled(false);
 
         fragmentQuotationsBinding.viewPager2Quotations.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            // click on a tab once created...
+
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 if (position == 0) {
                     Timber.d("onPageSelected=0");
                     // re-init the filter, in-case we have switched between internal / external databases
-                    if (QuotationsFragmentStateAdapter.quotationsFilterFragment.disposables.size() == 0) {
-                        QuotationsFragmentStateAdapter.quotationsFilterFragment.disposables = new CompositeDisposable();
-                        QuotationsFragmentStateAdapter.quotationsFilterFragment.initUI();
-                        QuotationsFragmentStateAdapter.quotationsFilterFragment.setCard();
+                    if (QuotationsFragmentStateAdapter.quotationsFilterFragment != null) {
+                        if (QuotationsFragmentStateAdapter.quotationsFilterFragment.disposables.size() == 0) {
+                            QuotationsFragmentStateAdapter.quotationsFilterFragment.disposables = new CompositeDisposable();
+                            QuotationsFragmentStateAdapter.quotationsFilterFragment.initUI();
+                            QuotationsFragmentStateAdapter.quotationsFilterFragment.setCard();
+                        }
                     }
 
                 } else {
                     Timber.d("onPageSelected=1");
-                    QuotationsFragmentStateAdapter.quotationsFilterFragment.shutdown();
+                    if (QuotationsFragmentStateAdapter.quotationsFilterFragment != null) {
+                        QuotationsFragmentStateAdapter.quotationsFilterFragment.shutdown();
+                    }
                 }
             }
         });
 
+        // create the tabs first...
         String[] tabs = {
                 getString(R.string.fragment_quotations_selection),
                 getString(R.string.fragment_quotations_database)
@@ -95,6 +102,18 @@ public class QuotationsFragment extends FragmentCommon implements DialogInterfac
                 true,
                 false,
                 (tab, position) -> tab.setText(tabs[position])).attach();
+
+        String screen =
+                new QuotationsPreferences(widgetId, getContext()).getScreen();
+
+        if (screen.equals(Screen.ContentInternal.name)
+                || screen.equals(Screen.ContentFiles.name)
+                || screen.equals(Screen.ContentWeb.name)
+        ) {
+            fragmentQuotationsBinding.viewPager2Quotations.setCurrentItem(1);
+        } else {
+            fragmentQuotationsBinding.viewPager2Quotations.setCurrentItem(0);
+        }
     }
 
     @Override

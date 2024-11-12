@@ -1,5 +1,0 @@
-&bull; CSV In-place edit
-&bull; Unify theme with M3 / Compose
-&bull; Update quotations database
-&bull; Fix: auto cloud backup widgetId dev env inconsistency
-&bull; Bump dependencies; and IDE: Android Studio Koala Feature Drop | 2024.1.2 Patch 1

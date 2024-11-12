@@ -10,6 +10,8 @@ import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade;
 import timber.log.Timber;
 
 public class QuotationsPreferences extends PreferencesFacade {
+    public static final String SCREEN = "SCREEN";
+
     public static final String CONTENT_ALL = "CONTENT_ALL";
     public static final String CONTENT_ALL_EXCLUSION = "CONTENT_ALL_EXCLUSION";
     public static final String CONTENT_ADD_TO_PREVIOUS_ALL = "CONTENT_ADD_TO_PREVIOUS_ALL";
@@ -33,6 +35,15 @@ public class QuotationsPreferences extends PreferencesFacade {
     public static final String DATABASE_WEB_KEEP_LATEST_ONLY = "DATABASE_WEB_KEEP_LATEST_ONLY";
 
     public static final String DATABASE_EXTERNAL_CONTENT = "DATABASE_EXTERNAL_CONTENT";
+
+    @NonNull
+    public String getScreen() {
+        return this.preferenceHelper.getPreferenceString(this.getPreferenceKey(SCREEN));
+    }
+
+    public void setScreen(@NonNull String value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(SCREEN), value);
+    }
 
     public QuotationsPreferences(@NonNull Context applicationContext) {
         super(0, applicationContext);

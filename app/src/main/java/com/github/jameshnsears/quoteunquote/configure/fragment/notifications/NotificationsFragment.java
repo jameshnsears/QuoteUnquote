@@ -91,6 +91,14 @@ public class NotificationsFragment extends FragmentCommon {
             }
     );
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        rememberScreen(Screen.Notifications, getContext());
+
+        handleSpecialPermissionForExactAlarm();
+    }
+
     public NotificationsFragment() {
         // dark mode support
     }
@@ -346,13 +354,6 @@ public class NotificationsFragment extends FragmentCommon {
                 notificationsPreferences.setEventDeviceUnlock(isChecked);
             }
         });
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        handleSpecialPermissionForExactAlarm();
     }
 
     private void createListenerDaily() {

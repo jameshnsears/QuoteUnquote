@@ -16,7 +16,7 @@ import com.github.jameshnsears.quoteunquote.QuoteUnquoteModel;
 import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
-import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.files.FilesFragment;
+import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.files.ContentFilesFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.internal.ContentInternalFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.web.ContentWebFragment;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentQuotationsTabDatabaseBinding;
@@ -79,7 +79,7 @@ public class QuotationsContentFragment extends FragmentCommon {
                         selectedFragment = new ContentInternalFragment(widgetId);
                         break;
                     case 1:
-                        selectedFragment = new FilesFragment(widgetId);
+                        selectedFragment = new ContentFilesFragment(widgetId);
                         break;
                     case 2:
                         selectedFragment = new ContentWebFragment(widgetId);
@@ -101,6 +101,21 @@ public class QuotationsContentFragment extends FragmentCommon {
                 // Handle tab reselected if needed
             }
         });
+
+        String screen =
+                new QuotationsPreferences(widgetId, getContext()).getScreen();
+
+        if (screen.equals(Screen.ContentFiles.name)) {
+            fragmentQuotationsTabDatabaseBinding.tabDatabase.getTabAt(1).select();
+
+        } else if (screen.equals(Screen.ContentWeb.name)) {
+            fragmentQuotationsTabDatabaseBinding.tabDatabase.getTabAt(2).select();
+
+        } else {
+            fragmentQuotationsTabDatabaseBinding.tabDatabase.getTabAt(0).select();
+        }
+
+        fragmentQuotationsTabDatabaseBinding.tabDatabase.scrollTo(0, 0);
     }
 
     private void loadFragment(Fragment fragment) {

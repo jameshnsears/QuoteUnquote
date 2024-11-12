@@ -14,7 +14,6 @@
     <string name="activity_instructions_configure_3">\u2022&#160;&#160;Tap an <u>underlined</u> Source for Wikipedia entry</string>
     <string name="activity_instructions_configure_4">\u2022&#160;&#160;The \u2316 icon, next to the Quotation position count, denotes last previous Quotation</string>
     <string name="activity_instructions_configure_5">\u2022&#160;&#160;Only Web import &amp; Cloud sync require an Internet connection</string>
-    <string name="activity_instructions_os_warning_info"></string>
     <string name="activity_instructions_os_warning">\u2022&#160;&#160;Revisit the Notifications page to reinitialise notifications after device restart</string>
     <string name="activity_instructions_resize">Resizing widget</string>
     <string name="activity_instructions_resize_instruction_1">\u2022&#160;&#160;Touch and hold the widget on home screen</string>
@@ -23,12 +22,9 @@
     <string name="activity_instructions_resize_instruction_4">\u2022&#160;&#160;When you\’re done, tap outside the widget</string>
     <string name="activity_instructions_version">%1$s/%2$s</string>
     <string name="activity_instructions_oss">Open-source software</string>
-    <string name="activity_instructions_github">GitHub</string>
 
     <string name="configure_navigation_bar_quotations">Quotations</string>
     <string name="configure_navigation_bar_appearance">Appearance</string>
-    <string name="configure_navigation_bar_schedule">Schedule</string>
-    <string name="configure_navigation_bar_transfer">Transfer</string>
 
     <string name="settings">Configuration</string>
 
@@ -57,17 +53,14 @@
     <string name="fragment_quotations_selection_search_instructions_1">\u2022&#160;&#160;4 characters minimum</string>
 
     <string name="fragment_quotations_selection_search_no_results">No results found for Search</string>
-    <string name="fragment_quotations_selection_dialog_browse_source">Source Results</string>
     <string name="fragment_quotations_selection_dialog_browse_favourites">Favourites</string>
-    <string name="fragment_quotations_selection_dialog_browse_search">Search Results</string>
     <string name="fragment_quotations_selection_dialog_browse_share_and_toggle_01">\u2022&#160;&#160;Tap to share</string>
     <string name="fragment_quotations_selection_dialog_browse_share_and_toggle_02">\u2022&#160;&#160;Long tap to toggle favourite</string>
 
     <string name="fragment_quotations_database">Content</string>
     <string name="fragment_quotations_database_default_internal">Internal Database</string>
     <string name="fragment_quotations_database_default_info"></string>
-    <string name="fragment_quotations_database_default">\u2022&#160;&#160;Discover High Quality quotations!</string>
-    <string name="fragment_quotations_database_imported">External</string>
+    <string name="fragment_quotations_database_default">\u2022&#160;&#160;Discover High Quality Quotations!</string>
 
     <string name="fragment_quotations_database_file">External file</string>
     <string name="fragment_quotations_database_file_inplace_edit">Edit</string>
@@ -96,8 +89,6 @@
     <string name="fragment_quotations_database_scrape_url_hint" tools:ignore="TypographyEllipsis">URL http / https…</string>
     <string name="fragment_quotations_database_scrape_quote_quotation_hint" tools:ignore="TypographyEllipsis">Quotation XPath text node…</string>
     <string name="fragment_quotations_database_scrape_quote_source_hint" tools:ignore="TypographyEllipsis">Source XPath text node…</string>
-    <string name="fragment_quotations_database_scrape_quotation_example" tools:ignore="TypographyQuotes">//*[@id=\"votd_wrapper\"]/div/div/div[1]/div[2]/p[1]</string>
-    <string name="fragment_quotations_database_scrape_source_example" tools:ignore="TypographyQuotes">//*[@id=\"votd_wrapper\"]/div/div/div[1]/div[2]/p[2]</string>
     <string name="fragment_quotations_database_scrape_erase">Keep latest response only</string>
     <string name="fragment_quotations_database_scrape_fields_error_incomplete">Incomplete parameters</string>
     <string name="fragment_quotations_database_scrape_importing">Importing web page - please wait&#8230;</string>
@@ -244,8 +235,8 @@
     <string name="notification_action_favourite">Favourite</string>
     <string name="notification_action_unfavourite">Unfavourite</string>
 
-    <string name="preview_description">Discover High Quality quotations!\nImport Affirmations!</string>
+    <string name="preview_description">Discover High Quality Quotations!\nImport Affirmations!</string>
     <string name="preview_quotation">Nothing matters very much and very few things matter at all.\n</string>
     <string name="preview_author"><u>Arthur Balfour\n</u></string>
-    <string name="preview_position">\u2316  1/20272\u0020</string>
+    <string name="preview_position">\u2316  1/20267\u0020</string>
 </resources>

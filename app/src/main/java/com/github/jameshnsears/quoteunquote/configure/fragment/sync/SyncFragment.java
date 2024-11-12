@@ -99,11 +99,11 @@ public class SyncFragment extends FragmentCommon {
     @Override
     public void onResume() {
         super.onResume();
+        rememberScreen(Screen.Sync, getContext());
 
         registerButtonIntentReceiver();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-
             AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
             if (!alarmManager.canScheduleExactAlarms()) {
                 fragmentSyncBinding.switchAutoCloudBackup.setChecked(false);
@@ -126,12 +126,6 @@ public class SyncFragment extends FragmentCommon {
         IntentFilter filterRefreshUpdate = new IntentFilter();
         filterRefreshUpdate.addAction(CLOUD_SERVICE_COMPLETED);
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(receiver, filterRefreshUpdate);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(receiver);
     }
 
     @Override

@@ -26,6 +26,12 @@ public class AppearanceToolbarFragment extends FragmentCommon {
     @Nullable
     public AppearancePreferences appearancePreferences;
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        rememberScreen(Screen.AppearanceToolbar, getContext());
+    }
+
     public AppearanceToolbarFragment() {
         // dark mode support
     }
@@ -64,7 +70,6 @@ public class AppearanceToolbarFragment extends FragmentCommon {
     @Override
     public void onViewCreated(
             @NonNull final View view, @NonNull final Bundle savedInstanceState) {
-
         createListenerToolbarColourPicker();
         createListenerToolbarFirst();
         createListenerToolbarPrevious();
