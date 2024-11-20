@@ -27,7 +27,7 @@
                 android:paddingEnd="10dp"
                 android:text="@string/fragment_notifications_title"
                 android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                android:textSize="24sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
     </LinearLayout>
@@ -47,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="12dp">
 
             <TextView
                     android:layout_width="match_parent"
@@ -108,7 +108,7 @@
                     android:paddingStart="20dp"
                     android:paddingTop="5dp"
                     android:paddingEnd="10dp"
-                    android:paddingBottom="5dp"
+                    android:paddingBottom="8dp"
                     android:text="@string/fragment_appearance_toolbar_next_info" />
 
         </LinearLayout>
@@ -130,7 +130,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="12dp">
 
             <TextView
                     android:layout_width="match_parent"
@@ -162,6 +162,20 @@
                         android:text="@string/fragment_notifications_widget"
                         android:textSize="16sp" />
 
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="13dp">
+
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="?android:attr/listDivider" />
+
+                </LinearLayout>
+
                 <RadioButton
                         android:id="@+id/radioButtonWhereAsNotification"
                         android:layout_width="wrap_content"
@@ -173,16 +187,40 @@
                         android:paddingEnd="0dp"
                         android:text="@string/fragment_notifications_widget_and_notification"
                         android:textSize="16sp" />
-
-                <com.google.android.material.materialswitch.MaterialSwitch
-                        android:id="@+id/switchExcludeSourceFromNotification"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="45dp"
-                        android:paddingEnd="0dp"
-                        android:text="@string/notification_action_exclude_source"
-                        android:textSize="16sp" />
             </RadioGroup>
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/switchExcludeSourceFromNotification"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="14dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="16dp"
+                    android:text="@string/notification_action_exclude_source"
+                    android:textSize="16sp" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/switchTtsUk"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="16dp"
+                    android:paddingTop="16dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="16dp"
+                    android:text="@string/fragment_notifications_use_tts_uk"
+                    android:textSize="16sp" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/switchTtsSystem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="14dp"
+                    android:paddingTop="16dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="6dp"
+                    android:text="@string/fragment_notifications_use_tts_system_language"
+                    android:textSize="16sp" />
 
             <TextView
                     android:id="@+id/textViewNotificationSizeWarningInfo"
@@ -202,7 +240,7 @@
                     android:paddingStart="20dp"
                     android:paddingTop="5dp"
                     android:paddingEnd="10dp"
-                    android:paddingBottom="5dp"
+                    android:paddingBottom="8dp"
                     android:text="@string/fragment_notifications_notification_warning_1" />
 
         </LinearLayout>
@@ -224,7 +262,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="12dp">
 
             <TextView
                     android:layout_width="match_parent"
@@ -240,6 +278,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:gravity="fill_vertical"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp">
 
@@ -392,12 +431,14 @@
                             android:id="@+id/specificTimeLayout"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:hint="@string/fragment_notifications_time_textfield">
+                            android:hint="@string/fragment_notifications_time_textfield"
+                            android:paddingBottom="5dp">
 
                         <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/specificTime"
                                 android:layout_width="85dp"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
                                 android:clickable="true"
                                 android:focusable="true"
                                 android:inputType="time" />
@@ -440,7 +481,7 @@
                         android:paddingStart="10dp"
                         android:paddingTop="5dp"
                         android:paddingEnd="0dp"
-                        android:paddingBottom="10dp"
+                        android:paddingBottom="8dp"
                         android:text="@string/fragment_notifications_exact_alarm_warning"
                         android:visibility="gone" />
 

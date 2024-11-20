@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="14dp">
 
             <RadioButton
                     android:id="@+id/radioButtonAll"
@@ -37,7 +37,7 @@
                     android:paddingStart="12dp"
                     android:paddingEnd="0dp"
                     android:text="@string/fragment_quotations_selection_all"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
             <LinearLayout
@@ -93,7 +93,7 @@
                         android:paddingStart="9dp"
                         android:paddingTop="5dp"
                         android:paddingEnd="0dp"
-                        android:paddingBottom="10dp"
+                        android:paddingBottom="7dp"
                         android:text="@string/fragment_quotations_selection_exclusion_2" />
 
             </LinearLayout>
@@ -117,7 +117,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="14dp">
 
             <RadioButton
                     android:id="@+id/radioButtonAuthorIndividual"
@@ -128,7 +128,7 @@
                     android:paddingStart="12dp"
                     android:paddingEnd="0dp"
                     android:text="@string/fragment_quotations_selection_author"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
             <LinearLayout
@@ -187,7 +187,7 @@
                     android:baselineAligned="false"
                     android:orientation="horizontal"
                     android:paddingTop="5dp"
-                    android:paddingBottom="5dp">
+                    android:paddingBottom="3dp">
 
                 <LinearLayout
                         android:layout_width="wrap_content"
@@ -248,7 +248,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="14dp">
 
             <RadioButton
                     android:id="@+id/radioButtonFavourites"
@@ -261,7 +261,7 @@
                     android:paddingStart="12dp"
                     android:paddingEnd="0dp"
                     android:text="@string/fragment_quotations_selection_favourites"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
             <LinearLayout
@@ -270,7 +270,7 @@
                     android:baselineAligned="false"
                     android:orientation="horizontal"
                     android:paddingTop="5dp"
-                    android:paddingBottom="5dp">
+                    android:paddingBottom="3dp">
 
                 <LinearLayout
                         android:layout_width="wrap_content"
@@ -331,7 +331,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="14dp">
 
             <RadioButton
                     android:id="@+id/radioButtonSearch"
@@ -344,7 +344,7 @@
                     android:paddingStart="12dp"
                     android:paddingEnd="0dp"
                     android:text="@string/fragment_quotations_selection_search"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
             <LinearLayout
@@ -437,7 +437,7 @@
                     android:baselineAligned="false"
                     android:orientation="horizontal"
                     android:paddingTop="5dp"
-                    android:paddingBottom="5dp">
+                    android:paddingBottom="3dp">
 
                 <LinearLayout
                         android:layout_width="match_parent"

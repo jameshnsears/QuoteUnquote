@@ -6,7 +6,7 @@ import android.os.Build
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper
-import com.github.jameshnsears.quoteunquote.utils.notification.NotificationsDailyAlarm
+import com.github.jameshnsears.quoteunquote.utils.notification.NotificationDailyAlarm
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import junit.framework.TestCase.assertTrue
 import org.junit.Assert.assertFalse
@@ -31,7 +31,7 @@ class NotificationsFragmentTest {
         eventPreferences.eventDaily = true
 
         val eventDailyAlarm =
-            NotificationsDailyAlarm(
+            NotificationDailyAlarm(
                 context,
                 WidgetIdHelper.WIDGET_ID_01,
             )

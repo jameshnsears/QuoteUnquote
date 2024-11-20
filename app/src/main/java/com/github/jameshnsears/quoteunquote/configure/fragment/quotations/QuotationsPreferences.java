@@ -36,6 +36,14 @@ public class QuotationsPreferences extends PreferencesFacade {
 
     public static final String DATABASE_EXTERNAL_CONTENT = "DATABASE_EXTERNAL_CONTENT";
 
+    public QuotationsPreferences(@NonNull Context applicationContext) {
+        super(0, applicationContext);
+    }
+
+    public QuotationsPreferences(int widgetId, @NonNull Context applicationContext) {
+        super(widgetId, applicationContext);
+    }
+
     @NonNull
     public String getScreen() {
         return this.preferenceHelper.getPreferenceString(this.getPreferenceKey(SCREEN));
@@ -43,14 +51,6 @@ public class QuotationsPreferences extends PreferencesFacade {
 
     public void setScreen(@NonNull String value) {
         this.preferenceHelper.setPreference(this.getPreferenceKey(SCREEN), value);
-    }
-
-    public QuotationsPreferences(@NonNull Context applicationContext) {
-        super(0, applicationContext);
-    }
-
-    public QuotationsPreferences(int widgetId, @NonNull Context applicationContext) {
-        super(widgetId, applicationContext);
     }
 
     @NonNull

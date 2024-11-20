@@ -26,12 +26,6 @@ public class AppearanceToolbarFragment extends FragmentCommon {
     @Nullable
     public AppearancePreferences appearancePreferences;
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        rememberScreen(Screen.AppearanceToolbar, getContext());
-    }
-
     public AppearanceToolbarFragment() {
         // dark mode support
     }
@@ -45,6 +39,12 @@ public class AppearanceToolbarFragment extends FragmentCommon {
         final AppearanceToolbarFragment fragment = new AppearanceToolbarFragment(widgetId);
         fragment.setArguments(null);
         return fragment;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        rememberScreen(Screen.AppearanceToolbar, getContext());
     }
 
     @Override

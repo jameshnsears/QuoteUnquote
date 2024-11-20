@@ -126,6 +126,20 @@
 
             <LinearLayout
                     android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="13dp">
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="?android:attr/listDivider" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
@@ -147,10 +161,24 @@
                         android:id="@+id/toolbar_switch_share_no_source"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingStart="45dp"
+                        android:paddingStart="6dp"
                         android:paddingEnd="0dp"
                         android:text="@string/fragment_appearance_toolbar_share_exclude_source"
                         android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingTop="13dp"
+                    android:paddingBottom="13dp">
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="?android:attr/listDivider" />
+
             </LinearLayout>
 
             <LinearLayout

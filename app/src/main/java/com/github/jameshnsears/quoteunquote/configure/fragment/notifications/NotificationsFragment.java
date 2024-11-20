@@ -65,6 +65,9 @@ public class NotificationsFragment extends FragmentCommon {
                     notificationsPreferences.setEventDisplayWidget(false);
                     notificationsPreferences.setEventDisplayWidgetAndNotification(true);
                     fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(true);
+                    fragmentNotificationsBinding.switchTtsUk.setEnabled(true);
+                    fragmentNotificationsBinding.switchTtsSystem.setEnabled(true);
+
                     fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(true);
                     fragmentNotificationsBinding.textViewNotificationSizeWarning1.setEnabled(true);
                 }
@@ -91,14 +94,6 @@ public class NotificationsFragment extends FragmentCommon {
             }
     );
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        rememberScreen(Screen.Notifications, getContext());
-
-        handleSpecialPermissionForExactAlarm();
-    }
-
     public NotificationsFragment() {
         // dark mode support
     }
@@ -112,6 +107,14 @@ public class NotificationsFragment extends FragmentCommon {
         final NotificationsFragment fragment = new NotificationsFragment(widgetId);
         fragment.setArguments(null);
         return fragment;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        rememberScreen(Screen.Notifications, getContext());
+
+        handleSpecialPermissionForExactAlarm();
     }
 
     @Override
@@ -165,6 +168,15 @@ public class NotificationsFragment extends FragmentCommon {
 
         createListenerSpecificTime();
         createListenerDaily();
+
+        createListenerTtsUk();
+        createListenerTtsSystem();
+
+        /*
+        ensureTtsSwitchesAligned()
+
+        only one TTS can be enabled
+         */
     }
 
     private void handleSpecialPermissionForExactAlarm() {
@@ -271,13 +283,29 @@ public class NotificationsFragment extends FragmentCommon {
         if (fragmentNotificationsBinding.radioButtonWhereAsNotification.isChecked()) {
             fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(true);
 
+            fragmentNotificationsBinding.switchTtsUk.setEnabled(true);
+            fragmentNotificationsBinding.switchTtsSystem.setEnabled(true);
+
             fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(true);
             fragmentNotificationsBinding.textViewNotificationSizeWarning1.setEnabled(true);
         } else {
             fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(false);
 
+            fragmentNotificationsBinding.switchTtsUk.setEnabled(false);
+            fragmentNotificationsBinding.switchTtsSystem.setEnabled(false);
+
             fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(false);
             fragmentNotificationsBinding.textViewNotificationSizeWarning1.setEnabled(false);
+        }
+
+        if (notificationsPreferences.getEventTtsUk()) {
+            fragmentNotificationsBinding.switchTtsUk.setChecked(true);
+            fragmentNotificationsBinding.switchTtsSystem.setChecked(false);
+        }
+
+        if (notificationsPreferences.getEventTtsSystem()) {
+            fragmentNotificationsBinding.switchTtsUk.setChecked(false);
+            fragmentNotificationsBinding.switchTtsSystem.setChecked(true);
         }
 
         fragmentNotificationsBinding.switchExcludeSourceFromNotification.setChecked(notificationsPreferences.getExcludeSourceFromNotification());
@@ -314,6 +342,9 @@ public class NotificationsFragment extends FragmentCommon {
                     notificationsPreferences.setEventDisplayWidgetAndNotification(false);
 
                     fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(false);
+                    fragmentNotificationsBinding.switchTtsUk.setEnabled(false);
+                    fragmentNotificationsBinding.switchTtsSystem.setEnabled(false);
+
                     fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(false);
                     fragmentNotificationsBinding.textViewNotificationSizeWarning1.setEnabled(false);
                     break;
@@ -334,6 +365,9 @@ public class NotificationsFragment extends FragmentCommon {
                     notificationsPreferences.setEventDisplayWidget(false);
                     notificationsPreferences.setEventDisplayWidgetAndNotification(true);
                     fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(true);
+                    fragmentNotificationsBinding.switchTtsUk.setEnabled(true);
+                    fragmentNotificationsBinding.switchTtsSystem.setEnabled(true);
+
                     fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(true);
                     fragmentNotificationsBinding.textViewNotificationSizeWarning1.setEnabled(true);
                     break;
@@ -373,6 +407,26 @@ public class NotificationsFragment extends FragmentCommon {
                 createListenerDailyCommon(isChecked);
             }
 
+        });
+    }
+
+    private void createListenerTtsUk() {
+        fragmentNotificationsBinding.switchTtsUk.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            notificationsPreferences.setEventTtsSystem(false);
+            fragmentNotificationsBinding.switchTtsSystem.setChecked(false);
+
+            notificationsPreferences.setEventTtsUk(isChecked);
+            fragmentNotificationsBinding.switchTtsUk.setChecked(isChecked);
+        });
+    }
+
+    private void createListenerTtsSystem() {
+        fragmentNotificationsBinding.switchTtsSystem.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            notificationsPreferences.setEventTtsUk(false);
+            fragmentNotificationsBinding.switchTtsUk.setChecked(false);
+
+            notificationsPreferences.setEventTtsSystem(isChecked);
+            fragmentNotificationsBinding.switchTtsSystem.setChecked(isChecked);
         });
     }
 

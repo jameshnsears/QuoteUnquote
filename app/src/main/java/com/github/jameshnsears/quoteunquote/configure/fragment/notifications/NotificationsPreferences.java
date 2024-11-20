@@ -21,6 +21,27 @@ public class NotificationsPreferences extends PreferencesFacade {
     public static final String EVENT_CUSTOMISABLE_INTERVAL_HOUR_TO = "EVENT_CUSTOMISABLE_INTERVAL_HOUR_TO";
     public static final String EVENT_CUSTOMISABLE_INTERVAL_HOURS = "EVENT_CUSTOMISABLE_INTERVAL_HOURS";
 
+    public static final String EVENT_TTS_UK = "EVENT_TTS_UK";
+    public static final String EVENT_TTS_SYSTEM = "EVENT_TTS_SYSTEM";
+
+    public boolean getEventTtsUk() {
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(NotificationsPreferences.EVENT_TTS_UK), false);
+    }
+
+    public void setEventTtsUk(boolean value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(NotificationsPreferences.EVENT_TTS_UK), value);
+    }
+
+    public boolean getEventTtsSystem() {
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(NotificationsPreferences.EVENT_TTS_SYSTEM), false);
+    }
+
+    public void setEventTtsSystem(boolean value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(NotificationsPreferences.EVENT_TTS_SYSTEM), value);
+    }
+
+    //////////////////
+
     public NotificationsPreferences(int widgetId, @NonNull Context applicationContext) {
         super(widgetId, applicationContext);
     }

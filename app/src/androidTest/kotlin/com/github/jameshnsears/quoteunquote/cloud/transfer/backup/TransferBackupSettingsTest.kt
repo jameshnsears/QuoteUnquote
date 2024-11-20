@@ -100,6 +100,8 @@ class TransferBackupSettingsTest : GsonTestHelper() {
         0,
         23,
         1,
+        false,
+        false,
     )
 
     private fun expectedAppearance() = Appearance(

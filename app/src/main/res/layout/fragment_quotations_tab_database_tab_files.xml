@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="12dp">
 
             <RadioButton
                     android:id="@+id/radio_button_database_external_file"
@@ -38,7 +38,7 @@
                     android:paddingStart="12dp"
                     android:paddingEnd="0dp"
                     android:text="@string/fragment_quotations_database_file"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
             <LinearLayout
@@ -60,7 +60,8 @@
                         android:paddingEnd="0dp"
                         android:paddingBottom="0dp"
                         android:text="@string/fragment_quotations_database_file_csv"
-                        android:textSize="16sp" />
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                 <Button
                         android:id="@+id/buttonImport"
@@ -79,6 +80,15 @@
                     android:paddingBottom="10dp"
                     android:text="@string/fragment_quotations_database_external_instructions_1_info"
                     app:drawableStartCompat="@drawable/ic_info_24" />
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="9dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="6dp"
+                    android:paddingBottom="0dp"
+                    android:text="@string/fragment_quotations_database_external_instructions_0" />
 
             <TextView
                     android:layout_width="match_parent"
@@ -122,7 +132,8 @@
                         android:paddingEnd="0dp"
                         android:paddingBottom="0dp"
                         android:text="@string/fragment_quotations_database_file_fortune"
-                        android:textSize="16sp" />
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                 <Button
                         android:id="@+id/buttonImportFortune"
