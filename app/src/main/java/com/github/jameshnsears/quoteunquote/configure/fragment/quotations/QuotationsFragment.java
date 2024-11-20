@@ -106,9 +106,9 @@ public class QuotationsFragment extends FragmentCommon implements DialogInterfac
         String screen =
                 new QuotationsPreferences(widgetId, getContext()).getScreen();
 
-        if (screen.equals(Screen.ContentInternal.name)
-                || screen.equals(Screen.ContentFiles.name)
-                || screen.equals(Screen.ContentWeb.name)
+        if (screen.equals(Screen.ContentInternal.screenName)
+                || screen.equals(Screen.ContentFiles.screenName)
+                || screen.equals(Screen.ContentWeb.screenName)
         ) {
             fragmentQuotationsBinding.viewPager2Quotations.setCurrentItem(1);
         } else {

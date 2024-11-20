@@ -1,0 +1,74 @@
+name: static-sonarqube
+
+on:
+  push:
+    branches:
+      - "*"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          submodules: true
+
+      - name: local.properties
+        env:
+          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
+        run: |
+          echo "$LOCAL_PROPERTIES" | base64 -d > local.properties
+
+      - name: local.properties.cloudLib
+        env:
+          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES_CLOUDLIB }}
+        run: |
+          echo "$LOCAL_PROPERTIES" | base64 -d > QuoteUnquote.cloudLib/local.properties
+          ls -al QuoteUnquote.cloudLib/local.properties
+
+      - name: local.properties.utilsLib
+        env:
+          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES_UTILSLIB }}
+        run: |
+          echo "$LOCAL_PROPERTIES" | base64 -d > QuoteUnquote.utilsLib/local.properties
+          ls -al QuoteUnquote.utilsLib/local.properties
+
+      - name: set up jdk
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: 17
+
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle
+
+      - name: compileFdroidDebugKotlin
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          ./gradlew :app:compileFdroidDebugKotlin  :app:compileFdroidDebugJavaWithJavac
+
+      - name: sonar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          ./gradlew app:sonar --info

@@ -75,12 +75,6 @@ public class QuotationsFilterFragment extends FragmentCommon {
     @NonNull
     private ActivityResultLauncher<Intent> activityExportSource = activityExport();
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        rememberScreen(Screen.QuotationsFilter, getContext());
-    }
-
     public QuotationsFilterFragment() {
     }
 
@@ -109,6 +103,12 @@ public class QuotationsFilterFragment extends FragmentCommon {
                     context.getString(R.string.fragment_quotations_selection_search_no_results),
                     Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        rememberScreen(Screen.QuotationsFilter, getContext());
     }
 
     @Override

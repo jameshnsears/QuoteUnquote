@@ -19,17 +19,14 @@ public class ContentInternalFragment extends ContentFragment {
     @Nullable
     public FragmentQuotationsTabDatabaseTabInternalBinding fragmentQuotationsTabDatabaseTabInternalBinding;
 
-    @Nullable
-    public QuotationsPreferences quotationsPreferences;
+    public ContentInternalFragment(int widgetId) {
+        super(widgetId);
+    }
 
     @Override
     public void onResume() {
         super.onResume();
         rememberScreen(Screen.ContentInternal, getContext());
-    }
-
-    public ContentInternalFragment(int widgetId) {
-        super(widgetId);
     }
 
     @Override

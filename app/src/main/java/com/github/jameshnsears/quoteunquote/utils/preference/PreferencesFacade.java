@@ -19,11 +19,11 @@ public class PreferencesFacade {
 
     protected int widgetId;
 
-    public PreferencesFacade(@NonNull Context applicationContext) {
+    public PreferencesFacade(Context applicationContext) {
         init(applicationContext);
     }
 
-    public PreferencesFacade(int theWidgetId, @NonNull Context applicationContext) {
+    public PreferencesFacade(int theWidgetId, Context applicationContext) {
         widgetId = theWidgetId;
         init(applicationContext);
     }

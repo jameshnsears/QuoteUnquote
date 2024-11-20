@@ -46,6 +46,7 @@
                     android:paddingEnd="5dp"
                     android:textColor="@android:color/white"
                     app:strokeColor="?attr/colorPrimary"
+                    app:strokeWidth="1dp"
                     tools:ignore="SpeakableTextPresentCheck" />
 
         </LinearLayout>

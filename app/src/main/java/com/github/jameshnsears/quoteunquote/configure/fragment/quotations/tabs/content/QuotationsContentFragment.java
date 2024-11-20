@@ -105,10 +105,10 @@ public class QuotationsContentFragment extends FragmentCommon {
         String screen =
                 new QuotationsPreferences(widgetId, getContext()).getScreen();
 
-        if (screen.equals(Screen.ContentFiles.name)) {
+        if (screen.equals(Screen.ContentFiles.screenName)) {
             fragmentQuotationsTabDatabaseBinding.tabDatabase.getTabAt(1).select();
 
-        } else if (screen.equals(Screen.ContentWeb.name)) {
+        } else if (screen.equals(Screen.ContentWeb.screenName)) {
             fragmentQuotationsTabDatabaseBinding.tabDatabase.getTabAt(2).select();
 
         } else {

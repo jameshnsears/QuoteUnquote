@@ -7,6 +7,7 @@ jacoco {
 project.afterEvaluate {
     def buildTypes = android.buildTypes.collect { type -> type.name }
     def productFlavors = android.productFlavors.collect { flavor -> flavor.name }
+    def buildDirPath = layout.buildDirectory.get().asFile
 
     if (!productFlavors) productFlavors.add('')
 
@@ -23,12 +24,13 @@ project.afterEvaluate {
             def excludes = [
                     '**/BuildConfig.*',
                     '**/*_Impl*.*',
+                    '**/*Binding.*',
                     '**/*Double.*',
                     '**/*Binding.*'
             ]
 
-            def classKotlin = fileTree(dir: "$project.buildDir/tmp/kotlin-classes/${sourceName}UnitTest", excludes: excludes)
-            def classJava = fileTree(dir: "$project.buildDir/intermediates/javac/${sourceName}/classes", excludes: excludes)
+            def classKotlin = fileTree(dir: "$buildDirPath/tmp/kotlin-classes/${sourceName}UnitTest", excludes: excludes)
+            def classJava = fileTree(dir: "$buildDirPath/intermediates/javac/${sourceName}/classes", excludes: excludes)
 
             def kotlinSrc = "$project.projectDir/src/main/java"
             def javaSrc = "$project.projectDir/src/main/java"
@@ -42,16 +44,16 @@ project.afterEvaluate {
 
                 sourceDirectories.setFrom(files([javaSrc, kotlinSrc, flavourSrc]))
 
-                executionData.from = fileTree(dir: "${project.buildDir}", includes: [
+                executionData.from = fileTree(dir: "${buildDirPath}", includes: [
                         "outputs/unit_test_code_coverage/${sourceName}UnitTest/${testTaskName}.exec",
                         "outputs/code_coverage/$productFlavorName${buildTypeName.capitalize()}AndroidTest/connected/**/*.ec"
                 ])
 
                 reports {
                     xml.required = true
-                    xml.destination file("${project.buildDir}/reports/${sourceName.capitalize()}.xml")
+                    xml.outputLocation.set(file("${buildDirPath}/reports/${sourceName.capitalize()}.xml"))
                     html.required = true
-                    html.destination file("$project.buildDir/reports/jacoco")
+                    html.outputLocation.set(file("$buildDirPath/reports/jacoco"))
                 }
             }
 
@@ -73,9 +75,9 @@ project.afterEvaluate {
 
                 reports {
                     xml.required = true
-                    xml.destination file("${project.buildDir}/reports/${sourceName.capitalize()}.xml")
+                    xml.outputLocation.set(file("${project.buildDir}/reports/${sourceName.capitalize()}.xml"))
                     html.required = true
-                    html.destination file("$project.buildDir/reports/jacoco")
+                    html.outputLocation.set(file("$project.buildDir/reports/jacoco"))
                 }
             }
 
@@ -97,9 +99,9 @@ project.afterEvaluate {
 
                 reports {
                     xml.required = true
-                    xml.destination file("${project.buildDir}/reports/${sourceName.capitalize()}.xml")
+                    xml.outputLocation.set(file("${project.buildDir}/reports/${sourceName.capitalize()}.xml"))
                     html.required = true
-                    html.destination file("$project.buildDir/reports/jacoco")
+                    html.outputLocation.set(file("$project.buildDir/reports/jacoco"))
                 }
             }
 
