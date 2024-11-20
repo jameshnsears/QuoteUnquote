@@ -17,14 +17,14 @@ import java.util.Locale;
 
 import timber.log.Timber;
 
-public class NotificationsDailyAlarm {
+public class NotificationDailyAlarm {
     @Nullable
     protected final NotificationsPreferences notificationsPreferences;
     @NonNull
     protected final Context context;
     protected final int widgetId;
 
-    public NotificationsDailyAlarm(
+    public NotificationDailyAlarm(
             @NonNull final Context widgetContext, final int theWidgetId) {
         this.context = widgetContext;
         this.widgetId = theWidgetId;

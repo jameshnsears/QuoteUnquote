@@ -280,7 +280,8 @@ class TransferRestore : TransferCommon() {
                 schedule.eventEventCustomisableIntervalHours
         }
 
-        notificationsPreferences.setEventDisplayWidgetAndNotification(schedule.eventDisplayWidgetAndNotification)
+        notificationsPreferences.eventDisplayWidgetAndNotification =
+            schedule.eventDisplayWidgetAndNotification
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             val alarmManager: AlarmManager = context.getSystemService<AlarmManager>()!!
@@ -290,7 +291,7 @@ class TransferRestore : TransferCommon() {
             }
 
             if (!NotificationManagerCompat.from(context).areNotificationsEnabled()) {
-                notificationsPreferences.setEventDisplayWidgetAndNotification(false)
+                notificationsPreferences.eventDisplayWidgetAndNotification = false
             }
         }
 

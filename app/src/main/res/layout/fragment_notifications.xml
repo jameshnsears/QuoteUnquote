@@ -162,6 +162,20 @@
                         android:text="@string/fragment_notifications_widget"
                         android:textSize="16sp" />
 
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="13dp">
+
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="?android:attr/listDivider" />
+
+                </LinearLayout>
+
                 <RadioButton
                         android:id="@+id/radioButtonWhereAsNotification"
                         android:layout_width="wrap_content"
@@ -173,16 +187,40 @@
                         android:paddingEnd="0dp"
                         android:text="@string/fragment_notifications_widget_and_notification"
                         android:textSize="16sp" />
-
-                <com.google.android.material.materialswitch.MaterialSwitch
-                        android:id="@+id/switchExcludeSourceFromNotification"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="45dp"
-                        android:paddingEnd="0dp"
-                        android:text="@string/notification_action_exclude_source"
-                        android:textSize="16sp" />
             </RadioGroup>
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/switchExcludeSourceFromNotification"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="14dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/notification_action_exclude_source"
+                    android:textSize="16sp" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/switchUseUkTTS"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="16dp"
+                    android:paddingTop="16dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="16dp"
+                    android:text="@string/fragment_notifications_use_tts_uk"
+                    android:textSize="16sp" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/switchUseSystemLanguageTTS"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="14dp"
+                    android:paddingTop="0dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="0dp"
+                    android:text="@string/fragment_notifications_use_tts_system_language"
+                    android:textSize="16sp" />
 
             <TextView
                     android:id="@+id/textViewNotificationSizeWarningInfo"

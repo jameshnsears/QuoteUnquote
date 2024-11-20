@@ -27,7 +27,7 @@ public class FragmentCommon extends Fragment {
     }
 
     public void rememberScreen(final Screen screen, Context applicationContext) {
-        new QuotationsPreferences(widgetId, applicationContext).setScreen(screen.name);
+        new QuotationsPreferences(widgetId, applicationContext).setScreen(screen.screenName);
     }
 
     public enum Screen {
@@ -43,15 +43,15 @@ public class FragmentCommon extends Fragment {
 
         Sync("Sync");
 
-        public final String name;
+        public final String screenName;
 
-        Screen(String name) {
-            this.name = name;
+        Screen(String screenName) {
+            this.screenName = screenName;
         }
 
         public static Screen fromString(String name) {
             for (Screen screen : Screen.values()) {
-                if (screen.name.equalsIgnoreCase(name)) {
+                if (screen.screenName.equalsIgnoreCase(name)) {
                     return screen;
                 }
             }

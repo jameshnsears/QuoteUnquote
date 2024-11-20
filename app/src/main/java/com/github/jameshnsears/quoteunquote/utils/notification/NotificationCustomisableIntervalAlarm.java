@@ -15,11 +15,11 @@ import java.util.Locale;
 
 import timber.log.Timber;
 
-public class NotificationsCustomisableIntervalAlarm extends NotificationsDailyAlarm {
+public class NotificationCustomisableIntervalAlarm extends NotificationDailyAlarm {
     int nextAlarmHour;
     boolean nextAlarmDay;
 
-    public NotificationsCustomisableIntervalAlarm(
+    public NotificationCustomisableIntervalAlarm(
             @NonNull Context widgetContext, int theWidgetId) {
         super(widgetContext, theWidgetId);
     }

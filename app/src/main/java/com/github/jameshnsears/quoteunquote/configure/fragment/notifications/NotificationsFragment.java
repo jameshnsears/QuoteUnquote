@@ -65,6 +65,9 @@ public class NotificationsFragment extends FragmentCommon {
                     notificationsPreferences.setEventDisplayWidget(false);
                     notificationsPreferences.setEventDisplayWidgetAndNotification(true);
                     fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(true);
+                    fragmentNotificationsBinding.switchUseUkTTS.setEnabled(true);
+                    fragmentNotificationsBinding.switchUseSystemLanguageTTS.setEnabled(true);
+
                     fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(true);
                     fragmentNotificationsBinding.textViewNotificationSizeWarning1.setEnabled(true);
                 }
@@ -91,14 +94,6 @@ public class NotificationsFragment extends FragmentCommon {
             }
     );
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        rememberScreen(Screen.Notifications, getContext());
-
-        handleSpecialPermissionForExactAlarm();
-    }
-
     public NotificationsFragment() {
         // dark mode support
     }
@@ -112,6 +107,14 @@ public class NotificationsFragment extends FragmentCommon {
         final NotificationsFragment fragment = new NotificationsFragment(widgetId);
         fragment.setArguments(null);
         return fragment;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        rememberScreen(Screen.Notifications, getContext());
+
+        handleSpecialPermissionForExactAlarm();
     }
 
     @Override
@@ -270,11 +273,15 @@ public class NotificationsFragment extends FragmentCommon {
 
         if (fragmentNotificationsBinding.radioButtonWhereAsNotification.isChecked()) {
             fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(true);
+            fragmentNotificationsBinding.switchUseUkTTS.setEnabled(true);
+            fragmentNotificationsBinding.switchUseSystemLanguageTTS.setEnabled(true);
 
             fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(true);
             fragmentNotificationsBinding.textViewNotificationSizeWarning1.setEnabled(true);
         } else {
             fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(false);
+            fragmentNotificationsBinding.switchUseUkTTS.setEnabled(false);
+            fragmentNotificationsBinding.switchUseSystemLanguageTTS.setEnabled(false);
 
             fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(false);
             fragmentNotificationsBinding.textViewNotificationSizeWarning1.setEnabled(false);
@@ -314,6 +321,9 @@ public class NotificationsFragment extends FragmentCommon {
                     notificationsPreferences.setEventDisplayWidgetAndNotification(false);
 
                     fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(false);
+                    fragmentNotificationsBinding.switchUseUkTTS.setEnabled(false);
+                    fragmentNotificationsBinding.switchUseSystemLanguageTTS.setEnabled(false);
+
                     fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(false);
                     fragmentNotificationsBinding.textViewNotificationSizeWarning1.setEnabled(false);
                     break;
@@ -334,6 +344,9 @@ public class NotificationsFragment extends FragmentCommon {
                     notificationsPreferences.setEventDisplayWidget(false);
                     notificationsPreferences.setEventDisplayWidgetAndNotification(true);
                     fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(true);
+                    fragmentNotificationsBinding.switchUseUkTTS.setEnabled(true);
+                    fragmentNotificationsBinding.switchUseSystemLanguageTTS.setEnabled(true);
+
                     fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(true);
                     fragmentNotificationsBinding.textViewNotificationSizeWarning1.setEnabled(true);
                     break;

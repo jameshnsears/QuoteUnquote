@@ -95,7 +95,7 @@ fun InPlaceEditList(
             .height(320.dp)
             .padding(top = 4.dp, bottom = 14.dp),
     ) {
-        LazyColumn() {
+        LazyColumn {
             itemsIndexed(list) { index, quotation ->
                 val isSelected = selectedItemIndex == index
 

@@ -1,0 +1,4 @@
+&bull; TTS on Notifications
+&bull; Update database (remove similar)
+&bull; CI static-sonarqube
+&bull; Bump dependencies &amp; IDE: Android Studio Ladybug | 2024.2.1 Patch 3
