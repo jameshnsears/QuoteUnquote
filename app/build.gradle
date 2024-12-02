@@ -269,7 +269,7 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
     implementation 'net.pwall.json:json-kotlin-schema:0.50'
     implementation 'org.apache.commons:commons-csv:1.12.0'
-    implementation 'org.jsoup:jsoup:1.18.1'
+    implementation 'org.jsoup:jsoup:1.18.3'
     implementation platform('androidx.compose:compose-bom:2024.10.01')
     implementation project(path: ':cloudLib')
     implementation project(path: ':utilsLib')
