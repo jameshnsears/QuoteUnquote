@@ -196,7 +196,7 @@
                     android:paddingStart="14dp"
                     android:paddingTop="10dp"
                     android:paddingEnd="8dp"
-                    android:paddingBottom="10dp"
+                    android:paddingBottom="16dp"
                     android:text="@string/notification_action_exclude_source"
                     android:textSize="16sp" />
 
@@ -216,7 +216,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="14dp"
-                    android:paddingTop="0dp"
+                    android:paddingTop="16dp"
                     android:paddingEnd="8dp"
                     android:paddingBottom="0dp"
                     android:text="@string/fragment_notifications_use_tts_system_language"
