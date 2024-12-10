@@ -5,7 +5,8 @@ import numpy as np
 
 # Initialize the Sentence Transformer model
 # download it
-# model = SentenceTransformer('all-MiniLM-L6-v2')
+# model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+# model.save('./all-MiniLM-L6-v2')
 
 # use local copy
 model = SentenceTransformer('./all-MiniLM-L6-v2')
