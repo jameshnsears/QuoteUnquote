@@ -22,6 +22,8 @@ app/.classpath
 /captures
 .cxx
 /docs/sentence-similarity/venv
+/docs/sentence-similarity/all-MiniLM-L6-v2
+/docs/sentence-similarity/DistilBERT
 .DS_Store
 .externalNativeBuild
 .gradle
