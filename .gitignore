@@ -21,7 +21,7 @@ app/.classpath
 /build
 /captures
 .cxx
-/docs/semantic-reasoning/venv
+/docs/sentence-similarity/venv
 .DS_Store
 .externalNativeBuild
 .gradle
