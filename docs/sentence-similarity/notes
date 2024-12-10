@@ -139,7 +139,22 @@ pip install sentence-transformers scikit-learn tensorflow tensorflow-hub numpy s
 pip freeze > requirements.txt
 pip install -r requirements.txt
 
-https://github.com/tensorflow/tfjs-models/blob/master/universal-sentence-encoder/README.md
+-----------
 
-https://ai.google.dev/edge/litert/migration
+all-MiniLM-L6-v2
+DistilBERT
 
+https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2
+
+-----------
+
+download model(s) then convert to tflite
+
+https://ai.google.dev/edge/litert
+
+implementation 'org.tensorflow:tensorflow-lite:2.x.x'
+implementation 'org.tensorflow:tensorflow-lite-gpu:2.x.x'
+
+Interpreter tflite = new Interpreter(loadModelFile("all_MiniLM_L6_v2.tflite"));
+
+-----------
