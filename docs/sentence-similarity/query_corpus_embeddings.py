@@ -4,7 +4,12 @@ from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 
 # Initialize the Sentence Transformer model
-model = SentenceTransformer('all-MiniLM-L6-v2')
+# download it
+# model = SentenceTransformer('all-MiniLM-L6-v2')
+
+# use local copy
+model = SentenceTransformer('./all-MiniLM-L6-v2')
+
 
 # Function to calculate cosine similarity
 def calculate_cosine_similarity(vec1, vec2):

@@ -2,7 +2,7 @@ import sqlite3
 from sentence_transformers import SentenceTransformer
 
 # Initialize the Sentence Transformer model
-model = SentenceTransformer('all-MiniLM-L6-v2')
+model = SentenceTransformer("/home/jsears/GIT_REPOS/quoteunquote/docs/sentence-similarity/all-MiniLM-L6-v2')
 
 # Corpus of quotations
 corpus = [
