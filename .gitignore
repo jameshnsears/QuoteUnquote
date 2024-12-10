@@ -1,6 +1,9 @@
 /app/build/
 app/.classpath
+/app/fdroid/debug/output-metadata.json
 /app/fdroid/release/
+/app-fdroid-release-signed.apk
+/app-fdroid-release-signed.apk.idsig
 /app/googleplay/debug/
 /app/googleplay/release/
 /app/googleplay/release/app-googleplay-release.aab
@@ -9,6 +12,7 @@ app/.classpath
 /app/google-services.json-production
 /app/jacoco.exec
 /app/keystore.jks
+/app/keystore.readme
 /app/src/googleplay/google-services.json
 /app/src/google-services.json
 /bin/envvars.sh
@@ -17,6 +21,7 @@ app/.classpath
 /build
 /captures
 .cxx
+/docs/semantic-reasoning/venv
 .DS_Store
 .externalNativeBuild
 .gradle
@@ -38,14 +43,10 @@ app/.classpath
 .idea/sonarlint.xml
 .idea/vcs.xml
 .idea/workspace.xml
+/.kotlin/sessions/*
 local.properties
 /qodana_output/
 /Quote, Unquote.vpp.*
 /.Quote, Unquote.vpp.lck
 release-github-notes.md
 .scannerwork
-/app-fdroid-release-signed.apk
-/app-fdroid-release-signed.apk.idsig
-/app/fdroid/debug/output-metadata.json
-/app/keystore.readme
-/.kotlin/sessions/kotlin-compiler-11314601721098684748.salive
