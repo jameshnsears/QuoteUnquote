@@ -278,7 +278,7 @@
                     android:paddingStart="3dp"
                     android:paddingTop="5dp"
                     android:paddingEnd="0dp"
-                    android:paddingBottom="8dp"
+                    android:paddingBottom="10dp"
                     android:text="@string/fragment_archive_sync_to_cloud_on_favourite_info_1" />
 
         </LinearLayout>
