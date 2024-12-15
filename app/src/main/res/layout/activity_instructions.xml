@@ -50,7 +50,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="10dp">
+                        android:padding="12dp">
 
                     <TextView
                             android:layout_width="match_parent"
@@ -61,7 +61,7 @@
                             android:paddingEnd="0dp"
                             android:paddingBottom="5dp"
                             android:text="@string/activity_instructions_placement"
-                            android:textSize="20sp"
+                            android:textSize="22sp"
                             android:textStyle="bold" />
 
                     <TextView
@@ -131,7 +131,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="10dp">
+                        android:padding="12dp">
 
                     <TextView
                             android:layout_width="match_parent"
@@ -142,7 +142,7 @@
                             android:paddingEnd="0dp"
                             android:paddingBottom="5dp"
                             android:text="@string/activity_instructions_usage"
-                            android:textSize="20sp"
+                            android:textSize="22sp"
                             android:textStyle="bold" />
 
                     <TextView
@@ -218,7 +218,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="10dp">
+                        android:padding="12dp">
 
                     <TextView
                             android:layout_width="match_parent"
@@ -229,7 +229,7 @@
                             android:paddingEnd="0dp"
                             android:paddingBottom="5dp"
                             android:text="@string/activity_instructions_resize"
-                            android:textSize="20sp"
+                            android:textSize="22sp"
                             android:textStyle="bold" />
 
                     <TextView
