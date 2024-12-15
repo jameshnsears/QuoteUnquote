@@ -173,8 +173,8 @@
     <string name="fragment_notifications_movement">Action</string>
     <string name="fragment_notifications_widget">Widget</string>
     <string name="fragment_notifications_widget_and_notification">Notification</string>
-    <string name="fragment_notifications_use_tts_uk">UK TTS (Internal Database)</string>
-    <string name="fragment_notifications_use_tts_system_language">System language TTS</string>
+    <string name="fragment_notifications_use_tts_uk">UK (Internal Database) TTS</string>
+    <string name="fragment_notifications_use_tts_system_language">System TTS</string>
 
     <string name="fragment_notifications_notification_warning_info"></string>
     <string name="fragment_notifications_notification_warning_1">Android limits the size of Notifications, some content might not show in entirety</string>
