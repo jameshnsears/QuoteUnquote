@@ -32,7 +32,7 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
                          DIALOG dialogType) {
         BrowseAdapter.widgetId = widgetId;
         browseDataList = new CopyOnWriteArrayList<>(browseDataItems);
-        this.dialogType = dialogType;
+        BrowseAdapter.dialogType = dialogType;
     }
 
     @Override

@@ -56,9 +56,9 @@ public class QuoteUnquoteModel {
         if (widgetId != -1) {
             QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, context);
             if (quotationsPreferences.getDatabaseInternal()) {
-                databaseRepository.useInternalDatabase = true;
+                DatabaseRepository.useInternalDatabase = true;
             } else {
-                databaseRepository.useInternalDatabase = false;
+                DatabaseRepository.useInternalDatabase = false;
             }
         }
     }

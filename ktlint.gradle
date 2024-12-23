@@ -18,7 +18,7 @@ tasks.register("ktlint", JavaExec) {
     group = "QuoteUnquote"
     description = "Check Kotlin code style."
     classpath = configurations.ktlint
-    mainClass = "com.pinterest.ktlint.Main"
+    mainClass.set('com.pinterest.ktlint.Main')
     // see https://pinterest.github.io/ktlint/install/cli/#command-line-usage for more information
     args "src/**/*.kt", "**.kts", "!**/build/**"
 }
@@ -31,7 +31,7 @@ tasks.register("ktlintFormat", JavaExec) {
     group = "QuoteUnquote"
     description = "Fix Kotlin code style deviations."
     classpath = configurations.ktlint
-    mainClass = "com.pinterest.ktlint.Main"
+    mainClass.set('com.pinterest.ktlint.Main')
     jvmArgs "--add-opens=java.base/java.lang=ALL-UNNAMED"
     // see https://pinterest.github.io/ktlint/install/cli/#command-line-usage for more information
     args "-F", "src/**/*.kt", "**.kts", "!**/build/**"

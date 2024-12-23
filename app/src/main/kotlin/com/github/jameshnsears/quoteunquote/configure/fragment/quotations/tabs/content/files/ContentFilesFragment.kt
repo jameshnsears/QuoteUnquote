@@ -35,8 +35,6 @@ class ContentFilesFragment(widgetId: Int) : ContentFragment(widgetId) {
 
     private val fragmentQuotationsTabDatabaseTabCsvBinding get() = _binding!!
 
-    var quotationsPreferences: QuotationsPreferences? = null
-
     private var storageAccessFrameworkActivityImportCSV: ActivityResultLauncher<Intent>? = null
 
     private var storageAccessFrameworkActivityExportCsv: ActivityResultLauncher<Intent>? = null

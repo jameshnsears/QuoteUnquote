@@ -8,7 +8,7 @@ import com.github.jameshnsears.quoteunquote.database.DatabaseRepositoryDouble
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 
-class FilesCsvInPlaceEditDialogDouble() : ContentCsvInPlaceEditDialog() {
+class FilesCsvInPlaceEditDialogDouble : ContentCsvInPlaceEditDialog() {
     private var databaseRepositoryDouble: DatabaseRepositoryDouble =
         DatabaseRepositoryDouble.getInstance(ApplicationProvider.getApplicationContext())
 

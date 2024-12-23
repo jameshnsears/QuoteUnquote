@@ -51,7 +51,7 @@ class AppearanceTextStyleSpinnerAdapter(private val context: Context) : BaseAdap
             )
         }
 
-        view = view?.findViewById(android.R.id.text1) as TextView
+        view = view?.findViewById<TextView>(android.R.id.text1)!!
         view.text = getItem(position)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O_MR1) {

@@ -88,7 +88,7 @@ public class AppearanceFragment extends FragmentCommon {
 
         String screen =
                 new QuotationsPreferences(widgetId, getContext()).getScreen();
-        if (screen.equals(Screen.AppearanceToolbar.name)) {
+        if (screen.equals(Screen.AppearanceToolbar.screenName)) {
             fragmentAppearanceBinding.viewPager2Appearance.setCurrentItem(1);
         } else {
             fragmentAppearanceBinding.viewPager2Appearance.setCurrentItem(0);

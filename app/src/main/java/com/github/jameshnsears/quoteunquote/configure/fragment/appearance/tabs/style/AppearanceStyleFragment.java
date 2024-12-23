@@ -49,12 +49,6 @@ public class AppearanceStyleFragment extends FragmentCommon {
     @Nullable
     public AppearancePreferences appearancePreferences;
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        rememberScreen(Screen.AppearanceStyle, getContext());
-    }
-
     public AppearanceStyleFragment() {
         // dark mode support
     }
@@ -68,6 +62,12 @@ public class AppearanceStyleFragment extends FragmentCommon {
         final AppearanceStyleFragment fragment = new AppearanceStyleFragment(widgetId);
         fragment.setArguments(null);
         return fragment;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        rememberScreen(Screen.AppearanceStyle, getContext());
     }
 
     @Override

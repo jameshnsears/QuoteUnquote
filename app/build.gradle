@@ -3,7 +3,7 @@ apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'kotlin-android'
 apply plugin: 'com.diffplug.spotless'
-apply plugin: "org.jetbrains.kotlin.plugin.compose"
+apply plugin: 'org.jetbrains.kotlin.plugin.compose'
 
 apply from: '../jacoco.gradle'
 apply from: '../ktlint.gradle'
@@ -47,9 +47,9 @@ android {
         applicationId "com.github.jameshnsears.quoteunquote"
 
         // changelog version | min sdk | target sdk
-        versionCode 1822435
+        versionCode 1832435
         // semantic versioning
-        versionName "4.47.0"
+        versionName "4.48.0"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -75,7 +75,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion '1.5.1'
+        kotlinCompilerExtensionVersion '1.5.15'
     }
 
     packagingOptions {
@@ -221,7 +221,7 @@ android {
 
 dependencies {
     androidTestImplementation 'androidx.arch.core:core-testing:2.2.0'
-    androidTestImplementation 'androidx.compose.ui:ui-test-junit4-android:1.7.5'
+    androidTestImplementation 'androidx.compose.ui:ui-test-junit4-android:1.7.6'
     androidTestImplementation 'androidx.room:room-testing:2.6.1'
     androidTestImplementation 'androidx.test:core:1.6.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
@@ -230,14 +230,14 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.6.1'
     androidTestImplementation 'androidx.test:runner:1.6.2'
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.3.0'
-    androidTestImplementation 'io.mockk:mockk-android:1.13.13'
-    androidTestImplementation 'org.jetbrains.kotlin:kotlin-test-junit:2.0.21'
+    androidTestImplementation 'io.mockk:mockk-android:1.13.14'
+    androidTestImplementation 'org.jetbrains.kotlin:kotlin-test-junit:2.1.0'
     annotationProcessor 'androidx.room:room-compiler:2.6.1'
     debugImplementation 'androidx.compose.ui:ui-tooling-preview'
     debugImplementation 'androidx.fragment:fragment-testing:1.8.5'
     debugImplementation 'androidx.test:core-ktx:1.6.1'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.14'
-    googleplayImplementation platform('com.google.firebase:firebase-bom:33.5.1')
+    googleplayImplementation platform('com.google.firebase:firebase-bom:33.7.0')
     implementation 'androidx.activity:activity-compose'
     implementation 'androidx.activity:activity-ktx:1.9.3'
     implementation 'androidx.appcompat:appcompat:1.7.0'
@@ -249,7 +249,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
     implementation 'androidx.core:core-ktx'
     implementation 'androidx.core:core-ktx:1.15.0'
-    implementation 'androidx.databinding:databinding-runtime:8.7.2'
+    implementation 'androidx.databinding:databinding-runtime:8.7.3'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.room:room-guava:2.6.1'
@@ -260,17 +260,17 @@ dependencies {
     implementation 'com.github.skydoves:colorpickerpreference:2.0.6'
     implementation 'com.google.android.material:material:1.12.0'
     implementation 'com.google.code.gson:gson:2.11.0'
-    implementation 'com.google.guava:guava:33.3.1-jre'
+    implementation 'com.google.guava:guava:33.4.0-jre'
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.2.0'
     implementation 'com.jakewharton.timber:timber:5.0.1'
     implementation 'com.squareup.okhttp3:okhttp:4.12.0'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
-    implementation 'net.pwall.json:json-kotlin-schema:0.50'
+    implementation 'net.pwall.json:json-kotlin-schema:0.52'
     implementation 'org.apache.commons:commons-csv:1.12.0'
-    implementation 'org.jsoup:jsoup:1.18.1'
-    implementation platform('androidx.compose:compose-bom:2024.10.01')
+    implementation 'org.jsoup:jsoup:1.18.3'
+    implementation platform('androidx.compose:compose-bom:2024.12.01')
     implementation project(path: ':cloudLib')
     implementation project(path: ':utilsLib')
     testImplementation 'androidx.arch.core:core-testing:2.2.0'
@@ -278,12 +278,12 @@ dependencies {
     testImplementation 'androidx.test:core-ktx:1.6.1'
     testImplementation 'androidx.test.ext:junit:1.2.1'
     testImplementation 'androidx.test:rules:1.6.1'
-    testImplementation 'ch.qos.logback:logback-classic:1.5.12'
-    testImplementation 'com.google.guava:guava:33.3.1-jre'
+    testImplementation 'ch.qos.logback:logback-classic:1.5.15'
+    testImplementation 'com.google.guava:guava:33.4.0-jre'
     testImplementation 'io.mockk:mockk:1.13.13'
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0'
-    testImplementation 'org.robolectric:robolectric:4.13'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.1'
+    testImplementation 'org.robolectric:robolectric:4.14.1'
 }
 
 repositories {

@@ -253,34 +253,29 @@ class TransferRestore : TransferCommon() {
                 context,
             )
 
+        notificationsPreferences.eventTtsUk = schedule.eventEventTtsUk
+        notificationsPreferences.eventTtsSystem = schedule.eventEventTtsSystem
+
         notificationsPreferences.eventDaily = schedule.eventDaily
         notificationsPreferences.eventDailyTimeHour = schedule.eventDailyHour
         notificationsPreferences.eventDailyTimeMinute = schedule.eventDailyMinute
 
-        if (schedule.eventEventCustomisableInterval != null) {
-            notificationsPreferences.customisableInterval = schedule.eventEventCustomisableInterval
-        }
+        notificationsPreferences.customisableInterval = schedule.eventEventCustomisableInterval
 
-        if (schedule.eventEventCustomisableIntervalHourFrom != null) {
-            Timber.d("from = %d", schedule.eventEventCustomisableIntervalHourFrom)
-            notificationsPreferences.customisableIntervalHourFrom =
-                schedule.eventEventCustomisableIntervalHourFrom
-        }
+        Timber.d("from = %d", schedule.eventEventCustomisableIntervalHourFrom)
+        notificationsPreferences.customisableIntervalHourFrom =
+            schedule.eventEventCustomisableIntervalHourFrom
 
-        if (schedule.eventEventCustomisableIntervalHourTo != null) {
-            Timber.d("to = %d", schedule.eventEventCustomisableIntervalHourTo)
-            notificationsPreferences.customisableIntervalHourTo =
-                schedule.eventEventCustomisableIntervalHourTo
-        }
+        Timber.d("to = %d", schedule.eventEventCustomisableIntervalHourTo)
+        notificationsPreferences.customisableIntervalHourTo =
+            schedule.eventEventCustomisableIntervalHourTo
 
-        if (schedule.eventEventCustomisableIntervalHours != null) {
-            Timber.d("hours = %d", schedule.eventEventCustomisableIntervalHours)
+        Timber.d("hours = %d", schedule.eventEventCustomisableIntervalHours)
+        notificationsPreferences.customisableIntervalHours =
+            schedule.eventEventCustomisableIntervalHours
 
-            notificationsPreferences.customisableIntervalHours =
-                schedule.eventEventCustomisableIntervalHours
-        }
-
-        notificationsPreferences.setEventDisplayWidgetAndNotification(schedule.eventDisplayWidgetAndNotification)
+        notificationsPreferences.eventDisplayWidgetAndNotification =
+            schedule.eventDisplayWidgetAndNotification
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             val alarmManager: AlarmManager = context.getSystemService<AlarmManager>()!!
@@ -290,7 +285,7 @@ class TransferRestore : TransferCommon() {
             }
 
             if (!NotificationManagerCompat.from(context).areNotificationsEnabled()) {
-                notificationsPreferences.setEventDisplayWidgetAndNotification(false)
+                notificationsPreferences.eventDisplayWidgetAndNotification = false
             }
         }
 

@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="12dp">
 
             <RadioButton
                     android:id="@+id/radioButtonDatabaseInternal"
@@ -37,7 +37,7 @@
                     android:paddingStart="12dp"
                     android:paddingEnd="0dp"
                     android:text="@string/fragment_quotations_database_default_internal"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
             <TextView

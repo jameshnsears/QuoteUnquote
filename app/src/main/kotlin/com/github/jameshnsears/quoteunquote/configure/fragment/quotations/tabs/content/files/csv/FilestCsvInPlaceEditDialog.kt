@@ -16,7 +16,7 @@ interface OnDialogDismissedListener {
     fun onDialogDismissed()
 }
 
-open class ContentCsvInPlaceEditDialog() : DialogFragment() {
+open class ContentCsvInPlaceEditDialog : DialogFragment() {
     private var listener: OnDialogDismissedListener? = null
 
     fun setListener(listener: OnDialogDismissedListener) {

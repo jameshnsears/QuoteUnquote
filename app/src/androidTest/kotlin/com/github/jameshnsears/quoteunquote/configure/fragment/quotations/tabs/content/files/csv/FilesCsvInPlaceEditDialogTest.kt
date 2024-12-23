@@ -37,7 +37,7 @@ class FilesCsvInPlaceEditDialogTest : QuoteUnquoteModelUtility() {
         )
 
         scenario.onFragment { contentCsvInPlaceEditDialog ->
-            assertTrue(contentCsvInPlaceEditDialog.quoteUnquoteModel.allQuotations.size == 20267)
+            assertTrue(contentCsvInPlaceEditDialog.quoteUnquoteModel.allQuotations.size == 19971)
         }
 
         composeRule.onNodeWithText("Save").assertExists().performClick()

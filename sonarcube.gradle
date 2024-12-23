@@ -1,13 +1,17 @@
-apply plugin: "org.sonarqube"
+apply plugin: 'org.sonarqube'
 
-sonarqube {
+sonar {
+    androidVariant 'fdroidDebug'
+
     properties {
         property "sonar.projectKey", "jameshnsears_QuoteUnquote"
         property "sonar.organization", "jameshnsears-github"
         property "sonar.projectName", "QuoteUnquote"
         property "sonar.host.url", "https://sonarcloud.io"
-        property "sonar.sources", "src/main/java"
-        property "sonar.test", "src/androidTest/java, src/test/java"
-        property "sonar.java.binaries", "/home/runner/work/QuoteUnquote/app/build/intermediates/javac/fdroidDebug/compileFdroidDebugJavaWithJavac/classes, /home/runner/work/QuoteUnquote/app/build/intermediates/javac/googleplayDebug/compileGoogleplayDebugJavaWithJavac/classes"
+        property "sonar.sources", "/home/runner/work/QuoteUnquote/QuoteUnquote/app/src/main/java,/home/runner/work/QuoteUnquote/QuoteUnquote/app/src/main/kotlin"
+        property "sonar.java.binaries",
+                "/home/runner/work/QuoteUnquote/QuoteUnquote/app/build/intermediates/javac/fdroidDebug/compileFdroidDebugJavaWithJavac/classes"
+        property "sonar.kotlin.binaries",
+                "/home/runner/work/QuoteUnquote/QuoteUnquote/app/build/tmp/kotlin-classes/fdroidDebug"
     }
 }

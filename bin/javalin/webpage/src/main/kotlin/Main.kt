@@ -1,8 +1,7 @@
 import ch.qos.logback.classic.Level
 import io.javalin.Javalin
-
-import org.slf4j.LoggerFactory
 import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 val rootLogger = LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME) as ch.qos.logback.classic.Logger
 val logger = LoggerFactory.getLogger(object {}.javaClass)

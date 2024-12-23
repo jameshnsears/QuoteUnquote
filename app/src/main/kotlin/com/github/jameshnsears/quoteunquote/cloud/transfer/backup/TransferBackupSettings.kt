@@ -139,6 +139,8 @@ open class TransferBackupSettings(val context: Context) {
             notificationsPreferences.customisableIntervalHourFrom,
             notificationsPreferences.customisableIntervalHourTo,
             notificationsPreferences.customisableIntervalHours,
+            notificationsPreferences.eventTtsSystem,
+            notificationsPreferences.eventTtsUk,
         )
     }
 }

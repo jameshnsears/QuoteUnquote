@@ -26,17 +26,14 @@ public class ContentWebFragment extends ContentFragment {
     @Nullable
     public FragmentQuotationsTabDatabaseTabWebBinding fragmentQuotationsTabDatabaseTabWebBinding;
 
-    @Nullable
-    public QuotationsPreferences quotationsPreferences;
+    public ContentWebFragment(int widgetId) {
+        super(widgetId);
+    }
 
     @Override
     public void onResume() {
         super.onResume();
         rememberScreen(Screen.ContentWeb, getContext());
-    }
-
-    public ContentWebFragment(int widgetId) {
-        super(widgetId);
     }
 
     @Override
@@ -185,7 +182,7 @@ public class ContentWebFragment extends ContentFragment {
                 String xpathQuotation = getWebXpathQuotation();
                 String xpathSource = getWebXpathSource();
 
-                if ("".equals(url) || "".equals(xpathQuotation) | "".equals(xpathSource)
+                if ("".equals(url) || "".equals(xpathQuotation) || "".equals(xpathSource)
                         || 10 > url.length()) {
                     useInternalDatabase();
 

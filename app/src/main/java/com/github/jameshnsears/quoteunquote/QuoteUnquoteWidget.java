@@ -31,6 +31,7 @@ import com.github.jameshnsears.quoteunquote.cloud.CloudTransferHelper;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences;
 import com.github.jameshnsears.quoteunquote.configure.fragment.notifications.NotificationsPreferences;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
+import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
 import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 import com.github.jameshnsears.quoteunquote.listview.ListViewService;
 import com.github.jameshnsears.quoteunquote.scraper.ScraperData;
@@ -39,10 +40,11 @@ import com.github.jameshnsears.quoteunquote.utils.ImportHelper;
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
 import com.github.jameshnsears.quoteunquote.utils.notification.NotificationContent;
 import com.github.jameshnsears.quoteunquote.utils.notification.NotificationCoordinator;
+import com.github.jameshnsears.quoteunquote.utils.notification.NotificationCustomisableIntervalAlarm;
+import com.github.jameshnsears.quoteunquote.utils.notification.NotificationDailyAlarm;
 import com.github.jameshnsears.quoteunquote.utils.notification.NotificationEvent;
 import com.github.jameshnsears.quoteunquote.utils.notification.NotificationHelper;
-import com.github.jameshnsears.quoteunquote.utils.notification.NotificationsCustomisableIntervalAlarm;
-import com.github.jameshnsears.quoteunquote.utils.notification.NotificationsDailyAlarm;
+import com.github.jameshnsears.quoteunquote.utils.notification.NotificationTextToSpeechService;
 import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade;
 import com.github.jameshnsears.quoteunquote.utils.scraper.ScraperAlarm;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
@@ -56,17 +58,24 @@ import timber.log.Timber;
 public class QuoteUnquoteWidget extends AppWidgetProvider {
     @Nullable
     public static ContentSelection currentContentSelection = ContentSelection.ALL;
+
     @Nullable
     public static String currentAuthorSelection;
+
     @Nullable
     public static int notificationPermissionDeniedCount = 0;
+
     @Nullable
     private static ExecutorService executorService;
+
     private static volatile boolean receiversRegistered;
+
     @Nullable
     private static NotificationHelper notificationHelper;
+
     @Nullable
     public QuoteUnquoteModel quoteUnquoteModel;
+
     @Nullable
     private NotificationCoordinator notificationCoordinator;
 
@@ -110,7 +119,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
         return executorService;
     }
 
-    public static void stopExecutorService() {
+    public static void executorServiceStop() {
         if (executorService != null) {
             Runtime.getRuntime().addShutdownHook(new Thread(() -> {
                 executorService.shutdown();
@@ -160,7 +169,9 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             quotationsPreferences.setContentLocalCode(CloudTransferHelper.getLocalCode());
         }
 
-        startDatabaseConnectivity(-1, context);
+        databaseConnectivityStart(-1, context);
+
+        textToSpeechServiceSpeak(-1, context, null);
     }
 
     @Override
@@ -242,7 +253,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
         return notificationHelper;
     }
 
-    private NotificationCoordinator getNotificationCoordinator(@NonNull Context context) {
+    private NotificationCoordinator getNotificationCoordinator() {
         if (notificationCoordinator == null) {
             notificationCoordinator = new NotificationCoordinator();
         }
@@ -314,8 +325,8 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
         final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
 
         try {
-            final NotificationsDailyAlarm notificationsDailyAlarm = new NotificationsDailyAlarm(context, widgetId);
-            final NotificationsCustomisableIntervalAlarm notificationsCustomisableIntervalAlarm = new NotificationsCustomisableIntervalAlarm(context, widgetId);
+            final NotificationDailyAlarm notificationDailyAlarm = new NotificationDailyAlarm(context, widgetId);
+            final NotificationCustomisableIntervalAlarm notificationsCustomisableIntervalAlarm = new NotificationCustomisableIntervalAlarm(context, widgetId);
             final ScraperAlarm scraperAlarm = new ScraperAlarm(context, widgetId);
 
             switch (intent.getAction()) {
@@ -328,7 +339,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                     break;
 
                 case Intent.ACTION_USER_PRESENT:
-                    startDatabaseConnectivity(widgetId, context);
+                    databaseConnectivityStart(widgetId, context);
                     onReceiveDeviceUnlock(context, appWidgetManager);
                     break;
 
@@ -344,26 +355,19 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                     onReceiveNotificationDismissed(context, intent);
                     break;
 
-                /*
-                # this now no longer works on API 34:
-                adb shell
-                am broadcast -a android.intent.action.BOOT_COMPLETED
-
-                adb reboot
-                */
                 case Intent.ACTION_BOOT_COMPLETED:
                 case Intent.ACTION_REBOOT:
                 case IntentFactoryHelper.ACTIVITY_FINISHED_CONFIGURATION:
                     onReceiveActivityFinishedConfiguration(
                             context,
                             widgetId,
-                            notificationsDailyAlarm,
+                            notificationDailyAlarm,
                             notificationsCustomisableIntervalAlarm,
                             scraperAlarm);
                     break;
 
                 case IntentFactoryHelper.DAILY_ALARM:
-                    onReceiveDailyAlarm(context, widgetId, notificationsDailyAlarm);
+                    onReceiveDailyAlarm(context, widgetId, notificationDailyAlarm);
                     break;
 
                 case IntentFactoryHelper.CUSTOMISABLE_INTERVAL_ALARM:
@@ -476,11 +480,11 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
         int[] widgetIds = appWidgetManager.getAppWidgetIds(new ComponentName(context, QuoteUnquoteWidget.class));
         for (final int widgetId : widgetIds) {
             Timber.d("setDailyAlarm: %d", widgetId);
-            NotificationsDailyAlarm notificationsDailyAlarm = new NotificationsDailyAlarm(context, widgetId);
-            notificationsDailyAlarm.setAlarm();
+            NotificationDailyAlarm notificationDailyAlarm = new NotificationDailyAlarm(context, widgetId);
+            notificationDailyAlarm.setAlarm();
 
             Timber.d("setCustomisableIntervalAlarm: %d", widgetId);
-            NotificationsCustomisableIntervalAlarm notificationsCustomisableIntervalAlarm = new NotificationsCustomisableIntervalAlarm(context, widgetId);
+            NotificationCustomisableIntervalAlarm notificationsCustomisableIntervalAlarm = new NotificationCustomisableIntervalAlarm(context, widgetId);
             notificationsCustomisableIntervalAlarm.setAlarm();
 
             Timber.d("scraperAlarm: %d", widgetId);
@@ -523,11 +527,11 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
         setAutoCloudBackupAlarm(context, widgetId);
     }
 
-    private void startDatabaseConnectivity(int widgetId, @NonNull Context context) {
+    private void databaseConnectivityStart(int widgetId, @NonNull Context context) {
         setQuoteUnquoteModel(new QuoteUnquoteModel(widgetId, context));
     }
 
-    public void stopDatabaseConnectivity() {
+    public void databaseConnectivityStop() {
         quoteUnquoteModel = null;
     }
 
@@ -571,7 +575,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
 
         updateWidgetFavourite(context, widgetId, digest, appWidgetManager);
 
-        if (getNotificationCoordinator(context).isNotificationShowingQuotation(digest)) {
+        if (getNotificationCoordinator().isNotificationShowingQuotation(digest)) {
             updateNotificationFavourite(
                     context,
                     widgetId,
@@ -690,16 +694,16 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
     private void onReceiveDailyAlarm(
             @NonNull final Context context,
             final int widgetId,
-            @NonNull final NotificationsDailyAlarm notificationsDailyAlarm) {
+            @NonNull final NotificationDailyAlarm notificationDailyAlarm) {
         // reschedule, as recurring
-        notificationsDailyAlarm.setAlarm();
+        notificationDailyAlarm.setAlarm();
         scheduleEvent(context, widgetId, NotificationEvent.EVENT_DAILY);
     }
 
     private void onReceiveCustomisableIntervalAlarm(
             @NonNull final Context context,
             final int widgetId,
-            @NonNull final NotificationsCustomisableIntervalAlarm notificationsCustomisableIntervalAlarm) {
+            @NonNull final NotificationCustomisableIntervalAlarm notificationsCustomisableIntervalAlarm) {
         Timber.d("customisableIntervalAlarm");
         notificationsCustomisableIntervalAlarm.setAlarm();
         scheduleEvent(context, widgetId, NotificationEvent.CUSTOMISABLE_INTERVAL);
@@ -796,9 +800,9 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             QuotationEntity currentQuotation
                     = getQuoteUnquoteModel(widgetId, context).getCurrentQuotation(widgetId);
 
-            int notificationId = getNotificationCoordinator(context).createNotificationId(currentQuotation.digest);
+            int notificationId = getNotificationCoordinator().createNotificationId(currentQuotation.digest);
 
-            getNotificationCoordinator(context).dismissNotification(context, getNotificationHelper(context), notificationId);
+            getNotificationCoordinator().dismissNotification(context, getNotificationHelper(context), notificationId);
 
             displayNotification(context, widgetId, notificationEvent);
         }
@@ -814,7 +818,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
         if (currentQuotation != null) {
             NotificationsPreferences notificationsPreferences = new NotificationsPreferences(widgetId, context);
 
-            int notificationId = getNotificationCoordinator(context).createNotificationId(currentQuotation.digest);
+            int notificationId = getNotificationCoordinator().createNotificationId(currentQuotation.digest);
 
             NotificationContent notificationContent = new NotificationContent(
                     context,
@@ -829,7 +833,39 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
 
             displayNotificationInCorrectChannel(context, notificationContent, notificationEvent);
 
-            getNotificationCoordinator(context).rememberNotification(notificationEvent, notificationId, currentQuotation.digest);
+            textToSpeechServiceSpeak(widgetId, context, notificationContent);
+
+            getNotificationCoordinator().rememberNotification(notificationEvent, notificationId, currentQuotation.digest);
+        }
+    }
+
+    private void textToSpeechServiceSpeak(int widgetId,
+                                          Context context,
+                                          NotificationContent notificationContent) {
+        if (notificationContent != null) {
+            NotificationsPreferences notificationsPreferences = new NotificationsPreferences(widgetId, context);
+
+            if (notificationsPreferences.getEventTtsUk() || notificationsPreferences.getEventTtsSystem()) {
+                Intent serviceIntent = new Intent(context, NotificationTextToSpeechService.class);
+                serviceIntent.putExtra("textToSpeak", notificationContent.getQuotation());
+
+                serviceIntent.putExtra("textToSpeakSource", notificationContent.getAuthor());
+                serviceIntent.putExtra("excludeSource", notificationsPreferences.getExcludeSourceFromNotification());
+
+                if (notificationsPreferences.getEventTtsUk()) {
+                    serviceIntent.putExtra("localeTts", "UK");
+                } else {
+                    serviceIntent.putExtra("localeTts", "SYSTEM");
+                }
+
+                context.startService(serviceIntent);
+            }
+        }
+    }
+
+    private void textToSpeechServiceStop(Context context) {
+        if (NotificationTextToSpeechService.Companion.isRunning()) {
+            context.stopService(new Intent(context, NotificationTextToSpeechService.class));
         }
     }
 
@@ -853,7 +889,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                 break;
 
             case NotificationEvent.TOOLBAR_PRESSED_FAVOURITE:
-                switch (getNotificationCoordinator(context).getNotificationChannelId(notificationContent.getNotificationId())) {
+                switch (getNotificationCoordinator().getNotificationChannelId(notificationContent.getNotificationId())) {
                     case NotificationEvent.DEVICE_UNLOCK:
                         getNotificationHelper(context).displayNotificationDeviceUnlock(notificationContent);
                         break;
@@ -890,7 +926,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             onReceiveToolbarPressedNextRandom(context, widgetId, appWidgetManager);
         }
 
-        getNotificationCoordinator(context).dismissNotification(context, getNotificationHelper(context), notificationId);
+        getNotificationCoordinator().dismissNotification(context, getNotificationHelper(context), notificationId);
 
         displayNotification(context, widgetId, notificationEvent);
     }
@@ -899,9 +935,9 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             @NonNull Context context,
             @NonNull final Intent intent) {
         final int notificationId = intent.getExtras().getInt("notificationId");
-        getNotificationCoordinator(context).dismissNotification(context, getNotificationHelper(context), notificationId);
+        getNotificationCoordinator().dismissNotification(context, getNotificationHelper(context), notificationId);
 
-        getNotificationCoordinator(context).forgetNotification(notificationId);
+        getNotificationCoordinator().forgetNotification(notificationId);
     }
 
     private void onReceiveNotificationFavourite(
@@ -957,7 +993,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
     private void updateNotificationFavourite(
             @NonNull Context context, int widgetId, @NonNull String widgetDigest) {
 
-        if (getNotificationCoordinator(context).isNotificationShowingQuotation(widgetDigest)) {
+        if (getNotificationCoordinator().isNotificationShowingQuotation(widgetDigest)) {
 
             NotificationsPreferences notificationsPreferences = new NotificationsPreferences(widgetId, context);
 
@@ -972,7 +1008,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                     widgetDigest,
                     getQuoteUnquoteModel(widgetId, context).isFavourite(quotationEntity.digest),
                     notificationsPreferences.getEventNextSequential(),
-                    getNotificationCoordinator(context).createNotificationId(quotationEntity.digest),
+                    getNotificationCoordinator().createNotificationId(quotationEntity.digest),
                     NotificationEvent.TOOLBAR_PRESSED_FAVOURITE);
 
             displayNotificationInCorrectChannel(context, notificationContent, NotificationEvent.TOOLBAR_PRESSED_FAVOURITE);
@@ -982,8 +1018,8 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
     private void onReceiveActivityFinishedConfiguration(
             @NonNull final Context context,
             final int widgetId,
-            @NonNull final NotificationsDailyAlarm notificationsDailyAlarm,
-            @NonNull final NotificationsCustomisableIntervalAlarm notificationsCustomisableIntervalAlarm,
+            @NonNull final NotificationDailyAlarm notificationDailyAlarm,
+            @NonNull final NotificationCustomisableIntervalAlarm notificationsCustomisableIntervalAlarm,
             @NonNull final ScraperAlarm scraperAlarm) {
 
         if (getQuoteUnquoteModel(widgetId, context).getCurrentQuotation(widgetId) == null) {
@@ -996,13 +1032,13 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
         }
 
         manageAlarms(context, widgetId,
-                notificationsDailyAlarm, notificationsCustomisableIntervalAlarm, scraperAlarm);
+                notificationDailyAlarm, notificationsCustomisableIntervalAlarm, scraperAlarm);
     }
 
     private void manageAlarms(
             @NonNull Context context, int widgetId,
-            @NonNull NotificationsDailyAlarm notificationsDailyAlarm,
-            @NonNull NotificationsCustomisableIntervalAlarm notificationsCustomisableIntervalAlarm,
+            @NonNull NotificationDailyAlarm notificationDailyAlarm,
+            @NonNull NotificationCustomisableIntervalAlarm notificationsCustomisableIntervalAlarm,
             @NonNull ScraperAlarm scraperAlarm) {
 
         QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, context);
@@ -1014,9 +1050,9 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
 
         NotificationsPreferences notificationsPreferences = new NotificationsPreferences(widgetId, context);
         if (notificationsPreferences.getEventDaily()) {
-            notificationsDailyAlarm.setAlarm();
+            notificationDailyAlarm.setAlarm();
         } else {
-            notificationsDailyAlarm.resetAlarm();
+            notificationDailyAlarm.resetAlarm();
         }
 
         if (notificationsPreferences.getCustomisableInterval()) {
@@ -1226,10 +1262,10 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             getQuoteUnquoteModel(widgetId, context).delete(widgetId);
             PreferencesFacade.delete(context, widgetId);
 
-            final NotificationsDailyAlarm notificationsDailyAlarm = new NotificationsDailyAlarm(context, widgetId);
-            notificationsDailyAlarm.resetAlarm();
+            final NotificationDailyAlarm notificationDailyAlarm = new NotificationDailyAlarm(context, widgetId);
+            notificationDailyAlarm.resetAlarm();
 
-            final NotificationsCustomisableIntervalAlarm notificationsCustomisableIntervalAlarm = new NotificationsCustomisableIntervalAlarm(context, widgetId);
+            final NotificationCustomisableIntervalAlarm notificationsCustomisableIntervalAlarm = new NotificationCustomisableIntervalAlarm(context, widgetId);
             notificationsCustomisableIntervalAlarm.resetAlarm();
 
             final ScraperAlarm scraperAlarm = new ScraperAlarm(context, widgetId);
@@ -1258,8 +1294,9 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
                 context.stopService(new Intent(context, CloudServiceRestore.class));
             }
         } finally {
-            stopDatabaseConnectivity();
-            stopExecutorService();
+            databaseConnectivityStop();
+            executorServiceStop();
+            textToSpeechServiceStop(context);
         }
     }
 
@@ -1270,9 +1307,9 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             quoteUnquoteModel = new QuoteUnquoteModel(widgetId, context);
         } else {
             if (getQuotationsPreferences(context, widgetId).getDatabaseInternal()) {
-                quoteUnquoteModel.databaseRepository.useInternalDatabase = true;
+                DatabaseRepository.useInternalDatabase = true;
             } else {
-                quoteUnquoteModel.databaseRepository.useInternalDatabase = false;
+                DatabaseRepository.useInternalDatabase = false;
             }
         }
 

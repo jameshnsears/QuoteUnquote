@@ -32,7 +32,7 @@ class NotificationsCustomisableIntervalAlarmTest : QuoteUnquoteModelUtility() {
         notificationsPreferences.customisableIntervalHours = hours
     }
 
-    class AlarmMock(context: Context, val current: Int) : NotificationsCustomisableIntervalAlarm(
+    class AlarmMock(context: Context, val current: Int) : NotificationCustomisableIntervalAlarm(
         context,
         WidgetIdHelper.WIDGET_ID_01,
     ) {

@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name=":app.androidTest" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
-    <module name="QuoteUnquote.app.androidTest" />
+    <module name="quoteunquote.app.androidTest" />
     <option name="TESTING_TYPE" value="1" />
     <option name="METHOD_NAME" value="" />
     <option name="CLASS_NAME" value="" />
@@ -58,7 +58,7 @@
     </Profilers>
     <method v="2">
       <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-      <option name="Gradle.BeforeRunTask" enabled="false" tasks="uninstallAll" externalProjectPath="$PROJECT_DIR$" vmOptions="" scriptParameters="" />
+      <option name="Gradle.BeforeRunTask" enabled="false" tasks="uninstallFdroidDebug" externalProjectPath="$PROJECT_DIR$" vmOptions="" scriptParameters="" />
     </method>
   </configuration>
 </component>
