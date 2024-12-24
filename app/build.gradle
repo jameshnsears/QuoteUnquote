@@ -280,7 +280,7 @@ dependencies {
     testImplementation 'androidx.test:rules:1.6.1'
     testImplementation 'ch.qos.logback:logback-classic:1.5.15'
     testImplementation 'com.google.guava:guava:33.4.0-jre'
-    testImplementation 'io.mockk:mockk:1.13.13'
+    testImplementation 'io.mockk:mockk:1.13.14'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.1'
     testImplementation 'org.robolectric:robolectric:4.14.1'
