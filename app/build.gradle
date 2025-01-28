@@ -231,7 +231,7 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.6.2'
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.3.0'
     androidTestImplementation 'io.mockk:mockk-android:1.13.14'
-    androidTestImplementation 'org.jetbrains.kotlin:kotlin-test-junit:2.1.0'
+    androidTestImplementation 'org.jetbrains.kotlin:kotlin-test-junit:2.1.10'
     annotationProcessor 'androidx.room:room-compiler:2.6.1'
     debugImplementation 'androidx.compose.ui:ui-tooling-preview'
     debugImplementation 'androidx.fragment:fragment-testing:1.8.5'
