@@ -1,3 +1,0 @@
-&bull; Fix dark theme external file import / edit button colour
-&bull; Improve configuration format padding
-&bull; Bump dependencies

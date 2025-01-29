@@ -24,6 +24,10 @@ public class NotificationsPreferences extends PreferencesFacade {
     public static final String EVENT_TTS_UK = "EVENT_TTS_UK";
     public static final String EVENT_TTS_SYSTEM = "EVENT_TTS_SYSTEM";
 
+    public NotificationsPreferences(int widgetId, @NonNull Context applicationContext) {
+        super(widgetId, applicationContext);
+    }
+
     public boolean getEventTtsUk() {
         return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(NotificationsPreferences.EVENT_TTS_UK), false);
     }
@@ -36,14 +40,10 @@ public class NotificationsPreferences extends PreferencesFacade {
         return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(NotificationsPreferences.EVENT_TTS_SYSTEM), false);
     }
 
-    public void setEventTtsSystem(boolean value) {
-        this.preferenceHelper.setPreference(this.getPreferenceKey(NotificationsPreferences.EVENT_TTS_SYSTEM), value);
-    }
-
     //////////////////
 
-    public NotificationsPreferences(int widgetId, @NonNull Context applicationContext) {
-        super(widgetId, applicationContext);
+    public void setEventTtsSystem(boolean value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(NotificationsPreferences.EVENT_TTS_SYSTEM), value);
     }
 
     public int getCustomisableIntervalHours() {

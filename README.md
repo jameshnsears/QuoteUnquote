@@ -23,9 +23,11 @@
 
 ## 2. Build Instructions
 
-After cloning I extract .gpg files (BuildConfig, GitHub Action Secrets values) to create local.properties
+After cloning I extract .gpg files (BuildConfig, GitHub Action Secrets values) to create
+local.properties
 
-The app can be built on Windows 11 but the ./bin folder contains bash scripts (that work with git bash; some require gh cli).
+The app can be built on Windows 11 but the ./bin folder contains bash scripts (that work with git
+bash; some require gh cli).
 
 ### 2.1. CLI
 

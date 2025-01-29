@@ -213,6 +213,10 @@
     <string name="fragment_archive_backup_sending">Backup - please wait&#8230;</string>
     <string name="fragment_archive_backup_success">Success - backup completed</string>
     <string name="fragment_archive_restore">Restore</string>
+
+    <string name="fragment_archive_restore_onto_new_device">Purge old instance data</string>
+    <string name="fragment_archive_restore_onto_new_device_info">By default each backup contains history &amp; configuration for each app widget instance, keeping this is only required if you use multiple instances of the app widget on the same device</string>
+
     <string name="fragment_archive_superseded_info"></string>
     <string name="fragment_archive_superseded_1">Sync code will be superseded upon restore</string>
     <string name="fragment_archive_create_new_sync_code">New code</string>
@@ -242,5 +246,5 @@
     <string name="preview_description">Discover High Quality Quotations!\nImport Affirmations!</string>
     <string name="preview_quotation">Nothing matters very much and very few things matter at all.\n</string>
     <string name="preview_author"><u>Arthur Balfour\n</u></string>
-    <string name="preview_position">\u2316  1/19971\u0020</string>
+    <string name="preview_position">\u2316  1/19933\u0020</string>
 </resources>

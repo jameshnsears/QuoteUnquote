@@ -1,6 +1,0 @@
-&bull; Update database: remove similarities via SentenceTransformer('all-MiniLM-L6-v2') > 0.75
-&bull; TTS on Notifications
-&bull; Make UI slightly more consistent
-&bull; Improve CSV instructions
-&bull; Bring back CI static-sonarqube
-&bull; Bump dependencies &amp; IDE: Android Studio Ladybug | 2024.2.1 Patch 3

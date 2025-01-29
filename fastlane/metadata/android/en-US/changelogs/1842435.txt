@@ -1,0 +1,4 @@
+&bull; Issue #405 - improve support for restoring onto new device
+&bull; Update quotations database
+&bull; Align fastlane/changelogs with versionCode
+&bull; Bump dependencies & IDE: Android Studio Ladybug Feature Drop | 2024.2.2

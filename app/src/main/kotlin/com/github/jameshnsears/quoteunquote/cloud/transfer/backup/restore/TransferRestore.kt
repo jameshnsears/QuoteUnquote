@@ -47,7 +47,50 @@ class TransferRestore : TransferCommon() {
         )
     }
 
+    fun newDeviceTransferTransformer(transfer: Transfer): Transfer {
+        val current = transfer.current.takeLast(1)
+
+        return Transfer(
+            transfer.code,
+            current,
+            transfer.favourites,
+            onlyKeepPreviousWithWidgetId(transfer.previous, current[0].widgetId),
+            transfer.settings.takeLast(1),
+        )
+    }
+
+    private fun onlyKeepPreviousWithWidgetId(
+        previous: List<Previous>,
+        widgetId: Int,
+    ): List<Previous> {
+        val filteredPrevious = mutableListOf<Previous>()
+
+        previous.forEach { i ->
+            if (i.widgetId == widgetId && !filteredPrevious.contains(i)) {
+                filteredPrevious.add(i)
+            }
+        }
+
+        return filteredPrevious
+    }
+
+    fun restorePurge(
+        context: Context,
+        databaseRepository: DatabaseRepository,
+        transfer: Transfer,
+    ) {
+        Timber.d("restorePurge")
+
+        restore(
+            context,
+            databaseRepository,
+            newDeviceTransferTransformer(transfer),
+        )
+    }
+
     fun restore(context: Context, databaseRepository: DatabaseRepository, transfer: Transfer) {
+        Timber.d("restore")
+
         emptySharedPreferencesExceptLocalCode(context)
         databaseRepository.eraseForRestore()
 

@@ -9,6 +9,7 @@ import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade;
 public class SyncPreferences extends PreferencesFacade {
     public static final String ARCHIVE_GOOGLE_CLOUD = "ARCHIVE_GOOGLE_CLOUD";
     public static final String ARCHIVE_GOOGLE_CLOUD_AUTO_BACKUP = "ARCHIVE_GOOGLE_CLOUD_AUTO_BACKUP";
+    public static final String ARCHIVE_PURGE = "ARCHIVE_PURGE";
     public static final String ARCHIVE_SHARED_STORAGE = "ARCHIVE_SHARED_STORAGE";
 
     public SyncPreferences(int widgetId, @NonNull final Context applicationContext) {
@@ -37,6 +38,14 @@ public class SyncPreferences extends PreferencesFacade {
 
     public void setAutoCloudBackup(boolean value) {
         this.preferenceHelper.setPreference(this.getPreferenceKey(ARCHIVE_GOOGLE_CLOUD_AUTO_BACKUP), value);
+    }
+
+    public boolean getPurge() {
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(ARCHIVE_PURGE), true);
+    }
+
+    public void setPurge(boolean value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(ARCHIVE_PURGE), value);
     }
 
     @NonNull

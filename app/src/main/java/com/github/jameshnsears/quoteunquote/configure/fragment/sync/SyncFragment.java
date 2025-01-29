@@ -175,6 +175,7 @@ public class SyncFragment extends FragmentCommon {
         createListenerRadioGoogleCloud();
         createListenerRadioDevice();
         createListenerButtonBackup();
+        createListenerSwitchPurge();
         createListenerButtonRestore();
         createListenerButtonNewCode();
 
@@ -208,6 +209,12 @@ public class SyncFragment extends FragmentCommon {
             fragmentSyncBinding.editTextRemoteCodeValueLayout.setEnabled(false);
             fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(false);
             fragmentSyncBinding.editTextRemoteCodeValue.setText("");
+        }
+
+        if (syncPreferences.getPurge()) {
+            fragmentSyncBinding.switchPurge.setChecked(true);
+        } else {
+            fragmentSyncBinding.switchPurge.setChecked(false);
         }
 
         if (syncPreferences.getAutoCloudBackup()) {
@@ -287,6 +294,12 @@ public class SyncFragment extends FragmentCommon {
             } else {
                 backupSharedStorage();
             }
+        });
+    }
+
+    protected void createListenerSwitchPurge() {
+        fragmentSyncBinding.switchPurge.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            syncPreferences.setPurge(isChecked);
         });
     }
 
@@ -426,10 +439,18 @@ public class SyncFragment extends FragmentCommon {
             boolean googleCloudRadio = syncPreferences.getArchiveGoogleCloud();
             boolean sharedStorageRadio = syncPreferences.getArchiveSharedStorage();
 
-            transferRestore.restore(
-                    getContext(),
-                    DatabaseRepository.getInstance(getContext()),
-                    transfer);
+            if (syncPreferences.getPurge()) {
+                transferRestore.restorePurge(
+                        getContext(),
+                        DatabaseRepository.getInstance(getContext()),
+                        transfer);
+            } else {
+
+                transferRestore.restore(
+                        getContext(),
+                        DatabaseRepository.getInstance(getContext()),
+                        transfer);
+            }
 
             syncPreferences.setArchiveGoogleCloud(googleCloudRadio);
             syncPreferences.setArchiveSharedStorage(sharedStorageRadio);

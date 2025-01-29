@@ -122,8 +122,43 @@
                 <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp">
+
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="?android:attr/listDivider" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingVertical="3dp"
+                        android:paddingStart="9dp"
+                        android:paddingEnd="7dp">
+
+                    <com.google.android.material.materialswitch.MaterialSwitch
+                            android:id="@+id/switchPurge"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:enabled="true"
+                            android:paddingTop="3dp"
+                            android:paddingBottom="3dp"
+                            android:text="@string/fragment_archive_restore_onto_new_device"
+                            android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:gravity="center_vertical"
-                        android:paddingVertical="5dp"
+                        android:paddingVertical="2dp"
                         android:paddingStart="7dp"
                         android:paddingEnd="0dp">
 
@@ -184,8 +219,32 @@
                         android:paddingStart="8dp"
                         android:paddingTop="5dp"
                         android:paddingEnd="0dp"
-                        android:paddingBottom="15dp"
+                        android:paddingBottom="5dp"
+                        android:text="@string/fragment_archive_restore_onto_new_device_info" />
+
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="8dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="0dp"
+                        android:paddingBottom="3dp"
                         android:text="@string/fragment_archive_superseded_1" />
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingTop="13dp"
+                        android:paddingBottom="13dp">
+
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:background="?android:attr/listDivider" />
+
+                </LinearLayout>
 
                 <LinearLayout
                         android:layout_width="match_parent"

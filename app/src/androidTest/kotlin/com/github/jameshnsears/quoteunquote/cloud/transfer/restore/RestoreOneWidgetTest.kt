@@ -98,13 +98,6 @@ class RestoreOneWidgetTest : TransferRestoreUtility() {
                 backupTransfer.settings[0].quotations,
                 backupTransfer.settings[1].quotations,
             )
-
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
-                assertNotEquals(
-                    backupTransfer.settings[0].schedule,
-                    backupTransfer.settings[1].schedule,
-                )
-            }
         }
     }
 }
