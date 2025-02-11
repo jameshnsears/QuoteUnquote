@@ -1,0 +1,2 @@
+- Fix fastlane changelog formatting
+- Bump dependencies

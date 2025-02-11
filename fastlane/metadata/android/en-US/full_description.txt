@@ -6,6 +6,6 @@ Improve yourself with this easy to use app widget
 &bull; Highly customisable
 &bull; Navigate through what you want, how you want
 &bull; Import affirmations
-&bull; Notification channels and actions
+&bull; Notifications
 &bull; Backup and Restore, locally or remote
 &bull; User feedback drives development
