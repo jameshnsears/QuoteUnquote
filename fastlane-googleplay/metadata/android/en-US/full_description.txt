@@ -1,4 +1,4 @@
-Improve yourself with this easy to use app widget
+Improve yourself with this easy-to-use app widget, that includes the following features:
 
 &bull; Free; no Ads; minimal analytics
 &bull; High quality, curated, quotations
@@ -9,4 +9,5 @@ Improve yourself with this easy to use app widget
 &bull; Import affirmations
 &bull; Notifications
 &bull; Backup and Restore, locally or remote
-&bull; Open source - user feedback drives development
+
+&bull; Open Source - user feedback, that drives development, is most appreciated

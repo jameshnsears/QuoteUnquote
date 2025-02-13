@@ -1,4 +1,4 @@
-Improve yourself with this easy to use app widget
+Improve yourself with this easy-to-use app widget, that includes the following features:
 
 &bull; High quality, curated, quotations
 &bull; Single tap to Wikipedia Source article
@@ -8,4 +8,5 @@ Improve yourself with this easy to use app widget
 &bull; Import affirmations
 &bull; Notifications
 &bull; Backup and Restore, locally or remote
-&bull; User feedback drives development
+
+&bull; User feedback, that drives development, is most appreciated
