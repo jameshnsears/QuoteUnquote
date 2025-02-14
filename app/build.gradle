@@ -249,7 +249,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
     implementation 'androidx.core:core-ktx'
     implementation 'androidx.core:core-ktx:1.15.0'
-    implementation 'androidx.databinding:databinding-runtime:8.8.0'
+    implementation 'androidx.databinding:databinding-runtime:8.8.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.room:room-guava:2.6.1'
