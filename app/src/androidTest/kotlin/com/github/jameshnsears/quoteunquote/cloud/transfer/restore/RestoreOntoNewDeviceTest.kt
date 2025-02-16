@@ -13,7 +13,7 @@ class RestoreOntoNewDeviceTest : TransferRestoreUtility() {
             markDefaultQuotationAsFavourite()
 
             // restore
-            val restoreTransfer = getTransferAsset("restore_issue_405.json")
+            val restoreTransfer = getTransferAsset("405/restore_issue_405.json")
             assertEquals(6, restoreTransfer.current.size)
             assertEquals(242, restoreTransfer.favourites.size)
             assertEquals(5616, restoreTransfer.previous.size)
