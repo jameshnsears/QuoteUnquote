@@ -1,11 +1,12 @@
-Improve yourself with this easy to use app widget
+Improve yourself with this easy-to-use app widget that includes the following features:
 
-&bull; High quality, curated, quotations
-&bull; Single tap to Wikipedia Source article
-&bull; Core functionality works offline
-&bull; Highly customisable
-&bull; Navigate through what you want, how you want
-&bull; Import affirmations
-&bull; Notifications
-&bull; Backup and Restore, locally or remote
-&bull; User feedback drives development
+high-quality curated quotations
+single tap to Wikipedia source article
+core functionality works offline
+extensive customization
+simple navigation
+affirmation import feature
+notifications
+backup/restore locally or remote
+
+User feedback, that drives development, is most appreciated.
