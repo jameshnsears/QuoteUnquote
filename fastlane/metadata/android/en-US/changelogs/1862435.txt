@@ -1,0 +1,2 @@
+- Improve fastlane descriptions
+- Bump dependencies and IDE: Android Studio Ladybug Feature Drop | 2024.2.2 Patch 1

@@ -13,14 +13,17 @@
       </SelectionState>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2024-11-11T15:34:15.659590065Z">
+        <DropdownSelection timestamp="2025-02-25T14:38:41.574208593Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="LocalEmulator" identifier="path=/home/jsears/.android/avd/Pixel_7a_API_35.avd" />
+              <DeviceId pluginId="LocalEmulator" identifier="path=/home/jsears/.android/avd/Pixel_7a_API_30.avd" />
             </handle>
           </Target>
         </DropdownSelection>
         <DialogSelection />
+      </SelectionState>
+      <SelectionState runConfigName="GIT_REPOS.quoteunquote.app">
+        <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
   </component>
