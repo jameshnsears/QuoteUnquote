@@ -47,9 +47,9 @@ android {
         applicationId "com.github.jameshnsears.quoteunquote"
 
         // changelog version | min sdk | target sdk
-        versionCode 1862435
+        versionCode 1872435
         // semantic versioning
-        versionName "4.49.0"
+        versionName "4.50.0"
 
         vectorDrawables.useSupportLibrary = true
 
