@@ -19,7 +19,7 @@ buildscript {
         classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.21'
 
         // 6.0.1.5171 is incompatible with AGP: Unable to load class 'org.bouncycastle.asn1.edec.EdECObjectIdentifiers'
-        classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:5.1.0.4882'
+        classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:6.1.0.5360'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
