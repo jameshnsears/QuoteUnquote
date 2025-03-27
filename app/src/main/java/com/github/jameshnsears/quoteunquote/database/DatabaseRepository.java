@@ -2,6 +2,7 @@ package com.github.jameshnsears.quoteunquote.database;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.database.sqlite.SQLiteConstraintException;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -1020,7 +1021,11 @@ public class DatabaseRepository {
     }
 
     public void insertQuotationExternal(QuotationEntity quotationEntity) {
-        quotationExternalDAO.insertQuotation(quotationEntity);
+        try {
+            quotationExternalDAO.insertQuotation(quotationEntity);
+        } catch (SQLiteConstraintException e) {
+            Timber.e(e.getMessage());
+        }
     }
 
     public void updateQuotationUsingDigest(String digest, String author, String quotation) {

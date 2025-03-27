@@ -47,9 +47,9 @@ android {
         applicationId "com.github.jameshnsears.quoteunquote"
 
         // changelog version | min sdk | target sdk
-        versionCode 1862435
+        versionCode 1872435
         // semantic versioning
-        versionName "4.49.0"
+        versionName "4.49.1"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -230,26 +230,26 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.6.1'
     androidTestImplementation 'androidx.test:runner:1.6.2'
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.3.0'
-    androidTestImplementation 'io.mockk:mockk-android:1.13.16'
-    androidTestImplementation 'org.jetbrains.kotlin:kotlin-test-junit:2.1.10'
+    androidTestImplementation 'io.mockk:mockk-android:1.13.17'
+    androidTestImplementation 'org.jetbrains.kotlin:kotlin-test-junit:2.1.20'
     annotationProcessor 'androidx.room:room-compiler:2.6.1'
     debugImplementation 'androidx.compose.ui:ui-tooling-preview'
     debugImplementation 'androidx.fragment:fragment-testing:1.8.6'
     debugImplementation 'androidx.test:core-ktx:1.6.1'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.14'
-    googleplayImplementation platform('com.google.firebase:firebase-bom:33.9.0')
-    implementation 'androidx.activity:activity-compose'
-    implementation 'androidx.activity:activity-ktx:1.10.0'
+    googleplayImplementation platform('com.google.firebase:firebase-bom:33.11.0')
+    implementation 'androidx.activity:activity-compose:1.10.1'
+    implementation 'androidx.activity:activity-ktx:1.10.1'
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.compose.material3:material3'
     implementation 'androidx.compose.material:material'
     implementation 'androidx.compose.ui:ui'
     implementation 'androidx.compose.ui:ui-tooling'
-    implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
-    implementation 'androidx.core:core-ktx'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
     implementation 'androidx.core:core-ktx:1.15.0'
-    implementation 'androidx.databinding:databinding-runtime:8.8.1'
+    implementation 'androidx.core:core-ktx:1.15.0'
+    implementation 'androidx.databinding:databinding-runtime:8.9.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.room:room-guava:2.6.1'
@@ -260,20 +260,21 @@ dependencies {
     implementation 'com.github.skydoves:colorpickerpreference:2.0.6'
     implementation 'com.google.android.material:material:1.12.0'
     implementation 'com.google.code.gson:gson:2.12.1'
-    implementation 'com.google.guava:guava:33.4.0-jre'
+    implementation 'com.google.guava:guava:33.4.6-jre'
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.2.0'
     implementation 'com.jakewharton.timber:timber:5.0.1'
     implementation 'com.squareup.okhttp3:okhttp:4.12.0'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
-    implementation 'net.pwall.json:json-kotlin-schema:0.55'
+    implementation 'net.pwall.json:json-kotlin-schema:0.56'
 
     // stay on 1.12.0, else on API 24: java.lang.NoClassDefFoundError: org.apache.commons.csv.CSVParser$Builder
+    //noinspection GradleDependency
     implementation 'org.apache.commons:commons-csv:1.12.0'
 
-    implementation 'org.jsoup:jsoup:1.18.3'
-    implementation platform('androidx.compose:compose-bom:2025.02.00')
+    implementation 'org.jsoup:jsoup:1.19.1'
+    implementation platform('androidx.compose:compose-bom:2025.03.01')
     implementation project(path: ':cloudLib')
     implementation project(path: ':utilsLib')
     testImplementation 'androidx.arch.core:core-testing:2.2.0'
@@ -281,9 +282,9 @@ dependencies {
     testImplementation 'androidx.test:core-ktx:1.6.1'
     testImplementation 'androidx.test.ext:junit:1.2.1'
     testImplementation 'androidx.test:rules:1.6.1'
-    testImplementation 'ch.qos.logback:logback-classic:1.5.17'
-    testImplementation 'com.google.guava:guava:33.4.0-jre'
-    testImplementation 'io.mockk:mockk:1.13.16'
+    testImplementation 'ch.qos.logback:logback-classic:1.5.18'
+    testImplementation 'com.google.guava:guava:33.4.6-jre'
+    testImplementation 'io.mockk:mockk:1.13.17'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.1'
     testImplementation 'org.robolectric:robolectric:4.14.1'

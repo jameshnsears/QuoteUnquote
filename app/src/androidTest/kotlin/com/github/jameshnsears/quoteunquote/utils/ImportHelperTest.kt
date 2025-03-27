@@ -40,6 +40,22 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
     }
 
     @Test
+    fun csvImportWithDupeLines() {
+        val inputStream: InputStream = getImportAsset("ImportWithDupeLines.csv")
+
+        val importHelper = ImportHelper()
+        val quotationEntityLinkedHashSet = importHelper.importCsv(inputStream)
+
+        assertEquals(0, databaseRepositoryDouble.countAllExternal().blockingGet())
+
+        quotationEntityLinkedHashSet.forEach { quotationEntity ->
+            databaseRepositoryDouble.insertQuotationExternal(quotationEntity)
+        }
+
+        assertEquals(3, databaseRepositoryDouble.countAllExternal().blockingGet())
+    }
+
+    @Test
     fun importCsvWithHeader() {
         val inputStream: InputStream = getImportAsset("ImportWithHeader.csv")
 

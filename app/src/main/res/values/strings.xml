@@ -80,7 +80,7 @@
 
     <string name="fragment_quotations_database_button_import">Import</string>
     <string name="fragment_quotations_database_external_instructions_1_info"></string>
-    <string name="fragment_quotations_database_external_instructions_0"><b>Source||Quotation</b> - per line in the csv file</string>
+    <string name="fragment_quotations_database_external_instructions_0"><b>Source||Quotation</b> - per line in the csv file; duplicates are ignored</string>
     <string name="fragment_quotations_database_external_instructions_1">Export from Internal Database for a UTF-8 encoded .csv example file</string>
     <string name="fragment_quotations_database_import_contents_0">Invalid - %1$s</string>
     <string name="fragment_quotations_database_import_contents_1">Invalid - line: %1$d: %2$s</string>
@@ -215,7 +215,7 @@
     <string name="fragment_archive_restore">Restore</string>
 
     <string name="fragment_archive_restore_onto_new_device">Purge old instance data</string>
-    <string name="fragment_archive_restore_onto_new_device_info">By default each backup contains history &amp; configuration for each app widget instance, keeping this is only required if you use multiple instances of the app widget on the same device</string>
+    <string name="fragment_archive_restore_onto_new_device_info">By default each backup contains history &amp; configuration for each app widget instance, keeping this \'old instance data\' is only required if you use multiple instances of the app widget on the same device</string>
 
     <string name="fragment_archive_superseded_info"></string>
     <string name="fragment_archive_superseded_1">Sync code will be superseded upon restore</string>

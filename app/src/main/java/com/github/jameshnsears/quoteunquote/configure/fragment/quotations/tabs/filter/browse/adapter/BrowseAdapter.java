@@ -17,7 +17,7 @@ import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import javax.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import timber.log.Timber;
 

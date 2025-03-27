@@ -40,8 +40,6 @@ public class NotificationsPreferences extends PreferencesFacade {
         return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(NotificationsPreferences.EVENT_TTS_SYSTEM), false);
     }
 
-    //////////////////
-
     public void setEventTtsSystem(boolean value) {
         this.preferenceHelper.setPreference(this.getPreferenceKey(NotificationsPreferences.EVENT_TTS_SYSTEM), value);
     }

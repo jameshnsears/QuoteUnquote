@@ -381,7 +381,7 @@ private fun InPlaceEditInstructions() {
 }
 
 @Preview(
-    apiLevel = 34,
+    apiLevel = 35,
     widthDp = 400,
     showBackground = true,
     uiMode = Configuration.UI_MODE_NIGHT_YES,
@@ -392,7 +392,7 @@ fun PreviewInPlaceEditDark() {
 }
 
 @Preview(
-    apiLevel = 34,
+    apiLevel = 35,
     widthDp = 400,
 )
 @Composable
