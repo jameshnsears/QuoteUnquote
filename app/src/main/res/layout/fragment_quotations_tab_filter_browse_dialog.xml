@@ -43,13 +43,4 @@
             android:paddingBottom="10dp"
             android:text="@string/fragment_quotations_selection_dialog_browse_share_and_toggle_01" />
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawablePadding="10dp"
-            android:paddingStart="4dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="10dp"
-            android:text="@string/fragment_quotations_selection_dialog_browse_share_and_toggle_02" />
-
 </LinearLayout>

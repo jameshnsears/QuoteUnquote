@@ -77,7 +77,7 @@ public class IntentFactoryHelper {
     public static PendingIntent createPendingIntentTemplate(@NonNull final Context context) {
         final Intent pendingIntent = new Intent(context, ConfigureActivity.class);
 
-        PendingIntent clickPendingIntent = null;
+        PendingIntent clickPendingIntent;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             clickPendingIntent = PendingIntent
@@ -104,7 +104,7 @@ public class IntentFactoryHelper {
         final Intent intent = createIntent(context, uniqueId);
         intent.setAction(action);
 
-        int pendingIntentFlags = 0;
+        int pendingIntentFlags;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
             pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE;
         } else {
@@ -125,7 +125,7 @@ public class IntentFactoryHelper {
         intent.setAction(action);
         intent.putExtras(bundle);
 
-        int pendingIntentFlags = 0;
+        int pendingIntentFlags;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
             pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE;
         } else {
@@ -147,7 +147,7 @@ public class IntentFactoryHelper {
         intent.setAction(action);
         intent.putExtras(bundle);
 
-        int pendingIntentFlags = 0;
+        int pendingIntentFlags;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
             pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE;
         } else {

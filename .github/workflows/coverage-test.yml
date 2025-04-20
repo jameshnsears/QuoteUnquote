@@ -20,7 +20,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        api-level: [ 24, 34 ]
+        api-level: [ 24, 35 ]
 
     steps:
       - name: clone
@@ -128,7 +128,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        api-level: [ 24, 34 ]
+        api-level: [ 24, 35 ]
 
     steps:
       - name: clone

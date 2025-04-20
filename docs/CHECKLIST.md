@@ -26,7 +26,7 @@ find . -name "*.gpg"
 
 ```text
 [ ] API level 24 emulator: get latest /sdcard/Download/Quote_Unquote_ori_portrait.png for featureGraphic.png
-[ ] API level 34, Pixel 6 get latest screenshots 
+[ ] API level 35 emulator, Medium Phone, get latest screenshots 
 ```
 
 ## General

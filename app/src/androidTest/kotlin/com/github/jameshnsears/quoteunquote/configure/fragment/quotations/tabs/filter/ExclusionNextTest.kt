@@ -143,23 +143,4 @@ class ExclusionNextTest : QuoteUnquoteModelUtility() {
             quoteUnquoteModelDouble.getNextQuotation(WidgetIdHelper.WIDGET_ID_01, false).digest,
         )
     }
-
-    @Test
-    fun confirmCurrentAfterChangingExclusion() {
-        /*
-    exclusion = a3
-    next, sequential * 7 =  q2.2/a2
-
-    exclusion = a
-    current / next (any) = q1.1/a1
-
-     exclusion = a3
-     current / next (any) = q2.2/a2
-
-    exclusion = none
-    current = q2.2/a2
-
-      next, sequential * 3 =  q3.3/a3
-         */
-    }
 }

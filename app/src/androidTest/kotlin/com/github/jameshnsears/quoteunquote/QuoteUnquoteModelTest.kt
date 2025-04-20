@@ -7,8 +7,6 @@ import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 import com.github.jameshnsears.quoteunquote.utils.ImportHelper
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotEquals
@@ -97,7 +95,7 @@ class QuoteUnquoteModelTest : QuoteUnquoteModelUtility() {
 
         assertEquals(2, quoteUnquoteModelDouble.allQuotations.size)
 
-        var secondQuotation = quoteUnquoteModelDouble.allQuotations[1]
+        val secondQuotation = quoteUnquoteModelDouble.allQuotations[1]
         assertEquals("00000001", secondQuotation.digest)
         assertEquals("external_a1", secondQuotation.author)
         assertEquals("external_q1", secondQuotation.quotation)
@@ -199,12 +197,6 @@ class QuoteUnquoteModelTest : QuoteUnquoteModelUtility() {
         quoteUnquoteModelDouble.cachedAuthorPOJOList = mutableListOf(authorPOJO)
 
         assertEquals(2, quoteUnquoteModelDouble.countAuthorQuotations("a2"))
-    }
-
-    private fun gson(): Gson {
-        val builder = GsonBuilder()
-        builder.setPrettyPrinting()
-        return builder.create()
     }
 
     @Test

@@ -141,7 +141,7 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
             String textStyle,
             boolean forceItalicRegular,
             boolean center) {
-        int layoutId = 0;
+        int layoutId;
 
         switch (textFamily) {
             case "Cursive":

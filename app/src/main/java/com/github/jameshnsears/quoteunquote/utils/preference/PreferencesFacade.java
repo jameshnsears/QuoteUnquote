@@ -50,13 +50,17 @@ public class PreferencesFacade {
         return String.format(Locale.ENGLISH, "%d:%s", this.widgetId, key);
     }
 
+    /**
+     * @noinspection SameReturnValue
+     */
     @NonNull
     public String getLastBackupTimestamp() {
-        // seeing defect in dev device - a52s - widgetId not being consistent in appWidget & Configuration!
-        // is fine on emulator though!
         return "0:ARCHIVE_GOOGLE_CLOUD_TIMESTAMP";
     }
 
+    /**
+     * @noinspection SameReturnValue
+     */
     @NonNull
     public String getLocalCode() {
         return "0:CONTENT_FAVOURITES_LOCAL_CODE";

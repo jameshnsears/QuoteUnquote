@@ -1,2 +1,0 @@
-- Fix import defect where .csv contains duplicates
-- Bump dependencies and IDE: Android Studio Meerkat | 2024.3.1

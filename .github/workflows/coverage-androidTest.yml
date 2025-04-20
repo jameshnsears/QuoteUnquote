@@ -18,11 +18,13 @@ jobs:
   fdroid:
     name: fdroid
     runs-on: ubuntu-latest
+    env:
+      ANDROID_EMULATOR_WAIT_TIME_BEFORE_KILL: 600
     timeout-minutes: 30
     strategy:
       fail-fast: true
       matrix:
-        api-level: [ 24, 34 ]
+        api-level: [ 24, 35 ]
 
     steps:
       - name: clone
@@ -131,11 +133,13 @@ jobs:
   googleplay:
     name: googleplay
     runs-on: ubuntu-latest
+    env:
+      ANDROID_EMULATOR_WAIT_TIME_BEFORE_KILL: 600
     timeout-minutes: 30
     strategy:
       fail-fast: true
       matrix:
-        api-level: [ 24, 34 ]
+        api-level: [ 24, 35 ]
 
     steps:
       - name: clone

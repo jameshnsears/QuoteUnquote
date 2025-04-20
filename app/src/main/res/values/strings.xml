@@ -54,8 +54,7 @@
 
     <string name="fragment_quotations_selection_search_no_results">No results found for Search</string>
     <string name="fragment_quotations_selection_dialog_browse_favourites">Favourites</string>
-    <string name="fragment_quotations_selection_dialog_browse_share_and_toggle_01">Tap to share</string>
-    <string name="fragment_quotations_selection_dialog_browse_share_and_toggle_02">Long tap to toggle favourite</string>
+    <string name="fragment_quotations_selection_dialog_browse_share_and_toggle_01">Tap to share; Long tap to toggle favourite</string>
 
     <string name="fragment_quotations_database">Content</string>
     <string name="fragment_quotations_database_default_internal">Internal Database</string>
@@ -182,7 +181,7 @@
     <string name="fragment_notifications_notification_permission">Please enable Notification permission in Android settings</string>
     <string name="fragment_notifications_exact_alarm_warning_info"></string>
     <string name="fragment_notifications_exact_alarm_warning">The Alarm &amp; reminders permission needs to be granted for time based events</string>
-    <string name="fragment_notifications_recurring_event">Recurring Event</string>
+    <string name="fragment_notifications_recurring_event">New Quote After</string>
     <string name="fragment_notifications_screen_unlock">Screen Unlock</string>
 
     <string name="fragment_notifications_customisable">Customisable Interval</string>
@@ -202,7 +201,7 @@
 
     <string name="fragment_notifications_time">Specific</string>
     <string name="fragment_notifications_time_textfield">time…</string>
-    <string name="fragment_notifications_time_dialog">Recurring Event Specific Time</string>
+    <string name="fragment_notifications_time_dialog">New Quote After Specific Time</string>
 
     <string name="fragment_archive_title">Sync</string>
     <string name="fragment_archive_select_cloud">Cloud</string>
@@ -246,5 +245,5 @@
     <string name="preview_description">Discover High Quality Quotations!\nImport Affirmations!</string>
     <string name="preview_quotation">Nothing matters very much and very few things matter at all.\n</string>
     <string name="preview_author"><u>Arthur Balfour\n</u></string>
-    <string name="preview_position">\u2316  1/19933\u0020</string>
+    <string name="preview_position">\u2316  1/19927\u0020</string>
 </resources>

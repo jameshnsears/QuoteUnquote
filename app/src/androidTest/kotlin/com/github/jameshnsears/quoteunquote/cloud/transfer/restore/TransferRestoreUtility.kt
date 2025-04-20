@@ -33,6 +33,7 @@ open class TransferRestoreUtility : QuoteUnquoteModelUtility() {
         )
     }
 
+    @Suppress("SameReturnValue")
     protected fun getLocalCode(): String {
         return "F9aT8HEW6d"
     }

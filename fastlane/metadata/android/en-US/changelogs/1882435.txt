@@ -1,0 +1,3 @@
+- Simplify instructions
+- Update database
+- Bump dependencies and IDE: Android Studio Meerkat | 2024.3.1 Patch 1

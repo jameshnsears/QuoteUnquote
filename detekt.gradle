@@ -9,8 +9,8 @@ detekt {
     parallel = true
 
     reports {
-        html.enabled = true
-        xml.enabled = true
-        txt.enabled = true
+        html.required = true
+        xml.required = true
+        txt.required = true
     }
 }

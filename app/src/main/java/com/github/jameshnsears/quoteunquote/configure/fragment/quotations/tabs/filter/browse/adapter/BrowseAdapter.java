@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteModel;
@@ -16,8 +17,6 @@ import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-
-import androidx.annotation.Nullable;
 
 import timber.log.Timber;
 

@@ -486,7 +486,7 @@ public class SyncFragment extends FragmentCommon {
     private String getRestoreJson(ActivityResult activityResult) throws IOException {
         ParcelFileDescriptor parcelFileDescriptor = null;
         FileInputStream fileInputStream = null;
-        String jsonString = "";
+        String jsonString;
 
         try {
             parcelFileDescriptor
