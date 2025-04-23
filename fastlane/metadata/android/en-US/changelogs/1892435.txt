@@ -1,0 +1,2 @@
+- Fix scrollbar issue in Browse dialog
+- Bump dependencies and IDE: Android Studio Meerkat | 2024.3.1 Patch 2

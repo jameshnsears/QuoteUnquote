@@ -47,9 +47,9 @@ android {
         applicationId "com.github.jameshnsears.quoteunquote"
 
         // changelog version | min sdk | target sdk
-        versionCode 1882435
+        versionCode 1892435
         // semantic versioning
-        versionName "4.50.0"
+        versionName "4.50.1"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -249,7 +249,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
     implementation 'androidx.core:core-ktx:1.16.0'
     implementation 'androidx.core:core-ktx:1.16.0'
-    implementation 'androidx.databinding:databinding-runtime:8.9.1'
+    implementation 'androidx.databinding:databinding-runtime:8.9.2'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.room:room-guava:2.7.0'

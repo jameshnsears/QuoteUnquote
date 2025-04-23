@@ -4,9 +4,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingStart="15dp"
+        android:paddingStart="12dp"
         android:paddingTop="10dp"
-        android:paddingEnd="15dp"
+        android:paddingEnd="12dp"
         android:paddingBottom="15dp"
         android:theme="@style/AppTheme">
 
@@ -16,15 +16,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/browse_favourites"
-            android:scrollbarSize="15dp"
-            android:scrollbarThumbVertical="@drawable/recyclerview_scrollbar_thumb_drawable"
-            android:scrollbarTrackVertical="@drawable/recyclerview_scrollbar_drawable"
+            android:scrollbarSize="12dp"
             android:scrollbars="vertical" />
-    <!--            app:fastScrollEnabled="true"-->
-    <!--            app:fastScrollHorizontalThumbDrawable="@drawable/thumb_drawable"-->
-    <!--            app:fastScrollHorizontalTrackDrawable="@drawable/line_drawable"-->
-    <!--            app:fastScrollVerticalThumbDrawable="@drawable/thumb_drawable"-->
-    <!--            app:fastScrollVerticalTrackDrawable="@drawable/line_drawable"-->
 
     <TextView
             android:layout_width="wrap_content"
@@ -40,7 +33,7 @@
             android:drawablePadding="10dp"
             android:paddingStart="4dp"
             android:paddingTop="5dp"
-            android:paddingBottom="10dp"
+            android:paddingBottom="8dp"
             android:text="@string/fragment_quotations_selection_dialog_browse_share_and_toggle_01" />
 
 </LinearLayout>
