@@ -232,7 +232,7 @@ dependencies {
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.3.0'
     androidTestImplementation 'io.mockk:mockk-android:1.14.0'
     androidTestImplementation 'org.jetbrains.kotlin:kotlin-test-junit:2.1.20'
-    annotationProcessor 'androidx.room:room-compiler:2.7.0'
+    annotationProcessor 'androidx.room:room-compiler:2.7.1'
     debugImplementation 'androidx.compose.ui:ui-tooling-preview'
     debugImplementation 'androidx.fragment:fragment-testing:1.8.6'
     debugImplementation 'androidx.test:core-ktx:1.6.1'
