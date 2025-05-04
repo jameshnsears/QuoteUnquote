@@ -556,22 +556,24 @@ public class SyncFragment extends FragmentCommon {
     }
 
     public void enableUI(boolean enableUI) {
-        fragmentSyncBinding.radioButtonSyncGoogleCloud.setEnabled(enableUI);
-        fragmentSyncBinding.radioButtonSyncDevice.setEnabled(enableUI);
-        fragmentSyncBinding.editTextRemoteCodeValueLayout.setEnabled(enableUI);
-        fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(enableUI);
-        enableButton(fragmentSyncBinding.buttonBackup, enableUI);
-        enableButton(fragmentSyncBinding.buttonRestore, enableUI);
-        enableButton(fragmentSyncBinding.buttonNewCode, enableUI);
+        if (fragmentSyncBinding != null) {
+            fragmentSyncBinding.radioButtonSyncGoogleCloud.setEnabled(enableUI);
+            fragmentSyncBinding.radioButtonSyncDevice.setEnabled(enableUI);
+            fragmentSyncBinding.editTextRemoteCodeValueLayout.setEnabled(enableUI);
+            fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(enableUI);
+            enableButton(fragmentSyncBinding.buttonBackup, enableUI);
+            enableButton(fragmentSyncBinding.buttonRestore, enableUI);
+            enableButton(fragmentSyncBinding.buttonNewCode, enableUI);
 
-        if (syncPreferences.getArchiveGoogleCloud()) {
-            fragmentSyncBinding.radioButtonSyncGoogleCloud.setChecked(true);
-            fragmentSyncBinding.editTextRemoteCodeValueLayout.setEnabled(true);
-            fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(true);
-        } else {
-            fragmentSyncBinding.radioButtonSyncDevice.setChecked(true);
-            fragmentSyncBinding.editTextRemoteCodeValueLayout.setEnabled(false);
-            fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(false);
+            if (syncPreferences.getArchiveGoogleCloud()) {
+                fragmentSyncBinding.radioButtonSyncGoogleCloud.setChecked(true);
+                fragmentSyncBinding.editTextRemoteCodeValueLayout.setEnabled(true);
+                fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(true);
+            } else {
+                fragmentSyncBinding.radioButtonSyncDevice.setChecked(true);
+                fragmentSyncBinding.editTextRemoteCodeValueLayout.setEnabled(false);
+                fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(false);
+            }
         }
     }
 

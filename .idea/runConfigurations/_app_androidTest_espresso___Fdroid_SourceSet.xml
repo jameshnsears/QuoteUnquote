@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name=":app.androidTest.espresso - Fdroid SourceSet" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
-    <module name="QuoteUnquote.app" />
+    <module name="quoteunquote.app" />
     <option name="ANDROID_TEST_RUN_CONFIGURATION_SCHEMA_VERSION" value="0" />
     <option name="TESTING_TYPE" value="1" />
     <option name="METHOD_NAME" value="" />

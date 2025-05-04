@@ -106,19 +106,21 @@ public class ConfigureActivity extends AppCompatActivity {
         final Intent intent = getIntent();
         final Bundle extras = intent.getExtras();
 
-        final String wikipedia = extras.getString("wikipedia");
-        if (wikipedia != null && !wikipedia.equals("?") && !wikipedia.equals("")) {
-            linkToWikipedia(wikipedia);
-        } else {
-            widgetId = extras.getInt(
-                    AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-            broadcastFinishIntent = extras.getBoolean("broadcastFinishIntent", true);
+        if (extras != null) {
+            final String wikipedia = extras.getString("wikipedia");
+            if (wikipedia != null && !wikipedia.equals("?") && !wikipedia.equals("")) {
+                linkToWikipedia(wikipedia);
+            } else {
+                widgetId = extras.getInt(
+                        AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+                broadcastFinishIntent = extras.getBoolean("broadcastFinishIntent", true);
 
-            QuoteUnquoteWidget.currentContentSelection
-                    = new QuotationsPreferences(widgetId, getApplicationContext()).getContentSelection();
+                QuoteUnquoteWidget.currentContentSelection
+                        = new QuotationsPreferences(widgetId, getApplicationContext()).getContentSelection();
 
-            QuoteUnquoteWidget.currentAuthorSelection
-                    = new QuotationsPreferences(widgetId, getApplicationContext()).getContentSelectionAuthor();
+                QuoteUnquoteWidget.currentAuthorSelection
+                        = new QuotationsPreferences(widgetId, getApplicationContext()).getContentSelectionAuthor();
+            }
         }
 
         activityConfigureBinding = ActivityConfigureBinding.inflate(this.getLayoutInflater());

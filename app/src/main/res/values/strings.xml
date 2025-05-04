@@ -61,10 +61,10 @@
     <string name="fragment_quotations_database_default_info"></string>
     <string name="fragment_quotations_database_default">Discover High Quality Quotations!</string>
 
-    <string name="fragment_quotations_database_file">External file</string>
+    <string name="fragment_quotations_database_file">External File</string>
     <string name="fragment_quotations_database_file_inplace_edit">Edit</string>
     <string name="fragment_quotations_database_file_inplace_export">Export</string>
-    <string name="fragment_quotations_database_file_csv">CSV file</string>
+    <string name="fragment_quotations_database_file_csv">CSV</string>
     <string name="fragment_quotations_database_file_csv_inplace_source">Source…</string>
     <string name="fragment_quotations_database_file_csv_inplace_quotation">Quotation…</string>
     <string name="fragment_quotations_database_file_csv_inplace_save">Save</string>
@@ -73,14 +73,14 @@
     <string name="fragment_quotations_database_file_csv_inplace_instruction_02">If no row selected, Save will insert / append based on Source order</string>
     <string name="fragment_quotations_database_file_csv_inplace_save_warning_duplicate">Unable to Save - duplicate</string>
     <string name="fragment_quotations_database_file_csv_inplace_warning_empty_database">Internal Database selected</string>
-    <string name="fragment_quotations_database_file_fortune">Fortune file</string>
-    <string name="fragment_quotations_database_file_fortune_info_01">A text file with quotations, each separated by the character % on its own line. See: https://en.m.wikipedia.org/wiki/Fortune_(Unix)</string>
+    <string name="fragment_quotations_database_file_fortune">Fortune</string>
+    <string name="fragment_quotations_database_file_fortune_info_01">A text file with quotations, each separated by the character % on its own line; see https://wikipedia.org/wiki/Fortune_(Unix)</string>
     <string name="fragment_quotations_database_file_fortune_info_02">The filename is used to populate the Source field</string>
 
     <string name="fragment_quotations_database_button_import">Import</string>
     <string name="fragment_quotations_database_external_instructions_1_info"></string>
-    <string name="fragment_quotations_database_external_instructions_0"><b>Source||Quotation</b> - per line in the csv file; duplicates are ignored</string>
-    <string name="fragment_quotations_database_external_instructions_1">Export from Internal Database for a UTF-8 encoded .csv example file</string>
+    <string name="fragment_quotations_database_external_instructions_0"><b>Source||Quotation</b> per line; duplicates will be ignored</string>
+    <string name="fragment_quotations_database_external_instructions_1">Export from Internal Database for a UTF-8 encoded example</string>
     <string name="fragment_quotations_database_import_contents_0">Invalid - %1$s</string>
     <string name="fragment_quotations_database_import_contents_1">Invalid - line: %1$d: %2$s</string>
     <string name="fragment_quotations_database_import_importing">Importing - please wait&#8230;</string>
