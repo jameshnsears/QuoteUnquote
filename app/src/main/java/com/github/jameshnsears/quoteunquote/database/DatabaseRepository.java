@@ -681,11 +681,8 @@ public class DatabaseRepository {
             }
             getAllQuotations.addAll(quotationDAO.getAllQuotations());
         } else {
-            QuotationEntity defaultQuotation = quotationExternalDAO.getQuotation(DatabaseRepository.getDefaultQuotationDigest());
-            if (defaultQuotation != null) {
-                getAllQuotations.add(defaultQuotation);
-            }
-            getAllQuotations.addAll(quotationExternalDAO.getAllQuotations());
+            // Issue 469: Sort all the external
+            getAllQuotations.addAll(quotationExternalDAO.getAllQuotationsIncludingDefault());
         }
 
         return getAllQuotations;

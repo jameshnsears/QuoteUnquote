@@ -1,1 +1,2 @@
+- Improve External File editing: https://github.com/jameshnsears/QuoteUnquote/issues/469
 - Bump dependencies and IDE: Android Studio Meerkat Feature Drop | 2024.3.2

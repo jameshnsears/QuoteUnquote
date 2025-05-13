@@ -13,6 +13,9 @@ public interface QuotationDAO {
     @Query("SELECT AUTHOR, QUOTATION, WIKIPEDIA, DIGEST FROM QUOTATIONS WHERE digest NOT IN ('00000000', '1624c314') ORDER BY AUTHOR ASC")
     List<QuotationEntity> getAllQuotations();
 
+    @Query("SELECT AUTHOR, QUOTATION, WIKIPEDIA, DIGEST FROM QUOTATIONS ORDER BY AUTHOR, QUOTATION ASC")
+    List<QuotationEntity> getAllQuotationsIncludingDefault();
+
     @Insert
     void insertQuotation(QuotationEntity quotationEntity);
 
