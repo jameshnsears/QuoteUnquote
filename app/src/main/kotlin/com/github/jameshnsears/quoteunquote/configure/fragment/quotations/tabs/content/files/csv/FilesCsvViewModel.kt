@@ -86,10 +86,9 @@ class FilesCsvViewModel(
 
     fun updateSelectedIndex() {
         for ((index, quotationEntity) in _list.value.withIndex()) {
-            if (quotationEntity.quotation.equals(_quotation.value)
-                &&
-                quotationEntity.author.equals(_author.value)) {
-
+            if (quotationEntity.quotation.equals(_quotation.value) &&
+                quotationEntity.author.equals(_author.value)
+            ) {
                 setSelectedItemIndex(index)
                 break
             }

@@ -32,7 +32,7 @@ class FilesCsvViewModelTest : QuoteUnquoteModelUtility() {
 
         val filesCsvViewModel = FilesCsvViewModel(
             1,
-            quoteUnquoteModelDouble
+            quoteUnquoteModelDouble,
         )
 
         /*
@@ -43,12 +43,12 @@ class FilesCsvViewModelTest : QuoteUnquoteModelUtility() {
         B||The Default Quotation
          */
         val quotationEntity =
-            quoteUnquoteModelDouble.allQuotations[2]  // as sorted by db: B||B1
+            quoteUnquoteModelDouble.allQuotations[2] // as sorted by db: B||B1
 
         filesCsvViewModel.populateTextFields(
             quotationEntity.digest,
             quotationEntity.author,
-            quotationEntity.quotation
+            quotationEntity.quotation,
         )
         filesCsvViewModel.setSelectedItemIndex(2)
 
@@ -56,7 +56,7 @@ class FilesCsvViewModelTest : QuoteUnquoteModelUtility() {
         filesCsvViewModel.populateTextFields(
             quotationEntity.digest,
             "Z",
-            quotationEntity.quotation
+            quotationEntity.quotation,
         )
         filesCsvViewModel.buttonSavePressed()
 

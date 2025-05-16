@@ -313,51 +313,53 @@
     </issue>
 
     <issue errorLine1="        &lt;ImageView" errorLine2="         ~~~~~~~~~"
-            id="ContentDescription"
-            message="Missing `contentDescription` attribute on image">
+            id="ContentDescription" message="Missing `contentDescription` attribute on image">
         <location column="10"
-                file="src/main/res/layout/fragment_quotations_tab_database_tab_files_csv_edit.xml" line="15" />
+                file="src/main/res/layout/fragment_quotations_tab_database_tab_files_csv_edit.xml"
+                line="15" />
     </issue>
 
     <issue errorLine1="            final SimpleDateFormat sdf = new SimpleDateFormat(&quot;YYYY-MM-dd HH:mm.ss&quot;, Locale.getDefault());"
             errorLine2="                                                              ~~~~"
             id="WeekBasedYear"
             message="`DateFormat` character &apos;Y&apos; in YYYY is the week-era-year; did you mean &apos;y&apos;?">
-        <location
-                column="63"
-                file="src/main/java/com/github/jameshnsears/quoteunquote/utils/sync/AutoCloudBackupAlarm.java" line="40" />
+        <location column="63"
+                file="src/main/java/com/github/jameshnsears/quoteunquote/utils/sync/AutoCloudBackupAlarm.java"
+                line="40" />
     </issue>
 
-    <issue errorLine1="                android:text=&quot;1&quot;" errorLine2="                ~~~~~~~~~~~~~~~~"
-            id="HardcodedText"
+    <issue errorLine1="                android:text=&quot;1&quot;"
+            errorLine2="                ~~~~~~~~~~~~~~~~" id="HardcodedText"
             message="Hardcoded string &quot;1&quot;, should use `@string` resource">
         <location column="17" file="src/main/res/layout/recyclerview_row.xml" line="28" />
     </issue>
 
-    <issue errorLine1="                android:text=&quot;Quotation&quot;" errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~"
-            id="HardcodedText"
+    <issue errorLine1="                android:text=&quot;Quotation&quot;"
+            errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~" id="HardcodedText"
             message="Hardcoded string &quot;Quotation&quot;, should use `@string` resource">
         <location column="17" file="src/main/res/layout/recyclerview_row.xml" line="60" />
     </issue>
 
-    <issue errorLine1="                android:text=&quot;Source&quot;" errorLine2="                ~~~~~~~~~~~~~~~~~~~~~"
-            id="HardcodedText"
+    <issue errorLine1="                android:text=&quot;Source&quot;"
+            errorLine2="                ~~~~~~~~~~~~~~~~~~~~~" id="HardcodedText"
             message="Hardcoded string &quot;Source&quot;, should use `@string` resource">
         <location column="17" file="src/main/res/layout/recyclerview_row.xml" line="74" />
     </issue>
 
-    <issue errorLine1="                    android:paddingStart=&quot;4dp&quot;" errorLine2="                    ~~~~~~~~~~~~~~~~~~~~"
-            id="RtlSymmetry"
+    <issue errorLine1="                    android:paddingStart=&quot;4dp&quot;"
+            errorLine2="                    ~~~~~~~~~~~~~~~~~~~~" id="RtlSymmetry"
             message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
         <location column="21"
-                file="src/main/res/layout/fragment_quotations_tab_database_tab_files.xml" line="79" />
+                file="src/main/res/layout/fragment_quotations_tab_database_tab_files.xml"
+                line="79" />
     </issue>
 
-    <issue errorLine1="            android:paddingStart=&quot;4dp&quot;" errorLine2="            ~~~~~~~~~~~~~~~~~~~~"
-            id="RtlSymmetry"
+    <issue errorLine1="            android:paddingStart=&quot;4dp&quot;"
+            errorLine2="            ~~~~~~~~~~~~~~~~~~~~" id="RtlSymmetry"
             message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
         <location column="13"
-                file="src/main/res/layout/fragment_quotations_tab_filter_browse_dialog.xml" line="41" />
+                file="src/main/res/layout/fragment_quotations_tab_filter_browse_dialog.xml"
+                line="41" />
     </issue>
 
 </issues>
