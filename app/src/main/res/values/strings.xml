@@ -214,7 +214,7 @@
     <string name="fragment_archive_restore">Restore</string>
 
     <string name="fragment_archive_restore_onto_new_device">Purge old instance data</string>
-    <string name="fragment_archive_restore_onto_new_device_info">By default each backup contains history &amp; configuration for each app widget instance, keeping this \'old instance data\' is only required if you use multiple instances of the app widget on the same device</string>
+    <string name="fragment_archive_restore_onto_new_device_info">Keeping \'old instance data\' is only required if you use multiple instances of the app widget on the same device</string>
 
     <string name="fragment_archive_superseded_info"></string>
     <string name="fragment_archive_superseded_1">Sync code will be superseded upon restore</string>
