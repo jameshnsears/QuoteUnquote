@@ -282,12 +282,6 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
         }
     }
 
-    private fun getImportAsset(filename: String) =
-        InstrumentationRegistry.getInstrumentation().context.resources.assets
-            .open(
-                filename,
-            )
-
     @Test
     fun makeDigest() {
         // confirm same as from python
