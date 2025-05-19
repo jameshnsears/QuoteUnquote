@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 
+import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -98,6 +99,7 @@ public class ConfigureActivity extends AppCompatActivity {
     @Override
     public void onCreate(@Nullable final Bundle bundle) {
         Timber.d("onCreate");
+        EdgeToEdge.enable(this);
         super.onCreate(bundle);
         init();
     }

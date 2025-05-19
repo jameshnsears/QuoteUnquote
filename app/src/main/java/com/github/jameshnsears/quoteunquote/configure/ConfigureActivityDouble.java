@@ -2,6 +2,7 @@ package com.github.jameshnsears.quoteunquote.configure;
 
 import android.os.Bundle;
 
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 
 import com.github.jameshnsears.quoteunquote.R;
@@ -17,6 +18,7 @@ public class ConfigureActivityDouble extends ConfigureActivity {
     @Override
     public void onCreate(@Nullable final Bundle bundle) {
         Timber.d("onCreate");
+        EdgeToEdge.enable(this);
         super.onCreate(bundle);
 
         widgetId = 1;

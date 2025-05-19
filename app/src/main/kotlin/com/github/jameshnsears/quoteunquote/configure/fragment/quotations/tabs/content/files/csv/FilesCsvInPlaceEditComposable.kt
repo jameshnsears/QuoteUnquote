@@ -93,7 +93,7 @@ fun InPlaceEditList(
     Row(
         modifier = Modifier
             .height(320.dp)
-            .padding(top = 4.dp, bottom = 14.dp),
+            .padding(bottom = 14.dp),
     ) {
         LazyColumn {
             itemsIndexed(list) { index, quotation ->
@@ -101,7 +101,8 @@ fun InPlaceEditList(
 
                 LazyRow(
                     modifier = Modifier
-                        .padding(6.dp)
+                        .padding(top = 3.dp)
+                        .padding(3.dp)
                         .clickable {
                             Timber.d(quotation.digest)
 
@@ -129,26 +130,32 @@ fun InPlaceEditList(
                         ),
                 ) {
                     item {
-                        Text(
-                            modifier = Modifier.padding(6.dp),
-                            text = (1 + index).toString(),
-                            color = if (isDarkTheme) Color.White else Color.Black,
-                            fontSize = 14.sp,
-                        )
+                        Column {
+                            Row {
+                                Text(
+                                    modifier = Modifier.padding(3.dp),
+                                    text = (1 + index).toString(),
+                                    color = if (isDarkTheme) Color.White else Color.Black,
+                                    fontSize = 14.sp,
+                                )
 
-                        Text(
-                            modifier = Modifier.padding(6.dp),
-                            text = quotation.author,
-                            color = if (isDarkTheme) Color.White else Color.Black,
-                            fontSize = 14.sp,
-                        )
+                                Text(
+                                    modifier = Modifier
+                                        .padding(start = 3.dp)
+                                        .padding(3.dp),
+                                    text = quotation.quotation,
+                                    color = if (isDarkTheme) Color.White else Color.Black,
+                                    fontSize = 14.sp,
+                                )
+                            }
 
-                        Text(
-                            modifier = Modifier.padding(6.dp),
-                            text = quotation.quotation,
-                            color = if (isDarkTheme) Color.White else Color.Black,
-                            fontSize = 14.sp,
-                        )
+                            Text(
+                                modifier = Modifier.padding(start = 3.dp, top = 3.dp),
+                                text = quotation.author,
+                                color = if (isDarkTheme) Color.White else Color.Black,
+                                fontSize = 14.sp,
+                            )
+                        }
                     }
                 }
             }
@@ -186,43 +193,6 @@ private fun InPlaceEditTextSourceQuotationFields(
         Column(modifier = Modifier.fillMaxHeight()) {
             OutlinedTextField(
                 colors = textFieldColors,
-                value = textFieldAuthor,
-                onValueChange = { newTextFieldAuthor ->
-                    filesCsvViewModel.populateTextFields(
-                        digest,
-                        newTextFieldAuthor,
-                        textFieldQuotation,
-                    )
-                },
-                label = {
-                    Text(
-                        text = stringResource(R.string.fragment_quotations_database_file_csv_inplace_source),
-                    )
-                },
-                singleLine = true,
-                modifier = Modifier
-                    .testTag("InPlaceEditTextFields.Source")
-                    .fillMaxWidth()
-                    .height(75.dp)
-                    .padding(top = 8.dp, bottom = 8.dp),
-                trailingIcon = {
-                    if (textFieldAuthor.isNotEmpty()) {
-                        IconButton(onClick = {
-                            filesCsvViewModel.populateTextFields(
-                                quotation = textFieldQuotation,
-                            )
-                        }) {
-                            Icon(
-                                painterResource(id = R.drawable.cancel_fill0_wght400_grad0_opsz24),
-                                contentDescription = "",
-                            )
-                        }
-                    }
-                },
-            )
-
-            OutlinedTextField(
-                colors = textFieldColors,
                 value = textFieldQuotation,
                 onValueChange = { newTextFieldQuotation ->
                     filesCsvViewModel.populateTextFields(
@@ -248,6 +218,43 @@ private fun InPlaceEditTextSourceQuotationFields(
                         IconButton(onClick = {
                             filesCsvViewModel.populateTextFields(
                                 author = textFieldAuthor,
+                            )
+                        }) {
+                            Icon(
+                                painterResource(id = R.drawable.cancel_fill0_wght400_grad0_opsz24),
+                                contentDescription = "",
+                            )
+                        }
+                    }
+                },
+            )
+
+            OutlinedTextField(
+                colors = textFieldColors,
+                value = textFieldAuthor,
+                onValueChange = { newTextFieldAuthor ->
+                    filesCsvViewModel.populateTextFields(
+                        digest,
+                        newTextFieldAuthor,
+                        textFieldQuotation,
+                    )
+                },
+                label = {
+                    Text(
+                        text = stringResource(R.string.fragment_quotations_database_file_csv_inplace_source),
+                    )
+                },
+                singleLine = true,
+                modifier = Modifier
+                    .testTag("InPlaceEditTextFields.Source")
+                    .fillMaxWidth()
+                    .height(75.dp)
+                    .padding(top = 8.dp, bottom = 8.dp),
+                trailingIcon = {
+                    if (textFieldAuthor.isNotEmpty()) {
+                        IconButton(onClick = {
+                            filesCsvViewModel.populateTextFields(
+                                quotation = textFieldQuotation,
                             )
                         }) {
                             Icon(

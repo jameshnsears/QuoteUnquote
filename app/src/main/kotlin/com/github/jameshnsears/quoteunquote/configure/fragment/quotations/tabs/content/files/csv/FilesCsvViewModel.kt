@@ -43,6 +43,8 @@ class FilesCsvViewModel(
         _selectedItemIndex.value = selectedItemIndex
     }
 
+    fun getSelectedIndex() = _selectedItemIndex.value
+
     fun buttonSavePressed(): Int {
         Timber.d("save")
 
@@ -60,6 +62,8 @@ class FilesCsvViewModel(
                     _list.value = quoteUnquoteModel.allQuotations
                 }
 
+                updateSelectedIndex()
+
                 saveResponse = 1
             } else {
                 viewModelScope.launch {
@@ -69,6 +73,8 @@ class FilesCsvViewModel(
                         _quotation.value,
                     )
                     _list.value = quoteUnquoteModel.allQuotations
+
+                    updateSelectedIndex()
                 }
 
                 saveResponse = 0
@@ -76,6 +82,17 @@ class FilesCsvViewModel(
         }
 
         return saveResponse
+    }
+
+    fun updateSelectedIndex() {
+        for ((index, quotationEntity) in _list.value.withIndex()) {
+            if (quotationEntity.quotation.equals(_quotation.value) &&
+                quotationEntity.author.equals(_author.value)
+            ) {
+                setSelectedItemIndex(index)
+                break
+            }
+        }
     }
 
     private fun isDuplicate(): Boolean {

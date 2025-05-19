@@ -1,3 +1,0 @@
-- Fix Crashalytics issues
-- Tidy up instructions
-- Bump dependencies

@@ -49,3 +49,4 @@ release-github-notes.md
 /app/fdroid/debug/output-metadata.json
 /app/keystore.readme
 /.kotlin/sessions/kotlin-compiler-11314601721098684748.salive
+/.idea/dbnavigator.xml

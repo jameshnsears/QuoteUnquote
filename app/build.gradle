@@ -47,9 +47,9 @@ android {
         applicationId "com.github.jameshnsears.quoteunquote"
 
         // changelog version | min sdk | target sdk
-        versionCode 1902435
+        versionCode 1912435
         // semantic versioning
-        versionName "4.50.2"
+        versionName "4.51.0"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -221,7 +221,7 @@ android {
 
 dependencies {
     androidTestImplementation 'androidx.arch.core:core-testing:2.2.0'
-    androidTestImplementation 'androidx.compose.ui:ui-test-junit4-android:1.8.0'
+    androidTestImplementation 'androidx.compose.ui:ui-test-junit4-android:1.8.1'
     androidTestImplementation 'androidx.room:room-testing:2.7.1'
     androidTestImplementation 'androidx.test:core:1.6.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
@@ -231,7 +231,7 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.6.2'
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.3.0'
     androidTestImplementation 'io.mockk:mockk-android:1.14.2'
-    androidTestImplementation 'org.jetbrains.kotlin:kotlin-test-junit:2.1.20'
+    androidTestImplementation 'org.jetbrains.kotlin:kotlin-test-junit:2.1.21'
     annotationProcessor 'androidx.room:room-compiler:2.7.1'
     debugImplementation 'androidx.compose.ui:ui-tooling-preview'
     debugImplementation 'androidx.fragment:fragment-testing:1.8.6'
@@ -249,7 +249,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
     implementation 'androidx.core:core-ktx:1.16.0'
     implementation 'androidx.core:core-ktx:1.16.0'
-    implementation 'androidx.databinding:databinding-runtime:8.9.2'
+    implementation 'androidx.databinding:databinding-runtime:8.10.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.room:room-guava:2.7.1'
@@ -263,6 +263,7 @@ dependencies {
     implementation 'com.google.guava:guava:33.4.8-jre'
     implementation 'com.jakewharton.rxbinding2:rxbinding:2.2.0'
     implementation 'com.jakewharton.timber:timber:5.0.1'
+    implementation "org.jetbrains.kotlin:kotlin-test:2.1.21"
     implementation 'com.squareup.okhttp3:okhttp:4.12.0'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
@@ -274,7 +275,7 @@ dependencies {
     implementation 'org.apache.commons:commons-csv:1.12.0'
 
     implementation 'org.jsoup:jsoup:1.20.1'
-    implementation platform('androidx.compose:compose-bom:2025.04.01')
+    implementation platform('androidx.compose:compose-bom:2025.05.00')
     implementation project(path: ':cloudLib')
     implementation project(path: ':utilsLib')
     testImplementation 'androidx.arch.core:core-testing:2.2.0'

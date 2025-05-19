@@ -11,6 +11,7 @@
     <ID>FunctionNaming:FilesCsvInPlaceEditComposable.kt$@Preview( apiLevel = 35, widthDp = 400, ) @Composable fun PreviewInPlaceEditLight()</ID>
     <ID>FunctionNaming:FilesCsvInPlaceEditComposable.kt$@Preview( apiLevel = 35, widthDp = 400, showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, ) @Composable fun PreviewInPlaceEditDark()</ID>
     <ID>LongMethod:ContentFilesFragment.kt$ContentFilesFragment$private fun import( activityResult: ActivityResult, isCsvFile: Boolean, )</ID>
+    <ID>LongMethod:FilesCsvInPlaceEditComposable.kt$@Composable fun InPlaceEditList( filesCsvViewModel: FilesCsvViewModel, )</ID>
     <ID>LongMethod:FilesCsvInPlaceEditComposable.kt$@Composable private fun InPlaceEditTextSourceQuotationFields( filesCsvViewModel: FilesCsvViewModel, )</ID>
     <ID>MagicNumber:AutoCloudBackup.kt$AutoCloudBackup$60_000L</ID>
     <ID>MagicNumber:FilesCsvInPlaceEditComposable.kt$0xffcac4d0</ID>

@@ -14,7 +14,8 @@
     <string name="activity_instructions_configure_3">\u2022&#160;&#160;Tap an <u>underlined</u> Source for Wikipedia entry</string>
     <string name="activity_instructions_configure_4">\u2022&#160;&#160;The \u2316 icon, next to the Quotation position count, denotes last previous Quotation</string>
     <string name="activity_instructions_configure_5">\u2022&#160;&#160;Only Web import &amp; Cloud sync require an Internet connection</string>
-    <string name="activity_instructions_os_warning">\u2022&#160;&#160;Revisit the Notifications page to reinitialise notifications after device restart</string>
+    <string name="activity_instructions_configure_6">\u2022&#160;&#160;Revisit the Notifications page to reinitialise notifications after device restart</string>
+    <string name="activity_instructions_os_warning">\u2022&#160;&#160;Some Android ROM\’s have aggressive memory management, please configure your device accordingly</string>
     <string name="activity_instructions_resize">Resizing</string>
     <string name="activity_instructions_resize_instruction_1">\u2022&#160;&#160;Touch and hold the widget on home screen</string>
     <string name="activity_instructions_resize_instruction_2">\u2022&#160;&#160;Lift your finger. You\’ll find an outline with dots on the sides</string>
@@ -70,7 +71,7 @@
     <string name="fragment_quotations_database_file_csv_inplace_save">Save</string>
     <string name="fragment_quotations_database_file_csv_inplace_delete">Delete</string>
     <string name="fragment_quotations_database_file_csv_inplace_instruction_01">Tap row text to select / deselect</string>
-    <string name="fragment_quotations_database_file_csv_inplace_instruction_02">If no row selected, Save will insert / append based on Source order</string>
+    <string name="fragment_quotations_database_file_csv_inplace_instruction_02">If no row selected, Save will insert / append based on Source, Quotation order</string>
     <string name="fragment_quotations_database_file_csv_inplace_save_warning_duplicate">Unable to Save - duplicate</string>
     <string name="fragment_quotations_database_file_csv_inplace_warning_empty_database">Internal Database selected</string>
     <string name="fragment_quotations_database_file_fortune">Fortune</string>
@@ -214,7 +215,7 @@
     <string name="fragment_archive_restore">Restore</string>
 
     <string name="fragment_archive_restore_onto_new_device">Purge old instance data</string>
-    <string name="fragment_archive_restore_onto_new_device_info">By default each backup contains history &amp; configuration for each app widget instance, keeping this \'old instance data\' is only required if you use multiple instances of the app widget on the same device</string>
+    <string name="fragment_archive_restore_onto_new_device_info">Keeping \'old instance data\' is only required if you use multiple instances of the app widget on the same device</string>
 
     <string name="fragment_archive_superseded_info"></string>
     <string name="fragment_archive_superseded_1">Sync code will be superseded upon restore</string>

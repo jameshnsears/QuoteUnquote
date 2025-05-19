@@ -1,0 +1,4 @@
+- Improve External File editing: ordering and selection
+- Add EdgeToEdge support
+- Improve instructions
+- Bump dependencies and IDE: Android Studio Meerkat Feature Drop | 2024.3.2

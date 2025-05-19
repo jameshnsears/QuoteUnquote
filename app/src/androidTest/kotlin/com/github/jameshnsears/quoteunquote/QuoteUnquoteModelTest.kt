@@ -71,8 +71,7 @@ class QuoteUnquoteModelTest : QuoteUnquoteModelUtility() {
     fun update() {
         insertExternalQuotations()
 
-        var secondQuotation = quoteUnquoteModelDouble.allQuotations[1]
-        assertEquals("00000001", secondQuotation.digest)
+        var secondQuotation = quoteUnquoteModelDouble.getQuotation("00000001")
         assertEquals("external_a1", secondQuotation.author)
         assertEquals("external_q1", secondQuotation.quotation)
 
@@ -83,8 +82,7 @@ class QuoteUnquoteModelTest : QuoteUnquoteModelUtility() {
             "qq",
         )
 
-        secondQuotation = quoteUnquoteModelDouble.allQuotations[1]
-        assertEquals("00000001", secondQuotation.digest)
+        secondQuotation = quoteUnquoteModelDouble.getQuotation("00000001")
         assertEquals("aa", secondQuotation.author)
         assertEquals("qq", secondQuotation.quotation)
     }
