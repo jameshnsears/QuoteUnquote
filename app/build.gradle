@@ -275,7 +275,7 @@ dependencies {
     implementation 'org.apache.commons:commons-csv:1.12.0'
 
     implementation 'org.jsoup:jsoup:1.20.1'
-    implementation platform('androidx.compose:compose-bom:2025.05.00')
+    implementation platform('androidx.compose:compose-bom:2025.05.01')
     implementation project(path: ':cloudLib')
     implementation project(path: ':utilsLib')
     testImplementation 'androidx.arch.core:core-testing:2.2.0'
