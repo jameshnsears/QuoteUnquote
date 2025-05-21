@@ -234,7 +234,7 @@ dependencies {
     androidTestImplementation 'org.jetbrains.kotlin:kotlin-test-junit:2.1.21'
     annotationProcessor 'androidx.room:room-compiler:2.7.1'
     debugImplementation 'androidx.compose.ui:ui-tooling-preview'
-    debugImplementation 'androidx.fragment:fragment-testing:1.8.6'
+    debugImplementation 'androidx.fragment:fragment-testing:1.8.7'
     debugImplementation 'androidx.test:core-ktx:1.6.1'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.14'
     googleplayImplementation platform('com.google.firebase:firebase-bom:33.13.0')
