@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
@@ -13,6 +15,11 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.OnApplyWindowInsetsListener;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteWidget;
@@ -99,7 +106,6 @@ public class ConfigureActivity extends AppCompatActivity {
     @Override
     public void onCreate(@Nullable final Bundle bundle) {
         Timber.d("onCreate");
-        EdgeToEdge.enable(this);
         super.onCreate(bundle);
         init();
     }
@@ -126,7 +132,25 @@ public class ConfigureActivity extends AppCompatActivity {
         }
 
         activityConfigureBinding = ActivityConfigureBinding.inflate(this.getLayoutInflater());
+
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+
         setContentView(activityConfigureBinding.getRoot());
+
+        ViewCompat.setOnApplyWindowInsetsListener(
+                activityConfigureBinding.getRoot(), new OnApplyWindowInsetsListener() {
+            @Override
+            public WindowInsetsCompat onApplyWindowInsets(View view, WindowInsetsCompat insets) {
+                Insets sysBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
+                    view.setPadding(sysBars.left, 0, sysBars.right, sysBars.bottom);
+                } else {
+                    view.setPadding(sysBars.left, sysBars.top, sysBars.right, sysBars.bottom);
+                }
+                return WindowInsetsCompat.CONSUMED;
+            }
+        });
 
         createListenerBottomNavigationView();
 

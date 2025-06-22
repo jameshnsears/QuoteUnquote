@@ -168,6 +168,9 @@
     <string name="fragment_appearance_toolbar_next_random">Next, random</string>
     <string name="fragment_appearance_toolbar_next_random_action">Next, random</string>
     <string name="fragment_appearance_toolbar_next_info">Sequence recycles at end</string>
+    <string name="fragment_appearance_toolbar_position">Position</string>
+    <string name="fragment_appearance_toolbar_position_bottom">Bottom</string>
+    <string name="fragment_appearance_toolbar_position_rhs">Right-hand side"</string>
 
     <string name="fragment_notifications_title">Notifications</string>
     <string name="fragment_notifications_where">Display</string>
@@ -246,5 +249,5 @@
     <string name="preview_description">Discover High Quality Quotations!\nImport Affirmations!</string>
     <string name="preview_quotation">Nothing matters very much and very few things matter at all.\n</string>
     <string name="preview_author"><u>Arthur Balfour\n</u></string>
-    <string name="preview_position">\u2316  1/19927\u0020</string>
+    <string name="preview_position">\u2316  1/19903\u0020</string>
 </resources>

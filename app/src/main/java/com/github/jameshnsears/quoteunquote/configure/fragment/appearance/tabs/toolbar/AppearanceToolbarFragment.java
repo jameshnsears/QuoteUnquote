@@ -79,9 +79,11 @@ public class AppearanceToolbarFragment extends FragmentCommon {
         createListenerToolbarJump();
         createListenerToolbarNextRandom();
         createListenerToolbarNextSequential();
+        createListenerPosition();
 
         setToolbarColour();
         setToolbar();
+        setPosition();
     }
 
     public void setToolbar() {
@@ -181,6 +183,24 @@ public class AppearanceToolbarFragment extends FragmentCommon {
         fragmentAppearanceTabToolbarBinding.toolbarSwitchNextSequential.setOnCheckedChangeListener((buttonView, isChecked) ->
                 appearancePreferences.setAppearanceToolbarSequential(isChecked)
         );
+    }
+
+    private void createListenerPosition() {
+        fragmentAppearanceTabToolbarBinding.toolbarPosition.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked == R.id.radioButtonBottom) {
+                appearancePreferences.setAppearanceToolbarPosition(0);
+            } else {
+                appearancePreferences.setAppearanceToolbarPosition(1);
+            }
+        });
+    }
+
+    public void setPosition() {
+        if (appearancePreferences.getAppearanceToolbarPosition() == 0) {
+            fragmentAppearanceTabToolbarBinding.toolbarPosition.check(R.id.radioButtonBottom);
+        } else {
+            fragmentAppearanceTabToolbarBinding.toolbarPosition.check(R.id.radioButtonRightHandSide);
+        }
     }
 
     public void setToolbarColour() {

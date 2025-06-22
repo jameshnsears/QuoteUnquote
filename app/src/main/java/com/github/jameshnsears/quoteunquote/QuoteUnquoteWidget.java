@@ -265,8 +265,12 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
         int layout = R.layout.quote_unquote_widget;
 
         AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, context);
-        boolean isToolbarVisible = isToolbarVisible(widgetId, appearancePreferences);
 
+        if (appearancePreferences.getAppearanceToolbarPosition() != 0) {
+            layout = R.layout.quote_unquote_widget_rhs;
+        }
+
+        boolean isToolbarVisible = isToolbarVisible(widgetId, appearancePreferences);
         if (!isToolbarVisible) {
             layout = R.layout.quote_unquote_widget_no_toolbar;
         }

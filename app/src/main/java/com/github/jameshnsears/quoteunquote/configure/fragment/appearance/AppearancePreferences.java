@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade;
 
 public class AppearancePreferences extends PreferencesFacade {
+    public static final String APPEARANCE_TOOLBAR_POSITION = "APPEARANCE_TOOLBAR_POSITION";
+
     public static final String APPEARANCE_COLOUR = "APPEARANCE_COLOUR";
     public static final String APPEARANCE_TRANSPARENCY = "APPEARANCE_TRANSPARENCY";
 
@@ -293,5 +295,18 @@ public class AppearancePreferences extends PreferencesFacade {
 
     public void setAppearanceToolbarSequential(final boolean value) {
         preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TOOLBAR_SEQUENTIAL), value);
+    }
+
+    public int getAppearanceToolbarPosition() {
+        int value = preferenceHelper.getPreferenceInt(getPreferenceKey(APPEARANCE_TOOLBAR_POSITION));
+        if (value == -1) {
+            value = 0;
+        }
+        return value;
+    }
+
+
+    public void setAppearanceToolbarPosition(final int value) {
+        preferenceHelper.setPreference(getPreferenceKey(APPEARANCE_TOOLBAR_POSITION), value);
     }
 }

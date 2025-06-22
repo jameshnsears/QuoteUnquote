@@ -29,27 +29,27 @@ if (!localPropertiesFile.exists()) {
 localProperties.load(new FileInputStream(localPropertiesFile))
 
 android {
-    compileSdk 35
+    compileSdk 36
 
     signingConfigs {
         googleplay {
-            keyAlias localProperties['RELEASE_KEY_ALIAS']
-            keyPassword localProperties['RELEASE_KEY_PASSWORD']
-            storeFile file(localProperties['RELEASE_STORE_FILE'])
-            storePassword localProperties['RELEASE_STORE_PASSWORD']
+            keyAlias localProperties.getProperty('RELEASE_KEY_ALIAS')
+            keyPassword localProperties.getProperty('RELEASE_KEY_PASSWORD')
+            storeFile file(localProperties.getProperty('RELEASE_STORE_FILE'))
+            storePassword localProperties.getProperty('RELEASE_STORE_PASSWORD')
         }
     }
 
     defaultConfig {
         minSdkVersion 24
-        targetSdkVersion 35
+        targetSdkVersion 36
 
         applicationId "com.github.jameshnsears.quoteunquote"
 
         // changelog version | min sdk | target sdk
-        versionCode 1912435
+        versionCode 1922436
         // semantic versioning
-        versionName "4.51.0"
+        versionName "4.52.0"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -91,13 +91,13 @@ android {
     }
 
     buildTypes {
-        def gitHash = { ->
-            def stdout = new ByteArrayOutputStream()
+        final def gitHash = { ->
+            final def stdout = new ByteArrayOutputStream()
             exec {
                 commandLine 'git', 'rev-parse', '--short=8', 'HEAD'
                 standardOutput = stdout
             }
-            return stdout.toString().trim()
+            stdout.toString().trim()
         }
 
         release {
@@ -205,24 +205,24 @@ android {
     }
 
     lint {
-        disable 'InvalidPackage'
-        disable "Instantiatable"
+        disable.add('InvalidPackage')
+        disable.add("Instantiatable")
         checkReleaseBuilds false
         abortOnError false
-        htmlReport true
         warningsAsErrors false
         baseline file("$rootDir/config/lint/baseline.xml")
         checkAllWarnings true
         htmlReport true
         xmlReport true
     }
+
     namespace 'com.github.jameshnsears.quoteunquote'
 }
 
 dependencies {
     androidTestImplementation 'androidx.arch.core:core-testing:2.2.0'
-    androidTestImplementation 'androidx.compose.ui:ui-test-junit4-android:1.8.1'
-    androidTestImplementation 'androidx.room:room-testing:2.7.1'
+    androidTestImplementation 'androidx.compose.ui:ui-test-junit4-android:1.8.3'
+    androidTestImplementation 'androidx.room:room-testing:2.7.2'
     androidTestImplementation 'androidx.test:core:1.6.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
@@ -230,17 +230,21 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.6.1'
     androidTestImplementation 'androidx.test:runner:1.6.2'
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.3.0'
+
+    // stay on 1.14.2 or else jacoco / bytebuddy clash
+    //noinspection GradleDependency
     androidTestImplementation 'io.mockk:mockk-android:1.14.2'
+
     androidTestImplementation 'org.jetbrains.kotlin:kotlin-test-junit:2.1.21'
-    annotationProcessor 'androidx.room:room-compiler:2.7.1'
+    annotationProcessor 'androidx.room:room-compiler:2.7.2'
     debugImplementation 'androidx.compose.ui:ui-tooling-preview'
-    debugImplementation 'androidx.fragment:fragment-testing:1.8.6'
+    debugImplementation 'androidx.fragment:fragment-testing:1.8.8'
     debugImplementation 'androidx.test:core-ktx:1.6.1'
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.14'
-    googleplayImplementation platform('com.google.firebase:firebase-bom:33.13.0')
+    googleplayImplementation platform('com.google.firebase:firebase-bom:33.15.0')
     implementation 'androidx.activity:activity-compose:1.10.1'
     implementation 'androidx.activity:activity-ktx:1.10.1'
-    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.7.1'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.compose.material3:material3'
     implementation 'androidx.compose.material:material'
@@ -249,14 +253,14 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
     implementation 'androidx.core:core-ktx:1.16.0'
     implementation 'androidx.core:core-ktx:1.16.0'
-    implementation 'androidx.databinding:databinding-runtime:8.10.0'
+    implementation 'androidx.databinding:databinding-runtime:8.10.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx'
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'androidx.room:room-guava:2.7.1'
-    implementation 'androidx.room:room-runtime:2.7.1'
-    implementation 'androidx.room:room-rxjava2:2.7.1'
-    implementation 'androidx.work:work-runtime:2.10.1'
-    implementation 'androidx.work:work-runtime-ktx:2.10.1'
+    implementation 'androidx.room:room-guava:2.7.2'
+    implementation 'androidx.room:room-runtime:2.7.2'
+    implementation 'androidx.room:room-rxjava2:2.7.2'
+    implementation 'androidx.work:work-runtime:2.10.2'
+    implementation 'androidx.work:work-runtime-ktx:2.10.2'
     implementation 'com.github.skydoves:colorpickerpreference:2.0.6'
     implementation 'com.google.android.material:material:1.12.0'
     implementation 'com.google.code.gson:gson:2.13.1'
@@ -275,20 +279,20 @@ dependencies {
     implementation 'org.apache.commons:commons-csv:1.12.0'
 
     implementation 'org.jsoup:jsoup:1.20.1'
-    implementation platform('androidx.compose:compose-bom:2025.05.00')
+    implementation platform('androidx.compose:compose-bom:2025.06.01')
     implementation project(path: ':cloudLib')
     implementation project(path: ':utilsLib')
     testImplementation 'androidx.arch.core:core-testing:2.2.0'
-    testImplementation 'androidx.room:room-testing:2.7.1'
+    testImplementation 'androidx.room:room-testing:2.7.2'
     testImplementation 'androidx.test:core-ktx:1.6.1'
     testImplementation 'androidx.test.ext:junit:1.2.1'
     testImplementation 'androidx.test:rules:1.6.1'
     testImplementation 'ch.qos.logback:logback-classic:1.5.18'
     testImplementation 'com.google.guava:guava:33.4.8-jre'
-    testImplementation 'io.mockk:mockk:1.14.2'
+    testImplementation 'io.mockk:mockk:1.14.3'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2'
-    testImplementation 'org.robolectric:robolectric:4.14.1'
+    testImplementation 'org.robolectric:robolectric:4.15.1'
 }
 
 repositories {

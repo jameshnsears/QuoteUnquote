@@ -5,36 +5,39 @@ jacoco {
 }
 
 project.afterEvaluate {
-    def buildTypes = android.buildTypes.collect { type -> type.name }
-    def productFlavors = android.productFlavors.collect { flavor -> flavor.name }
-    def buildDirPath = layout.buildDirectory.get().asFile
+    final def buildTypes = android.buildTypes.collect { final type -> type.name }
+    final def productFlavors = android.productFlavors.collect { final flavor -> flavor.name }
+    final def buildDirPath = layout.buildDirectory.get().asFile
 
     if (!productFlavors) productFlavors.add('')
 
-    productFlavors.each { productFlavorName ->
-        buildTypes.each { buildTypeName ->
+    productFlavors.each { final productFlavorName ->
+        buildTypes.each { final buildTypeName ->
             def sourceName
             if (!productFlavorName) {
                 sourceName = "${buildTypeName}"
             } else {
                 sourceName = "${productFlavorName}${buildTypeName.capitalize()}"
             }
-            def testTaskName = "test${sourceName.capitalize()}UnitTest"
+            final def testTaskName = "test${sourceName.capitalize()}UnitTest"
 
             def excludes = [
                     '**/BuildConfig.*',
                     '**/*_Impl*.*',
                     '**/*Binding.*',
                     '**/*Double.*',
-                    '**/*Binding.*'
+                    '**/*Binding.*',
+                    "net/bytebuddy/**/*.class",
+                    "net/bytebuddy/agent/**/*.class",
+                    "**/bytebuddy/**/*.class"
             ]
 
-            def classKotlin = fileTree(dir: "$buildDirPath/tmp/kotlin-classes/${sourceName}UnitTest", excludes: excludes)
-            def classJava = fileTree(dir: "$buildDirPath/intermediates/javac/${sourceName}/classes", excludes: excludes)
+            final def classKotlin = fileTree(dir: "$buildDirPath/tmp/kotlin-classes/${sourceName}UnitTest", excludes: excludes)
+            final def classJava = fileTree(dir: "$buildDirPath/intermediates/javac/${sourceName}/classes", excludes: excludes)
 
-            def kotlinSrc = "$project.projectDir/src/main/java"
-            def javaSrc = "$project.projectDir/src/main/java"
-            def flavourSrc = "$project.projectDir/src/$productFlavorName/java"
+            final def kotlinSrc = "$project.projectDir/src/main/java"
+            final def javaSrc = "$project.projectDir/src/main/java"
+            final def flavourSrc = "$project.projectDir/src/$productFlavorName/java"
 
             task "test${sourceName.capitalize()}CombinedCoverage"(type: JacocoReport, dependsOn: ["$testTaskName", "connected${sourceName.capitalize()}AndroidTest"]) {
                 group = "coverage.combined"

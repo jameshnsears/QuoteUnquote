@@ -410,6 +410,7 @@ class TransferRestore : TransferCommon() {
         appearancePreferences.appearanceToolbarShareNoSource =
             appearance.appearanceToolbarShareNoSource
         appearancePreferences.appearanceToolbarJump = appearance.appearanceToolbarJump
+        appearancePreferences.appearanceToolbarPosition = appearance.appearanceToolbarPosition
     }
 
     private fun restoreSettingsSync(

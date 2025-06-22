@@ -1,0 +1,4 @@
+- Toolbar to RHS switch
+- Update quotations database: improve quality
+- Improved Android 16 support
+- Bump dependencies and IDE: Android Studio Meerkat Feature Drop | 2024.3.2 Patch 1
