@@ -276,7 +276,7 @@ dependencies {
 
     // stay on 1.12.0, else on API 24: java.lang.NoClassDefFoundError: org.apache.commons.csv.CSVParser$Builder
     //noinspection GradleDependency
-    implementation 'org.apache.commons:commons-csv:1.12.0'
+    implementation 'org.apache.commons:commons-csv:1.14.1'
 
     implementation 'org.jsoup:jsoup:1.20.1'
     implementation platform('androidx.compose:compose-bom:2025.06.01')
