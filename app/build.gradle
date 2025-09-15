@@ -233,7 +233,7 @@ dependencies {
 
     // stay on 1.14.2 or else jacoco / bytebuddy clash
     //noinspection GradleDependency
-    androidTestImplementation 'io.mockk:mockk-android:1.14.2'
+    androidTestImplementation 'io.mockk:mockk-android:1.14.5'
 
     androidTestImplementation 'org.jetbrains.kotlin:kotlin-test-junit:2.1.21'
     annotationProcessor 'androidx.room:room-compiler:2.7.2'
