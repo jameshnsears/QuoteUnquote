@@ -222,7 +222,7 @@ android {
 dependencies {
     androidTestImplementation 'androidx.arch.core:core-testing:2.2.0'
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4-android:1.8.3'
-    androidTestImplementation 'androidx.room:room-testing:2.7.2'
+    androidTestImplementation 'androidx.room:room-testing:2.8.1'
     androidTestImplementation 'androidx.test:core:1.6.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
@@ -236,7 +236,7 @@ dependencies {
     androidTestImplementation 'io.mockk:mockk-android:1.14.2'
 
     androidTestImplementation 'org.jetbrains.kotlin:kotlin-test-junit:2.1.21'
-    annotationProcessor 'androidx.room:room-compiler:2.7.2'
+    annotationProcessor 'androidx.room:room-compiler:2.8.1'
     debugImplementation 'androidx.compose.ui:ui-tooling-preview'
     debugImplementation 'androidx.fragment:fragment-testing:1.8.8'
     debugImplementation 'androidx.test:core-ktx:1.6.1'
@@ -256,9 +256,9 @@ dependencies {
     implementation 'androidx.databinding:databinding-runtime:8.10.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx'
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'androidx.room:room-guava:2.7.2'
-    implementation 'androidx.room:room-runtime:2.7.2'
-    implementation 'androidx.room:room-rxjava2:2.7.2'
+    implementation 'androidx.room:room-guava:2.8.1'
+    implementation 'androidx.room:room-runtime:2.8.1'
+    implementation 'androidx.room:room-rxjava2:2.8.1'
     implementation 'androidx.work:work-runtime:2.10.2'
     implementation 'androidx.work:work-runtime-ktx:2.10.2'
     implementation 'com.github.skydoves:colorpickerpreference:2.0.6'
@@ -283,7 +283,7 @@ dependencies {
     implementation project(path: ':cloudLib')
     implementation project(path: ':utilsLib')
     testImplementation 'androidx.arch.core:core-testing:2.2.0'
-    testImplementation 'androidx.room:room-testing:2.7.2'
+    testImplementation 'androidx.room:room-testing:2.8.1'
     testImplementation 'androidx.test:core-ktx:1.6.1'
     testImplementation 'androidx.test.ext:junit:1.2.1'
     testImplementation 'androidx.test:rules:1.6.1'
