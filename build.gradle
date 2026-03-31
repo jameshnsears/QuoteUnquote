@@ -9,15 +9,15 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.10.1'
-        classpath 'com.diffplug.spotless:spotless-plugin-gradle:7.0.3'
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:3.0.3'
-        classpath 'com.google.gms:google-services:4.4.2'
-        classpath 'io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.23.8'
-        classpath 'org.jacoco:org.jacoco.core:0.8.13'
-        classpath "org.jetbrains.kotlin:compose-compiler-gradle-plugin:2.1.21"
-        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.21'
-        classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:6.2.0.5505'
+        classpath libs.gradle
+        classpath libs.spotless.plugin.gradle
+        classpath libs.firebase.crashlytics.gradle
+        classpath libs.google.services
+        classpath libs.detekt.gradle.plugin
+        classpath libs.org.jacoco.core
+        classpath libs.compose.compiler.gradle.plugin
+        classpath libs.kotlin.gradle.plugin
+        classpath libs.sonarqube.gradle.plugin
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

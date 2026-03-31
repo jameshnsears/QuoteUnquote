@@ -1,7 +1,7 @@
 package com.github.jameshnsears.quoteunquote.cloud.transfer.backup
 
 import com.github.jameshnsears.quoteunquote.cloud.transfer.Previous
-import com.github.jameshnsears.quoteunquote.database.DatabaseRepository
+import com.github.jameshnsears.quoteunquote.db.DatabaseRepository
 
 open class TransferBackupPrevious {
     fun previous(databaseRepository: DatabaseRepository): List<Previous> {

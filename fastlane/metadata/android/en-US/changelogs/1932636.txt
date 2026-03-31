@@ -1,0 +1,12 @@
+- Warning for External File export
+- Improve quality of Internal database content
+- Simplify text across Instructions &amp; Config activities
+- Full screen support
+- Improve italic text support
+- Fix BroadcastReceiver Exception in cloud backup
+- Fix setDisposableCardSourceCount ANR race condition
+- Support encrypted Linux OS dev env (Gradle 9 path length restriction)
+- Incorporate various AI suggested source improvements
+- Remove Microsoft App Center googleplay variant integration
+- Remove codecov.io integration, as free plan feature dropped
+- Bump: all dependencies to latest; IDE: Android Studio Panda 2 | 2025.3.2

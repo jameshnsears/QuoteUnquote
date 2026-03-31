@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name=":utilsLib:test" type="GradleRunConfiguration" factoryName="Gradle" folderName="Test">
+  <configuration default="false" name=":utilsLib:test" type="GradleRunConfiguration" factoryName="Gradle" folderName="test">
     <ExternalSystemSettings>
       <option name="executionName" />
       <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -21,6 +21,7 @@
     <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
     <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
     <DebugAllEnabled>false</DebugAllEnabled>
+    <RunAsTest>true</RunAsTest>
     <method v="2" />
   </configuration>
 </component>

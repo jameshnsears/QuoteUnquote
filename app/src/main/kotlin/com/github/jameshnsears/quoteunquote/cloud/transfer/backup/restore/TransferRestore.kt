@@ -21,8 +21,8 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.Appear
 import com.github.jameshnsears.quoteunquote.configure.fragment.notifications.NotificationsPreferences
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences
 import com.github.jameshnsears.quoteunquote.configure.fragment.sync.SyncPreferences
-import com.github.jameshnsears.quoteunquote.database.DatabaseRepository
-import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity
+import com.github.jameshnsears.quoteunquote.db.DatabaseRepository
+import com.github.jameshnsears.quoteunquote.db.q.QuotationEntity
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade
 import com.google.gson.GsonBuilder
@@ -335,7 +335,12 @@ class TransferRestore : TransferCommon() {
         notificationsPreferences.eventDeviceUnlock = schedule.eventDeviceUnlock
         notificationsPreferences.excludeSourceFromNotification =
             schedule.eventExcludeSourceFromNotification
+
         notificationsPreferences.eventDisplayWidget = schedule.eventDisplayWidget
+        if (!notificationsPreferences.eventDisplayWidgetAndNotification) {
+            notificationsPreferences.eventDisplayWidget = true
+        }
+
         notificationsPreferences.eventNextRandom = schedule.eventNextRandom
         notificationsPreferences.eventNextSequential = schedule.eventNextSequential
     }

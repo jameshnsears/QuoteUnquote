@@ -52,14 +52,14 @@
                     app:drawableStartCompat="@drawable/ic_info_24" />
 
             <TextView
-                    android:id="@+id/textViewInternal"
+                    android:id="@+id/textViewInternal_0"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="9dp"
                     android:paddingTop="5dp"
                     android:paddingEnd="0dp"
                     android:paddingBottom="10dp"
-                    android:text="@string/fragment_quotations_database_default" />
+                    android:text="@string/fragment_quotations_database_default_0" />
 
         </LinearLayout>
 

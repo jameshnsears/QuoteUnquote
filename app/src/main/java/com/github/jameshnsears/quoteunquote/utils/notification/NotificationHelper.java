@@ -9,7 +9,6 @@ import android.app.NotificationChannelGroup;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -58,9 +57,7 @@ public class NotificationHelper {
                 context.getString(R.string.notification_channel_customisable_interval),
                 channelGroupId);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationManager.deleteNotificationChannel("Quotations");
-        }
+        notificationManager.deleteNotificationChannel("Quotations");
     }
 
     public void displayNotificationDeviceUnlock(
@@ -257,31 +254,26 @@ public class NotificationHelper {
             @NonNull Context context,
             @NonNull String notificationChannelId,
             @NonNull String notificationChannelGroupId) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationManager notificationManager =
-                    (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
+        NotificationManager notificationManager =
+                (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
 
-            NotificationChannelGroup notificationChannelGroup = new NotificationChannelGroup(
-                    notificationChannelGroupId,
-                    context.getString(R.string.fragment_notifications_recurring_event));
-            notificationManager.createNotificationChannelGroup(notificationChannelGroup);
+        NotificationChannelGroup notificationChannelGroup = new NotificationChannelGroup(
+                notificationChannelGroupId,
+                context.getString(R.string.fragment_notifications_recurring_event));
+        notificationManager.createNotificationChannelGroup(notificationChannelGroup);
 
-            NotificationChannel notificationChannel = new NotificationChannel(
-                    notificationChannelId,
-                    notificationChannelId,
-                    NotificationManager.IMPORTANCE_HIGH);
-            notificationChannel.setDescription(notificationChannelId);
-            notificationChannel.enableVibration(true);
-            notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
-            notificationChannel.setShowBadge(false);
-            notificationChannel.setGroup(notificationChannelGroupId);
+        NotificationChannel notificationChannel = new NotificationChannel(
+                notificationChannelId,
+                notificationChannelId,
+                NotificationManager.IMPORTANCE_HIGH);
+        notificationChannel.setDescription(notificationChannelId);
+        notificationChannel.enableVibration(true);
+        notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+        notificationChannel.setShowBadge(false);
+        notificationChannel.setGroup(notificationChannelGroupId);
 
-            notificationManager.createNotificationChannel(notificationChannel);
+        notificationManager.createNotificationChannel(notificationChannel);
 
-            return notificationChannelId;
-        } else {
-            // pre-O (26) devices.
-            return null;
-        }
+        return notificationChannelId;
     }
 }

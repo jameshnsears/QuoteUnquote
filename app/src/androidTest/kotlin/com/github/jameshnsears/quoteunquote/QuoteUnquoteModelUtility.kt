@@ -1,7 +1,7 @@
 package com.github.jameshnsears.quoteunquote
 
 import androidx.test.platform.app.InstrumentationRegistry
-import com.github.jameshnsears.quoteunquote.database.DatabaseTestHelper
+import com.github.jameshnsears.quoteunquote.db.DatabaseTestHelper
 
 abstract class QuoteUnquoteModelUtility : DatabaseTestHelper() {
     @JvmField

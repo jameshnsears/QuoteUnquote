@@ -1,7 +1,7 @@
 package com.github.jameshnsears.quoteunquote
 
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences
-import com.github.jameshnsears.quoteunquote.database.DatabaseRepository
+import com.github.jameshnsears.quoteunquote.db.DatabaseRepository
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import junit.framework.TestCase.assertEquals

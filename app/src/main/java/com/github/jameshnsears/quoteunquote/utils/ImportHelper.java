@@ -1,6 +1,6 @@
 package com.github.jameshnsears.quoteunquote.utils;
 
-import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
+import com.github.jameshnsears.quoteunquote.db.q.QuotationEntity;
 import com.google.common.hash.Hashing;
 
 import org.apache.commons.csv.CSVFormat;

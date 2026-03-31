@@ -16,7 +16,7 @@ import com.github.jameshnsears.quoteunquote.QuoteUnquoteModel;
 import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
-import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.files.ContentFilesFragment;
+import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.files.ContentExternalFileFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.internal.ContentInternalFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.web.ContentWebFragment;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentQuotationsTabDatabaseBinding;
@@ -79,7 +79,7 @@ public class QuotationsContentFragment extends FragmentCommon {
                         selectedFragment = new ContentInternalFragment(widgetId);
                         break;
                     case 1:
-                        selectedFragment = new ContentFilesFragment(widgetId);
+                        selectedFragment = new ContentExternalFileFragment(widgetId);
                         break;
                     case 2:
                         selectedFragment = new ContentWebFragment(widgetId);

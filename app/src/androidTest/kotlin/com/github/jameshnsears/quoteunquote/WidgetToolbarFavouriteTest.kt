@@ -1,6 +1,6 @@
 package com.github.jameshnsears.quoteunquote
 
-import com.github.jameshnsears.quoteunquote.database.DatabaseRepository
+import com.github.jameshnsears.quoteunquote.db.DatabaseRepository
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue

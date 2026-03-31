@@ -28,7 +28,7 @@
     <LinearLayout
             android:id="@+id/linearLayoutToolbar"
             android:layout_width="match_parent"
-            android:layout_height="32dp"
+            android:layout_height="45dp"
             android:orientation="horizontal">
 
         <ImageButton

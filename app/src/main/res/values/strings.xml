@@ -2,21 +2,21 @@
     <string name="app_name">Quote Unquote</string>
 
     <string name="activity_instructions_title">Instructions</string>
-    <string name="activity_instructions_placement">Placement</string>
+    <string name="activity_instructions_placement">Widget Placement</string>
     <string name="activity_instructions_1">\u2022&#160;&#160;On a home screen, touch and hold an empty space</string>
     <string name="activity_instructions_2">\u2022&#160;&#160;Tap </string>
     <string name="activity_instructions_3">\u2022&#160;&#160;Scroll though the widgets until you find the Quote Unquote widget</string>
     <string name="activity_instructions_4">\u2022&#160;&#160;Touch and slide the widget to where you want it. Lift your finger</string>
-    <string name="activity_instructions_5">\u2022&#160;&#160;Use Android\’s Back button / gesture to leave the Configuration screen and place the widget on home screen</string>
+    <string name="activity_instructions_5">\u2022&#160;&#160;Use Android\’s Back button / gesture to leave the Configure screen and place the widget on home screen</string>
     <string name="activity_instructions_usage">Usage</string>
     <string name="activity_instructions_configure_1">\u2022&#160;&#160;Tap Quotation text to configure widget</string>
-    <string name="activity_instructions_configure_2">\u2022&#160;&#160;Configuration changes are saved when the Configuration screen is exited with the Back button / gesture</string>
+    <string name="activity_instructions_configure_2">\u2022&#160;&#160;Changes are saved when the Configure screen is exited with the Back button / gesture</string>
     <string name="activity_instructions_configure_3">\u2022&#160;&#160;Tap an <u>underlined</u> Source for Wikipedia entry</string>
-    <string name="activity_instructions_configure_4">\u2022&#160;&#160;The \u2316 icon, next to the Quotation position count, denotes last previous Quotation</string>
-    <string name="activity_instructions_configure_5">\u2022&#160;&#160;Only Web import &amp; Cloud sync require an Internet connection</string>
+    <string name="activity_instructions_configure_4">\u2022&#160;&#160;The \u2316 icon, next to the Quotation position count, denotes previous head Quotation</string>
+    <string name="activity_instructions_configure_5">\u2022&#160;&#160;Only, the optional, Web import &amp; Cloud sync require an Internet connection</string>
     <string name="activity_instructions_configure_6">\u2022&#160;&#160;Revisit the Notifications page to reinitialise notifications after device restart</string>
-    <string name="activity_instructions_os_warning">\u2022&#160;&#160;Some Android ROM\’s have aggressive memory management, please configure your device accordingly</string>
-    <string name="activity_instructions_resize">Resizing</string>
+    <string name="activity_instructions_os_warning">\u2022&#160;&#160;Some Android versions have aggressive memory management, adjust device accordingly</string>
+    <string name="activity_instructions_resize">Widget Resizing</string>
     <string name="activity_instructions_resize_instruction_1">\u2022&#160;&#160;Touch and hold the widget on home screen</string>
     <string name="activity_instructions_resize_instruction_2">\u2022&#160;&#160;Lift your finger. You\’ll find an outline with dots on the sides</string>
     <string name="activity_instructions_resize_instruction_3">\u2022&#160;&#160;To resize the widget, drag the dots</string>
@@ -27,7 +27,7 @@
     <string name="configure_navigation_bar_quotations">Quotations</string>
     <string name="configure_navigation_bar_appearance">Appearance</string>
 
-    <string name="settings">Configuration</string>
+    <string name="settings">Configure</string>
 
     <string name="fragment_quotations_title">Quotations</string>
 
@@ -35,8 +35,10 @@
     <string name="fragment_quotations_selection_all"><b>All: %d</b></string>
     <string name="fragment_quotations_selection_exclusion_instructions">Source exclusion…</string>
     <string name="fragment_quotations_selection_exclusion_info"></string>
-    <string name="fragment_quotations_selection_exclusion_1">4 characters minimum</string>
-    <string name="fragment_quotations_selection_exclusion_2">Separate each Source with a semicolon</string>
+    <string name="fragment_quotations_selection_exclusion_1">\u2022&#160;&#160;4 characters minimum</string>
+    <string name="fragment_quotations_selection_exclusion_2">\u2022&#160;&#160;Separate each Source with a semicolon</string>
+    <string name="fragment_quotations_selection_all_ascending">Ascending Source Count</string>
+    <string name="fragment_quotations_selection_all_ascending_info">\u2022&#160;&#160;Start with the Source with the least quotations; end with the Source with the most; any existing Previous is preserved</string>
 
     <string name="fragment_quotations_selection_author"><b>Source: %d</b></string>
     <string name="fragment_quotations_selection_author_count">Count &gt;=</string>
@@ -45,22 +47,23 @@
     <string name="fragment_quotations_selection_browse">Browse</string>
     <string name="fragment_quotations_selection_export_button">Export</string>
     <string name="fragment_quotations_selection_export_success">Success - export completed</string>
+    <string name="fragment_quotations_selection_export_failed">Export failed</string>
     <string name="fragment_quotations_selection_search"><b>Search: %d</b></string>
     <string name="fragment_quotations_selection_search_favourites_only">Favourites only</string>
     <string name="fragment_quotations_selection_search_instructions_text">Search text…</string>
     <string name="fragment_quotations_selection_search_switch_regex">Regular expression</string>
     <string name="fragment_quotations_selection_search_switch_regex_invalid">Invalid regular expression</string>
     <string name="fragment_quotations_selection_search_instructions_info"></string>
-    <string name="fragment_quotations_selection_search_instructions_1">4 characters minimum</string>
+    <string name="fragment_quotations_selection_search_instructions_1">\u2022&#160;&#160;4 characters minimum</string>
 
     <string name="fragment_quotations_selection_search_no_results">No results found for Search</string>
     <string name="fragment_quotations_selection_dialog_browse_favourites">Favourites</string>
     <string name="fragment_quotations_selection_dialog_browse_share_and_toggle_01">Tap to share; Long tap to toggle favourite</string>
 
     <string name="fragment_quotations_database">Content</string>
-    <string name="fragment_quotations_database_default_internal">Internal Database</string>
+    <string name="fragment_quotations_database_default_internal">Internal database</string>
     <string name="fragment_quotations_database_default_info"></string>
-    <string name="fragment_quotations_database_default">Discover High Quality Quotations!</string>
+    <string name="fragment_quotations_database_default_0">\u2022&#160;&#160;Discover High Quality Quotations!</string>
 
     <string name="fragment_quotations_database_file">External File</string>
     <string name="fragment_quotations_database_file_inplace_edit">Edit</string>
@@ -73,15 +76,16 @@
     <string name="fragment_quotations_database_file_csv_inplace_instruction_01">Tap row text to select / deselect</string>
     <string name="fragment_quotations_database_file_csv_inplace_instruction_02">If no row selected, Save will insert / append based on Source, Quotation order</string>
     <string name="fragment_quotations_database_file_csv_inplace_save_warning_duplicate">Unable to Save - duplicate</string>
-    <string name="fragment_quotations_database_file_csv_inplace_warning_empty_database">Internal Database selected</string>
+    <string name="fragment_quotations_database_file_csv_inplace_warning_empty_database">Internal database selected</string>
     <string name="fragment_quotations_database_file_fortune">Fortune</string>
-    <string name="fragment_quotations_database_file_fortune_info_01">A text file with quotations, each separated by the character % on its own line; see https://wikipedia.org/wiki/Fortune_(Unix)</string>
-    <string name="fragment_quotations_database_file_fortune_info_02">The filename is used to populate the Source field</string>
+    <string name="fragment_quotations_database_file_fortune_info_01">\u2022&#160;&#160;See https://wikipedia.org/wiki/Fortune_(Unix)</string>
+    <string name="fragment_quotations_database_file_fortune_info_02">\u2022&#160;&#160;The filename is used to populate the Source field</string>
+    <string name="fragment_quotations_database_file_warning">\u2022&#160;&#160;Use Export to backup data prior to any reinstall</string>
 
     <string name="fragment_quotations_database_button_import">Import</string>
     <string name="fragment_quotations_database_external_instructions_1_info"></string>
-    <string name="fragment_quotations_database_external_instructions_0"><b>Source||Quotation</b> per line; duplicates will be ignored</string>
-    <string name="fragment_quotations_database_external_instructions_1">Export from Internal Database for a UTF-8 encoded example</string>
+    <string name="fragment_quotations_database_external_instructions_0">\u2022&#160;&#160;Source||Quotation per line; duplicates are ignored</string>
+    <string name="fragment_quotations_database_external_instructions_1">\u2022&#160;&#160;Export from Internal database for UTF-8 encoded example</string>
     <string name="fragment_quotations_database_import_contents_0">Invalid - %1$s</string>
     <string name="fragment_quotations_database_import_contents_1">Invalid - line: %1$d: %2$s</string>
     <string name="fragment_quotations_database_import_importing">Importing - please wait&#8230;</string>
@@ -98,11 +102,11 @@
     <string name="fragment_quotations_database_scrape_xpath_error_source">Invalid source XPath</string>
     <string name="fragment_quotations_database_scrape_test_success">Success - web page imported</string>
     <string name="fragment_quotations_database_scrape_info"></string>
-    <string name="fragment_quotations_database_scrape_1">HTML 5 compatible response expected, do not use the word <b>source</b> in the response</string>
-    <string name="fragment_quotations_database_scrape_2">Response must contain only a single Quotation and Source</string>
-    <string name="fragment_quotations_database_scrape_3">Beware that an XML response, in the app, is wrapped in &lt;html&gt;&lt;body&gt;… &lt;/body&gt;&lt;/html&gt;</string>
-    <string name="fragment_quotations_database_scrape_4">App Widget polls every 30 minutes</string>
-    <string name="fragment_quotations_database_scrape_5">Raise GitHub Issue if in doubt</string>
+    <string name="fragment_quotations_database_scrape_1">\u2022&#160;&#160;HTML 5 compatible response expected, do not use the word <b>source</b> in the response</string>
+    <string name="fragment_quotations_database_scrape_2">\u2022&#160;&#160;Response must contain only a single Quotation and Source</string>
+    <string name="fragment_quotations_database_scrape_3">\u2022&#160;&#160;Beware that an XML response, in the app, is wrapped in &lt;html&gt;&lt;body&gt;… &lt;/body&gt;&lt;/html&gt;</string>
+    <string name="fragment_quotations_database_scrape_4">\u2022&#160;&#160;App Widget polls every 30 minutes</string>
+    <string name="fragment_quotations_database_scrape_5">\u2022&#160;&#160;Raise GitHub Issue if in doubt</string>
 
     <string name="fragment_appearance_title">Appearance</string>
     <string name="fragment_appearance_tab_style">Style</string>
@@ -156,7 +160,7 @@
     <string name="fragment_appearance_navigation">Toolbar</string>
     <string name="fragment_appearance_follow_system_theme_follow">Follow system theme</string>
     <string name="fragment_appearance_follow_system_theme_info"></string>
-    <string name="fragment_appearance_follow_system_theme">Force black &amp; white colours</string>
+    <string name="fragment_appearance_follow_system_theme">\u2022&#160;&#160;Force black &amp; white colours</string>
     <string name="fragment_appearance_toolbar_colour_dialog_title">Toolbar Colour</string>
     <string name="fragment_appearance_toolbar_first">First, clears Previous</string>
     <string name="fragment_appearance_toolbar_previous">Previous</string>
@@ -164,32 +168,31 @@
     <string name="fragment_appearance_toolbar_share">Share</string>
     <string name="fragment_appearance_toolbar_share_exclude_source">Exclude Source</string>
     <string name="fragment_appearance_toolbar_next_sequential">Next, sequential</string>
-    <string name="fragment_appearance_toolbar_position_indicator">Jump, last Previous</string>
+    <string name="fragment_appearance_toolbar_position_indicator">Jump, Previous head</string>
     <string name="fragment_appearance_toolbar_next_random">Next, random</string>
     <string name="fragment_appearance_toolbar_next_random_action">Next, random</string>
-    <string name="fragment_appearance_toolbar_next_info">Sequence recycles at end</string>
+    <string name="fragment_appearance_toolbar_next_info">\u2022&#160;&#160;Sequence recycles at end</string>
     <string name="fragment_appearance_toolbar_position">Position</string>
     <string name="fragment_appearance_toolbar_position_bottom">Bottom</string>
     <string name="fragment_appearance_toolbar_position_rhs">Right-hand side"</string>
 
     <string name="fragment_notifications_title">Notifications</string>
-    <string name="fragment_notifications_where">Display</string>
+    <string name="fragment_notifications_where">Result</string>
     <string name="fragment_notifications_movement">Action</string>
-    <string name="fragment_notifications_widget">Widget</string>
-    <string name="fragment_notifications_widget_and_notification">Notification</string>
-    <string name="fragment_notifications_use_tts_uk">UK TTS (Internal Database)</string>
+    <string name="fragment_notifications_widget">Widget only</string>
+    <string name="fragment_notifications_widget_and_notification">Widget &amp; Notification</string>
+    <string name="fragment_notifications_use_tts_uk">UK TTS (Internal database)</string>
     <string name="fragment_notifications_use_tts_system_language">System TTS</string>
 
     <string name="fragment_notifications_notification_warning_info"></string>
-    <string name="fragment_notifications_notification_warning_1">Android limits the size of Notifications, some content might not show in entirety</string>
-    <string name="fragment_notifications_notification_permission">Please enable Notification permission in Android settings</string>
+    <string name="fragment_notifications_notification_warning_1">\u2022&#160;&#160;Android limits the size of Notifications</string>
+    <string name="fragment_notifications_notification_permission">Please enable Notifications permission</string>
     <string name="fragment_notifications_exact_alarm_warning_info"></string>
-    <string name="fragment_notifications_exact_alarm_warning">The Alarm &amp; reminders permission needs to be granted for time based events</string>
     <string name="fragment_notifications_recurring_event">New Quote After</string>
     <string name="fragment_notifications_screen_unlock">Screen Unlock</string>
 
     <string name="fragment_notifications_customisable">Customisable Interval</string>
-    <string name="fragment_notifications_customisable_active_time">Active Time</string>">
+    <string name="fragment_notifications_customisable_active_time">Active Time</string>
     <integer-array name="fragment_notifications_quiet_time_array">
         <item>0</item>
         <item>23</item>
@@ -208,7 +211,7 @@
     <string name="fragment_notifications_time_dialog">New Quote After Specific Time</string>
 
     <string name="fragment_archive_title">Sync</string>
-    <string name="fragment_archive_select_cloud">Cloud</string>
+    <string name="fragment_archive_select_cloud">Cloud (GCP)</string>
     <string name="fragment_archive_select_filesystem">Device</string>
     <string name="fragment_archive_backup_local_code">Sync code…</string>
     <string name="fragment_archive_backup_local_code_value">%s</string>
@@ -218,10 +221,10 @@
     <string name="fragment_archive_restore">Restore</string>
 
     <string name="fragment_archive_restore_onto_new_device">Purge old instance data</string>
-    <string name="fragment_archive_restore_onto_new_device_info">Keeping \'old instance data\' is only required if you use multiple instances of the app widget on the same device</string>
+    <string name="fragment_archive_restore_onto_new_device_info">\u2022&#160;&#160;Keeping \'old instance data\' only required if using multiple instances of the app widget on the same device</string>
 
     <string name="fragment_archive_superseded_info"></string>
-    <string name="fragment_archive_superseded_1">Sync code will be superseded upon restore</string>
+    <string name="fragment_archive_superseded_1">\u2022&#160;&#160;Sync code is superseded upon restore</string>
     <string name="fragment_archive_create_new_sync_code">New code</string>
     <string name="fragment_archive_restore_token_missing">Please enter 10 character code</string>
     <string name="fragment_archive_restore_token_invalid">Please enter a valid code</string>
@@ -232,8 +235,7 @@
     <string name="fragment_archive_internet_missing">Check network / wait &amp; retry</string>
     <string name="fragment_archive_sync_to_cloud_on_favourite">Auto backup</string>
     <string name="fragment_archive_sync_to_cloud_on_favourite_most_recent">Last backup: %s</string>
-    <string name="fragment_archive_sync_to_cloud_on_favourite_info_0">The Alarm &amp; reminders permission needs to be granted for this feature</string>
-    <string name="fragment_archive_sync_to_cloud_on_favourite_info_1">Toggle favourite to invoke</string>
+    <string name="fragment_archive_sync_to_cloud_on_favourite_info_0">\u2022&#160;&#160;Toggle favourite to invoke</string>
 
     <string name="widget_listview_quotation">Quotation</string>
     <string name="widget_listview_author">Source</string>
@@ -249,5 +251,4 @@
     <string name="preview_description">Discover High Quality Quotations!\nImport Affirmations!</string>
     <string name="preview_quotation">Nothing matters very much and very few things matter at all.\n</string>
     <string name="preview_author"><u>Arthur Balfour\n</u></string>
-    <string name="preview_position">\u2316  1/19903\u0020</string>
 </resources>

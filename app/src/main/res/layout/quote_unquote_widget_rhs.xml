@@ -28,7 +28,7 @@
 
     <LinearLayout
             android:id="@+id/linearLayoutToolbar"
-            android:layout_width="32dp"
+            android:layout_width="45dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
 

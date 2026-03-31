@@ -14,6 +14,8 @@ public class QuotationsPreferences extends PreferencesFacade {
 
     public static final String CONTENT_ALL = "CONTENT_ALL";
     public static final String CONTENT_ALL_EXCLUSION = "CONTENT_ALL_EXCLUSION";
+    public static final String CONTENT_ALL_ASCENDING_SOURCE_COUNT = "CONTENT_ALL_ASCENDING_SOURCE_COUNT";
+
     public static final String CONTENT_ADD_TO_PREVIOUS_ALL = "CONTENT_ADD_TO_PREVIOUS_ALL";
     public static final String CONTENT_AUTHOR = "CONTENT_AUTHOR";
     public static final String CONTENT_AUTHOR_NAME = "CONTENT_AUTHOR_NAME";
@@ -42,6 +44,14 @@ public class QuotationsPreferences extends PreferencesFacade {
 
     public QuotationsPreferences(int widgetId, @NonNull Context applicationContext) {
         super(widgetId, applicationContext);
+    }
+
+    public boolean getAllAscendingSourceCount() {
+        return this.preferenceHelper.getPreferenceBoolean(this.getPreferenceKey(QuotationsPreferences.CONTENT_ALL_ASCENDING_SOURCE_COUNT), false);
+    }
+
+    public void setAllAscendingSourceCount(boolean value) {
+        this.preferenceHelper.setPreference(this.getPreferenceKey(QuotationsPreferences.CONTENT_ALL_ASCENDING_SOURCE_COUNT), value);
     }
 
     @NonNull

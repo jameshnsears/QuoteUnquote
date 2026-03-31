@@ -3,7 +3,7 @@ package com.github.jameshnsears.quoteunquote.cloud.transfer.backup
 import com.github.jameshnsears.quoteunquote.cloud.transfer.Current
 import com.github.jameshnsears.quoteunquote.cloud.transfer.GsonTestHelper
 import com.github.jameshnsears.quoteunquote.cloud.transfer.TransferUtility
-import com.github.jameshnsears.quoteunquote.database.DatabaseRepository
+import com.github.jameshnsears.quoteunquote.db.DatabaseRepository
 import io.mockk.every
 import io.mockk.mockkObject
 import org.junit.Assert.assertEquals

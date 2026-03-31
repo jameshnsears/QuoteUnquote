@@ -1,7 +1,7 @@
 package com.github.jameshnsears.quoteunquote.cloud.transfer.backup
 
 import com.github.jameshnsears.quoteunquote.cloud.transfer.TransferUtility
-import com.github.jameshnsears.quoteunquote.database.DatabaseTestHelper
+import com.github.jameshnsears.quoteunquote.db.DatabaseTestHelper
 import io.mockk.every
 import io.mockk.mockkObject
 import io.mockk.spyk

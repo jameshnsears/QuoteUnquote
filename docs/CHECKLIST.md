@@ -25,8 +25,7 @@ find . -name "*.gpg"
 ## Assets
 
 ```text
-[ ] API level 24 emulator: get latest /sdcard/Download/Quote_Unquote_ori_portrait.png for featureGraphic.png
-[ ] API level 35 emulator, Medium Phone, get latest screenshots 
+[ ] Medium Phone API 36.0 AOSP emulator, Medium Phone, get latest screenshots 
 ```
 
 ## General
@@ -34,14 +33,13 @@ find . -name "*.gpg"
 ```text
 [ ] Build > Rebuild project - to avoid Gradle using cached files
 [ ] test application install on top of prior version, see step 5. in NOTES.md
-[ ] align assets; including strings.xml count value and example_appwidget_preview.png (API 24)
+[ ] align assets
 [ ] delete development and extract production app/google-services.json
 [ ] update versionCode + versionName in app/build.gradle
 [ ] make sure changelogs/xxx.txt matches versionCode
-[ ] update app/schemas/com.github.jameshnsears.quoteunquote.database.quotation.AbstractQuotationDatabase/xx.json to match AbstractQuotationDatabase.java
-[ ] examine merged manifest, especially for sdk version and permissions
+[ ] update app/schemas/com.github.jameshnsears.quoteunquote.database.quotation.QuotationDatabase/xx.json to match AbstractQuotationDatabase.java
 [ ] deploy app-googleplay-release.aab
 [ ] deploy app/build/outputs/mapping/googleplayRelease/mapping.txt
-[ ] tag the release, and push tags
+[ ] tag the release, and push tag
 [ ] delete production and extract development google-services.json
 ```

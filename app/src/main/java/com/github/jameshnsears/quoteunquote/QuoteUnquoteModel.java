@@ -11,10 +11,10 @@ import androidx.annotation.Nullable;
 import com.github.jameshnsears.quoteunquote.cloud.transfer.Transfer;
 import com.github.jameshnsears.quoteunquote.cloud.transfer.backup.TransferBackup;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
-import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
-import com.github.jameshnsears.quoteunquote.database.history.FavouriteEntity;
-import com.github.jameshnsears.quoteunquote.database.quotation.AuthorPOJO;
-import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
+import com.github.jameshnsears.quoteunquote.db.DatabaseRepository;
+import com.github.jameshnsears.quoteunquote.db.h.FavouriteEntity;
+import com.github.jameshnsears.quoteunquote.db.q.AuthorPOJO;
+import com.github.jameshnsears.quoteunquote.db.q.QuotationEntity;
 import com.github.jameshnsears.quoteunquote.scraper.Scraper;
 import com.github.jameshnsears.quoteunquote.scraper.ScraperData;
 import com.github.jameshnsears.quoteunquote.scraper.ScraperQuotationException;
@@ -45,6 +45,9 @@ public class QuoteUnquoteModel {
 
     @Nullable
     protected Context context;
+
+    @Nullable
+    private QuotationsPreferences quotationsPreferences;
 
     public QuoteUnquoteModel() {
     }

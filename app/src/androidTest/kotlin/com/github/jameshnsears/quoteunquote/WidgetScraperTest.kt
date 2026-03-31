@@ -2,8 +2,8 @@ package com.github.jameshnsears.quoteunquote
 
 import android.content.Context
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences
-import com.github.jameshnsears.quoteunquote.database.DatabaseRepository
-import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity
+import com.github.jameshnsears.quoteunquote.db.DatabaseRepository
+import com.github.jameshnsears.quoteunquote.db.q.QuotationEntity
 import com.github.jameshnsears.quoteunquote.utils.ImportHelper
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import io.mockk.every

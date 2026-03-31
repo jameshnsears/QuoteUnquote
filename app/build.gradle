@@ -1,14 +1,13 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.google.firebase.crashlytics'
-apply plugin: 'kotlin-android'
 apply plugin: 'com.diffplug.spotless'
+apply plugin: 'com.google.firebase.crashlytics'
+apply plugin: 'com.google.gms.google-services'
 apply plugin: 'org.jetbrains.kotlin.plugin.compose'
 
+apply from: '../checkstyle.gradle'
+apply from: '../detekt.gradle'
 apply from: '../jacoco.gradle'
 apply from: '../ktlint.gradle'
-apply from: '../detekt.gradle'
-apply from: '../checkstyle.gradle'
 apply from: '../sonarqube.gradle'
 
 final def localPropertiesFile = rootProject.file("local.properties")
@@ -28,6 +27,10 @@ if (!localPropertiesFile.exists()) {
 
 localProperties.load(new FileInputStream(localPropertiesFile))
 
+final def gitHash = providers.exec {
+    commandLine 'git', 'rev-parse', '--short=8', 'HEAD'
+}.standardOutput.asText.map { it.trim() }.getOrElse("no-git")
+
 android {
     compileSdk 36
 
@@ -41,15 +44,15 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 24
+        minSdkVersion 26
         targetSdkVersion 36
 
         applicationId "com.github.jameshnsears.quoteunquote"
 
         // changelog version | min sdk | target sdk
-        versionCode 1922436
+        versionCode 1932636
         // semantic versioning
-        versionName "4.52.0"
+        versionName "4.53.0"
 
         vectorDrawables.useSupportLibrary = true
 
@@ -62,6 +65,8 @@ android {
                                       "$projectDir/schemas".toString()]
             }
         }
+
+        buildConfigField "String", "GIT_HASH", "\"$gitHash\""
     }
 
     buildFeatures {
@@ -72,10 +77,6 @@ android {
         codeGeneration {
             previewMode = PreviewMode.ON
         }
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion '1.5.15'
     }
 
     packagingOptions {
@@ -91,21 +92,10 @@ android {
     }
 
     buildTypes {
-        final def gitHash = { ->
-            final def stdout = new ByteArrayOutputStream()
-            exec {
-                commandLine 'git', 'rev-parse', '--short=8', 'HEAD'
-                standardOutput = stdout
-            }
-            stdout.toString().trim()
-        }
-
         release {
             minifyEnabled false
             shrinkResources false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
-            buildConfigField("String", "GIT_HASH", "\"$gitHash\"")
             buildConfigField("String", "DATABASE_QUOTATIONS", "\"quotations.db.prod\"")
 
             ndk {
@@ -114,7 +104,6 @@ android {
         }
 
         debug {
-            buildConfigField("String", "GIT_HASH", "\"$gitHash\"")
             buildConfigField("String", "DATABASE_QUOTATIONS", "\"quotations.db.prod\"")
             enableUnitTestCoverage true
             enableAndroidTestCoverage true
@@ -124,10 +113,6 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
-    }
-
-    kotlinOptions {
-        jvmTarget = 17
     }
 
     flavorDimensions 'Version'
@@ -220,79 +205,72 @@ android {
 }
 
 dependencies {
-    androidTestImplementation 'androidx.arch.core:core-testing:2.2.0'
-    androidTestImplementation 'androidx.compose.ui:ui-test-junit4-android:1.8.3'
-    androidTestImplementation 'androidx.room:room-testing:2.7.2'
-    androidTestImplementation 'androidx.test:core:1.6.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
-    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
-    androidTestImplementation 'androidx.test.ext:junit-ktx:1.2.1'
-    androidTestImplementation 'androidx.test:rules:1.6.1'
-    androidTestImplementation 'androidx.test:runner:1.6.2'
-    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.3.0'
-
-    // stay on 1.14.2 or else jacoco / bytebuddy clash
-    //noinspection GradleDependency
-    androidTestImplementation 'io.mockk:mockk-android:1.14.2'
-
-    androidTestImplementation 'org.jetbrains.kotlin:kotlin-test-junit:2.1.21'
-    annotationProcessor 'androidx.room:room-compiler:2.7.2'
-    debugImplementation 'androidx.compose.ui:ui-tooling-preview'
-    debugImplementation 'androidx.fragment:fragment-testing:1.8.8'
-    debugImplementation 'androidx.test:core-ktx:1.6.1'
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.14'
-    googleplayImplementation platform('com.google.firebase:firebase-bom:33.15.0')
-    implementation 'androidx.activity:activity-compose:1.10.1'
-    implementation 'androidx.activity:activity-ktx:1.10.1'
-    implementation 'androidx.appcompat:appcompat:1.7.1'
-    implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.compose.material3:material3'
-    implementation 'androidx.compose.material:material'
-    implementation 'androidx.compose.ui:ui'
-    implementation 'androidx.compose.ui:ui-tooling'
-    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
-    implementation 'androidx.core:core-ktx:1.16.0'
-    implementation 'androidx.core:core-ktx:1.16.0'
-    implementation 'androidx.databinding:databinding-runtime:8.10.1'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx'
-    implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'androidx.room:room-guava:2.7.2'
-    implementation 'androidx.room:room-runtime:2.7.2'
-    implementation 'androidx.room:room-rxjava2:2.7.2'
-    implementation 'androidx.work:work-runtime:2.10.2'
-    implementation 'androidx.work:work-runtime-ktx:2.10.2'
-    implementation 'com.github.skydoves:colorpickerpreference:2.0.6'
-    implementation 'com.google.android.material:material:1.12.0'
-    implementation 'com.google.code.gson:gson:2.13.1'
-    implementation 'com.google.guava:guava:33.4.8-jre'
-    implementation 'com.jakewharton.rxbinding2:rxbinding:2.2.0'
-    implementation 'com.jakewharton.timber:timber:5.0.1'
-    implementation "org.jetbrains.kotlin:kotlin-test:2.1.21"
-    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+    androidTestImplementation libs.androidx.core.testing
+    androidTestImplementation libs.androidx.compose.ui.test.junit4.android
+    androidTestImplementation libs.androidx.room.testing
+    androidTestImplementation libs.androidx.core
+    androidTestImplementation libs.androidx.espresso.core
+    androidTestImplementation libs.androidx.junit
+    androidTestImplementation libs.androidx.junit.ktx
+    androidTestImplementation libs.androidx.rules
+    androidTestImplementation libs.androidx.runner
+    androidTestImplementation libs.androidx.uiautomator
+    androidTestImplementation libs.mockk.android
+    androidTestImplementation libs.kotlin.test.junit
+    annotationProcessor libs.androidx.room.compiler
+    debugImplementation libs.androidx.compose.ui.tooling.preview
+    debugImplementation libs.androidx.fragment.testing
+    debugImplementation libs.androidx.core.ktx
+    debugImplementation libs.leakcanary.android
+    googleplayImplementation platform(libs.firebase.bom)
+    implementation libs.androidx.activity.compose
+    implementation libs.androidx.activity.ktx
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.cardview
+    implementation libs.androidx.compose.material3
+    implementation libs.androidx.compose.material
+    implementation libs.androidx.compose.material.icons.core
+    implementation libs.androidx.compose.material.icons.extended
+    implementation libs.androidx.compose.ui
+    implementation libs.androidx.compose.ui.tooling
+    implementation libs.androidx.constraintlayout
+    implementation libs.core.ktx
+    implementation libs.androidx.databinding.runtime
+    implementation libs.androidx.lifecycle.runtime.ktx
+    implementation libs.androidx.localbroadcastmanager
+    implementation libs.androidx.room.guava
+    implementation libs.androidx.room.runtime
+    implementation libs.androidx.room.rxjava2
+    implementation libs.androidx.work.runtime
+    implementation libs.androidx.work.runtime.ktx
+    implementation libs.colorpickerpreference
+    implementation libs.material
+    implementation libs.gson
+    implementation libs.guava
+    implementation libs.rxbinding
+    implementation libs.timber
+    implementation libs.okhttp
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.21'
-    implementation 'net.pwall.json:json-kotlin-schema:0.56'
-
-    // stay on 1.12.0, else on API 24: java.lang.NoClassDefFoundError: org.apache.commons.csv.CSVParser$Builder
-    //noinspection GradleDependency
-    implementation 'org.apache.commons:commons-csv:1.12.0'
-
-    implementation 'org.jsoup:jsoup:1.20.1'
-    implementation platform('androidx.compose:compose-bom:2025.06.01')
+    implementation libs.rxandroid
+    implementation libs.rxjava
+    implementation libs.json.kotlin.schema
+    implementation libs.commons.csv
+    implementation libs.kotlin.test
+    implementation libs.jsoup
+    implementation platform(libs.androidx.compose.bom)
     implementation project(path: ':cloudLib')
     implementation project(path: ':utilsLib')
-    testImplementation 'androidx.arch.core:core-testing:2.2.0'
-    testImplementation 'androidx.room:room-testing:2.7.2'
-    testImplementation 'androidx.test:core-ktx:1.6.1'
-    testImplementation 'androidx.test.ext:junit:1.2.1'
-    testImplementation 'androidx.test:rules:1.6.1'
-    testImplementation 'ch.qos.logback:logback-classic:1.5.18'
-    testImplementation 'com.google.guava:guava:33.4.8-jre'
-    testImplementation 'io.mockk:mockk:1.14.3'
-    testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2'
-    testImplementation 'org.robolectric:robolectric:4.15.1'
+    testImplementation libs.androidx.core.testing
+    testImplementation libs.androidx.room.testing
+    testImplementation libs.androidx.core.ktx
+    testImplementation libs.androidx.junit
+    testImplementation libs.androidx.rules
+    testImplementation libs.logback.classic
+    testImplementation libs.guava
+    testImplementation libs.mockk
+    testImplementation libs.junit
+    testImplementation libs.kotlinx.coroutines.test
+    testImplementation libs.robolectric
 }
 
 repositories {

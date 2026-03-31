@@ -2,19 +2,18 @@
 <SmellBaseline>
   <ManuallySuppressedIssues/>
   <CurrentIssues>
-    <ID>FunctionNaming:FilesCsvInPlaceEditComposable.kt$@Composable fun InPlaceEdit( filesCsvViewModel: FilesCsvViewModel, )</ID>
-    <ID>FunctionNaming:FilesCsvInPlaceEditComposable.kt$@Composable fun InPlaceEditList( filesCsvViewModel: FilesCsvViewModel, )</ID>
-    <ID>FunctionNaming:FilesCsvInPlaceEditComposable.kt$@Composable private fun InPlaceEditInstructions()</ID>
-    <ID>FunctionNaming:FilesCsvInPlaceEditComposable.kt$@Composable private fun InPlaceEditSaveDeleteButtons( filesCsvViewModel: FilesCsvViewModel, )</ID>
-    <ID>FunctionNaming:FilesCsvInPlaceEditComposable.kt$@Composable private fun InPlaceEditTextSourceQuotationFields( filesCsvViewModel: FilesCsvViewModel, )</ID>
-    <ID>FunctionNaming:FilesCsvInPlaceEditComposable.kt$@Composable private fun PreviewInPlaceEdit()</ID>
-    <ID>FunctionNaming:FilesCsvInPlaceEditComposable.kt$@Preview( apiLevel = 35, widthDp = 400, ) @Composable fun PreviewInPlaceEditLight()</ID>
-    <ID>FunctionNaming:FilesCsvInPlaceEditComposable.kt$@Preview( apiLevel = 35, widthDp = 400, showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, ) @Composable fun PreviewInPlaceEditDark()</ID>
-    <ID>LongMethod:ContentFilesFragment.kt$ContentFilesFragment$private fun import( activityResult: ActivityResult, isCsvFile: Boolean, )</ID>
-    <ID>LongMethod:FilesCsvInPlaceEditComposable.kt$@Composable fun InPlaceEditList( filesCsvViewModel: FilesCsvViewModel, )</ID>
-    <ID>LongMethod:FilesCsvInPlaceEditComposable.kt$@Composable private fun InPlaceEditTextSourceQuotationFields( filesCsvViewModel: FilesCsvViewModel, )</ID>
-    <ID>MagicNumber:AutoCloudBackup.kt$AutoCloudBackup$60_000L</ID>
-    <ID>MagicNumber:FilesCsvInPlaceEditComposable.kt$0xffcac4d0</ID>
+    <ID>FunctionNaming:InPlaceEdit.kt$@Composable fun InPlaceEdit( filesCsvViewModel: FilesCsvViewModel, )</ID>
+    <ID>FunctionNaming:InPlaceEdit.kt$@Composable fun InPlaceEditList( filesCsvViewModel: FilesCsvViewModel, )</ID>
+    <ID>FunctionNaming:InPlaceEdit.kt$@Composable private fun InPlaceEditInstructions()</ID>
+    <ID>FunctionNaming:InPlaceEdit.kt$@Composable private fun InPlaceEditSaveDeleteButtons( filesCsvViewModel: FilesCsvViewModel, )</ID>
+    <ID>FunctionNaming:InPlaceEdit.kt$@Composable private fun InPlaceEditTextSourceQuotationFields( filesCsvViewModel: FilesCsvViewModel, )</ID>
+    <ID>FunctionNaming:InPlaceEdit.kt$@Composable private fun PreviewInPlaceEdit()</ID>
+    <ID>FunctionNaming:InPlaceEdit.kt$@Preview( apiLevel = 36, widthDp = 400, ) @Composable fun PreviewInPlaceEditLight()</ID>
+    <ID>FunctionNaming:InPlaceEdit.kt$@Preview( apiLevel = 36, widthDp = 400, showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, ) @Composable fun PreviewInPlaceEditDark()</ID>
+    <ID>LongMethod:ContentExternalFileFragment.kt$ContentExternalFileFragment$private fun import( activityResult: ActivityResult, isCsvFile: Boolean, )</ID>
+    <ID>LongMethod:InPlaceEdit.kt$@Composable fun InPlaceEditList( filesCsvViewModel: FilesCsvViewModel, )</ID>
+    <ID>LongMethod:InPlaceEdit.kt$@Composable private fun InPlaceEditTextSourceQuotationFields( filesCsvViewModel: FilesCsvViewModel, )</ID>
+    <ID>MagicNumber:InPlaceEdit.kt$0xffcac4d0</ID>
     <ID>MagicNumber:Scraper.kt$Scraper$1000</ID>
     <ID>MaxLineLength:ScraperTest.kt$ScraperTest$"But the God of all grace, who hath called us unto his eternal glory by Christ Jesus, after that ye have suffered a while, make you perfect, stablish, strengthen, settle"</ID>
     <ID>NestedBlockDepth:TransferRestore.kt$TransferRestore$private fun restoreCurrent( context: Context, databaseRepository: DatabaseRepository, currentList: List&lt;Current&gt;, )</ID>
@@ -22,8 +21,9 @@
     <ID>SwallowedException:Scraper.kt$Scraper$e: Exception</ID>
     <ID>SwallowedException:Scraper.kt$Scraper$e: ScraperXpathException</ID>
     <ID>ThrowsCount:Scraper.kt$Scraper$private fun getXpath(document: Document, xpath: String): String</ID>
+    <ID>TooGenericExceptionCaught:AutoCloudBackup.kt$AutoCloudBackup$e: Exception</ID>
     <ID>TooGenericExceptionCaught:Scraper.kt$Scraper$e: Exception</ID>
-    <ID>TooManyFunctions:ContentFilesFragment.kt$ContentFilesFragment : ContentFragment</ID>
+    <ID>TooManyFunctions:ContentExternalFileFragment.kt$ContentExternalFileFragment : ContentFragment</ID>
     <ID>TooManyFunctions:TransferRestore.kt$TransferRestore : TransferCommon</ID>
     <ID>UnusedPrivateProperty:DatabaseQuotationsRandomTest.kt$DatabaseQuotationsRandomTest$i</ID>
     <ID>UtilityClassWithPublicConstructor:ListViewLayoutIdHelper.kt$ListViewLayoutIdHelper</ID>

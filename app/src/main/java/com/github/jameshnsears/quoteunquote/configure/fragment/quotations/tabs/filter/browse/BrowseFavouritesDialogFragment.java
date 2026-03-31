@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteModel;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.browse.adapter.BrowseAdapter;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.browse.adapter.BrowseData;
-import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
+import com.github.jameshnsears.quoteunquote.db.q.QuotationEntity;
 import com.google.common.base.Strings;
 
 import java.util.ArrayList;

@@ -4,7 +4,7 @@ import com.github.jameshnsears.quoteunquote.cloud.transfer.Transfer
 import com.github.jameshnsears.quoteunquote.cloud.transfer.TransferUtility
 import com.github.jameshnsears.quoteunquote.cloud.transfer.backup.TransferBackup
 import com.github.jameshnsears.quoteunquote.cloud.transfer.backup.restore.TransferRestore
-import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity
+import com.github.jameshnsears.quoteunquote.db.q.QuotationEntity
 import io.mockk.every
 import io.mockk.mockkObject
 import org.junit.Assert

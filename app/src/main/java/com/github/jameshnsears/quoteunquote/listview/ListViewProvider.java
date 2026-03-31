@@ -17,7 +17,7 @@ import androidx.annotation.Nullable;
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteModel;
 import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences;
-import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
+import com.github.jameshnsears.quoteunquote.db.q.QuotationEntity;
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
 
 import java.util.ArrayList;

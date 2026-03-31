@@ -1,6 +1,6 @@
 package com.github.jameshnsears.quoteunquote.cloud.transfer.backup
 
-import com.github.jameshnsears.quoteunquote.database.DatabaseTestHelper
+import com.github.jameshnsears.quoteunquote.db.DatabaseTestHelper
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test

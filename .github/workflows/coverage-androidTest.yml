@@ -2,10 +2,9 @@ name: coverage-androidTest
 
 on:
   push:
-    # This should disable running the workflow on tags, according to the
-    # on.<push|pull_request>.<branches|tags> GitHub Actions docs.
     branches:
       - "*"
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -13,22 +12,28 @@ concurrency:
 
 env:
   CACHE_VERSION: 1
+  API_LEVEL: 36
 
 jobs:
-  fdroid:
-    name: fdroid
+  androidTest:
+    name: ${{ matrix.flavor }}
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     env:
       ANDROID_EMULATOR_WAIT_TIME_BEFORE_KILL: 600
-    timeout-minutes: 30
     strategy:
       fail-fast: true
       matrix:
-        api-level: [ 24, 35 ]
+        flavor: [ fdroid, googleplay ]
+        include:
+          - flavor: fdroid
+            gradle_task: :app:connectedFdroidDebugAndroidTestCoverage
+          - flavor: googleplay
+            gradle_task: :app:connectedGoogleplayDebugAndroidTestCoverage
 
     steps:
-      - name: clone
-        uses: actions/checkout@v4
+      - name: Clone
+        uses: actions/checkout@v6
         with:
           fetch-depth: 1
           submodules: true
@@ -39,12 +44,17 @@ jobs:
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
 
-      - uses: actions/setup-java@v4
+      - name: Setup Java
+        uses: actions/setup-java@v5
         with:
-          distribution: 'zulu'
+          distribution: zulu
           java-version: 17
-      - run: ./ci_clear_gradle_cache.sh
-      - uses: actions/cache@v4
+
+      - name: Clear Gradle cache
+        run: ./ci_clear_gradle_cache.sh
+
+      - name: Cache Gradle
+        uses: actions/cache@v5
         with:
           path: |
             ~/.gradle/caches
@@ -55,30 +65,31 @@ jobs:
         uses: ./.github/actions/get-avd-info
         id: avd-info
         with:
-          api-level: ${{ matrix.api-level }}
+          api-level: ${{ env.API_LEVEL }}
 
-      - uses: actions/cache@v4
+      - name: Cache AVD
+        uses: actions/cache@v5
         id: avd-cache
         with:
           path: |
             ~/.android/avd/*
             ~/.android/adb*
-          key: ${{ runner.os }}-avd-${{ env.CACHE_VERSION }}-${{ steps.avd-info.outputs.arch }}-${{ steps.avd-info.outputs.target }}-${{ matrix.api-level }}
+          key: ${{ runner.os }}-avd-${{ env.CACHE_VERSION }}-${{ steps.avd-info.outputs.arch }}-${{ steps.avd-info.outputs.target }}-${{ env.API_LEVEL }}
 
       - name: Create AVD snapshot
         if: steps.avd-cache.outputs.cache-hit != 'true'
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: ${{ matrix.api-level }}
+          api-level: ${{ env.API_LEVEL }}
           arch: ${{ steps.avd-info.outputs.arch }}
           target: ${{ steps.avd-info.outputs.target }}
-          disable-animations: false
+          disable-animations: true
           force-avd-creation: false
           ram-size: 4096M
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           script: echo "Generated AVD snapshot."
 
-      - name: local.properties
+      - name: Write local.properties
         env:
           LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
           LOCAL_PROPERTIES_CLOUDLIB: ${{ secrets.LOCAL_PROPERTIES_CLOUDLIB }}
@@ -88,15 +99,15 @@ jobs:
           echo "${LOCAL_PROPERTIES_CLOUDLIB}" | base64 -d > QuoteUnquote.cloudLib/cloudLib/local.properties
           echo "${LOCAL_PROPERTIES_UTILSLIB}" | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
 
-      - name: google-services.json
+      - name: Write google-services.json
         env:
           GOOGLE_PLAY_JSON_DEVELOPMENT: ${{ secrets.GOOGLE_PLAY_JSON_DEVELOPMENT }}
         run: echo "${GOOGLE_PLAY_JSON_DEVELOPMENT}" | base64 -d > app/google-services.json
 
-      - name: androidTest
+      - name: Run androidTests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: ${{ matrix.api-level }}
+          api-level: ${{ env.API_LEVEL }}
           arch: ${{ steps.avd-info.outputs.arch }}
           target: ${{ steps.avd-info.outputs.target }}
           disable-animations: true
@@ -106,141 +117,20 @@ jobs:
           script: |
             adb logcat -c
             adb logcat > logcat.txt &
-            ./gradlew :app:connectedFdroidDebugAndroidTestCoverage --stacktrace
+            ./gradlew ${{ matrix.gradle_task }} --stacktrace
 
-      - name: artifact logcat
+      - name: Upload logcat
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
-          name: fdroid-logcat-${{ matrix.api-level }}
+          name: ${{ matrix.flavor }}-logcat-${{ env.API_LEVEL }}
           path: logcat.txt
 
-      - name: artifact
+      - name: Upload reports
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
-          name: fdroid-${{ matrix.api-level }}
+          name: ${{ matrix.flavor }}-${{ env.API_LEVEL }}
           path: |
             **/build/reports/*
             **/build/outputs/*/connected/*
-
-      - name: publish
-        run: |
-          set -x
-          find . -name "*.exec"; find . -name "*.ec"; find app/build/reports/ -name "*.xml"
-          bash <(curl https://codecov.io/bash) -t ${{ secrets.CODECOVIO_TOKEN }} -f app/build/reports/FdroidDebug.xml -F androidTest.fdroid
-
-  googleplay:
-    name: googleplay
-    runs-on: ubuntu-latest
-    env:
-      ANDROID_EMULATOR_WAIT_TIME_BEFORE_KILL: 600
-    timeout-minutes: 30
-    strategy:
-      fail-fast: true
-      matrix:
-        api-level: [ 24, 35 ]
-
-    steps:
-      - name: clone
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-          submodules: true
-
-      - name: Enable KVM
-        run: |
-          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
-          sudo udevadm control --reload-rules
-          sudo udevadm trigger --name-match=kvm
-
-      - uses: actions/setup-java@v4
-        with:
-          distribution: 'zulu'
-          java-version: 17
-      - run: ./ci_clear_gradle_cache.sh
-      - uses: actions/cache@v4
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ env.CACHE_VERSION }}-${{ hashFiles('**/**.gradle.kts', '**/gradle/wrapper/gradle-wrapper.properties', '**/libs.versions.toml') }}
-
-      - name: Get AVD info
-        uses: ./.github/actions/get-avd-info
-        id: avd-info
-        with:
-          api-level: ${{ matrix.api-level }}
-
-      - uses: actions/cache@v4
-        id: avd-cache
-        with:
-          path: |
-            ~/.android/avd/*
-            ~/.android/adb*
-          key: ${{ runner.os }}-avd-${{ env.CACHE_VERSION }}-${{ steps.avd-info.outputs.arch }}-${{ steps.avd-info.outputs.target }}-${{ matrix.api-level }}
-
-      - name: Create AVD snapshot
-        if: steps.avd-cache.outputs.cache-hit != 'true'
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: ${{ matrix.api-level }}
-          arch: ${{ steps.avd-info.outputs.arch }}
-          target: ${{ steps.avd-info.outputs.target }}
-          disable-animations: false
-          force-avd-creation: false
-          ram-size: 4096M
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          script: echo "Generated AVD snapshot."
-
-      - name: local.properties
-        env:
-          LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
-          LOCAL_PROPERTIES_CLOUDLIB: ${{ secrets.LOCAL_PROPERTIES_CLOUDLIB }}
-          LOCAL_PROPERTIES_UTILSLIB: ${{ secrets.LOCAL_PROPERTIES_UTILSLIB }}
-        run: |
-          echo "${LOCAL_PROPERTIES}" | base64 -d > local.properties
-          echo "${LOCAL_PROPERTIES_CLOUDLIB}" | base64 -d > QuoteUnquote.cloudLib/cloudLib/local.properties
-          echo "${LOCAL_PROPERTIES_UTILSLIB}" | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
-
-      - name: google-services.json
-        env:
-          GOOGLE_PLAY_JSON_DEVELOPMENT: ${{ secrets.GOOGLE_PLAY_JSON_DEVELOPMENT }}
-        run: echo "${GOOGLE_PLAY_JSON_DEVELOPMENT}" | base64 -d > app/google-services.json
-
-      - name: androidTest
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: ${{ matrix.api-level }}
-          arch: ${{ steps.avd-info.outputs.arch }}
-          target: ${{ steps.avd-info.outputs.target }}
-          disable-animations: true
-          force-avd-creation: false
-          ram-size: 4096M
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          script: |
-            adb logcat -c
-            adb logcat > logcat.txt &
-            ./gradlew :app:connectedGoogleplayDebugAndroidTestCoverage --stacktrace
-
-      - name: artifact logcat
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: googleplay-logcat-${{ matrix.api-level }}
-          path: logcat.txt
-
-      - name: artifact
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: googleplay-${{ matrix.api-level }}
-          path: |
-            **/build/reports/*
-            **/build/outputs/*/connected/*
-
-      - name: publish
-        run: |
-          set -x
-          find . -name "*.exec"; find . -name "*.ec"; find app/build/reports/ -name "*.xml"
-          bash <(curl https://codecov.io/bash) -t ${{ secrets.CODECOVIO_TOKEN }} -f app/build/reports/GoogleplayDebug.xml -F androidTest.googleplay

@@ -13,7 +13,7 @@ import com.github.jameshnsears.quoteunquote.cloud.transfer.TransferRestoreRespon
 import com.github.jameshnsears.quoteunquote.cloud.transfer.backup.restore.TransferRestore;
 import com.github.jameshnsears.quoteunquote.configure.fragment.sync.SyncFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.sync.SyncPreferences;
-import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
+import com.github.jameshnsears.quoteunquote.db.DatabaseRepository;
 
 import timber.log.Timber;
 

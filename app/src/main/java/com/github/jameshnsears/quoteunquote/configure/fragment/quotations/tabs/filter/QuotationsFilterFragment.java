@@ -29,9 +29,9 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.Quotat
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.browse.BrowseFavouritesDialogFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.browse.BrowseSearchDialogFragment;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.filter.browse.BrowseSourceDialogFragment;
-import com.github.jameshnsears.quoteunquote.database.quotation.AuthorPOJO;
-import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentQuotationsTabFilterBinding;
+import com.github.jameshnsears.quoteunquote.db.q.AuthorPOJO;
+import com.github.jameshnsears.quoteunquote.db.q.QuotationEntity;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 import com.github.jameshnsears.quoteunquote.utils.ImportHelper;
 import com.jakewharton.rxbinding2.widget.RxTextView;
@@ -41,7 +41,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -54,6 +53,7 @@ import timber.log.Timber;
 
 @Keep
 public class QuotationsFilterFragment extends FragmentCommon {
+    public static final String TEXT_CSV = "text/csv";
     @Nullable
     public static List<QuotationEntity> activityExportQuotationEntityList;
     @NonNull
@@ -117,9 +117,9 @@ public class QuotationsFilterFragment extends FragmentCommon {
 
         quoteUnquoteModel = new QuoteUnquoteModel(widgetId, getContext());
 
-        RxJavaPlugins.setErrorHandler(e -> {
-            Timber.e(e.getMessage());
-        });
+        RxJavaPlugins.setErrorHandler(e ->
+            Timber.e(e.getMessage())
+        );
     }
 
     @Override
@@ -140,6 +140,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
         initUI();
 
         createListenerCardAllRadio();
+        createListenerCardAllAscendingSourceCount();
 
         createListenerCardSourceRadio();
         createListenerCardSourceCount();
@@ -257,6 +258,12 @@ public class QuotationsFilterFragment extends FragmentCommon {
                         = this.fragmentQuotationsTabFilterBinding.editTextResultsExclusion.getText().length();
                 this.fragmentQuotationsTabFilterBinding.editTextResultsExclusion.setSelection(selectionPosition);
             }
+
+//            if (quotationsPreferences.getAllAscendingSourceCount()) {
+//                fragmentQuotationsTabFilterBinding.switchAscendingSourceCount.setChecked(true);
+//            } else {
+//                fragmentQuotationsTabFilterBinding.switchAscendingSourceCount.setChecked(false);
+//            }
         }
         fragmentQuotationsTabFilterBinding.editTextResultsExclusionLayout.setEnabled(enabled);
         fragmentQuotationsTabFilterBinding.editTextResultsExclusion.setEnabled(enabled);
@@ -353,7 +360,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
     private void setCardSearch(final boolean enabled) {
         this.fragmentQuotationsTabFilterBinding.radioButtonSearch.setChecked(enabled);
 
-        ///
+        //
 
         if (enabled && quoteUnquoteModel.countFavouritesWithoutRx() > 0) {
             this.fragmentQuotationsTabFilterBinding.switchSearchFavouritesOnly.setEnabled(true);
@@ -370,13 +377,13 @@ public class QuotationsFilterFragment extends FragmentCommon {
             quotationsPreferences.setContentSelectionSearchFavouritesOnly(false);
         }
 
-        ///
+        //
 
         this.fragmentQuotationsTabFilterBinding.switchRegEx.setEnabled(enabled);
         this.fragmentQuotationsTabFilterBinding.switchRegEx
                 .setChecked(quotationsPreferences.getContentSelectionSearchRegEx());
 
-        ///
+        //
 
         String keywords = quotationsPreferences.getContentSelectionSearch();
         fragmentQuotationsTabFilterBinding.editTextSearchText.setText(keywords);
@@ -387,7 +394,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
             setCardSearchTextFocus();
         }
 
-        ///
+        //
 
         if (enabled && quotationsPreferences.getContentSelectionSearchCount() > 0) {
             setCardSearchButtonBrowse(true);
@@ -474,6 +481,11 @@ public class QuotationsFilterFragment extends FragmentCommon {
     }
 
     private void setDisposableCardAllCount() {
+        if (fragmentQuotationsTabFilterBinding == null || quotationsPreferences == null || quoteUnquoteModel == null) {
+            // Fragment view not ready or model/preferences missing - skip setup
+            return;
+        }
+
         fragmentQuotationsTabFilterBinding.editTextResultsExclusion.setText(
                 quotationsPreferences.getContentSelectionAllExclusion()
         );
@@ -490,7 +502,11 @@ public class QuotationsFilterFragment extends FragmentCommon {
 
             @Override
             public void onError(@NonNull final Throwable throwable) {
-                Timber.d("onError=%s", throwable.getMessage());
+                if (throwable != null && throwable.getMessage() != null) {
+                    Timber.d("onError=%s", throwable.getMessage());
+                } else {
+                    Timber.d("onError: null throwable");
+                }
             }
 
             @Override
@@ -519,6 +535,10 @@ public class QuotationsFilterFragment extends FragmentCommon {
     }
 
     void setDisposableCardSource() {
+        if (quoteUnquoteModel == null || quotationsPreferences == null || fragmentQuotationsTabFilterBinding == null) {
+            return;
+        }
+
         disposables.add(quoteUnquoteModel.authors(
                         quotationsPreferences.getContentSelectionAuthorCount().intValue()
                 )
@@ -533,12 +553,20 @@ public class QuotationsFilterFragment extends FragmentCommon {
 
                             @Override
                             public void onError(@NonNull final Throwable throwable) {
-                                Timber.d("onError=%s", throwable.getMessage());
+                                if (throwable != null && throwable.getMessage() != null) {
+                                    Timber.d("onError=%s", throwable.getMessage());
+                                } else {
+                                    Timber.d("onError: null throwable");
+                                }
                             }
                         }));
     }
 
     private void setDisposableCardSourceCount() {
+        if (quoteUnquoteModel == null || fragmentQuotationsTabFilterBinding == null) {
+            return;
+        }
+
         disposables.add(quoteUnquoteModel.authorsQuotationCount()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -551,12 +579,20 @@ public class QuotationsFilterFragment extends FragmentCommon {
 
                             @Override
                             public void onError(@NonNull final Throwable throwable) {
-                                Timber.d("onError=%s", throwable.getMessage());
+                                if (throwable != null && throwable.getMessage() != null) {
+                                    Timber.d("onError=%s", throwable.getMessage());
+                                } else {
+                                    Timber.d("onError: null throwable");
+                                }
                             }
                         }));
     }
 
     private void setDisposableCardFavouriteCount() {
+        if (quoteUnquoteModel == null || fragmentQuotationsTabFilterBinding == null) {
+            return;
+        }
+
         disposables.add(quoteUnquoteModel.countFavourites()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -586,6 +622,10 @@ public class QuotationsFilterFragment extends FragmentCommon {
     }
 
     private void setDisposableCardSearchCount() {
+        if (fragmentQuotationsTabFilterBinding == null || quotationsPreferences == null || quoteUnquoteModel == null) {
+            return;
+        }
+
         fragmentQuotationsTabFilterBinding.editTextSearchText.setText(
                 quotationsPreferences.getContentSelectionSearch()
         );
@@ -615,7 +655,11 @@ public class QuotationsFilterFragment extends FragmentCommon {
 
             @Override
             public void onError(@NonNull final Throwable throwable) {
-                Timber.d("onError=%s", throwable.getMessage());
+                if (throwable != null && throwable.getMessage() != null) {
+                    Timber.d("onError=%s", throwable.getMessage());
+                } else {
+                    Timber.d("onError: null throwable");
+                }
             }
 
             @Override
@@ -635,11 +679,6 @@ public class QuotationsFilterFragment extends FragmentCommon {
                     if (!keywords.equals("") && keywords.length() >= 4) {
                         if (quotationsPreferences.getContentSelectionSearchRegEx()) {
                             try {
-                                // https://regex101.com/
-                                // mind.$ - find "mind." at end
-                                // mind[ - invalid expression
-                                Pattern pattern = Pattern.compile(keywords, Pattern.CASE_INSENSITIVE);
-
                                 // remove any prior, different, search results in the history
                                 if (!keywords.equals(quotationsPreferences.getContentSelectionSearch())) {
                                     quoteUnquoteModel.resetPrevious(this.widgetId, ContentSelection.SEARCH);
@@ -679,6 +718,13 @@ public class QuotationsFilterFragment extends FragmentCommon {
                 setCard();
             }
         });
+    }
+
+    private void createListenerCardAllAscendingSourceCount() {
+//        this.fragmentQuotationsTabFilterBinding.switchAscendingSourceCount.setOnClickListener(v ->
+//            quotationsPreferences.setAllAscendingSourceCount(
+//                    fragmentQuotationsTabFilterBinding.switchAscendingSourceCount.isChecked())
+//        );
     }
 
     private void createListenerCardSourceRadio() {
@@ -750,7 +796,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
 
             final Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
             intent.addCategory(Intent.CATEGORY_OPENABLE);
-            intent.setType("text/csv");
+            intent.setType(TEXT_CSV);
 
             activityExportQuotationEntityList = quoteUnquoteModel.getQuotationsForAuthor(
                     quotationsPreferences.getContentSelectionAuthor());
@@ -792,7 +838,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
 
                 final Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
-                intent.setType("text/csv");
+                intent.setType(TEXT_CSV);
 
                 activityExportQuotationEntityList = quoteUnquoteModel.exportFavourites();
 
@@ -854,7 +900,6 @@ public class QuotationsFilterFragment extends FragmentCommon {
                     quotationsPreferences.getContentSelectionSearch());
 
             browseSearchDialogFragment.show(getParentFragmentManager(), "");
-            ;
         });
     }
 
@@ -866,7 +911,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
 
                 final Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
-                intent.setType("text/csv");
+                intent.setType(TEXT_CSV);
 
                 QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, getActivity());
 
@@ -960,25 +1005,43 @@ public class QuotationsFilterFragment extends FragmentCommon {
                     if (activityResult.getResultCode() == Activity.RESULT_OK) {
 
                         try {
-                            final ParcelFileDescriptor parcelFileDescriptor
-                                    = getContext().getContentResolver().openFileDescriptor(
-                                    activityResult.getData().getData(), "w");
-                            final FileOutputStream fileOutputStream
-                                    = new FileOutputStream(parcelFileDescriptor.getFileDescriptor());
+                            if (activityResult.getData() == null || activityResult.getData().getData() == null) {
+                                Timber.d("activityExport: no data returned from create document");
+                                Toast.makeText(
+                                        getContext(),
+                                        getContext().getString(R.string.fragment_quotations_selection_export_failed),
+                                        Toast.LENGTH_SHORT).show();
+                            } else if (activityExportQuotationEntityList == null) {
+                                Timber.d("activityExport: no quotations to export");
+                                Toast.makeText(
+                                        getContext(),
+                                        getContext().getString(R.string.fragment_quotations_selection_export_failed),
+                                        Toast.LENGTH_SHORT).show();
+                            } else {
+                                final ParcelFileDescriptor parcelFileDescriptor
+                                        = getContext().getContentResolver().openFileDescriptor(
+                                        activityResult.getData().getData(), "w");
+                                final FileOutputStream fileOutputStream
+                                        = new FileOutputStream(parcelFileDescriptor.getFileDescriptor());
 
-                            new ImportHelper().csvExport(
-                                    fileOutputStream,
-                                    (ArrayList<QuotationEntity>) activityExportQuotationEntityList);
+                                new ImportHelper().csvExport(
+                                        fileOutputStream,
+                                        (ArrayList<QuotationEntity>) activityExportQuotationEntityList);
 
-                            fileOutputStream.close();
-                            parcelFileDescriptor.close();
+                                fileOutputStream.close();
+                                parcelFileDescriptor.close();
 
-                            Toast.makeText(
-                                    getContext(),
-                                    getContext().getString(R.string.fragment_quotations_selection_export_success),
-                                    Toast.LENGTH_SHORT).show();
+                                Toast.makeText(
+                                        getContext(),
+                                        getContext().getString(R.string.fragment_quotations_selection_export_success),
+                                        Toast.LENGTH_SHORT).show();
+                            }
                         } catch (final IOException e) {
                             Timber.e(e.getMessage());
+                            Toast.makeText(
+                                    getContext(),
+                                    getContext().getString(R.string.fragment_quotations_selection_export_failed),
+                                    Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -986,3 +1049,4 @@ public class QuotationsFilterFragment extends FragmentCommon {
                 });
     }
 }
+

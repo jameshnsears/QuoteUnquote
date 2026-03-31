@@ -1,9 +1,9 @@
 package com.github.jameshnsears.quoteunquote
 
-import com.github.jameshnsears.quoteunquote.database.DatabaseRepository
-import com.github.jameshnsears.quoteunquote.database.DatabaseRepositoryDouble
-import com.github.jameshnsears.quoteunquote.database.quotation.AuthorPOJO
-import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity
+import com.github.jameshnsears.quoteunquote.db.DatabaseRepository
+import com.github.jameshnsears.quoteunquote.db.DatabaseRepositoryDouble
+import com.github.jameshnsears.quoteunquote.db.q.AuthorPOJO
+import com.github.jameshnsears.quoteunquote.db.q.QuotationEntity
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 import com.github.jameshnsears.quoteunquote.utils.ImportHelper
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper

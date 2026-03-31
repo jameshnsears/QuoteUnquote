@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -31,8 +30,8 @@ import com.github.jameshnsears.quoteunquote.cloud.CloudTransferHelper;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences;
 import com.github.jameshnsears.quoteunquote.configure.fragment.notifications.NotificationsPreferences;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
-import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
-import com.github.jameshnsears.quoteunquote.database.quotation.QuotationEntity;
+import com.github.jameshnsears.quoteunquote.db.DatabaseRepository;
+import com.github.jameshnsears.quoteunquote.db.q.QuotationEntity;
 import com.github.jameshnsears.quoteunquote.listview.ListViewService;
 import com.github.jameshnsears.quoteunquote.scraper.ScraperData;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
@@ -95,11 +94,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
 
             IntentFilter quickBootPowerOn = new IntentFilter();
             quickBootPowerOn.addAction("android.intent.action.QUICKBOOT_POWERON");
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-                context.registerReceiver(receiver, quickBootPowerOn);
-            } else {
-                context.registerReceiver(receiver, quickBootPowerOn, Context.RECEIVER_EXPORTED);
-            }
+            context.registerReceiver(receiver, quickBootPowerOn, Context.RECEIVER_EXPORTED);
 
             IntentFilter themeChange = new IntentFilter();
             themeChange.addAction(Intent.ACTION_CONFIGURATION_CHANGED);

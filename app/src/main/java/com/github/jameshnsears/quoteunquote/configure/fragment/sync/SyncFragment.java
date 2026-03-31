@@ -38,8 +38,8 @@ import com.github.jameshnsears.quoteunquote.cloud.transfer.Transfer;
 import com.github.jameshnsears.quoteunquote.cloud.transfer.backup.restore.TransferRestore;
 import com.github.jameshnsears.quoteunquote.configure.ConfigureActivity;
 import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
-import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentSyncBinding;
+import com.github.jameshnsears.quoteunquote.db.DatabaseRepository;
 import com.github.jameshnsears.quoteunquote.sync.SyncJsonSchemaValidation;
 import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
@@ -189,6 +189,14 @@ public class SyncFragment extends FragmentCommon {
     public void onDestroyView() {
         super.onDestroyView();
         fragmentSyncBinding = null;
+    }
+
+    @Override
+    public void onStop() {
+        if (receiver != null) {
+            LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(receiver);
+        }
+        super.onStop();
     }
 
     private void setSyncFields() {
@@ -625,6 +633,9 @@ public class SyncFragment extends FragmentCommon {
     }
 
     public void alignLocalCodeWithRestoredCode() {
+        if (fragmentSyncBinding == null) {
+            return;
+        }
         fragmentSyncBinding.textViewLocalCodeValue.setText(syncPreferences.getTransferLocalCode());
         fragmentSyncBinding.editTextRemoteCodeValue.setText("");
     }

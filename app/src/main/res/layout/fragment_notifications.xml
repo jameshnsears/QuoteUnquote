@@ -447,44 +447,6 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                        android:id="@+id/textViewExactTimeWarningDivider"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp">
-
-                    <View
-                            android:layout_width="match_parent"
-                            android:layout_height="2dp"
-                            android:background="?android:attr/listDivider" />
-
-                </LinearLayout>
-
-                <TextView
-                        android:id="@+id/textViewExactTimeWarningInfo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="4dp"
-                        android:paddingTop="10dp"
-                        android:paddingEnd="0dp"
-                        android:paddingBottom="10dp"
-                        android:text="@string/fragment_notifications_exact_alarm_warning_info"
-                        android:visibility="gone"
-                        app:drawableStartCompat="@drawable/ic_info_24" />
-
-                <TextView
-                        android:id="@+id/textViewExactTimeWarning"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="10dp"
-                        android:paddingTop="5dp"
-                        android:paddingEnd="0dp"
-                        android:paddingBottom="8dp"
-                        android:text="@string/fragment_notifications_exact_alarm_warning"
-                        android:visibility="gone" />
-
             </LinearLayout>
 
         </LinearLayout>

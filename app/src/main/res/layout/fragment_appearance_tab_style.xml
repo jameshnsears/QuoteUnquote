@@ -364,6 +364,7 @@
                         android:layout_weight="1"
                         android:gravity="end|center_vertical"
                         android:padding="10dp"
+                        android:paddingEnd="10dp"
                         android:text="@string/fragment_appearance_button_position" />
 
             </LinearLayout>

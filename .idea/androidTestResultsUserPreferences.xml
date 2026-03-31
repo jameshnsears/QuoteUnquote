@@ -52,6 +52,8 @@
                 <map>
                   <entry key="Duration" value="90" />
                   <entry key="Genymobile Pixel 7a" value="120" />
+                  <entry key="Medium_Phone" value="120" />
+                  <entry key="Pixel_7a_API_24" value="120" />
                   <entry key="Tests" value="360" />
                 </map>
               </option>
@@ -79,6 +81,7 @@
                   <entry key="52000e504bc43567" value="120" />
                   <entry key="Duration" value="127" />
                   <entry key="Genymobile Pixel 7a" value="156" />
+                  <entry key="Medium_Phone_API_36.0_AOSP" value="120" />
                   <entry key="Nexus_4_API_24" value="120" />
                   <entry key="Nexus_4_API_30" value="120" />
                   <entry key="Pixel_3a_API_24" value="120" />
@@ -216,6 +219,7 @@
                 <map>
                   <entry key="52000e504bc43567" value="120" />
                   <entry key="Duration" value="100" />
+                  <entry key="Medium_Phone_API_36.0_AOSP" value="120" />
                   <entry key="Pixel_3a_API_24" value="120" />
                   <entry key="Pixel_6_API_30" value="129" />
                   <entry key="Tests" value="369" />
@@ -238,12 +242,26 @@
             </AndroidTestResultsTableState>
           </value>
         </entry>
+        <entry key="190151034">
+          <value>
+            <AndroidTestResultsTableState>
+              <option name="preferredColumnWidths">
+                <map>
+                  <entry key="Duration" value="90" />
+                  <entry key="Medium_Phone_API_36.0_AOSP" value="120" />
+                  <entry key="Tests" value="360" />
+                </map>
+              </option>
+            </AndroidTestResultsTableState>
+          </value>
+        </entry>
         <entry key="243291996">
           <value>
             <AndroidTestResultsTableState>
               <option name="preferredColumnWidths">
                 <map>
                   <entry key="Duration" value="90" />
+                  <entry key="Genymobile Pixel 7a" value="120" />
                   <entry key="Pixel_6_API_30" value="120" />
                   <entry key="Pixel_6_API_34" value="120" />
                   <entry key="Tests" value="360" />
@@ -259,7 +277,9 @@
                 <map>
                   <entry key="Duration" value="90" />
                   <entry key="Pixel_4a_API_30" value="120" />
+                  <entry key="Pixel_7a_API_24" value="120" />
                   <entry key="Tests" value="360" />
+                  <entry key="samsung SM-A528B" value="120" />
                 </map>
               </option>
             </AndroidTestResultsTableState>

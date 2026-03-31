@@ -1,25 +1,21 @@
 package com.github.jameshnsears.quoteunquote.configure;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.View;
 
-import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.OnApplyWindowInsetsListener;
-import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.fragment.app.Fragment;
 
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteWidget;
@@ -97,6 +93,7 @@ public class ConfigureActivity extends AppCompatActivity {
         setResult(Activity.RESULT_OK, IntentFactoryHelper.createIntent(this.widgetId));
     }
 
+    @SuppressLint("GestureBackNavigation")
     @Override
     public void onBackPressed() {
         QuotationsFilterFragment.ensureFragmentContentSearchConsistency(widgetId, getApplicationContext());
@@ -133,24 +130,15 @@ public class ConfigureActivity extends AppCompatActivity {
 
         activityConfigureBinding = ActivityConfigureBinding.inflate(this.getLayoutInflater());
 
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-
         setContentView(activityConfigureBinding.getRoot());
 
-        ViewCompat.setOnApplyWindowInsetsListener(
-                activityConfigureBinding.getRoot(), new OnApplyWindowInsetsListener() {
-            @Override
-            public WindowInsetsCompat onApplyWindowInsets(View view, WindowInsetsCompat insets) {
-                Insets sysBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
-                    view.setPadding(sysBars.left, 0, sysBars.right, sysBars.bottom);
-                } else {
-                    view.setPadding(sysBars.left, sysBars.top, sysBars.right, sysBars.bottom);
-                }
-                return WindowInsetsCompat.CONSUMED;
-            }
-        });
+        WindowInsetsControllerCompat controller =
+                WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        controller.hide(WindowInsetsCompat.Type.systemBars());
+        controller.setSystemBarsBehavior(
+                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        );
 
         createListenerBottomNavigationView();
 
@@ -192,28 +180,25 @@ public class ConfigureActivity extends AppCompatActivity {
             String screen =
                     new QuotationsPreferences(widgetId, getApplicationContext()).getScreen();
 
-            switch (item.getItemId()) {
-                case R.id.navigationBarQuotations:
-                    selectedFragment = getFragmentContentNewInstance();
-                    enableDisableMenuToHelpWithRouting(false, true, true, true);
-                    break;
-                case R.id.navigationBarAppearance:
-                    selectedFragment = AppearanceFragment.newInstance(widgetId);
-                    activityConfigureBinding.configureNavigation.getMenu().findItem(R.id.navigationBarQuotations).setEnabled(true);
-                    enableDisableMenuToHelpWithRouting(true, false, true, true);
-                    break;
-                case R.id.navigationBarNotification:
-                    selectedFragment = NotificationsFragment.newInstance(widgetId);
-                    activityConfigureBinding.configureNavigation.getMenu().findItem(R.id.navigationBarQuotations).setEnabled(true);
-                    enableDisableMenuToHelpWithRouting(true, true, false, true);
-                    break;
-                case R.id.navigationBarSync:
-                    selectedFragment = SyncFragment.newInstance(widgetId);
-                    activityConfigureBinding.configureNavigation.getMenu().findItem(R.id.navigationBarQuotations).setEnabled(true);
-                    enableDisableMenuToHelpWithRouting(true, true, true, false);
-                    break;
-                default:
-                    Timber.e("%d", item.getItemId());
+            int itemId = item.getItemId();
+
+            if (itemId == R.id.navigationBarQuotations) {
+                selectedFragment = getFragmentContentNewInstance();
+                enableDisableMenuToHelpWithRouting(false, true, true, true);
+            } else if (itemId == R.id.navigationBarAppearance) {
+                selectedFragment = AppearanceFragment.newInstance(widgetId);
+                activityConfigureBinding.configureNavigation.getMenu().findItem(R.id.navigationBarQuotations).setEnabled(true);
+                enableDisableMenuToHelpWithRouting(true, false, true, true);
+            } else if (itemId == R.id.navigationBarNotification) {
+                selectedFragment = NotificationsFragment.newInstance(widgetId);
+                activityConfigureBinding.configureNavigation.getMenu().findItem(R.id.navigationBarQuotations).setEnabled(true);
+                enableDisableMenuToHelpWithRouting(true, true, false, true);
+            } else if (itemId == R.id.navigationBarSync) {
+                selectedFragment = SyncFragment.newInstance(widgetId);
+                activityConfigureBinding.configureNavigation.getMenu().findItem(R.id.navigationBarQuotations).setEnabled(true);
+                enableDisableMenuToHelpWithRouting(true, true, true, false);
+            } else {
+                Timber.e("%d", itemId);
             }
 
             getSupportFragmentManager()

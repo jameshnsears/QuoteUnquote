@@ -14,8 +14,8 @@ import androidx.annotation.Nullable;
 import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.ContentFragment;
-import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentQuotationsTabDatabaseTabWebBinding;
+import com.github.jameshnsears.quoteunquote.db.DatabaseRepository;
 import com.github.jameshnsears.quoteunquote.scraper.ScraperData;
 import com.github.jameshnsears.quoteunquote.utils.ImportHelper;
 

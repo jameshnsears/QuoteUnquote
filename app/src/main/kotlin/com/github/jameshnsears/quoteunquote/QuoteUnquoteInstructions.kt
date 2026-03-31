@@ -3,6 +3,9 @@ package com.github.jameshnsears.quoteunquote
 import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.github.jameshnsears.quoteunquote.databinding.ActivityInstructionsBinding
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper
 
@@ -14,6 +17,12 @@ class QuoteUnquoteInstructions : AppCompatActivity() {
         activityInstructionsBinding = ActivityInstructionsBinding.inflate(layoutInflater)
         val view = activityInstructionsBinding.root
         setContentView(view)
+
+        val controller = WindowCompat.getInsetsController(window, window.decorView)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        controller.hide(WindowInsetsCompat.Type.systemBars())
+        controller.systemBarsBehavior =
+            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
 
         val buildconfigVersion = BuildConfig.VERSION_NAME
 

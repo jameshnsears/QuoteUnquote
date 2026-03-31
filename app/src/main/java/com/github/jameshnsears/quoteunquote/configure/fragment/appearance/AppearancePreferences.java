@@ -69,7 +69,7 @@ public class AppearancePreferences extends PreferencesFacade {
     public int getAppearancePositionTextSize() {
         int textSize = preferenceHelper.getPreferenceInt(getPreferenceKey(APPEARANCE_POSITION_TEXT_SIZE));
         if (textSize == -1) {
-            textSize = 16;
+            textSize = 18;
         }
         return textSize;
     }
@@ -79,7 +79,7 @@ public class AppearancePreferences extends PreferencesFacade {
     }
 
     public boolean getAppearancePositionTextHide() {
-        return preferenceHelper.getPreferenceBoolean(getPreferenceKey(APPEARANCE_POSITION_TEXT_HIDE), false);
+        return preferenceHelper.getPreferenceBoolean(getPreferenceKey(APPEARANCE_POSITION_TEXT_HIDE), true);
     }
 
     public void setAppearancePositionTextHide(final boolean value) {
@@ -102,7 +102,7 @@ public class AppearancePreferences extends PreferencesFacade {
     public int getAppearanceAuthorTextSize() {
         int textSize = preferenceHelper.getPreferenceInt(getPreferenceKey(APPEARANCE_AUTHOR_TEXT_SIZE));
         if (textSize == -1) {
-            textSize = 16;
+            textSize = 18;
         }
         return textSize;
     }
@@ -161,7 +161,7 @@ public class AppearancePreferences extends PreferencesFacade {
     public int getAppearanceQuotationTextSize() {
         int textSize = preferenceHelper.getPreferenceInt(getPreferenceKey(APPEARANCE_TEXT_SIZE));
         if (textSize == -1) {
-            textSize = 16;
+            textSize = 18;
         }
         return textSize;
     }

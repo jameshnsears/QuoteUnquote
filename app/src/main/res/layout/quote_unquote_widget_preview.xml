@@ -4,7 +4,9 @@
         android:layout_height="match_parent"
         android:background="@drawable/quote_unquote_widget_rounded_corners_day"
         android:orientation="vertical"
-        android:padding="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="2dp"
         tools:viewBindingIgnore="true">
 
     <LinearLayout
@@ -47,23 +49,9 @@
                     android:textAllCaps="false"
                     android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
-            <TextView
-                    android:id="@+id/textViewRowPosition"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:gravity="end"
-                    android:minHeight="10dp"
-                    android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-                    android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
-                    android:text="@string/preview_position"
-                    android:textAllCaps="false"
-                    android:textAppearance="?android:attr/textAppearanceListItemSmall" />
-
         </LinearLayout>
 
     </LinearLayout>
-
 
     <LinearLayout
             android:id="@+id/linearLayoutToolbar"

@@ -8,7 +8,7 @@ import timber.log.Timber
 
 class Scraper {
     fun getDocumentFromResources(resource: String): Document {
-        val html = this.javaClass.getResource(resource).readText()
+        val html = javaClass.getResource(resource).readText()
         return Jsoup.parse(html)
     }
 
@@ -16,8 +16,8 @@ class Scraper {
     fun getDocumentFromUrl(url: String = "https://www.bible.com/verse-of-the-day/"): Document {
         try {
             val response = OkHttpClient().newCall(requestBuilder(url)).execute()
-            val html = response.body?.string()
-            return Jsoup.parse(html!!)
+            val html = response.body.string()
+            return Jsoup.parse(html)
         } catch (e: Exception) {
             Timber.e("scraper: Exception=%s", e.message)
             throw ScraperUrlException(e.message)

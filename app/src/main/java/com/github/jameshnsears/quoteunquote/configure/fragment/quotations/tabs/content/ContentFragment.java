@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteModel;
 import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
-import com.github.jameshnsears.quoteunquote.database.DatabaseRepository;
+import com.github.jameshnsears.quoteunquote.db.DatabaseRepository;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 
 @Keep

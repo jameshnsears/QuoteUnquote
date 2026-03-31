@@ -1,12 +1,16 @@
-Improve yourself with this easy-to-use app widget that includes the following features:
+Enhance your daily routine with this easy-to-use app widget, featuring:
 
-&bull; high-quality curated quotations
-&bull; single tap to Wikipedia source article
-&bull; core functionality works offline
-&bull; extensive customization
-&bull; simple navigation
-&bull; affirmation import feature
-&bull; notifications
-&bull; backup/restore locally or remote
+&bull; High-quality, curated quotations
+&bull; Single-tap access to Wikipedia source articles
+&bull; Offline core functionality
+&bull; Extensive customization options
+&bull; Simple, intuitive navigation
+&bull; Affirmation import feature
+&bull; Timely notifications
+&bull; Local or remote backup/restore
 
-&bull; Open Source - user feedback, that drives development, is most appreciated.
+&bull; No ads
+&bull; Minimal analytics (Crashlytics only)
+&bull; Open source
+
+&bull; User feedback drives development and is always appreciated!

@@ -1,7 +1,6 @@
 package com.github.jameshnsears.quoteunquote.configure.fragment.notifications;
 
 import static android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM;
-import static android.view.View.VISIBLE;
 
 import android.Manifest;
 import android.app.AlarmManager;
@@ -171,20 +170,10 @@ public class NotificationsFragment extends FragmentCommon {
 
         createListenerTtsUk();
         createListenerTtsSystem();
-
-        /*
-        ensureTtsSwitchesAligned()
-
-        only one TTS can be enabled
-         */
     }
 
     private void handleSpecialPermissionForExactAlarm() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-
-            fragmentNotificationsBinding.textViewExactTimeWarningDivider.setVisibility(VISIBLE);
-            fragmentNotificationsBinding.textViewExactTimeWarningInfo.setVisibility(VISIBLE);
-            fragmentNotificationsBinding.textViewExactTimeWarning.setVisibility(VISIBLE);
 
             AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
             if (!alarmManager.canScheduleExactAlarms()) {
@@ -198,10 +187,6 @@ public class NotificationsFragment extends FragmentCommon {
             }
         } else {
             handleSpecialPermissionForExactAlarmCommon();
-
-            fragmentNotificationsBinding.textViewExactTimeWarningDivider.setVisibility(View.GONE);
-            fragmentNotificationsBinding.textViewExactTimeWarningInfo.setVisibility(View.GONE);
-            fragmentNotificationsBinding.textViewExactTimeWarning.setVisibility(View.GONE);
         }
     }
 
@@ -336,33 +321,30 @@ public class NotificationsFragment extends FragmentCommon {
     private void createListenerDisplayRadioGroup() {
         final RadioGroup radioGroup = fragmentNotificationsBinding.radioButtonDisplayGroup;
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            switch (checkedId) {
-                case R.id.radioButtonWhereInWidget:
-                    notificationsPreferences.setEventDisplayWidget(true);
-                    notificationsPreferences.setEventDisplayWidgetAndNotification(false);
+            if (checkedId == R.id.radioButtonWhereInWidget) {
+                notificationsPreferences.setEventDisplayWidget(true);
+                notificationsPreferences.setEventDisplayWidgetAndNotification(false);
 
-                    fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(false);
-                    fragmentNotificationsBinding.switchTtsUk.setEnabled(false);
-                    fragmentNotificationsBinding.switchTtsSystem.setEnabled(false);
+                fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(false);
+                fragmentNotificationsBinding.switchTtsUk.setEnabled(false);
+                fragmentNotificationsBinding.switchTtsSystem.setEnabled(false);
 
-                    fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(false);
-                    fragmentNotificationsBinding.textViewNotificationSizeWarning1.setEnabled(false);
-                    break;
+                fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(false);
+                fragmentNotificationsBinding.textViewNotificationSizeWarning1.setEnabled(false);
 
-                case R.id.radioButtonWhereAsNotification:
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                        if (ContextCompat.checkSelfPermission(
-                                getContext(), Manifest.permission.POST_NOTIFICATIONS) !=
-                                PackageManager.PERMISSION_GRANTED) {
+            }
 
-                            ConfigureActivity.launcherInvoked = true;
+            if (checkedId == R.id.radioButtonWhereAsNotification) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    if (ContextCompat.checkSelfPermission(
+                            getContext(), Manifest.permission.POST_NOTIFICATIONS) !=
+                            PackageManager.PERMISSION_GRANTED) {
 
-                            requestPermissionLauncherNotifications.launch(Manifest.permission.POST_NOTIFICATIONS);
+                        ConfigureActivity.launcherInvoked = true;
 
-                            break;
-                        }
+                        requestPermissionLauncherNotifications.launch(Manifest.permission.POST_NOTIFICATIONS);
                     }
-                    notificationsPreferences.setEventDisplayWidget(false);
+                } else {
                     notificationsPreferences.setEventDisplayWidgetAndNotification(true);
                     fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(true);
                     fragmentNotificationsBinding.switchTtsUk.setEnabled(true);
@@ -370,7 +352,7 @@ public class NotificationsFragment extends FragmentCommon {
 
                     fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(true);
                     fragmentNotificationsBinding.textViewNotificationSizeWarning1.setEnabled(true);
-                    break;
+                }
             }
         });
     }

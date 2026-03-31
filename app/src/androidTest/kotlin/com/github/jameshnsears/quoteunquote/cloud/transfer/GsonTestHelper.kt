@@ -1,6 +1,6 @@
 package com.github.jameshnsears.quoteunquote.cloud.transfer
 
-import com.github.jameshnsears.quoteunquote.database.DatabaseTestHelper
+import com.github.jameshnsears.quoteunquote.db.DatabaseTestHelper
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 

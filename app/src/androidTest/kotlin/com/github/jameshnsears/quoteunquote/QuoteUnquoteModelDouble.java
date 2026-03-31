@@ -2,7 +2,7 @@ package com.github.jameshnsears.quoteunquote;
 
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 
-import com.github.jameshnsears.quoteunquote.database.DatabaseRepositoryDouble;
+import com.github.jameshnsears.quoteunquote.db.DatabaseRepositoryDouble;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 
 public class QuoteUnquoteModelDouble extends QuoteUnquoteModel {
