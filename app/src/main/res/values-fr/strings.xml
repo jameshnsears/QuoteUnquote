@@ -1,0 +1,254 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">Quote Unquote</string>
+
+    <string name="activity_instructions_title">Instructions</string>
+    <string name="activity_instructions_placement">Placement du widget</string>
+    <string name="activity_instructions_1">\u2022&#160;&#160;Sur un écran d\'accueil, appuyez longuement sur un espace vide</string>
+    <string name="activity_instructions_2">\u2022&#160;&#160;Une petite tape</string>
+    <string name="activity_instructions_3">\u2022&#160;&#160;Parcourrez les widgets jusqu\'à trouver Quote Unquote</string>
+    <string name="activity_instructions_4">\u2022&#160;&#160;Glissez et déposez le widget où vous voulez. Puis relevez votre doigt</string>
+    <string name="activity_instructions_5">\u2022&#160;&#160;Utilisez le bouton/geste Retour d\'Android pour quitter l\'écran de Configuration et placer le widget sur l\'écran d\'accueil</string>
+    <string name="activity_instructions_usage">Utilisation</string>
+    <string name="activity_instructions_configure_1">\u2022&#160;&#160;Tapotez le texte de Citation pour configurer le widget</string>
+    <string name="activity_instructions_configure_2">\u2022&#160;&#160;Les changements sont enregistrés quand vous sortez de l\'écran de configuration avec le bouton/geste Retour</string>
+    <string name="activity_instructions_configure_3">\u2022&#160;&#160;Tapotez une source <u>soulignée</u> pour accéder à Wikipedia</string>
+    <string name="activity_instructions_configure_4">\u2022&#160;&#160;L\'icone \u2316, à coté de l\'indicateur de position de la Citation, indique la dernière précédente Citation</string>
+    <string name="activity_instructions_configure_5">\u2022&#160;&#160;Seule la synchro/l\'import avec le Cloud requiert une connexion à Internet</string>
+    <string name="activity_instructions_configure_6">\u2022&#160;&#160;Revisitez la page des Notifications pour reinitialiser les notifications après le redémarrage de l\'appareil</string>
+    <string name="activity_instructions_os_warning">\u2022&#160;&#160;Certaines versions d\'Android ont une gestion agressive de la mémoire, ajustez l\'appareil en conséquence</string>
+    <string name="activity_instructions_resize">Redimensionnement du widget</string>
+    <string name="activity_instructions_resize_instruction_1">\u2022&#160;&#160;Tapotez et maintenez le widget sur l\'écran d\'accueil</string>
+    <string name="activity_instructions_resize_instruction_2">\u2022&#160;&#160;Relevez votre doigt, vous verrez un contour avec des pois sur les côtés</string>
+    <string name="activity_instructions_resize_instruction_3">\u2022&#160;&#160;Pour redimensionner le widget, déplacez les pois</string>
+    <string name="activity_instructions_resize_instruction_4">\u2022&#160;&#160;Une fois terminé, tapotez en dehors du widget</string>
+    <string name="activity_instructions_version">%1$s/%2$s</string>
+    <string name="activity_instructions_oss">Logiciel Libre</string>
+
+    <string name="configure_navigation_bar_quotations">Citations</string>
+    <string name="configure_navigation_bar_appearance">Apparence</string>
+
+    <string name="settings">Configurer</string>
+
+    <string name="fragment_quotations_title">Citations</string>
+
+    <string name="fragment_quotations_selection">Filtrer</string>
+    <string name="fragment_quotations_selection_all"><b>Tout: %d</b></string>
+    <string name="fragment_quotations_selection_exclusion_instructions">Exclusion de Source…</string>
+    <string name="fragment_quotations_selection_exclusion_info"></string>
+    <string name="fragment_quotations_selection_exclusion_1">\u2022&#160;&#160;4 caractères minimum</string>
+    <string name="fragment_quotations_selection_exclusion_2">\u2022&#160;&#160;Séparer chaque Source avec une virgule</string>
+    <string name="fragment_quotations_selection_all_ascending">Sources par ordre croissant</string>
+    <string name="fragment_quotations_selection_all_ascending_info">\u2022&#160;&#160;Commencer par la source avec le moins de citations ; terminer par celle avec le plus ; tout Précédent existant est conservé</string>
+
+    <string name="fragment_quotations_selection_author"><b>Source: %d</b></string>
+    <string name="fragment_quotations_selection_author_count">Compteur &gt;=</string>
+    <string name="fragment_quotations_selection_author_name">Source sélectionnée</string>
+    <string name="fragment_quotations_selection_favourites"><b>Favoris: %d</b></string>
+    <string name="fragment_quotations_selection_browse">Voir</string>
+    <string name="fragment_quotations_selection_export_button">Exporter</string>
+    <string name="fragment_quotations_selection_export_success">Succès - export terminé</string>
+    <string name="fragment_quotations_selection_export_failed">Échec de l\'export</string>
+    <string name="fragment_quotations_selection_search"><b>Recherche: %d</b></string>
+    <string name="fragment_quotations_selection_search_favourites_only">Favoris uniquement</string>
+    <string name="fragment_quotations_selection_search_instructions_text">Texte de recherche…</string>
+    <string name="fragment_quotations_selection_search_switch_regex">Expression régulière</string>
+    <string name="fragment_quotations_selection_search_switch_regex_invalid">Expression régulière invalide</string>
+    <string name="fragment_quotations_selection_search_instructions_info"></string>
+    <string name="fragment_quotations_selection_search_instructions_1">\u2022&#160;&#160;4 caractères minimum</string>
+
+    <string name="fragment_quotations_selection_search_no_results">Aucun résultat pour cette recherche</string>
+    <string name="fragment_quotations_selection_dialog_browse_favourites">Favoris</string>
+    <string name="fragment_quotations_selection_dialog_browse_share_and_toggle_01">\u2022&#160;&#160;Tapotez pour partager; Appui long pour en faire un favori</string>
+
+    <string name="fragment_quotations_database">Contenu</string>
+    <string name="fragment_quotations_database_default_internal">Base de données interne</string>
+    <string name="fragment_quotations_database_default_info"></string>
+    <string name="fragment_quotations_database_default_0">\u2022&#160;&#160;Découvrez des Citations de Haute Qualité !</string>
+
+    <string name="fragment_quotations_database_file">Fichier externe</string>
+    <string name="fragment_quotations_database_file_inplace_edit">Éditer</string>
+    <string name="fragment_quotations_database_file_inplace_export">Exporter</string>
+    <string name="fragment_quotations_database_file_csv">CSV</string>
+    <string name="fragment_quotations_database_file_csv_inplace_source">Source…</string>
+    <string name="fragment_quotations_database_file_csv_inplace_quotation">Citation…</string>
+    <string name="fragment_quotations_database_file_csv_inplace_save">Enregistrer</string>
+    <string name="fragment_quotations_database_file_csv_inplace_delete">Supprimer</string>
+    <string name="fragment_quotations_database_file_csv_inplace_instruction_01">Tapoter la ligne pour sélectionner / déselectionner</string>
+    <string name="fragment_quotations_database_file_csv_inplace_instruction_02">Si aucune ligne sélectionner, Enregistrer va insérer / modifier une ligne sur la base de Source, Citation </string>
+    <string name="fragment_quotations_database_file_csv_inplace_save_warning_duplicate">Impossible d\'enregistrer - doublon</string>
+    <string name="fragment_quotations_database_file_csv_inplace_warning_empty_database">Base de données interne sélectionnée</string>
+    <string name="fragment_quotations_database_file_fortune">Fortune</string>
+    <string name="fragment_quotations_database_file_fortune_info_01">\u2022&#160;&#160;Voir https://wikipedia.org/wiki/Fortune_(Unix)</string>
+    <string name="fragment_quotations_database_file_fortune_info_02">\u2022&#160;&#160;Le nom du fichier est utilisé pour renseigner le champ Source</string>
+    <string name="fragment_quotations_database_file_warning">\u2022&#160;&#160;Utilisez Exporter pour sauvegarder les données avant toute réinstallation</string>
+
+    <string name="fragment_quotations_database_button_import">Importer</string>
+    <string name="fragment_quotations_database_external_instructions_1_info"></string>
+    <string name="fragment_quotations_database_external_instructions_0">\u2022&#160;&#160;Mettre <b>Source||Citation</b> sur chaque ligne; les doublons seront ignorés</string>
+    <string name="fragment_quotations_database_external_instructions_1">\u2022&#160;&#160;Export de la base de données interne pour un exemple encodé en UTF-8</string>
+    <string name="fragment_quotations_database_import_contents_0">Invalide - %1$s</string>
+    <string name="fragment_quotations_database_import_contents_1">Invalide - ligne: %1$d: %2$s</string>
+    <string name="fragment_quotations_database_import_importing">Importation - veuillez patienter&#8230;</string>
+    <string name="fragment_quotations_database_import_success">Succès - fichier importé</string>
+    <string name="fragment_quotations_database_scrape_web">Web</string>
+    <string name="fragment_quotations_database_scrape_url_hint" tools:ignore="TypographyEllipsis">URL http / https…</string>
+    <string name="fragment_quotations_database_scrape_quote_quotation_hint" tools:ignore="TypographyEllipsis">XPath du text node de la Citation…</string>
+    <string name="fragment_quotations_database_scrape_quote_source_hint" tools:ignore="TypographyEllipsis">XPath du text node de la Source…</string>
+    <string name="fragment_quotations_database_scrape_erase">Garder uniquement la dernière réponse</string>
+    <string name="fragment_quotations_database_scrape_fields_error_incomplete">Paramètres incomplets</string>
+    <string name="fragment_quotations_database_scrape_importing">Importation de la page web - veuillez patienter&#8230;</string>
+    <string name="fragment_quotations_database_scrape_endpoint_error">Impossible de contacter l\'URL</string>
+    <string name="fragment_quotations_database_scrape_xpath_error_quotation">XPath de Citation invalide</string>
+    <string name="fragment_quotations_database_scrape_xpath_error_source">XPath de Source invalide</string>
+    <string name="fragment_quotations_database_scrape_test_success">Succès - page web importée</string>
+    <string name="fragment_quotations_database_scrape_info"></string>
+    <string name="fragment_quotations_database_scrape_1">\u2022&#160;&#160;Réponse compatible HTML 5 attendue, ne pas utiliser le mot <b>source</b> dans la réponse</string>
+    <string name="fragment_quotations_database_scrape_2">\u2022&#160;&#160;La réponse doit contenir une seule Citation et Source</string>
+    <string name="fragment_quotations_database_scrape_3">\u2022&#160;&#160;Attention car une réponse XML, dans l\'app, est encadrée par &lt;html&gt;&lt;body&gt;… &lt;/body&gt;&lt;/html&gt;</string>
+    <string name="fragment_quotations_database_scrape_4">\u2022&#160;&#160;Le Widget se connecte toutes les 30 minutes</string>
+    <string name="fragment_quotations_database_scrape_5">\u2022&#160;&#160;Levez un ticket GitHub en cas de doute</string>
+
+    <string name="fragment_appearance_title">Apparence</string>
+    <string name="fragment_appearance_tab_style">Style</string>
+    <string name="fragment_appearance_background">Fond</string>
+    <string name="fragment_appearance_colour">Couleur</string>
+    <string name="fragment_appearance_background_colour_dialog_title">Couleur de fond</string>
+    <string name="fragment_appearance_cancel">Annuler</string>
+    <string name="fragment_appearance_ok">OK</string>
+    <string name="fragment_appearance_transparency">Transparence %</string>
+    <string name="fragment_appearance_text">Texte</string>
+    <string name="fragment_appearance_force">Forcer Italique / Regular</string>
+    <string name="fragment_appearance_center">Centrer Citation &amp; Source</string>
+    <string name="fragment_appearance_button_quotation">Citation</string>
+    <string name="fragment_appearance_button_author">Source</string>
+    <string name="fragment_appearance_button_position">Position</string>
+    <string name="fragment_appearance_style_text_dialog_quotation">Citation</string>
+    <string name="fragment_appearance_style_text_dialog_quotation_colour">Couleur du texte</string>
+    <string name="fragment_appearance_style_text_dialog_author">Source</string>
+    <string name="fragment_appearance_style_text_dialog_author_colour">Couleur du texte</string>
+    <string name="fragment_appearance_style_text_dialog_position">Indicateur de Position</string>
+    <string name="fragment_appearance_style_text_dialog_position_colour">Couleur</string>
+    <string name="fragment_appearance_style_text_dialog_visibility">Cacher</string>
+    <string name="fragment_appearance_family">Famille</string>
+    <string-array name="fragment_appearance_family_array">
+        <item>Cursive</item>
+        <item>Monospace</item>
+        <item>Sans Serif</item>
+        <item>Sans Serif Condensed</item>
+        <item>Sans Serif Medium</item>
+        <item>Serif</item>
+    </string-array>
+    <string name="fragment_appearance_style">Style</string>
+    <string-array name="fragment_appearance_style_array">
+        <item>Bold</item>
+        <item>Bold Italic</item>
+        <item>Italic</item>
+        <item>Italic, Shadow</item>
+        <item>Regular</item>
+        <item>Regular, Shadow</item>
+    </string-array>
+    <string name="fragment_appearance_size">Taille</string>
+    <integer-array name="fragment_appearance_size_array">
+        <item>12</item>
+        <item>14</item>
+        <item>16</item>
+        <item>18</item>
+        <item>20</item>
+        <item>24</item>
+        <item>28</item>
+    </integer-array>
+    <string name="fragment_appearance_navigation">Barre d\'outils</string>
+    <string name="fragment_appearance_follow_system_theme_follow">Coller au thème système</string>
+    <string name="fragment_appearance_follow_system_theme_info"></string>
+    <string name="fragment_appearance_follow_system_theme">\u2022&#160;&#160;Forcer la couleur en noir et blanc</string>
+    <string name="fragment_appearance_toolbar_colour_dialog_title">Couleur</string>
+    <string name="fragment_appearance_toolbar_first">Première, oublie la Précédente</string>
+    <string name="fragment_appearance_toolbar_previous">Précédente</string>
+    <string name="fragment_appearance_toolbar_favourite">Ajouter aux Favoris</string>
+    <string name="fragment_appearance_toolbar_share">Partager</string>
+    <string name="fragment_appearance_toolbar_share_exclude_source">Ne pas indiquer la Source</string>
+    <string name="fragment_appearance_toolbar_next_sequential">Suivante, dans l\'ordre</string>
+    <string name="fragment_appearance_toolbar_position_indicator">Sauter, la Précédente</string>
+    <string name="fragment_appearance_toolbar_next_random">Suivante, au hasard</string>
+    <string name="fragment_appearance_toolbar_next_random_action">Suivante, au hasard</string>
+    <string name="fragment_appearance_toolbar_next_info">\u2022&#160;&#160;La séquence recommence une fois au bout</string>
+    <string name="fragment_appearance_toolbar_position">Position</string>
+    <string name="fragment_appearance_toolbar_position_bottom">En dessous</string>
+    <string name="fragment_appearance_toolbar_position_rhs">À droite</string>
+
+    <string name="fragment_notifications_title">Notifications</string>
+    <string name="fragment_notifications_where">Affichage</string>
+    <string name="fragment_notifications_movement">Action</string>
+    <string name="fragment_notifications_widget">Widget</string>
+    <string name="fragment_notifications_widget_and_notification">Notification</string>
+    <string name="fragment_notifications_use_tts_uk">TTS UK (Base de données interne)</string>
+    <string name="fragment_notifications_use_tts_system_language">TTS Système</string>
+
+    <string name="fragment_notifications_notification_warning_info"></string>
+    <string name="fragment_notifications_notification_warning_1">\u2022&#160;&#160;Android limite la taille des Notifications, certaines ne pas apparaitre entièrement.</string>
+    <string name="fragment_notifications_notification_permission">Veuillez activer la permission Notifications</string>
+    <string name="fragment_notifications_exact_alarm_warning_info"></string>
+    <string name="fragment_notifications_recurring_event">Nouvelle Citation après</string>
+    <string name="fragment_notifications_screen_unlock">Au déverrouillage de l\'écran</string>
+
+    <string name="fragment_notifications_customisable">Intervalle personnalisable</string>
+    <string name="fragment_notifications_customisable_active_time">Période d\'activité</string>
+    <integer-array name="fragment_notifications_quiet_time_array">
+        <item>0</item>
+        <item>23</item>
+    </integer-array>
+    <string name="fragment_notifications_customisable_every">Toutes les</string>
+    <integer-array name="fragment_notifications_customisable_hour">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </integer-array>
+    <string name="fragment_notifications_customisable_every_hours">heure(s) et 00 min</string>
+
+    <string name="fragment_notifications_time">Précisément</string>
+    <string name="fragment_notifications_time_textfield">Heure…</string>
+    <string name="fragment_notifications_time_dialog">Nouvelle Citation à une heure précise</string>
+
+    <string name="fragment_archive_title">Synchronisation</string>
+    <string name="fragment_archive_select_cloud">Cloud (GCP)</string>
+    <string name="fragment_archive_select_filesystem">Appareil</string>
+    <string name="fragment_archive_backup_local_code">Code de Synchro…</string>
+    <string name="fragment_archive_backup_local_code_value">%s</string>
+    <string name="fragment_archive_backup">Sauver</string>
+    <string name="fragment_archive_backup_sending">Sauvegarde - veuillez attendre&#8230;</string>
+    <string name="fragment_archive_backup_success">Succès - Sauvegarde faite</string>
+    <string name="fragment_archive_restore">Récupérer</string>
+
+    <string name="fragment_archive_restore_onto_new_device">Purger les données de l\'ancienne instance</string>
+    <string name="fragment_archive_restore_onto_new_device_info">\u2022&#160;&#160;Garder les données de l\'ancienne instance est nécessaire seulement si vous utilisez plusieurs instances du Widget sur votre appareil</string>
+
+    <string name="fragment_archive_superseded_info"></string>
+    <string name="fragment_archive_superseded_1">\u2022&#160;&#160;Le code de synchro sera remplacé lors de la récupération</string>
+    <string name="fragment_archive_create_new_sync_code">Nouveau code</string>
+    <string name="fragment_archive_restore_token_missing">Veuillez taper un code à 10 caractères</string>
+    <string name="fragment_archive_restore_token_invalid">Veuillez taper un code valide</string>
+    <string name="fragment_archive_restore_saf_invalid">Fichier invalide</string>
+    <string name="fragment_archive_restore_receiving">Récupération - veuillez attendre&#8230;</string>
+    <string name="fragment_archive_restore_missing_code">Code introuvable dans le Cloud</string>
+    <string name="fragment_archive_restore_success">Succès - récupération terminée</string>
+    <string name="fragment_archive_internet_missing">Vérification réseau / attendez &amp; recommencez</string>
+    <string name="fragment_archive_sync_to_cloud_on_favourite">Sauvegarde auto</string>
+    <string name="fragment_archive_sync_to_cloud_on_favourite_most_recent">Dernière sauvegarde: %s</string>
+    <string name="fragment_archive_sync_to_cloud_on_favourite_info_0">\u2022&#160;&#160;Créez un Favoris pour le déclencher</string>
+
+    <string name="widget_listview_quotation">Citation</string>
+    <string name="widget_listview_author">Source</string>
+    <string name="widget_listview_position">Position</string>
+
+    <string name="notification_channel_customisable_interval">Intervalle personnalisable</string>
+    <string name="notification_channel_screen_unlock">Au déverrouillage de l\'écran</string>
+    <string name="notification_channel_specific_time">Heure spécifique</string>
+    <string name="notification_action_exclude_source">Ne pas indiquer la Source</string>
+    <string name="notification_action_favourite">Ajoutée aux Favoris</string>
+    <string name="notification_action_unfavourite">Retirée des Favoris</string>
+
+    <string name="preview_description">Découvrez des Citations de Haute Qualité!\nImportez des Affirmations!</string>
+    <string name="preview_quotation">Rien n\'a vraiment d\'importante et très peu de choses le sont à peine.\n</string>
+    <string name="preview_author"><u>Arthur Balfour\n</u></string>
+</resources>

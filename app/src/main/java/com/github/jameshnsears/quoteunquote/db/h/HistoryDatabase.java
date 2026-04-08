@@ -38,7 +38,7 @@ public abstract class HistoryDatabase extends RoomDatabase {
                 historyDatabase = Room.databaseBuilder(context,
                                 HistoryDatabase.class, DATABASE_NAME)
                         .addMigrations(MIGRATION_1_2)
-                        .fallbackToDestructiveMigration()
+                        .fallbackToDestructiveMigration(false)
                         .build();
             }
 

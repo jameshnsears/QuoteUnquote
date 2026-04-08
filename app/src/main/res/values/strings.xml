@@ -58,7 +58,7 @@
 
     <string name="fragment_quotations_selection_search_no_results">No results found for Search</string>
     <string name="fragment_quotations_selection_dialog_browse_favourites">Favourites</string>
-    <string name="fragment_quotations_selection_dialog_browse_share_and_toggle_01">Tap to share; Long tap to toggle favourite</string>
+    <string name="fragment_quotations_selection_dialog_browse_share_and_toggle_01">\u2022&#160;&#160;Tap to share; Long tap to toggle favourite</string>
 
     <string name="fragment_quotations_database">Content</string>
     <string name="fragment_quotations_database_default_internal">Internal database</string>
@@ -174,7 +174,7 @@
     <string name="fragment_appearance_toolbar_next_info">\u2022&#160;&#160;Sequence recycles at end</string>
     <string name="fragment_appearance_toolbar_position">Position</string>
     <string name="fragment_appearance_toolbar_position_bottom">Bottom</string>
-    <string name="fragment_appearance_toolbar_position_rhs">Right-hand side"</string>
+    <string name="fragment_appearance_toolbar_position_rhs">Right-hand side</string>
 
     <string name="fragment_notifications_title">Notifications</string>
     <string name="fragment_notifications_where">Result</string>

@@ -11,6 +11,7 @@ import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper
 
 class QuoteUnquoteInstructions : AppCompatActivity() {
     private lateinit var activityInstructionsBinding: ActivityInstructionsBinding
+    private var scrollPositionY = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,5 +39,21 @@ class QuoteUnquoteInstructions : AppCompatActivity() {
                 IntentFactoryHelper.createIntentActionView("http://github.com/jameshnsears/quoteunquote"),
             )
         }
+
+        // Restore scroll position after layout is measured
+        if (savedInstanceState != null) {
+            scrollPositionY = savedInstanceState.getInt("scrollPositionY", 0)
+            activityInstructionsBinding.scrollViewInstructions.post {
+                activityInstructionsBinding.scrollViewInstructions.scrollTo(0, scrollPositionY)
+            }
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(
+            "scrollPositionY",
+            activityInstructionsBinding.scrollViewInstructions.scrollY,
+        )
     }
 }

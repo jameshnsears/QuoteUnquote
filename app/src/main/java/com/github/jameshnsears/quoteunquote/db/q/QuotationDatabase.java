@@ -23,7 +23,7 @@ public abstract class QuotationDatabase extends RoomDatabase {
                                 QuotationDatabase.class, BuildConfig.DATABASE_QUOTATIONS)
                         .createFromAsset(BuildConfig.DATABASE_QUOTATIONS)
                         // indexes added
-                        .fallbackToDestructiveMigration()
+                        .fallbackToDestructiveMigration(true)
                         .build();
             }
             return QuotationDatabase.quotationDatabase;
