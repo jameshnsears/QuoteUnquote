@@ -436,7 +436,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/specificTime"
-                                android:layout_width="85dp"
+                                android:layout_width="95dp"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center_vertical"
                                 android:clickable="true"

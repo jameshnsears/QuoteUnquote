@@ -52,6 +52,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import timber.log.Timber;
 
@@ -200,7 +202,7 @@ public class SyncFragment extends FragmentCommon {
     }
 
     private void setSyncFields() {
-        if (CloudService.isRunning) {
+        if (CloudService.isRunning()) {
             enableUI(false);
             return;
         }
@@ -465,8 +467,8 @@ public class SyncFragment extends FragmentCommon {
         });
 
         try {
-            future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -480,8 +482,8 @@ public class SyncFragment extends FragmentCommon {
         boolean isValid = false;
 
         try {
-            isValid = future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            isValid = future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }

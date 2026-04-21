@@ -12,17 +12,40 @@ import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 public class CloudService extends Service {
-    public static boolean isRunning;
+    private static final Object isRunningLock = new Object();
+    public static volatile boolean isRunning;
     @Nullable
     public final CloudTransfer cloudTransfer = new CloudTransfer();
     @NonNull
     public Handler handler = new Handler(Looper.getMainLooper());
 
+    public static boolean isRunning() {
+        synchronized (isRunningLock) {
+            return isRunning;
+        }
+    }
+
+    public static boolean startRunning() {
+        synchronized (isRunningLock) {
+            if (!isRunning) {
+                isRunning = true;
+                return true;
+            }
+            return false;
+        }
+    }
+
+    public static void stopRunning() {
+        synchronized (isRunningLock) {
+            isRunning = false;
+        }
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
 
-        isRunning = false;
+        stopRunning();
         CloudTransfer.shutdown();
     }
 

@@ -37,5 +37,6 @@ public abstract class HistoryExternalDatabase extends RoomDatabase {
     public abstract PreviousDAO previousExternalDAO();
 
     public abstract FavouriteDAO favouritesExternalDAO();
+
     public abstract CurrentDAO currentExternalDAO();
 }

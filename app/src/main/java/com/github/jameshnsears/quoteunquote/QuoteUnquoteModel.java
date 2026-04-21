@@ -32,6 +32,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import io.reactivex.Single;
 import timber.log.Timber;
@@ -45,9 +47,6 @@ public class QuoteUnquoteModel {
 
     @Nullable
     protected Context context;
-
-    @Nullable
-    private QuotationsPreferences quotationsPreferences;
 
     public QuoteUnquoteModel() {
     }
@@ -106,8 +105,8 @@ public class QuoteUnquoteModel {
         QuotationEntity quotationEntity = null;
 
         try {
-            quotationEntity = future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            quotationEntity = future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -132,8 +131,8 @@ public class QuoteUnquoteModel {
         String lastPreviousDigest = null;
 
         try {
-            lastPreviousDigest = future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            lastPreviousDigest = future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Thread.currentThread().interrupt();
         }
 
@@ -150,8 +149,8 @@ public class QuoteUnquoteModel {
         QuotationEntity quotationEntity = null;
 
         try {
-            quotationEntity = future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            quotationEntity = future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Thread.currentThread().interrupt();
         }
 
@@ -177,8 +176,8 @@ public class QuoteUnquoteModel {
         String currentPosition = null;
 
         try {
-            currentPosition = future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            currentPosition = future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -225,8 +224,8 @@ public class QuoteUnquoteModel {
         });
 
         try {
-            future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Thread.currentThread().interrupt();
         }
     }
@@ -284,8 +283,8 @@ public class QuoteUnquoteModel {
         QuotationEntity nextQuotation = null;
 
         try {
-            nextQuotation = future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            nextQuotation = future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -299,8 +298,8 @@ public class QuoteUnquoteModel {
         });
 
         try {
-            future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -323,8 +322,8 @@ public class QuoteUnquoteModel {
         });
 
         try {
-            future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -358,8 +357,8 @@ public class QuoteUnquoteModel {
         });
 
         try {
-            future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -376,8 +375,8 @@ public class QuoteUnquoteModel {
         List<String> allPreviousDigests = new ArrayList<>();
 
         try {
-            allPreviousDigests = future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            allPreviousDigests = future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -419,8 +418,8 @@ public class QuoteUnquoteModel {
 
         int countPrevious = 0;
         try {
-            countPrevious = future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            countPrevious = future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -434,8 +433,8 @@ public class QuoteUnquoteModel {
 
         int countPrevious = 0;
         try {
-            countPrevious = future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            countPrevious = future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -459,8 +458,8 @@ public class QuoteUnquoteModel {
 
         int favouritesCount = 0;
         try {
-            favouritesCount = future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            favouritesCount = future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -483,8 +482,8 @@ public class QuoteUnquoteModel {
 
         int favouritesCount = 0;
         try {
-            favouritesCount = future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            favouritesCount = future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -499,8 +498,8 @@ public class QuoteUnquoteModel {
         boolean isFavourite = false;
 
         try {
-            isFavourite = future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            isFavourite = future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -515,8 +514,8 @@ public class QuoteUnquoteModel {
         QuotationEntity quotationEntity = null;
 
         try {
-            quotationEntity = future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            quotationEntity = future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -531,8 +530,8 @@ public class QuoteUnquoteModel {
         List<QuotationEntity> listQuotationEntity = null;
 
         try {
-            listQuotationEntity = future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            listQuotationEntity = future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -546,8 +545,8 @@ public class QuoteUnquoteModel {
         );
 
         try {
-            future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Thread.currentThread().interrupt();
         }
     }
@@ -557,8 +556,8 @@ public class QuoteUnquoteModel {
                 databaseRepository.erase());
 
         try {
-            future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Thread.currentThread().interrupt();
         }
     }
@@ -571,8 +570,8 @@ public class QuoteUnquoteModel {
         );
 
         try {
-            future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Thread.currentThread().interrupt();
         }
     }
@@ -590,8 +589,8 @@ public class QuoteUnquoteModel {
         });
 
         try {
-            future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -605,8 +604,8 @@ public class QuoteUnquoteModel {
         });
 
         try {
-            future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Thread.currentThread().interrupt();
         }
     }
@@ -619,8 +618,8 @@ public class QuoteUnquoteModel {
         );
 
         try {
-            return future.get();
-        } catch (ExecutionException | InterruptedException e) {
+            return future.get(30, TimeUnit.SECONDS);
+        } catch (ExecutionException | InterruptedException | TimeoutException e) {
             Thread.currentThread().interrupt();
             return Single.just(0);
         }
@@ -639,8 +638,8 @@ public class QuoteUnquoteModel {
         boolean externalDatabaseContainsQuotations = false;
 
         try {
-            externalDatabaseContainsQuotations = future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            externalDatabaseContainsQuotations = future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -656,8 +655,8 @@ public class QuoteUnquoteModel {
         Single<List<Integer>> authorsQuotationCount = null;
 
         try {
-            authorsQuotationCount = future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            authorsQuotationCount = future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -673,8 +672,8 @@ public class QuoteUnquoteModel {
         List<Integer> authorsQuotationCount = null;
 
         try {
-            authorsQuotationCount = future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            authorsQuotationCount = future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -690,8 +689,8 @@ public class QuoteUnquoteModel {
         Single<List<AuthorPOJO>> authors = null;
 
         try {
-            authors = future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            authors = future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -711,8 +710,8 @@ public class QuoteUnquoteModel {
         List<AuthorPOJO> authors = null;
 
         try {
-            authors = future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            authors = future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -764,8 +763,8 @@ public class QuoteUnquoteModel {
         Single<Integer> countFavourites = Single.just(0);
 
         try {
-            countFavourites = future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            countFavourites = future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -781,8 +780,8 @@ public class QuoteUnquoteModel {
         List<QuotationEntity> searchResultsList = new ArrayList<>();
 
         try {
-            searchResultsList = future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            searchResultsList = future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -798,8 +797,8 @@ public class QuoteUnquoteModel {
         List<QuotationEntity> searchResultsList = new ArrayList<>();
 
         try {
-            searchResultsList = future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            searchResultsList = future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -815,8 +814,8 @@ public class QuoteUnquoteModel {
         Integer searchCount = 0;
 
         try {
-            searchCount = future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            searchCount = future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Thread.currentThread().interrupt();
         }
 
@@ -831,8 +830,8 @@ public class QuoteUnquoteModel {
         Integer searchCount = 0;
 
         try {
-            searchCount = future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            searchCount = future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Thread.currentThread().interrupt();
         }
 
@@ -850,8 +849,8 @@ public class QuoteUnquoteModel {
         String transferJson = "";
 
         try {
-            transferJson = future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            transferJson = future.get(60, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -881,8 +880,8 @@ public class QuoteUnquoteModel {
         List<QuotationEntity> favourites = new ArrayList<>();
 
         try {
-            favourites = future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            favourites = future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -912,8 +911,8 @@ public class QuoteUnquoteModel {
         ArrayList<QuotationEntity> exportedFavourites = null;
 
         try {
-            exportedFavourites = future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            exportedFavourites = future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.w(e.toString());
             Thread.currentThread().interrupt();
         }
@@ -930,8 +929,8 @@ public class QuoteUnquoteModel {
         });
 
         try {
-            future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -945,8 +944,8 @@ public class QuoteUnquoteModel {
         ArrayList<QuotationEntity> quotationsForAuthor = null;
 
         try {
-            quotationsForAuthor = future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            quotationsForAuthor = future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -969,8 +968,8 @@ public class QuoteUnquoteModel {
         });
 
         try {
-            future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -1015,8 +1014,8 @@ public class QuoteUnquoteModel {
         });
 
         try {
-            return future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            return future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -1048,8 +1047,8 @@ public class QuoteUnquoteModel {
         });
 
         try {
-            future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -1071,8 +1070,8 @@ public class QuoteUnquoteModel {
         });
 
         try {
-            return future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            return future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -1099,8 +1098,8 @@ public class QuoteUnquoteModel {
         boolean isDuplicate = false;
 
         try {
-            isDuplicate = future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            isDuplicate = future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -1116,7 +1115,7 @@ public class QuoteUnquoteModel {
             LinkedHashSet<QuotationEntity> quotationEntityLinkedHashSet = new LinkedHashSet<>();
 
             String digest = ImportHelper.DEFAULT_DIGEST;
-            if (databaseRepository.getAllQuotations().size() > 0) {
+            if (databaseRepository.countAll().blockingGet() > 0) {
                 digest = ImportHelper.makeDigest(author, quotation);
             }
 
@@ -1133,8 +1132,8 @@ public class QuoteUnquoteModel {
         });
 
         try {
-            future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -1154,8 +1153,8 @@ public class QuoteUnquoteModel {
         });
 
         try {
-            future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }
@@ -1214,8 +1213,8 @@ public class QuoteUnquoteModel {
         });
 
         try {
-            future.get();
-        } catch (@NonNull ExecutionException | InterruptedException e) {
+            future.get(30, TimeUnit.SECONDS);
+        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
         }

@@ -98,59 +98,59 @@
 
             </LinearLayout>
 
-<!--
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:paddingTop="10dp"
-                    android:paddingBottom="13dp"
-                    tools:visibility="invisible">
+            <!--
+                        <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="13dp"
+                                tools:visibility="invisible">
 
-                <View
-                        android:layout_width="match_parent"
-                        android:layout_height="2dp"
-                        android:background="?android:attr/listDivider" />
+                            <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="2dp"
+                                    android:background="?android:attr/listDivider" />
 
-            </LinearLayout>
+                        </LinearLayout>
 
-            <com.google.android.material.materialswitch.MaterialSwitch
-                    android:id="@+id/switchAscendingSourceCount"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="8dp"
-                    android:paddingTop="10dp"
-                    android:paddingEnd="8dp"
-                    android:paddingBottom="8dp"
-                    android:text="@string/fragment_quotations_selection_all_ascending"
-                    android:textSize="16sp"
-                    tools:visibility="invisible" />
+                        <com.google.android.material.materialswitch.MaterialSwitch
+                                android:id="@+id/switchAscendingSourceCount"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingStart="8dp"
+                                android:paddingTop="10dp"
+                                android:paddingEnd="8dp"
+                                android:paddingBottom="8dp"
+                                android:text="@string/fragment_quotations_selection_all_ascending"
+                                android:textSize="16sp"
+                                tools:visibility="invisible" />
 
-            <TextView
-                    android:id="@+id/textViewAscendingInfo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="10dp"
-                    android:paddingStart="4dp"
-                    android:paddingTop="15dp"
-                    android:paddingEnd="0dp"
-                    android:paddingBottom="5dp"
-                    android:text="@string/fragment_quotations_selection_exclusion_info"
-                    app:drawableStartCompat="@drawable/ic_info_24"
-                    tools:visibility="invisible" />
+                        <TextView
+                                android:id="@+id/textViewAscendingInfo"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:drawablePadding="10dp"
+                                android:paddingStart="4dp"
+                                android:paddingTop="15dp"
+                                android:paddingEnd="0dp"
+                                android:paddingBottom="5dp"
+                                android:text="@string/fragment_quotations_selection_exclusion_info"
+                                app:drawableStartCompat="@drawable/ic_info_24"
+                                tools:visibility="invisible" />
 
-            <TextView
-                    android:id="@+id/textViewAscendingInstructions"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="9dp"
-                    android:paddingTop="5dp"
-                    android:paddingEnd="0dp"
-                    android:paddingBottom="5dp"
-                    android:text="@string/fragment_quotations_selection_all_ascending_info"
-                    tools:visibility="invisible" />
+                        <TextView
+                                android:id="@+id/textViewAscendingInstructions"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingStart="9dp"
+                                android:paddingTop="5dp"
+                                android:paddingEnd="0dp"
+                                android:paddingBottom="5dp"
+                                android:text="@string/fragment_quotations_selection_all_ascending_info"
+                                tools:visibility="invisible" />
 
--->
+            -->
 
         </LinearLayout>
 

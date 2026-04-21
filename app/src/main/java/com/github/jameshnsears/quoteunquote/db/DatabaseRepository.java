@@ -41,7 +41,7 @@ public class DatabaseRepository {
     public static DatabaseRepository databaseRepository;
 
     @Nullable
-    public static boolean useInternalDatabase = true;
+    public static volatile boolean useInternalDatabase = true;
 
     @NonNull
     protected final SecureRandom secureRandom = new SecureRandom();
@@ -130,8 +130,12 @@ public class DatabaseRepository {
         }
     }
 
-    public static boolean useInternalDatabase() {
+    public static synchronized boolean useInternalDatabase() {
         return useInternalDatabase;
+    }
+
+    public static synchronized void setUseInternalDatabase(final boolean useInternalDatabase) {
+        DatabaseRepository.useInternalDatabase = useInternalDatabase;
     }
 
     @NonNull
@@ -511,7 +515,9 @@ public class DatabaseRepository {
             Collections.reverse(searchQuotations);
         } else {
             if (useInternalDatabase()) {
-                for (QuotationEntity quotationEntity : getAllQuotations()) {
+                List<QuotationEntity> allQuotations = getAllQuotations();
+
+                for (QuotationEntity quotationEntity : allQuotations) {
                     Matcher matcherAuthor = pattern.matcher(quotationEntity.author);
                     Matcher matcherQuotation = pattern.matcher(quotationEntity.quotation);
 
@@ -520,7 +526,9 @@ public class DatabaseRepository {
                     }
                 }
             } else {
-                for (QuotationEntity quotationEntity : getAllQuotations()) {
+                List<QuotationEntity> allQuotations = getAllQuotations();
+
+                for (QuotationEntity quotationEntity : allQuotations) {
                     Matcher matcherAuthor = pattern.matcher(quotationEntity.author);
                     Matcher matcherQuotation = pattern.matcher(quotationEntity.quotation);
 

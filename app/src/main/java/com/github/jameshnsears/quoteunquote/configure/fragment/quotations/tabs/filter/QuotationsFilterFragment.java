@@ -118,7 +118,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
         quoteUnquoteModel = new QuoteUnquoteModel(widgetId, getContext());
 
         RxJavaPlugins.setErrorHandler(e ->
-            Timber.e(e.getMessage())
+                Timber.e(e.getMessage())
         );
     }
 

@@ -5,11 +5,21 @@ import com.github.jameshnsears.quoteunquote.R
 class ListViewLayoutIdHelper {
     companion object {
         fun layoutIdForCursive(
-            textSize: String,
+            textStyle: String,
             center: Boolean,
+            rightSource: Boolean,
         ): Int {
-            if (center) {
-                return when (textSize) {
+            if (rightSource) {
+                return when (textStyle) {
+                    "Bold" -> R.layout.listvew_row_0_cursive_bold_right_source
+                    "Bold Italic" -> R.layout.listvew_row_0_cursive_bold_italic_right_source
+                    "Italic" -> R.layout.listvew_row_0_cursive_italic_right_source
+                    "Italic, Shadow" -> R.layout.listvew_row_0_cursive_italic_shadow_right_source
+                    "Regular, Shadow" -> R.layout.listvew_row_0_cursive_shadow_right_source
+                    else -> R.layout.listvew_row_0_cursive_right_source
+                }
+            } else if (center) {
+                return when (textStyle) {
                     "Bold" -> R.layout.listvew_row_0_cursive_bold_center
                     "Bold Italic" -> R.layout.listvew_row_0_cursive_bold_italic_center
                     "Italic" -> R.layout.listvew_row_0_cursive_italic_center
@@ -18,7 +28,7 @@ class ListViewLayoutIdHelper {
                     else -> R.layout.listvew_row_0_cursive_center
                 }
             } else {
-                return when (textSize) {
+                return when (textStyle) {
                     "Bold" -> R.layout.listvew_row_0_cursive_bold
                     "Bold Italic" -> R.layout.listvew_row_0_cursive_bold_italic
                     "Italic" -> R.layout.listvew_row_0_cursive_italic
@@ -30,11 +40,21 @@ class ListViewLayoutIdHelper {
         }
 
         fun layoutIdForMonospace(
-            textSize: String,
+            textStyle: String,
             center: Boolean,
+            rightSource: Boolean,
         ): Int {
-            if (center) {
-                return when (textSize) {
+            if (rightSource) {
+                return when (textStyle) {
+                    "Bold" -> R.layout.listvew_row_1_monospace_bold_right_source
+                    "Bold Italic" -> R.layout.listvew_row_1_monospace_bold_italic_right_source
+                    "Italic" -> R.layout.listvew_row_1_monospace_italic_right_source
+                    "Italic, Shadow" -> R.layout.listvew_row_1_monospace_italic_shadow_right_source
+                    "Regular, Shadow" -> R.layout.listvew_row_1_monospace_shadow_right_source
+                    else -> R.layout.listvew_row_1_monospace_right_source
+                }
+            } else if (center) {
+                return when (textStyle) {
                     "Bold" -> R.layout.listvew_row_1_monospace_bold_center
                     "Bold Italic" -> R.layout.listvew_row_1_monospace_bold_italic_center
                     "Italic" -> R.layout.listvew_row_1_monospace_italic_center
@@ -43,7 +63,7 @@ class ListViewLayoutIdHelper {
                     else -> R.layout.listvew_row_1_monospace_center
                 }
             } else {
-                return when (textSize) {
+                return when (textStyle) {
                     "Bold" -> R.layout.listvew_row_1_monospace_bold
                     "Bold Italic" -> R.layout.listvew_row_1_monospace_bold_italic
                     "Italic" -> R.layout.listvew_row_1_monospace_italic
@@ -55,11 +75,21 @@ class ListViewLayoutIdHelper {
         }
 
         fun layoutIdForSansSerif(
-            textSize: String,
+            textStyle: String,
             center: Boolean,
+            rightSource: Boolean,
         ): Int {
-            if (center) {
-                return when (textSize) {
+            if (rightSource) {
+                return when (textStyle) {
+                    "Bold" -> R.layout.listvew_row_2_sans_serif_bold_right_source
+                    "Bold Italic" -> R.layout.listvew_row_2_sans_serif_bold_italic_right_source
+                    "Italic" -> R.layout.listvew_row_2_sans_serif_italic_right_source
+                    "Italic, Shadow" -> R.layout.listvew_row_2_sans_serif_italic_shadow_right_source
+                    "Regular, Shadow" -> R.layout.listvew_row_2_sans_serif_shadow_right_source
+                    else -> R.layout.listvew_row_2_sans_serif_right_source
+                }
+            } else if (center) {
+                return when (textStyle) {
                     "Bold" -> R.layout.listvew_row_2_sans_serif_bold_center
                     "Bold Italic" -> R.layout.listvew_row_2_sans_serif_bold_italic_center
                     "Italic" -> R.layout.listvew_row_2_sans_serif_italic_center
@@ -68,7 +98,7 @@ class ListViewLayoutIdHelper {
                     else -> R.layout.listvew_row_2_sans_serif_center
                 }
             } else {
-                return when (textSize) {
+                return when (textStyle) {
                     "Bold" -> R.layout.listvew_row_2_sans_serif_bold
                     "Bold Italic" -> R.layout.listvew_row_2_sans_serif_bold_italic
                     "Italic" -> R.layout.listvew_row_2_sans_serif_italic
@@ -80,11 +110,21 @@ class ListViewLayoutIdHelper {
         }
 
         fun layoutIdForSansSerifCondensed(
-            textSize: String,
+            textStyle: String,
             center: Boolean,
+            rightSource: Boolean,
         ): Int {
-            if (center) {
-                return when (textSize) {
+            if (rightSource) {
+                return when (textStyle) {
+                    "Bold" -> R.layout.listvew_row_3_sans_serif_condensed_bold_right_source
+                    "Bold Italic" -> R.layout.listvew_row_3_sans_serif_condensed_bold_italic_right_source
+                    "Italic" -> R.layout.listvew_row_3_sans_serif_condensed_italic_right_source
+                    "Italic, Shadow" -> R.layout.listvew_row_3_sans_serif_condensed_italic_shadow_right_source
+                    "Regular, Shadow" -> R.layout.listvew_row_3_sans_serif_condensed_shadow_right_source
+                    else -> R.layout.listvew_row_3_sans_serif_condensed_right_source
+                }
+            } else if (center) {
+                return when (textStyle) {
                     "Bold" -> R.layout.listvew_row_3_sans_serif_condensed_bold_center
                     "Bold Italic" -> R.layout.listvew_row_3_sans_serif_condensed_bold_italic_center
                     "Italic" -> R.layout.listvew_row_3_sans_serif_condensed_italic_center
@@ -93,7 +133,7 @@ class ListViewLayoutIdHelper {
                     else -> R.layout.listvew_row_3_sans_serif_condensed_center
                 }
             } else {
-                return when (textSize) {
+                return when (textStyle) {
                     "Bold" -> R.layout.listvew_row_3_sans_serif_condensed_bold
                     "Bold Italic" -> R.layout.listvew_row_3_sans_serif_condensed_bold_italic
                     "Italic" -> R.layout.listvew_row_3_sans_serif_condensed_italic
@@ -105,11 +145,21 @@ class ListViewLayoutIdHelper {
         }
 
         fun layoutIdForSansSerifMedium(
-            textSize: String,
+            textStyle: String,
             center: Boolean,
+            rightSource: Boolean,
         ): Int {
-            if (center) {
-                return when (textSize) {
+            if (rightSource) {
+                return when (textStyle) {
+                    "Bold" -> R.layout.listvew_row_4_sans_serif_medium_bold_right_source
+                    "Bold Italic" -> R.layout.listvew_row_4_sans_serif_medium_bold_italic_right_source
+                    "Italic" -> R.layout.listvew_row_4_sans_serif_medium_italic_right_source
+                    "Italic, Shadow" -> R.layout.listvew_row_4_sans_serif_medium_italic_shadow_right_source
+                    "Regular, Shadow" -> R.layout.listvew_row_4_sans_serif_medium_shadow_right_source
+                    else -> R.layout.listvew_row_4_sans_serif_medium_right_source
+                }
+            } else if (center) {
+                return when (textStyle) {
                     "Bold" -> R.layout.listvew_row_4_sans_serif_medium_bold_center
                     "Bold Italic" -> R.layout.listvew_row_4_sans_serif_medium_bold_italic_center
                     "Italic" -> R.layout.listvew_row_4_sans_serif_medium_italic_center
@@ -118,7 +168,7 @@ class ListViewLayoutIdHelper {
                     else -> R.layout.listvew_row_4_sans_serif_medium_center
                 }
             } else {
-                return when (textSize) {
+                return when (textStyle) {
                     "Bold" -> R.layout.listvew_row_4_sans_serif_medium_bold
                     "Bold Italic" -> R.layout.listvew_row_4_sans_serif_medium_bold_italic
                     "Italic" -> R.layout.listvew_row_4_sans_serif_medium_italic
@@ -130,11 +180,21 @@ class ListViewLayoutIdHelper {
         }
 
         fun layoutIdForSerif(
-            textSize: String,
+            textStyle: String,
             center: Boolean,
+            rightSource: Boolean,
         ): Int {
-            if (center) {
-                return when (textSize) {
+            if (rightSource) {
+                return when (textStyle) {
+                    "Bold" -> R.layout.listvew_row_5_serif_bold_right_source
+                    "Bold Italic" -> R.layout.listvew_row_5_serif_bold_italic_right_source
+                    "Italic" -> R.layout.listvew_row_5_serif_italic_right_source
+                    "Italic, Shadow" -> R.layout.listvew_row_5_serif_italic_shadow_right_source
+                    "Regular, Shadow" -> R.layout.listvew_row_5_serif_shadow_right_source
+                    else -> R.layout.listvew_row_5_serif_right_source
+                }
+            } else if (center) {
+                return when (textStyle) {
                     "Bold" -> R.layout.listvew_row_5_serif_bold_center
                     "Bold Italic" -> R.layout.listvew_row_5_serif_bold_italic_center
                     "Italic" -> R.layout.listvew_row_5_serif_italic_center
@@ -143,7 +203,7 @@ class ListViewLayoutIdHelper {
                     else -> R.layout.listvew_row_5_serif_center
                 }
             } else {
-                return when (textSize) {
+                return when (textStyle) {
                     "Bold" -> R.layout.listvew_row_5_serif_bold
                     "Bold Italic" -> R.layout.listvew_row_5_serif_bold_italic
                     "Italic" -> R.layout.listvew_row_5_serif_italic

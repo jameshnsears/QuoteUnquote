@@ -47,7 +47,8 @@
                     android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
                     android:text="@string/preview_author"
                     android:textAllCaps="false"
-                    android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall"
+                    android:textStyle="italic" />
 
         </LinearLayout>
 

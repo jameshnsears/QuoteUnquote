@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<issues name="AGP (9.1.0)" by="lint 9.1.0" client="gradle" dependencies="false" format="6" type="baseline" variant="all" version="9.1.0">
+<issues name="AGP (9.1.1)" by="lint 9.1.1" client="gradle" dependencies="false" format="6" type="baseline" variant="all" version="9.1.1">
 
     <issue
-        errorLine1="                        String author = quotationEntity.author.toLowerCase();"
         errorLine2="                                                               ~~~~~~~~~~~"
         id="DefaultLocale"
+        errorLine1="                        String author = quotationEntity.author.toLowerCase();"
         message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
         <location
-            column="64"
             file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="546"/>
+            column="64"
+            line="554"/>
     </issue>
 
     <issue
@@ -18,42 +18,42 @@
         id="DefaultLocale"
         message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
         <location
-            column="70"
             file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="547"/>
+            column="70"
+            line="555"/>
     </issue>
 
     <issue
+        id="DefaultLocale"
         errorLine1="                        if (author.indexOf(text.toLowerCase()) != -1"
         errorLine2="                                                ~~~~~~~~~~~"
-        id="DefaultLocale"
         message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
         <location
-            column="49"
             file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="549"/>
+            column="49"
+            line="557"/>
     </issue>
 
     <issue
+        id="DefaultLocale"
         errorLine1="                                || quotation.indexOf(text.toLowerCase()) != -1) {"
         errorLine2="                                                          ~~~~~~~~~~~"
-        id="DefaultLocale"
         message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
         <location
-            column="59"
             file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="550"/>
+            column="59"
+            line="558"/>
     </issue>
 
     <issue
+        id="DefaultLocale"
         errorLine1="                        String author = quotationEntity.author.toLowerCase();"
         errorLine2="                                                               ~~~~~~~~~~~"
-        id="DefaultLocale"
         message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
         <location
-            column="64"
             file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="559"/>
+            column="64"
+            line="567"/>
     </issue>
 
     <issue
@@ -62,196 +62,196 @@
         id="DefaultLocale"
         message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
         <location
-            column="70"
             file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="560"/>
+            column="70"
+            line="568"/>
     </issue>
 
     <issue
+        id="DefaultLocale"
         errorLine1="                        if (author.indexOf(text.toLowerCase()) != -1"
         errorLine2="                                                ~~~~~~~~~~~"
-        id="DefaultLocale"
         message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
         <location
-            column="49"
             file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="562"/>
+            column="49"
+            line="570"/>
     </issue>
 
     <issue
+        id="DefaultLocale"
         errorLine1="                                || quotation.indexOf(text.toLowerCase()) != -1) {"
         errorLine2="                                                          ~~~~~~~~~~~"
-        id="DefaultLocale"
         message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
         <location
-            column="59"
             file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="563"/>
+            column="59"
+            line="571"/>
     </issue>
 
     <issue
+        id="DefaultLocale"
         errorLine1="                String author = currentQuotation.author.toLowerCase();"
         errorLine2="                                                        ~~~~~~~~~~~"
-        id="DefaultLocale"
         message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
         <location
-            column="57"
             file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="573"/>
+            column="57"
+            line="581"/>
     </issue>
 
     <issue
+        id="DefaultLocale"
         errorLine1="                String quotation = currentQuotation.quotation.toLowerCase();"
         errorLine2="                                                              ~~~~~~~~~~~"
-        id="DefaultLocale"
         message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
         <location
-            column="63"
             file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="574"/>
+            column="63"
+            line="582"/>
     </issue>
 
     <issue
+        id="DefaultLocale"
         errorLine1="                if (author.indexOf(text.toLowerCase()) != -1"
         errorLine2="                                        ~~~~~~~~~~~"
-        id="DefaultLocale"
         message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
         <location
-            column="41"
             file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="576"/>
+            column="41"
+            line="584"/>
     </issue>
 
     <issue
-        errorLine1="                        || quotation.indexOf(text.toLowerCase()) != -1) {"
         errorLine2="                                                  ~~~~~~~~~~~"
         id="DefaultLocale"
+        errorLine1="                        || quotation.indexOf(text.toLowerCase()) != -1) {"
         message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
         <location
-            column="51"
             file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="577"/>
+            column="51"
+            line="585"/>
     </issue>
 
     <issue
-        errorLine1="                    String author = quotationEntity.author.toLowerCase();"
         errorLine2="                                                           ~~~~~~~~~~~"
         id="DefaultLocale"
+        errorLine1="                    String author = quotationEntity.author.toLowerCase();"
         message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
         <location
-            column="60"
             file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="637"/>
+            column="60"
+            line="645"/>
     </issue>
 
     <issue
+        id="DefaultLocale"
         errorLine1="                    String quotation = quotationEntity.quotation.toLowerCase();"
         errorLine2="                                                                 ~~~~~~~~~~~"
-        id="DefaultLocale"
         message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
         <location
-            column="66"
             file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="638"/>
+            column="66"
+            line="646"/>
     </issue>
 
     <issue
+        id="DefaultLocale"
         errorLine1="                    if (author.indexOf(text.toLowerCase()) != -1"
         errorLine2="                                            ~~~~~~~~~~~"
-        id="DefaultLocale"
         message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
         <location
+            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
             column="45"
-            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="640"/>
-    </issue>
-
-    <issue
-        errorLine1="                            || quotation.indexOf(text.toLowerCase()) != -1) {"
-        errorLine2="                                                      ~~~~~~~~~~~"
-        id="DefaultLocale"
-        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
-        <location
-            column="55"
-            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="641"/>
-    </issue>
-
-    <issue
-        errorLine1="                    String author = quotationEntity.author.toLowerCase();"
-        errorLine2="                                                           ~~~~~~~~~~~"
-        id="DefaultLocale"
-        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
-        <location
-            column="60"
-            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
             line="648"/>
     </issue>
 
     <issue
-        errorLine1="                    String quotation = quotationEntity.quotation.toLowerCase();"
-        errorLine2="                                                                 ~~~~~~~~~~~"
         id="DefaultLocale"
+        errorLine1="                            || quotation.indexOf(text.toLowerCase()) != -1) {"
+        errorLine2="                                                      ~~~~~~~~~~~"
         message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
         <location
-            column="66"
             file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
+            column="55"
             line="649"/>
     </issue>
 
     <issue
+        id="DefaultLocale"
+        errorLine1="                    String author = quotationEntity.author.toLowerCase();"
+        errorLine2="                                                           ~~~~~~~~~~~"
+        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
+        <location
+            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
+            column="60"
+            line="656"/>
+    </issue>
+
+    <issue
+        id="DefaultLocale"
+        errorLine1="                    String quotation = quotationEntity.quotation.toLowerCase();"
+        errorLine2="                                                                 ~~~~~~~~~~~"
+        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
+        <location
+            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
+            column="66"
+            line="657"/>
+    </issue>
+
+    <issue
+        id="DefaultLocale"
         errorLine1="                    if (author.indexOf(text.toLowerCase()) != -1"
         errorLine2="                                            ~~~~~~~~~~~"
-        id="DefaultLocale"
         message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
         <location
+            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
             column="45"
-            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="651"/>
-    </issue>
-
-    <issue
-        errorLine1="                            || quotation.indexOf(text.toLowerCase()) != -1) {"
-        errorLine2="                                                      ~~~~~~~~~~~"
-        id="DefaultLocale"
-        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
-        <location
-            column="55"
-            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="652"/>
-    </issue>
-
-    <issue
-        errorLine1="                String author = currentQuotation.author.toLowerCase();"
-        errorLine2="                                                        ~~~~~~~~~~~"
-        id="DefaultLocale"
-        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
-        <location
-            column="57"
-            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
             line="659"/>
     </issue>
 
     <issue
-        errorLine1="                String quotation = currentQuotation.quotation.toLowerCase();"
-        errorLine2="                                                              ~~~~~~~~~~~"
         id="DefaultLocale"
+        errorLine1="                            || quotation.indexOf(text.toLowerCase()) != -1) {"
+        errorLine2="                                                      ~~~~~~~~~~~"
         message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
         <location
-            column="63"
             file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
+            column="55"
             line="660"/>
     </issue>
 
     <issue
-        errorLine1="                if (author.indexOf(text.toLowerCase()) != -1"
-        errorLine2="                                        ~~~~~~~~~~~"
         id="DefaultLocale"
+        errorLine1="                String author = currentQuotation.author.toLowerCase();"
+        errorLine2="                                                        ~~~~~~~~~~~"
         message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
         <location
-            column="41"
             file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="662"/>
+            column="57"
+            line="667"/>
+    </issue>
+
+    <issue
+        errorLine2="                                                              ~~~~~~~~~~~"
+        id="DefaultLocale"
+        errorLine1="                String quotation = currentQuotation.quotation.toLowerCase();"
+        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
+        <location
+            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
+            column="63"
+            line="668"/>
+    </issue>
+
+    <issue
+        id="DefaultLocale"
+        errorLine1="                if (author.indexOf(text.toLowerCase()) != -1"
+        errorLine2="                                        ~~~~~~~~~~~"
+        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
+        <location
+            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
+            column="41"
+            line="670"/>
     </issue>
 
     <issue
@@ -260,96 +260,96 @@
         id="DefaultLocale"
         message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`.">
         <location
-            column="51"
             file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="663"/>
+            column="51"
+            line="671"/>
     </issue>
 
     <issue
+        id="VectorRaster"
         errorLine1="        android:width=&quot;620dp&quot;"
         errorLine2="                       ~~~~~"
-        id="VectorRaster"
         message="Limit vector icons sizes to 200×200 to keep icon drawing fast; see https://developer.android.com/studio/write/vector-asset-studio#when for more">
         <location
-            column="24"
             file="src/main/res/drawable/ic_instructions_footer_github_logo.xml"
+            column="24"
             line="2"/>
     </issue>
 
     <issue
+        id="DisableBaselineAlignment"
         errorLine1="                &lt;LinearLayout"
         errorLine2="                 ~~~~~~~~~~~~"
-        id="DisableBaselineAlignment"
         message="Set `android:baselineAligned=&quot;false&quot;` on this element for better performance">
         <location
-            column="18"
             file="src/main/res/layout/fragment_sync.xml"
-            line="157"/>
+            column="18"
+            line="177"/>
     </issue>
 
     <issue
+        id="UnusedResources"
         errorLine1="    &lt;string name=&quot;fragment_quotations_selection_all_ascending&quot;>Ascending Source Count&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        id="UnusedResources"
         message="The resource `R.string.fragment_quotations_selection_all_ascending` appears to be unused">
         <location
-            column="13"
             file="src/main/res/values/strings.xml"
+            column="13"
             line="40"/>
     </issue>
 
     <issue
+        id="UnusedResources"
         errorLine1="    &lt;string name=&quot;fragment_quotations_selection_all_ascending_info&quot;>\u2022&amp;#160;&amp;#160;Start with the Source with the least quotations; end with the Source with the most; any existing Previous is preserved&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        id="UnusedResources"
         message="The resource `R.string.fragment_quotations_selection_all_ascending_info` appears to be unused">
         <location
-            column="13"
             file="src/main/res/values/strings.xml"
+            column="13"
             line="41"/>
     </issue>
 
     <issue
+        id="UnusedResources"
         errorLine1="    &lt;string name=&quot;fragment_notifications_exact_alarm_warning_info&quot;>&lt;/string>"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
-        id="UnusedResources"
         message="The resource `R.string.fragment_notifications_exact_alarm_warning_info` appears to be unused">
         <location
-            column="13"
             file="src/main/res/values/strings.xml"
-            line="190"/>
+            column="13"
+            line="192"/>
     </issue>
 
     <issue
+        id="SyntheticAccessor"
         errorLine1="                    loadFragment(selectedFragment);"
         errorLine2="                    ~~~~~~~~~~~~"
-        id="SyntheticAccessor"
         message="Access to `private` method `loadFragment` of class `QuotationsContentFragment` requires synthetic accessor">
         <location
-            column="21"
             file="src/main/java/com/github/jameshnsears/quoteunquote/configure/fragment/quotations/tabs/content/QuotationsContentFragment.java"
+            column="21"
             line="90"/>
     </issue>
 
     <issue
+        id="UselessParent"
         errorLine1="            &lt;LinearLayout"
         errorLine2="             ~~~~~~~~~~~~"
-        id="UselessParent"
         message="This `LinearLayout` layout or its `LinearLayout` parent is unnecessary">
         <location
-            column="14"
             file="src/main/res/layout/fragment_appearance_tab_toolbar.xml"
+            column="14"
             line="267"/>
     </issue>
 
     <issue
-        errorLine1="                &lt;RadioGroup"
-        errorLine2="                 ~~~~~~~~~~"
+        errorLine1="                    &lt;RadioGroup"
+        errorLine2="                     ~~~~~~~~~~"
         id="UselessParent"
         message="This `RadioGroup` layout or its `LinearLayout` parent is possibly unnecessary">
         <location
-            column="18"
             file="src/main/res/layout/fragment_appearance_tab_toolbar.xml"
+            column="22"
             line="290"/>
     </issue>
 
@@ -359,19 +359,19 @@
         id="UselessParent"
         message="This `LinearLayout` layout or its `LinearLayout` parent is unnecessary">
         <location
-            column="14"
             file="src/main/res/layout/fragment_sync.xml"
+            column="14"
             line="51"/>
     </issue>
 
     <issue
+        id="UselessParent"
         errorLine1="    &lt;LinearLayout"
         errorLine2="     ~~~~~~~~~~~~"
-        id="UselessParent"
         message="This `LinearLayout` layout or its `LinearLayout` parent is possibly unnecessary; transfer the `background` attribute to the other view">
         <location
-            column="6"
             file="src/main/res/layout/quote_unquote_widget_no_toolbar.xml"
+            column="6"
             line="8"/>
     </issue>
 
@@ -381,9 +381,218 @@
         id="UselessParent"
         message="This `LinearLayout` layout or its `LinearLayout` parent is unnecessary; transfer the `background` attribute to the other view">
         <location
-            column="10"
             file="src/main/res/layout/quote_unquote_widget_preview.xml"
+            column="10"
+            line="20"/>
+    </issue>
+
+    <issue
+        errorLine1="    &lt;string name=&quot;activity_instructions_1&quot;>\u2022&amp;#160;&amp;#160;Sur un écran d\&apos;accueil, appuyez longuement sur un espace vide&lt;/string>"
+        errorLine2="                                                                  ~"
+        id="TypographyQuotes"
+        message="Replace apostrophe (&apos;) with typographic apostrophe (’, &amp;#8217;) ?">
+        <location
+            column="67"
+            file="src/main/res/values-fr/strings.xml"
+            line="6"/>
+    </issue>
+
+    <issue
+        errorLine1="    &lt;string name=&quot;activity_instructions_3&quot;>\u2022&amp;#160;&amp;#160;Parcourrez les widgets jusqu\&apos;à trouver Quote Unquote&lt;/string>"
+        errorLine2="                                                                                ~"
+        id="TypographyQuotes"
+        message="Replace apostrophe (&apos;) with typographic apostrophe (’, &amp;#8217;) ?">
+        <location
+            column="81"
+            file="src/main/res/values-fr/strings.xml"
+            line="8"/>
+    </issue>
+
+    <issue
+        errorLine1="    &lt;string name=&quot;activity_instructions_5&quot;>\u2022&amp;#160;&amp;#160;Utilisez le bouton/geste Retour d\&apos;Android pour quitter l\&apos;écran de Configuration et placer le widget sur l\&apos;écran d\&apos;accueil&lt;/string>"
+        errorLine2="                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        id="TypographyQuotes"
+        message="Replace apostrophe (&apos;) with typographic apostrophe (’, &amp;#8217;) ?">
+        <location
+            column="44"
+            file="src/main/res/values-fr/strings.xml"
+            line="10"/>
+    </issue>
+
+    <issue
+        errorLine1="    &lt;string name=&quot;activity_instructions_configure_2&quot;>\u2022&amp;#160;&amp;#160;Les changements sont enregistrés quand vous sortez de l\&apos;écran de configuration avec le bouton/geste Retour&lt;/string>"
+        errorLine2="                                                                                                                     ~"
+        id="TypographyQuotes"
+        message="Replace apostrophe (&apos;) with typographic apostrophe (’, &amp;#8217;) ?">
+        <location
+            column="118"
+            file="src/main/res/values-fr/strings.xml"
+            line="13"/>
+    </issue>
+
+    <issue
+        errorLine1="    &lt;string name=&quot;activity_instructions_configure_4&quot;>\u2022&amp;#160;&amp;#160;L\&apos;icone \u2316, à coté de l\&apos;indicateur de position de la Citation, indique la dernière précédente Citation&lt;/string>"
+        errorLine2="                                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        id="TypographyQuotes"
+        message="Replace apostrophe (&apos;) with typographic apostrophe (’, &amp;#8217;) ?">
+        <location
+            column="54"
+            file="src/main/res/values-fr/strings.xml"
+            line="15"/>
+    </issue>
+
+    <issue
+        errorLine1="    &lt;string name=&quot;activity_instructions_configure_5&quot;>\u2022&amp;#160;&amp;#160;Seule la synchro/l\&apos;import avec le Cloud requiert une connexion à Internet&lt;/string>"
+        errorLine2="                                                                                ~"
+        id="TypographyQuotes"
+        message="Replace apostrophe (&apos;) with typographic apostrophe (’, &amp;#8217;) ?">
+        <location
+            column="81"
+            file="src/main/res/values-fr/strings.xml"
+            line="16"/>
+    </issue>
+
+    <issue
+        errorLine1="    &lt;string name=&quot;activity_instructions_configure_6&quot;>\u2022&amp;#160;&amp;#160;Revisitez la page des Notifications pour reinitialiser les notifications après le redémarrage de l\&apos;appareil&lt;/string>"
+        errorLine2="                                                                                                                                                                ~"
+        id="TypographyQuotes"
+        message="Replace apostrophe (&apos;) with typographic apostrophe (’, &amp;#8217;) ?">
+        <location
+            column="161"
+            file="src/main/res/values-fr/strings.xml"
+            line="17"/>
+    </issue>
+
+    <issue
+        errorLine1="    &lt;string name=&quot;activity_instructions_os_warning&quot;>\u2022&amp;#160;&amp;#160;Certaines versions d\&apos;Android ont une gestion agressive de la mémoire, ajustez l\&apos;appareil en conséquence&lt;/string>"
+        errorLine2="                                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        id="TypographyQuotes"
+        message="Replace apostrophe (&apos;) with typographic apostrophe (’, &amp;#8217;) ?">
+        <location
+            column="53"
+            file="src/main/res/values-fr/strings.xml"
             line="18"/>
+    </issue>
+
+    <issue
+        errorLine1="    &lt;string name=&quot;activity_instructions_resize_instruction_1&quot;>\u2022&amp;#160;&amp;#160;Tapotez et maintenez le widget sur l\&apos;écran d\&apos;accueil&lt;/string>"
+        errorLine2="                                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+        id="TypographyQuotes"
+        message="Replace apostrophe (&apos;) with typographic apostrophe (’, &amp;#8217;) ?">
+        <location
+            column="63"
+            file="src/main/res/values-fr/strings.xml"
+            line="20"/>
+    </issue>
+
+    <issue
+        errorLine1="    &lt;string name=&quot;fragment_quotations_selection_export_failed&quot;>Échec de l\&apos;export&lt;/string>"
+        errorLine2="                                                                          ~"
+        id="TypographyQuotes"
+        message="Replace apostrophe (&apos;) with typographic apostrophe (’, &amp;#8217;) ?">
+        <location
+            column="75"
+            file="src/main/res/values-fr/strings.xml"
+            line="50"/>
+    </issue>
+
+    <issue
+        id="TypographyQuotes"
+        errorLine1="    &lt;string name=&quot;fragment_quotations_database_file_csv_inplace_save_warning_duplicate&quot;>Impossible d\&apos;enregistrer - doublon&lt;/string>"
+        errorLine2="                                                                                                     ~"
+        message="Replace apostrophe (&apos;) with typographic apostrophe (’, &amp;#8217;) ?">
+        <location
+            column="102"
+            file="src/main/res/values-fr/strings.xml"
+            line="78"/>
+    </issue>
+
+    <issue
+        errorLine1="    &lt;string name=&quot;fragment_quotations_database_scrape_endpoint_error&quot;>Impossible de contacter l\&apos;URL&lt;/string>"
+        errorLine2="                                                                                                ~"
+        id="TypographyQuotes"
+        message="Replace apostrophe (&apos;) with typographic apostrophe (’, &amp;#8217;) ?">
+        <location
+            column="97"
+            file="src/main/res/values-fr/strings.xml"
+            line="100"/>
+    </issue>
+
+    <issue
+        errorLine1="    &lt;string name=&quot;fragment_quotations_database_scrape_3&quot;>\u2022&amp;#160;&amp;#160;Attention car une réponse XML, dans l\&apos;app, est encadrée par &amp;lt;html&amp;gt;&amp;lt;body&amp;gt;… &amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;&lt;/string>"
+        errorLine2="                                                                                                       ~"
+        id="TypographyQuotes"
+        message="Replace apostrophe (&apos;) with typographic apostrophe (’, &amp;#8217;) ?">
+        <location
+            column="104"
+            file="src/main/res/values-fr/strings.xml"
+            line="107"/>
+    </issue>
+
+    <issue
+        errorLine1="    &lt;string name=&quot;fragment_appearance_navigation&quot;>Barre d\&apos;outils&lt;/string>"
+        errorLine2="                                                          ~"
+        id="TypographyQuotes"
+        message="Replace apostrophe (&apos;) with typographic apostrophe (’, &amp;#8217;) ?">
+        <location
+            column="59"
+            file="src/main/res/values-fr/strings.xml"
+            line="162"/>
+    </issue>
+
+    <issue
+        errorLine1="    &lt;string name=&quot;fragment_appearance_toolbar_next_sequential&quot;>Suivante, dans l\&apos;ordre&lt;/string>"
+        errorLine2="                                                                                ~"
+        id="TypographyQuotes"
+        message="Replace apostrophe (&apos;) with typographic apostrophe (’, &amp;#8217;) ?">
+        <location
+            column="81"
+            file="src/main/res/values-fr/strings.xml"
+            line="172"/>
+    </issue>
+
+    <issue
+        errorLine1="    &lt;string name=&quot;fragment_notifications_screen_unlock&quot;>Au déverrouillage de l\&apos;écran&lt;/string>"
+        errorLine2="                                                                               ~"
+        id="TypographyQuotes"
+        message="Replace apostrophe (&apos;) with typographic apostrophe (’, &amp;#8217;) ?">
+        <location
+            column="80"
+            file="src/main/res/values-fr/strings.xml"
+            line="194"/>
+    </issue>
+
+    <issue
+        errorLine1="    &lt;string name=&quot;fragment_notifications_customisable_active_time&quot;>Période d\&apos;activité&lt;/string>"
+        errorLine2="                                                                             ~"
+        id="TypographyQuotes"
+        message="Replace apostrophe (&apos;) with typographic apostrophe (’, &amp;#8217;) ?">
+        <location
+            column="78"
+            file="src/main/res/values-fr/strings.xml"
+            line="197"/>
+    </issue>
+
+    <issue
+        errorLine1="    &lt;string name=&quot;fragment_archive_restore_onto_new_device&quot;>Purger les données de l\&apos;ancienne instance&lt;/string>"
+        errorLine2="                                                                                    ~"
+        id="TypographyQuotes"
+        message="Replace apostrophe (&apos;) with typographic apostrophe (’, &amp;#8217;) ?">
+        <location
+            column="85"
+            file="src/main/res/values-fr/strings.xml"
+            line="227"/>
+    </issue>
+
+    <issue
+        errorLine1="    &lt;string name=&quot;fragment_archive_restore_onto_new_device_info&quot;>\u2022&amp;#160;&amp;#160;Garder les données de l\&apos;ancienne instance est nécessaire seulement si vous utilisez plusieurs instances du Widget sur votre appareil&lt;/string>"
+        errorLine2="                                                                                                 ~"
+        id="TypographyQuotes"
+        message="Replace apostrophe (&apos;) with typographic apostrophe (’, &amp;#8217;) ?">
+        <location
+            column="98"
+            file="src/main/res/values-fr/strings.xml"
+            line="228"/>
     </issue>
 
     <issue
@@ -392,9 +601,20 @@
         id="TypographyQuotes"
         message="Replace straight quotes (&apos;&apos;) with directional quotes (‘’, &amp;#8216; and &amp;#8217;) ?">
         <location
-            column="66"
             file="src/main/res/values/strings.xml"
-            line="224"/>
+            column="66"
+            line="228"/>
+    </issue>
+
+    <issue
+        errorLine1="    &lt;string name=&quot;notification_channel_screen_unlock&quot;>Au déverrouillage de l\&apos;écran&lt;/string>"
+        errorLine2="                                                                             ~"
+        id="TypographyQuotes"
+        message="Replace apostrophe (&apos;) with typographic apostrophe (’, &amp;#8217;) ?">
+        <location
+            column="78"
+            file="src/main/res/values-fr/strings.xml"
+            line="249"/>
     </issue>
 
     <issue
@@ -405,91 +625,542 @@
     </issue>
 
     <issue
+        id="ContentDescription"
         errorLine1="        &lt;ImageView"
         errorLine2="         ~~~~~~~~~"
-        id="ContentDescription"
         message="Missing `contentDescription` attribute on image">
         <location
-            column="10"
             file="src/main/res/layout/fragment_quotations_tab_database_tab_files_csv_edit.xml"
+            column="10"
             line="15"/>
     </issue>
 
     <issue
+        id="WeekBasedYear"
         errorLine1="            final SimpleDateFormat sdf = new SimpleDateFormat(&quot;YYYY-MM-dd HH:mm.ss&quot;, Locale.getDefault());"
         errorLine2="                                                              ~~~~"
-        id="WeekBasedYear"
         message="`DateFormat` character &apos;Y&apos; in YYYY is the week-era-year; did you mean &apos;y&apos;?">
         <location
-            column="63"
             file="src/main/java/com/github/jameshnsears/quoteunquote/utils/sync/AutoCloudBackupAlarm.java"
+            column="63"
             line="40"/>
     </issue>
 
     <issue
+        id="HardcodedText"
         errorLine1="                android:text=&quot;1&quot;"
         errorLine2="                ~~~~~~~~~~~~~~~~"
-        id="HardcodedText"
         message="Hardcoded string &quot;1&quot;, should use `@string` resource">
         <location
-            column="17"
             file="src/main/res/layout/recyclerview_row.xml"
+            column="17"
             line="28"/>
     </issue>
 
     <issue
-        errorLine1="                android:text=&quot;Quotation&quot;"
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~~~~"
         id="HardcodedText"
+        errorLine1="                android:text=&quot;Quotation&quot;"
         message="Hardcoded string &quot;Quotation&quot;, should use `@string` resource">
         <location
-            column="17"
             file="src/main/res/layout/recyclerview_row.xml"
+            column="17"
             line="60"/>
     </issue>
 
     <issue
-        errorLine1="                android:text=&quot;Source&quot;"
         errorLine2="                ~~~~~~~~~~~~~~~~~~~~~"
         id="HardcodedText"
+        errorLine1="                android:text=&quot;Source&quot;"
         message="Hardcoded string &quot;Source&quot;, should use `@string` resource">
         <location
-            column="17"
             file="src/main/res/layout/recyclerview_row.xml"
+            column="17"
             line="74"/>
     </issue>
 
     <issue
+        id="RtlSymmetry"
         errorLine1="                        android:paddingEnd=&quot;10dp&quot;"
         errorLine2="                        ~~~~~~~~~~~~~~~~~~"
-        id="RtlSymmetry"
         message="When you define `paddingEnd` you should probably also define `paddingStart` for right-to-left symmetry">
         <location
-            column="25"
             file="src/main/res/layout/fragment_appearance_tab_style.xml"
-            line="367"/>
+            column="25"
+            line="389"/>
     </issue>
 
     <issue
+        id="RtlSymmetry"
         errorLine1="                    android:paddingStart=&quot;4dp&quot;"
         errorLine2="                    ~~~~~~~~~~~~~~~~~~~~"
-        id="RtlSymmetry"
         message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
         <location
-            column="21"
             file="src/main/res/layout/fragment_quotations_tab_database_tab_files.xml"
+            column="21"
             line="79"/>
     </issue>
 
     <issue
+        id="RtlSymmetry"
         errorLine1="            android:paddingStart=&quot;4dp&quot;"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~"
-        id="RtlSymmetry"
         message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry">
         <location
-            column="13"
             file="src/main/res/layout/fragment_quotations_tab_filter_browse_dialog.xml"
+            column="13"
             line="34"/>
+    </issue>
+
+    <issue
+        errorLine1="            fragmentAppearanceTabStyleBinding.textViewCurrentAuthor.setGravity(Gravity.RIGHT);"
+        errorLine2="                                                                                       ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`Gravity.END`&quot; instead of &quot;`Gravity.RIGHT`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="88"
+            file="src/main/java/com/github/jameshnsears/quoteunquote/configure/fragment/appearance/tabs/style/AppearanceStyleFragment.java"
+            line="452"/>
+    </issue>
+
+    <issue
+        errorLine1="            fragmentAppearanceTabStyleBinding.textViewCurrentAuthor.setGravity(Gravity.RIGHT);"
+        errorLine2="                                                                                       ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`Gravity.END`&quot; instead of &quot;`Gravity.RIGHT`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="88"
+            file="src/main/java/com/github/jameshnsears/quoteunquote/configure/fragment/appearance/tabs/style/AppearanceStyleFragment.java"
+            line="465"/>
+    </issue>
+
+    <issue
+        errorLine1="            fragmentAppearanceTabStyleBinding.textViewCurrentAuthor.setGravity(Gravity.RIGHT);"
+        errorLine2="                                                                                       ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`Gravity.END`&quot; instead of &quot;`Gravity.RIGHT`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="88"
+            file="src/main/java/com/github/jameshnsears/quoteunquote/configure/fragment/appearance/tabs/style/AppearanceStyleFragment.java"
+            line="470"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_0_cursive.xml"
+            line="24"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_0_cursive_bold_italic_right_source.xml"
+            line="26"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_0_cursive_bold_right_source.xml"
+            line="26"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_0_cursive_italic_right_source.xml"
+            line="26"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_0_cursive_italic_shadow_right_source.xml"
+            line="30"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_0_cursive_right_source.xml"
+            line="25"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_0_cursive_shadow_right_source.xml"
+            line="29"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_1_monospace.xml"
+            line="24"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_1_monospace_bold_italic_right_source.xml"
+            line="26"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_1_monospace_bold_right_source.xml"
+            line="26"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_1_monospace_italic_right_source.xml"
+            line="26"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_1_monospace_italic_shadow_right_source.xml"
+            line="30"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_1_monospace_right_source.xml"
+            line="25"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_1_monospace_shadow_right_source.xml"
+            line="29"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_2_sans_serif_bold_italic_right_source.xml"
+            line="26"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_2_sans_serif_bold_right_source.xml"
+            line="26"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_2_sans_serif_italic_right_source.xml"
+            line="26"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_2_sans_serif_italic_shadow_right_source.xml"
+            line="30"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_2_sans_serif_right_source.xml"
+            line="25"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_2_sans_serif_shadow_right_source.xml"
+            line="29"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_3_sans_serif_condensed_bold_italic_right_source.xml"
+            line="26"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_3_sans_serif_condensed_bold_right_source.xml"
+            line="26"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_3_sans_serif_condensed_italic_right_source.xml"
+            line="26"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_3_sans_serif_condensed_italic_shadow_right_source.xml"
+            line="30"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_3_sans_serif_condensed_right_source.xml"
+            line="25"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_3_sans_serif_condensed_shadow_right_source.xml"
+            line="29"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_4_sans_serif_medium_bold_italic_right_source.xml"
+            line="26"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_4_sans_serif_medium_bold_right_source.xml"
+            line="26"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_4_sans_serif_medium_italic_right_source.xml"
+            line="26"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_4_sans_serif_medium_italic_shadow_right_source.xml"
+            line="30"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_4_sans_serif_medium_right_source.xml"
+            line="25"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_4_sans_serif_medium_shadow_right_source.xml"
+            line="29"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_5_serif_bold_italic_right_source.xml"
+            line="26"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_5_serif_bold_right_source.xml"
+            line="26"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_5_serif_italic_right_source.xml"
+            line="26"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_5_serif_italic_shadow_right_source.xml"
+            line="30"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_5_serif_right_source.xml"
+            line="25"/>
+    </issue>
+
+    <issue
+        errorLine1="            android:gravity=&quot;right&quot;"
+        errorLine2="                             ~~~~~"
+        id="RtlHardcoded"
+        message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales">
+        <location
+            column="30"
+            file="src/main/res/layout/listvew_row_5_serif_shadow_right_source.xml"
+            line="29"/>
     </issue>
 
 </issues>

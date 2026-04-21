@@ -108,7 +108,7 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
     @Override
     @NonNull
     public RemoteViews getViewAt(final int position) {
-        final RemoteViews remoteViews = getRemoteViews(position);
+        final RemoteViews remoteViews = getRemoteViews();
 
         if (quotationEntity != null) {
             try {
@@ -140,76 +140,91 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
             String textFamily,
             String textStyle,
             boolean forceItalicRegular,
-            boolean center) {
+            boolean center,
+            boolean rightSource) {
         int layoutId;
 
         switch (textFamily) {
             case "Cursive":
-                layoutId = ListViewLayoutIdHelper.Companion.layoutIdForCursive(textStyle, center);
-                if (forceItalicRegular && !center) {
+                if (forceItalicRegular && !center && !rightSource) {
                     layoutId = R.layout.listvew_row_0_cursive_forced;
-                }
-                if (forceItalicRegular && center) {
+                } else if (forceItalicRegular && center) {
                     layoutId = R.layout.listvew_row_0_cursive_forced_center;
+                } else if (forceItalicRegular && rightSource) {
+                    layoutId = R.layout.listvew_row_0_cursive_forced_right;
+                } else {
+                    layoutId = ListViewLayoutIdHelper.Companion.layoutIdForCursive(textStyle, center, rightSource);
                 }
                 break;
 
             case "Monospace":
-                layoutId = ListViewLayoutIdHelper.Companion.layoutIdForMonospace(textStyle, center);
-                if (forceItalicRegular && !center) {
+                if (forceItalicRegular && !center && !rightSource) {
                     layoutId = R.layout.listvew_row_1_monospace_forced;
-                }
-                if (forceItalicRegular && center) {
+                } else if (forceItalicRegular && center) {
                     layoutId = R.layout.listvew_row_1_monospace_forced_center;
+                } else if (forceItalicRegular && rightSource) {
+                    layoutId = R.layout.listvew_row_1_monospace_forced_right;
+                } else {
+                    layoutId = ListViewLayoutIdHelper.Companion.layoutIdForMonospace(textStyle, center, rightSource);
                 }
                 break;
 
             case "Sans Serif":
-                layoutId = ListViewLayoutIdHelper.Companion.layoutIdForSansSerif(textStyle, center);
-                if (forceItalicRegular && !center) {
+                if (forceItalicRegular && !center && !rightSource) {
                     layoutId = R.layout.listvew_row_2_sans_serif_forced;
-                }
-                if (forceItalicRegular && center) {
+                } else if (forceItalicRegular && center) {
                     layoutId = R.layout.listvew_row_2_sans_serif_forced_center;
+                } else if (forceItalicRegular && rightSource) {
+                    layoutId = R.layout.listvew_row_2_sans_serif_forced_right;
+                } else {
+                    layoutId = ListViewLayoutIdHelper.Companion.layoutIdForSansSerif(textStyle, center, rightSource);
                 }
                 break;
 
             case "Sans Serif Condensed":
-                layoutId = ListViewLayoutIdHelper.Companion.layoutIdForSansSerifCondensed(textStyle, center);
-                if (forceItalicRegular && !center) {
+                if (forceItalicRegular && !center && !rightSource) {
                     layoutId = R.layout.listvew_row_3_sans_serif_condensed_forced;
-                }
-                if (forceItalicRegular && center) {
+                } else if (forceItalicRegular && center) {
                     layoutId = R.layout.listvew_row_3_sans_serif_condensed_forced_center;
+                } else if (forceItalicRegular && rightSource) {
+                    layoutId = R.layout.listvew_row_3_sans_serif_condensed_forced_right;
+                } else {
+                    layoutId = ListViewLayoutIdHelper.Companion.layoutIdForSansSerifCondensed(textStyle, center, rightSource);
                 }
                 break;
 
             case "Sans Serif Medium":
-                layoutId = ListViewLayoutIdHelper.Companion.layoutIdForSansSerifMedium(textStyle, center);
-                if (forceItalicRegular && !center) {
+                if (forceItalicRegular && !center && !rightSource) {
                     layoutId = R.layout.listvew_row_4_sans_serif_medium_forced;
-                }
-                if (forceItalicRegular && center) {
+                } else if (forceItalicRegular && center) {
                     layoutId = R.layout.listvew_row_4_sans_serif_medium_forced_center;
+                } else if (forceItalicRegular && rightSource) {
+                    layoutId = R.layout.listvew_row_4_sans_serif_medium_forced_right;
+                } else {
+                    layoutId = ListViewLayoutIdHelper.Companion.layoutIdForSansSerifMedium(textStyle, center, rightSource);
                 }
                 break;
 
             default:
-                layoutId = ListViewLayoutIdHelper.Companion.layoutIdForSerif(textStyle, center);
-                if (forceItalicRegular && !center) {
+                if (forceItalicRegular && !center && !rightSource) {
                     layoutId = R.layout.listvew_row_5_serif_forced;
-                }
-                if (forceItalicRegular && center) {
+                } else if (forceItalicRegular && center) {
                     layoutId = R.layout.listvew_row_5_serif_forced_center;
+                } else if (forceItalicRegular && rightSource) {
+                    layoutId = R.layout.listvew_row_5_serif_forced_center_right;
+                } else {
+                    layoutId = ListViewLayoutIdHelper.Companion.layoutIdForSerif(textStyle, center, rightSource);
                 }
                 break;
         }
+
+        Timber.d("getRowLayoutId.layout=%s", context.getResources().getResourceEntryName(layoutId));
 
         return layoutId;
     }
 
     @NonNull
-    private RemoteViews getRemoteViews(final int position) {
+    private RemoteViews getRemoteViews() {
         AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, context);
 
         final RemoteViews remoteViews = new RemoteViews(
@@ -218,7 +233,8 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
                         appearancePreferences.getAppearanceTextFamily(),
                         appearancePreferences.getAppearanceTextStyle(),
                         appearancePreferences.getAppearanceTextForceItalicRegular(),
-                        appearancePreferences.getAppearanceTextCenter()
+                        appearancePreferences.getAppearanceTextCenter(),
+                        appearancePreferences.getAppearanceTextRightSource()
                 )
         );
 
@@ -327,7 +343,7 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
     @NonNull
     @Override
     public RemoteViews getLoadingView() {
-        return getRemoteViews(0);
+        return getRemoteViews();
     }
 
     @Override

@@ -33,18 +33,14 @@ import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
 import timber.log.Timber;
 
 public class ConfigureActivity extends AppCompatActivity {
-    public static boolean launcherInvoked;
+    public static volatile boolean launcherInvoked;
 
     public int widgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
-
     @Nullable
     public ActivityConfigureBinding activityConfigureBinding;
-
     public boolean broadcastFinishIntent = true;
-
     @Nullable
     protected boolean finishCalled;
-
     @NonNull
     private ActivityResultLauncher<Intent> wikipediaActivityLauncher = this.registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -53,6 +49,10 @@ public class ConfigureActivity extends AppCompatActivity {
                     finish();
                 }
             });
+
+    public static boolean isLauncherInvoked() {
+        return launcherInvoked;
+    }
 
     @Override
     protected void onResume() {
@@ -75,7 +75,7 @@ public class ConfigureActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         // back pressed | swipe up | launcher started
-        if (!finishCalled && !launcherInvoked) {
+        if (!finishCalled && !isLauncherInvoked()) {
             finish();
         }
 

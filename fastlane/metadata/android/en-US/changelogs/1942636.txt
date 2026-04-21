@@ -1,3 +1,0 @@
-- French translation of the App (not Internal database)
-- Remember scroll position when device rotates, for Instructions
-- Add missing bullet point!

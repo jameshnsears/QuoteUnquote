@@ -1,0 +1,4 @@
+- Right-hand align Source
+- GCP size limit
+- Incorporate adi-registration.properties for F-Droid SHA-256
+- Bump: all dependencies to latest; IDE: Android Studio Panda 2 | 2025.3.2

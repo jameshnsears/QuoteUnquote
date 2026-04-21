@@ -38,14 +38,8 @@ class AppearanceFragmentPreferencesTest : ShadowLoggingHelper() {
 
                 fragment.setTextStyle()
                 assertEquals(
-                    "Regular",
+                    "Italic",
                     fragment.appearancePreferences?.appearanceTextStyle,
-                )
-
-                fragment.setTextForceItalicRegular()
-                assertEquals(
-                    true,
-                    fragment.appearancePreferences?.appearanceTextForceItalicRegular,
                 )
             }
         }

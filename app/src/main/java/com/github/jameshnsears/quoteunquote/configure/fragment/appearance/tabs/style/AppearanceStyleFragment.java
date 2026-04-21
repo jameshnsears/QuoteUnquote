@@ -109,6 +109,7 @@ public class AppearanceStyleFragment extends FragmentCommon {
         createListenerTextStyle();
         createListenerForceItalicRegular();
         createListenerCenter();
+        createListenerRightSource();
 
         createListenerButtonQuotation();
         createListenerButtonAuthor();
@@ -121,7 +122,8 @@ public class AppearanceStyleFragment extends FragmentCommon {
         setTextFamily();
         setTextStyle();
         setTextForceItalicRegular();
-        setTextCenter();
+        setText();
+        setTextRightSource();
 
         setTextQuotation();
         setTextAuthor();
@@ -300,10 +302,37 @@ public class AppearanceStyleFragment extends FragmentCommon {
 
     private void createListenerCenter() {
         fragmentAppearanceTabStyleBinding.switchCenter.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            fragmentAppearanceTabStyleBinding.switchRightSource.setOnCheckedChangeListener(null);
+
             appearancePreferences.setAppearanceTextCenter(isChecked);
+
+            if (fragmentAppearanceTabStyleBinding.switchRightSource.isChecked()) {
+                fragmentAppearanceTabStyleBinding.switchRightSource.setChecked(false);
+                appearancePreferences.setAppearanceTextRightSource(false);
+            }
 
             setTextQuotation();
             setTextAuthor();
+
+            createListenerRightSource();
+        });
+    }
+
+    private void createListenerRightSource() {
+        fragmentAppearanceTabStyleBinding.switchRightSource.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            fragmentAppearanceTabStyleBinding.switchCenter.setOnCheckedChangeListener(null);
+
+            appearancePreferences.setAppearanceTextRightSource(isChecked);
+
+            if (fragmentAppearanceTabStyleBinding.switchCenter.isChecked()) {
+                fragmentAppearanceTabStyleBinding.switchCenter.setChecked(false);
+                appearancePreferences.setAppearanceTextCenter(false);
+            }
+
+            setTextQuotation();
+            setTextAuthor();
+
+            createListenerCenter();
         });
     }
 
@@ -408,16 +437,37 @@ public class AppearanceStyleFragment extends FragmentCommon {
         }
     }
 
-    public void setTextCenter() {
+    public void setText() {
         fragmentAppearanceTabStyleBinding.switchCenter
                 .setChecked(appearancePreferences.getAppearanceTextCenter());
+
+        fragmentAppearanceTabStyleBinding.switchRightSource
+                .setChecked(appearancePreferences.getAppearanceTextRightSource());
 
         if (appearancePreferences.getAppearanceTextCenter()) {
             fragmentAppearanceTabStyleBinding.textViewCurrentQuotation.setGravity(Gravity.CENTER);
             fragmentAppearanceTabStyleBinding.textViewCurrentAuthor.setGravity(Gravity.CENTER);
+        } else if (appearancePreferences.getAppearanceTextRightSource()) {
+            fragmentAppearanceTabStyleBinding.textViewCurrentQuotation.setGravity(Gravity.CENTER);
+            fragmentAppearanceTabStyleBinding.textViewCurrentAuthor.setGravity(Gravity.RIGHT);
         } else {
             fragmentAppearanceTabStyleBinding.textViewCurrentQuotation.setGravity(Gravity.START | Gravity.CENTER);
             fragmentAppearanceTabStyleBinding.textViewCurrentAuthor.setGravity(Gravity.START | Gravity.CENTER);
+        }
+    }
+
+    public void setTextRightSource() {
+        fragmentAppearanceTabStyleBinding.switchRightSource
+                .setChecked(appearancePreferences.getAppearanceTextRightSource());
+
+        if (appearancePreferences.getAppearanceTextRightSource()) {
+            fragmentAppearanceTabStyleBinding.textViewCurrentQuotation.setGravity(Gravity.CENTER);
+            fragmentAppearanceTabStyleBinding.textViewCurrentAuthor.setGravity(Gravity.RIGHT);
+
+            fragmentAppearanceTabStyleBinding.switchCenter.setChecked(false);
+        } else {
+            fragmentAppearanceTabStyleBinding.textViewCurrentQuotation.setGravity(Gravity.CENTER);
+            fragmentAppearanceTabStyleBinding.textViewCurrentAuthor.setGravity(Gravity.RIGHT);
         }
     }
 
@@ -468,7 +518,7 @@ public class AppearanceStyleFragment extends FragmentCommon {
         fragmentAppearanceTabStyleBinding.textViewCurrentQuotation
                 .setTextSize(appearancePreferences.getAppearanceQuotationTextSize());
 
-        setTextCenter();
+        setText();
 
         fragmentAppearanceTabStyleBinding.textViewCurrentQuotation
                 .setText(R.string.fragment_appearance_button_quotation);
@@ -497,7 +547,7 @@ public class AppearanceStyleFragment extends FragmentCommon {
         fragmentAppearanceTabStyleBinding.textViewCurrentAuthor
                 .setTextSize(appearancePreferences.getAppearanceAuthorTextSize());
 
-        setTextCenter();
+        setText();
 
         SpannableString content;
         if (appearancePreferences.getAppearanceAuthorTextHide()) {

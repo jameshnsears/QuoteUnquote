@@ -287,44 +287,43 @@
                         android:paddingTop="5dp"
                         android:paddingEnd="10dp">
 
-                <RadioGroup
-                        android:id="@+id/toolbarPosition"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                    <RadioButton
-                            android:id="@+id/radioButtonBottom"
-                            android:layout_width="wrap_content"
+                    <RadioGroup
+                            android:id="@+id/toolbarPosition"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:checked="true"
-                            android:contentDescription="@string/fragment_appearance_toolbar_position_bottom"
-                            android:paddingVertical="10dp"
-                            android:paddingStart="12dp"
-                            android:paddingEnd="0dp"
-                            android:text="@string/fragment_appearance_toolbar_position_bottom"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:orientation="vertical">
 
-                    <RadioButton
-                            android:id="@+id/radioButtonRightHandSide"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:checked="false"
-                            android:contentDescription="@string/fragment_appearance_toolbar_position_rhs"
-                            android:paddingVertical="10dp"
-                            android:paddingStart="12dp"
-                            android:paddingEnd="0dp"
-                            android:text="@string/fragment_appearance_toolbar_position_rhs"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                        <RadioButton
+                                android:id="@+id/radioButtonBottom"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checked="true"
+                                android:contentDescription="@string/fragment_appearance_toolbar_position_bottom"
+                                android:paddingVertical="10dp"
+                                android:paddingStart="12dp"
+                                android:paddingEnd="0dp"
+                                android:text="@string/fragment_appearance_toolbar_position_bottom"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
 
-                </RadioGroup>
+                        <RadioButton
+                                android:id="@+id/radioButtonRightHandSide"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:checked="false"
+                                android:contentDescription="@string/fragment_appearance_toolbar_position_rhs"
+                                android:paddingVertical="10dp"
+                                android:paddingStart="12dp"
+                                android:paddingEnd="0dp"
+                                android:text="@string/fragment_appearance_toolbar_position_rhs"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+
+                    </RadioGroup>
 
                 </LinearLayout>
 
             </LinearLayout>
-
 
 
         </LinearLayout>

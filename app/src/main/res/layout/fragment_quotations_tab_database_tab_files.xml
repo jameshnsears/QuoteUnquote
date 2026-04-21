@@ -255,7 +255,7 @@
                     android:paddingEnd="5dp"
                     android:paddingBottom="5dp"
                     android:text="@string/fragment_quotations_database_file_warning" />
-            </LinearLayout>
+        </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
 

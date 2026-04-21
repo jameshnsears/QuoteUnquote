@@ -26,7 +26,7 @@ class AutoCloudBackup(
         return try {
             val cloudTransfer = CloudTransfer()
 
-            if (!cloudTransfer.isInternetAvailable(applicationContext)) {
+            if (!cloudTransfer.isInternetAvailable()) {
                 Timber.w("$WORK_TAG.retry: No internet connection")
                 return Result.retry()
             }
@@ -34,13 +34,21 @@ class AutoCloudBackup(
             val quoteUnquoteModel = QuoteUnquoteModel(-1, applicationContext)
             val backupData = quoteUnquoteModel.transferBackup(applicationContext)
 
-            if (!cloudTransfer.backup(backupData)) {
-                throw IOException("Cloud backup operation failed")
+            if (backupData.toByteArray(Charsets.UTF_8).size > 1048500) {
+                val widgetId = inputData.getInt(KEY_WIDGET_ID, 0)
+                val syncPreferences = SyncPreferences(widgetId, applicationContext)
+                syncPreferences.lastSuccessfulCloudBackupTimestamp = "N/A"
+
+                Timber.d("$WORK_TAG.success (GCP limit)")
+            } else {
+                if (!cloudTransfer.backup(backupData)) {
+                    throw IOException("Cloud backup operation failed")
+                }
+
+                updateSyncPreferences()
+                Timber.d("$WORK_TAG.success")
             }
 
-            updateSyncPreferences()
-
-            Timber.d("$WORK_TAG.success")
             Result.success()
         } catch (e: Exception) {
             Timber.e(e, "$WORK_TAG.failure: ${e.message}")

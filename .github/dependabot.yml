@@ -1,10 +1,10 @@
 version: 2
 updates:
-  - package-ecosystem: "gradle"
+  - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "daily"
-      time: "02:00"
+    # Omit target-branch to stay on the default branch (HEAD)
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:

@@ -31,6 +31,7 @@
             android:id="@+id/textViewRowPosition"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/widget_listview_position"
             android:fontFamily="monospace"
             android:gravity="end"
             android:minHeight="10dp"

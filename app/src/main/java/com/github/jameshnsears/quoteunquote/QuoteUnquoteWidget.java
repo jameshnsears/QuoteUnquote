@@ -106,7 +106,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
 
     @Nullable
     public static ExecutorService getExecutorService() {
-        if (executorService == null) {
+        if (executorService == null || executorService.isShutdown() || executorService.isTerminated()) {
             executorService = Executors.newFixedThreadPool(
                     10,
                     new ThreadFactoryBuilder().setNameFormat("QuoteUnquote-thread-%d").build());
@@ -116,18 +116,18 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
 
     public static void executorServiceStop() {
         if (executorService != null) {
-            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-                executorService.shutdown();
-                try {
-                    if (!executorService.awaitTermination(5000, TimeUnit.MICROSECONDS)) {
-                        Timber.d("awaitTermination=timeout");
-                    }
-                } catch (@NonNull InterruptedException e) {
-                    Timber.e(e);
-                    Thread.currentThread().interrupt();
+            executorService.shutdown();
+            try {
+                if (!executorService.awaitTermination(5000, TimeUnit.MILLISECONDS)) {
+                    Timber.d("awaitTermination=timeout");
                 }
-                Timber.d(executorService.toString());
-            }));
+            } catch (@NonNull InterruptedException e) {
+                Timber.e(e);
+                Thread.currentThread().interrupt();
+            } finally {
+                executorService = null;
+            }
+            Timber.d("executorService=%s", executorService);
         }
     }
 
@@ -140,7 +140,7 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
 
         OneTimeWorkRequest backupWorkRequest = new OneTimeWorkRequest.Builder(AutoCloudBackup.class)
                 .setInputData(data)
-                .setInitialDelay(60, TimeUnit.SECONDS)
+                .setInitialDelay(30, TimeUnit.SECONDS)
                 .build();
 
         WorkManager.getInstance(context)
@@ -1285,11 +1285,11 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             Timber.d("setting LocalCode");
             quotationsPreferences.setContentLocalCode(localCode);
 
-            if (CloudService.isRunning) {
+            if (CloudService.isRunning()) {
                 context.stopService(new Intent(context, CloudServiceBackup.class));
             }
 
-            if (CloudService.isRunning) {
+            if (CloudService.isRunning()) {
                 context.stopService(new Intent(context, CloudServiceRestore.class));
             }
         } finally {

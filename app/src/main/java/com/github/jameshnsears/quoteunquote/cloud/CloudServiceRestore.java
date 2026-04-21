@@ -24,15 +24,18 @@ public class CloudServiceRestore extends CloudService {
             final int flags,
             final int startId) {
 
-        if (!CloudService.isRunning) {
-            CloudService.isRunning = true;
+        if (CloudService.startRunning()) {
 
             new Thread(() -> {
-                Timber.d("isRunning=%b", CloudService.isRunning);
+                Timber.d("isRunning=%b", CloudService.isRunning());
 
                 final Context context = getServiceContext();
+                if (context == null) {
+                    CloudService.stopRunning();
+                    return;
+                }
 
-                if (!cloudTransfer.isInternetAvailable(context)) {
+                if (!cloudTransfer.isInternetAvailable()) {
                     handler.post(() -> Toast.makeText(
                             context,
                             context.getString(R.string.fragment_archive_internet_missing),
@@ -56,15 +59,15 @@ public class CloudServiceRestore extends CloudService {
                             new TransferRestore().requestJson(
                                     intent.getStringExtra("remoteCodeValue")));
 
-                    if (transferRestoreResponse.getReason().equals("no JSON for code")) {
-                        handler.post(() -> Toast.makeText(
-                                context,
-                                context.getString(R.string.fragment_archive_restore_missing_code),
-                                Toast.LENGTH_SHORT).show());
-                    } else if (transferRestoreResponse == null) {
+                    if (transferRestoreResponse == null) {
                         handler.post(() -> Toast.makeText(
                                 context,
                                 context.getString(R.string.fragment_archive_internet_missing),
+                                Toast.LENGTH_SHORT).show());
+                    } else if ("no JSON for code".equals(transferRestoreResponse.getReason())) {
+                        handler.post(() -> Toast.makeText(
+                                context,
+                                context.getString(R.string.fragment_archive_restore_missing_code),
                                 Toast.LENGTH_SHORT).show());
                     } else {
                         TransferRestore transferRestore = new TransferRestore();
@@ -88,8 +91,8 @@ public class CloudServiceRestore extends CloudService {
 
                 broadcastEvent(SyncFragment.CLOUD_SERVICE_COMPLETED);
 
-                CloudService.isRunning = false;
-                Timber.d("isRunning=%b", CloudService.isRunning);
+                CloudService.stopRunning();
+                Timber.d("isRunning=%b", CloudService.isRunning());
 
                 stopSelf();
 

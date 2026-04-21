@@ -18,6 +18,8 @@ public class AppearancePreferences extends PreferencesFacade {
             = "APPEARANCE_TEXT_FORCE_ITALIC_REGULAR";
     public static final String APPEARANCE_TEXT_CENTER
             = "APPEARANCE_TEXT_CENTER";
+    public static final String APPEARANCE_TEXT_RIGHT_SOURCE
+            = "APPEARANCE_TEXT_RIGHT_SOURCE";
 
     public static final String APPEARANCE_QUOTATION_TEXT_COLOUR = "APPEARANCE_TEXT_COLOUR";
     public static final String APPEARANCE_QUOTATION_TEXT_FAMILY = "APPEARANCE_TEXT_FAMILY";
@@ -149,7 +151,7 @@ public class AppearancePreferences extends PreferencesFacade {
     public String getAppearanceTextStyle() {
         String textStyle = preferenceHelper.getPreferenceString(getPreferenceKey(APPEARANCE_TEXT_STYLE));
         if (textStyle.equals("")) {
-            textStyle = "Regular";
+            textStyle = "Italic";
         }
         return textStyle;
     }
@@ -172,7 +174,7 @@ public class AppearancePreferences extends PreferencesFacade {
 
     public boolean getAppearanceTextForceItalicRegular() {
         return preferenceHelper.getPreferenceBoolean(
-                getPreferenceKey(APPEARANCE_TEXT_FORCE_ITALIC_REGULAR), true);
+                getPreferenceKey(APPEARANCE_TEXT_FORCE_ITALIC_REGULAR), false);
     }
 
     public void setAppearanceTextForceItalicRegular(final boolean value) {
@@ -188,6 +190,16 @@ public class AppearancePreferences extends PreferencesFacade {
     public void setAppearanceTextCenter(final boolean value) {
         preferenceHelper.setPreference(
                 getPreferenceKey(APPEARANCE_TEXT_CENTER), value);
+    }
+
+    public boolean getAppearanceTextRightSource() {
+        return preferenceHelper.getPreferenceBoolean(
+                getPreferenceKey(APPEARANCE_TEXT_RIGHT_SOURCE), false);
+    }
+
+    public void setAppearanceTextRightSource(final boolean value) {
+        preferenceHelper.setPreference(
+                getPreferenceKey(APPEARANCE_TEXT_RIGHT_SOURCE), value);
     }
 
     public boolean getAppearanceToolbarJump() {

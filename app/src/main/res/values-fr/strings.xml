@@ -90,7 +90,7 @@
     <string name="fragment_quotations_database_import_contents_1">Invalide - ligne: %1$d: %2$s</string>
     <string name="fragment_quotations_database_import_importing">Importation - veuillez patienter&#8230;</string>
     <string name="fragment_quotations_database_import_success">Succès - fichier importé</string>
-    <string name="fragment_quotations_database_scrape_web">Web</string>
+    <string name="fragment_quotations_database_scrape_web_page">Web</string>
     <string name="fragment_quotations_database_scrape_url_hint" tools:ignore="TypographyEllipsis">URL http / https…</string>
     <string name="fragment_quotations_database_scrape_quote_quotation_hint" tools:ignore="TypographyEllipsis">XPath du text node de la Citation…</string>
     <string name="fragment_quotations_database_scrape_quote_source_hint" tools:ignore="TypographyEllipsis">XPath du text node de la Source…</string>
@@ -117,11 +117,13 @@
     <string name="fragment_appearance_ok">OK</string>
     <string name="fragment_appearance_transparency">Transparence %</string>
     <string name="fragment_appearance_text">Texte</string>
-    <string name="fragment_appearance_force">Forcer Italique / Regular</string>
-    <string name="fragment_appearance_center">Centrer Citation &amp; Source</string>
+    <string name="fragment_appearance_force"><i>Italique</i> + Regular + Regular</string>
+    <string name="fragment_appearance_center">Centre + Centre + Centre</string>
+    <string name="fragment_appearance_source_right_aligned">Centre + Droite + Droite</string>
     <string name="fragment_appearance_button_quotation">Citation</string>
     <string name="fragment_appearance_button_author">Source</string>
     <string name="fragment_appearance_button_position">Position</string>
+    <string name="fragment_appearance_text_info">\u2022&#160;&#160;L’apparence dépend de l’appareil</string>
     <string name="fragment_appearance_style_text_dialog_quotation">Citation</string>
     <string name="fragment_appearance_style_text_dialog_quotation_colour">Couleur du texte</string>
     <string name="fragment_appearance_style_text_dialog_author">Source</string>
@@ -212,6 +214,8 @@
 
     <string name="fragment_archive_title">Synchronisation</string>
     <string name="fragment_archive_select_cloud">Cloud (GCP)</string>
+    <string name="fragment_archive_select_cloud_info">\u2022&#160;&#160;GCP est limité à une taille maximale de 1 Mo</string>
+    <string name="fragment_archive_select_cloud_warning">Limite de taille GCP atteinte</string>
     <string name="fragment_archive_select_filesystem">Appareil</string>
     <string name="fragment_archive_backup_local_code">Code de Synchro…</string>
     <string name="fragment_archive_backup_local_code_value">%s</string>
@@ -248,7 +252,7 @@
     <string name="notification_action_favourite">Ajoutée aux Favoris</string>
     <string name="notification_action_unfavourite">Retirée des Favoris</string>
 
-    <string name="preview_description">Découvrez des Citations de Haute Qualité!\nImportez des Affirmations!</string>
-    <string name="preview_quotation">Rien n\'a vraiment d\'importante et très peu de choses le sont à peine.\n</string>
+    <string name="preview_description">Discover High Quality Quotations!\nImport Affirmations!</string>
+    <string name="preview_quotation">Nothing matters very much and very few things matter at all.\n</string>
     <string name="preview_author"><u>Arthur Balfour\n</u></string>
 </resources>

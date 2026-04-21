@@ -86,6 +86,11 @@ open class TransferBackupSettings(val context: Context) {
     fun settingsAppearance(widgetId: Int, context: Context): Appearance {
         val appearancePreferences = AppearancePreferences(widgetId, context)
 
+        if (appearancePreferences.appearanceTextCenter == appearancePreferences.appearanceTextRightSource) {
+            appearancePreferences.appearanceTextCenter = true
+            appearancePreferences.appearanceTextRightSource = false
+        }
+
         return Appearance(
             appearancePreferences.appearanceTransparency,
             appearancePreferences.appearanceColour,
@@ -93,6 +98,7 @@ open class TransferBackupSettings(val context: Context) {
             appearancePreferences.appearanceTextStyle,
             appearancePreferences.appearanceTextForceItalicRegular,
             appearancePreferences.appearanceTextCenter,
+            appearancePreferences.appearanceTextRightSource,
 
             appearancePreferences.appearanceQuotationTextSize,
             appearancePreferences.appearanceQuotationTextColour,

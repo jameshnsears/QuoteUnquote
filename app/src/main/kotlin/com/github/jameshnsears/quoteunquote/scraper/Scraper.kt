@@ -5,8 +5,17 @@ import okhttp3.Request
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
 
 class Scraper {
+    companion object {
+        private val client = OkHttpClient.Builder()
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
+            .build()
+    }
+
     fun getDocumentFromResources(resource: String): Document {
         val html = javaClass.getResource(resource).readText()
         return Jsoup.parse(html)
@@ -15,9 +24,13 @@ class Scraper {
     @Throws(ScraperUrlException::class)
     fun getDocumentFromUrl(url: String = "https://www.bible.com/verse-of-the-day/"): Document {
         try {
-            val response = OkHttpClient().newCall(requestBuilder(url)).execute()
-            val html = response.body.string()
-            return Jsoup.parse(html)
+            // 2. Use the shared client and .use for automatic closing
+            client.newCall(requestBuilder(url)).execute().use { response ->
+                if (!response.isSuccessful) throw ScraperUrlException("Unexpected code $response")
+
+                val html = response.body?.string() ?: ""
+                return Jsoup.parse(html)
+            }
         } catch (e: Exception) {
             Timber.e("scraper: Exception=%s", e.message)
             throw ScraperUrlException(e.message)

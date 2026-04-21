@@ -117,11 +117,13 @@
     <string name="fragment_appearance_ok">OK</string>
     <string name="fragment_appearance_transparency">Transparency %</string>
     <string name="fragment_appearance_text">Text</string>
-    <string name="fragment_appearance_force">Force Italic / Regular</string>
-    <string name="fragment_appearance_center">Center Quotation &amp; Source</string>
+    <string name="fragment_appearance_force"><i>Italic</i> + Regular + Regular</string>
+    <string name="fragment_appearance_center">Center  + Center + Right</string>
+    <string name="fragment_appearance_source_right_aligned">Center + Right + Right</string>
     <string name="fragment_appearance_button_quotation">Quotation</string>
     <string name="fragment_appearance_button_author">Source</string>
     <string name="fragment_appearance_button_position">Position</string>
+    <string name="fragment_appearance_text_info">\u2022&#160;&#160;Appearance is device dependent</string>
     <string name="fragment_appearance_style_text_dialog_quotation">Quotation Text</string>
     <string name="fragment_appearance_style_text_dialog_quotation_colour">Quotation Text Colour</string>
     <string name="fragment_appearance_style_text_dialog_author">Source Text</string>
@@ -212,6 +214,8 @@
 
     <string name="fragment_archive_title">Sync</string>
     <string name="fragment_archive_select_cloud">Cloud (GCP)</string>
+    <string name="fragment_archive_select_cloud_info">\u2022&#160;&#160;GCP limited to 1MB maximum size</string>
+    <string name="fragment_archive_select_cloud_warning">GCP size limit reached</string>
     <string name="fragment_archive_select_filesystem">Device</string>
     <string name="fragment_archive_backup_local_code">Sync code…</string>
     <string name="fragment_archive_backup_local_code_value">%s</string>
