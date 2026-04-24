@@ -32,7 +32,7 @@ final def gitHash = providers.exec {
 }.standardOutput.asText.map { it.trim() }.getOrElse("no-git")
 
 android {
-    compileSdk 36
+    compileSdk 37
 
     signingConfigs {
         googleplay {
@@ -50,9 +50,9 @@ android {
         applicationId "com.github.jameshnsears.quoteunquote"
 
         // changelog version | min sdk | target sdk
-        versionCode 1952636
+        versionCode 1962636
         // semantic versioning
-        versionName "4.55.0"
+        versionName "4.55.1"
 
         vectorDrawables.useSupportLibrary = true
 
