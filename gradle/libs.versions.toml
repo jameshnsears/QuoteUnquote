@@ -45,7 +45,7 @@ sonarqubeGradlePlugin = "7.2.3.7755"
 spotlessPluginGradle = "8.4.0"
 test = "1.7.0"
 timber = "5.0.1"
-uiautomator = "2.3.0"
+uiautomator = "2.4.0"
 work = "2.11.2"
 
 [libraries]
