@@ -7,7 +7,9 @@ import com.github.jameshnsears.quoteunquote.cloud.transfer.backup.restore.Transf
 import com.github.jameshnsears.quoteunquote.db.q.QuotationEntity
 import io.mockk.every
 import io.mockk.mockkObject
-import org.junit.Assert
+import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.CoreMatchers.not
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 
 class RestoreTwoWidgetsTest : TransferRestoreUtility() {
@@ -26,31 +28,31 @@ class RestoreTwoWidgetsTest : TransferRestoreUtility() {
 //            val restoreJson = TransferRestore().asJson(restoreTransfer)
 //            val backupJson = TransferBackup(context).asJson(backupTransfer)
 
-            Assert.assertNotEquals(getLocalCode(), backupTransfer.code)
-            Assert.assertEquals(restoreTransfer.code, backupTransfer.code)
+            assertThat(backupTransfer.code, not(equalTo(getLocalCode())))
+            assertThat(backupTransfer.code, equalTo(restoreTransfer.code))
 
-            Assert.assertTrue(backupTransfer.current.size == 1)
-            Assert.assertTrue(backupTransfer.favourites.size == 4)
-            Assert.assertTrue(backupTransfer.previous.size == 5)
+            assertThat(backupTransfer.current.size, equalTo(1))
+            assertThat(backupTransfer.favourites.size, equalTo(4))
+            assertThat(backupTransfer.previous.size, equalTo(5))
 
-            Assert.assertTrue(backupTransfer.settings.size == 1)
-            Assert.assertEquals(
-                restoreTransfer.settings[0].appearance,
+            assertThat(backupTransfer.settings.size, equalTo(1))
+            assertThat(
                 backupTransfer.settings[0].appearance,
+                equalTo(restoreTransfer.settings[0].appearance),
             )
 
-            Assert.assertNotEquals(
-                restoreTransfer.settings[0].quotations,
+            assertThat(
                 backupTransfer.settings[0].quotations,
+                not(equalTo(restoreTransfer.settings[0].quotations)),
             )
-            Assert.assertNotEquals(
-                restoreTransfer.settings[0].quotations.databaseInternal,
+            assertThat(
                 backupTransfer.settings[0].quotations.databaseInternal,
+                not(equalTo(restoreTransfer.settings[0].quotations.databaseInternal)),
             )
 
-            Assert.assertEquals(
-                restoreTransfer.settings[0].schedule,
+            assertThat(
                 backupTransfer.settings[0].schedule,
+                equalTo(restoreTransfer.settings[0].schedule),
             )
         }
     }
@@ -70,41 +72,41 @@ class RestoreTwoWidgetsTest : TransferRestoreUtility() {
 //            val restoreJson = TransferRestore().asJson(restoreTransfer)
 //            val backupJson = TransferBackup(context).asJson(backupTransfer)
 
-            Assert.assertNotEquals(getLocalCode(), backupTransfer.code)
-            Assert.assertEquals(restoreTransfer.code, backupTransfer.code)
+            assertThat(backupTransfer.code, not(equalTo(getLocalCode())))
+            assertThat(backupTransfer.code, equalTo(restoreTransfer.code))
 
-            Assert.assertTrue(backupTransfer.current.size == 2)
-            Assert.assertTrue(backupTransfer.favourites.size == 4)
-            Assert.assertTrue(backupTransfer.previous.size == 10)
+            assertThat(backupTransfer.current.size, equalTo(2))
+            assertThat(backupTransfer.favourites.size, equalTo(4))
+            assertThat(backupTransfer.previous.size, equalTo(10))
 
-            Assert.assertTrue(backupTransfer.settings.size == 2)
-            Assert.assertEquals(
-                restoreTransfer.settings[0].appearance,
+            assertThat(backupTransfer.settings.size, equalTo(2))
+            assertThat(
                 backupTransfer.settings[0].appearance,
+                equalTo(restoreTransfer.settings[0].appearance),
             )
 
-            Assert.assertNotEquals(
-                restoreTransfer.settings[0].quotations,
+            assertThat(
                 backupTransfer.settings[0].quotations,
+                not(equalTo(restoreTransfer.settings[0].quotations)),
             )
-            Assert.assertNotEquals(
-                restoreTransfer.settings[0].quotations.databaseInternal,
+            assertThat(
                 backupTransfer.settings[0].quotations.databaseInternal,
+                not(equalTo(restoreTransfer.settings[0].quotations.databaseInternal)),
             )
 
-            Assert.assertEquals(
-                restoreTransfer.settings[0].schedule,
+            assertThat(
                 backupTransfer.settings[0].schedule,
+                equalTo(restoreTransfer.settings[0].schedule),
             )
 
-            Assert.assertEquals(
-                restoreTransfer.settings[1].appearance,
+            assertThat(
                 backupTransfer.settings[1].appearance,
+                equalTo(restoreTransfer.settings[1].appearance),
             )
 
-            Assert.assertEquals(
-                restoreTransfer.settings[1].schedule,
+            assertThat(
                 backupTransfer.settings[1].schedule,
+                equalTo(restoreTransfer.settings[1].schedule),
             )
         }
     }
@@ -125,18 +127,18 @@ class RestoreTwoWidgetsTest : TransferRestoreUtility() {
 //            val restoreJson = TransferRestore().asJson(restoreTransfer)
 //            val backupJson = TransferBackup(context).asJson(backupTransfer)
 
-            Assert.assertNotEquals(getLocalCode(), backupTransfer.code)
-            Assert.assertEquals(restoreTransfer.code, backupTransfer.code)
+            assertThat(backupTransfer.code, not(equalTo(getLocalCode())))
+            assertThat(backupTransfer.code, equalTo(restoreTransfer.code))
 
-            Assert.assertTrue(backupTransfer.current.size == 1)
-            Assert.assertEquals(restoreTransfer.current[0].digest, backupTransfer.current[0].digest)
+            assertThat(backupTransfer.current.size, equalTo(1))
+            assertThat(backupTransfer.current[0].digest, equalTo(restoreTransfer.current[0].digest))
 
-            Assert.assertTrue(backupTransfer.favourites.size == 8)
+            assertThat(backupTransfer.favourites.size, equalTo(8))
 
             // the restore contains two widgets; with a duplicate previous value, each with
             // a different widgetId; we are restoring into only one widget
-            Assert.assertTrue(restoreTransfer.previous.size == 53)
-            Assert.assertTrue(backupTransfer.previous.size == 52)
+            assertThat(restoreTransfer.previous.size, equalTo(53))
+            assertThat(backupTransfer.previous.size, equalTo(52))
         }
     }
 
@@ -172,6 +174,7 @@ class RestoreTwoWidgetsTest : TransferRestoreUtility() {
             )
         }
         databaseRepositoryDouble.insertQuotations(
+            true,
             quotationEntityList.distinct(),
         )
     }

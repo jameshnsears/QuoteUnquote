@@ -11,39 +11,47 @@ concurrency:
 
 env:
   CACHE_VERSION: 1
+  JAVA_VERSION: 17
+  JAVA_DISTRIBUTION: zulu
 
 jobs:
   test:
-    name: ${{ matrix.flavor }}
+    name: ${{ matrix.artifact }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
     strategy:
       fail-fast: true
       matrix:
-        flavor: [ fdroid, googleplay ]
+        include:
+          - artifact: QuoteUnquote
+            task: ":app:testGoogleplayDebugUnitTestCoverage"
+            report: "app/build/reports/jacoco/googleplayDebug_unit.xml"
+            flag: "unit-tests"
 
     steps:
       - name: clone
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 1
           submodules: true
 
       - uses: actions/setup-java@v5
         with:
-          distribution: 'zulu'
-          java-version: 17
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
+          java-version: ${{ env.JAVA_VERSION }}
 
       - run: ./ci_clear_gradle_cache.sh
 
-      - uses: actions/cache@v5
+      - uses: actions/cache@v6
         with:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-${{ env.CACHE_VERSION }}-${{ hashFiles('**/**.gradle.kts', '**/gradle/wrapper/gradle-wrapper.properties', '**/libs.versions.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-${{ env.CACHE_VERSION }}-
 
-      - name: local.properties
+      - name: Decode secrets
         env:
           LOCAL_PROPERTIES: ${{ secrets.LOCAL_PROPERTIES }}
           LOCAL_PROPERTIES_CLOUDLIB: ${{ secrets.LOCAL_PROPERTIES_CLOUDLIB }}
@@ -53,22 +61,20 @@ jobs:
           echo "${LOCAL_PROPERTIES_CLOUDLIB}" | base64 -d > QuoteUnquote.cloudLib/cloudLib/local.properties
           echo "${LOCAL_PROPERTIES_UTILSLIB}" | base64 -d > QuoteUnquote.utilsLib/utilsLib/local.properties
 
-      - name: google-services.json
-        if: matrix.flavor == 'googleplay'
+      - name: Decode google-services.json
         env:
           GOOGLE_PLAY_JSON_DEVELOPMENT: ${{ secrets.GOOGLE_PLAY_JSON_DEVELOPMENT }}
         run: echo "${GOOGLE_PLAY_JSON_DEVELOPMENT}" | base64 -d > app/google-services.json
 
-      - name: unitTest
-        run: |
-          FLAVOR=$(echo "${{ matrix.flavor }}" | sed 's/.*/\u&/')
-          ./gradlew :app:test${FLAVOR}DebugUnitTestCoverage --stacktrace
+      - name: Run unit tests
+        run: ./gradlew ${{ matrix.task }} --stacktrace
 
-      - name: artifact
-        if: always()
-        uses: actions/upload-artifact@v7
+      - name: codecov
+        uses: codecov/codecov-action@v7
         with:
-          name: ${{ matrix.flavor }}
-          path: |
-            **/build/reports/*
-            **/build/outputs/*/connected/*
+          fail_ci_if_error: true
+          files: ${{ matrix.report }}
+          flags: ${{ matrix.flag }}
+          verbose: true
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOVIO_TOKEN }}

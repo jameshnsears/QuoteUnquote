@@ -5,7 +5,8 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.Quotat
 import com.github.jameshnsears.quoteunquote.db.DatabaseRepository
 import com.github.jameshnsears.quoteunquote.db.q.QuotationEntity
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
-import org.junit.Assert.assertEquals
+import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 
 class ExclusionCountTest : QuoteUnquoteModelUtility() {
@@ -13,7 +14,7 @@ class ExclusionCountTest : QuoteUnquoteModelUtility() {
         val quotationEntityList: MutableList<QuotationEntity> = ArrayList()
         quotationEntityList.add(
             QuotationEntity(
-                DatabaseRepository.getDefaultQuotationDigest(),
+                DatabaseRepository.getDefaultQuotationDigest(true),
                 "w1",
                 "aaaa1",
                 "q1",
@@ -24,7 +25,7 @@ class ExclusionCountTest : QuoteUnquoteModelUtility() {
         quotationEntityList.add(QuotationEntity("d6789014", "w1", "aaaa3", "q4"))
         quotationEntityList.add(QuotationEntity("d6789015", "w1", "aaaa3", "q5"))
         quotationEntityList.add(QuotationEntity("d6789016", "w1", "aaaa4", "q6"))
-        databaseRepositoryDouble.insertQuotations(quotationEntityList)
+        databaseRepositoryDouble.insertQuotations(true, quotationEntityList)
     }
 
     @Test
@@ -33,12 +34,13 @@ class ExclusionCountTest : QuoteUnquoteModelUtility() {
 
         val quotationsPreferences = QuotationsPreferences(WidgetIdHelper.WIDGET_ID_01, context)
 
-        assertEquals("", quotationsPreferences.contentSelectionAllExclusion)
+        assertThat(quotationsPreferences.contentSelectionAllExclusion, equalTo(""))
 
-        assertEquals(
-            6,
-            quoteUnquoteModelDouble.countAllMinusExclusions(WidgetIdHelper.WIDGET_ID_01)
+        assertThat(
+            quoteUnquoteModelDouble
+                .countAllMinusExclusions(WidgetIdHelper.WIDGET_ID_01)
                 .blockingGet(),
+            equalTo(6),
         )
     }
 
@@ -49,10 +51,11 @@ class ExclusionCountTest : QuoteUnquoteModelUtility() {
         val quotationsPreferences = QuotationsPreferences(WidgetIdHelper.WIDGET_ID_01, context)
         quotationsPreferences.contentSelectionAllExclusion = "aaaa2"
 
-        assertEquals(
-            4,
-            quoteUnquoteModelDouble.countAllMinusExclusions(WidgetIdHelper.WIDGET_ID_01)
+        assertThat(
+            quoteUnquoteModelDouble
+                .countAllMinusExclusions(WidgetIdHelper.WIDGET_ID_01)
                 .blockingGet(),
+            equalTo(4),
         )
     }
 
@@ -63,10 +66,11 @@ class ExclusionCountTest : QuoteUnquoteModelUtility() {
         val quotationsPreferences = QuotationsPreferences(WidgetIdHelper.WIDGET_ID_01, context)
         quotationsPreferences.contentSelectionAllExclusion = "aaaa"
 
-        assertEquals(
-            1,
-            quoteUnquoteModelDouble.countAllMinusExclusions(WidgetIdHelper.WIDGET_ID_01)
+        assertThat(
+            quoteUnquoteModelDouble
+                .countAllMinusExclusions(WidgetIdHelper.WIDGET_ID_01)
                 .blockingGet(),
+            equalTo(1),
         )
     }
 
@@ -77,24 +81,27 @@ class ExclusionCountTest : QuoteUnquoteModelUtility() {
         val quotationsPreferences = QuotationsPreferences(WidgetIdHelper.WIDGET_ID_01, context)
 
         quotationsPreferences.contentSelectionAllExclusion = "aaaa2;aaaa3"
-        assertEquals(
-            2,
-            quoteUnquoteModelDouble.countAllMinusExclusions(WidgetIdHelper.WIDGET_ID_01)
+        assertThat(
+            quoteUnquoteModelDouble
+                .countAllMinusExclusions(WidgetIdHelper.WIDGET_ID_01)
                 .blockingGet(),
+            equalTo(2),
         )
 
         quotationsPreferences.contentSelectionAllExclusion = "aaaa2;aaaa"
-        assertEquals(
-            1,
-            quoteUnquoteModelDouble.countAllMinusExclusions(WidgetIdHelper.WIDGET_ID_01)
+        assertThat(
+            quoteUnquoteModelDouble
+                .countAllMinusExclusions(WidgetIdHelper.WIDGET_ID_01)
                 .blockingGet(),
+            equalTo(1),
         )
 
         quotationsPreferences.contentSelectionAllExclusion = ";;;;;;*;()"
-        assertEquals(
-            6,
-            quoteUnquoteModelDouble.countAllMinusExclusions(WidgetIdHelper.WIDGET_ID_01)
+        assertThat(
+            quoteUnquoteModelDouble
+                .countAllMinusExclusions(WidgetIdHelper.WIDGET_ID_01)
                 .blockingGet(),
+            equalTo(6),
         )
     }
 }

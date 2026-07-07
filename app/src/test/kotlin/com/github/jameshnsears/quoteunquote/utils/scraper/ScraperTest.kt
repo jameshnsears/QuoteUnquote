@@ -7,9 +7,9 @@ import com.github.jameshnsears.quoteunquote.scraper.ScraperUrlException
 import io.mockk.every
 import io.mockk.spyk
 import kotlinx.coroutines.test.runTest
+import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
-import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class ScraperTest {
@@ -17,53 +17,65 @@ class ScraperTest {
 
     // https://github.com/Kotlin/kotlinx.coroutines/tree/master/kotlinx-coroutines-test
     @Test
-    fun `valid parameters`() = runTest {
-        val document1 =
-            scraper.getDocumentFromResources("/ExternalDatabaseWeb/1/Bible Verse of the Day _ YouVersion.xml")
+    fun `valid parameters`() =
+        runTest {
+            val document1 =
+                scraper.getDocumentFromResources("/ExternalDatabaseWeb/1/Bible Verse of the Day _ YouVersion.xml")
 
-        assertEquals(
-            "As the hart panteth after the water brooks, So panteth my soul after thee, O God.",
-            scraper.getQuotation(document1),
-        )
+            assertThat(
+                scraper.getQuotation(document1),
+                equalTo("As the hart panteth after the water brooks, So panteth my soul after thee, O God."),
+            )
 
-        assertEquals("Psalm 42:1 (KJV)", scraper.getSource(document1))
+            assertThat(scraper.getSource(document1), equalTo("Psalm 42:1 (KJV)"))
 
-        val document2 =
-            scraper.getDocumentFromResources("/ExternalDatabaseWeb/2/Bible Verse of the Day _ YouVersion.xml")
+            val document2 =
+                scraper.getDocumentFromResources("/ExternalDatabaseWeb/2/Bible Verse of the Day _ YouVersion.xml")
 
-        assertEquals(
-            "Behold, I send you forth as sheep in the midst of wolves: be ye therefore wise as serpents, and harmless as doves.",
-            scraper.getQuotation(document2),
-        )
+            assertThat(
+                scraper.getQuotation(document2),
+                equalTo(
+                    "Behold, I send you forth as sheep in the midst of wolves: be ye therefore wise as serpents, " +
+                        "and harmless as doves.",
+                ),
+            )
 
-        assertEquals("Matthew 10:16 (KJV)", scraper.getSource(document2))
+            assertThat(
+                scraper.getSource(document2),
+                equalTo("Matthew 10:16 (KJV)"),
+            )
 
-        // 20230316 - UI changed
-        val document3 =
-            scraper.getDocumentFromResources("/ExternalDatabaseWeb/3/Verse of the Day - 1 Peter 5_10 (KJV) _ The Bible App _ Bible.com.xml")
-        assertEquals(
-            "1 Peter 5:10 KJV",
-            scraper.getQuotation(
-                document3,
-                xpath = "//*[@id=\"react-app-VOTD\"]/div/div[2]/div[1]/div[1]/div/div/div/div[1]/div[2]/div/div/h3",
-            ),
-        )
-        // PROBLEM, the result is split into two nodes!
-        assertEquals(
-            "But the God of all grace, who hath called us unto his eternal glory by Christ Jesus, after that ye have suffered a while, make you perfect, stablish, strengthen, settle",
-            scraper.getSource(
-                document3,
-                xpath = "//*[@id=\"react-app-VOTD\"]/div/div[2]/div[1]/div[1]/div/div/div/div[2]/div/div/span/span[2]",
-            ),
-        )
-        assertEquals(
-            "you",
-            scraper.getSource(
-                document3,
-                xpath = "//*[@id=\"react-app-VOTD\"]/div/div[2]/div[1]/div[1]/div/div/div/div[2]/div/div/span/span[3]/span",
-            ),
-        )
-    }
+            // 20230316 - UI changed
+            val document3 =
+                scraper.getDocumentFromResources(
+                    "/ExternalDatabaseWeb/3/Verse of the Day - 1 Peter 5_10 (KJV) _ The Bible App _ Bible.com.xml",
+                )
+            assertThat(
+                scraper.getQuotation(
+                    document3,
+                    xpath = "//*[@id=\"react-app-VOTD\"]/div/div[2]/div[1]/div[1]/div/div/div/div[1]/div[2]/div/div/h3",
+                ),
+                equalTo("1 Peter 5:10 KJV"),
+            )
+            // PROBLEM, the result is split into two nodes!
+            assertThat(
+                scraper.getSource(
+                    document3,
+                    xpath = "//*[@id=\"react-app-VOTD\"]/div/div[2]/div[1]/div[1]/div/div/div/div[2]/div/div/span/span[2]",
+                ),
+                equalTo(
+                    "But the God of all grace, who hath called us unto his eternal glory by Christ Jesus, " +
+                        "after that ye have suffered a while, make you perfect, stablish, strengthen, settle",
+                ),
+            )
+            assertThat(
+                scraper.getSource(
+                    document3,
+                    xpath = "//*[@id=\"react-app-VOTD\"]/div/div[2]/div[1]/div[1]/div/div/div/div[2]/div/div/span/span[3]/span",
+                ),
+                equalTo("you"),
+            )
+        }
 
     @Test(expected = ScraperUrlException::class)
     fun `Unable to contact URL - empty`() {
@@ -118,12 +130,12 @@ class ScraperTest {
         val document =
             scraper.getDocumentFromResources("/ExternalDatabaseWeb/xml/myQuotes.txt")
 
-        assertEquals(
-            "Source1",
+        assertThat(
             scraper.getSource(
                 document,
                 "/html/body/root/quotes/quote/source",
             ),
+            equalTo("Source1"),
         )
     }
 
@@ -132,34 +144,34 @@ class ScraperTest {
         val document =
             scraper.getDocumentFromResources("/ExternalDatabaseWeb/xml/myQuotes-fixed.txt")
 
-        assertEquals(
-            "Source1",
+        assertThat(
             scraper.getSource(
                 document,
                 "/html/body/root/quotes/quote/s",
             ),
+            equalTo("Source1"),
         )
-        assertEquals(
-            "Source1",
+        assertThat(
             scraper.getSource(
                 document,
                 "//s",
             ),
+            equalTo("Source1"),
         )
 
-        assertEquals(
-            "Quotation1",
+        assertThat(
             scraper.getSource(
                 document,
                 "/html/body/root/quotes/quote/text",
             ),
+            equalTo("Quotation1"),
         )
-        assertEquals(
-            "Quotation1",
+        assertThat(
             scraper.getSource(
                 document,
                 "//text",
             ),
+            equalTo("Quotation1"),
         )
     }
 

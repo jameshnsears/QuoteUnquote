@@ -22,7 +22,9 @@ open class TransferRestoreUtility : QuoteUnquoteModelUtility() {
 
     protected fun getTransferAsset(assetFilename: String): Transfer {
         val inputStream: InputStream =
-            InstrumentationRegistry.getInstrumentation().context.resources.assets
+            InstrumentationRegistry
+                .getInstrumentation()
+                .context.resources.assets
                 .open(
                     assetFilename,
                 )
@@ -34,18 +36,16 @@ open class TransferRestoreUtility : QuoteUnquoteModelUtility() {
     }
 
     @Suppress("SameReturnValue")
-    protected fun getLocalCode(): String {
-        return "F9aT8HEW6d"
-    }
+    protected fun getLocalCode(): String = "F9aT8HEW6d"
 
     protected fun setupWidgets(widgetIds: IntArray) {
         createSharedPreferencesWithLocalCode(getLocalCode())
-        insertQuotationTestData01()
-        insertQuotationTestData02()
-        insertQuotationTestData03()
+        insertQuotationTestData01(true)
+        insertQuotationTestData02(true)
+        insertQuotationTestData03(true)
 
         for (widgetId in widgetIds) {
-            setDefaultQuotationAll(widgetId)
+            setDefaultQuotationAll(true, widgetId)
         }
 
         mockkObject(TransferUtility)

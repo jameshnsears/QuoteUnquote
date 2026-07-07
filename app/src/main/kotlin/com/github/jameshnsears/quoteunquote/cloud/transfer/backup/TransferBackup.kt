@@ -6,21 +6,21 @@ import com.github.jameshnsears.quoteunquote.cloud.transfer.TransferCommon
 import com.github.jameshnsears.quoteunquote.configure.fragment.sync.SyncPreferences
 import com.github.jameshnsears.quoteunquote.db.DatabaseRepository
 
-open class TransferBackup(val context: Context) : TransferCommon() {
-    fun transfer(databaseRepository: DatabaseRepository): Transfer {
-        return Transfer(
+open class TransferBackup(
+    val context: Context,
+) : TransferCommon() {
+    fun transfer(databaseRepository: DatabaseRepository): Transfer =
+        Transfer(
             getLocalCode(),
             TransferBackupCurrent(context).current(databaseRepository),
             TransferBackupFavourite().favourite(databaseRepository),
             TransferBackupPrevious().previous(databaseRepository),
             TransferBackupSettings(context).settings(),
         )
-    }
 
-    open fun getLocalCode(): String {
-        return SyncPreferences(
+    open fun getLocalCode(): String =
+        SyncPreferences(
             0,
             context,
         ).transferLocalCode
-    }
 }

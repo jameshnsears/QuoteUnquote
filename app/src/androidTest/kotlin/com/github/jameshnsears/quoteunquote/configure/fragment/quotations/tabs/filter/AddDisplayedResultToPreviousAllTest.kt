@@ -3,105 +3,117 @@ package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteModelUtility
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences
 import com.github.jameshnsears.quoteunquote.db.DatabaseRepository
-import com.github.jameshnsears.quoteunquote.db.DatabaseRepositoryDouble
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
-import org.junit.Assert.assertEquals
+import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 
 class AddDisplayedResultToPreviousAllTest : QuoteUnquoteModelUtility() {
     @Test
     fun doNotAddResultToPreviousAll() {
-        DatabaseRepositoryDouble.useInternalDatabase = true
+        quoteUnquoteModelDouble.setUseInternalDatabase(true)
 
         setupAuthorWithAddToPreviousAll(false)
 
         setupSearchWithAddToPreviousAll(false)
 
-        assertEquals(
-            1,
+        assertThat(
             quoteUnquoteModelDouble.countPrevious(
                 WidgetIdHelper.WIDGET_ID_01,
                 ContentSelection.ALL,
             ),
+            equalTo(1),
         )
 
-        assertEquals(
-            DatabaseRepository.getDefaultQuotationDigest(),
-            databaseRepositoryDouble.getPreviousDigests(
-                WidgetIdHelper.WIDGET_ID_01,
-                ContentSelection.ALL,
-                quoteUnquoteModelDouble
-                    .getContentPreferences(WidgetIdHelper.WIDGET_ID_01).contentSelectionAllExclusion,
-            ).get(index = 0),
+        assertThat(
+            databaseRepositoryDouble
+                .getPreviousDigests(
+                    true,
+                    WidgetIdHelper.WIDGET_ID_01,
+                    ContentSelection.ALL,
+                    quoteUnquoteModelDouble
+                        .getContentPreferences(WidgetIdHelper.WIDGET_ID_01)
+                        .contentSelectionAllExclusion,
+                ).get(index = 0),
+            equalTo(DatabaseRepository.getDefaultQuotationDigest(true)),
         )
     }
 
     @Test
     fun addResultToPreviousAll() {
-        DatabaseRepositoryDouble.useInternalDatabase = true
+        quoteUnquoteModelDouble.setUseInternalDatabase(true)
 
         setupAuthorWithAddToPreviousAll(true)
 
-        assertEquals(
-            2,
+        assertThat(
             quoteUnquoteModelDouble.countPrevious(
                 WidgetIdHelper.WIDGET_ID_01,
                 ContentSelection.ALL,
             ),
+            equalTo(2),
         )
 
-        assertEquals(
-            "d2345678",
-            databaseRepositoryDouble.getPreviousDigests(
-                WidgetIdHelper.WIDGET_ID_01,
-                ContentSelection.ALL,
-                quoteUnquoteModelDouble
-                    .getContentPreferences(WidgetIdHelper.WIDGET_ID_01).contentSelectionAllExclusion,
-            ).get(index = 0),
+        assertThat(
+            databaseRepositoryDouble
+                .getPreviousDigests(
+                    true,
+                    WidgetIdHelper.WIDGET_ID_01,
+                    ContentSelection.ALL,
+                    quoteUnquoteModelDouble
+                        .getContentPreferences(WidgetIdHelper.WIDGET_ID_01)
+                        .contentSelectionAllExclusion,
+                ).get(index = 0),
+            equalTo("d2345678"),
         )
 
-        assertEquals(
-            DatabaseRepository.getDefaultQuotationDigest(),
-            databaseRepositoryDouble.getPreviousDigests(
-                WidgetIdHelper.WIDGET_ID_01,
-                ContentSelection.ALL,
-                quoteUnquoteModelDouble
-                    .getContentPreferences(WidgetIdHelper.WIDGET_ID_01).contentSelectionAllExclusion,
-            ).get(index = 1),
+        assertThat(
+            databaseRepositoryDouble
+                .getPreviousDigests(
+                    true,
+                    WidgetIdHelper.WIDGET_ID_01,
+                    ContentSelection.ALL,
+                    quoteUnquoteModelDouble
+                        .getContentPreferences(WidgetIdHelper.WIDGET_ID_01)
+                        .contentSelectionAllExclusion,
+                ).get(index = 1),
+            equalTo(DatabaseRepository.getDefaultQuotationDigest(true)),
         )
 
         setupSearchWithAddToPreviousAll(true)
 
-        assertEquals(
-            3,
+        assertThat(
             quoteUnquoteModelDouble.countPrevious(
                 WidgetIdHelper.WIDGET_ID_01,
                 ContentSelection.ALL,
             ),
+            equalTo(3),
         )
 
-        assertEquals(
-            "d3456789",
-            databaseRepositoryDouble.getPreviousDigests(
-                WidgetIdHelper.WIDGET_ID_01,
-                ContentSelection.ALL,
-                quoteUnquoteModelDouble
-                    .getContentPreferences(WidgetIdHelper.WIDGET_ID_01).contentSelectionAllExclusion,
-            ).get(index = 0),
+        assertThat(
+            databaseRepositoryDouble
+                .getPreviousDigests(
+                    true,
+                    WidgetIdHelper.WIDGET_ID_01,
+                    ContentSelection.ALL,
+                    quoteUnquoteModelDouble
+                        .getContentPreferences(WidgetIdHelper.WIDGET_ID_01)
+                        .contentSelectionAllExclusion,
+                ).get(index = 0),
+            equalTo("d3456789"),
         )
     }
 
     private fun setupAuthorWithAddToPreviousAll(contentAddToPrevious: Boolean) {
-        insertQuotationTestData01()
-        insertQuotationTestData02()
+        insertQuotationTestData01(true)
+        insertQuotationTestData02(true)
 
-        assertEquals(
-            0,
+        assertThat(
             quoteUnquoteModelDouble.countPrevious(
                 WidgetIdHelper.WIDGET_ID_01,
                 ContentSelection.ALL,
             ),
+            equalTo(0),
         )
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
 
@@ -117,9 +129,9 @@ class AddDisplayedResultToPreviousAllTest : QuoteUnquoteModelUtility() {
         // d2
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
 
-        assertEquals(
-            1,
+        assertThat(
             quoteUnquoteModelDouble.countPreviousAuthor(WidgetIdHelper.WIDGET_ID_01),
+            equalTo(1),
         )
     }
 
@@ -136,9 +148,9 @@ class AddDisplayedResultToPreviousAllTest : QuoteUnquoteModelUtility() {
         // d3
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
 
-        assertEquals(
-            1,
+        assertThat(
             quoteUnquoteModelDouble.countPreviousSearch(WidgetIdHelper.WIDGET_ID_01),
+            equalTo(1),
         )
     }
 }

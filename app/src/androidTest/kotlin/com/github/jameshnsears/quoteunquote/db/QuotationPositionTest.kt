@@ -4,13 +4,14 @@ import com.github.jameshnsears.quoteunquote.QuoteUnquoteModelUtility
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
-import org.junit.Assert.assertEquals
+import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 
 class QuotationPositionTest : QuoteUnquoteModelUtility() {
     @Test
     fun positionInPreviousAll() {
-        insertQuotationTestData01()
+        insertQuotationTestData01(true)
 
         val quotationsPreferences =
             QuotationsPreferences(
@@ -19,28 +20,30 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
             )
         quotationsPreferences.contentSelection = ContentSelection.ALL
 
-        assertEquals(
-            0,
+        assertThat(
             databaseRepositoryDouble.findPositionInPrevious(
+                true,
                 WidgetIdHelper.WIDGET_ID_01,
                 quotationsPreferences,
             ),
+            equalTo(0),
         )
 
-        setDefaultQuotationAll(WidgetIdHelper.WIDGET_ID_01)
+        setDefaultQuotationAll(true, WidgetIdHelper.WIDGET_ID_01)
 
-        assertEquals(
-            1,
+        assertThat(
             databaseRepositoryDouble.findPositionInPrevious(
+                true,
                 WidgetIdHelper.WIDGET_ID_01,
                 quotationsPreferences,
             ),
+            equalTo(1),
         )
     }
 
     @Test
     fun positionInPreviousFavourites() {
-        insertQuotationTestData01()
+        insertQuotationTestData01(true)
 
         val quotationsPreferences =
             QuotationsPreferences(
@@ -49,12 +52,13 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
             )
         quotationsPreferences.contentSelection = ContentSelection.FAVOURITES
 
-        assertEquals(
-            0,
+        assertThat(
             databaseRepositoryDouble.findPositionInPrevious(
+                true,
                 WidgetIdHelper.WIDGET_ID_01,
                 quotationsPreferences,
             ),
+            equalTo(0),
         )
 
         quotationsPreferences.contentSelection = ContentSelection.ALL
@@ -62,12 +66,13 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
 
         quotationsPreferences.contentSelection = ContentSelection.FAVOURITES
 
-        assertEquals(
-            0,
+        assertThat(
             databaseRepositoryDouble.findPositionInPrevious(
+                true,
                 WidgetIdHelper.WIDGET_ID_01,
                 quotationsPreferences,
             ),
+            equalTo(0),
         )
 
         quotationsPreferences.contentSelection = ContentSelection.ALL
@@ -75,47 +80,50 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
 
         quotationsPreferences.contentSelection = ContentSelection.FAVOURITES
 
-        assertEquals(
-            0,
+        assertThat(
             databaseRepositoryDouble.findPositionInPrevious(
+                true,
                 WidgetIdHelper.WIDGET_ID_01,
                 quotationsPreferences,
             ),
+            equalTo(0),
         )
 
         quotationsPreferences.contentSelection = ContentSelection.FAVOURITES
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
-        assertEquals(
-            1,
+        assertThat(
             databaseRepositoryDouble.findPositionInPrevious(
+                true,
                 WidgetIdHelper.WIDGET_ID_01,
                 quotationsPreferences,
             ),
+            equalTo(1),
         )
 
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
-        assertEquals(
-            2,
+        assertThat(
             databaseRepositoryDouble.findPositionInPrevious(
+                true,
                 WidgetIdHelper.WIDGET_ID_01,
                 quotationsPreferences,
             ),
+            equalTo(2),
         )
     }
 
     private fun markNextQuotationAsFavourite(contentSelection: ContentSelection) {
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
-        databaseRepositoryDouble.getNextQuotation(WidgetIdHelper.WIDGET_ID_01, contentSelection)
+        databaseRepositoryDouble.getNextQuotation(true, WidgetIdHelper.WIDGET_ID_01, contentSelection)
         val quotationEntity =
-            databaseRepositoryDouble.getNextQuotation(WidgetIdHelper.WIDGET_ID_01, contentSelection)
-        databaseRepositoryDouble.markAsFavourite(quotationEntity.digest)
+            databaseRepositoryDouble.getNextQuotation(true, WidgetIdHelper.WIDGET_ID_01, contentSelection)
+        databaseRepositoryDouble.markAsFavourite(true, quotationEntity.digest)
     }
 
     @Test
     fun positionInPreviousAuthor() {
-        insertQuotationTestData01()
-        insertQuotationTestData02()
-        insertQuotationTestData03()
+        insertQuotationTestData01(true)
+        insertQuotationTestData02(true)
+        insertQuotationTestData03(true)
 
         val quotationsPreferences =
             QuotationsPreferences(
@@ -125,32 +133,34 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
         quotationsPreferences.contentSelection = ContentSelection.AUTHOR
         quotationsPreferences.contentSelectionAuthor = "a2"
 
-        assertEquals(
-            0,
+        assertThat(
             databaseRepositoryDouble.findPositionInPrevious(
+                true,
                 WidgetIdHelper.WIDGET_ID_01,
                 quotationsPreferences,
             ),
+            equalTo(0),
         )
 
         quotationsPreferences.contentSelectionAuthor = "a2"
 
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
 
-        assertEquals(
-            1,
+        assertThat(
             databaseRepositoryDouble.findPositionInPrevious(
+                true,
                 WidgetIdHelper.WIDGET_ID_01,
                 quotationsPreferences,
             ),
+            equalTo(1),
         )
     }
 
     @Test
     fun positionInPreviousSearch() {
-        insertQuotationTestData01()
-        insertQuotationTestData02()
-        insertQuotationTestData03()
+        insertQuotationTestData01(true)
+        insertQuotationTestData02(true)
+        insertQuotationTestData03(true)
 
         val quotationsPreferences =
             QuotationsPreferences(
@@ -160,22 +170,24 @@ class QuotationPositionTest : QuoteUnquoteModelUtility() {
         quotationsPreferences.contentSelection = ContentSelection.SEARCH
         quotationsPreferences.contentSelectionSearch = "q1"
 
-        assertEquals(
-            0,
+        assertThat(
             databaseRepositoryDouble.findPositionInPrevious(
+                true,
                 WidgetIdHelper.WIDGET_ID_01,
                 quotationsPreferences,
             ),
+            equalTo(0),
         )
 
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
 
-        assertEquals(
-            1,
+        assertThat(
             databaseRepositoryDouble.findPositionInPrevious(
+                true,
                 WidgetIdHelper.WIDGET_ID_01,
                 quotationsPreferences,
             ),
+            equalTo(1),
         )
     }
 }

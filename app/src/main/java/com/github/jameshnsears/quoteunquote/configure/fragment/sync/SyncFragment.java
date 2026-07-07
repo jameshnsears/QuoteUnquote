@@ -5,10 +5,8 @@ import static android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM;
 
 import android.app.Activity;
 import android.app.AlarmManager;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
@@ -25,11 +23,11 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteModel;
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteWidget;
 import com.github.jameshnsears.quoteunquote.R;
+import com.github.jameshnsears.quoteunquote.cloud.CloudEventBus;
 import com.github.jameshnsears.quoteunquote.cloud.CloudService;
 import com.github.jameshnsears.quoteunquote.cloud.CloudServiceBackup;
 import com.github.jameshnsears.quoteunquote.cloud.CloudServiceRestore;
@@ -55,6 +53,8 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
 
 @Keep
@@ -72,7 +72,7 @@ public class SyncFragment extends FragmentCommon {
     protected SyncPreferences syncPreferences;
 
     @Nullable
-    private BroadcastReceiver receiver;
+    private Disposable eventDisposable;
 
     @Nullable
     private ActivityResultLauncher<Intent> storageAccessFrameworkActivityResultBackup;
@@ -103,7 +103,16 @@ public class SyncFragment extends FragmentCommon {
         super.onResume();
         rememberScreen(Screen.Sync, getContext());
 
-        registerButtonIntentReceiver();
+        eventDisposable = CloudEventBus.getEvents()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(event -> {
+                    if (CLOUD_SERVICE_COMPLETED.equals(event)) {
+                        enableUI(true);
+
+                        alignLocalCodeWithRestoredCode();
+                        alignCloudBackup();
+                    }
+                });
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
@@ -111,23 +120,16 @@ public class SyncFragment extends FragmentCommon {
                 fragmentSyncBinding.switchAutoCloudBackup.setChecked(false);
                 syncPreferences.setAutoCloudBackup(false);
             } else {
+                ConfigureActivity.launcherInvoked = false;
                 if (fragmentSyncBinding.switchAutoCloudBackup.isChecked()) {
-
                     syncPreferences.setAutoCloudBackup(true);
                 } else {
-
                     syncPreferences.setAutoCloudBackup(false);
                 }
             }
         }
 
         Timber.d("syncPreferences.getAutoCloudBackup=%b", syncPreferences.getAutoCloudBackup());
-    }
-
-    private void registerButtonIntentReceiver() {
-        IntentFilter filterRefreshUpdate = new IntentFilter();
-        filterRefreshUpdate.addAction(CLOUD_SERVICE_COMPLETED);
-        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(receiver, filterRefreshUpdate);
     }
 
     @Override
@@ -139,18 +141,6 @@ public class SyncFragment extends FragmentCommon {
         if (quoteUnquoteModel.countPrevious(widgetId) == 0) {
             quoteUnquoteModel.markAsCurrentDefault(widgetId);
         }
-
-        receiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                if (intent.getAction().equals(CLOUD_SERVICE_COMPLETED)) {
-                    enableUI(true);
-
-                    alignLocalCodeWithRestoredCode();
-                    alignCloudBackup();
-                }
-            }
-        };
     }
 
     @Override
@@ -177,7 +167,6 @@ public class SyncFragment extends FragmentCommon {
         createListenerRadioGoogleCloud();
         createListenerRadioDevice();
         createListenerButtonBackup();
-        createListenerSwitchPurge();
         createListenerButtonRestore();
         createListenerButtonNewCode();
 
@@ -195,8 +184,8 @@ public class SyncFragment extends FragmentCommon {
 
     @Override
     public void onStop() {
-        if (receiver != null) {
-            LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(receiver);
+        if (eventDisposable != null && !eventDisposable.isDisposed()) {
+            eventDisposable.dispose();
         }
         super.onStop();
     }
@@ -219,12 +208,6 @@ public class SyncFragment extends FragmentCommon {
             fragmentSyncBinding.editTextRemoteCodeValueLayout.setEnabled(false);
             fragmentSyncBinding.editTextRemoteCodeValue.setEnabled(false);
             fragmentSyncBinding.editTextRemoteCodeValue.setText("");
-        }
-
-        if (syncPreferences.getPurge()) {
-            fragmentSyncBinding.switchPurge.setChecked(true);
-        } else {
-            fragmentSyncBinding.switchPurge.setChecked(false);
         }
 
         if (syncPreferences.getAutoCloudBackup()) {
@@ -304,12 +287,6 @@ public class SyncFragment extends FragmentCommon {
             } else {
                 backupSharedStorage();
             }
-        });
-    }
-
-    protected void createListenerSwitchPurge() {
-        fragmentSyncBinding.switchPurge.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            syncPreferences.setPurge(isChecked);
         });
     }
 
@@ -409,8 +386,6 @@ public class SyncFragment extends FragmentCommon {
                                         restoreDeviceJson(transfer);
 
                                         quoteUnquoteModel.alignHistoryWithQuotations(widgetId);
-
-                                        DatabaseRepository.useInternalDatabase = true;
 
                                         alignLocalCodeWithRestoredCode();
 
@@ -547,15 +522,16 @@ public class SyncFragment extends FragmentCommon {
     protected void createListenerSwitchAutoCloudBackup() {
         fragmentSyncBinding.switchAutoCloudBackup.setOnCheckedChangeListener((buttonView, isChecked) -> {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-
-                        AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
-                        if (!alarmManager.canScheduleExactAlarms()) {
-                            ConfigureActivity.launcherInvoked = true;
-                            startActivity(new Intent(ACTION_REQUEST_SCHEDULE_EXACT_ALARM));
-                        } else {
-                            syncPreferences.setAutoCloudBackup(isChecked);
+                        if (isChecked) {
+                            AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+                            if (!alarmManager.canScheduleExactAlarms()) {
+                                ConfigureActivity.launcherInvoked = true;
+                                startActivity(new Intent(ACTION_REQUEST_SCHEDULE_EXACT_ALARM));
+                                return;
+                            }
                         }
 
+                        syncPreferences.setAutoCloudBackup(isChecked);
                     } else {
                         syncPreferences.setAutoCloudBackup(isChecked);
                     }

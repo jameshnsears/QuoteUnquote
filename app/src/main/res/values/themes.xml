@@ -1,25 +1,58 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Primary brand color -->
+        <!-- Primary color -->
         <item name="colorPrimary">@color/material3_primary</item>
-        <item name="colorPrimaryVariant">@color/material3_primary_variant</item>
         <item name="colorOnPrimary">@color/material3_on_primary</item>
+        <item name="colorPrimaryContainer">@color/material3_primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/material3_on_primary_container</item>
 
-        <!-- Secondary brand color -->
+        <!-- Secondary color -->
         <item name="colorSecondary">@color/material3_secondary</item>
         <item name="colorOnSecondary">@color/material3_on_secondary</item>
+        <item name="colorSecondaryContainer">@color/material3_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/material3_on_secondary_container</item>
 
-        <!-- Background color -->
-        <item name="android:colorBackground">@color/material3_background</item>
-
-        <!-- Surface color -->
-        <item name="colorSurface">@color/material3_surface</item>
-        <item name="colorOnSurface">@color/material3_on_surface</item>
+        <!-- Tertiary color -->
+        <item name="colorTertiary">@color/material3_tertiary</item>
+        <item name="colorOnTertiary">@color/material3_on_tertiary</item>
+        <item name="colorTertiaryContainer">@color/material3_tertiary_container</item>
+        <item name="colorOnTertiaryContainer">@color/material3_on_tertiary_container</item>
 
         <!-- Error color -->
         <item name="colorError">@color/material3_error</item>
         <item name="colorOnError">@color/material3_on_error</item>
+        <item name="colorErrorContainer">@color/material3_error_container</item>
+        <item name="colorOnErrorContainer">@color/material3_on_error_container</item>
+
+        <!-- Background color -->
+        <item name="android:colorBackground">@color/material3_background</item>
+        <item name="colorOnBackground">@color/material3_on_background</item>
+
+        <!-- Surface color -->
+        <item name="colorSurface">@color/material3_surface</item>
+        <item name="colorOnSurface">@color/material3_on_surface</item>
+        <item name="colorSurfaceVariant">@color/material3_surface_variant</item>
+        <item name="colorOnSurfaceVariant">@color/material3_on_surface_variant</item>
+
+        <!-- Surface Container colors -->
+        <item name="colorSurfaceContainerLowest">@color/material3_surface_container_lowest</item>
+        <item name="colorSurfaceContainerLow">@color/material3_surface_container_low</item>
+        <item name="colorSurfaceContainer">@color/material3_surface_container</item>
+        <item name="colorSurfaceContainerHigh">@color/material3_surface_container_high</item>
+        <item name="colorSurfaceContainerHighest">@color/material3_surface_container_highest</item>
+
+        <!-- Outline color -->
+        <item name="colorOutline">@color/material3_outline</item>
+
+        <!-- Compatibility -->
+        <item name="colorPrimaryVariant">@color/material3_primary_variant</item>
+
+        <item name="materialSwitchStyle">@style/Widget.App.MaterialSwitch</item>
+    </style>
+
+    <style name="Widget.App.MaterialSwitch" parent="@style/Widget.Material3.CompoundButton.MaterialSwitch">
+        <item name="thumbIcon">@drawable/switch_thumb_icon</item>
     </style>
 
     <style name="TabSize" parent="TextAppearance.Design.Tab">

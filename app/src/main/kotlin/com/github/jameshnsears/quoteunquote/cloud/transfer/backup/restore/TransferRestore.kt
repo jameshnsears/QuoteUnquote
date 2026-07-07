@@ -22,7 +22,9 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.notifications.Not
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences
 import com.github.jameshnsears.quoteunquote.configure.fragment.sync.SyncPreferences
 import com.github.jameshnsears.quoteunquote.db.DatabaseRepository
-import com.github.jameshnsears.quoteunquote.db.q.QuotationEntity
+import com.github.jameshnsears.quoteunquote.db.h.CurrentEntity
+import com.github.jameshnsears.quoteunquote.db.h.FavouriteEntity
+import com.github.jameshnsears.quoteunquote.db.h.PreviousEntity
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade
 import com.google.gson.GsonBuilder
@@ -88,7 +90,11 @@ class TransferRestore : TransferCommon() {
         )
     }
 
-    fun restore(context: Context, databaseRepository: DatabaseRepository, transfer: Transfer) {
+    fun restore(
+        context: Context,
+        databaseRepository: DatabaseRepository,
+        transfer: Transfer,
+    ) {
         Timber.d("restore")
 
         emptySharedPreferencesExceptLocalCode(context)
@@ -112,7 +118,10 @@ class TransferRestore : TransferCommon() {
         restoreCode(context, transfer.code)
     }
 
-    private fun restoreCode(context: Context, restoreCode: String) {
+    private fun restoreCode(
+        context: Context,
+        restoreCode: String,
+    ) {
         val preferencesFacade = PreferencesFacade(context)
         val localCode =
             preferencesFacade.preferenceHelper!!.getPreferenceString(preferencesFacade.localCode)
@@ -125,27 +134,38 @@ class TransferRestore : TransferCommon() {
         )
     }
 
-    private fun restoreFavourite(
+    internal fun restoreFavourite(
         databaseRepository: DatabaseRepository,
         favouriteList: List<Favourite>,
     ) {
-        val useInternalDatabase = DatabaseRepository.useInternalDatabase
+        val internalFavourites = mutableListOf<FavouriteEntity>()
+        val externalFavourites = mutableListOf<FavouriteEntity>()
+        val externalHasQuotations = databaseRepository.countAllExternal().blockingGet() > 0
 
-        for (index in (favouriteList.size - 1) downTo 0 step 1) {
-            val favourite = favouriteList[index]
+        val seenInternalDigests = mutableSetOf<String>()
+        val seenExternalDigests = mutableSetOf<String>()
 
+        for (favourite in favouriteList.reversed()) {
+            val digest = favourite.digest
             if (favourite.db == "internal" || favourite.db == null) {
-                DatabaseRepository.useInternalDatabase = true
-                databaseRepository.markAsFavourite(favourite.digest)
-            } else {
-                if (databaseRepository.countAllExternal().blockingGet() > 0) {
-                    DatabaseRepository.useInternalDatabase = false
-                    databaseRepository.markAsFavourite(favourite.digest)
+                if (!seenInternalDigests.add(digest)) continue
+                if (databaseRepository.getQuotation(true, digest) != null) {
+                    internalFavourites.add(FavouriteEntity(digest))
+                }
+            } else if (externalHasQuotations) {
+                if (!seenExternalDigests.add(digest)) continue
+                if (databaseRepository.getQuotation(false, digest) != null) {
+                    externalFavourites.add(FavouriteEntity(digest))
                 }
             }
         }
 
-        DatabaseRepository.useInternalDatabase = useInternalDatabase
+        if (internalFavourites.isNotEmpty()) {
+            databaseRepository.insertFavourites(internalFavourites, true)
+        }
+        if (externalFavourites.isNotEmpty()) {
+            databaseRepository.insertFavourites(externalFavourites, false)
+        }
     }
 
     private fun restoreCurrent(
@@ -153,106 +173,84 @@ class TransferRestore : TransferCommon() {
         databaseRepository: DatabaseRepository,
         currentList: List<Current>,
     ) {
-        val useInternalDatabase = DatabaseRepository.useInternalDatabase
+        val internalCurrent = mutableListOf<CurrentEntity>()
+        val externalCurrent = mutableListOf<CurrentEntity>()
+        val externalHasQuotations = databaseRepository.countAllExternal().blockingGet() > 0
 
-        for (widgetId in TransferUtility.getWidgetIds(context)) {
-            for (currentIndex in (currentList.size - 1) downTo 0 step 1) {
-                val current = currentList[currentIndex]
-                val digest = current.digest
-
+        val widgetIds = TransferUtility.getWidgetIds(context)
+        for (widgetId in widgetIds) {
+            for (current in currentList.reversed()) {
+                val entity = CurrentEntity(widgetId, current.digest)
                 if (current.db == "internal" || current.db == null) {
-                    DatabaseRepository.useInternalDatabase = true
-                    restoreCurrentDigest(databaseRepository, widgetId, digest)
-                } else {
-                    if (databaseRepository.countAllExternal().blockingGet() > 0) {
-                        DatabaseRepository.useInternalDatabase = false
-                        restoreCurrentDigest(databaseRepository, widgetId, digest)
-                    }
+                    internalCurrent.add(entity)
+                } else if (externalHasQuotations) {
+                    externalCurrent.add(entity)
                 }
             }
         }
 
-        DatabaseRepository.useInternalDatabase = useInternalDatabase
-    }
-
-    private fun restoreCurrentDigest(
-        databaseRepository: DatabaseRepository,
-        widgetId: Int,
-        digest: String,
-    ) {
-        val currentQuotation: QuotationEntity? =
-            databaseRepository.getCurrentQuotation(widgetId)
-
-        if (currentQuotation == null || currentQuotation.digest != digest) {
-            databaseRepository.markAsCurrent(widgetId, digest)
+        if (internalCurrent.isNotEmpty()) {
+            databaseRepository.insertCurrent(internalCurrent, true)
+        }
+        if (externalCurrent.isNotEmpty()) {
+            databaseRepository.insertCurrent(externalCurrent, false)
         }
     }
 
-    private fun restorePrevious(
+    internal fun restorePrevious(
         context: Context,
         databaseRepository: DatabaseRepository,
         previousList: List<Previous>,
     ) {
-        val useInternalDatabase = DatabaseRepository.useInternalDatabase
+        val internalPrevious = mutableListOf<PreviousEntity>()
+        val externalPrevious = mutableListOf<PreviousEntity>()
+        val externalHasQuotations = databaseRepository.countAllExternal().blockingGet() > 0
 
         val favourites = ContentSelection.FAVOURITES.contentSelection
         val author = ContentSelection.AUTHOR.contentSelection
         val search = ContentSelection.SEARCH.contentSelection
 
-        for (previousIndex in (previousList.size - 1) downTo 0 step 1) {
-            for (widgetId in TransferUtility.getWidgetIds(context)) {
-                val previous = previousList[previousIndex]
+        val seenKey = mutableSetOf<String>()
 
-                var contentSelection = ContentSelection.ALL
+        val widgetIds = TransferUtility.getWidgetIds(context)
+        for (previous in previousList.reversed()) {
+            val contentSelection =
                 when (previous.contentType) {
-                    favourites -> contentSelection = ContentSelection.FAVOURITES
-                    author -> contentSelection = ContentSelection.AUTHOR
-                    search -> contentSelection = ContentSelection.SEARCH
+                    favourites -> ContentSelection.FAVOURITES
+                    author -> ContentSelection.AUTHOR
+                    search -> ContentSelection.SEARCH
+                    else -> ContentSelection.ALL
+                }
+
+            for (widgetId in widgetIds) {
+                val entity = PreviousEntity(widgetId, contentSelection, previous.digest)
+
+                // dedup across multiple source items that resolve to the same
+                // (widgetId, contentSelection, digest) triple
+                if (!seenKey.add("$widgetId|${contentSelection.contentSelection}|${previous.digest}")) {
+                    continue
                 }
 
                 if (previous.db == "internal" || previous.db == null) {
-                    DatabaseRepository.useInternalDatabase = true
-                    restorePreviousDigest(databaseRepository, widgetId, contentSelection, previous)
-                } else {
-                    if (databaseRepository.countAllExternal().blockingGet() > 0) {
-                        DatabaseRepository.useInternalDatabase = false
-                        restorePreviousDigest(
-                            databaseRepository,
-                            widgetId,
-                            contentSelection,
-                            previous,
-                        )
-                    }
+                    internalPrevious.add(entity)
+                } else if (externalHasQuotations) {
+                    externalPrevious.add(entity)
                 }
             }
         }
 
-        DatabaseRepository.useInternalDatabase = useInternalDatabase
-    }
-
-    private fun restorePreviousDigest(
-        databaseRepository: DatabaseRepository,
-        widgetId: Int,
-        contentSelection: ContentSelection,
-        previous: Previous,
-    ) {
-        if (databaseRepository.countPreviousDigest(
-                widgetId,
-                contentSelection,
-                previous.digest,
-            ) == 0
-        ) {
-            databaseRepository.markAsPrevious(
-                widgetId,
-                contentSelection,
-                previous.digest,
-            )
-        } else {
-            Timber.d("digest already in previous: digest=%s", previous.digest)
+        if (internalPrevious.isNotEmpty()) {
+            databaseRepository.insertPrevious(internalPrevious, true)
+        }
+        if (externalPrevious.isNotEmpty()) {
+            databaseRepository.insertPrevious(externalPrevious, false)
         }
     }
 
-    private fun restoreSettings(context: Context, settingsList: List<Settings>) {
+    private fun restoreSettings(
+        context: Context,
+        settingsList: List<Settings>,
+    ) {
         var settingsListIndex = 0
         for (widgetId in TransferUtility.getWidgetIds(context)) {
             val settings = settingsList[settingsListIndex]

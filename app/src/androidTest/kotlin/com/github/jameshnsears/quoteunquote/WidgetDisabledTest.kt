@@ -5,9 +5,9 @@ import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import io.mockk.every
 import io.mockk.spyk
-import junit.framework.TestCase.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
+import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 
 open class WidgetDisabledTest : QuoteUnquoteModelUtility() {
@@ -30,7 +30,7 @@ open class WidgetDisabledTest : QuoteUnquoteModelUtility() {
                     0,
                     context,
                 )
-            assertTrue(contentPreferences.transferLocalCode.length == 10)
+            assertThat(contentPreferences.transferLocalCode.length, equalTo(10))
             quoteUnquoteWidget.onDisabled(context)
 
             assertSharedPreferences(contentPreferences)
@@ -38,20 +38,23 @@ open class WidgetDisabledTest : QuoteUnquoteModelUtility() {
     }
 
     private fun assertSharedPreferences(quotationsPreferences: SyncPreferences) {
-        assertEquals(0, PreferencesFacade.countPreferences(context, WidgetIdHelper.WIDGET_ID_01))
+        assertThat(
+            PreferencesFacade.countPreferences(context, WidgetIdHelper.WIDGET_ID_01),
+            equalTo(0),
+        )
         // key exist's we jave haven't defined a value
-        assertFalse(quotationsPreferences.transferLocalCode.isEmpty())
+        assertThat(quotationsPreferences.transferLocalCode.isEmpty(), `is`(false))
     }
 
     private fun setupDatabase() {
-        insertQuotationTestData01()
+        insertQuotationTestData01(true)
 
-        setDefaultQuotationAll(WidgetIdHelper.WIDGET_ID_01)
-        setDefaultQuotationAuthor(WidgetIdHelper.WIDGET_ID_01)
-        setDefaultQuotationSearch(WidgetIdHelper.WIDGET_ID_01)
-        assertTrue(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01) == 3)
+        setDefaultQuotationAll(true, WidgetIdHelper.WIDGET_ID_01)
+        setDefaultQuotationAuthor(true, WidgetIdHelper.WIDGET_ID_01)
+        setDefaultQuotationSearch(true, WidgetIdHelper.WIDGET_ID_01)
+        assertThat(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01), equalTo(3))
 
-        markDefaultQuotationAsFavourite()
-        assertTrue(quoteUnquoteModelDouble.countFavourites().blockingGet() == 1)
+        markDefaultQuotationAsFavourite(true)
+        assertThat(quoteUnquoteModelDouble.countFavourites().blockingGet(), equalTo(1))
     }
 }

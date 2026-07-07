@@ -9,7 +9,6 @@ import android.os.Looper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 public class CloudService extends Service {
     private static final Object isRunningLock = new Object();
@@ -61,7 +60,6 @@ public class CloudService extends Service {
     }
 
     protected void broadcastEvent(@NonNull String event) {
-        LocalBroadcastManager broadcaster = LocalBroadcastManager.getInstance(this);
-        broadcaster.sendBroadcast(new Intent(event));
+        CloudEventBus.post(event);
     }
 }

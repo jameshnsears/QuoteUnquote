@@ -3,12 +3,13 @@ package com.github.jameshnsears.quoteunquote.utils
 import androidx.test.platform.app.InstrumentationRegistry
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteModelUtility
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
-import junit.framework.TestCase.assertEquals
-import junit.framework.TestCase.fail
+import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.CoreMatchers.not
+import org.hamcrest.MatcherAssert.assertThat
+import org.junit.Assert.fail
 import org.junit.Test
 import java.io.InputStream
 import kotlin.test.assertFailsWith
-import kotlin.test.assertNotEquals
 
 class ImportHelperTest : QuoteUnquoteModelUtility() {
     @Test
@@ -19,13 +20,13 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
         val importHelper = ImportHelper()
         val quotationEntityLinkedHashSet = importHelper.importCsv(inputStream)
 
-        assertEquals(762, quotationEntityLinkedHashSet.size)
+        assertThat(quotationEntityLinkedHashSet.size, equalTo(762))
 
         quoteUnquoteModelDouble.insertQuotationsExternal(quotationEntityLinkedHashSet)
         quoteUnquoteModelDouble.setDefault(WidgetIdHelper.WIDGET_ID_01, ContentSelection.ALL)
-        assertEquals(
-            "00000000",
-            quoteUnquoteModelDouble.databaseRepository!!.previous[0].digest,
+        assertThat(
+            quoteUnquoteModelDouble.databaseRepository!!.getPrevious(false)[0].digest,
+            equalTo("00000000"),
         )
     }
 
@@ -36,7 +37,7 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
         val importHelper = ImportHelper()
         val quotationEntityLinkedHashSet = importHelper.importCsv(inputStream)
 
-        assertEquals(2, quotationEntityLinkedHashSet.size)
+        assertThat(quotationEntityLinkedHashSet.size, equalTo(2))
     }
 
     @Test
@@ -46,13 +47,13 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
         val importHelper = ImportHelper()
         val quotationEntityLinkedHashSet = importHelper.importCsv(inputStream)
 
-        assertEquals(0, databaseRepositoryDouble.countAllExternal().blockingGet())
+        assertThat(databaseRepositoryDouble.countAllExternal().blockingGet(), equalTo(0))
 
         quotationEntityLinkedHashSet.forEach { quotationEntity ->
             databaseRepositoryDouble.insertQuotationExternal(quotationEntity)
         }
 
-        assertEquals(3, databaseRepositoryDouble.countAllExternal().blockingGet())
+        assertThat(databaseRepositoryDouble.countAllExternal().blockingGet(), equalTo(3))
     }
 
     @Test
@@ -63,7 +64,7 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
         val quotationEntityLinkedHashSet = importHelper.importCsv(inputStream)
 
         // header is treated as actual data
-        assertEquals(2, quotationEntityLinkedHashSet.size)
+        assertThat(quotationEntityLinkedHashSet.size, equalTo(2))
     }
 
     @Test
@@ -73,7 +74,7 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
         val importHelper = ImportHelper()
         val quotationEntityLinkedHashSet = importHelper.importCsv(inputStream)
 
-        assertEquals(1, quotationEntityLinkedHashSet.size)
+        assertThat(quotationEntityLinkedHashSet.size, equalTo(1))
     }
 
     @Test
@@ -85,10 +86,10 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
             importHelper.importCsv(inputStream)
             fail()
         } catch (exception: ImportHelper.ImportHelperException) {
-            assertEquals(3, exception.lineNumber)
-            assertEquals(
-                "Index for header 'Quotation' is 1 but CSVRecord only has 1 values!",
+            assertThat(exception.lineNumber, equalTo(3))
+            assertThat(
                 exception.message,
+                equalTo("Index for header 'Quotation' is 1 but CSVRecord only has 1 values!"),
             )
         }
     }
@@ -102,10 +103,10 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
             importHelper.importCsv(inputStream)
             fail()
         } catch (exception: ImportHelper.ImportHelperException) {
-            assertEquals(4, exception.lineNumber)
-            assertEquals(
-                "empty quotation",
+            assertThat(exception.lineNumber, equalTo(4))
+            assertThat(
                 exception.message,
+                equalTo("empty quotation"),
             )
         }
     }
@@ -119,8 +120,8 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
             importHelper.importCsv(inputStream)
             fail()
         } catch (exception: ImportHelper.ImportHelperException) {
-            assertEquals(1, exception.lineNumber)
-            assertEquals("empty author", exception.message)
+            assertThat(exception.lineNumber, equalTo(1))
+            assertThat(exception.message, equalTo("empty author"))
         }
     }
 
@@ -133,10 +134,10 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
             importHelper.importCsv(inputStream)
             fail()
         } catch (exception: ImportHelper.ImportHelperException) {
-            assertEquals(2, exception.lineNumber)
-            assertEquals(
-                "empty quotation",
+            assertThat(exception.lineNumber, equalTo(2))
+            assertThat(
                 exception.message,
+                equalTo("empty quotation"),
             )
         }
     }
@@ -150,8 +151,8 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
             importHelper.importCsv(inputStream)
             fail()
         } catch (exception: ImportHelper.ImportHelperException) {
-            assertEquals(-1, exception.lineNumber)
-            assertEquals("empty file", exception.message)
+            assertThat(exception.lineNumber, equalTo(-1))
+            assertThat(exception.message, equalTo("empty file"))
         }
     }
 
@@ -160,43 +161,47 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
         val importHelper = ImportHelper()
 
         val aClaude = "fortune/JKirchartz/AClaude"
-        val quotations = importHelper.importFortune(
-            aClaude,
-            getImportAsset(aClaude),
-        )
+        val quotations =
+            importHelper.importFortune(
+                aClaude,
+                getImportAsset(aClaude),
+            )
 
-        assertEquals(18, quotations.size)
+        assertThat(quotations.size, equalTo(18))
 
-        assertEquals(
-            ImportHelper.DEFAULT_DIGEST,
+        assertThat(
             quotations.iterator().next().digest,
+            equalTo(ImportHelper.DEFAULT_DIGEST),
         )
 
         val wblake = "fortune/JKirchartz/wblake"
-        assertEquals(
-            80,
-            importHelper.importFortune(
-                wblake,
-                getImportAsset(wblake),
-            ).size,
+        assertThat(
+            importHelper
+                .importFortune(
+                    wblake,
+                    getImportAsset(wblake),
+                ).size,
+            equalTo(80),
         )
 
         val art = "fortune/www.shlomifish.org/art"
-        assertEquals(
-            474,
-            importHelper.importFortune(
-                art,
-                getImportAsset(art),
-            ).size,
+        assertThat(
+            importHelper
+                .importFortune(
+                    art,
+                    getImportAsset(art),
+                ).size,
+            equalTo(474),
         )
 
         val zippy = "fortune/www.shlomifish.org/zippy"
-        assertEquals(
-            548,
-            importHelper.importFortune(
-                zippy,
-                getImportAsset(zippy),
-            ).size,
+        assertThat(
+            importHelper
+                .importFortune(
+                    zippy,
+                    getImportAsset(zippy),
+                ).size,
+            equalTo(548),
         )
     }
 
@@ -219,22 +224,23 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
                     queue.add(filePath)
                 } else {
                     try {
-                        val quotations = importHelper.importFortune(
-                            filePath,
-                            assetManager.open(filePath),
-                        )
+                        val quotations =
+                            importHelper.importFortune(
+                                filePath,
+                                assetManager.open(filePath),
+                            )
 
                         val iterator = quotations.iterator()
 
-                        assertEquals(
-                            ImportHelper.DEFAULT_DIGEST,
+                        assertThat(
                             iterator.next().digest,
+                            equalTo(ImportHelper.DEFAULT_DIGEST),
                         )
 
                         while (iterator.hasNext()) {
-                            assertNotEquals(
-                                ImportHelper.DEFAULT_DIGEST,
+                            assertThat(
                                 iterator.next().digest,
+                                not(equalTo(ImportHelper.DEFAULT_DIGEST)),
                             )
                         }
                     } catch (e: Exception) {
@@ -285,12 +291,12 @@ class ImportHelperTest : QuoteUnquoteModelUtility() {
     @Test
     fun makeDigest() {
         // confirm same as from python
-        assertEquals(
-            "e5da2450",
+        assertThat(
             ImportHelper.makeDigest(
                 "The only thing that interferes with my learning is my education.",
                 "Albert Einstein",
             ),
+            equalTo("e5da2450"),
         )
     }
 }

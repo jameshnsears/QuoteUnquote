@@ -5,37 +5,37 @@ import com.github.jameshnsears.quoteunquote.db.DatabaseTestHelper
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 import io.mockk.every
 import io.mockk.mockkObject
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 
 class TransferBackupPreviousTest : DatabaseTestHelper() {
     @Test
     fun previous() {
         if (canWorkWithMockk()) {
-            insertQuotationTestData01()
-            insertQuotationTestData02()
+            insertQuotationTestData01(true)
+            insertQuotationTestData02(true)
 
             setupTestData()
 
             val previousList = TransferBackupPrevious().previous(databaseRepositoryDouble)
-            assertTrue(previousList.size == 4)
-            assertEquals(previousList[0].contentType, 4)
-            assertEquals(previousList[0].digest, "d3456789")
-            assertEquals(previousList[0].widgetId, 13)
-            assertEquals(previousList[0].db, "internal")
-            assertEquals(previousList[1].contentType, 3)
-            assertEquals(previousList[1].digest, "d1234567")
-            assertEquals(previousList[1].widgetId, 12)
-            assertEquals(previousList[1].db, "internal")
+            assertThat(previousList.size, equalTo(4))
+            assertThat(previousList[0].contentType, equalTo(4))
+            assertThat(previousList[0].digest, equalTo("d3456789"))
+            assertThat(previousList[0].widgetId, equalTo(13))
+            assertThat(previousList[0].db, equalTo("internal"))
+            assertThat(previousList[1].contentType, equalTo(3))
+            assertThat(previousList[1].digest, equalTo("d1234567"))
+            assertThat(previousList[1].widgetId, equalTo(12))
+            assertThat(previousList[1].db, equalTo("internal"))
         }
     }
 
     fun setupTestData() {
-        databaseRepositoryDouble.markAsPrevious(12, ContentSelection.ALL, "d4567890")
-        databaseRepositoryDouble.markAsPrevious(13, ContentSelection.FAVOURITES, "d2345678")
-        databaseRepositoryDouble.markAsPrevious(12, ContentSelection.AUTHOR, "d1234567")
-        databaseRepositoryDouble.markAsPrevious(13, ContentSelection.SEARCH, "d3456789")
+        databaseRepositoryDouble.markAsPrevious(true, 12, ContentSelection.ALL, "d4567890")
+        databaseRepositoryDouble.markAsPrevious(true, 13, ContentSelection.FAVOURITES, "d2345678")
+        databaseRepositoryDouble.markAsPrevious(true, 12, ContentSelection.AUTHOR, "d1234567")
+        databaseRepositoryDouble.markAsPrevious(true, 13, ContentSelection.SEARCH, "d3456789")
     }
 
     @Test
@@ -49,11 +49,11 @@ class TransferBackupPreviousTest : DatabaseTestHelper() {
 
             val previousList = TransferBackupPrevious().previous(databaseRepositoryDouble)
 
-            assertTrue(previousList.size == 2)
-            assertEquals(previousList[0].digest, "d1234567")
-            assertEquals(previousList[0].db, "internal")
-            assertEquals(previousList[1].digest, "00000000")
-            assertEquals(previousList[1].db, "external")
+            assertThat(previousList.size, equalTo(2))
+            assertThat(previousList[0].digest, equalTo("d1234567"))
+            assertThat(previousList[0].db, equalTo("internal"))
+            assertThat(previousList[1].digest, equalTo("00000000"))
+            assertThat(previousList[1].db, equalTo("external"))
         }
     }
 }

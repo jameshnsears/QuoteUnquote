@@ -1,0 +1,8 @@
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
+}
+include(":cloudLib")
+include(":utilsLib")
+include(":app")
+project(":utilsLib").projectDir = File(rootDir, "QuoteUnquote.utilsLib/utilsLib/")
+project(":cloudLib").projectDir = File(rootDir, "QuoteUnquote.cloudLib/cloudLib/")

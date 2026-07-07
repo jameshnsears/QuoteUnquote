@@ -5,12 +5,8 @@ import com.github.jameshnsears.quoteunquote.db.DatabaseRepository
 
 open class TransferBackupPrevious {
     fun previous(databaseRepository: DatabaseRepository): List<Previous> {
-        val originalUseInternalDatabaseState = DatabaseRepository.useInternalDatabase
-
         val internalDatabasePrevious = getPreviousFromDatabase(databaseRepository, true)
         val externalDatabasePrevious = getPreviousFromDatabase(databaseRepository, false)
-
-        DatabaseRepository.useInternalDatabase = originalUseInternalDatabaseState
 
         return internalDatabasePrevious + externalDatabasePrevious
     }
@@ -19,11 +15,9 @@ open class TransferBackupPrevious {
         databaseRepository: DatabaseRepository,
         useInternalDatabase: Boolean,
     ): List<Previous> {
-        DatabaseRepository.useInternalDatabase = useInternalDatabase
-
         val previousList = mutableListOf<Previous>()
 
-        for (previous in databaseRepository.previous) {
+        for (previous in databaseRepository.getPrevious(useInternalDatabase)) {
             if (previous.widgetId != 0) {
                 previousList.add(
                     Previous(

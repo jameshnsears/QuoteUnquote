@@ -1,7 +1,8 @@
 package com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.style
 
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
-import org.junit.Assert.assertEquals
+import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 
 class AppearanceTextFamilySpinnerAdapterTest {
@@ -10,6 +11,6 @@ class AppearanceTextFamilySpinnerAdapterTest {
         val appearanceFontSpinnerAdapter =
             AppearanceTextFamilySpinnerAdapter(getApplicationContext())
 
-        assertEquals(6, appearanceFontSpinnerAdapter.count)
+        assertThat(appearanceFontSpinnerAdapter.count, equalTo(6))
     }
 }

@@ -14,7 +14,6 @@ class AutoCloudBackup(
     context: Context,
     workerParams: WorkerParameters,
 ) : CoroutineWorker(context, workerParams) {
-
     companion object {
         const val WORK_TAG = "AutoCloudBackup"
         const val KEY_WIDGET_ID = "widgetId"
@@ -60,8 +59,10 @@ class AutoCloudBackup(
         val widgetId = inputData.getInt(KEY_WIDGET_ID, 0)
         val syncPreferences = SyncPreferences(widgetId, applicationContext)
 
-        val currentTimestamp = LocalDateTime.now()
-            .format(DateTimeFormatter.ofPattern("EEEE, HH:mm:ss"))
+        val currentTimestamp =
+            LocalDateTime
+                .now()
+                .format(DateTimeFormatter.ofPattern("EEEE, HH:mm:ss"))
 
         syncPreferences.lastSuccessfulCloudBackupTimestamp = currentTimestamp
         Timber.d("$WORK_TAG.timestampUpdated: $currentTimestamp for widget $widgetId")

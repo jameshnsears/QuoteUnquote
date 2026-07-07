@@ -11,7 +11,7 @@ class WidgetHeartColourTest : QuoteUnquoteModelUtility() {
     @Test
     fun setHeartColour() {
         if (canWorkWithMockk()) {
-            insertQuotationTestData01()
+            insertQuotationTestData01(true)
 
             val quoteUnquoteWidget = spyk<QuoteUnquoteWidget>()
             every {

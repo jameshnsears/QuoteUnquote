@@ -11,12 +11,13 @@ class PaginationTest : QuoteUnquoteModelUtility() {
     fun tryToPageAfterEnd() {
         val pageSize = 10
 
-        val browseFavouritesDialogFragment = BrowseFavouritesDialogFragment(
-            WidgetIdHelper.WIDGET_ID_01,
-            quoteUnquoteModelDouble,
-            "",
-            pageSize,
-        )
+        val browseFavouritesDialogFragment =
+            BrowseFavouritesDialogFragment(
+                WidgetIdHelper.WIDGET_ID_01,
+                quoteUnquoteModelDouble,
+                "",
+                pageSize,
+            )
 
         browseFavouritesDialogFragment.cachedRecyclerViewData =
             MutableList(pageSize) {
@@ -44,12 +45,13 @@ class PaginationTest : QuoteUnquoteModelUtility() {
     fun dataSizeLessThenPageSize() {
         val pageSize = 10
 
-        val browseFavouritesDialogFragment = BrowseFavouritesDialogFragment(
-            WidgetIdHelper.WIDGET_ID_01,
-            quoteUnquoteModelDouble,
-            "",
-            pageSize,
-        )
+        val browseFavouritesDialogFragment =
+            BrowseFavouritesDialogFragment(
+                WidgetIdHelper.WIDGET_ID_01,
+                quoteUnquoteModelDouble,
+                "",
+                pageSize,
+            )
 
         val dataSize = 5
         browseFavouritesDialogFragment.cachedRecyclerViewData =
@@ -73,12 +75,13 @@ class PaginationTest : QuoteUnquoteModelUtility() {
     fun dataSizeEqualToPageSize() {
         val pageSize = 10
 
-        val browseFavouritesDialogFragment = BrowseFavouritesDialogFragment(
-            WidgetIdHelper.WIDGET_ID_01,
-            quoteUnquoteModelDouble,
-            "",
-            pageSize,
-        )
+        val browseFavouritesDialogFragment =
+            BrowseFavouritesDialogFragment(
+                WidgetIdHelper.WIDGET_ID_01,
+                quoteUnquoteModelDouble,
+                "",
+                pageSize,
+            )
 
         browseFavouritesDialogFragment.cachedRecyclerViewData =
             MutableList(pageSize) {
@@ -101,12 +104,13 @@ class PaginationTest : QuoteUnquoteModelUtility() {
     fun dataSizeGreaterThenPageSize() {
         val pageSize = 5
 
-        val browseFavouritesDialogFragment = BrowseFavouritesDialogFragment(
-            WidgetIdHelper.WIDGET_ID_01,
-            quoteUnquoteModelDouble,
-            "",
-            pageSize,
-        )
+        val browseFavouritesDialogFragment =
+            BrowseFavouritesDialogFragment(
+                WidgetIdHelper.WIDGET_ID_01,
+                quoteUnquoteModelDouble,
+                "",
+                pageSize,
+            )
 
         val dataSize = 12
         browseFavouritesDialogFragment.cachedRecyclerViewData =

@@ -240,8 +240,6 @@ public class QuotationsFilterFragment extends FragmentCommon {
                 setCardAll(true);
                 break;
         }
-
-        forceEnableButtons(true);
     }
 
     private void setCardAll(final boolean enabled) {
@@ -390,6 +388,8 @@ public class QuotationsFilterFragment extends FragmentCommon {
 
         this.fragmentQuotationsTabFilterBinding.editTextSearchTextLayout.setEnabled(enabled);
         this.fragmentQuotationsTabFilterBinding.editTextSearchText.setEnabled(enabled);
+        this.fragmentQuotationsTabFilterBinding.textViewSearchMinimumInfo.setEnabled(enabled);
+        this.fragmentQuotationsTabFilterBinding.textViewSearchMinimum1.setEnabled(enabled);
         if (enabled) {
             setCardSearchTextFocus();
         }
@@ -428,8 +428,6 @@ public class QuotationsFilterFragment extends FragmentCommon {
         alignCardSource();
         alignCardFavourites(countFavourites);
         alignCardSearch(countFavourites);
-
-        forceEnableButtons(quotationsPreferences.getContentSelectionSearchForceEnableButtons());
     }
 
     private void alignCardSource() {
@@ -516,7 +514,6 @@ public class QuotationsFilterFragment extends FragmentCommon {
         };
 
         RxTextView.textChanges(fragmentQuotationsTabFilterBinding.editTextResultsExclusion)
-                .startWith(quotationsPreferences.getContentSelectionAllExclusion())
                 .debounce(25, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .map(charSequence -> {
@@ -638,9 +635,7 @@ public class QuotationsFilterFragment extends FragmentCommon {
                 quotationsPreferences.setContentSelectionSearchCount(value);
 
                 if (value > 0) {
-                    if (quotationsPreferences.getContentSelection() == ContentSelection.SEARCH
-                            ||
-                            quotationsPreferences.getContentSelectionSearchForceEnableButtons()) {
+                    if (quotationsPreferences.getContentSelection() == ContentSelection.SEARCH) {
                         setCardSearchButtonBrowse(true);
                         setCardSearchButtonExport(true);
                     } else {
@@ -934,68 +929,6 @@ public class QuotationsFilterFragment extends FragmentCommon {
                 activityExportSearch.launch(intent);
             }
         });
-    }
-
-    private void forceEnableButtons(boolean isChecked) {
-        if (isChecked) {
-            if (quotationsPreferences.getContentSelection() != ContentSelection.AUTHOR) {
-                fragmentQuotationsTabFilterBinding.textViewQuotationCount.setEnabled(true);
-                fragmentQuotationsTabFilterBinding.spinnerAuthorsCount.setEnabled(true);
-                fragmentQuotationsTabFilterBinding.spinnerAuthors.setEnabled(true);
-                setCardSourceButtonBrowse(true);
-                setCardSourceButtonExport(true);
-            }
-
-            if (quotationsPreferences.getContentSelection() != ContentSelection.FAVOURITES) {
-                if (quoteUnquoteModel.countFavouritesWithoutRx() > 0) {
-                    setCardFavouriteButtonBrowse(true);
-                    setCardFavouriteButtonExport(true);
-                }
-            }
-
-            if (quotationsPreferences.getContentSelection() != ContentSelection.SEARCH) {
-                if (quoteUnquoteModel.countFavouritesWithoutRx() > 0) {
-                    fragmentQuotationsTabFilterBinding.switchSearchFavouritesOnly.setEnabled(true);
-                }
-                fragmentQuotationsTabFilterBinding.switchRegEx.setEnabled(true);
-                fragmentQuotationsTabFilterBinding.editTextSearchTextLayout.setEnabled(true);
-                fragmentQuotationsTabFilterBinding.editTextSearchText.setEnabled(true);
-                fragmentQuotationsTabFilterBinding.editTextSearchText.setText(
-                        quotationsPreferences.getContentSelectionSearch()
-                );
-                if (quotationsPreferences.getContentSelectionSearch().length() >= 4) {
-                    setCardSearchButtonBrowse(true);
-                    setCardSearchButtonExport(true);
-                }
-            }
-        } else {
-            if (quotationsPreferences.getContentSelection() != ContentSelection.AUTHOR) {
-                fragmentQuotationsTabFilterBinding.textViewQuotationCount.setEnabled(false);
-                fragmentQuotationsTabFilterBinding.spinnerAuthorsCount.setEnabled(false);
-                fragmentQuotationsTabFilterBinding.spinnerAuthors.setEnabled(false);
-                setCardSourceButtonBrowse(false);
-                setCardSourceButtonExport(false);
-            }
-
-            if (quotationsPreferences.getContentSelection() != ContentSelection.FAVOURITES) {
-                setCardFavouriteButtonBrowse(false);
-                setCardFavouriteButtonExport(false);
-            }
-
-            if (quotationsPreferences.getContentSelection() != ContentSelection.SEARCH) {
-                if (quoteUnquoteModel.countFavouritesWithoutRx() > 0) {
-                    fragmentQuotationsTabFilterBinding.switchSearchFavouritesOnly.setEnabled(false);
-                }
-                fragmentQuotationsTabFilterBinding.switchRegEx.setEnabled(false);
-                fragmentQuotationsTabFilterBinding.editTextSearchTextLayout.setEnabled(false);
-                fragmentQuotationsTabFilterBinding.editTextSearchText.setEnabled(false);
-                fragmentQuotationsTabFilterBinding.editTextSearchText.setText(
-                        quotationsPreferences.getContentSelectionSearch()
-                );
-                setCardSearchButtonBrowse(false);
-                setCardSearchButtonExport(false);
-            }
-        }
     }
 
     private ActivityResultLauncher<Intent> activityExport() {

@@ -6,10 +6,9 @@ import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import io.mockk.every
 import io.mockk.spyk
-import junit.framework.TestCase.assertEquals
+import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
-import org.junit.Assert.assertFalse
 import org.junit.Test
 
 class WidgetDeletedTest : QuoteUnquoteModelUtility() {
@@ -34,8 +33,8 @@ class WidgetDeletedTest : QuoteUnquoteModelUtility() {
                 )
             assertThat(syncPreferences.transferLocalCode.length, `is`(10))
 
-            assertEquals("N/A", syncPreferences.lastSuccessfulCloudBackupTimestamp)
-            assertFalse(syncPreferences.autoCloudBackup)
+            assertThat(syncPreferences.lastSuccessfulCloudBackupTimestamp, equalTo("N/A"))
+            assertThat(syncPreferences.autoCloudBackup, `is`(false))
 
             quoteUnquoteWidget.onDeleted(context, intArrayOf(WidgetIdHelper.WIDGET_ID_01))
 
@@ -44,36 +43,36 @@ class WidgetDeletedTest : QuoteUnquoteModelUtility() {
             assertThat(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_02), `is`(3))
             assertThat(quoteUnquoteModelDouble.countFavourites().blockingGet(), `is`(1))
 
-            assertEquals(
-                0,
+            assertThat(
                 PreferencesFacade.countPreferences(context, WidgetIdHelper.WIDGET_ID_01),
+                `is`(0),
             )
-            assertEquals(
-                1,
+            assertThat(
                 PreferencesFacade.countPreferences(context, WidgetIdHelper.WIDGET_ID_02),
+                `is`(1),
             )
-            assertFalse(syncPreferences.transferLocalCode.isEmpty())
+            assertThat(syncPreferences.transferLocalCode.isEmpty(), `is`(false))
         }
     }
 
     private fun setupDatabase() {
-        insertQuotationTestData01()
+        insertQuotationTestData01(true)
 
-        setDefaultQuotationAll(WidgetIdHelper.WIDGET_ID_01)
-        setDefaultQuotationAuthor(WidgetIdHelper.WIDGET_ID_01)
-        setDefaultQuotationSearch(WidgetIdHelper.WIDGET_ID_01)
+        setDefaultQuotationAll(true, WidgetIdHelper.WIDGET_ID_01)
+        setDefaultQuotationAuthor(true, WidgetIdHelper.WIDGET_ID_01)
+        setDefaultQuotationSearch(true, WidgetIdHelper.WIDGET_ID_01)
         assertThat(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01), `is`(3))
 
-        setDefaultQuotationAll(WidgetIdHelper.WIDGET_ID_02)
-        setDefaultQuotationAuthor(WidgetIdHelper.WIDGET_ID_02)
-        setDefaultQuotationSearch(WidgetIdHelper.WIDGET_ID_02)
+        setDefaultQuotationAll(true, WidgetIdHelper.WIDGET_ID_02)
+        setDefaultQuotationAuthor(true, WidgetIdHelper.WIDGET_ID_02)
+        setDefaultQuotationSearch(true, WidgetIdHelper.WIDGET_ID_02)
         assertThat(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_02), `is`(3))
 
-        markDefaultQuotationAsFavourite()
+        markDefaultQuotationAsFavourite(true)
         assertThat(quoteUnquoteModelDouble.countFavourites().blockingGet(), `is`(1))
 
         // double check only 1 still a favourite
-        markDefaultQuotationAsFavourite()
+        markDefaultQuotationAsFavourite(true)
         assertThat(quoteUnquoteModelDouble.countFavourites().blockingGet(), `is`(1))
     }
 

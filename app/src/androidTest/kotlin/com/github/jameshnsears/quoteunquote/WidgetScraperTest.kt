@@ -2,13 +2,13 @@ package com.github.jameshnsears.quoteunquote
 
 import android.content.Context
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences
-import com.github.jameshnsears.quoteunquote.db.DatabaseRepository
 import com.github.jameshnsears.quoteunquote.db.q.QuotationEntity
 import com.github.jameshnsears.quoteunquote.utils.ImportHelper
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import io.mockk.every
 import io.mockk.spyk
-import org.junit.Assert.assertEquals
+import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Before
 import org.junit.Test
 
@@ -46,9 +46,9 @@ class WidgetScraperTest : QuoteUnquoteModelUtility() {
                 "a1",
             )
 
-            assertEquals(
-                ImportHelper.DEFAULT_DIGEST,
-                databaseRepositoryDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01).digest,
+            assertThat(
+                databaseRepositoryDouble.getCurrentQuotation(false, WidgetIdHelper.WIDGET_ID_01).digest,
+                equalTo(ImportHelper.DEFAULT_DIGEST),
             )
         }
     }
@@ -71,13 +71,15 @@ class WidgetScraperTest : QuoteUnquoteModelUtility() {
                 )
 
             quoteUnquoteWidget.quoteUnquoteModel = quoteUnquoteModelDouble
+            quoteUnquoteModelDouble.setUseInternalDatabase(false)
 
-            val secondQuotation = QuotationEntity(
-                ImportHelper.makeDigest("q2", "a2"),
-                "?",
-                "a2",
-                "q2",
-            )
+            val secondQuotation =
+                QuotationEntity(
+                    ImportHelper.makeDigest("q2", "a2"),
+                    "?",
+                    "a2",
+                    "q2",
+                )
             quoteUnquoteWidget.displayAppropriateScrapedQuotation(
                 context,
                 WidgetIdHelper.WIDGET_ID_01,
@@ -85,20 +87,21 @@ class WidgetScraperTest : QuoteUnquoteModelUtility() {
                 secondQuotation.author,
             )
 
-            assertEquals(
-                "1/1",
+            assertThat(
                 quoteUnquoteModelDouble.getCurrentPosition(
                     WidgetIdHelper.WIDGET_ID_01,
                     QuotationsPreferences(WidgetIdHelper.WIDGET_ID_01, context),
                 ),
+                equalTo("1/1"),
             )
 
-            val thirdQuotation = QuotationEntity(
-                ImportHelper.makeDigest("q2", "a2"),
-                "?",
-                "a1",
-                "q1",
-            )
+            val thirdQuotation =
+                QuotationEntity(
+                    ImportHelper.makeDigest("q2", "a2"),
+                    "?",
+                    "a1",
+                    "q1",
+                )
             quoteUnquoteWidget.displayAppropriateScrapedQuotation(
                 context,
                 WidgetIdHelper.WIDGET_ID_01,
@@ -106,12 +109,12 @@ class WidgetScraperTest : QuoteUnquoteModelUtility() {
                 thirdQuotation.author,
             )
 
-            assertEquals(
-                "1/1",
+            assertThat(
                 quoteUnquoteModelDouble.getCurrentPosition(
                     WidgetIdHelper.WIDGET_ID_01,
                     QuotationsPreferences(WidgetIdHelper.WIDGET_ID_01, context),
                 ),
+                equalTo("1/1"),
             )
         }
     }
@@ -130,8 +133,6 @@ class WidgetScraperTest : QuoteUnquoteModelUtility() {
     }
 
     private fun insertDefaultQuotation() {
-        DatabaseRepository.useInternalDatabase = false
-
         databaseRepositoryDouble.insertQuotationExternal(
             QuotationEntity(
                 ImportHelper.DEFAULT_DIGEST,
@@ -141,9 +142,10 @@ class WidgetScraperTest : QuoteUnquoteModelUtility() {
             ),
         )
 
-        assertEquals(1, databaseRepositoryDouble.countAll().blockingGet())
+        assertThat(databaseRepositoryDouble.countAll(false).blockingGet(), equalTo(1))
 
         databaseRepositoryDouble.markAsCurrent(
+            false,
             WidgetIdHelper.WIDGET_ID_01,
             ImportHelper.DEFAULT_DIGEST,
         )

@@ -4,17 +4,18 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.Quotat
 import com.github.jameshnsears.quoteunquote.db.DatabaseRepository
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
-import junit.framework.TestCase.assertEquals
-import org.junit.Assert.assertNotEquals
-import org.junit.Assert.assertNull
+import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.CoreMatchers.not
+import org.hamcrest.CoreMatchers.nullValue
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 
 class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
     @Test
     fun positionIndicatorNext() {
-        insertQuotationTestData01()
-        insertQuotationTestData02()
-        insertQuotationTestData03()
+        insertQuotationTestData01(true)
+        insertQuotationTestData02(true)
+        insertQuotationTestData03(true)
 
         val quotationsPreferences =
             QuotationsPreferences(
@@ -30,79 +31,85 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
         > next (digest never seen before)
          */
 
-        assertEquals(
-            0,
+        assertThat(
             quoteUnquoteModelDouble.countPrevious(
                 WidgetIdHelper.WIDGET_ID_01,
                 ContentSelection.ALL,
             ),
+            equalTo(0),
         )
 
         // next
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
-        assertEquals(
-            DatabaseRepository.getDefaultQuotationDigest(),
+        assertThat(
             quoteUnquoteModelDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01)?.digest,
+            equalTo(DatabaseRepository.getDefaultQuotationDigest(true)),
         )
 
         // next
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
-        assertEquals(
-            "d1234567",
+        assertThat(
             quoteUnquoteModelDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01)?.digest,
+            equalTo("d1234567"),
         )
 
-        assertEquals(
-            "d1234567",
+        assertThat(
             quoteUnquoteModelDouble.getLastPreviousDigest(
                 WidgetIdHelper.WIDGET_ID_01,
             ),
+            equalTo("d1234567"),
         )
 
         // next
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
-        assertEquals(
-            "d2345678",
+        assertThat(
             quoteUnquoteModelDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01)?.digest,
+            equalTo("d2345678"),
         )
 
-        assertEquals(
-            "d2345678",
+        assertThat(
             quoteUnquoteModelDouble.getLastPreviousDigest(
                 WidgetIdHelper.WIDGET_ID_01,
             ),
+            equalTo("d2345678"),
         )
 
         quoteUnquoteModelDouble.markAsCurrentPrevious(WidgetIdHelper.WIDGET_ID_01)
-        assertEquals(
-            "d1234567",
+        assertThat(
             quoteUnquoteModelDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01)?.digest,
+            equalTo("d1234567"),
         )
-        assertNotEquals(
+        assertThat(
             quoteUnquoteModelDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01)?.digest,
-            quoteUnquoteModelDouble.getLastPreviousDigest(
-                WidgetIdHelper.WIDGET_ID_01,
+            not(
+                equalTo(
+                    quoteUnquoteModelDouble.getLastPreviousDigest(
+                        WidgetIdHelper.WIDGET_ID_01,
+                    ),
+                ),
             ),
         )
 
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
-        assertEquals(
-            "d2345678",
+        assertThat(
             quoteUnquoteModelDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01)?.digest,
+            equalTo("d2345678"),
         )
 
         // if current quotation == last previous digest then we can show indicator
-        assertEquals(
+        assertThat(
             quoteUnquoteModelDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01)?.digest,
-            quoteUnquoteModelDouble.getLastPreviousDigest(
-                WidgetIdHelper.WIDGET_ID_01,
+            equalTo(
+                quoteUnquoteModelDouble.getLastPreviousDigest(
+                    WidgetIdHelper.WIDGET_ID_01,
+                ),
             ),
         )
     }
 
     @Test
     fun deadDigestFromFavouriteReceive() {
-        assertNull(quoteUnquoteModelDouble.databaseRepository?.getQuotation("blah"))
+        assertThat(quoteUnquoteModelDouble.databaseRepository?.getQuotation(true, "blah"), nullValue())
     }
 
     @Test
@@ -116,7 +123,7 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
     }
 
     private fun moveThroughContentSelection(randomNext: Boolean) {
-        insertQuotationTestData01()
+        insertQuotationTestData01(true)
 
         val quotationsPreferences =
             QuotationsPreferences(
@@ -125,28 +132,28 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
             )
         quotationsPreferences.contentSelection = ContentSelection.ALL
 
-        assertEquals(
-            0,
+        assertThat(
             quoteUnquoteModelDouble.countPrevious(
                 WidgetIdHelper.WIDGET_ID_01,
                 ContentSelection.ALL,
             ),
+            equalTo(0),
         )
 
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, randomNext)
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, randomNext)
 
-        assertEquals(
-            2,
+        assertThat(
             quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01),
+            equalTo(2),
         )
     }
 
     @Test
     fun nextAuthorWithRecycling() {
-        insertQuotationTestData01()
-        insertQuotationTestData02()
-        insertQuotationTestData03()
+        insertQuotationTestData01(true)
+        insertQuotationTestData02(true)
+        insertQuotationTestData03(true)
 
         val quotationsPreferences =
             QuotationsPreferences(
@@ -160,21 +167,21 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
 
-        assertEquals(3, quoteUnquoteModelDouble.countPreviousAuthor(WidgetIdHelper.WIDGET_ID_01))
+        assertThat(quoteUnquoteModelDouble.countPreviousAuthor(WidgetIdHelper.WIDGET_ID_01), equalTo(3))
 
         // recycle
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
 
-        assertEquals(1, quoteUnquoteModelDouble.countPreviousAuthor(WidgetIdHelper.WIDGET_ID_01))
+        assertThat(quoteUnquoteModelDouble.countPreviousAuthor(WidgetIdHelper.WIDGET_ID_01), equalTo(1))
 
         // each time user selects a new author then the prior history is deleted
         quoteUnquoteModelDouble.resetPrevious(WidgetIdHelper.WIDGET_ID_01, ContentSelection.AUTHOR)
-        assertEquals(0, quoteUnquoteModelDouble.countPreviousAuthor(WidgetIdHelper.WIDGET_ID_01))
+        assertThat(quoteUnquoteModelDouble.countPreviousAuthor(WidgetIdHelper.WIDGET_ID_01), equalTo(0))
     }
 
     @Test
     fun nextFavourite() {
-        insertQuotationTestData01()
+        insertQuotationTestData01(true)
 
         val quotationsPreferences =
             QuotationsPreferences(
@@ -183,35 +190,36 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
             )
         quotationsPreferences.contentSelection = ContentSelection.FAVOURITES
 
-        assertEquals(
-            0,
-            databaseRepositoryDouble.countNext(quotationsPreferences),
+        assertThat(
+            databaseRepositoryDouble.countNext(true, quotationsPreferences),
+            equalTo(0),
         )
 
-        markDefaultQuotationAsFavourite()
+        markDefaultQuotationAsFavourite(true)
 
-        assertEquals(
-            1,
-            databaseRepositoryDouble.countNext(quotationsPreferences),
+        assertThat(
+            databaseRepositoryDouble.countNext(true, quotationsPreferences),
+            equalTo(1),
         )
 
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
 
-        assertEquals(
-            DatabaseRepository.getDefaultQuotationDigest(),
-            quoteUnquoteModelDouble.getCurrentQuotation(
-                WidgetIdHelper.WIDGET_ID_01,
-            )?.digest,
+        assertThat(
+            quoteUnquoteModelDouble
+                .getCurrentQuotation(
+                    WidgetIdHelper.WIDGET_ID_01,
+                )?.digest,
+            equalTo(DatabaseRepository.getDefaultQuotationDigest(true)),
         )
     }
 
     @Test
     fun nextSearch() {
-        insertQuotationTestData01()
-        insertQuotationTestData02()
-        insertQuotationTestData03()
+        insertQuotationTestData01(true)
+        insertQuotationTestData02(true)
+        insertQuotationTestData03(true)
 
-        assertEquals(0, quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01))
+        assertThat(quoteUnquoteModelDouble.countPrevious(WidgetIdHelper.WIDGET_ID_01), equalTo(0))
 
         val quotationsPreferences =
             QuotationsPreferences(
@@ -228,9 +236,9 @@ class WidgetToolbarNextTest : QuoteUnquoteModelUtility() {
         // recycle
         quoteUnquoteModelDouble.markAsCurrentNext(WidgetIdHelper.WIDGET_ID_01, false)
 
-        assertEquals(
-            1,
+        assertThat(
             quoteUnquoteModelDouble.countPreviousSearch(WidgetIdHelper.WIDGET_ID_01),
+            equalTo(1),
         )
     }
 }

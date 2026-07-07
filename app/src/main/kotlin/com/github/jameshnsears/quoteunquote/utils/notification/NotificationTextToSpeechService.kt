@@ -8,7 +8,9 @@ import timber.log.Timber
 import java.util.Locale
 import java.util.concurrent.ConcurrentLinkedQueue
 
-class NotificationTextToSpeechService : Service(), TextToSpeech.OnInitListener {
+class NotificationTextToSpeechService :
+    Service(),
+    TextToSpeech.OnInitListener {
     companion object {
         var isRunning = false
         var localeTts = Locale.UK
@@ -16,7 +18,7 @@ class NotificationTextToSpeechService : Service(), TextToSpeech.OnInitListener {
 
     private var tts: TextToSpeech? = null
     private var isTtsInitialized = false
-    private val textQueue = ConcurrentLinkedQueue<String>()
+    private val textQueue = ConcurrentLinkedQueue<Pair<String, Locale>>()
 
     override fun onCreate() {
         super.onCreate()
@@ -24,11 +26,16 @@ class NotificationTextToSpeechService : Service(), TextToSpeech.OnInitListener {
         tts = TextToSpeech(this, this)
     }
 
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        localeTts = when (intent?.getStringExtra("localeTts") ?: "UK") {
-            "UK" -> Locale.UK
-            else -> Locale.getDefault()
-        }
+    override fun onStartCommand(
+        intent: Intent?,
+        flags: Int,
+        startId: Int,
+    ): Int {
+        localeTts =
+            when (intent?.getStringExtra("localeTts") ?: "UK") {
+                "UK" -> Locale.UK
+                else -> Locale.getDefault()
+            }
 
         var textToSpeak = intent?.getStringExtra("textToSpeak") ?: ""
         if (intent?.getBooleanExtra("excludeSource", false) == false) {
@@ -37,7 +44,7 @@ class NotificationTextToSpeechService : Service(), TextToSpeech.OnInitListener {
         }
 
         if (textToSpeak.isNotBlank()) {
-            textQueue.add(textToSpeak)
+            textQueue.add(Pair(textToSpeak, localeTts))
             processTextQueue()
         }
 
@@ -47,7 +54,12 @@ class NotificationTextToSpeechService : Service(), TextToSpeech.OnInitListener {
     private fun processTextQueue() {
         if (isTtsInitialized && tts != null && textQueue.isNotEmpty()) {
             while (textQueue.isNotEmpty()) {
-                val text = textQueue.poll() ?: break
+                val (text, locale) = textQueue.poll() ?: break
+                val result = tts?.setLanguage(locale)
+                if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Timber.e("TTS: language not supported: $locale")
+                }
+
                 tts?.speak(
                     text,
                     TextToSpeech.QUEUE_ADD,
@@ -55,22 +67,14 @@ class NotificationTextToSpeechService : Service(), TextToSpeech.OnInitListener {
                     "utteranceId-${System.currentTimeMillis()}",
                 )
             }
-            // Optional: stopSelf() here if you want the service to die after speaking
         }
     }
 
     override fun onInit(status: Int) {
         if (status == TextToSpeech.SUCCESS) {
-            val result = tts?.setLanguage(localeTts)
-
-            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                Timber.e("TTS: init fail: language not supported")
-                cleanupAndStop()
-            } else {
-                isTtsInitialized = true
-                Timber.d("TTS: init success")
-                processTextQueue()
-            }
+            isTtsInitialized = true
+            Timber.d("TTS: init success")
+            processTextQueue()
         } else {
             Timber.e("TTS: init fail")
             cleanupAndStop()

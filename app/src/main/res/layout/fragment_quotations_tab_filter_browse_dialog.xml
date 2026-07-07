@@ -1,39 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingStart="12dp"
-        android:paddingTop="10dp"
-        android:paddingEnd="12dp"
-        android:paddingBottom="15dp"
-        android:theme="@style/AppTheme">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingStart="12dp"
+    android:paddingTop="10dp"
+    android:paddingEnd="12dp"
+    android:paddingBottom="15dp"
+    android:theme="@style/AppTheme">
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycleViewBrowse"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/browse_favourites"
-            android:scrollbarSize="12dp"
-            android:scrollbars="vertical" />
+        android:id="@+id/recycleViewBrowse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/browse_favourites"
+        android:scrollbarSize="12dp"
+        android:scrollbars="vertical" />
 
     <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawablePadding="10dp"
-            android:paddingTop="15dp"
-            android:paddingBottom="5dp"
-            app:drawableStartCompat="@drawable/ic_info_24" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="10dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="5dp"
+        app:drawableStartCompat="@drawable/ic_info_24" />
 
     <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawablePadding="10dp"
-            android:paddingStart="4dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="8dp"
-            android:text="@string/fragment_quotations_selection_dialog_browse_share_and_toggle_01" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="10dp"
+        android:paddingStart="4dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="8dp"
+        android:text="@string/fragment_quotations_selection_dialog_browse_share_and_toggle_01"
+        android:textAppearance="?attr/textAppearanceBodySmall" />
 
 </LinearLayout>

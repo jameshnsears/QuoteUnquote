@@ -1,11 +1,10 @@
 package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.content.files
 
-import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteModelDouble
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteModelUtility
 import com.github.jameshnsears.quoteunquote.configure.ConfigureActivityDouble
-import com.github.jameshnsears.quoteunquote.db.DatabaseRepository
 import com.github.jameshnsears.quoteunquote.utils.ImportHelper
 import org.junit.Rule
 import org.junit.Test
@@ -26,14 +25,15 @@ class FilesCsvViewModelTest : QuoteUnquoteModelUtility() {
         val inputStream: InputStream = getImportAsset("ImportAlphabetical.csv")
         val importHelper = ImportHelper()
         quoteUnquoteModelDouble.insertQuotationsExternal(importHelper.importCsv(inputStream))
-        DatabaseRepository.useInternalDatabase = false
+        quoteUnquoteModelDouble.setUseInternalDatabase(false)
 
         assertEquals(5, quoteUnquoteModelDouble.allQuotations.size)
 
-        val filesCsvViewModel = FilesCsvViewModel(
-            1,
-            quoteUnquoteModelDouble,
-        )
+        val filesCsvViewModel =
+            FilesCsvViewModel(
+                1,
+                quoteUnquoteModelDouble,
+            )
 
         /*
         A||A1
@@ -58,7 +58,7 @@ class FilesCsvViewModelTest : QuoteUnquoteModelUtility() {
             "Z",
             quotationEntity.quotation,
         )
-        filesCsvViewModel.buttonSavePressed()
+        filesCsvViewModel.buttonSavePressed {}
 
         Thread.sleep(2000)
         /*

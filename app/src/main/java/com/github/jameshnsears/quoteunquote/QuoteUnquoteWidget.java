@@ -30,7 +30,6 @@ import com.github.jameshnsears.quoteunquote.cloud.CloudTransferHelper;
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.AppearancePreferences;
 import com.github.jameshnsears.quoteunquote.configure.fragment.notifications.NotificationsPreferences;
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
-import com.github.jameshnsears.quoteunquote.db.DatabaseRepository;
 import com.github.jameshnsears.quoteunquote.db.q.QuotationEntity;
 import com.github.jameshnsears.quoteunquote.listview.ListViewService;
 import com.github.jameshnsears.quoteunquote.scraper.ScraperData;
@@ -1304,12 +1303,6 @@ public class QuoteUnquoteWidget extends AppWidgetProvider {
             int widgetId, @NonNull final Context context) {
         if (quoteUnquoteModel == null) {
             quoteUnquoteModel = new QuoteUnquoteModel(widgetId, context);
-        } else {
-            if (getQuotationsPreferences(context, widgetId).getDatabaseInternal()) {
-                DatabaseRepository.useInternalDatabase = true;
-            } else {
-                DatabaseRepository.useInternalDatabase = false;
-            }
         }
 
         return quoteUnquoteModel;

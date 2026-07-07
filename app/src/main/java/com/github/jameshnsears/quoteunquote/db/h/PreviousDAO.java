@@ -3,6 +3,7 @@ package com.github.jameshnsears.quoteunquote.db.h;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.RewriteQueriesToDropUnusedColumns;
 import androidx.room.TypeConverters;
 
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
@@ -10,10 +11,14 @@ import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 import java.util.List;
 
 @Dao
+@RewriteQueriesToDropUnusedColumns
 @TypeConverters(ContentSelection.class)
 public interface PreviousDAO {
     @Insert
     void markAsPrevious(PreviousEntity previousEntity);
+
+    @Insert
+    void insertPrevious(List<PreviousEntity> previous);
 
     @Query("SELECT COUNT(*) FROM PREVIOUS WHERE WIDGET_ID = :widgetId AND CONTENT_TYPE = :contentType AND DIGEST = :digest")
     int countPreviousDigest(int widgetId, ContentSelection contentType, String digest);

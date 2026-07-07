@@ -2,4 +2,4 @@ package com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.
 
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 
-class StyleDialogAuthorDouble : StyleDialogQuotation(WidgetIdHelper.WIDGET_ID_01)
+class StyleDialogAuthorDouble : StyleDialogAuthor(WidgetIdHelper.WIDGET_ID_01)

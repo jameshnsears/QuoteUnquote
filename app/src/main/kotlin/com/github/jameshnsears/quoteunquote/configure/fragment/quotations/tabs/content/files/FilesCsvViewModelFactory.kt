@@ -8,7 +8,6 @@ class FilesCsvViewModelFactory(
     private val widgetId: Int,
     private val quoteUnquoteModel: QuoteUnquoteModel,
 ) : ViewModelProvider.Factory {
-
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(FilesCsvViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")

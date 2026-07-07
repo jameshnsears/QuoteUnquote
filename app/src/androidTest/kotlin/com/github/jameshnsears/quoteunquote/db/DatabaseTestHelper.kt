@@ -7,7 +7,8 @@ import androidx.test.core.app.ApplicationProvider
 import com.github.jameshnsears.quoteunquote.db.q.QuotationEntity
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade
-import junit.framework.TestCase.assertTrue
+import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Before
 
 abstract class DatabaseTestHelper {
@@ -22,135 +23,135 @@ abstract class DatabaseTestHelper {
     open fun before() {
         databaseRepositoryDouble.eraseAllDatabsaes()
         PreferencesFacade.erase(context)
-        DatabaseRepository.useInternalDatabase = true
     }
 
-    fun insertQuotationTestData01() {
+    fun insertQuotationTestData01(useInternalDatabase: Boolean) {
         val quotationEntityList: MutableList<QuotationEntity> = ArrayList()
         quotationEntityList.add(
             QuotationEntity(
-                DatabaseRepository.getDefaultQuotationDigest(),
+                DatabaseRepository.getDefaultQuotationDigest(useInternalDatabase),
                 "w1",
                 "a0",
                 "q0",
             ),
         )
         quotationEntityList.add(QuotationEntity("d1234567", "w1", "a1", "q1"))
-        databaseRepositoryDouble.insertQuotations(quotationEntityList)
+        databaseRepositoryDouble.insertQuotations(useInternalDatabase, quotationEntityList)
     }
 
-    fun insertQuotationTestData02() {
+    fun insertQuotationTestData02(useInternalDatabase: Boolean) {
         val quotationEntityList: MutableList<QuotationEntity> = ArrayList()
         quotationEntityList.add(QuotationEntity("d2345678", "w1", "a2", "q1"))
         quotationEntityList.add(QuotationEntity("d3456789", "w1", "a2", "q3"))
         quotationEntityList.add(QuotationEntity("d4567890", "w1", "a4", "q1"))
-        databaseRepositoryDouble.insertQuotations(quotationEntityList)
+        databaseRepositoryDouble.insertQuotations(useInternalDatabase, quotationEntityList)
     }
 
-    fun insertQuotationTestData03() {
+    fun insertQuotationTestData03(useInternalDatabase: Boolean) {
         val quotationEntityList: MutableList<QuotationEntity> = ArrayList()
         quotationEntityList.add(QuotationEntity("d5678901", "w1", "a5", "q1"))
         quotationEntityList.add(QuotationEntity("d6789012", "w1", "a2", "q6"))
-        databaseRepositoryDouble.insertQuotations(quotationEntityList)
+        databaseRepositoryDouble.insertQuotations(useInternalDatabase, quotationEntityList)
     }
 
-    fun setDefaultQuotationAll(widgetId: Int) {
+    fun setDefaultQuotationAll(useInternalDatabase: Boolean, widgetId: Int) {
         databaseRepositoryDouble.markAsPrevious(
+            useInternalDatabase,
             widgetId,
             ContentSelection.ALL,
-            getDefaultQuotation().digest,
+            getDefaultQuotation(useInternalDatabase).digest,
         )
 
         databaseRepositoryDouble.markAsCurrent(
+            useInternalDatabase,
             widgetId,
-            getDefaultQuotation().digest,
+            getDefaultQuotation(useInternalDatabase).digest,
         )
     }
 
-    fun setDefaultQuotationAuthor(widgetId: Int) {
+    fun setDefaultQuotationAuthor(useInternalDatabase: Boolean, widgetId: Int) {
         databaseRepositoryDouble.markAsPrevious(
+            useInternalDatabase,
             widgetId,
             ContentSelection.AUTHOR,
-            getDefaultQuotation().digest,
+            getDefaultQuotation(useInternalDatabase).digest,
         )
     }
 
-    fun setDefaultQuotationSearch(widgetId: Int) {
+    fun setDefaultQuotationSearch(useInternalDatabase: Boolean, widgetId: Int) {
         databaseRepositoryDouble.markAsPrevious(
+            useInternalDatabase,
             widgetId,
             ContentSelection.SEARCH,
-            getDefaultQuotation().digest,
+            getDefaultQuotation(useInternalDatabase).digest,
         )
     }
 
-    fun markDefaultQuotationAsFavourite() {
-        databaseRepositoryDouble.markAsFavourite(getDefaultQuotation().digest)
+    fun markDefaultQuotationAsFavourite(useInternalDatabase: Boolean) {
+        databaseRepositoryDouble.markAsFavourite(useInternalDatabase, getDefaultQuotation(useInternalDatabase).digest)
     }
 
-    fun getDefaultQuotation(): QuotationEntity {
-        return databaseRepositoryDouble.getQuotation(DatabaseRepository.getDefaultQuotationDigest())
-    }
+    fun getDefaultQuotation(useInternalDatabase: Boolean): QuotationEntity =
+        databaseRepositoryDouble.getQuotation(useInternalDatabase, DatabaseRepository.getDefaultQuotationDigest(useInternalDatabase))
 
     fun populateInternal(widgetId: Int) {
-        DatabaseRepositoryDouble.useInternalDatabase = true
-
         insertInternalQuotations()
 
         databaseRepositoryDouble.markAsCurrent(
+            true,
             widgetId,
             "d1234567",
         )
 
         databaseRepositoryDouble.markAsPrevious(
+            true,
             widgetId,
             ContentSelection.ALL,
             "d1234567",
         )
 
         databaseRepositoryDouble.markAsFavourite(
-            databaseRepositoryDouble.getCurrentQuotation(widgetId).digest,
+            true,
+            databaseRepositoryDouble.getCurrentQuotation(true, widgetId).digest,
         )
 
-        assertTrue(databaseRepositoryDouble.countAll().blockingGet() == 5)
+        assertThat(databaseRepositoryDouble.countAll(true).blockingGet(), equalTo(5))
     }
 
     fun insertInternalQuotations() {
-        DatabaseRepositoryDouble.useInternalDatabase = true
-
-        insertQuotationTestData01()
-        insertQuotationTestData02()
+        insertQuotationTestData01(true)
+        insertQuotationTestData02(true)
     }
 
     fun populateExternal(widgetId: Int) {
-        DatabaseRepositoryDouble.useInternalDatabase = false
-
         insertExternalQuotations()
 
         databaseRepositoryDouble.markAsCurrent(
+            false,
             widgetId,
-            DatabaseRepositoryDouble.getDefaultQuotationDigest(),
+            DatabaseRepository.getDefaultQuotationDigest(false),
         )
 
         databaseRepositoryDouble.markAsPrevious(
+            false,
             widgetId,
             ContentSelection.ALL,
-            DatabaseRepositoryDouble.getDefaultQuotationDigest(),
+            DatabaseRepository.getDefaultQuotationDigest(false),
         )
 
         databaseRepositoryDouble.markAsFavourite(
-            databaseRepositoryDouble.getCurrentQuotation(widgetId).digest,
+            false,
+            databaseRepositoryDouble.getCurrentQuotation(false, widgetId).digest,
         )
 
-        assertTrue(databaseRepositoryDouble.countAll().blockingGet() == 2)
+        assertThat(databaseRepositoryDouble.countAll(false).blockingGet(), equalTo(2))
     }
 
     fun insertExternalQuotations() {
-        DatabaseRepositoryDouble.useInternalDatabase = false
-
         val quotationEntityList: MutableList<QuotationEntity> = ArrayList()
         quotationEntityList.add(
             QuotationEntity(
-                DatabaseRepository.getDefaultQuotationDigest(),
+                DatabaseRepository.getDefaultQuotationDigest(false),
                 "",
                 "external_a0",
                 "external_q0",
@@ -164,7 +165,7 @@ abstract class DatabaseTestHelper {
                 "external_q1",
             ),
         )
-        databaseRepositoryDouble.insertQuotations(quotationEntityList)
+        databaseRepositoryDouble.insertQuotations(false, quotationEntityList)
     }
 
     protected fun canWorkWithMockk() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q

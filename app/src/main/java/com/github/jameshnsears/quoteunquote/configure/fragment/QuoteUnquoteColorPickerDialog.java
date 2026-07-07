@@ -43,7 +43,6 @@ import com.skydoves.colorpickerview.sliders.BrightnessSlideBar;
  * ColorPickerDialog is a dialog what having {@link ColorPickerView}, {@link AlphaSlideBar} and
  * {@link BrightnessSlideBar}.
  */
-@SuppressWarnings("unused")
 public class QuoteUnquoteColorPickerDialog extends AlertDialog {
 
     private ColorPickerView colorPickerView;
@@ -106,6 +105,7 @@ public class QuoteUnquoteColorPickerDialog extends AlertDialog {
          * @return {@link Builder}.
          */
         public Builder setColorPickerView(ColorPickerView colorPickerView) {
+            this.colorPickerView = colorPickerView;
             this.dialogBinding.colorPickerViewFrame.removeAllViews();
             this.dialogBinding.colorPickerViewFrame.addView(colorPickerView);
             return this;

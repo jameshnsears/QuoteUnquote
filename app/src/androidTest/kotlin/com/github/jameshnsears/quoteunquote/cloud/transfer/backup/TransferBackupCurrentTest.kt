@@ -6,32 +6,32 @@ import com.github.jameshnsears.quoteunquote.cloud.transfer.TransferUtility
 import com.github.jameshnsears.quoteunquote.db.DatabaseRepository
 import io.mockk.every
 import io.mockk.mockkObject
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 
 class TransferBackupCurrentTest : GsonTestHelper() {
     @Test
     fun current() {
         if (canWorkWithMockk()) {
-            insertQuotationTestData01()
-            insertQuotationTestData02()
+            insertQuotationTestData01(true)
+            insertQuotationTestData02(true)
 
             setupTestData()
 
             mockkObject(TransferUtility)
             every { TransferUtility.getWidgetIds(context) } returns intArrayOf(12, 13)
 
-            assertEquals(
-                gson().toJson(expectedCurrent()),
+            assertThat(
                 gson().toJson(TransferBackupCurrent(context).current(databaseRepositoryDouble)),
+                equalTo(gson().toJson(expectedCurrent())),
             )
         }
     }
 
     fun setupTestData() {
-        setDefaultQuotationAll(12)
-        setDefaultQuotationAll(13)
+        setDefaultQuotationAll(true, 12)
+        setDefaultQuotationAll(true, 13)
     }
 
     private fun expectedCurrent(): List<Current> {
@@ -39,10 +39,10 @@ class TransferBackupCurrentTest : GsonTestHelper() {
 
         val currentList = mutableListOf<Current>()
         currentList.add(
-            Current(DatabaseRepository.getDefaultQuotationDigest(), 12, "internal"),
+            Current(DatabaseRepository.getDefaultQuotationDigest(true), 12, "internal"),
         )
         currentList.add(
-            Current(DatabaseRepository.getDefaultQuotationDigest(), 13, "internal"),
+            Current(DatabaseRepository.getDefaultQuotationDigest(true), 13, "internal"),
         )
 
         return currentList
@@ -59,11 +59,11 @@ class TransferBackupCurrentTest : GsonTestHelper() {
 
             val currentList = TransferBackupCurrent(context).current(databaseRepositoryDouble)
 
-            assertTrue(currentList.size == 2)
-            assertEquals(currentList[0].digest, "d1234567")
-            assertEquals(currentList[0].db, "internal")
-            assertEquals(currentList[1].digest, "00000000")
-            assertEquals(currentList[1].db, "external")
+            assertThat(currentList.size, equalTo(2))
+            assertThat(currentList[0].digest, equalTo("d1234567"))
+            assertThat(currentList[0].db, equalTo("internal"))
+            assertThat(currentList[1].digest, equalTo("00000000"))
+            assertThat(currentList[1].db, equalTo("external"))
         }
     }
 }

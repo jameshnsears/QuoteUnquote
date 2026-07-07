@@ -4,7 +4,8 @@ import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.platform.app.InstrumentationRegistry
 import com.github.jameshnsears.quoteunquote.sync.SyncJsonSchemaValidation
 import com.github.jameshnsears.quoteunquote.utils.logging.MethodLineLoggingTree
-import org.junit.Assert.assertTrue
+import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 import timber.log.Timber
 import java.io.BufferedReader
@@ -17,7 +18,9 @@ class SyncJsonSchemaValidationTest {
         }
 
         val inputStream =
-            InstrumentationRegistry.getInstrumentation().context.resources.assets
+            InstrumentationRegistry
+                .getInstrumentation()
+                .context.resources.assets
                 .open(
                     "restore_one_widget.json",
                 )
@@ -25,11 +28,12 @@ class SyncJsonSchemaValidationTest {
 
         // be aware of QuoteUnquote/.gradle folder caching old version
         // https://stackoverflow.com/questions/60878947/android-studio-how-to-clear-assets-folder-cache
-        assertTrue(
+        assertThat(
             SyncJsonSchemaValidation.isJsonValid(
                 getApplicationContext(),
                 jsonString,
             ),
+            `is`(true),
         )
     }
 }

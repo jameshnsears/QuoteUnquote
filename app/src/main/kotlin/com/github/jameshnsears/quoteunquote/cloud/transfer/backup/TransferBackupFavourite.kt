@@ -5,12 +5,8 @@ import com.github.jameshnsears.quoteunquote.db.DatabaseRepository
 
 class TransferBackupFavourite {
     fun favourite(databaseRepository: DatabaseRepository): List<Favourite> {
-        val originalUseInternalDatabaseState = DatabaseRepository.useInternalDatabase
-
         val internalDatabaseFavourites = getFavouritesFromDatabase(databaseRepository, true)
         val externalDatabaseFavourites = getFavouritesFromDatabase(databaseRepository, false)
-
-        DatabaseRepository.useInternalDatabase = originalUseInternalDatabaseState
 
         return internalDatabaseFavourites + externalDatabaseFavourites
     }
@@ -19,11 +15,9 @@ class TransferBackupFavourite {
         databaseRepository: DatabaseRepository,
         useInternalDatabase: Boolean,
     ): List<Favourite> {
-        DatabaseRepository.useInternalDatabase = useInternalDatabase
-
         val favouriteList = mutableListOf<Favourite>()
 
-        for (favourite in databaseRepository.favourites) {
+        for (favourite in databaseRepository.getFavourites(useInternalDatabase)) {
             favouriteList.add(
                 Favourite(
                     favourite.digest,

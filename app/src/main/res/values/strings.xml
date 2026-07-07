@@ -3,24 +3,25 @@
 
     <string name="activity_instructions_title">Instructions</string>
     <string name="activity_instructions_placement">Widget Placement</string>
-    <string name="activity_instructions_1">\u2022&#160;&#160;On a home screen, touch and hold an empty space</string>
-    <string name="activity_instructions_2">\u2022&#160;&#160;Tap </string>
-    <string name="activity_instructions_3">\u2022&#160;&#160;Scroll though the widgets until you find the Quote Unquote widget</string>
-    <string name="activity_instructions_4">\u2022&#160;&#160;Touch and slide the widget to where you want it. Lift your finger</string>
-    <string name="activity_instructions_5">\u2022&#160;&#160;Use Android\’s Back button / gesture to leave the Configure screen and place the widget on home screen</string>
+    <string name="activity_instructions_bullet">\u2022</string>
+    <string name="activity_instructions_1">On a home screen, touch and hold an empty space</string>
+    <string name="activity_instructions_2">Select Widgets</string>
+    <string name="activity_instructions_3">Scroll though the widgets until you find the Quote Unquote widget</string>
+    <string name="activity_instructions_4">Touch and slide the widget to where you want it. Lift your finger</string>
+    <string name="activity_instructions_5">Use Android\’s Back button / gesture to leave the Configure screen and place the widget on home screen</string>
     <string name="activity_instructions_usage">Usage</string>
-    <string name="activity_instructions_configure_1">\u2022&#160;&#160;Tap Quotation text to configure widget</string>
-    <string name="activity_instructions_configure_2">\u2022&#160;&#160;Changes are saved when the Configure screen is exited with the Back button / gesture</string>
-    <string name="activity_instructions_configure_3">\u2022&#160;&#160;Tap an <u>underlined</u> Source for Wikipedia entry</string>
-    <string name="activity_instructions_configure_4">\u2022&#160;&#160;The \u2316 icon, next to the Quotation position count, denotes previous head Quotation</string>
-    <string name="activity_instructions_configure_5">\u2022&#160;&#160;Only, the optional, Web import &amp; Cloud sync require an Internet connection</string>
-    <string name="activity_instructions_configure_6">\u2022&#160;&#160;Revisit the Notifications page to reinitialise notifications after device restart</string>
-    <string name="activity_instructions_os_warning">\u2022&#160;&#160;Some Android versions have aggressive memory management, adjust device accordingly</string>
+    <string name="activity_instructions_configure_1">Tap Quotation text to configure widget</string>
+    <string name="activity_instructions_configure_2">Changes are saved when the Configure screen is exited with the Back button / gesture</string>
+    <string name="activity_instructions_configure_3">Tap an <u>underlined</u> Source for Wikipedia entry</string>
+    <string name="activity_instructions_configure_4">The \u2316 icon, next to the Quotation position count, denotes your previous Quotation</string>
+    <string name="activity_instructions_configure_5">Only, the optional, Web import &amp; Cloud sync require an Internet connection</string>
+    <string name="activity_instructions_configure_6">Revisit the Notifications page to reinitialise notifications after device restart</string>
+    <string name="activity_instructions_os_warning">Some Android versions have aggressive memory management, adjust device accordingly</string>
     <string name="activity_instructions_resize">Widget Resizing</string>
-    <string name="activity_instructions_resize_instruction_1">\u2022&#160;&#160;Touch and hold the widget on home screen</string>
-    <string name="activity_instructions_resize_instruction_2">\u2022&#160;&#160;Lift your finger. You\’ll find an outline with dots on the sides</string>
-    <string name="activity_instructions_resize_instruction_3">\u2022&#160;&#160;To resize the widget, drag the dots</string>
-    <string name="activity_instructions_resize_instruction_4">\u2022&#160;&#160;When you\’re done, tap outside the widget</string>
+    <string name="activity_instructions_resize_instruction_1">Touch and hold the widget on home screen</string>
+    <string name="activity_instructions_resize_instruction_2">Lift your finger. You\’ll find an outline with dots on the sides</string>
+    <string name="activity_instructions_resize_instruction_3">To resize the widget, drag the dots</string>
+    <string name="activity_instructions_resize_instruction_4">When you\’re done, tap outside the widget</string>
     <string name="activity_instructions_version">%1$s/%2$s</string>
     <string name="activity_instructions_oss">Open-source software</string>
 
@@ -43,7 +44,7 @@
     <string name="fragment_quotations_selection_author"><b>Source: %d</b></string>
     <string name="fragment_quotations_selection_author_count">Count &gt;=</string>
     <string name="fragment_quotations_selection_author_name">Selected Source</string>
-    <string name="fragment_quotations_selection_favourites"><b>Favourite: %d</b></string>
+    <string name="fragment_quotations_selection_favourites"><b>Favourites: %d</b></string>
     <string name="fragment_quotations_selection_browse">Browse</string>
     <string name="fragment_quotations_selection_export_button">Export</string>
     <string name="fragment_quotations_selection_export_success">Success - export completed</string>
@@ -73,8 +74,8 @@
     <string name="fragment_quotations_database_file_csv_inplace_quotation">Quotation…</string>
     <string name="fragment_quotations_database_file_csv_inplace_save">Save</string>
     <string name="fragment_quotations_database_file_csv_inplace_delete">Delete</string>
-    <string name="fragment_quotations_database_file_csv_inplace_instruction_01">Tap row text to select / deselect</string>
-    <string name="fragment_quotations_database_file_csv_inplace_instruction_02">If no row selected, Save will insert / append based on Source, Quotation order</string>
+    <string name="fragment_quotations_database_file_csv_inplace_instruction_01">\u2022&#160;&#160;Tap row text to select / deselect</string>
+    <string name="fragment_quotations_database_file_csv_inplace_instruction_02">\u2022&#160;&#160;If no row selected, Save will insert / append based on Source, Quotation order</string>
     <string name="fragment_quotations_database_file_csv_inplace_save_warning_duplicate">Unable to Save - duplicate</string>
     <string name="fragment_quotations_database_file_csv_inplace_warning_empty_database">Internal database selected</string>
     <string name="fragment_quotations_database_file_fortune">Fortune</string>
@@ -112,7 +113,7 @@
     <string name="fragment_appearance_tab_style">Style</string>
     <string name="fragment_appearance_background">Background</string>
     <string name="fragment_appearance_colour">Colour</string>
-    <string name="fragment_appearance_background_colour_dialog_title">Background Colour</string>
+    <string name="fragment_appearance_background_colour_dialog_title">Background</string>
     <string name="fragment_appearance_cancel">Cancel</string>
     <string name="fragment_appearance_ok">OK</string>
     <string name="fragment_appearance_transparency">Transparency %</string>
@@ -125,11 +126,11 @@
     <string name="fragment_appearance_button_position">Position</string>
     <string name="fragment_appearance_text_info">\u2022&#160;&#160;Appearance is device dependent</string>
     <string name="fragment_appearance_style_text_dialog_quotation">Quotation Text</string>
-    <string name="fragment_appearance_style_text_dialog_quotation_colour">Quotation Text Colour</string>
+    <string name="fragment_appearance_style_text_dialog_quotation_colour">Quotation Text</string>
     <string name="fragment_appearance_style_text_dialog_author">Source Text</string>
-    <string name="fragment_appearance_style_text_dialog_author_colour">Source Text Colour</string>
+    <string name="fragment_appearance_style_text_dialog_author_colour">Source Text</string>
     <string name="fragment_appearance_style_text_dialog_position">Position Text</string>
-    <string name="fragment_appearance_style_text_dialog_position_colour">Position Text Colour</string>
+    <string name="fragment_appearance_style_text_dialog_position_colour">Position Text</string>
     <string name="fragment_appearance_style_text_dialog_visibility">Hide</string>
     <string name="fragment_appearance_family">Family</string>
     <string-array name="fragment_appearance_family_array">
@@ -163,14 +164,14 @@
     <string name="fragment_appearance_follow_system_theme_follow">Follow system theme</string>
     <string name="fragment_appearance_follow_system_theme_info"></string>
     <string name="fragment_appearance_follow_system_theme">\u2022&#160;&#160;Force black &amp; white colours</string>
-    <string name="fragment_appearance_toolbar_colour_dialog_title">Toolbar Colour</string>
+    <string name="fragment_appearance_toolbar_colour_dialog_title">Toolbar</string>
     <string name="fragment_appearance_toolbar_first">First, clears Previous</string>
     <string name="fragment_appearance_toolbar_previous">Previous</string>
     <string name="fragment_appearance_toolbar_favourite">Favourite, toggle</string>
     <string name="fragment_appearance_toolbar_share">Share</string>
     <string name="fragment_appearance_toolbar_share_exclude_source">Exclude Source</string>
     <string name="fragment_appearance_toolbar_next_sequential">Next, sequential</string>
-    <string name="fragment_appearance_toolbar_position_indicator">Jump, Previous head</string>
+    <string name="fragment_appearance_toolbar_position_indicator">Jump, Previous</string>
     <string name="fragment_appearance_toolbar_next_random">Next, random</string>
     <string name="fragment_appearance_toolbar_next_random_action">Next, random</string>
     <string name="fragment_appearance_toolbar_next_info">\u2022&#160;&#160;Sequence recycles at end</string>
@@ -206,7 +207,7 @@
         <item>3</item>
         <item>4</item>
     </integer-array>
-    <string name="fragment_notifications_customisable_every_hours">hour(s), at 00 minutes</string>
+    <string name="fragment_notifications_customisable_every_hours">hour(s), at :00</string>
 
     <string name="fragment_notifications_time">Specific</string>
     <string name="fragment_notifications_time_textfield">time…</string>
@@ -239,7 +240,7 @@
     <string name="fragment_archive_internet_missing">Check network / wait &amp; retry</string>
     <string name="fragment_archive_sync_to_cloud_on_favourite">Auto backup</string>
     <string name="fragment_archive_sync_to_cloud_on_favourite_most_recent">Last backup: %s</string>
-    <string name="fragment_archive_sync_to_cloud_on_favourite_info_0">\u2022&#160;&#160;Toggle favourite to invoke</string>
+    <string name="fragment_archive_sync_to_cloud_on_favourite_info_0">\u2022&#160;&#160;Toggle a favourite to invoke</string>
 
     <string name="widget_listview_quotation">Quotation</string>
     <string name="widget_listview_author">Source</string>

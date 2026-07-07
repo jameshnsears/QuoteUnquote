@@ -10,27 +10,40 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.consumeWindowInsets
+import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -42,6 +55,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -51,83 +65,121 @@ import com.github.jameshnsears.quoteunquote.db.q.QuotationEntity
 import timber.log.Timber
 
 @Composable
-fun InPlaceEdit(
-    filesCsvViewModel: FilesCsvViewModel,
-) {
-    val isDarkTheme = isSystemInDarkTheme()
+fun inPlaceEdit(filesCsvViewModel: FilesCsvViewModel) {
+    val colorScheme = if (isSystemInDarkTheme()) darkColorScheme() else lightColorScheme()
 
-    val scrollState = rememberScrollState()
+    MaterialTheme(colorScheme = colorScheme) {
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+            contentWindowInsets = WindowInsets.safeDrawing.exclude(WindowInsets.statusBars),
+        ) { innerPadding ->
+            Surface(
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .padding(innerPadding)
+                        .consumeWindowInsets(innerPadding),
+                color = MaterialTheme.colorScheme.background,
+            ) {
+                val scrollState = rememberScrollState()
 
-    Column(
-        modifier = Modifier
-            .padding(4.dp)
-            .verticalScroll(scrollState),
-    ) {
-        Column(
-            modifier = Modifier.padding(start = 8.dp, end = 8.dp),
-        ) {
-            InPlaceEditList(filesCsvViewModel)
+                Column(
+                    modifier =
+                        Modifier
+                            .fillMaxSize()
+                            .verticalScroll(scrollState)
+                            .padding(4.dp),
+                ) {
+                    OutlinedCard(
+                        modifier =
+                            Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 8.dp, vertical = 8.dp),
+                        shape = RoundedCornerShape(12.dp),
+                        colors =
+                            CardDefaults.cardColors(
+                                containerColor = MaterialTheme.colorScheme.surfaceContainer,
+                            ),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+                    ) {
+                        Column(
+                            modifier = Modifier.padding(12.dp),
+                        ) {
+                            inPlaceEditList(filesCsvViewModel)
 
-            HorizontalDivider(color = if (isDarkTheme) Color.DarkGray else Color.LightGray)
+                            HorizontalDivider(color = MaterialTheme.colorScheme.outline)
 
-            InPlaceEditSaveDeleteButtons(filesCsvViewModel)
+                            inPlaceEditSaveDeleteButtons(filesCsvViewModel)
 
-            InPlaceEditTextSourceQuotationFields(filesCsvViewModel)
+                            inPlaceEditTextSourceQuotationFields(filesCsvViewModel)
 
-            InPlaceEditInstructions()
+                            inPlaceEditInstructions()
+                        }
+                    }
+                }
+            }
         }
     }
 }
 
 @Composable
-fun InPlaceEditList(
-    filesCsvViewModel: FilesCsvViewModel,
-) {
-    val isDarkTheme = isSystemInDarkTheme()
-
+fun inPlaceEditList(filesCsvViewModel: FilesCsvViewModel) {
     val list by filesCsvViewModel.list.collectAsState()
     val selectedItemIndex by filesCsvViewModel.selectedItemIndex.collectAsState()
 
     val focusManager = LocalFocusManager.current
 
     Row(
-        modifier = Modifier
-            .height(320.dp)
-            .padding(bottom = 14.dp),
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .height(320.dp)
+                .padding(bottom = 14.dp),
     ) {
-        LazyColumn {
+        LazyColumn(
+            modifier = Modifier.fillMaxWidth(),
+        ) {
             itemsIndexed(list) { index, quotation ->
                 val isSelected = selectedItemIndex == index
 
+                val itemBackgroundColor =
+                    if (isSelected) {
+                        MaterialTheme.colorScheme.secondaryContainer
+                    } else {
+                        MaterialTheme.colorScheme.surfaceContainer
+                    }
+
+                val itemTextColor =
+                    if (isSelected) {
+                        MaterialTheme.colorScheme.onSecondaryContainer
+                    } else {
+                        MaterialTheme.colorScheme.onSurface
+                    }
+
                 LazyRow(
-                    modifier = Modifier
-                        .padding(top = 3.dp)
-                        .padding(3.dp)
-                        .clickable {
-                            Timber.d(quotation.digest)
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .background(color = itemBackgroundColor)
+                            .clickable {
+                                Timber.d(quotation.digest)
 
-                            filesCsvViewModel.setSelectedItemIndex(if (isSelected) null else index)
+                                filesCsvViewModel.setSelectedItemIndex(if (isSelected) null else index)
 
-                            if (!isSelected) {
-                                filesCsvViewModel.populateTextFields(
-                                    quotation.digest,
-                                    quotation.author,
-                                    quotation.quotation,
-                                )
-                            } else {
-                                filesCsvViewModel.populateTextFields()
-                            }
+                                if (!isSelected) {
+                                    filesCsvViewModel.populateTextFields(
+                                        quotation.digest,
+                                        quotation.author,
+                                        quotation.quotation,
+                                    )
+                                } else {
+                                    filesCsvViewModel.populateTextFields()
+                                }
 
-                            focusManager.clearFocus()
-                        }
-                        .focusable()
-                        .background(
-                            color = if (isDarkTheme) {
-                                if (isSelected) Color.LightGray else Color.Black
-                            } else {
-                                if (isSelected) Color.LightGray else Color.White
-                            },
-                        ),
+                                focusManager.clearFocus()
+                            }.padding(top = 3.dp)
+                            .padding(3.dp)
+                            .focusable(),
                 ) {
                     item {
                         Column {
@@ -135,16 +187,18 @@ fun InPlaceEditList(
                                 Text(
                                     modifier = Modifier.padding(3.dp),
                                     text = (1 + index).toString(),
-                                    color = if (isDarkTheme) Color.White else Color.Black,
+                                    color = itemTextColor,
                                     fontSize = 14.sp,
+                                    fontWeight = FontWeight.Bold,
                                 )
 
                                 Text(
-                                    modifier = Modifier
-                                        .padding(start = 3.dp)
-                                        .padding(3.dp),
+                                    modifier =
+                                        Modifier
+                                            .padding(start = 3.dp)
+                                            .padding(3.dp),
                                     text = quotation.quotation,
-                                    color = if (isDarkTheme) Color.White else Color.Black,
+                                    color = itemTextColor,
                                     fontSize = 14.sp,
                                 )
                             }
@@ -152,7 +206,7 @@ fun InPlaceEditList(
                             Text(
                                 modifier = Modifier.padding(start = 3.dp, top = 3.dp),
                                 text = quotation.author,
-                                color = if (isDarkTheme) Color.White else Color.Black,
+                                color = itemTextColor,
                                 fontSize = 14.sp,
                             )
                         }
@@ -164,30 +218,21 @@ fun InPlaceEditList(
 }
 
 @Composable
-private fun InPlaceEditTextSourceQuotationFields(
-    filesCsvViewModel: FilesCsvViewModel,
-) {
-    val isDarkTheme = isSystemInDarkTheme()
-
-    val textFieldColors = OutlinedTextFieldDefaults.colors(
-        focusedTextColor = if (isDarkTheme) Color.White else Color.Black,
-        unfocusedTextColor = if (isDarkTheme) Color.Gray else Color.Black,
-        focusedBorderColor = MaterialTheme.colorScheme.primary,
-        unfocusedBorderColor = if (isDarkTheme) Color.Gray else Color.Black,
-        focusedLabelColor = MaterialTheme.colorScheme.primary,
-        unfocusedLabelColor = if (isDarkTheme) Color.Gray else Color.Black,
-        focusedTrailingIconColor = if (isDarkTheme) Color.White else Color.Black,
-        unfocusedTrailingIconColor = Color.Transparent,
-    )
+private fun inPlaceEditTextSourceQuotationFields(filesCsvViewModel: FilesCsvViewModel) {
+    val textFieldColors =
+        OutlinedTextFieldDefaults.colors(
+            unfocusedTrailingIconColor = Color.Transparent,
+        )
 
     val digest by filesCsvViewModel.digest.collectAsState()
     val textFieldAuthor by filesCsvViewModel.author.collectAsState()
     val textFieldQuotation by filesCsvViewModel.quotation.collectAsState()
 
     Row(
-        modifier = Modifier
-            .padding(top = 6.dp, bottom = 6.dp)
-            .fillMaxWidth(),
+        modifier =
+            Modifier
+                .padding(top = 6.dp, bottom = 6.dp)
+                .fillMaxWidth(),
         horizontalArrangement = Arrangement.Center,
     ) {
         Column(modifier = Modifier.fillMaxHeight()) {
@@ -208,18 +253,21 @@ private fun InPlaceEditTextSourceQuotationFields(
                 },
                 maxLines = 4,
                 minLines = 4,
-                modifier = Modifier
-                    .testTag("InPlaceEditTextFields.Source")
-                    .fillMaxWidth()
-                    .height(130.dp)
-                    .padding(top = 8.dp, bottom = 8.dp),
+                modifier =
+                    Modifier
+                        .testTag("InPlaceEditTextFields.Quotation")
+                        .fillMaxWidth()
+                        .height(130.dp)
+                        .padding(top = 8.dp, bottom = 8.dp),
                 trailingIcon = {
                     if (textFieldQuotation.isNotEmpty()) {
-                        IconButton(onClick = {
-                            filesCsvViewModel.populateTextFields(
-                                author = textFieldAuthor,
-                            )
-                        }) {
+                        IconButton(
+                            onClick = {
+                                filesCsvViewModel.populateTextFields(
+                                    author = textFieldAuthor,
+                                )
+                            },
+                        ) {
                             Icon(
                                 painterResource(id = R.drawable.cancel_fill0_wght400_grad0_opsz24),
                                 contentDescription = "",
@@ -245,18 +293,20 @@ private fun InPlaceEditTextSourceQuotationFields(
                     )
                 },
                 singleLine = true,
-                modifier = Modifier
-                    .testTag("InPlaceEditTextFields.Source")
-                    .fillMaxWidth()
-                    .height(75.dp)
-                    .padding(top = 8.dp, bottom = 8.dp),
+                modifier =
+                    Modifier
+                        .testTag("InPlaceEditTextFields.Source")
+                        .fillMaxWidth()
+                        .padding(top = 8.dp, bottom = 8.dp),
                 trailingIcon = {
                     if (textFieldAuthor.isNotEmpty()) {
-                        IconButton(onClick = {
-                            filesCsvViewModel.populateTextFields(
-                                quotation = textFieldQuotation,
-                            )
-                        }) {
+                        IconButton(
+                            onClick = {
+                                filesCsvViewModel.populateTextFields(
+                                    quotation = textFieldQuotation,
+                                )
+                            },
+                        ) {
                             Icon(
                                 painterResource(id = R.drawable.cancel_fill0_wght400_grad0_opsz24),
                                 contentDescription = "",
@@ -270,17 +320,18 @@ private fun InPlaceEditTextSourceQuotationFields(
 }
 
 @Composable
-private fun InPlaceEditSaveDeleteButtons(
-    filesCsvViewModel: FilesCsvViewModel,
-) {
-    val isDarkTheme = isSystemInDarkTheme()
+private fun inPlaceEditSaveDeleteButtons(filesCsvViewModel: FilesCsvViewModel) {
+    val saveButtonColors =
+        ButtonDefaults.buttonColors(
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = Color.White,
+        )
 
-    val buttonColors = ButtonDefaults.outlinedButtonColors(
-        contentColor = if (isDarkTheme) Color.White else Color.White,
-        containerColor = MaterialTheme.colorScheme.primary,
-        disabledContainerColor = if (isDarkTheme) Color.DarkGray else Color.LightGray,
-        disabledContentColor = if (isDarkTheme) Color.Gray else Color.White,
-    )
+    val deleteButtonColors =
+        ButtonDefaults.buttonColors(
+            containerColor = MaterialTheme.colorScheme.error,
+            contentColor = Color.White,
+        )
 
     val context = LocalContext.current
 
@@ -292,23 +343,30 @@ private fun InPlaceEditSaveDeleteButtons(
         stringResource(R.string.fragment_quotations_database_file_csv_inplace_save_warning_duplicate)
 
     Row(
-        modifier = Modifier
-            .padding(top = 16.dp, bottom = 0.dp)
-            .fillMaxWidth(),
+        modifier =
+            Modifier
+                .padding(top = 16.dp, bottom = 0.dp)
+                .fillMaxWidth(),
         horizontalArrangement = Arrangement.Center,
     ) {
         Row(
             modifier = Modifier.padding(start = 24.dp, end = 24.dp),
         ) {
             Button(
-                colors = buttonColors,
-                modifier = Modifier
-                    .height(41.dp)
-                    .width(120.dp),
+                colors = saveButtonColors,
+                modifier =
+                    Modifier
+                        .height(41.dp)
+                        .width(120.dp),
                 onClick = {
-                    when (filesCsvViewModel.buttonSavePressed()) {
-                        2 -> Toast.makeText(context, messageWarningDuplicate, Toast.LENGTH_SHORT)
-                            .show()
+                    filesCsvViewModel.buttonSavePressed { result ->
+                        when (result) {
+                            2 -> {
+                                Toast
+                                    .makeText(context, messageWarningDuplicate, Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                        }
                     }
                 },
                 enabled = (textFieldAuthor.isNotEmpty() && textFieldQuotation.isNotEmpty()),
@@ -321,10 +379,11 @@ private fun InPlaceEditSaveDeleteButtons(
             Spacer(modifier = Modifier.weight(1f))
 
             Button(
-                colors = buttonColors,
-                modifier = Modifier
-                    .height(41.dp)
-                    .width(120.dp),
+                colors = deleteButtonColors,
+                modifier =
+                    Modifier
+                        .height(41.dp)
+                        .width(120.dp),
                 onClick = {
                     filesCsvViewModel.buttonDeletePressed()
                 },
@@ -339,79 +398,77 @@ private fun InPlaceEditSaveDeleteButtons(
 }
 
 @Composable
-private fun InPlaceEditInstructions() {
-    val isDarkTheme = isSystemInDarkTheme()
-
-    val darkThemeInstructions = Color(0xffcac4d0)
-    val lightThemeInstructions = Color.Black
+private fun inPlaceEditInstructions() {
+    val instructionsColor = MaterialTheme.colorScheme.onSurfaceVariant
 
     Row(
-        modifier = Modifier
-            .padding(top = 10.dp, bottom = 12.dp)
-            .fillMaxWidth(),
+        modifier =
+            Modifier
+                .padding(top = 10.dp, bottom = 12.dp)
+                .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
             imageVector = Icons.Outlined.Info,
             contentDescription = "",
-            tint = if (isDarkTheme) darkThemeInstructions else lightThemeInstructions,
+            tint = instructionsColor,
         )
     }
 
     Row(
-        modifier = Modifier
-            .padding(start = 4.dp, top = 4.dp, bottom = 8.dp)
-            .fillMaxWidth(),
+        modifier =
+            Modifier
+                .padding(start = 4.dp, top = 4.dp, bottom = 8.dp)
+                .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             text = stringResource(R.string.fragment_quotations_database_file_csv_inplace_instruction_01),
-            fontSize = 14.sp,
-            lineHeight = 16.sp,
-            color = if (isDarkTheme) darkThemeInstructions else lightThemeInstructions,
+            color = instructionsColor,
+            style = MaterialTheme.typography.bodySmall,
         )
     }
 
     Row(
-        modifier = Modifier
-            .padding(start = 4.dp, top = 4.dp, bottom = 12.dp)
-            .fillMaxWidth(),
+        modifier =
+            Modifier
+                .padding(start = 4.dp, top = 4.dp, bottom = 12.dp)
+                .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             text = stringResource(R.string.fragment_quotations_database_file_csv_inplace_instruction_02),
-            fontSize = 14.sp,
-            lineHeight = 16.sp,
-            color = if (isDarkTheme) darkThemeInstructions else lightThemeInstructions,
+            color = instructionsColor,
+            style = MaterialTheme.typography.bodySmall,
         )
     }
 }
 
 @Preview(
-    apiLevel = 36,
+    apiLevel = 37,
     widthDp = 400,
     showBackground = true,
     uiMode = Configuration.UI_MODE_NIGHT_YES,
 )
 @Composable
-fun PreviewInPlaceEditDark() {
-    PreviewInPlaceEdit()
+fun previewInPlaceEditDark() {
+    previewInPlaceEdit()
 }
 
 @Preview(
-    apiLevel = 36,
+    apiLevel = 37,
     widthDp = 400,
 )
 @Composable
-fun PreviewInPlaceEditLight() {
-    PreviewInPlaceEdit()
+fun previewInPlaceEditLight() {
+    previewInPlaceEdit()
 }
 
 @Composable
-private fun PreviewInPlaceEdit() {
+private fun previewInPlaceEdit() {
     class QuoteUnquoteModelDummy : QuoteUnquoteModel() {
-        override fun getAllQuotations(): List<QuotationEntity> {
-            return mutableListOf(
+        override fun getAllQuotations(): List<QuotationEntity> =
+            mutableListOf(
                 QuotationEntity(
                     "digest",
                     "wikipedia",
@@ -419,15 +476,12 @@ private fun PreviewInPlaceEdit() {
                     "quotation-1",
                 ),
             )
-        }
     }
 
-    MaterialTheme {
-        InPlaceEdit(
-            FilesCsvViewModel(
-                1,
-                QuoteUnquoteModelDummy(),
-            ),
-        )
-    }
+    inPlaceEdit(
+        FilesCsvViewModel(
+            1,
+            QuoteUnquoteModelDummy(),
+        ),
+    )
 }

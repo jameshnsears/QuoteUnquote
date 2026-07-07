@@ -3,7 +3,7 @@ Enhance your daily routine with this easy-to-use app widget, featuring:
 &bull; High-quality, curated quotations
 &bull; Single-tap access to Wikipedia source articles
 &bull; Offline core functionality
-&bull; Extensive customization options
+&bull; Extensive customisation options
 &bull; Simple, intuitive navigation
 &bull; Affirmation import feature
 &bull; Timely notifications

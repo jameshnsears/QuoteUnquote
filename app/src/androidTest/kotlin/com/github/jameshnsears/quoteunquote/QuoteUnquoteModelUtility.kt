@@ -8,7 +8,9 @@ abstract class QuoteUnquoteModelUtility : DatabaseTestHelper() {
     var quoteUnquoteModelDouble = QuoteUnquoteModelDouble()
 
     fun getImportAsset(filename: String) =
-        InstrumentationRegistry.getInstrumentation().context.resources.assets
+        InstrumentationRegistry
+            .getInstrumentation()
+            .context.resources.assets
             .open(
                 filename,
             )

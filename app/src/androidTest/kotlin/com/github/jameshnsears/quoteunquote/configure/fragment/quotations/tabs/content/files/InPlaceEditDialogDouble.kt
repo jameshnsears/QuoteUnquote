@@ -16,38 +16,38 @@ class InPlaceEditDialogDouble : ContentCsvInPlaceEditDialog() {
         super.onCreate(savedInstanceState)
 
         quoteUnquoteModel = QuoteUnquoteModelDouble()
+        quoteUnquoteModel.setUseInternalDatabase(false)
         populateExternal(widgetId)
         quoteUnquoteModel.databaseRepository = databaseRepositoryDouble
     }
 
     private fun populateExternal(widgetId: Int) {
-        DatabaseRepositoryDouble.useInternalDatabase = false
-
         insertExternalQuotations()
 
         databaseRepositoryDouble.markAsCurrent(
+            false,
             widgetId,
-            DatabaseRepositoryDouble.getDefaultQuotationDigest(),
+            DatabaseRepository.getDefaultQuotationDigest(false),
         )
 
         databaseRepositoryDouble.markAsPrevious(
+            false,
             widgetId,
             ContentSelection.ALL,
-            DatabaseRepositoryDouble.getDefaultQuotationDigest(),
+            DatabaseRepository.getDefaultQuotationDigest(false),
         )
 
         databaseRepositoryDouble.markAsFavourite(
-            databaseRepositoryDouble.getCurrentQuotation(widgetId).digest,
+            false,
+            databaseRepositoryDouble.getCurrentQuotation(false, widgetId).digest,
         )
     }
 
     private fun insertExternalQuotations() {
-        DatabaseRepositoryDouble.useInternalDatabase = false
-
         val quotationEntityList: MutableList<QuotationEntity> = ArrayList()
         quotationEntityList.add(
             QuotationEntity(
-                DatabaseRepository.getDefaultQuotationDigest(),
+                DatabaseRepository.getDefaultQuotationDigest(false),
                 "",
                 "a1",
                 "q-a1-1",
@@ -70,6 +70,6 @@ class InPlaceEditDialogDouble : ContentCsvInPlaceEditDialog() {
             ),
         )
 
-        databaseRepositoryDouble.insertQuotations(quotationEntityList)
+        databaseRepositoryDouble.insertQuotations(false, quotationEntityList)
     }
 }

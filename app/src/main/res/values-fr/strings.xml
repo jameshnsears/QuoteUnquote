@@ -3,24 +3,25 @@
 
     <string name="activity_instructions_title">Instructions</string>
     <string name="activity_instructions_placement">Placement du widget</string>
-    <string name="activity_instructions_1">\u2022&#160;&#160;Sur un écran d\'accueil, appuyez longuement sur un espace vide</string>
-    <string name="activity_instructions_2">\u2022&#160;&#160;Une petite tape</string>
-    <string name="activity_instructions_3">\u2022&#160;&#160;Parcourrez les widgets jusqu\'à trouver Quote Unquote</string>
-    <string name="activity_instructions_4">\u2022&#160;&#160;Glissez et déposez le widget où vous voulez. Puis relevez votre doigt</string>
-    <string name="activity_instructions_5">\u2022&#160;&#160;Utilisez le bouton/geste Retour d\'Android pour quitter l\'écran de Configuration et placer le widget sur l\'écran d\'accueil</string>
+    <string name="activity_instructions_bullet">\u2022</string>
+    <string name="activity_instructions_1">Sur un écran d’accueil, appuyez longuement sur un espace vide</string>
+    <string name="activity_instructions_2">Une petite tape</string>
+    <string name="activity_instructions_3">Parcourrez les widgets jusqu’à trouver Quote Unquote</string>
+    <string name="activity_instructions_4">Glissez et déposez le widget où vous voulez. Puis relevez votre doigt</string>
+    <string name="activity_instructions_5">Utilisez le bouton/geste Retour d’Android pour quitter l’écran de Configuration et placer le widget sur l’écran d’accueil</string>
     <string name="activity_instructions_usage">Utilisation</string>
-    <string name="activity_instructions_configure_1">\u2022&#160;&#160;Tapotez le texte de Citation pour configurer le widget</string>
-    <string name="activity_instructions_configure_2">\u2022&#160;&#160;Les changements sont enregistrés quand vous sortez de l\'écran de configuration avec le bouton/geste Retour</string>
-    <string name="activity_instructions_configure_3">\u2022&#160;&#160;Tapotez une source <u>soulignée</u> pour accéder à Wikipedia</string>
-    <string name="activity_instructions_configure_4">\u2022&#160;&#160;L\'icone \u2316, à coté de l\'indicateur de position de la Citation, indique la dernière précédente Citation</string>
-    <string name="activity_instructions_configure_5">\u2022&#160;&#160;Seule la synchro/l\'import avec le Cloud requiert une connexion à Internet</string>
-    <string name="activity_instructions_configure_6">\u2022&#160;&#160;Revisitez la page des Notifications pour reinitialiser les notifications après le redémarrage de l\'appareil</string>
-    <string name="activity_instructions_os_warning">\u2022&#160;&#160;Certaines versions d\'Android ont une gestion agressive de la mémoire, ajustez l\'appareil en conséquence</string>
+    <string name="activity_instructions_configure_1">Tapotez le texte de Citation pour configurer le widget</string>
+    <string name="activity_instructions_configure_2">Les changements sont enregistrés quand vous sortez de l’écran de configuration avec le bouton/geste Retour</string>
+    <string name="activity_instructions_configure_3">Tapotez une source <u>soulignée</u> pour accéder à Wikipedia</string>
+    <string name="activity_instructions_configure_4">L\'icone \u2316, à coté de l\'indicateur de position de la Citation, indique la dernière précédente Citation</string>
+    <string name="activity_instructions_configure_5">Seule la synchro/l’import avec le Cloud requiert une connexion à Internet</string>
+    <string name="activity_instructions_configure_6">Revisitez la page des Notifications pour reinitialiser les notifications après le redémarrage de l’appareil</string>
+    <string name="activity_instructions_os_warning">Certaines versions d’Android ont une gestion agressive de la mémoire, ajustez l’appareil en conséquence</string>
     <string name="activity_instructions_resize">Redimensionnement du widget</string>
-    <string name="activity_instructions_resize_instruction_1">\u2022&#160;&#160;Tapotez et maintenez le widget sur l\'écran d\'accueil</string>
-    <string name="activity_instructions_resize_instruction_2">\u2022&#160;&#160;Relevez votre doigt, vous verrez un contour avec des pois sur les côtés</string>
-    <string name="activity_instructions_resize_instruction_3">\u2022&#160;&#160;Pour redimensionner le widget, déplacez les pois</string>
-    <string name="activity_instructions_resize_instruction_4">\u2022&#160;&#160;Une fois terminé, tapotez en dehors du widget</string>
+    <string name="activity_instructions_resize_instruction_1">Tapotez et maintenez le widget sur l’écran d’accueil</string>
+    <string name="activity_instructions_resize_instruction_2">Relevez votre doigt, vous verrez un contour avec des pois sur les côtés</string>
+    <string name="activity_instructions_resize_instruction_3">Pour redimensionner le widget, déplacez les pois</string>
+    <string name="activity_instructions_resize_instruction_4">Une fois terminé, tapotez en dehors du widget</string>
     <string name="activity_instructions_version">%1$s/%2$s</string>
     <string name="activity_instructions_oss">Logiciel Libre</string>
 
@@ -47,7 +48,7 @@
     <string name="fragment_quotations_selection_browse">Voir</string>
     <string name="fragment_quotations_selection_export_button">Exporter</string>
     <string name="fragment_quotations_selection_export_success">Succès - export terminé</string>
-    <string name="fragment_quotations_selection_export_failed">Échec de l\'export</string>
+    <string name="fragment_quotations_selection_export_failed">Échec de l’export</string>
     <string name="fragment_quotations_selection_search"><b>Recherche: %d</b></string>
     <string name="fragment_quotations_selection_search_favourites_only">Favoris uniquement</string>
     <string name="fragment_quotations_selection_search_instructions_text">Texte de recherche…</string>
@@ -73,9 +74,9 @@
     <string name="fragment_quotations_database_file_csv_inplace_quotation">Citation…</string>
     <string name="fragment_quotations_database_file_csv_inplace_save">Enregistrer</string>
     <string name="fragment_quotations_database_file_csv_inplace_delete">Supprimer</string>
-    <string name="fragment_quotations_database_file_csv_inplace_instruction_01">Tapoter la ligne pour sélectionner / déselectionner</string>
-    <string name="fragment_quotations_database_file_csv_inplace_instruction_02">Si aucune ligne sélectionner, Enregistrer va insérer / modifier une ligne sur la base de Source, Citation </string>
-    <string name="fragment_quotations_database_file_csv_inplace_save_warning_duplicate">Impossible d\'enregistrer - doublon</string>
+    <string name="fragment_quotations_database_file_csv_inplace_instruction_01">\u2022&#160;&#160;Tapoter la ligne pour sélectionner / déselectionner</string>
+    <string name="fragment_quotations_database_file_csv_inplace_instruction_02">\u2022&#160;&#160;Si aucune ligne sélectionner, Enregistrer va insérer / modifier une ligne sur la base de Source, Citation </string>
+    <string name="fragment_quotations_database_file_csv_inplace_save_warning_duplicate">Impossible d’enregistrer - doublon</string>
     <string name="fragment_quotations_database_file_csv_inplace_warning_empty_database">Base de données interne sélectionnée</string>
     <string name="fragment_quotations_database_file_fortune">Fortune</string>
     <string name="fragment_quotations_database_file_fortune_info_01">\u2022&#160;&#160;Voir https://wikipedia.org/wiki/Fortune_(Unix)</string>
@@ -97,14 +98,14 @@
     <string name="fragment_quotations_database_scrape_erase">Garder uniquement la dernière réponse</string>
     <string name="fragment_quotations_database_scrape_fields_error_incomplete">Paramètres incomplets</string>
     <string name="fragment_quotations_database_scrape_importing">Importation de la page web - veuillez patienter&#8230;</string>
-    <string name="fragment_quotations_database_scrape_endpoint_error">Impossible de contacter l\'URL</string>
+    <string name="fragment_quotations_database_scrape_endpoint_error">Impossible de contacter l’URL</string>
     <string name="fragment_quotations_database_scrape_xpath_error_quotation">XPath de Citation invalide</string>
     <string name="fragment_quotations_database_scrape_xpath_error_source">XPath de Source invalide</string>
     <string name="fragment_quotations_database_scrape_test_success">Succès - page web importée</string>
     <string name="fragment_quotations_database_scrape_info"></string>
     <string name="fragment_quotations_database_scrape_1">\u2022&#160;&#160;Réponse compatible HTML 5 attendue, ne pas utiliser le mot <b>source</b> dans la réponse</string>
     <string name="fragment_quotations_database_scrape_2">\u2022&#160;&#160;La réponse doit contenir une seule Citation et Source</string>
-    <string name="fragment_quotations_database_scrape_3">\u2022&#160;&#160;Attention car une réponse XML, dans l\'app, est encadrée par &lt;html&gt;&lt;body&gt;… &lt;/body&gt;&lt;/html&gt;</string>
+    <string name="fragment_quotations_database_scrape_3">\u2022&#160;&#160;Attention car une réponse XML, dans l’app, est encadrée par &lt;html&gt;&lt;body&gt;… &lt;/body&gt;&lt;/html&gt;</string>
     <string name="fragment_quotations_database_scrape_4">\u2022&#160;&#160;Le Widget se connecte toutes les 30 minutes</string>
     <string name="fragment_quotations_database_scrape_5">\u2022&#160;&#160;Levez un ticket GitHub en cas de doute</string>
 
@@ -112,7 +113,7 @@
     <string name="fragment_appearance_tab_style">Style</string>
     <string name="fragment_appearance_background">Fond</string>
     <string name="fragment_appearance_colour">Couleur</string>
-    <string name="fragment_appearance_background_colour_dialog_title">Couleur de fond</string>
+    <string name="fragment_appearance_background_colour_dialog_title">Fond</string>
     <string name="fragment_appearance_cancel">Annuler</string>
     <string name="fragment_appearance_ok">OK</string>
     <string name="fragment_appearance_transparency">Transparence %</string>
@@ -159,11 +160,11 @@
         <item>24</item>
         <item>28</item>
     </integer-array>
-    <string name="fragment_appearance_navigation">Barre d\'outils</string>
+    <string name="fragment_appearance_navigation">Barre d’outils</string>
     <string name="fragment_appearance_follow_system_theme_follow">Coller au thème système</string>
     <string name="fragment_appearance_follow_system_theme_info"></string>
     <string name="fragment_appearance_follow_system_theme">\u2022&#160;&#160;Forcer la couleur en noir et blanc</string>
-    <string name="fragment_appearance_toolbar_colour_dialog_title">Couleur</string>
+    <string name="fragment_appearance_toolbar_colour_dialog_title">Barre d’outils</string>
     <string name="fragment_appearance_toolbar_first">Première, oublie la Précédente</string>
     <string name="fragment_appearance_toolbar_previous">Précédente</string>
     <string name="fragment_appearance_toolbar_favourite">Ajouter aux Favoris</string>
@@ -194,7 +195,7 @@
     <string name="fragment_notifications_screen_unlock">Au déverrouillage de l\'écran</string>
 
     <string name="fragment_notifications_customisable">Intervalle personnalisable</string>
-    <string name="fragment_notifications_customisable_active_time">Période d\'activité</string>
+    <string name="fragment_notifications_customisable_active_time">Période d’activité</string>
     <integer-array name="fragment_notifications_quiet_time_array">
         <item>0</item>
         <item>23</item>
@@ -206,7 +207,7 @@
         <item>3</item>
         <item>4</item>
     </integer-array>
-    <string name="fragment_notifications_customisable_every_hours">heure(s) et 00 min</string>
+    <string name="fragment_notifications_customisable_every_hours">heure(s) et :00</string>
 
     <string name="fragment_notifications_time">Précisément</string>
     <string name="fragment_notifications_time_textfield">Heure…</string>
@@ -224,8 +225,8 @@
     <string name="fragment_archive_backup_success">Succès - Sauvegarde faite</string>
     <string name="fragment_archive_restore">Récupérer</string>
 
-    <string name="fragment_archive_restore_onto_new_device">Purger les données de l\'ancienne instance</string>
-    <string name="fragment_archive_restore_onto_new_device_info">\u2022&#160;&#160;Garder les données de l\'ancienne instance est nécessaire seulement si vous utilisez plusieurs instances du Widget sur votre appareil</string>
+    <string name="fragment_archive_restore_onto_new_device">Purger les données de l’ancienne instance</string>
+    <string name="fragment_archive_restore_onto_new_device_info">\u2022&#160;&#160;Garder les données de l’ancienne instance est nécessaire seulement si vous utilisez plusieurs instances du Widget sur votre appareil</string>
 
     <string name="fragment_archive_superseded_info"></string>
     <string name="fragment_archive_superseded_1">\u2022&#160;&#160;Le code de synchro sera remplacé lors de la récupération</string>

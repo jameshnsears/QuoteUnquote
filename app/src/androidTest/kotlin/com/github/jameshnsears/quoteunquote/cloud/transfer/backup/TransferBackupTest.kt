@@ -5,16 +5,17 @@ import com.github.jameshnsears.quoteunquote.db.DatabaseTestHelper
 import io.mockk.every
 import io.mockk.mockkObject
 import io.mockk.spyk
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotNull
+import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.Matchers.notNullValue
 import org.junit.Test
 
 class TransferBackupTest : DatabaseTestHelper() {
     @Test
     fun transfer() {
         if (canWorkWithMockk()) {
-            insertQuotationTestData01()
-            insertQuotationTestData02()
+            insertQuotationTestData01(true)
+            insertQuotationTestData02(true)
 
             val (backupTransfer, transferCode) = getBackupTransfer()
 
@@ -28,13 +29,13 @@ class TransferBackupTest : DatabaseTestHelper() {
             val transfer = backupTransfer.transfer(databaseRepositoryDouble)
             // val transferAsJson = GsonTestHelper().gson().toJson(transfer)
 
-            assertEquals(transfer.code, transferCode)
+            assertThat(transfer.code, equalTo(transferCode))
 
-            assertNotNull(transfer.settings)
-            assertEquals(transfer.settings.size, 2)
-            assertNotNull(transfer.current)
-            assertNotNull(transfer.previous)
-            assertNotNull(transfer.favourites)
+            assertThat(transfer.settings, notNullValue())
+            assertThat(transfer.settings.size, equalTo(2))
+            assertThat(transfer.current, notNullValue())
+            assertThat(transfer.previous, notNullValue())
+            assertThat(transfer.favourites, notNullValue())
         }
     }
 
@@ -52,11 +53,11 @@ class TransferBackupTest : DatabaseTestHelper() {
             val transfer = backupTransfer.transfer(databaseRepositoryDouble)
 //            val transferAsJson = GsonTestHelper().gson().toJson(transfer)
 
-            assertNotNull(transfer.settings)
-            assertEquals(transfer.settings.size, 1)
-            assertEquals(2, transfer.current.size)
-            assertEquals(2, transfer.previous.size)
-            assertEquals(2, transfer.favourites.size)
+            assertThat(transfer.settings, notNullValue())
+            assertThat(transfer.settings.size, equalTo(1))
+            assertThat(transfer.current.size, equalTo(2))
+            assertThat(transfer.previous.size, equalTo(2))
+            assertThat(transfer.favourites.size, equalTo(2))
         }
     }
 

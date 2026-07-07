@@ -3,15 +3,20 @@ package com.github.jameshnsears.quoteunquote.db.h;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.RewriteQueriesToDropUnusedColumns;
 
 import java.util.List;
 
 import io.reactivex.Single;
 
 @Dao
+@RewriteQueriesToDropUnusedColumns
 public interface FavouriteDAO {
     @Insert
     void markAsFavourite(FavouriteEntity favouriteEntity);
+
+    @Insert
+    void insertFavourites(List<FavouriteEntity> favourites);
 
     @Query("SELECT COUNT(*) FROM FAVOURITE")
     Single<Integer> countFavourites();

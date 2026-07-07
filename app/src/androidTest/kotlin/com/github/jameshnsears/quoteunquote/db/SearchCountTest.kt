@@ -4,8 +4,8 @@ import com.github.jameshnsears.quoteunquote.QuoteUnquoteModelUtility
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences
 import com.github.jameshnsears.quoteunquote.db.q.QuotationEntity
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 
 class SearchCountTest : QuoteUnquoteModelUtility() {
@@ -15,27 +15,29 @@ class SearchCountTest : QuoteUnquoteModelUtility() {
         quotationEntityList.add(QuotationEntity("d2345678", "w1", "aaa", "zzz1"))
         quotationEntityList.add(QuotationEntity("d3456789", "w1", "AAA", "ZZZ2"))
         quotationEntityList.add(QuotationEntity("d4567890", "w1", "bbb", "bbbaaa"))
-        databaseRepositoryDouble.insertQuotations(quotationEntityList)
+        databaseRepositoryDouble.insertQuotations(true, quotationEntityList)
 
         QuotationsPreferences(
             WidgetIdHelper.WIDGET_ID_01,
             context,
         )
 
-        assertEquals(
-            3,
-            quoteUnquoteModelDouble.getSearchQuotations(
-                "aaa",
-                false,
-            ).size,
+        assertThat(
+            quoteUnquoteModelDouble
+                .getSearchQuotations(
+                    "aaa",
+                    false,
+                ).size,
+            equalTo(3),
         )
 
-        assertEquals(
-            1,
-            quoteUnquoteModelDouble.getSearchQuotations(
-                "bBb",
-                false,
-            ).size,
+        assertThat(
+            quoteUnquoteModelDouble
+                .getSearchQuotations(
+                    "bBb",
+                    false,
+                ).size,
+            equalTo(1),
         )
     }
 
@@ -45,22 +47,24 @@ class SearchCountTest : QuoteUnquoteModelUtility() {
         quotationEntityList.add(QuotationEntity("d2345678", "w1", "aaa", "zzz1"))
         quotationEntityList.add(QuotationEntity("d3456789", "w1", "AAA", "ZZZ2"))
         quotationEntityList.add(QuotationEntity("d4567890", "w1", "bbb", "bbbaAA"))
-        databaseRepositoryDouble.insertQuotations(quotationEntityList)
+        databaseRepositoryDouble.insertQuotations(true, quotationEntityList)
 
         QuotationsPreferences(
             WidgetIdHelper.WIDGET_ID_01,
             context,
         )
 
-        assertTrue(
+        assertThat(
             quoteUnquoteModelDouble.countQuotationWithSearchText(
                 "aaa",
                 false,
-            ) ==
+            ),
+            equalTo(
                 quoteUnquoteModelDouble.countQuotationWithSearchTextRegEx(
                     "aaa",
                     false,
                 ),
+            ),
         )
     }
 }

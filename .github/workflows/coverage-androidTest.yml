@@ -33,7 +33,7 @@ jobs:
 
     steps:
       - name: Clone
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 1
           submodules: true
@@ -54,7 +54,7 @@ jobs:
         run: ./ci_clear_gradle_cache.sh
 
       - name: Cache Gradle
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             ~/.gradle/caches
@@ -68,7 +68,7 @@ jobs:
           api-level: ${{ env.API_LEVEL }}
 
       - name: Cache AVD
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         id: avd-cache
         with:
           path: |
@@ -118,6 +118,18 @@ jobs:
             adb logcat -c
             adb logcat > logcat.txt &
             ./gradlew ${{ matrix.gradle_task }} --stacktrace
+
+      - name: codecov
+        if: matrix.flavor == 'googleplay'
+        uses: codecov/codecov-action@v7
+        with:
+          fail_ci_if_error: true
+          files: ./app/build/reports/jacoco/googleplayDebug_connected.xml
+          flags: app-androidTest
+          verbose: true
+        env:
+          FLAVOR: $(echo "${{ matrix.flavor }}" | sed 's/.*/\u&/')
+          CODECOV_TOKEN: ${{ secrets.CODECOVIO_TOKEN }}
 
       - name: Upload logcat
         if: always()

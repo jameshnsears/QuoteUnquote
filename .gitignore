@@ -53,3 +53,4 @@ local.properties
 /.Quote, Unquote.vpp.lck
 release-github-notes.md
 .scannerwork
+/.idea/planningMode.xml

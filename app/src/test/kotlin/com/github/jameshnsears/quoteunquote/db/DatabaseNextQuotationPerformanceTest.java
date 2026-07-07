@@ -1,6 +1,7 @@
 package com.github.jameshnsears.quoteunquote.db;
 
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
 
 import androidx.annotation.NonNull;
@@ -177,7 +178,7 @@ public class DatabaseNextQuotationPerformanceTest {
             }
         }
 
-        assertEquals(2, countPrevious);
+        assertThat(countPrevious, is(2));
     }
 
     private void assertAllMinusPrevious(LinkedHashSet<String> allDigests, HashSet<String> previousDigests) {
@@ -187,7 +188,7 @@ public class DatabaseNextQuotationPerformanceTest {
                 fail(previousDigest);
             }
         }
-        assertEquals(maxAllDigests - maxPreviousDigests, allDigests.size());
+        assertThat(allDigests.size(), is(maxAllDigests - maxPreviousDigests));
     }
 
     private void assertAllMinusPrevious(List<String> allDigests, List<String> previousDigests) {
@@ -197,7 +198,7 @@ public class DatabaseNextQuotationPerformanceTest {
                 fail(previousDigest);
             }
         }
-        assertEquals(maxAllDigests - maxPreviousDigests, allDigests.size());
+        assertThat(allDigests.size(), is(maxAllDigests - maxPreviousDigests));
     }
 
     @NonNull

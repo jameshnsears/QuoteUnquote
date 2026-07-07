@@ -78,9 +78,7 @@ public class CloudServiceRestore extends CloudService {
 
                         transferRestore.restore(context, databaseRepository, transfer);
 
-                        databaseRepository.alignHistoryWithQuotations(widgetId, context);
-
-                        DatabaseRepository.useInternalDatabase = true;
+                        databaseRepository.alignHistoryWithQuotations(true, widgetId, context);
 
                         handler.post(() -> Toast.makeText(
                                 context,

@@ -7,12 +7,16 @@ import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 
+import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
@@ -103,6 +107,8 @@ public class ConfigureActivity extends AppCompatActivity {
     @Override
     public void onCreate(@Nullable final Bundle bundle) {
         Timber.d("onCreate");
+        launcherInvoked = false;
+        EdgeToEdge.enable(this);
         super.onCreate(bundle);
         init();
     }
@@ -129,16 +135,22 @@ public class ConfigureActivity extends AppCompatActivity {
         }
 
         activityConfigureBinding = ActivityConfigureBinding.inflate(this.getLayoutInflater());
-
         setContentView(activityConfigureBinding.getRoot());
 
-        WindowInsetsControllerCompat controller =
+        WindowInsetsControllerCompat windowInsetsController =
                 WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-        controller.hide(WindowInsetsCompat.Type.systemBars());
-        controller.setSystemBarsBehavior(
-                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        );
+        windowInsetsController.hide(WindowInsetsCompat.Type.statusBars());
+        windowInsetsController.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, windowInsets) -> {
+            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+            View appBarLayout = findViewById(R.id.appBarLayout);
+            appBarLayout.setPadding(appBarLayout.getPaddingLeft(), insets.top, appBarLayout.getPaddingRight(), appBarLayout.getPaddingBottom());
+
+            View bottomNav = findViewById(R.id.configureNavigation);
+            bottomNav.setPadding(bottomNav.getPaddingLeft(), bottomNav.getPaddingTop(), bottomNav.getPaddingRight(), insets.bottom);
+            return windowInsets;
+        });
 
         createListenerBottomNavigationView();
 

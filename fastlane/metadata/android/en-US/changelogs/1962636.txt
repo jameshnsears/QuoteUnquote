@@ -1,2 +1,0 @@
-- Incorporate correct adi-registration.properties for F-Droid SHA-256
-- Bump: dependencies to latest; IDE: Android Studio Panda 3 | 2025.3.3 Patch 1

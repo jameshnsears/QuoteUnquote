@@ -5,7 +5,9 @@ import com.github.jameshnsears.quoteunquote.cloud.transfer.backup.TransferBackup
 import com.github.jameshnsears.quoteunquote.cloud.transfer.backup.restore.TransferRestore
 import io.mockk.every
 import io.mockk.mockkObject
-import org.junit.Assert.assertTrue
+import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 
 class RestoreExternalTest : TransferRestoreUtility() {
@@ -30,9 +32,9 @@ class RestoreExternalTest : TransferRestoreUtility() {
 //            val restoreJson = TransferRestore().asJson(restoreTransfer)
 //            val backupJson = TransferBackup(context).asJson(backupTransfer)
 
-            assertTrue(backupTransfer.current.size == 2)
-            assertTrue(backupTransfer.favourites.size == 1)
-            assertTrue(backupTransfer.previous.size == 2)
+            assertThat(backupTransfer.current.size, equalTo(2))
+            assertThat(backupTransfer.favourites.size, equalTo(1))
+            assertThat(backupTransfer.previous.size, equalTo(2))
         }
     }
 
@@ -56,9 +58,9 @@ class RestoreExternalTest : TransferRestoreUtility() {
 //            val restoreJson = TransferRestore().asJson(restoreTransfer)
 //            val backupJson = TransferBackup(context).asJson(backupTransfer)
 
-            assertTrue(backupTransfer.current.size == 1)
-            assertTrue(backupTransfer.favourites.isEmpty())
-            assertTrue(backupTransfer.previous.size == 1)
+            assertThat(backupTransfer.current.size, equalTo(1))
+            assertThat(backupTransfer.favourites.isEmpty(), `is`(true))
+            assertThat(backupTransfer.previous.size, equalTo(1))
         }
     }
 }

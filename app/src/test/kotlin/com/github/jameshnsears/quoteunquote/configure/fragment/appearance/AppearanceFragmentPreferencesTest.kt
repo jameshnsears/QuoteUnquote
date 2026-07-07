@@ -1,72 +1,74 @@
 package com.github.jameshnsears.quoteunquote.configure.fragment.appearance
 
+import android.app.Application
 import android.os.Build
 import androidx.fragment.app.testing.launchFragment
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.github.jameshnsears.quoteunquote.R
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.style.AppearanceStyleFragmentDouble
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.style.dialog.StyleDialogAuthorDouble
 import com.github.jameshnsears.quoteunquote.configure.fragment.appearance.tabs.toolbar.AppearanceToolbarFragmentDouble
 import com.github.jameshnsears.quoteunquote.utils.logging.ShadowLoggingHelper
 import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
+import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.IsEqual.equalTo
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.TIRAMISU])
+@Config(sdk = [Build.VERSION_CODES.BAKLAVA], application = Application::class)
 class AppearanceFragmentPreferencesTest : ShadowLoggingHelper() {
     @Test
     fun confirmInitialAppearanceStylePreferences() {
-        with(launchFragment<AppearanceStyleFragmentDouble>()) {
-            onFragment { fragment ->
+        launchFragment<AppearanceStyleFragmentDouble>(themeResId = R.style.AppTheme).use { scenario ->
+            scenario.onFragment { fragment ->
                 fragment.setBackgroundColour()
-                assertEquals("#FFFFFFFF", fragment.appearancePreferences?.appearanceColour)
+                assertThat(fragment.appearancePreferences?.appearanceColour, equalTo("#FFFFFFFF"))
 
                 fragment.setTransparency()
                 assertThat(fragment.appearancePreferences?.appearanceTransparency, equalTo(-1))
 
                 fragment.setTextFamily()
-                assertEquals(
-                    "Sans Serif",
+                assertThat(
                     fragment.appearancePreferences?.appearanceTextFamily,
+                    equalTo("Sans Serif"),
                 )
 
                 fragment.setTextStyle()
-                assertEquals(
-                    "Italic",
+                assertThat(
                     fragment.appearancePreferences?.appearanceTextStyle,
+                    equalTo("Italic"),
                 )
             }
         }
     }
 
+    @Test
     fun confirmInitialTextPreferencesAuthor() {
-        with(launchFragment<StyleDialogAuthorDouble>()) {
-            onFragment { fragment ->
+        launchFragment<StyleDialogAuthorDouble>(themeResId = R.style.AppTheme).use { scenario ->
+            scenario.onFragment { fragment ->
                 fragment.setTextColour()
-                assertEquals(
-                    "#FF000000",
+                assertThat(
                     fragment.appearancePreferences?.appearanceAuthorTextColour,
+                    equalTo("#FF000000"),
                 )
 
                 fragment.setTextSize()
-                assertThat(fragment.appearancePreferences?.appearanceAuthorTextSize, equalTo(16))
+                assertThat(fragment.appearancePreferences?.appearanceAuthorTextSize, equalTo(18))
 
                 fragment.setTextHide()
-                assertTrue(fragment.appearancePreferences?.appearanceAuthorTextHide == false)
+                assertThat(fragment.appearancePreferences?.appearanceAuthorTextHide, `is`(false))
             }
         }
     }
 
     @Test
     fun confirmInitialToolbarPreferences() {
-        with(launchFragment<AppearanceToolbarFragmentDouble>()) {
-            onFragment { fragment ->
+        launchFragment<AppearanceToolbarFragmentDouble>(themeResId = R.style.AppTheme).use { scenario ->
+            scenario.onFragment { fragment ->
                 fragment.setToolbarColour()
                 assertThat(
                     fragment.appearancePreferences?.appearanceToolbarColour,
@@ -74,73 +76,73 @@ class AppearanceFragmentPreferencesTest : ShadowLoggingHelper() {
                 )
 
                 fragment.setToolbar()
-                assertTrue(fragment.appearancePreferences?.appearanceToolbarFirst == false)
-                assertTrue(fragment.appearancePreferences?.appearanceToolbarPrevious == true)
-                assertTrue(fragment.appearancePreferences?.appearanceToolbarFavourite == true)
-                assertTrue(fragment.appearancePreferences?.appearanceToolbarShare == false)
-                assertTrue(fragment.appearancePreferences?.appearanceToolbarJump == true)
-                assertTrue(fragment.appearancePreferences?.appearanceToolbarRandom == true)
-                assertTrue(fragment.appearancePreferences?.appearanceToolbarSequential == false)
+                assertThat(fragment.appearancePreferences?.appearanceToolbarFirst, `is`(false))
+                assertThat(fragment.appearancePreferences?.appearanceToolbarPrevious, `is`(true))
+                assertThat(fragment.appearancePreferences?.appearanceToolbarFavourite, `is`(true))
+                assertThat(fragment.appearancePreferences?.appearanceToolbarShare, `is`(false))
+                assertThat(fragment.appearancePreferences?.appearanceToolbarJump, `is`(true))
+                assertThat(fragment.appearancePreferences?.appearanceToolbarRandom, `is`(true))
+                assertThat(fragment.appearancePreferences?.appearanceToolbarSequential, `is`(false))
             }
         }
     }
 
     @Test
     fun confirmToolbarChangesToPreferences() {
-        with(launchFragment<AppearanceToolbarFragmentDouble>()) {
-            onFragment { fragment ->
+        launchFragment<AppearanceToolbarFragmentDouble>(themeResId = R.style.AppTheme).use { scenario ->
+            scenario.onFragment { fragment ->
                 fragment.fragmentAppearanceTabToolbarBinding?.toolbarSwitchFirst?.isChecked = true
-                assertTrue(fragment.appearancePreferences?.appearanceToolbarFirst == true)
+                assertThat(fragment.appearancePreferences?.appearanceToolbarFirst, `is`(true))
 
                 fragment.fragmentAppearanceTabToolbarBinding?.toolbarSwitchPrevious?.isChecked =
                     false
-                assertTrue(fragment.appearancePreferences?.appearanceToolbarPrevious == false)
+                assertThat(fragment.appearancePreferences?.appearanceToolbarPrevious, `is`(false))
 
                 fragment.fragmentAppearanceTabToolbarBinding?.toolbarSwitchToggleFavourite?.isChecked =
                     false
-                assertTrue(fragment.appearancePreferences?.appearanceToolbarFavourite == false)
+                assertThat(fragment.appearancePreferences?.appearanceToolbarFavourite, `is`(false))
 
                 fragment.fragmentAppearanceTabToolbarBinding?.toolbarSwitchShare?.isChecked = false
-                assertTrue(fragment.appearancePreferences?.appearanceToolbarShare == false)
+                assertThat(fragment.appearancePreferences?.appearanceToolbarShare, `is`(false))
 
                 fragment.fragmentAppearanceTabToolbarBinding?.toolbarSwitchNextRandom?.isChecked =
                     false
-                assertTrue(fragment.appearancePreferences?.appearanceToolbarRandom == false)
+                assertThat(fragment.appearancePreferences?.appearanceToolbarRandom, `is`(false))
 
                 fragment.fragmentAppearanceTabToolbarBinding?.toolbarSwitchNextSequential?.isChecked =
                     true
-                assertTrue(fragment.appearancePreferences?.appearanceToolbarSequential == true)
+                assertThat(fragment.appearancePreferences?.appearanceToolbarSequential, `is`(true))
             }
         }
     }
 
     @Test
     fun emptyDeletedStylePreferences() {
-        with(launchFragment<AppearanceStyleFragmentDouble>()) {
-            onFragment { fragment ->
+        launchFragment<AppearanceStyleFragmentDouble>(themeResId = R.style.AppTheme).use { scenario ->
+            scenario.onFragment { fragment ->
                 fragment.appearancePreferences?.appearanceTransparency = 5
                 fragment.setTransparency()
-                assertEquals(5, fragment.appearancePreferences?.appearanceTransparency)
+                assertThat(fragment.appearancePreferences?.appearanceTransparency, equalTo(5))
 
                 AppearancePreferences.delete(getApplicationContext(), WidgetIdHelper.WIDGET_ID_02)
-                assertEquals(5, fragment.appearancePreferences?.appearanceTransparency)
+                assertThat(fragment.appearancePreferences?.appearanceTransparency, equalTo(5))
 
                 AppearancePreferences.delete(getApplicationContext(), WidgetIdHelper.WIDGET_ID_01)
-                assertEquals(-1, fragment.appearancePreferences?.appearanceTransparency)
+                assertThat(fragment.appearancePreferences?.appearanceTransparency, equalTo(-1))
             }
         }
     }
 
     @Test
     fun emptyDisabledPreferences() {
-        with(launchFragment<AppearanceStyleFragmentDouble>()) {
-            onFragment { fragment ->
+        launchFragment<AppearanceStyleFragmentDouble>(themeResId = R.style.AppTheme).use { scenario ->
+            scenario.onFragment { fragment ->
                 fragment.appearancePreferences?.appearanceTransparency = 5
                 fragment.setTransparency()
-                assertEquals(5, fragment.appearancePreferences?.appearanceTransparency)
+                assertThat(fragment.appearancePreferences?.appearanceTransparency, equalTo(5))
 
                 AppearancePreferences.erase(getApplicationContext())
-                assertEquals(-1, fragment.appearancePreferences?.appearanceTransparency)
+                assertThat(fragment.appearancePreferences?.appearanceTransparency, equalTo(-1))
             }
         }
     }

@@ -8,7 +8,10 @@ import java.io.BufferedReader
 class SyncJsonSchemaValidation {
     // https://github.com/pwall567/json-kotlin-schema
     companion object {
-        fun isJsonValid(context: Context, json: String): Boolean {
+        fun isJsonValid(
+            context: Context,
+            json: String,
+        ): Boolean {
             val schema = JSONSchema.parse(getSchema(context))
 
             if (!schema.validate(json)) {

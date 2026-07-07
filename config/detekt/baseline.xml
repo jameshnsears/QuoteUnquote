@@ -8,37 +8,33 @@
     <ID>CyclomaticComplexMethod:ListViewLayoutIdHelper.kt$ListViewLayoutIdHelper.Companion$fun layoutIdForSansSerifCondensed( textStyle: String, center: Boolean, rightSource: Boolean, ): Int</ID>
     <ID>CyclomaticComplexMethod:ListViewLayoutIdHelper.kt$ListViewLayoutIdHelper.Companion$fun layoutIdForSansSerifMedium( textStyle: String, center: Boolean, rightSource: Boolean, ): Int</ID>
     <ID>CyclomaticComplexMethod:ListViewLayoutIdHelper.kt$ListViewLayoutIdHelper.Companion$fun layoutIdForSerif( textStyle: String, center: Boolean, rightSource: Boolean, ): Int</ID>
-    <ID>FunctionNaming:InPlaceEdit.kt$@Composable fun InPlaceEdit( filesCsvViewModel: FilesCsvViewModel, )</ID>
-    <ID>FunctionNaming:InPlaceEdit.kt$@Composable fun InPlaceEditList( filesCsvViewModel: FilesCsvViewModel, )</ID>
-    <ID>FunctionNaming:InPlaceEdit.kt$@Composable private fun InPlaceEditInstructions()</ID>
-    <ID>FunctionNaming:InPlaceEdit.kt$@Composable private fun InPlaceEditSaveDeleteButtons( filesCsvViewModel: FilesCsvViewModel, )</ID>
-    <ID>FunctionNaming:InPlaceEdit.kt$@Composable private fun InPlaceEditTextSourceQuotationFields( filesCsvViewModel: FilesCsvViewModel, )</ID>
-    <ID>FunctionNaming:InPlaceEdit.kt$@Composable private fun PreviewInPlaceEdit()</ID>
-    <ID>FunctionNaming:InPlaceEdit.kt$@Preview( apiLevel = 36, widthDp = 400, ) @Composable fun PreviewInPlaceEditLight()</ID>
-    <ID>FunctionNaming:InPlaceEdit.kt$@Preview( apiLevel = 36, widthDp = 400, showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, ) @Composable fun PreviewInPlaceEditDark()</ID>
     <ID>LongMethod:ContentExternalFileFragment.kt$ContentExternalFileFragment$private fun import( activityResult: ActivityResult, isCsvFile: Boolean, )</ID>
-    <ID>LongMethod:InPlaceEdit.kt$@Composable fun InPlaceEditList( filesCsvViewModel: FilesCsvViewModel, )</ID>
-    <ID>LongMethod:InPlaceEdit.kt$@Composable private fun InPlaceEditTextSourceQuotationFields( filesCsvViewModel: FilesCsvViewModel, )</ID>
+    <ID>LongMethod:InPlaceEdit.kt$@Composable fun inPlaceEditList(filesCsvViewModel: FilesCsvViewModel)</ID>
+    <ID>LongMethod:InPlaceEdit.kt$@Composable private fun inPlaceEditSaveDeleteButtons(filesCsvViewModel: FilesCsvViewModel)</ID>
+    <ID>LongMethod:InPlaceEdit.kt$@Composable private fun inPlaceEditTextSourceQuotationFields(filesCsvViewModel: FilesCsvViewModel)</ID>
+    <ID>LongMethod:ListViewLayoutIdHelperTest.kt$ListViewLayoutIdHelperTest$@Test fun layoutIdForCursive()</ID>
+    <ID>LongMethod:ListViewLayoutIdHelperTest.kt$ListViewLayoutIdHelperTest$@Test fun layoutIdForMonospace()</ID>
+    <ID>LongMethod:ListViewLayoutIdHelperTest.kt$ListViewLayoutIdHelperTest$@Test fun layoutIdForSansSerif()</ID>
+    <ID>LongMethod:ListViewLayoutIdHelperTest.kt$ListViewLayoutIdHelperTest$@Test fun layoutIdForSansSerifCondensed()</ID>
+    <ID>LongMethod:ListViewLayoutIdHelperTest.kt$ListViewLayoutIdHelperTest$@Test fun layoutIdForSansSerifMedium()</ID>
+    <ID>LongMethod:ListViewLayoutIdHelperTest.kt$ListViewLayoutIdHelperTest$@Test fun layoutIdForSerif()</ID>
+    <ID>LoopWithTooManyJumpStatements:TransferRestore.kt$TransferRestore$for</ID>
     <ID>MagicNumber:AutoCloudBackup.kt$AutoCloudBackup$1048500</ID>
-    <ID>MagicNumber:InPlaceEdit.kt$0xffcac4d0</ID>
     <ID>MagicNumber:Scraper.kt$Scraper$1000</ID>
-    <ID>MaxLineLength:ScraperTest.kt$ScraperTest$"But the God of all grace, who hath called us unto his eternal glory by Christ Jesus, after that ye have suffered a while, make you perfect, stablish, strengthen, settle"</ID>
-    <ID>NestedBlockDepth:TransferRestore.kt$TransferRestore$private fun restoreCurrent( context: Context, databaseRepository: DatabaseRepository, currentList: List&lt;Current&gt;, )</ID>
-    <ID>NestedBlockDepth:TransferRestore.kt$TransferRestore$private fun restorePrevious( context: Context, databaseRepository: DatabaseRepository, previousList: List&lt;Previous&gt;, )</ID>
     <ID>ReturnCount:ListViewLayoutIdHelper.kt$ListViewLayoutIdHelper.Companion$fun layoutIdForCursive( textStyle: String, center: Boolean, rightSource: Boolean, ): Int</ID>
     <ID>ReturnCount:ListViewLayoutIdHelper.kt$ListViewLayoutIdHelper.Companion$fun layoutIdForMonospace( textStyle: String, center: Boolean, rightSource: Boolean, ): Int</ID>
     <ID>ReturnCount:ListViewLayoutIdHelper.kt$ListViewLayoutIdHelper.Companion$fun layoutIdForSansSerif( textStyle: String, center: Boolean, rightSource: Boolean, ): Int</ID>
     <ID>ReturnCount:ListViewLayoutIdHelper.kt$ListViewLayoutIdHelper.Companion$fun layoutIdForSansSerifCondensed( textStyle: String, center: Boolean, rightSource: Boolean, ): Int</ID>
     <ID>ReturnCount:ListViewLayoutIdHelper.kt$ListViewLayoutIdHelper.Companion$fun layoutIdForSansSerifMedium( textStyle: String, center: Boolean, rightSource: Boolean, ): Int</ID>
     <ID>ReturnCount:ListViewLayoutIdHelper.kt$ListViewLayoutIdHelper.Companion$fun layoutIdForSerif( textStyle: String, center: Boolean, rightSource: Boolean, ): Int</ID>
+    <ID>SwallowedException:QuoteUnquoteWidgetTest.kt$QuoteUnquoteWidgetTest$e: Exception</ID>
     <ID>SwallowedException:Scraper.kt$Scraper$e: Exception</ID>
     <ID>SwallowedException:Scraper.kt$Scraper$e: ScraperXpathException</ID>
-    <ID>ThrowsCount:Scraper.kt$Scraper$private fun getXpath(document: Document, xpath: String): String</ID>
+    <ID>ThrowsCount:Scraper.kt$Scraper$private fun getXpath( document: Document, xpath: String, ): String</ID>
     <ID>TooGenericExceptionCaught:AutoCloudBackup.kt$AutoCloudBackup$e: Exception</ID>
     <ID>TooGenericExceptionCaught:Scraper.kt$Scraper$e: Exception</ID>
     <ID>TooManyFunctions:ContentExternalFileFragment.kt$ContentExternalFileFragment : ContentFragment</ID>
     <ID>TooManyFunctions:TransferRestore.kt$TransferRestore : TransferCommon</ID>
-    <ID>UnusedPrivateProperty:DatabaseQuotationsRandomTest.kt$DatabaseQuotationsRandomTest$i</ID>
     <ID>UtilityClassWithPublicConstructor:ListViewLayoutIdHelper.kt$ListViewLayoutIdHelper</ID>
     <ID>UtilityClassWithPublicConstructor:SyncJsonSchemaValidation.kt$SyncJsonSchemaValidation</ID>
   </CurrentIssues>

@@ -1,31 +1,71 @@
 <resources>
+    <!-- Seed color: #6750A4 -->
+
+    <!-- Light Theme -->
     <color name="material3_primary">#6750A4</color>
-    <color name="material3_primary_variant">#3700B3</color>
     <color name="material3_on_primary">#FFFFFF</color>
-
-    <color name="material3_secondary">#03DAC6</color>
-    <color name="material3_on_secondary">#000000</color>
-
-    <color name="material3_background">#FFFFFF</color>
-    <color name="material3_surface">#FFFFFF</color>
-    <color name="material3_on_surface">#000000</color>
-
-    <color name="material3_error">#B00020</color>
+    <color name="material3_primary_container">#EADDFF</color>
+    <color name="material3_on_primary_container">#21005D</color>
+    <color name="material3_secondary">#625B71</color>
+    <color name="material3_on_secondary">#FFFFFF</color>
+    <color name="material3_secondary_container">#E8DEF8</color>
+    <color name="material3_on_secondary_container">#1D192B</color>
+    <color name="material3_tertiary">#7D5260</color>
+    <color name="material3_on_tertiary">#FFFFFF</color>
+    <color name="material3_tertiary_container">#FFD8E4</color>
+    <color name="material3_on_tertiary_container">#31111D</color>
+    <color name="material3_error">#B3261E</color>
     <color name="material3_on_error">#FFFFFF</color>
+    <color name="material3_error_container">#F9DEDC</color>
+    <color name="material3_on_error_container">#410E0B</color>
+    <color name="material3_background">#FFFBFE</color>
+    <color name="material3_on_background">#1C1B1F</color>
+    <color name="material3_surface">#FFFBFE</color>
+    <color name="material3_on_surface">#1C1B1F</color>
+    <color name="material3_surface_variant">#E7E0EB</color>
+    <color name="material3_on_surface_variant">#49454F</color>
+    <color name="material3_outline">#79747E</color>
 
-    ////////////
+    <!-- Surface Container Colors (Light) -->
+    <color name="material3_surface_container_lowest">#FFFFFF</color>
+    <color name="material3_surface_container_low">#F7F2FA</color>
+    <color name="material3_surface_container">#F3EDF7</color>
+    <color name="material3_surface_container_high">#ECE6F0</color>
+    <color name="material3_surface_container_highest">#E6E0E9</color>
 
-    <color name="material3_primary_dark">#6750A4</color>
+    <!-- Dark Theme -->
+    <color name="material3_primary_dark">#D0BCFF</color>
+    <color name="material3_on_primary_dark">#381E72</color>
+    <color name="material3_primary_container_dark">#4F378B</color>
+    <color name="material3_on_primary_container_dark">#EADDFF</color>
+    <color name="material3_secondary_dark">#CCC2DC</color>
+    <color name="material3_on_secondary_dark">#332D41</color>
+    <color name="material3_secondary_container_dark">#4A4458</color>
+    <color name="material3_on_secondary_container_dark">#E8DEF8</color>
+    <color name="material3_tertiary_dark">#EFB8C8</color>
+    <color name="material3_on_tertiary_dark">#492532</color>
+    <color name="material3_tertiary_container_dark">#633B48</color>
+    <color name="material3_on_tertiary_container_dark">#FFD8E4</color>
+    <color name="material3_error_dark">#F2B8B5</color>
+    <color name="material3_on_error_dark">#601410</color>
+    <color name="material3_error_container_dark">#8C1D18</color>
+    <color name="material3_on_error_container_dark">#F9DEDC</color>
+    <color name="material3_background_dark">#1C1B1F</color>
+    <color name="material3_on_background_dark">#E6E1E5</color>
+    <color name="material3_surface_dark">#1C1B1F</color>
+    <color name="material3_on_surface_dark">#E6E1E5</color>
+    <color name="material3_surface_variant_dark">#49454F</color>
+    <color name="material3_on_surface_variant_dark">#CAC4D0</color>
+    <color name="material3_outline_dark">#938F99</color>
+
+    <!-- Surface Container Colors (Dark) -->
+    <color name="material3_surface_container_lowest_dark">#0F0D13</color>
+    <color name="material3_surface_container_low_dark">#1D1B20</color>
+    <color name="material3_surface_container_dark">#211F26</color>
+    <color name="material3_surface_container_high_dark">#2B2930</color>
+    <color name="material3_surface_container_highest_dark">#36343B</color>
+
+    <!-- Legacy / Compatibility -->
+    <color name="material3_primary_variant">#3700B3</color>
     <color name="material3_primary_variant_dark">#3700B3</color>
-    <color name="material3_on_primary_dark">#000000</color>
-
-    <color name="material3_secondary_dark">#03DAC6</color>
-    <color name="material3_on_secondary_dark">#000000</color>
-
-    <color name="material3_background_dark">#121212</color>
-    <color name="material3_surface_dark">#121212</color>
-    <color name="material3_on_surface_dark">#FFFFFF</color>
-
-    <color name="material3_error_dark">#CF6679</color>
-    <color name="material3_on_error_dark">#000000</color>
 </resources>

@@ -1,7 +1,8 @@
 package com.github.jameshnsears.quoteunquote.cloud.transfer.restore
 
 import com.github.jameshnsears.quoteunquote.cloud.transfer.backup.restore.TransferRestore
-import org.junit.Assert.assertEquals
+import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 
 class RestoreOntoNewDeviceTest : TransferRestoreUtility() {
@@ -10,31 +11,32 @@ class RestoreOntoNewDeviceTest : TransferRestoreUtility() {
         if (canWorkWithMockk()) {
             // set up
             setupWidgets(intArrayOf(1))
-            markDefaultQuotationAsFavourite()
+            markDefaultQuotationAsFavourite(true)
 
             // restore
             val restoreTransfer = getTransferAsset("restore_issue_405.json")
-            assertEquals(6, restoreTransfer.current.size)
-            assertEquals(242, restoreTransfer.favourites.size)
-            assertEquals(5616, restoreTransfer.previous.size)
-            assertEquals(6, restoreTransfer.settings.size)
+            assertThat(restoreTransfer.current.size, equalTo(6))
+            assertThat(restoreTransfer.favourites.size, equalTo(242))
+            assertThat(restoreTransfer.previous.size, equalTo(5616))
+            assertThat(restoreTransfer.settings.size, equalTo(6))
 
             val transferRestore = TransferRestore()
-            val singleWidgetIdRestore = transferRestore.newDeviceTransferTransformer(
-                restoreTransfer,
-            )
+            val singleWidgetIdRestore =
+                transferRestore.newDeviceTransferTransformer(
+                    restoreTransfer,
+                )
 
-            assertEquals(1, singleWidgetIdRestore.current.size)
-            assertEquals(242, singleWidgetIdRestore.favourites.size)
+            assertThat(singleWidgetIdRestore.current.size, equalTo(1))
+            assertThat(singleWidgetIdRestore.favourites.size, equalTo(242))
 
-            assertEquals(936, singleWidgetIdRestore.previous.size)
-            assertEquals("a6e84457", singleWidgetIdRestore.previous[0].digest)
-            assertEquals("81cc5827", singleWidgetIdRestore.previous[1].digest)
-            assertEquals("86957672", singleWidgetIdRestore.previous[2].digest)
-            assertEquals("7e0a6134", singleWidgetIdRestore.previous[3].digest)
-            assertEquals("5b6037fd", singleWidgetIdRestore.previous[4].digest)
+            assertThat(singleWidgetIdRestore.previous.size, equalTo(936))
+            assertThat(singleWidgetIdRestore.previous[0].digest, equalTo("a6e84457"))
+            assertThat(singleWidgetIdRestore.previous[1].digest, equalTo("81cc5827"))
+            assertThat(singleWidgetIdRestore.previous[2].digest, equalTo("86957672"))
+            assertThat(singleWidgetIdRestore.previous[3].digest, equalTo("7e0a6134"))
+            assertThat(singleWidgetIdRestore.previous[4].digest, equalTo("5b6037fd"))
 
-            assertEquals(1, singleWidgetIdRestore.settings.size)
+            assertThat(singleWidgetIdRestore.settings.size, equalTo(1))
 
 //            val restoreJson = TransferRestore().asJson(singleWidgetIdRestore)
         }

@@ -6,7 +6,7 @@ import org.junit.Test
 class WidgetToolbarShareTest : QuoteUnquoteModelUtility() {
     @Test
     fun onReceiveToolbarPressedShare() {
-        insertQuotationTestData01()
+        insertQuotationTestData01(true)
 
         val quoteUnquoteWidget = QuoteUnquoteWidget()
         quoteUnquoteWidget.quoteUnquoteModel = quoteUnquoteModelDouble

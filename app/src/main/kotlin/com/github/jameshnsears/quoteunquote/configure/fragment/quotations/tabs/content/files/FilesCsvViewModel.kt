@@ -4,15 +4,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteModel
 import com.github.jameshnsears.quoteunquote.db.q.QuotationEntity
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 
 class FilesCsvViewModel(
     val widgetId: Int,
     val quoteUnquoteModel: QuoteUnquoteModel,
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO,
 ) : ViewModel() {
     private val _list = MutableStateFlow<List<QuotationEntity>>(emptyList())
     val list: StateFlow<List<QuotationEntity>> = _list.asStateFlow()
@@ -30,10 +34,19 @@ class FilesCsvViewModel(
     val quotation: StateFlow<String> = _quotation.asStateFlow()
 
     init {
-        _list.value = quoteUnquoteModel.allQuotations
+        viewModelScope.launch {
+            _list.value =
+                withContext(ioDispatcher) {
+                    quoteUnquoteModel.allQuotations
+                }
+        }
     }
 
-    fun populateTextFields(digest: String = "", author: String = "", quotation: String = "") {
+    fun populateTextFields(
+        digest: String = "",
+        author: String = "",
+        quotation: String = "",
+    ) {
         _digest.value = digest
         _author.value = author
         _quotation.value = quotation
@@ -45,43 +58,51 @@ class FilesCsvViewModel(
 
     fun getSelectedIndex() = _selectedItemIndex.value
 
-    fun buttonSavePressed(): Int {
+    fun buttonSavePressed(onResult: (Int) -> Unit) {
         Timber.d("save")
 
-        val saveResponse: Int
+        viewModelScope.launch {
+            val saveResponse: Int
 
-        if (isDuplicate()) {
-            saveResponse = 2
-        } else {
-            if (digest.value.isEmpty()) {
-                viewModelScope.launch {
-                    quoteUnquoteModel.append(
+            if (withContext(ioDispatcher) {
+                    quoteUnquoteModel.isDuplicate(
                         _author.value,
                         _quotation.value,
                     )
-                    _list.value = quoteUnquoteModel.allQuotations
                 }
-
-                updateSelectedIndex()
-
-                saveResponse = 1
+            ) {
+                saveResponse = 2
             } else {
-                viewModelScope.launch {
-                    quoteUnquoteModel.update(
-                        _digest.value,
-                        _author.value,
-                        _quotation.value,
-                    )
-                    _list.value = quoteUnquoteModel.allQuotations
+                if (digest.value.isEmpty()) {
+                    withContext(ioDispatcher) {
+                        quoteUnquoteModel.append(
+                            _author.value,
+                            _quotation.value,
+                        )
+                        _list.value = quoteUnquoteModel.allQuotations
+                    }
 
                     updateSelectedIndex()
+
+                    saveResponse = 1
+                } else {
+                    withContext(ioDispatcher) {
+                        quoteUnquoteModel.update(
+                            _digest.value,
+                            _author.value,
+                            _quotation.value,
+                        )
+                        _list.value = quoteUnquoteModel.allQuotations
+                    }
+
+                    updateSelectedIndex()
+
+                    saveResponse = 0
                 }
-
-                saveResponse = 0
             }
-        }
 
-        return saveResponse
+            onResult(saveResponse)
+        }
     }
 
     fun updateSelectedIndex() {
@@ -95,26 +116,20 @@ class FilesCsvViewModel(
         }
     }
 
-    private fun isDuplicate(): Boolean {
-        return quoteUnquoteModel.isDuplicate(
-            _author.value,
-            _quotation.value,
-        )
-    }
-
     fun buttonDeletePressed() {
         Timber.d("delete")
 
         viewModelScope.launch {
-            quoteUnquoteModel.delete(
-                widgetId,
-                _digest.value,
-            )
-            _list.value = quoteUnquoteModel.allQuotations
+            withContext(ioDispatcher) {
+                quoteUnquoteModel.delete(
+                    widgetId,
+                    _digest.value,
+                )
+                _list.value = quoteUnquoteModel.allQuotations
+            }
+
+            setSelectedItemIndex()
+            populateTextFields()
         }
-
-        setSelectedItemIndex()
-
-        populateTextFields()
     }
 }

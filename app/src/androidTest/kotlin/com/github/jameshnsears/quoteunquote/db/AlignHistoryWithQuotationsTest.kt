@@ -2,7 +2,8 @@ package com.github.jameshnsears.quoteunquote.db
 
 import com.github.jameshnsears.quoteunquote.QuoteUnquoteModelUtility
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
-import org.junit.Assert.assertEquals
+import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 
 class AlignHistoryWithQuotationsTest : QuoteUnquoteModelUtility() {
@@ -14,6 +15,7 @@ class AlignHistoryWithQuotationsTest : QuoteUnquoteModelUtility() {
         val firstDigest = "d1234567"
 
         databaseRepositoryDouble.markAsPrevious(
+            true,
             1,
             ContentSelection.ALL,
             firstDigest,
@@ -22,31 +24,33 @@ class AlignHistoryWithQuotationsTest : QuoteUnquoteModelUtility() {
         val secondDigest = "d2345678"
 
         databaseRepositoryDouble.markAsCurrent(
+            true,
             1,
             secondDigest,
         )
 
         databaseRepositoryDouble.markAsPrevious(
+            true,
             1,
             ContentSelection.ALL,
             secondDigest,
         )
 
-        databaseRepositoryDouble.markAsFavourite(secondDigest)
+        databaseRepositoryDouble.markAsFavourite(true, secondDigest)
 
-        assertEquals(2, databaseRepositoryDouble.countPreviousCriteria(1))
+        assertThat(databaseRepositoryDouble.countPreviousCriteria(true, 1), equalTo(2))
 
         // act - execute code under test
 
-        databaseRepositoryDouble.eraseQuotation(secondDigest)
-        databaseRepositoryDouble.alignHistoryWithQuotations(1, context)
+        databaseRepositoryDouble.eraseQuotation(true, secondDigest)
+        databaseRepositoryDouble.alignHistoryWithQuotations(true, 1, context)
 
         // assert - test result
 
-        assertEquals(0, databaseRepositoryDouble.countFavourites().blockingGet())
+        assertThat(databaseRepositoryDouble.countFavourites(true).blockingGet(), equalTo(0))
 
-        assertEquals(1, databaseRepositoryDouble.countPreviousCriteria(1))
+        assertThat(databaseRepositoryDouble.countPreviousCriteria(true, 1), equalTo(1))
 
-        assertEquals(firstDigest, databaseRepositoryDouble.getCurrentQuotation(1).digest)
+        assertThat(databaseRepositoryDouble.getCurrentQuotation(true, 1).digest, equalTo(firstDigest))
     }
 }

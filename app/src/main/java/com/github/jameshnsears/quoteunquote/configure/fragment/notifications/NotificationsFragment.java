@@ -90,6 +90,7 @@ public class NotificationsFragment extends FragmentCommon {
 
                 notificationsPreferences.setCustomisableInterval(isChecked);
                 setCustomisableInterval();
+                ConfigureActivity.launcherInvoked = false;
             }
     );
 
@@ -183,6 +184,7 @@ public class NotificationsFragment extends FragmentCommon {
                 fragmentNotificationsBinding.checkBoxDailyAt.setChecked(false);
                 notificationsPreferences.setEventDaily(false);
             } else {
+                ConfigureActivity.launcherInvoked = false;
                 handleSpecialPermissionForExactAlarmCommon();
             }
         } else {
@@ -283,6 +285,17 @@ public class NotificationsFragment extends FragmentCommon {
             fragmentNotificationsBinding.textViewNotificationSizeWarning1.setEnabled(false);
         }
 
+        // On HyperOS 3 and similar ROMs, the system may proactively prompt for notification
+        // permission before the app requests it. Re-sync the UI to the actual permission state.
+        if (fragmentNotificationsBinding.radioButtonWhereAsNotification.isChecked()
+                && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(
+                    getContext(), Manifest.permission.POST_NOTIFICATIONS) !=
+                    PackageManager.PERMISSION_GRANTED) {
+                fragmentNotificationsBinding.radioButtonWhereInWidget.performClick();
+            }
+        }
+
         if (notificationsPreferences.getEventTtsUk()) {
             fragmentNotificationsBinding.switchTtsUk.setChecked(true);
             fragmentNotificationsBinding.switchTtsSystem.setChecked(false);
@@ -331,27 +344,30 @@ public class NotificationsFragment extends FragmentCommon {
 
                 fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(false);
                 fragmentNotificationsBinding.textViewNotificationSizeWarning1.setEnabled(false);
-
             }
 
             if (checkedId == R.id.radioButtonWhereAsNotification) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    if (ContextCompat.checkSelfPermission(
-                            getContext(), Manifest.permission.POST_NOTIFICATIONS) !=
-                            PackageManager.PERMISSION_GRANTED) {
+                notificationsPreferences.setEventDisplayWidget(false);
+                notificationsPreferences.setEventDisplayWidgetAndNotification(true);
 
-                        ConfigureActivity.launcherInvoked = true;
+                fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(true);
+                fragmentNotificationsBinding.switchTtsUk.setEnabled(true);
+                fragmentNotificationsBinding.switchTtsSystem.setEnabled(true);
 
-                        requestPermissionLauncherNotifications.launch(Manifest.permission.POST_NOTIFICATIONS);
-                    }
-                } else {
-                    notificationsPreferences.setEventDisplayWidgetAndNotification(true);
-                    fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(true);
-                    fragmentNotificationsBinding.switchTtsUk.setEnabled(true);
-                    fragmentNotificationsBinding.switchTtsSystem.setEnabled(true);
+                fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(true);
+                fragmentNotificationsBinding.textViewNotificationSizeWarning1.setEnabled(true);
+            }
+        });
 
-                    fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(true);
-                    fragmentNotificationsBinding.textViewNotificationSizeWarning1.setEnabled(true);
+        fragmentNotificationsBinding.radioButtonWhereAsNotification.setOnClickListener(view -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                if (ContextCompat.checkSelfPermission(
+                        getContext(), Manifest.permission.POST_NOTIFICATIONS) !=
+                        PackageManager.PERMISSION_GRANTED) {
+
+                    ConfigureActivity.launcherInvoked = true;
+
+                    requestPermissionLauncherNotifications.launch(Manifest.permission.POST_NOTIFICATIONS);
                 }
             }
         });
@@ -375,20 +391,18 @@ public class NotificationsFragment extends FragmentCommon {
     private void createListenerDaily() {
         final CheckBox checkBoxDailyAt = fragmentNotificationsBinding.checkBoxDailyAt;
         checkBoxDailyAt.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            createListenerDailyCommon(isChecked);
+        });
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        checkBoxDailyAt.setOnClickListener(view -> {
+            boolean isChecked = ((CheckBox) view).isChecked();
+            if (isChecked && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
                 if (!alarmManager.canScheduleExactAlarms()) {
                     ConfigureActivity.launcherInvoked = true;
                     startActivity(new Intent(ACTION_REQUEST_SCHEDULE_EXACT_ALARM));
-                } else {
-                    createListenerDailyCommon(isChecked);
                 }
-
-            } else {
-                createListenerDailyCommon(isChecked);
             }
-
         });
     }
 
@@ -431,22 +445,22 @@ public class NotificationsFragment extends FragmentCommon {
     private void createListenerCustomisableInterval() {
         final CheckBox checkBoxCustomisableInterval = fragmentNotificationsBinding.checkBoxCustomisableInterval;
         checkBoxCustomisableInterval.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            notificationsPreferences.setCustomisableInterval(isChecked);
+            setCustomisableInterval();
+
+            Timber.d("%b", isChecked);
+        });
+
+        checkBoxCustomisableInterval.setOnClickListener(view -> {
+            boolean isChecked = ((CheckBox) view).isChecked();
+            if (isChecked && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
                 if (!alarmManager.canScheduleExactAlarms()) {
                     ConfigureActivity.launcherInvoked = true;
                     Intent intent = new Intent(ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
                     requestExactAlarmLauncher.launch(intent);
-                } else {
-                    notificationsPreferences.setCustomisableInterval(isChecked);
-                    setCustomisableInterval();
                 }
-            } else {
-                notificationsPreferences.setCustomisableInterval(isChecked);
-                setCustomisableInterval();
             }
-
-            Timber.d("%b", isChecked);
         });
     }
 

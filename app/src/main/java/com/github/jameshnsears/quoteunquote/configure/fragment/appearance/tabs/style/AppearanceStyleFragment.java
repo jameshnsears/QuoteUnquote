@@ -89,7 +89,7 @@ public class AppearanceStyleFragment extends FragmentCommon {
         fragmentAppearanceTabStyleBinding
                 = FragmentAppearanceTabStyleBinding.inflate(inflater.cloneInContext(
                 new ContextThemeWrapper(
-                        getActivity(), com.google.android.material.R.style.Theme_MaterialComponents_DayNight)));
+                        getActivity(), com.google.android.material.R.style.Theme_Material3_DayNight)));
         return fragmentAppearanceTabStyleBinding.getRoot();
     }
 

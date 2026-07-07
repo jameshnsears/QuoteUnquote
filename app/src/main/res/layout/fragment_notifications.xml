@@ -1,447 +1,435 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:focusableInTouchMode="true"
-        android:orientation="vertical"
-        android:paddingStart="0dp"
-        android:paddingTop="0dp"
-        android:paddingEnd="5dp"
-        android:paddingBottom="0dp"
-        android:theme="@style/AppTheme">
-
-    <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="10dp"
-            android:paddingEnd="0dp">
-
-        <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingStart="0dp"
-                android:paddingEnd="10dp"
-                android:text="@string/fragment_notifications_title"
-                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                android:textSize="22sp"
-                android:textStyle="bold" />
-
-    </LinearLayout>
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    android:padding="0dp"
+    android:theme="@style/AppTheme">
 
     <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardViewNext"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="4dp"
-            app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true"
-            app:contentPadding="3dp"
-            app:strokeColor="?attr/colorOutline">
+        android:id="@+id/cardViewNext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="12dp"
+        app:cardBackgroundColor="?attr/colorSurfaceContainer"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="false"
+        app:contentPadding="3dp">
 
         <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="12dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
 
             <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="0dp"
-                    android:paddingBottom="5dp"
-                    android:text="@string/fragment_notifications_movement"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingEnd="0dp"
+                android:paddingBottom="5dp"
+                android:text="@string/fragment_notifications_movement"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <RadioGroup
-                    android:layout_width="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp">
+
+                <RadioButton
+                    android:id="@+id/radioButtonNextSequential"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp">
+                    android:drawableStart="@drawable/ic_toolbar_next_sequential_24"
+                    android:drawablePadding="20dp"
+                    android:paddingVertical="16dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/fragment_appearance_toolbar_next_sequential"
+                    android:textSize="16sp" />
 
                 <RadioButton
-                        android:id="@+id/radioButtonNextSequential"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_toolbar_next_sequential_24"
-                        android:drawablePadding="20dp"
-                        android:paddingVertical="10dp"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="0dp"
-                        android:text="@string/fragment_appearance_toolbar_next_sequential"
-                        android:textSize="16sp" />
-
-                <RadioButton
-                        android:id="@+id/radioButtonNextRandom"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="false"
-                        android:drawableStart="@drawable/ic_toolbar_next_random_24"
-                        android:drawablePadding="20dp"
-                        android:paddingVertical="10dp"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="0dp"
-                        android:text="@string/fragment_appearance_toolbar_next_random"
-                        android:textSize="16sp" />
+                    android:id="@+id/radioButtonNextRandom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:drawableStart="@drawable/ic_toolbar_next_random_24"
+                    android:drawablePadding="20dp"
+                    android:paddingVertical="16dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/fragment_appearance_toolbar_next_random"
+                    android:textSize="16sp" />
 
             </RadioGroup>
 
             <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="14dp"
-                    android:paddingTop="10dp"
-                    android:paddingEnd="10dp"
-                    android:paddingBottom="10dp"
-                    android:text="@string/fragment_notifications_notification_warning_info"
-                    app:drawableStartCompat="@drawable/ic_info_24" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="14dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="10dp"
+                android:text="@string/fragment_notifications_notification_warning_info"
+                app:drawableStartCompat="@drawable/ic_info_24" />
 
             <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="20dp"
-                    android:paddingTop="5dp"
-                    android:paddingEnd="10dp"
-                    android:paddingBottom="8dp"
-                    android:text="@string/fragment_appearance_toolbar_next_info" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="20dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="8dp"
+                android:text="@string/fragment_appearance_toolbar_next_info"
+                android:textAppearance="?attr/textAppearanceBodySmall" />
 
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardViewDisplay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="4dp"
-            app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true"
-            app:contentPadding="3dp"
-            app:strokeColor="?attr/colorOutline">
+        android:id="@+id/cardViewDisplay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="12dp"
+        app:cardBackgroundColor="?attr/colorSurfaceContainer"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="false"
+        app:contentPadding="3dp">
 
         <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="12dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
 
             <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="0dp"
-                    android:paddingBottom="5dp"
-                    android:text="@string/fragment_notifications_where"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingEnd="0dp"
+                android:paddingBottom="5dp"
+                android:text="@string/fragment_notifications_where"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <RadioGroup
-                    android:id="@+id/radioButtonDisplayGroup"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp">
+                android:id="@+id/radioButtonDisplayGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp">
 
                 <RadioButton
-                        android:id="@+id/radioButtonWhereInWidget"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="false"
-                        android:drawableStart="@drawable/ic_notifications_widgets_24"
-                        android:drawablePadding="20dp"
-                        android:paddingVertical="10dp"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="0dp"
-                        android:text="@string/fragment_notifications_widget"
-                        android:textSize="16sp" />
+                    android:id="@+id/radioButtonWhereInWidget"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:drawableStart="@drawable/ic_notifications_widgets_24"
+                    android:drawablePadding="20dp"
+                    android:paddingVertical="16dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/fragment_notifications_widget"
+                    android:textSize="16sp" />
 
                 <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="13dp">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="13dp">
 
                     <View
-                            android:layout_width="match_parent"
-                            android:layout_height="2dp"
-                            android:background="?android:attr/listDivider" />
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="?android:attr/listDivider" />
 
                 </LinearLayout>
 
                 <RadioButton
-                        android:id="@+id/radioButtonWhereAsNotification"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_notifications_notifications_24"
-                        android:drawablePadding="20dp"
-                        android:paddingVertical="10dp"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="0dp"
-                        android:text="@string/fragment_notifications_widget_and_notification"
-                        android:textSize="16sp" />
+                    android:id="@+id/radioButtonWhereAsNotification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_notifications_notifications_24"
+                    android:drawablePadding="20dp"
+                    android:paddingVertical="16dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/fragment_notifications_widget_and_notification"
+                    android:textSize="16sp" />
             </RadioGroup>
 
             <com.google.android.material.materialswitch.MaterialSwitch
-                    android:id="@+id/switchExcludeSourceFromNotification"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="14dp"
-                    android:paddingTop="10dp"
-                    android:paddingEnd="8dp"
-                    android:paddingBottom="16dp"
-                    android:text="@string/notification_action_exclude_source"
-                    android:textSize="16sp" />
+                android:id="@+id/switchExcludeSourceFromNotification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="16dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="8dp"
+                android:text="@string/notification_action_exclude_source"
+                android:textSize="16sp" />
 
             <com.google.android.material.materialswitch.MaterialSwitch
-                    android:id="@+id/switchTtsUk"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="16dp"
-                    android:paddingTop="16dp"
-                    android:paddingEnd="8dp"
-                    android:paddingBottom="16dp"
-                    android:text="@string/fragment_notifications_use_tts_uk"
-                    android:textSize="16sp" />
+                android:id="@+id/switchTtsUk"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="8dp"
+                android:text="@string/fragment_notifications_use_tts_uk"
+                android:textSize="16sp" />
 
             <com.google.android.material.materialswitch.MaterialSwitch
-                    android:id="@+id/switchTtsSystem"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="14dp"
-                    android:paddingTop="16dp"
-                    android:paddingEnd="8dp"
-                    android:paddingBottom="6dp"
-                    android:text="@string/fragment_notifications_use_tts_system_language"
-                    android:textSize="16sp" />
+                android:id="@+id/switchTtsSystem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="16dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="8dp"
+                android:text="@string/fragment_notifications_use_tts_system_language"
+                android:textSize="16sp" />
 
             <TextView
-                    android:id="@+id/textViewNotificationSizeWarningInfo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="14dp"
-                    android:paddingTop="10dp"
-                    android:paddingEnd="10dp"
-                    android:paddingBottom="10dp"
-                    android:text="@string/fragment_notifications_notification_warning_info"
-                    app:drawableStartCompat="@drawable/ic_info_24" />
+                android:id="@+id/textViewNotificationSizeWarningInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="14dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="10dp"
+                android:text="@string/fragment_notifications_notification_warning_info"
+                app:drawableStartCompat="@drawable/ic_info_24" />
 
             <TextView
-                    android:id="@+id/textViewNotificationSizeWarning1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="20dp"
-                    android:paddingTop="5dp"
-                    android:paddingEnd="10dp"
-                    android:paddingBottom="8dp"
-                    android:text="@string/fragment_notifications_notification_warning_1" />
+                android:id="@+id/textViewNotificationSizeWarning1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="20dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="8dp"
+                android:text="@string/fragment_notifications_notification_warning_1"
+                android:textAppearance="?attr/textAppearanceBodySmall" />
 
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardViewEvent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="4dp"
-            app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="true"
-            app:contentPadding="3dp"
-            app:strokeColor="?attr/colorOutline">
+        android:id="@+id/cardViewEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        app:cardBackgroundColor="?attr/colorSurfaceContainer"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="false"
+        app:contentPadding="3dp">
 
         <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="12dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
 
             <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="0dp"
-                    android:paddingBottom="5dp"
-                    android:text="@string/fragment_notifications_recurring_event"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingEnd="0dp"
+                android:paddingBottom="5dp"
+                android:text="@string/fragment_notifications_recurring_event"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="fill_vertical"
+                android:orientation="vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp">
+
+                <CheckBox
+                    android:id="@+id/checkBoxDeviceUnlock"
+                    style="@style/Widget.Material3.CompoundButton.CheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:drawableStart="@drawable/ic_notifications_unlock_24"
+                    android:drawablePadding="20dp"
+                    android:paddingVertical="16dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/fragment_notifications_screen_unlock"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="13dp">
+
+                    <View
+                        android:id="@+id/dividerTop"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="?android:attr/listDivider" />
+
+                </LinearLayout>
+
+                <CheckBox
+                    android:id="@+id/checkBoxCustomisableInterval"
+                    style="@style/Widget.Material3.CompoundButton.CheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:drawableStart="@drawable/ic_notifications_bihourly_24"
+                    android:drawablePadding="20dp"
+                    android:paddingVertical="16dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/fragment_notifications_customisable"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/textViewActivetime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="5dp"
+                    android:paddingStart="9dp"
+                    android:paddingEnd="20dp"
+                    android:text="@string/fragment_notifications_customisable_active_time"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp">
+
+                    <com.google.android.material.slider.RangeSlider
+                        android:id="@+id/slider_active_hours"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="16dp"
+                        android:stepSize="1"
+                        android:valueFrom="00"
+                        android:valueTo="23"
+                        app:values="@array/fragment_notifications_quiet_time_array" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="fill_vertical"
-                    android:orientation="vertical"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp">
-
-                <CheckBox
-                        android:id="@+id/checkBoxDeviceUnlock"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:drawableStart="@drawable/ic_notifications_unlock_24"
-                        android:drawablePadding="20dp"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="0dp"
-                        android:text="@string/fragment_notifications_screen_unlock"
-                        android:textSize="16sp" />
-
-                <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="13dp">
-
-                    <View
-                            android:id="@+id/dividerTop"
-                            android:layout_width="match_parent"
-                            android:layout_height="2dp"
-                            android:background="?android:attr/listDivider" />
-
-                </LinearLayout>
-
-                <CheckBox
-                        android:id="@+id/checkBoxCustomisableInterval"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:drawableStart="@drawable/ic_notifications_bihourly_24"
-                        android:drawablePadding="20dp"
-                        android:paddingStart="10dp"
-                        android:paddingEnd="0dp"
-                        android:text="@string/fragment_notifications_customisable"
-                        android:textSize="16sp" />
-
-                <TextView
-                        android:id="@+id/textViewActivetime"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="5dp"
-                        android:paddingStart="9dp"
-                        android:paddingEnd="20dp"
-                        android:text="@string/fragment_notifications_customisable_active_time"
-                        android:textSize="16sp" />
-
-                <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:paddingTop="5dp"
-                        android:paddingBottom="5dp">
-
-                    <com.google.android.material.slider.RangeSlider
-                            android:id="@+id/slider_active_hours"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingVertical="5dp"
-                            android:paddingTop="10dp"
-                            android:paddingBottom="0dp"
-                            android:stepSize="1"
-                            android:valueFrom="00"
-                            android:valueTo="23"
-                            app:values="@array/fragment_notifications_quiet_time_array" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="fill_vertical"
-                        android:orientation="horizontal"
-                        android:paddingStart="9dp"
-                        android:paddingTop="0dp"
-                        android:paddingEnd="0dp"
-                        android:paddingBottom="0dp">
+                    android:orientation="horizontal"
+                    android:paddingStart="9dp"
+                    android:paddingTop="0dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="0dp">
 
                     <TextView
-                            android:id="@+id/textViewCustomisableIntervalEvery"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:paddingVertical="5dp"
-                            android:paddingStart="0dp"
-                            android:paddingEnd="10dp"
-                            android:text="@string/fragment_notifications_customisable_every"
-                            android:textSize="16sp" />
+                        android:id="@+id/textViewCustomisableIntervalEvery"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingVertical="5dp"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="10dp"
+                        android:text="@string/fragment_notifications_customisable_every"
+                        android:textSize="16sp" />
 
                     <Spinner
-                            android:id="@+id/spinnerCustomisableIntervalHour"
-                            android:layout_width="wrap_content"
-                            android:layout_height="48dp"
-                            android:layout_gravity="center_vertical"
-                            android:entries="@array/fragment_notifications_customisable_hour"
-                            android:paddingStart="0dp"
-                            android:paddingEnd="5dp"
-                            android:spinnerMode="dropdown" />
+                        android:id="@+id/spinnerCustomisableIntervalHour"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical"
+                        android:entries="@array/fragment_notifications_customisable_hour"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="5dp"
+                        android:spinnerMode="dropdown" />
 
                     <TextView
-                            android:id="@+id/textViewCustomisableIntervalEveryHours"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:paddingVertical="5dp"
-                            android:paddingStart="0dp"
-                            android:paddingEnd="10dp"
-                            android:text="@string/fragment_notifications_customisable_every_hours"
-                            android:textSize="16sp" />
+                        android:id="@+id/textViewCustomisableIntervalEveryHours"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:paddingVertical="5dp"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="10dp"
+                        android:text="@string/fragment_notifications_customisable_every_hours"
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="20dp">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="20dp">
 
                     <View
-                            android:id="@+id/dividerBottom"
-                            android:layout_width="match_parent"
-                            android:layout_height="2dp"
-                            android:background="?android:attr/listDivider" />
+                        android:id="@+id/dividerBottom"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="?android:attr/listDivider" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingBottom="5dp">
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingBottom="5dp">
 
                     <CheckBox
-                            android:id="@+id/checkBoxDailyAt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:drawableStart="@drawable/ic_notifications_time_24"
-                            android:drawablePadding="20dp"
-                            android:paddingStart="10dp"
-                            android:paddingEnd="20dp"
-                            android:text="@string/fragment_notifications_time"
-                            android:textSize="16sp" />
+                        android:id="@+id/checkBoxDailyAt"
+                        style="@style/Widget.Material3.CompoundButton.CheckBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:drawableStart="@drawable/ic_notifications_time_24"
+                        android:drawablePadding="20dp"
+                        android:paddingVertical="16dp"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="20dp"
+                        android:text="@string/fragment_notifications_time"
+                        android:textSize="16sp" />
 
                     <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/specificTimeLayout"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:hint="@string/fragment_notifications_time_textfield"
-                            android:paddingBottom="5dp">
+                        android:id="@+id/specificTimeLayout"
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:hint="@string/fragment_notifications_time_textfield"
+                        android:paddingBottom="5dp">
 
                         <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/specificTime"
-                                android:layout_width="95dp"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center_vertical"
-                                android:clickable="true"
-                                android:focusable="true"
-                                android:inputType="time" />
+                            android:id="@+id/specificTime"
+                            android:layout_width="95dp"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:inputType="time" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 

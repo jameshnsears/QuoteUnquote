@@ -4,14 +4,15 @@ import android.os.Build
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.github.jameshnsears.quoteunquote.utils.logging.ShadowLoggingHelper
-import junit.framework.TestCase.assertTrue
+import org.hamcrest.CoreMatchers.`is`
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 import timber.log.Timber
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.TIRAMISU])
+@Config(sdk = [Build.VERSION_CODES.BAKLAVA])
 class DatabaseQuotationsRandomTest : ShadowLoggingHelper() {
     @Test
     fun getRandomIndex() {
@@ -24,12 +25,12 @@ class DatabaseQuotationsRandomTest : ShadowLoggingHelper() {
         stringList.add("4")
         stringList.add("5")
 
-        for (i in stringList.indices) {
+        repeat(stringList.size) {
             val rndIndex = databaseRepository.getRandomIndex(stringList)
             Timber.d("" + rndIndex)
 
-            assertTrue(rndIndex >= 0)
-            assertTrue(rndIndex <= stringList.size)
+            assertThat(rndIndex >= 0, `is`(true))
+            assertThat(rndIndex <= stringList.size, `is`(true))
         }
     }
 }

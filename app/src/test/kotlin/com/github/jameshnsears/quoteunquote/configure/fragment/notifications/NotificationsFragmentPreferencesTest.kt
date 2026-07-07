@@ -1,55 +1,59 @@
 package com.github.jameshnsears.quoteunquote.configure.fragment.notifications
 
+import android.app.Application
 import android.os.Build
 import androidx.fragment.app.testing.launchFragment
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.github.jameshnsears.quoteunquote.R
 import com.github.jameshnsears.quoteunquote.utils.logging.ShadowLoggingHelper
-import junit.framework.TestCase.assertTrue
 import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.core.IsEqual
+import org.hamcrest.core.IsEqual.equalTo
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 
 @RunWith(AndroidJUnit4::class)
-@Config(sdk = [Build.VERSION_CODES.TIRAMISU])
+@Config(sdk = [Build.VERSION_CODES.BAKLAVA], application = Application::class)
 class NotificationsFragmentPreferencesTest : ShadowLoggingHelper() {
     @Test
     fun confirmInitialPreferences() {
-        with(launchFragment<NotificationsFragmentDouble>()) {
-            onFragment { fragment ->
-                assertTrue(fragment.notificationsPreferences?.eventNextRandom == false)
-                assertTrue(fragment.notificationsPreferences?.eventNextSequential == true)
-                assertTrue(fragment.notificationsPreferences?.eventDisplayWidget == true)
-                assertTrue(fragment.notificationsPreferences?.eventDisplayWidgetAndNotification == false)
+        launchFragment<NotificationsFragmentDouble>(themeResId = R.style.AppTheme).use { scenario ->
+            scenario.onFragment { fragment ->
+                assertThat(fragment.notificationsPreferences?.eventNextRandom, equalTo(false))
+                assertThat(fragment.notificationsPreferences?.eventNextSequential, equalTo(true))
+                assertThat(fragment.notificationsPreferences?.eventDisplayWidget, equalTo(true))
+                assertThat(
+                    fragment.notificationsPreferences?.eventDisplayWidgetAndNotification,
+                    equalTo(false),
+                )
 
-                assertTrue(fragment.notificationsPreferences?.eventDeviceUnlock == false)
+                assertThat(fragment.notificationsPreferences?.eventDeviceUnlock, equalTo(false))
 
-                assertTrue(fragment.notificationsPreferences?.eventDaily == false)
+                assertThat(fragment.notificationsPreferences?.eventDaily, equalTo(false))
                 assertThat(
                     fragment.notificationsPreferences?.eventDailyTimeHour,
-                    IsEqual.equalTo(6),
+                    equalTo(6),
                 )
                 assertThat(
                     fragment.notificationsPreferences?.eventDailyTimeMinute,
-                    IsEqual.equalTo(0),
+                    equalTo(0),
                 )
-                assertTrue(fragment.notificationsPreferences?.customisableInterval == false)
+                assertThat(fragment.notificationsPreferences?.customisableInterval, equalTo(false))
             }
         }
     }
 
     @Test
     fun confirmChangesToPreferences() {
-        with(launchFragment<NotificationsFragmentDouble>()) {
-            onFragment { fragment ->
+        launchFragment<NotificationsFragmentDouble>(themeResId = R.style.AppTheme).use { scenario ->
+            scenario.onFragment { fragment ->
                 assertThat(
                     fragment.notificationsPreferences?.eventDailyTimeHour,
-                    IsEqual.equalTo(6),
+                    equalTo(6),
                 )
                 assertThat(
                     fragment.notificationsPreferences?.eventDailyTimeMinute,
-                    IsEqual.equalTo(0),
+                    equalTo(0),
                 )
 
                 fragment.notificationsPreferences?.eventDaily = true
@@ -58,11 +62,11 @@ class NotificationsFragmentPreferencesTest : ShadowLoggingHelper() {
 
                 assertThat(
                     fragment.notificationsPreferences?.eventDailyTimeHour,
-                    IsEqual.equalTo(7),
+                    equalTo(7),
                 )
                 assertThat(
                     fragment.notificationsPreferences?.eventDailyTimeMinute,
-                    IsEqual.equalTo(30),
+                    equalTo(30),
                 )
             }
         }

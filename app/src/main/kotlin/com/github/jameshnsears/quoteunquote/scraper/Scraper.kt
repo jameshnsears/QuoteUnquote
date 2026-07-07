@@ -9,11 +9,13 @@ import java.util.concurrent.TimeUnit
 
 class Scraper {
     companion object {
-        private val client = OkHttpClient.Builder()
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(30, TimeUnit.SECONDS)
-            .build()
+        private val client =
+            OkHttpClient
+                .Builder()
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
+                .build()
     }
 
     fun getDocumentFromResources(resource: String): Document {
@@ -39,13 +41,13 @@ class Scraper {
 
     fun requestBuilder(url: String): Request {
         // https://www.baeldung.com/okhttp-timeouts
-        return Request.Builder()
+        return Request
+            .Builder()
             .url(url)
             .header(
                 "User-Agent",
                 "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/110.0",
-            )
-            .header("Accept-Language", "en-US,en;q=0.5")
+            ).header("Accept-Language", "en-US,en;q=0.5")
             .build()
     }
 
@@ -75,7 +77,10 @@ class Scraper {
         }
     }
 
-    private fun getXpath(document: Document, xpath: String): String {
+    private fun getXpath(
+        document: Document,
+        xpath: String,
+    ): String {
         try {
             val xpathResult = document.selectXpath(xpath).text()
 

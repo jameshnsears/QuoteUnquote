@@ -1,0 +1,44 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./gradlew *test*)",
+      "Bash(./gradlew *Test*)",
+      "Bash(./gradlew *lint*)",
+      "Bash(./gradlew *check*)",
+      "Bash(./gradlew *assemble*)",
+      "Bash(./gradlew *build*)",
+      "Bash(./gradlew *spotless*)",
+      "Bash(./gradlew *ktlint*)",
+      "Bash(./gradlew *detekt*)",
+      "Bash(./gradlew tasks)",
+      "Bash(./gradlew --version)",
+      "Bash(git status)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git show *)",
+      "Bash(git branch *)",
+      "Bash(python3 *)",
+      "Bash(adb devices)",
+      "Bash(adb shell pm list packages*)",
+      "Bash(adb logcat *)",
+      "Bash(adb install *)",
+      "Bash(adb uninstall *)",
+      "Read(//**)",
+      "Bash(adb shell *)"
+    ],
+    "deny": [
+      "Read(//**/build/**)",
+      "Read(//**/.gradle/**)",
+      "Read(//**/.idea/**)",
+      "Read(//**/node_modules/**)",
+      "Read(//**.keystore)",
+      "Read(//**.jks)",
+      "Read(//**local.properties)",
+      "Read(//**/*secrets*/**)",
+      "Bash(git push *)",
+      "Bash(git reset --hard*)",
+      "Bash(rm -rf *)",
+      "Bash(sudo *)"
+    ]
+  }
+}

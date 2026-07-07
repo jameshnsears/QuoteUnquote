@@ -21,8 +21,11 @@ import com.github.jameshnsears.quoteunquote.BuildConfig
 import com.github.jameshnsears.quoteunquote.R
 import com.github.jameshnsears.quoteunquote.configure.ConfigureActivityDouble
 import junit.framework.AssertionFailedError
+import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.Matcher
-import org.junit.Assert.assertTrue
+import org.hamcrest.MatcherAssert.assertThat
+import org.junit.Assume.assumeTrue
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -34,68 +37,61 @@ class EspressoConfigurationTest {
     @JvmField
     var rule = ActivityScenarioRule(ConfigureActivityDouble::class.java)
 
-    private fun canTestBeRun(): Boolean {
-        return BuildConfig.FLAVOR.equals("espresso")
+    @Before
+    fun setUp() {
+        assumeTrue(BuildConfig.FLAVOR == "espresso")
     }
 
     @Test
     fun pressQuotations() {
-        if (canTestBeRun()) {
-            onView(withId(R.id.navigationBarQuotations))
-                .waitUntilVisible(2500)
-                .check(matches(isDisplayed()))
-        }
+        onView(withId(R.id.navigationBarQuotations))
+            .waitUntilVisible(2500)
+            .check(matches(isDisplayed()))
     }
 
     @Test
     fun pressAppearance() {
-        if (canTestBeRun()) {
-            onView(withId(R.id.navigationBarAppearance))
-                .waitUntilVisible(2500)
-                .perform(click())
-                .check(matches(isDisplayed()))
-        }
+        onView(withId(R.id.navigationBarAppearance))
+            .waitUntilVisible(2500)
+            .perform(click())
+            .check(matches(isDisplayed()))
     }
 
     @Test
     fun pressNotifications() {
-        if (canTestBeRun()) {
-            onView(withId(R.id.navigationBarNotification))
-                .waitUntilVisible(2500)
-                .perform(click())
-                .check(matches(isDisplayed()))
-        }
+        onView(withId(R.id.navigationBarNotification))
+            .waitUntilVisible(2500)
+            .perform(click())
+            .check(matches(isDisplayed()))
     }
 
     @Test
     fun pressSync() {
-        if (canTestBeRun()) {
-            onView(withId(R.id.navigationBarSync))
-                .waitUntilVisible(2500)
-                .perform(click())
-                .check(matches(isDisplayed()))
+        onView(withId(R.id.navigationBarSync))
+            .waitUntilVisible(2500)
+            .perform(click())
+            .check(matches(isDisplayed()))
 
-            onView(withId(R.id.radioButtonSyncGoogleCloud))
-                .check(matches(isChecked()))
+        onView(withId(R.id.radioButtonSyncGoogleCloud))
+            .check(matches(isChecked()))
 
-            onView(withId(R.id.radioButtonSyncDevice))
-                .check(matches(isNotChecked()))
+        onView(withId(R.id.radioButtonSyncDevice))
+            .check(matches(isNotChecked()))
 
-            onView(withId(R.id.buttonBackup))
-                .check(matches(isEnabled()))
+        onView(withId(R.id.buttonBackup))
+            .check(matches(isEnabled()))
 
-            onView(withId(R.id.buttonRestore))
-                .check(matches(isEnabled()))
+        onView(withId(R.id.buttonRestore))
+            .check(matches(isEnabled()))
 
-            val textViewLocalCodeValue = onView(withId(R.id.textViewLocalCodeValue))
-            assertTrue(getText(textViewLocalCodeValue).length == 10)
+        val textViewLocalCodeValue = onView(withId(R.id.textViewLocalCodeValue))
+        assertThat(getText(textViewLocalCodeValue).length == 10, `is`(true))
 
-            onView(withId(R.id.textViewLocalCodeValue))
-                .check(matches(isDisplayed()))
+        onView(withId(R.id.textViewLocalCodeValue))
+            .check(matches(isDisplayed()))
 
-            onView(withId(R.id.editTextRemoteCodeValue))
-                .check(matches(withText("")))
-        }
+        onView(withId(R.id.editTextRemoteCodeValue))
+            .check(matches(withText("")))
     }
 
     private fun ViewInteraction.waitUntilVisible(timeout: Long): ViewInteraction {
@@ -106,7 +102,7 @@ class EspressoConfigurationTest {
             try {
                 check(matches(isDisplayed()))
                 return this
-            } catch (e: AssertionFailedError) {
+            } catch (_: AssertionFailedError) {
                 Thread.sleep(50)
             }
         } while (System.currentTimeMillis() < endTime)
@@ -116,20 +112,21 @@ class EspressoConfigurationTest {
 
     private fun getText(matcher: ViewInteraction): String {
         var text = String()
-        matcher.perform(object : ViewAction {
-            override fun getConstraints(): Matcher<View> {
-                return isAssignableFrom(TextView::class.java)
-            }
+        matcher.perform(
+            object : ViewAction {
+                override fun getConstraints(): Matcher<View> = isAssignableFrom(TextView::class.java)
 
-            override fun getDescription(): String {
-                return "Text of the view"
-            }
+                override fun getDescription(): String = "Text of the view"
 
-            override fun perform(uiController: UiController, view: View) {
-                val tv = view as TextView
-                text = tv.text.toString()
-            }
-        })
+                override fun perform(
+                    uiController: UiController,
+                    view: View,
+                ) {
+                    val tv = view as TextView
+                    text = tv.text.toString()
+                }
+            },
+        )
 
         return text
     }

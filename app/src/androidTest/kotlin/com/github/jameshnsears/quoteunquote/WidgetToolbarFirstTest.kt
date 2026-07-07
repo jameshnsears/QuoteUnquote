@@ -8,7 +8,8 @@ import com.github.jameshnsears.quoteunquote.utils.widget.WidgetIdHelper
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.spyk
-import org.junit.Assert.assertEquals
+import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
 
 class WidgetToolbarFirstTest : QuoteUnquoteModelUtility() {
@@ -16,7 +17,7 @@ class WidgetToolbarFirstTest : QuoteUnquoteModelUtility() {
     private val appWidgetManager = mockk<AppWidgetManager>()
 
     fun setup() {
-        insertQuotationTestData01()
+        insertQuotationTestData01(true)
 
         every {
             quoteUnquoteWidget.getQuoteUnquoteModel(
@@ -41,8 +42,9 @@ class WidgetToolbarFirstTest : QuoteUnquoteModelUtility() {
             setup()
 
             databaseRepositoryDouble.markAsCurrent(
+                true,
                 WidgetIdHelper.WIDGET_ID_01,
-                getDefaultQuotation().digest,
+                getDefaultQuotation(true).digest,
             )
 
             val quotationsPreferences =
@@ -53,9 +55,9 @@ class WidgetToolbarFirstTest : QuoteUnquoteModelUtility() {
             quotationsPreferences.contentSelection = ContentSelection.ALL
 
             onReceiveToolbarPressedFirst(quoteUnquoteWidget, appWidgetManager)
-            assertEquals(
-                getDefaultQuotation().digest,
-                databaseRepositoryDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01).digest,
+            assertThat(
+                databaseRepositoryDouble.getCurrentQuotation(true, WidgetIdHelper.WIDGET_ID_01).digest,
+                equalTo(getDefaultQuotation(true).digest),
             )
         }
     }
@@ -72,7 +74,7 @@ class WidgetToolbarFirstTest : QuoteUnquoteModelUtility() {
                 )
             quotationsPreferences.contentSelection = ContentSelection.FAVOURITES
 
-            databaseRepositoryDouble.markAsFavourite(getDefaultQuotation().digest)
+            databaseRepositoryDouble.markAsFavourite(true, getDefaultQuotation(true).digest)
             onReceiveToolbarPressedFirst(quoteUnquoteWidget, appWidgetManager)
         }
     }
@@ -91,9 +93,9 @@ class WidgetToolbarFirstTest : QuoteUnquoteModelUtility() {
             quotationsPreferences.contentSelectionAuthor = "a0"
 
             onReceiveToolbarPressedFirst(quoteUnquoteWidget, appWidgetManager)
-            assertEquals(
-                DatabaseRepository.getDefaultQuotationDigest(),
-                databaseRepositoryDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01).digest,
+            assertThat(
+                databaseRepositoryDouble.getCurrentQuotation(true, WidgetIdHelper.WIDGET_ID_01).digest,
+                equalTo(DatabaseRepository.getDefaultQuotationDigest(true)),
             )
         }
     }
@@ -112,9 +114,9 @@ class WidgetToolbarFirstTest : QuoteUnquoteModelUtility() {
             quotationsPreferences.contentSelectionAuthor = "a0"
 
             onReceiveToolbarPressedFirst(quoteUnquoteWidget, appWidgetManager)
-            assertEquals(
-                DatabaseRepository.getDefaultQuotationDigest(),
-                databaseRepositoryDouble.getCurrentQuotation(WidgetIdHelper.WIDGET_ID_01).digest,
+            assertThat(
+                databaseRepositoryDouble.getCurrentQuotation(true, WidgetIdHelper.WIDGET_ID_01).digest,
+                equalTo(DatabaseRepository.getDefaultQuotationDigest(true)),
             )
         }
     }

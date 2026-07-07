@@ -1,115 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/AppTheme">
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        android:paddingStart="30dp"
+        android:paddingTop="30dp"
+        android:paddingEnd="30dp"
+        android:paddingBottom="10dp"
+        android:theme="@style/AppTheme">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:focusableInTouchMode="true"
-            android:orientation="vertical"
-            android:paddingStart="30dp"
-            android:paddingTop="30dp"
-            android:paddingEnd="30dp"
-            android:paddingBottom="10dp"
-            android:theme="@style/AppTheme">
-
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="5dp">
+            android:orientation="horizontal"
+            android:paddingTop="5dp">
 
             <TextView
-                    android:id="@+id/textViewTextColour"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:paddingVertical="5dp"
-                    android:paddingStart="0dp"
-                    android:paddingTop="0dp"
-                    android:paddingEnd="10dp"
-                    android:paddingBottom="5dp"
-                    android:text="@string/fragment_appearance_colour"
-                    android:textSize="16sp" />
+                android:id="@+id/textViewTextColour"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingVertical="5dp"
+                android:paddingStart="0dp"
+                android:paddingTop="0dp"
+                android:paddingEnd="10dp"
+                android:paddingBottom="5dp"
+                android:text="@string/fragment_appearance_colour"
+                android:textSize="16sp" />
 
             <Button
-                    android:id="@+id/textColourPickerButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center"
-                    android:paddingStart="0dp"
-                    android:paddingEnd="5dp"
-                    android:textColor="@android:color/white"
-                    app:strokeColor="?attr/colorPrimary"
-                    app:strokeWidth="1dp"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                android:id="@+id/textColourPickerButton"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:paddingStart="0dp"
+                android:paddingEnd="5dp"
+                android:textColor="@android:color/white"
+                app:strokeColor="?attr/colorPrimary"
+                app:strokeWidth="1dp"
+                tools:ignore="SpeakableTextPresentCheck" />
 
         </LinearLayout>
 
         <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="5dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="5dp">
 
             <TextView
-                    android:id="@+id/textViewSize"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:paddingVertical="5dp"
-                    android:paddingStart="0dp"
-                    android:paddingEnd="10dp"
-                    android:text="@string/fragment_appearance_size"
-                    android:textSize="16sp" />
+                android:id="@+id/textViewSize"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingVertical="5dp"
+                android:paddingStart="0dp"
+                android:paddingEnd="10dp"
+                android:text="@string/fragment_appearance_size"
+                android:textSize="16sp" />
 
             <Spinner
-                    android:id="@+id/spinnerSize"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center_vertical"
-                    android:entries="@array/fragment_appearance_size_array"
-                    android:paddingStart="0dp"
-                    android:paddingEnd="5dp"
-                    android:spinnerMode="dropdown" />
+                android:id="@+id/spinnerSize"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="center_vertical"
+                android:entries="@array/fragment_appearance_size_array"
+                android:paddingStart="0dp"
+                android:paddingEnd="5dp"
+                android:spinnerMode="dropdown" />
 
         </LinearLayout>
 
         <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <com.google.android.material.materialswitch.MaterialSwitch
-                    android:id="@+id/switchHideAuthor"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:checked="false"
-                    android:paddingVertical="10dp"
-                    android:text="@string/fragment_appearance_style_text_dialog_visibility"
-                    android:textSize="16sp"
-                    tools:ignore="TextContrastCheck" />
+                android:id="@+id/switchHideAuthor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:paddingVertical="16dp"
+                android:text="@string/fragment_appearance_style_text_dialog_visibility"
+                android:textSize="16sp"
+                tools:ignore="TextContrastCheck" />
         </LinearLayout>
 
         <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <com.google.android.material.materialswitch.MaterialSwitch
-                    android:id="@+id/switchHidePosition"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:checked="false"
-                    android:paddingVertical="10dp"
-                    android:text="@string/fragment_appearance_style_text_dialog_visibility"
-                    android:textSize="16sp"
-                    tools:ignore="TextContrastCheck" />
+                android:id="@+id/switchHidePosition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:paddingVertical="16dp"
+                android:text="@string/fragment_appearance_style_text_dialog_visibility"
+                android:textSize="16sp"
+                tools:ignore="TextContrastCheck" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

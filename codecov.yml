@@ -1,0 +1,10 @@
+ignore:
+  - "**/test/**"
+  - "**/build/**"
+
+flags:
+  app-androidTest:
+    carryforward: false
+
+  app-unitTest:
+    carryforward: false

@@ -1,25 +1,54 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Primary brand color -->
+        <!-- Primary color -->
         <item name="colorPrimary">@color/material3_primary_dark</item>
-        <item name="colorPrimaryVariant">@color/material3_primary_variant_dark</item>
         <item name="colorOnPrimary">@color/material3_on_primary_dark</item>
+        <item name="colorPrimaryContainer">@color/material3_primary_container_dark</item>
+        <item name="colorOnPrimaryContainer">@color/material3_on_primary_container_dark</item>
 
-        <!-- Secondary brand color -->
+        <!-- Secondary color -->
         <item name="colorSecondary">@color/material3_secondary_dark</item>
         <item name="colorOnSecondary">@color/material3_on_secondary_dark</item>
+        <item name="colorSecondaryContainer">@color/material3_secondary_container_dark</item>
+        <item name="colorOnSecondaryContainer">@color/material3_on_secondary_container_dark</item>
 
-        <!-- Background color -->
-        <item name="android:colorBackground">@color/material3_background_dark</item>
-
-        <!-- Surface color -->
-        <item name="colorSurface">@color/material3_surface_dark</item>
-        <item name="colorOnSurface">@color/material3_on_surface_dark</item>
+        <!-- Tertiary color -->
+        <item name="colorTertiary">@color/material3_tertiary_dark</item>
+        <item name="colorOnTertiary">@color/material3_on_tertiary_dark</item>
+        <item name="colorTertiaryContainer">@color/material3_tertiary_container_dark</item>
+        <item name="colorOnTertiaryContainer">@color/material3_on_tertiary_container_dark</item>
 
         <!-- Error color -->
         <item name="colorError">@color/material3_error_dark</item>
         <item name="colorOnError">@color/material3_on_error_dark</item>
+        <item name="colorErrorContainer">@color/material3_error_container_dark</item>
+        <item name="colorOnErrorContainer">@color/material3_on_error_container_dark</item>
+
+        <!-- Background color -->
+        <item name="android:colorBackground">@color/material3_background_dark</item>
+        <item name="colorOnBackground">@color/material3_on_background_dark</item>
+
+        <!-- Surface color -->
+        <item name="colorSurface">@color/material3_surface_dark</item>
+        <item name="colorOnSurface">@color/material3_on_surface_dark</item>
+        <item name="colorSurfaceVariant">@color/material3_surface_variant_dark</item>
+        <item name="colorOnSurfaceVariant">@color/material3_on_surface_variant_dark</item>
+
+        <!-- Surface Container colors -->
+        <item name="colorSurfaceContainerLowest">@color/material3_surface_container_lowest_dark</item>
+        <item name="colorSurfaceContainerLow">@color/material3_surface_container_low_dark</item>
+        <item name="colorSurfaceContainer">@color/material3_surface_container_dark</item>
+        <item name="colorSurfaceContainerHigh">@color/material3_surface_container_high_dark</item>
+        <item name="colorSurfaceContainerHighest">@color/material3_surface_container_highest_dark</item>
+
+        <!-- Outline color -->
+        <item name="colorOutline">@color/material3_outline_dark</item>
+
+        <!-- Compatibility -->
+        <item name="colorPrimaryVariant">@color/material3_primary_variant_dark</item>
+
+        <item name="materialSwitchStyle">@style/Widget.App.MaterialSwitch</item>
     </style>
 
     <style name="TabSize" parent="TextAppearance.Design.Tab">

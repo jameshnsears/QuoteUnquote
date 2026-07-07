@@ -14,7 +14,9 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.sync.SyncPreferen
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 
 // Settings are set on demand in the UI
-open class TransferBackupSettings(val context: Context) {
+open class TransferBackupSettings(
+    val context: Context,
+) {
     fun settings(): List<Settings> {
         val settingsList = mutableListOf<Settings>()
 
@@ -35,7 +37,10 @@ open class TransferBackupSettings(val context: Context) {
         return settingsList
     }
 
-    fun settingsSync(widgetId: Int, context: Context): Sync {
+    fun settingsSync(
+        widgetId: Int,
+        context: Context,
+    ): Sync {
         val syncPreferences = SyncPreferences(widgetId, context)
 
         return Sync(
@@ -43,7 +48,10 @@ open class TransferBackupSettings(val context: Context) {
         )
     }
 
-    fun settingsQuotations(widgetId: Int, context: Context): Quotations {
+    fun settingsQuotations(
+        widgetId: Int,
+        context: Context,
+    ): Quotations {
         val quotationPreferences = QuotationsPreferences(widgetId, context)
 
         var all = false
@@ -61,18 +69,14 @@ open class TransferBackupSettings(val context: Context) {
             quotationPreferences.contentAddToPreviousAll,
             all,
             quotationPreferences.contentSelectionAllExclusion,
-
             author,
             quotationPreferences.contentSelectionAuthorCount,
             quotationPreferences.contentSelectionAuthor,
-
             favourites,
-
             search,
             quotationPreferences.contentSelectionSearchFavouritesOnly,
             quotationPreferences.contentSelectionSearchCount,
             quotationPreferences.contentSelectionSearch,
-
             quotationPreferences.databaseInternal,
             quotationPreferences.databaseExternalCsv,
             quotationPreferences.databaseExternalWeb,
@@ -83,7 +87,10 @@ open class TransferBackupSettings(val context: Context) {
         )
     }
 
-    fun settingsAppearance(widgetId: Int, context: Context): Appearance {
+    fun settingsAppearance(
+        widgetId: Int,
+        context: Context,
+    ): Appearance {
         val appearancePreferences = AppearancePreferences(widgetId, context)
 
         if (appearancePreferences.appearanceTextCenter == appearancePreferences.appearanceTextRightSource) {
@@ -99,18 +106,14 @@ open class TransferBackupSettings(val context: Context) {
             appearancePreferences.appearanceTextForceItalicRegular,
             appearancePreferences.appearanceTextCenter,
             appearancePreferences.appearanceTextRightSource,
-
             appearancePreferences.appearanceQuotationTextSize,
             appearancePreferences.appearanceQuotationTextColour,
-
             appearancePreferences.appearanceAuthorTextSize,
             appearancePreferences.appearanceAuthorTextColour,
             appearancePreferences.appearanceAuthorTextHide,
-
             appearancePreferences.appearancePositionTextSize,
             appearancePreferences.appearancePositionTextColour,
             appearancePreferences.appearancePositionTextHide,
-
             appearancePreferences.appearanceForceFollowSystemTheme,
             appearancePreferences.appearanceToolbarColour,
             appearancePreferences.appearanceToolbarFirst,
@@ -125,7 +128,10 @@ open class TransferBackupSettings(val context: Context) {
         )
     }
 
-    fun settingsSchedule(widgetId: Int, context: Context): Schedule {
+    fun settingsSchedule(
+        widgetId: Int,
+        context: Context,
+    ): Schedule {
         val notificationsPreferences =
             NotificationsPreferences(
                 widgetId,

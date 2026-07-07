@@ -1,131 +1,131 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/quote_unquote_widget_rounded_corners_day"
-        android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="2dp"
-        tools:viewBindingIgnore="true">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/quote_unquote_widget_rounded_corners_day"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="2dp"
+    tools:viewBindingIgnore="true">
 
     <LinearLayout
-            android:id="@+id/linearLayoutQuotation"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
+        android:id="@+id/linearLayoutQuotation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewRowQuotation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:orientation="vertical">
+                android:fontFamily="sans-serif"
+                android:gravity="center_horizontal"
+                android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+                android:paddingTop="5dp"
+                android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
+                android:text="@string/preview_quotation"
+                android:textAllCaps="false"
+                android:textAppearance="?android:attr/textAppearanceListItemSmall"
+                android:textStyle="italic" />
 
             <TextView
-                    android:id="@+id/textViewRowQuotation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:gravity="center_horizontal"
-                    android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-                    android:paddingTop="5dp"
-                    android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
-                    android:text="@string/preview_quotation"
-                    android:textAllCaps="false"
-                    android:textAppearance="?android:attr/textAppearanceListItemSmall"
-                    android:textStyle="italic" />
-
-            <TextView
-                    android:id="@+id/textViewRowAuthor"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif"
-                    android:gravity="center_horizontal"
-                    android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-                    android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
-                    android:text="@string/preview_author"
-                    android:textAllCaps="false"
-                    android:textAppearance="?android:attr/textAppearanceListItemSmall"
-                    android:textStyle="italic" />
+                android:id="@+id/textViewRowAuthor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:gravity="center_horizontal"
+                android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+                android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
+                android:text="@string/preview_author"
+                android:textAllCaps="false"
+                android:textAppearance="?android:attr/textAppearanceListItemSmall"
+                android:textStyle="italic" />
 
         </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
-            android:id="@+id/linearLayoutToolbar"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
+        android:id="@+id/linearLayoutToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@android:color/white"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/imageButtonFirst"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@android:color/white"
-            android:orientation="horizontal">
+            android:contentDescription="@string/fragment_appearance_toolbar_first"
+            android:src="@drawable/ic_toolbar_first_ff000000_24"
+            android:visibility="gone" />
 
         <ImageButton
-                android:id="@+id/imageButtonFirst"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/white"
-                android:contentDescription="@string/fragment_appearance_toolbar_first"
-                android:src="@drawable/ic_toolbar_first_ff000000_24"
-                android:visibility="gone" />
+            android:id="@+id/imageButtonPrevious"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:contentDescription="@string/fragment_appearance_toolbar_previous"
+            android:src="@drawable/ic_toolbar_previous_ff000000_24" />
 
         <ImageButton
-                android:id="@+id/imageButtonPrevious"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/white"
-                android:contentDescription="@string/fragment_appearance_toolbar_previous"
-                android:src="@drawable/ic_toolbar_previous_ff000000_24" />
+            android:id="@+id/imageButtonFavourite"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:contentDescription="@string/fragment_appearance_toolbar_favourite"
+            android:src="@drawable/ic_toolbar_favorite_ff000000_24" />
 
         <ImageButton
-                android:id="@+id/imageButtonFavourite"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/white"
-                android:contentDescription="@string/fragment_appearance_toolbar_favourite"
-                android:src="@drawable/ic_toolbar_favorite_ff000000_24" />
+            android:id="@+id/imageButtonShare"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:contentDescription="@string/fragment_appearance_toolbar_share"
+            android:src="@drawable/ic_toolbar_share_ff000000_24"
+            android:visibility="gone" />
 
         <ImageButton
-                android:id="@+id/imageButtonShare"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/white"
-                android:contentDescription="@string/fragment_appearance_toolbar_share"
-                android:src="@drawable/ic_toolbar_share_ff000000_24"
-                android:visibility="gone" />
+            android:id="@+id/imageButtonJump"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:contentDescription="@string/fragment_appearance_toolbar_position_indicator"
+            android:src="@drawable/ic_toolbar_jump_ff000000_24" />
 
         <ImageButton
-                android:id="@+id/imageButtonJump"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/white"
-                android:contentDescription="@string/fragment_appearance_toolbar_position_indicator"
-                android:src="@drawable/ic_toolbar_jump_ff000000_24" />
+            android:id="@+id/imageButtonNextSequential"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:contentDescription="@string/fragment_appearance_toolbar_next_sequential"
+            android:src="@drawable/ic_toolbar_next_sequential_ff000000_24"
+            android:visibility="gone" />
 
         <ImageButton
-                android:id="@+id/imageButtonNextSequential"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/white"
-                android:contentDescription="@string/fragment_appearance_toolbar_next_sequential"
-                android:src="@drawable/ic_toolbar_next_sequential_ff000000_24"
-                android:visibility="gone" />
-
-        <ImageButton
-                android:id="@+id/imageButtonNextRandom"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@android:color/white"
-                android:contentDescription="@string/fragment_appearance_toolbar_next_random"
-                android:src="@drawable/ic_toolbar_next_random_ff000000_24" />
+            android:id="@+id/imageButtonNextRandom"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:contentDescription="@string/fragment_appearance_toolbar_next_random"
+            android:src="@drawable/ic_toolbar_next_random_ff000000_24" />
 
     </LinearLayout>
 

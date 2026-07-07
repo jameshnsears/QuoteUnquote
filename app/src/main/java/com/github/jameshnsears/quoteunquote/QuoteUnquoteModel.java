@@ -48,6 +48,8 @@ public class QuoteUnquoteModel {
     @Nullable
     protected Context context;
 
+    protected boolean useInternalDatabase = true;
+
     public QuoteUnquoteModel() {
     }
 
@@ -57,25 +59,25 @@ public class QuoteUnquoteModel {
 
         if (widgetId != -1) {
             QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, context);
-            if (quotationsPreferences.getDatabaseInternal()) {
-                DatabaseRepository.useInternalDatabase = true;
-            } else {
-                DatabaseRepository.useInternalDatabase = false;
-            }
+            useInternalDatabase = quotationsPreferences.getDatabaseInternal();
         }
     }
 
-    private boolean isNextNew(
-            final int widgetId, @NonNull QuotationsPreferences quotationsPreferences, final boolean randomNext) {
-        int availableQuotations = databaseRepository.countNext(quotationsPreferences);
+    public void setUseInternalDatabase(boolean useInternalDatabase) {
+        this.useInternalDatabase = useInternalDatabase;
+    }
 
-        if (databaseRepository.findPositionInPrevious(widgetId, quotationsPreferences) == availableQuotations) {
+    private boolean isNextNew(
+        final int widgetId, @NonNull QuotationsPreferences quotationsPreferences, final boolean randomNext) {
+        int availableQuotations = databaseRepository.countNext(useInternalDatabase, quotationsPreferences);
+
+        if (databaseRepository.findPositionInPrevious(useInternalDatabase, widgetId, quotationsPreferences) == availableQuotations) {
             return false;
         }
 
         return !randomNext
-                || databaseRepository.countPreviousCriteria(widgetId, quotationsPreferences.getContentSelection())
-                != availableQuotations;
+            || databaseRepository.countPreviousCriteria(useInternalDatabase, widgetId, quotationsPreferences.getContentSelection())
+            != availableQuotations;
     }
 
     @NonNull
@@ -85,10 +87,10 @@ public class QuoteUnquoteModel {
 
     @Nullable
     public QuotationEntity getPreviousQuotation(
-            final int widgetId,
-            @NonNull final ContentSelection contentSelection,
-            @NonNull final String digest,
-            @NonNull final String criteria) {
+        final int widgetId,
+        @NonNull final ContentSelection contentSelection,
+        @NonNull final String digest,
+        @NonNull final String criteria) {
 
         final Future<QuotationEntity> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
 
@@ -99,7 +101,7 @@ public class QuoteUnquoteModel {
                 priorDigestIndex -= 1;
             }
 
-            return databaseRepository.getQuotation(previousDigests.get(priorDigestIndex));
+            return databaseRepository.getQuotation(useInternalDatabase, previousDigests.get(priorDigestIndex));
         });
 
         QuotationEntity quotationEntity = null;
@@ -120,10 +122,11 @@ public class QuoteUnquoteModel {
         final Future<String> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
 
             List<String> lastPreviousDigests = databaseRepository.
-                    getPreviousDigests(
-                            widgetId,
-                            getContentPreferences(widgetId).getContentSelection(),
-                            getContentPreferences(widgetId).getContentSelectionAllExclusion());
+                getPreviousDigests(
+                    useInternalDatabase,
+                    widgetId,
+                    getContentPreferences(widgetId).getContentSelection(),
+                    getContentPreferences(widgetId).getContentSelectionAllExclusion());
 
             return lastPreviousDigests.get(0);
         });
@@ -141,10 +144,10 @@ public class QuoteUnquoteModel {
 
     @Nullable
     public QuotationEntity getCurrentQuotation(
-            final int widgetId) {
+        final int widgetId) {
 
         final Future<QuotationEntity> future = QuoteUnquoteWidget.getExecutorService().submit(() ->
-                databaseRepository.getCurrentQuotation(widgetId));
+            databaseRepository.getCurrentQuotation(useInternalDatabase, widgetId));
 
         QuotationEntity quotationEntity = null;
 
@@ -159,18 +162,18 @@ public class QuoteUnquoteModel {
 
     @Nullable
     public String getCurrentPosition(
-            final int widgetId,
-            @NonNull final QuotationsPreferences quotationsPreferences) {
+        final int widgetId,
+        @NonNull final QuotationsPreferences quotationsPreferences) {
         final Future<String> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
-            int positionInPrevious = databaseRepository.findPositionInPrevious(widgetId, quotationsPreferences);
+            int positionInPrevious = databaseRepository.findPositionInPrevious(useInternalDatabase, widgetId, quotationsPreferences);
 
             if (positionInPrevious == 0) {
                 positionInPrevious += 1;
             }
 
             return String.format(Locale.ENGLISH, "%d/%d",
-                    positionInPrevious,
-                    databaseRepository.countNext(quotationsPreferences));
+                positionInPrevious,
+                databaseRepository.countNext(useInternalDatabase, quotationsPreferences));
         });
 
         String currentPosition = null;
@@ -186,8 +189,8 @@ public class QuoteUnquoteModel {
     }
 
     public void markAsCurrentNext(
-            final int widgetId,
-            final boolean randomNext) {
+        final int widgetId,
+        final boolean randomNext) {
         Timber.d("randomNext=%b", randomNext);
 
         final QuotationsPreferences quotationsPreferences = getContentPreferences(widgetId);
@@ -196,15 +199,16 @@ public class QuoteUnquoteModel {
             QuotationEntity nextQuotation = getNextQuotation(widgetId, randomNext);
 
             List<String> previous = getPreviousDigests(
-                    widgetId,
-                    quotationsPreferences.getContentSelection(),
-                    quotationsPreferences.getContentSelectionAllExclusion());
+                widgetId,
+                quotationsPreferences.getContentSelection(),
+                quotationsPreferences.getContentSelectionAllExclusion());
 
             if (!previous.contains(nextQuotation.digest)) {
                 databaseRepository.markAsPrevious(
-                        widgetId,
-                        quotationsPreferences.getContentSelection(),
-                        nextQuotation.digest);
+                    useInternalDatabase,
+                    widgetId,
+                    quotationsPreferences.getContentSelection(),
+                    nextQuotation.digest);
             } else {
                 if (!isNextNew(widgetId, quotationsPreferences, randomNext) && randomNext) {
                     Timber.d("purge Previous");
@@ -219,8 +223,9 @@ public class QuoteUnquoteModel {
             addToPreviousAll(widgetId, nextQuotation);
 
             databaseRepository.markAsCurrent(
-                    widgetId,
-                    nextQuotation.digest);
+                useInternalDatabase,
+                widgetId,
+                nextQuotation.digest);
         });
 
         try {
@@ -233,50 +238,55 @@ public class QuoteUnquoteModel {
     private void addToPreviousAll(final int widgetId, @NonNull final QuotationEntity quotationEntity) {
         if (getContentPreferences(widgetId).getContentAddToPreviousAll()) {
             if (!getPreviousDigests(
-                    widgetId, ContentSelection.ALL, getContentPreferences(widgetId).getContentSelectionAllExclusion())
-                    .contains(quotationEntity.digest)) {
+                widgetId, ContentSelection.ALL, getContentPreferences(widgetId).getContentSelectionAllExclusion())
+                .contains(quotationEntity.digest)) {
                 databaseRepository.markAsPrevious(
-                        widgetId,
-                        ContentSelection.ALL,
-                        quotationEntity.digest);
+                    useInternalDatabase,
+                    widgetId,
+                    ContentSelection.ALL,
+                    quotationEntity.digest);
             }
         }
     }
 
     @NonNull
     public QuotationEntity getNextQuotation(
-            final int widgetId,
-            final boolean randomNext) {
+        final int widgetId,
+        final boolean randomNext) {
         final Future<QuotationEntity> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
             switch (getContentPreferences(widgetId).getContentSelection()) {
                 case FAVOURITES:
                     return databaseRepository.getNextQuotation(
-                            widgetId,
-                            ContentSelection.FAVOURITES,
-                            "",
-                            randomNext,
-                            getContentPreferences(widgetId));
+                        useInternalDatabase,
+                        widgetId,
+                        ContentSelection.FAVOURITES,
+                        "",
+                        randomNext,
+                        getContentPreferences(widgetId));
                 case AUTHOR:
                     return databaseRepository.getNextQuotation(
-                            widgetId,
-                            ContentSelection.AUTHOR,
-                            getContentPreferences(widgetId).getContentSelectionAuthor(),
-                            randomNext,
-                            getContentPreferences(widgetId));
+                        useInternalDatabase,
+                        widgetId,
+                        ContentSelection.AUTHOR,
+                        getContentPreferences(widgetId).getContentSelectionAuthor(),
+                        randomNext,
+                        getContentPreferences(widgetId));
                 case SEARCH:
                     return databaseRepository.getNextQuotation(
-                            widgetId,
-                            ContentSelection.SEARCH,
-                            getContentPreferences(widgetId).getContentSelectionSearch(),
-                            randomNext,
-                            getContentPreferences(widgetId));
+                        useInternalDatabase,
+                        widgetId,
+                        ContentSelection.SEARCH,
+                        getContentPreferences(widgetId).getContentSelectionSearch(),
+                        randomNext,
+                        getContentPreferences(widgetId));
                 default:
                     return databaseRepository.getNextQuotation(
-                            widgetId,
-                            ContentSelection.ALL,
-                            getContentPreferences(widgetId).getContentSelectionAllExclusion(),
-                            randomNext,
-                            getContentPreferences(widgetId));
+                        useInternalDatabase,
+                        widgetId,
+                        ContentSelection.ALL,
+                        getContentPreferences(widgetId).getContentSelectionAllExclusion(),
+                        randomNext,
+                        getContentPreferences(widgetId));
             }
         });
 
@@ -294,7 +304,7 @@ public class QuoteUnquoteModel {
 
     public void markAsCurrent(final int widgetId, @NonNull final String digest) {
         final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
-            databaseRepository.markAsCurrent(widgetId, digest);
+            databaseRepository.markAsCurrent(useInternalDatabase, widgetId, digest);
         });
 
         try {
@@ -312,13 +322,16 @@ public class QuoteUnquoteModel {
             setDefault(widgetId, contentSelection);
 
             QuotationEntity quotationEntity
-                    = databaseRepository.getNextQuotation(widgetId, contentSelection);
+                = databaseRepository.getNextQuotation(useInternalDatabase, widgetId, contentSelection);
 
-            addToPreviousAll(widgetId, quotationEntity);
+            if (quotationEntity != null) {
+                addToPreviousAll(widgetId, quotationEntity);
 
-            databaseRepository.markAsCurrent(
+                databaseRepository.markAsCurrent(
+                    useInternalDatabase,
                     widgetId,
                     quotationEntity.digest);
+            }
         });
 
         try {
@@ -330,7 +343,7 @@ public class QuoteUnquoteModel {
     }
 
     public void setDefault(
-            final int widgetId, @NonNull final ContentSelection contentSelection) {
+        final int widgetId, @NonNull final ContentSelection contentSelection) {
         switch (contentSelection) {
             case AUTHOR:
                 setDefaultAuthor(widgetId);
@@ -353,7 +366,7 @@ public class QuoteUnquoteModel {
     @NonNull
     public void alignHistoryWithQuotations(int widgetId) {
         final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
-            databaseRepository.alignHistoryWithQuotations(widgetId, context);
+            databaseRepository.alignHistoryWithQuotations(useInternalDatabase, widgetId, context);
         });
 
         try {
@@ -366,11 +379,11 @@ public class QuoteUnquoteModel {
 
     @NonNull
     public List<String> getPreviousDigests(
-            final int widgetId,
-            @NonNull final ContentSelection contentSelection,
-            @NonNull final String criteria) {
+        final int widgetId,
+        @NonNull final ContentSelection contentSelection,
+        @NonNull final String criteria) {
         final Future<List<String>> future = QuoteUnquoteWidget.getExecutorService().submit(() ->
-                databaseRepository.getPreviousDigests(widgetId, contentSelection, criteria));
+            databaseRepository.getPreviousDigests(useInternalDatabase, widgetId, contentSelection, criteria));
 
         List<String> allPreviousDigests = new ArrayList<>();
 
@@ -386,7 +399,7 @@ public class QuoteUnquoteModel {
 
     private void setDefaultAuthor(int widgetId) {
         if (countPreviousAuthor(widgetId) == 0) {
-            databaseRepository.erase(widgetId, ContentSelection.AUTHOR);
+            databaseRepository.erase(useInternalDatabase, widgetId, ContentSelection.AUTHOR);
             markAsCurrentNext(widgetId, false);
         }
     }
@@ -399,7 +412,7 @@ public class QuoteUnquoteModel {
 
     private void setDefaultSearch(int widgetId) {
         if (countPreviousSearch(widgetId) == 0) {
-            databaseRepository.erase(widgetId, ContentSelection.SEARCH);
+            databaseRepository.erase(useInternalDatabase, widgetId, ContentSelection.SEARCH);
             markAsCurrentNext(widgetId, false);
         }
     }
@@ -407,14 +420,14 @@ public class QuoteUnquoteModel {
     private void setDefaultAll(final int widgetId) {
         if (countPrevious(widgetId, ContentSelection.ALL) == 0) {
             databaseRepository.markAsPrevious(
-                    widgetId, ContentSelection.ALL, DatabaseRepository.getDefaultQuotationDigest());
+                useInternalDatabase, widgetId, ContentSelection.ALL, DatabaseRepository.getDefaultQuotationDigest(useInternalDatabase));
         }
     }
 
     public int countPrevious(final int widgetId,
                              @NonNull final ContentSelection contentSelection) {
         final Future<Integer> future = QuoteUnquoteWidget.getExecutorService().submit(()
-                -> databaseRepository.countPreviousCriteria(widgetId, contentSelection));
+            -> databaseRepository.countPreviousCriteria(useInternalDatabase, widgetId, contentSelection));
 
         int countPrevious = 0;
         try {
@@ -429,7 +442,7 @@ public class QuoteUnquoteModel {
 
     public int countPrevious(final int widgetId) {
         final Future<Integer> future = QuoteUnquoteWidget.getExecutorService().submit(()
-                -> databaseRepository.countPreviousCriteria(widgetId));
+            -> databaseRepository.countPreviousCriteria(useInternalDatabase, widgetId));
 
         int countPrevious = 0;
         try {
@@ -443,18 +456,18 @@ public class QuoteUnquoteModel {
     }
 
     public int countPreviousAuthor(final int widgetId) {
-        return databaseRepository.countPreviousCriteria(widgetId, ContentSelection.AUTHOR,
-                getContentPreferences(widgetId));
+        return databaseRepository.countPreviousCriteria(useInternalDatabase, widgetId, ContentSelection.AUTHOR,
+            getContentPreferences(widgetId));
     }
 
     public int countPreviousSearch(final int widgetId) {
-        return databaseRepository.countPreviousCriteria(widgetId, ContentSelection.SEARCH,
-                getContentPreferences(widgetId));
+        return databaseRepository.countPreviousCriteria(useInternalDatabase, widgetId, ContentSelection.SEARCH,
+            getContentPreferences(widgetId));
     }
 
     public int countFavouritesWithoutRx() {
         final Future<Integer> future = QuoteUnquoteWidget.getExecutorService().submit(()
-                -> databaseRepository.countFavourites().blockingGet());
+            -> databaseRepository.countFavourites(useInternalDatabase).blockingGet());
 
         int favouritesCount = 0;
         try {
@@ -469,15 +482,15 @@ public class QuoteUnquoteModel {
 
     public int toggleFavourite(final int widgetId, @NonNull final String digest) {
         final Future<Integer> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
-            List<String> favourites = databaseRepository.getFavouritesDigests();
+            List<String> favourites = databaseRepository.getFavouritesDigests(useInternalDatabase);
 
             if (!favourites.contains(digest)) {
-                databaseRepository.markAsFavourite(digest);
+                databaseRepository.markAsFavourite(useInternalDatabase, digest);
             } else {
-                databaseRepository.eraseFavourite(widgetId, digest);
+                databaseRepository.eraseFavourite(useInternalDatabase, widgetId, digest);
             }
 
-            return databaseRepository.countFavourites().blockingGet();
+            return databaseRepository.countFavourites(useInternalDatabase).blockingGet();
         });
 
         int favouritesCount = 0;
@@ -493,7 +506,7 @@ public class QuoteUnquoteModel {
 
     public boolean isFavourite(@NonNull final String digest) {
         final Future<Boolean> future = QuoteUnquoteWidget.getExecutorService().submit(()
-                -> databaseRepository.isFavourite(digest));
+            -> databaseRepository.isFavourite(useInternalDatabase, digest));
 
         boolean isFavourite = false;
 
@@ -509,7 +522,7 @@ public class QuoteUnquoteModel {
 
     public QuotationEntity getQuotation(@NonNull final String digest) {
         final Future<QuotationEntity> future = QuoteUnquoteWidget.getExecutorService().submit(()
-                -> databaseRepository.getQuotation(digest));
+            -> databaseRepository.getQuotation(useInternalDatabase, digest));
 
         QuotationEntity quotationEntity = null;
 
@@ -525,7 +538,7 @@ public class QuoteUnquoteModel {
 
     public List<QuotationEntity> getAllQuotations() {
         final Future<List<QuotationEntity>> future = QuoteUnquoteWidget.getExecutorService().submit(()
-                -> databaseRepository.getAllQuotations());
+            -> databaseRepository.getAllQuotations(useInternalDatabase));
 
         List<QuotationEntity> listQuotationEntity = null;
 
@@ -541,7 +554,7 @@ public class QuoteUnquoteModel {
 
     public void delete(final int widgetId) {
         final Future future = QuoteUnquoteWidget.getExecutorService().submit(() ->
-                databaseRepository.erase(widgetId)
+            databaseRepository.erase(useInternalDatabase, widgetId)
         );
 
         try {
@@ -553,7 +566,7 @@ public class QuoteUnquoteModel {
 
     public void disable() {
         final Future future = QuoteUnquoteWidget.getExecutorService().submit(() ->
-                databaseRepository.erase());
+            databaseRepository.erase(useInternalDatabase));
 
         try {
             future.get(30, TimeUnit.SECONDS);
@@ -566,7 +579,7 @@ public class QuoteUnquoteModel {
         Timber.d("contentSelection=%d", contentSelection.getContentSelection());
 
         final Future future = QuoteUnquoteWidget.getExecutorService().submit(() ->
-                databaseRepository.erase(widgetId, contentSelection)
+            databaseRepository.erase(useInternalDatabase, widgetId, contentSelection)
         );
 
         try {
@@ -577,15 +590,15 @@ public class QuoteUnquoteModel {
     }
 
     public void markAsCurrentPrevious(
-            final int widgetId) {
+        final int widgetId) {
         final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
             QuotationEntity previousQuotation = getPreviousQuotation(
-                    widgetId,
-                    getContentPreferences(widgetId).getContentSelection(),
-                    getCurrentQuotation(widgetId).digest,
-                    getContentPreferences(widgetId).getContentSelectionAllExclusion());
+                widgetId,
+                getContentPreferences(widgetId).getContentSelection(),
+                getCurrentQuotation(widgetId).digest,
+                getContentPreferences(widgetId).getContentSelectionAllExclusion());
 
-            databaseRepository.markAsCurrent(widgetId, previousQuotation.digest);
+            databaseRepository.markAsCurrent(useInternalDatabase, widgetId, previousQuotation.digest);
         });
 
         try {
@@ -599,8 +612,9 @@ public class QuoteUnquoteModel {
     public void markAsCurrentLastPrevious(final int widgetId) {
         final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
             databaseRepository.markAsCurrent(
-                    widgetId,
-                    getLastPreviousDigest(widgetId));
+                useInternalDatabase,
+                widgetId,
+                getLastPreviousDigest(widgetId));
         });
 
         try {
@@ -613,8 +627,9 @@ public class QuoteUnquoteModel {
     @NonNull
     public Single<Integer> countAllMinusExclusions(final int widgetId) {
         final Future<Single<Integer>> future = QuoteUnquoteWidget.getExecutorService().submit(() ->
-                databaseRepository.countAllMinusExclusions(
-                        getContentPreferences(widgetId).getContentSelectionAllExclusion())
+            databaseRepository.countAllMinusExclusions(
+                useInternalDatabase,
+                getContentPreferences(widgetId).getContentSelectionAllExclusion())
         );
 
         try {
@@ -650,7 +665,7 @@ public class QuoteUnquoteModel {
     @NonNull
     public Single<List<Integer>> authorsQuotationCount() {
         final Future<Single<List<Integer>>> future = QuoteUnquoteWidget.getExecutorService().submit(()
-                -> databaseRepository.getAuthorsQuotationCount());
+            -> databaseRepository.getAuthorsQuotationCount(useInternalDatabase));
 
         Single<List<Integer>> authorsQuotationCount = null;
 
@@ -667,7 +682,7 @@ public class QuoteUnquoteModel {
     @NonNull
     public List<Integer> authorsQuotationCountAsList() {
         final Future<List<Integer>> future = QuoteUnquoteWidget.getExecutorService().submit(()
-                -> databaseRepository.getAuthorsQuotationCount().blockingGet());
+            -> databaseRepository.getAuthorsQuotationCount(useInternalDatabase).blockingGet());
 
         List<Integer> authorsQuotationCount = null;
 
@@ -684,7 +699,7 @@ public class QuoteUnquoteModel {
     @NonNull
     public Single<List<AuthorPOJO>> authors(int authorCount) {
         final Future<Single<List<AuthorPOJO>>> future = QuoteUnquoteWidget.getExecutorService().submit(()
-                -> databaseRepository.getAuthorsAndQuotationCounts((authorCount == -1) ? 1 : authorCount));
+            -> databaseRepository.getAuthorsAndQuotationCounts(useInternalDatabase, (authorCount == -1) ? 1 : authorCount));
 
         Single<List<AuthorPOJO>> authors = null;
 
@@ -701,9 +716,9 @@ public class QuoteUnquoteModel {
     @NonNull
     public List<AuthorPOJO> authorsAsList(int authorCount) {
         final Future<List<AuthorPOJO>> future = QuoteUnquoteWidget.getExecutorService().submit(()
-                -> {
+            -> {
             Single<List<AuthorPOJO>> list
-                    = databaseRepository.getAuthorsAndQuotationCounts((authorCount == -1) ? 1 : authorCount);
+                = databaseRepository.getAuthorsAndQuotationCounts(useInternalDatabase, (authorCount == -1) ? 1 : authorCount);
             return list.blockingGet();
         });
 
@@ -758,7 +773,7 @@ public class QuoteUnquoteModel {
     @NonNull
     public Single<Integer> countFavourites() {
         final Future<Single<Integer>> future = QuoteUnquoteWidget.getExecutorService().submit(()
-                -> databaseRepository.countFavourites());
+            -> databaseRepository.countFavourites(useInternalDatabase));
 
         Single<Integer> countFavourites = Single.just(0);
 
@@ -775,7 +790,7 @@ public class QuoteUnquoteModel {
     @NonNull
     public List<QuotationEntity> getSearchQuotations(@NonNull final String text, boolean favouritesOnly) {
         final Future<List<QuotationEntity>> future = QuoteUnquoteWidget.getExecutorService().submit(()
-                -> databaseRepository.getSearchQuotations(text, favouritesOnly));
+            -> databaseRepository.getSearchQuotations(useInternalDatabase, text, favouritesOnly));
 
         List<QuotationEntity> searchResultsList = new ArrayList<>();
 
@@ -792,7 +807,7 @@ public class QuoteUnquoteModel {
     @NonNull
     public List<QuotationEntity> getSearchQuotationsRegEx(@NonNull final String text, boolean favouritesOnly) {
         final Future<List<QuotationEntity>> future = QuoteUnquoteWidget.getExecutorService().submit(()
-                -> databaseRepository.getSearchQuotationsRegEx(text, favouritesOnly));
+            -> databaseRepository.getSearchQuotationsRegEx(useInternalDatabase, text, favouritesOnly));
 
         List<QuotationEntity> searchResultsList = new ArrayList<>();
 
@@ -809,7 +824,7 @@ public class QuoteUnquoteModel {
     @NonNull
     public Integer countQuotationWithSearchTextRegEx(@NonNull final String regEx, boolean favouritesOnly) {
         final Future<Integer> future = QuoteUnquoteWidget.getExecutorService().submit(()
-                -> databaseRepository.countSearchTextRegEx(regEx, favouritesOnly));
+            -> databaseRepository.countSearchTextRegEx(useInternalDatabase, regEx, favouritesOnly));
 
         Integer searchCount = 0;
 
@@ -825,7 +840,7 @@ public class QuoteUnquoteModel {
     @NonNull
     public Integer countQuotationWithSearchText(@NonNull final String searchText, boolean favouritesOnly) {
         final Future<Integer> future = QuoteUnquoteWidget.getExecutorService().submit(()
-                -> databaseRepository.countSearchText(searchText, favouritesOnly));
+            -> databaseRepository.countSearchText(useInternalDatabase, searchText, favouritesOnly));
 
         Integer searchCount = 0;
 
@@ -861,14 +876,14 @@ public class QuoteUnquoteModel {
     @NonNull
     public List<QuotationEntity> getFavourites() {
         final Future<List<QuotationEntity>> future = QuoteUnquoteWidget.getExecutorService().submit(()
-                -> {
-            List<FavouriteEntity> favouritesDigestList = databaseRepository.getFavourites();
+            -> {
+            List<FavouriteEntity> favouritesDigestList = databaseRepository.getFavourites(useInternalDatabase);
             Collections.reverse(favouritesDigestList);
 
             List<QuotationEntity> favouriteQuotationsList = new ArrayList<>();
             for (FavouriteEntity favourite : favouritesDigestList) {
                 // check quotation still exists, following an inplace .apk update
-                QuotationEntity quotationEntity = databaseRepository.getQuotation(favourite.digest);
+                QuotationEntity quotationEntity = databaseRepository.getQuotation(useInternalDatabase, favourite.digest);
                 if (quotationEntity != null) {
                     favouriteQuotationsList.add(quotationEntity);
                 }
@@ -894,9 +909,9 @@ public class QuoteUnquoteModel {
         final Future<ArrayList<QuotationEntity>> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
             final ArrayList<QuotationEntity> exportedFavourites = new ArrayList<>();
 
-            for (final String favouriteDigest : databaseRepository.getFavouritesDigests()) {
+            for (final String favouriteDigest : databaseRepository.getFavouritesDigests(useInternalDatabase)) {
                 final QuotationEntity quotationEntity
-                        = databaseRepository.getQuotation(favouriteDigest);
+                    = databaseRepository.getQuotation(useInternalDatabase, favouriteDigest);
 
                 if (quotationEntity != null) {
                     exportedFavourites.add(quotationEntity);
@@ -921,10 +936,10 @@ public class QuoteUnquoteModel {
     }
 
     public void insertQuotationsExternal(
-            @NonNull final LinkedHashSet<QuotationEntity> quotations) {
+        @NonNull final LinkedHashSet<QuotationEntity> quotations) {
         final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
-            DatabaseRepository.useInternalDatabase = false;
-            databaseRepository.erase();
+            useInternalDatabase = false;
+            databaseRepository.erase(useInternalDatabase);
             databaseRepository.insertQuotationsExternal(quotations);
         });
 
@@ -939,7 +954,7 @@ public class QuoteUnquoteModel {
     @NonNull
     public List<QuotationEntity> getQuotationsForAuthor(@NonNull final String author) {
         final Future<ArrayList<QuotationEntity>> future = QuoteUnquoteWidget.getExecutorService().submit(() ->
-                databaseRepository.getQuotationsForAuthor(author));
+            databaseRepository.getQuotationsForAuthor(useInternalDatabase, author));
 
         ArrayList<QuotationEntity> quotationsForAuthor = null;
 
@@ -955,13 +970,13 @@ public class QuoteUnquoteModel {
 
     public void insertQuotationExternal(int widgetId, QuotationEntity quotation) {
         final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
-            DatabaseRepository.useInternalDatabase = false;
+            useInternalDatabase = false;
             databaseRepository.insertQuotationExternal(quotation);
 
             QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, context);
 
-            if (databaseRepository.findPositionInPrevious(widgetId, quotationsPreferences) + 1
-                    == databaseRepository.countNext(quotationsPreferences)) {
+            if (databaseRepository.findPositionInPrevious(useInternalDatabase, widgetId, quotationsPreferences) + 1
+                == databaseRepository.countNext(useInternalDatabase, quotationsPreferences)) {
                 // as a courtesy, move to latest quotation if user was at adjacent previous
                 markAsCurrentNext(widgetId, false);
             }
@@ -976,10 +991,10 @@ public class QuoteUnquoteModel {
     }
 
     public ScraperData getWebPage(
-            @NonNull final Context context,
-            @NonNull final String url,
-            @NonNull final String xpathQuotation,
-            @NonNull final String xpathSource
+        @NonNull final Context context,
+        @NonNull final String url,
+        @NonNull final String xpathQuotation,
+        @NonNull final String xpathSource
     ) {
         final Future<ScraperData> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
             Handler handler = new Handler(Looper.getMainLooper());
@@ -989,25 +1004,25 @@ public class QuoteUnquoteModel {
                 Document document = scraper.getDocumentFromUrl(url);
 
                 return new ScraperData(
-                        true,
-                        scraper.getQuotation(document, xpathQuotation),
-                        scraper.getSource(document, xpathSource)
+                    true,
+                    scraper.getQuotation(document, xpathQuotation),
+                    scraper.getSource(document, xpathSource)
                 );
             } catch (ScraperUrlException e) {
                 handler.post(() -> Toast.makeText(
-                        context,
-                        context.getString(R.string.fragment_quotations_database_scrape_endpoint_error),
-                        Toast.LENGTH_SHORT).show());
+                    context,
+                    context.getString(R.string.fragment_quotations_database_scrape_endpoint_error),
+                    Toast.LENGTH_SHORT).show());
             } catch (ScraperQuotationException e) {
                 handler.post(() -> Toast.makeText(
-                        context,
-                        context.getString(R.string.fragment_quotations_database_scrape_xpath_error_quotation),
-                        Toast.LENGTH_SHORT).show());
+                    context,
+                    context.getString(R.string.fragment_quotations_database_scrape_xpath_error_quotation),
+                    Toast.LENGTH_SHORT).show());
             } catch (ScraperSourceException e) {
                 handler.post(() -> Toast.makeText(
-                        context,
-                        context.getString(R.string.fragment_quotations_database_scrape_xpath_error_source),
-                        Toast.LENGTH_SHORT).show());
+                    context,
+                    context.getString(R.string.fragment_quotations_database_scrape_xpath_error_source),
+                    Toast.LENGTH_SHORT).show());
             }
 
             return new ScraperData();
@@ -1024,26 +1039,25 @@ public class QuoteUnquoteModel {
     }
 
     public void insertWebPage(
-            final int widgetId,
-            @NonNull final String quotation,
-            @NonNull final String source,
-            @NonNull final String digest
+        final int widgetId,
+        @NonNull final String quotation,
+        @NonNull final String source,
+        @NonNull final String digest
     ) {
         Timber.d("scraper: %s; %s; %s", digest, source, quotation);
 
         final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
             if (digest.equals(ImportHelper.DEFAULT_DIGEST)) {
-                DatabaseRepository.useInternalDatabase = false;
-                databaseRepository.erase();
+                databaseRepository.erase(false);
             }
 
             insertQuotationExternal(
-                    widgetId,
-                    new QuotationEntity(
-                            digest,
-                            "?",
-                            source,
-                            quotation));
+                widgetId,
+                new QuotationEntity(
+                    digest,
+                    "?",
+                    source,
+                    quotation));
         });
 
         try {
@@ -1059,8 +1073,8 @@ public class QuoteUnquoteModel {
             QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, context);
 
             String quotationPosition = getCurrentPosition(
-                    widgetId,
-                    quotationsPreferences);
+                widgetId,
+                quotationsPreferences);
 
             if (digest.equals(getLastPreviousDigest(widgetId))) {
                 quotationPosition = "\u2316  " + quotationPosition + " ";
@@ -1080,8 +1094,8 @@ public class QuoteUnquoteModel {
     }
 
     public boolean isDuplicate(
-            String author,
-            String quotation
+        String author,
+        String quotation
     ) {
         final Future<Boolean> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
             List<QuotationEntity> quotationsForAuthor = getQuotationsForAuthor(author);
@@ -1108,24 +1122,24 @@ public class QuoteUnquoteModel {
     }
 
     public void append(
-            String author,
-            String quotation
+        String author,
+        String quotation
     ) {
         final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
             LinkedHashSet<QuotationEntity> quotationEntityLinkedHashSet = new LinkedHashSet<>();
 
             String digest = ImportHelper.DEFAULT_DIGEST;
-            if (databaseRepository.countAll().blockingGet() > 0) {
+            if (databaseRepository.countAll(false).blockingGet() > 0) {
                 digest = ImportHelper.makeDigest(author, quotation);
             }
 
             quotationEntityLinkedHashSet.add(
-                    new QuotationEntity(
-                            digest,
-                            "?",
-                            author,
-                            quotation
-                    )
+                new QuotationEntity(
+                    digest,
+                    "?",
+                    author,
+                    quotation
+                )
             );
 
             databaseRepository.insertQuotationsExternal(quotationEntityLinkedHashSet);
@@ -1140,15 +1154,16 @@ public class QuoteUnquoteModel {
     }
 
     public void update(
-            String digest,
-            String author,
-            String quotation
+        String digest,
+        String author,
+        String quotation
     ) {
         final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
             databaseRepository.updateQuotationUsingDigest(
-                    digest,
-                    author,
-                    quotation
+                false,
+                digest,
+                author,
+                quotation
             );
         });
 
@@ -1161,8 +1176,8 @@ public class QuoteUnquoteModel {
     }
 
     public void delete(
-            int widgetId,
-            String digest
+        int widgetId,
+        String digest
     ) {
         final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
             List<QuotationEntity> allQuotations = getAllQuotations();
@@ -1173,40 +1188,43 @@ public class QuoteUnquoteModel {
                 }
             }
 
-            databaseRepository.deleteQuotation(digest);
+            databaseRepository.deleteQuotation(false, digest);
 
-            databaseRepository.deleteFavourite(digest);
+            databaseRepository.deleteFavourite(false, digest);
 
-            databaseRepository.deletePrevious(digest);
+            databaseRepository.deletePrevious(false, digest);
 
             if (digest.equals(ImportHelper.DEFAULT_DIGEST) && allQuotations.size() > 0) {
                 databaseRepository.updateQuotationUsingAuthorQuotation(
-                        ImportHelper.DEFAULT_DIGEST,
-                        allQuotations.get(0).author,
-                        allQuotations.get(0).quotation
+                    false,
+                    ImportHelper.DEFAULT_DIGEST,
+                    allQuotations.get(0).author,
+                    allQuotations.get(0).quotation
                 );
 
-                boolean wasFavourite = databaseRepository.isFavourite(allQuotations.get(0).digest);
+                boolean wasFavourite = databaseRepository.isFavourite(false, allQuotations.get(0).digest);
                 if (wasFavourite) {
-                    databaseRepository.markAsFavourite(ImportHelper.DEFAULT_DIGEST);
+                    databaseRepository.markAsFavourite(false, ImportHelper.DEFAULT_DIGEST);
                 }
 
-                databaseRepository.deleteFavourite(allQuotations.get(0).digest);
+                databaseRepository.deleteFavourite(false, allQuotations.get(0).digest);
 
-                databaseRepository.deletePrevious(allQuotations.get(0).digest);
+                databaseRepository.deletePrevious(false, allQuotations.get(0).digest);
             }
 
             if (allQuotations.size() != 0) {
-                if (databaseRepository.getPrevious().size() == 0) {
+                if (databaseRepository.getPrevious(false).size() == 0) {
                     databaseRepository.markAsCurrent(
-                            widgetId,
-                            ImportHelper.DEFAULT_DIGEST
+                        false,
+                        widgetId,
+                        ImportHelper.DEFAULT_DIGEST
                     );
 
                     databaseRepository.markAsPrevious(
-                            widgetId,
-                            ContentSelection.ALL,
-                            ImportHelper.DEFAULT_DIGEST
+                        false,
+                        widgetId,
+                        ContentSelection.ALL,
+                        ImportHelper.DEFAULT_DIGEST
                     );
                 }
             }

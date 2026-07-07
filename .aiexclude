@@ -1,0 +1,51 @@
+# ─────────────────────────────────────────────
+# .aiexclude — Gemini context exclusion rules
+# ─────────────────────────────────────────────
+
+# 1. Build outputs and caches (Massive token savers)
+build/
+**/build/
+.gradle/
+.idea/
+.kotlin/
+bin/
+**/bin/
+.git/
+
+# 2. Auto-generated code (Reduces AI noise/confusion)
+**/generated/
+**/*Generated.java
+**/*Generated.kt
+
+# 3. Media and Binaries (Images, design files, executables)
+**/*.xcf
+**/*.vpp
+**/*.vpp.*
+**/*.png
+**/*.jpg
+**/*.jpeg
+**/*.webp
+**/*.gif
+**/*.svg
+**/*.apk
+**/*.aab
+**/fastlane/metadata/android/*/images/
+
+# 4. Large static analysis files
+**/config/lint/baseline.xml
+**/config/detekt/baseline.xml
+
+# 5. Local configuration and API keys
+local.properties
+*.env
+local.properties.gpg
+
+# 6. Keystores and signing credentials
+**/*.jks
+**/*.keystore
+keystore.properties
+
+# 7. Firebase / Service account files
+google-services.json
+google-services-staging.json
+**/service_account*.json
