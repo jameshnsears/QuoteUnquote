@@ -24,7 +24,8 @@
       "Bash(adb install *)",
       "Bash(adb uninstall *)",
       "Read(//**)",
-      "Bash(adb shell *)"
+      "Bash(adb shell *)",
+      "WebSearch"
     ],
     "deny": [
       "Read(//**/build/**)",

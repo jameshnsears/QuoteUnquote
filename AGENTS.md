@@ -44,7 +44,7 @@ The project is structured into three main Gradle modules:
 *   **AGP (Android Gradle Plugin)**: 9.2.1
 *   **Gradle**: 9.6.1
 *   **Java**: 17
-*   **Android SDK**: Compile 37, Target 37, Min 30
+*   **Android SDK**: Compile 37, Target 37, Min 31
 *   **UI**:
     *   **Jetpack Compose**: Material 3 (1.4.0), BOM 2026.06.01. Used for newer UI parts.
     *   **XML Views**: Heavily used in configuration fragments (ViewBinding, DataBinding).

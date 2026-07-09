@@ -19,7 +19,7 @@ class Scraper {
     }
 
     fun getDocumentFromResources(resource: String): Document {
-        val html = javaClass.getResource(resource).readText()
+        val html = javaClass.getResource(resource)?.readText() ?: ""
         return Jsoup.parse(html)
     }
 
@@ -30,7 +30,7 @@ class Scraper {
             client.newCall(requestBuilder(url)).execute().use { response ->
                 if (!response.isSuccessful) throw ScraperUrlException("Unexpected code $response")
 
-                val html = response.body?.string() ?: ""
+                val html = response.body.string()
                 return Jsoup.parse(html)
             }
         } catch (e: Exception) {
@@ -56,9 +56,8 @@ class Scraper {
         document: Document,
         xpath: String = "//*[@id=\"votd_wrapper\"]/div/div/div[1]/div[2]/p[1]",
     ): String {
-        try {
-            val quotation = getXpath(document, xpath)
-            return quotation
+        return try {
+            getXpath(document, xpath)
         } catch (e: ScraperXpathException) {
             throw ScraperQuotationException(e.message)
         }
@@ -69,9 +68,8 @@ class Scraper {
         document: Document,
         xpath: String = "//*[@id=\"votd_wrapper\"]/div/div/div[1]/div[2]/p[2]",
     ): String {
-        try {
-            val source = getXpath(document, xpath)
-            return source
+        return try {
+            getXpath(document, xpath)
         } catch (e: ScraperXpathException) {
             throw ScraperSourceException(e.message)
         }
@@ -81,7 +79,7 @@ class Scraper {
         document: Document,
         xpath: String,
     ): String {
-        try {
+        return try {
             val xpathResult = document.selectXpath(xpath).text()
 
             if (xpathResult == "") throw ScraperXpathException("")
@@ -89,7 +87,7 @@ class Scraper {
             val maxLength = 1000
             if (xpathResult.length >= maxLength) throw ScraperXpathException("length")
 
-            return xpathResult
+            xpathResult
         } catch (e: Exception) {
             throw ScraperXpathException(e.message)
         }

@@ -143,6 +143,8 @@ project.afterEvaluate {
             }
 
             tasks.register<JacocoReport>("test${capitalizedSourceName}UnitTestCoverage") {
+                group = "quoteunquote"
+                description = ""
                 dependsOn(
                     "test${capitalizedSourceName}UnitTest",
                     ":cloudLib:test${capitalizedSourceName}UnitTest",
@@ -166,6 +168,8 @@ project.afterEvaluate {
             }
 
             tasks.register<JacocoReport>("test${capitalizedSourceName}CombinedCoverage") {
+                group = "quoteunquote"
+                description = ""
                 dependsOn(
                     "test${capitalizedSourceName}UnitTestCoverage",
                     "connected${capitalizedSourceName}AndroidTestCoverage",
@@ -227,8 +231,8 @@ android {
         minSdk = 31
         targetSdk = 37
 
-        versionCode = 1973137
-        versionName = "4.56.0"
+        versionCode = 1983137
+        versionName = "4.56.1"
 
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -343,6 +347,14 @@ android {
     }
 
     lint {
+        // Detecting "Liar APIs" is difficult...
+        // This forces lint to check all libraries, not just your code
+        checkDependencies = true
+        // Specifically watch for NewApi issues
+        fatal += "NewApi"
+        // Report issues even if they are suppressed in libraries
+        checkAllWarnings = true
+
         disable.addAll(listOf("InvalidPackage", "Instantiatable"))
         checkReleaseBuilds = false
         abortOnError = false

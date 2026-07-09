@@ -11,16 +11,16 @@ A highly customizable Android App Widget that displays quotations. Users can per
 
 ## Tech Stack
 
-| Layer | Technology | Version |
-|---|---|---|
-| Language | Kotlin + Java (migrating to Kotlin) | Kotlin 2.4.0 |
-| Build | Gradle + AGP | Gradle 9.6.1 / AGP 9.2.1 |
-| JDK | Java 17 | |
-| Min SDK | 30 | |
-| Target / Compile SDK | 37 / 37 | |
+| Layer | Technology                               | Version |
+|---|------------------------------------------|---|
+| Language | Kotlin + Java (migrating to Kotlin)      | Kotlin 2.4.0 |
+| Build | Gradle + AGP                             | Gradle 9.6.1 / AGP 9.2.1 |
+| JDK | Java 17                                  | |
+| Min SDK | 31                                       | |
+| Target / Compile SDK | 37 / 37                                  | |
 | UI | Jetpack Compose (Material 3) + XML Views | Compose BOM 2026.06.01 |
-| Database | Room | |
-| Cloud | Firebase (googleplay flavor only) | |
+| Database | Room                                     | |
+| Cloud | Firebase (googleplay flavor only)        | |
 
 ## Module Structure
 
