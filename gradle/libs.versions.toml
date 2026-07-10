@@ -1,5 +1,5 @@
 [versions]
-activity = "1.13.0"
+activity = "1.9.3"  # support coreKtx, for Liar API
 appcompat = "1.7.1"
 checkstyle = "10.12.5"
 colorpickerpreference = "2.0.6"
@@ -10,7 +10,7 @@ composeMaterialIcons = "1.7.8"
 composeMaterial3 = "1.4.0"
 composeUi = "1.11.4"
 constraintlayout = "2.2.1"
-coreKtx = "1.13.1"  # stable, for Liar API: Fatal Exception: java.lang.NoSuchMethodError: No virtual method getRoundedCorner(I)Landroid/view/RoundedCorner; in class Landroid/view/Display
+coreKtx = "1.15.0"  # stable, avoids Liar API: Fatal Exception: java.lang.NoSuchMethodError: No virtual method getRoundedCorner(I)Landroid/view/RoundedCorner; in class Landroid/view/Display
 coreTesting = "2.2.0"
 detektGradlePlugin = "1.23.8"
 espressoCore = "3.7.0"
@@ -63,8 +63,10 @@ androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "u
 androidx-compose-ui-test-junit4-android = { group = "androidx.compose.ui", name = "ui-test-junit4-android", version.ref = "composeUi" }
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "composeUi" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
-androidx-core = { group = "androidx.test", name = "core", version.ref = "test" }
-androidx-core-ktx = { group = "androidx.test", name = "core-ktx", version.ref = "test" }
+androidx-core = { group = "androidx.core", name = "core", version.ref = "coreKtx" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-test-core = { group = "androidx.test", name = "core", version.ref = "test" }
+androidx-test-core-ktx = { group = "androidx.test", name = "core-ktx", version.ref = "test" }
 androidx-core-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "coreTesting" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-fragment-testing = { group = "androidx.fragment", name = "fragment-testing", version.ref = "fragmentTesting" }

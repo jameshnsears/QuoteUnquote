@@ -1,3 +1,0 @@
-- Fix: Alarm issue: OEM liar API usage
-- Dev: Bump dependencies
-- Dev: Android Studio Quail 1 | 2026.1.1 Patch 2

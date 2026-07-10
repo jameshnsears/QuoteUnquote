@@ -231,8 +231,8 @@ android {
         minSdk = 31
         targetSdk = 37
 
-        versionCode = 1993137
-        versionName = "4.56.2"
+        versionCode = 2003137
+        versionName = "4.56.3"
 
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -366,12 +366,27 @@ android {
     }
 }
 
+configurations.all {
+    // OEM liar API usage
+    resolutionStrategy {
+        force("androidx.core:core:${libs.versions.coreKtx.get()}")
+        force("androidx.core:core-ktx:${libs.versions.coreKtx.get()}")
+        force("androidx.test:core:1.7.0")
+        force("androidx.test:core-ktx:1.7.0")
+        force("androidx.test:runner:1.7.0")
+        force("androidx.test:rules:1.7.0")
+        force("androidx.test:monitor:1.7.0")
+    }
+}
+
 dependencies {
     constraints {
-        implementation(libs.androidx.core)
-        implementation(libs.androidx.core.ktx)
-        implementation(libs.androidx.runner)
-        implementation(libs.androidx.rules)
+        implementation(libs.androidx.core) {
+            version { strictly(libs.versions.coreKtx.get()) }
+        }
+        implementation(libs.androidx.core.ktx) {
+            version { strictly(libs.versions.coreKtx.get()) }
+        }
     }
     // AndroidX
     implementation(libs.core.ktx)
@@ -436,7 +451,7 @@ dependencies {
     testImplementation(libs.kotlin.test)
     testImplementation(libs.androidx.core.testing)
     testImplementation(libs.androidx.room.testing)
-    testImplementation(libs.androidx.core.ktx)
+    testImplementation(libs.androidx.test.core.ktx)
     testImplementation(libs.androidx.junit)
     testImplementation(libs.androidx.rules)
     testImplementation(libs.mockk)
@@ -449,7 +464,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit.ktx)
     androidTestImplementation(libs.androidx.rules)
     androidTestImplementation(libs.androidx.runner)
-    androidTestImplementation(libs.androidx.core)
+    androidTestImplementation(libs.androidx.test.core)
     androidTestImplementation(libs.androidx.core.testing)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.uiautomator)
