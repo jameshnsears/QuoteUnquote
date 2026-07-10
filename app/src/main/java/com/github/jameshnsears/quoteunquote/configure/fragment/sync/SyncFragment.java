@@ -4,8 +4,6 @@ import static android.app.Activity.RESULT_OK;
 import static android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM;
 
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -39,6 +37,7 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentSyncBinding;
 import com.github.jameshnsears.quoteunquote.db.DatabaseRepository;
 import com.github.jameshnsears.quoteunquote.sync.SyncJsonSchemaValidation;
+import com.github.jameshnsears.quoteunquote.utils.AlarmManagerHelper;
 import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
 import com.google.gson.Gson;
@@ -114,18 +113,15 @@ public class SyncFragment extends FragmentCommon {
                     }
                 });
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
-            if (!alarmManager.canScheduleExactAlarms()) {
-                fragmentSyncBinding.switchAutoCloudBackup.setChecked(false);
-                syncPreferences.setAutoCloudBackup(false);
+        if (!AlarmManagerHelper.canScheduleExactAlarms(getContext())) {
+            fragmentSyncBinding.switchAutoCloudBackup.setChecked(false);
+            syncPreferences.setAutoCloudBackup(false);
+        } else {
+            ConfigureActivity.launcherInvoked = false;
+            if (fragmentSyncBinding.switchAutoCloudBackup.isChecked()) {
+                syncPreferences.setAutoCloudBackup(true);
             } else {
-                ConfigureActivity.launcherInvoked = false;
-                if (fragmentSyncBinding.switchAutoCloudBackup.isChecked()) {
-                    syncPreferences.setAutoCloudBackup(true);
-                } else {
-                    syncPreferences.setAutoCloudBackup(false);
-                }
+                syncPreferences.setAutoCloudBackup(false);
             }
         }
 
@@ -211,13 +207,8 @@ public class SyncFragment extends FragmentCommon {
         }
 
         if (syncPreferences.getAutoCloudBackup()) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
-                if (!alarmManager.canScheduleExactAlarms()) {
-                    fragmentSyncBinding.switchAutoCloudBackup.setChecked(false);
-                } else {
-                    fragmentSyncBinding.switchAutoCloudBackup.setChecked(true);
-                }
+            if (!AlarmManagerHelper.canScheduleExactAlarms(getContext())) {
+                fragmentSyncBinding.switchAutoCloudBackup.setChecked(false);
             } else {
                 fragmentSyncBinding.switchAutoCloudBackup.setChecked(true);
             }
@@ -521,20 +512,15 @@ public class SyncFragment extends FragmentCommon {
 
     protected void createListenerSwitchAutoCloudBackup() {
         fragmentSyncBinding.switchAutoCloudBackup.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                        if (isChecked) {
-                            AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
-                            if (!alarmManager.canScheduleExactAlarms()) {
-                                ConfigureActivity.launcherInvoked = true;
-                                startActivity(new Intent(ACTION_REQUEST_SCHEDULE_EXACT_ALARM));
-                                return;
-                            }
+                    if (isChecked) {
+                        if (!AlarmManagerHelper.canScheduleExactAlarms(getContext())) {
+                            ConfigureActivity.launcherInvoked = true;
+                            startActivity(new Intent(ACTION_REQUEST_SCHEDULE_EXACT_ALARM));
+                            return;
                         }
-
-                        syncPreferences.setAutoCloudBackup(isChecked);
-                    } else {
-                        syncPreferences.setAutoCloudBackup(isChecked);
                     }
+
+                    syncPreferences.setAutoCloudBackup(isChecked);
 
                     Timber.d("syncPreferences.getAutoCloudBackup=%b", syncPreferences.getAutoCloudBackup());
                 }

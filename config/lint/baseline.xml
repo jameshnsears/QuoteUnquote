@@ -289,19 +289,8 @@
 
     <issue
         id="GradleDependency"
-        message="A newer version of com.google.firebase:firebase-crashlytics than 20.0.6 is available: 20.1.0"
-        errorLine1="    &quot;googleplayImplementation&quot;(&quot;com.google.firebase:firebase-crashlytics:20.0.6&quot;)"
-        errorLine2="                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="build.gradle.kts"
-            line="251"
-            column="32"/>
-    </issue>
-
-    <issue
-        id="GradleDependency"
         message="A newer version of androidx.core:core-ktx than 1.13.1 is available: 1.19.0"
-        errorLine1="    implementation(&quot;androidx.core:core-ktx:1.13.1&quot;)     //   # stable, for Liar API: Fatal Exception: java.lang.NoSuchMethodError: No virtual method getRoundedCorner(I)Landroid/view/RoundedCorner; in class Landroid/view/Display"
+        errorLine1="    implementation(&quot;androidx.core:core-ktx:1.13.1&quot;) //   # stable, for Liar API: Fatal Exception: java.lang.NoSuchMethodError: No virtual method getRoundedCorner(I)Landroid/view/RoundedCorner; in class Landroid/view/Display"
         errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle.kts"
@@ -312,7 +301,7 @@
     <issue
         id="GradleDependency"
         message="A newer version of androidx.core:core-ktx than 1.13.1 is available: 1.19.0"
-        errorLine1="    implementation(&quot;androidx.core:core-ktx:1.13.1&quot;)     //   # stable, for Liar API: Fatal Exception: java.lang.NoSuchMethodError: No virtual method getRoundedCorner(I)Landroid/view/RoundedCorner; in class Landroid/view/Display"
+        errorLine1="    implementation(&quot;androidx.core:core-ktx:1.13.1&quot;) //   # stable, for Liar API: Fatal Exception: java.lang.NoSuchMethodError: No virtual method getRoundedCorner(I)Landroid/view/RoundedCorner; in class Landroid/view/Display"
         errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle.kts"
@@ -411,11 +400,11 @@
     <issue
         id="ObsoleteSdkInt"
         message="Unnecessary; `SDK_INT` is always >= 31"
-        errorLine1="        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        errorLine1="        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/utils/IntentFactoryHelper.java"
-            line="82"
+            line="100"
             column="13"/>
     </issue>
 
@@ -426,7 +415,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/utils/IntentFactoryHelper.java"
-            line="108"
+            line="121"
             column="13"/>
     </issue>
 
@@ -437,29 +426,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/utils/IntentFactoryHelper.java"
-            line="129"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="ObsoleteSdkInt"
-        message="Unnecessary; `SDK_INT` is always >= 31"
-        errorLine1="        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/utils/IntentFactoryHelper.java"
-            line="151"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="ObsoleteSdkInt"
-        message="Unnecessary; `SDK_INT` is always >= 31"
-        errorLine1="        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/utils/notification/NotificationDailyAlarm.java"
-            line="39"
+            line="143"
             column="13"/>
     </issue>
 

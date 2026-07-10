@@ -6,7 +6,6 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -48,7 +47,6 @@ public class IntentFactoryHelper {
     public static final String CUSTOMISABLE_INTERVAL_ALARM = "CUSTOMISABLE_INTERVAL_ALARM";
     @NonNull
     public static final String SCRAPER_ALARM = "SCRAPER_ALARM";
-    public static final String AUTO_CLOUD_BACKUP_ALARM = "AUTO_CLOUD_BACKUP_ALARM";
     @NonNull
     private static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
@@ -79,18 +77,10 @@ public class IntentFactoryHelper {
 
         PendingIntent clickPendingIntent;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            clickPendingIntent = PendingIntent
-                    .getActivity(context, 0,
-                            pendingIntent,
-                            PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
-        } else {
-            clickPendingIntent = PendingIntent
-                    .getActivity(context, 0,
-                            pendingIntent,
-                            PendingIntent.FLAG_UPDATE_CURRENT);
-
-        }
+        clickPendingIntent = PendingIntent
+            .getActivity(context, 0,
+                pendingIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
 
         return clickPendingIntent;
     }
@@ -105,11 +95,7 @@ public class IntentFactoryHelper {
         intent.setAction(action);
 
         int pendingIntentFlags;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
-            pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE;
-        } else {
-            pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT;
-        }
+        pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE;
 
         return PendingIntent.getBroadcast(context, uniqueId, intent, pendingIntentFlags);
     }
@@ -126,11 +112,7 @@ public class IntentFactoryHelper {
         intent.putExtras(bundle);
 
         int pendingIntentFlags;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
-            pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE;
-        } else {
-            pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT;
-        }
+        pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE;
 
         return PendingIntent.getBroadcast(context, uniqueId, intent, pendingIntentFlags);
     }
@@ -148,11 +130,7 @@ public class IntentFactoryHelper {
         intent.putExtras(bundle);
 
         int pendingIntentFlags;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
-            pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE;
-        } else {
-            pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT;
-        }
+        pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE;
 
         return PendingIntent.getBroadcast(context, uniqueId, intent, pendingIntentFlags);
     }

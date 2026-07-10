@@ -1,10 +1,8 @@
 package com.github.jameshnsears.quoteunquote.cloud.transfer.backup.restore
 
-import android.app.AlarmManager
 import android.content.Context
 import android.os.Build
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.getSystemService
 import com.github.jameshnsears.quoteunquote.cloud.transfer.Appearance
 import com.github.jameshnsears.quoteunquote.cloud.transfer.Current
 import com.github.jameshnsears.quoteunquote.cloud.transfer.Favourite
@@ -25,6 +23,7 @@ import com.github.jameshnsears.quoteunquote.db.DatabaseRepository
 import com.github.jameshnsears.quoteunquote.db.h.CurrentEntity
 import com.github.jameshnsears.quoteunquote.db.h.FavouriteEntity
 import com.github.jameshnsears.quoteunquote.db.h.PreviousEntity
+import com.github.jameshnsears.quoteunquote.utils.AlarmManagerHelper
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection
 import com.github.jameshnsears.quoteunquote.utils.preference.PreferencesFacade
 import com.google.gson.GsonBuilder
@@ -318,13 +317,12 @@ class TransferRestore : TransferCommon() {
         notificationsPreferences.eventDisplayWidgetAndNotification =
             schedule.eventDisplayWidgetAndNotification
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            val alarmManager: AlarmManager = context.getSystemService<AlarmManager>()!!
-            if (!alarmManager.canScheduleExactAlarms()) {
-                notificationsPreferences.eventDaily = false
-                notificationsPreferences.customisableInterval = false
-            }
+        if (!AlarmManagerHelper.canScheduleExactAlarms(context)) {
+            notificationsPreferences.eventDaily = false
+            notificationsPreferences.customisableInterval = false
+        }
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (!NotificationManagerCompat.from(context).areNotificationsEnabled()) {
                 notificationsPreferences.eventDisplayWidgetAndNotification = false
             }

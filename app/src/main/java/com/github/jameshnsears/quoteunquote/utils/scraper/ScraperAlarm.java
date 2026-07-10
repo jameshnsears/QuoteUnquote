@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.github.jameshnsears.quoteunquote.configure.fragment.quotations.QuotationsPreferences;
+import com.github.jameshnsears.quoteunquote.utils.AlarmManagerHelper;
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
 
 import java.text.SimpleDateFormat;
@@ -33,33 +34,43 @@ public class ScraperAlarm {
 
     @SuppressLint({"MissingPermission", "ScheduleExactAlarm"})
     public void setAlarm() {
-        if (quotationsPreferences.getDatabaseExternalWeb()) {
+        if (AlarmManagerHelper.canScheduleExactAlarms(context)) {
+            if (quotationsPreferences != null && quotationsPreferences.getDatabaseExternalWeb()) {
 
-            Calendar calendar = Calendar.getInstance();
-            int currentMinute = calendar.get(Calendar.MINUTE);
+                Calendar calendar = Calendar.getInstance();
+                int currentMinute = calendar.get(Calendar.MINUTE);
 
-            if (currentMinute == 0 || currentMinute == 30) {
-                calendar.add(Calendar.MINUTE, 30);
-            } else {
-                calendar.add(Calendar.MINUTE, 60 - currentMinute);
+                if (currentMinute == 0 || currentMinute == 30) {
+                    calendar.add(Calendar.MINUTE, 30);
+                } else {
+                    calendar.add(Calendar.MINUTE, 60 - currentMinute);
+                }
+                calendar.set(Calendar.SECOND, calendar.getMinimum(Calendar.SECOND));
+                calendar.set(Calendar.MILLISECOND, calendar.getMinimum(Calendar.MILLISECOND));
+
+                final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm.ss", Locale.getDefault());
+                Timber.d("scraperAlarm: %s", sdf.format(calendar.getTime()));
+
+                AlarmManager alarmManager =
+                        (AlarmManager) this.context.getSystemService(Context.ALARM_SERVICE);
+
+                PendingIntent alarmPendingIntent
+                        = IntentFactoryHelper.createClickPendingIntent(
+                        this.context, this.widgetId, IntentFactoryHelper.SCRAPER_ALARM);
+
+                try {
+                    alarmManager.setExactAndAllowWhileIdle(
+                            AlarmManager.RTC_WAKEUP,
+                            calendar.getTimeInMillis(),
+                            alarmPendingIntent);
+                } catch (SecurityException e) {
+                    Timber.e(e, "Exact alarm permission not granted despite check");
+                    alarmManager.setAndAllowWhileIdle(
+                            AlarmManager.RTC_WAKEUP,
+                            calendar.getTimeInMillis(),
+                            alarmPendingIntent);
+                }
             }
-            calendar.set(Calendar.SECOND, calendar.getMinimum(Calendar.SECOND));
-            calendar.set(Calendar.MILLISECOND, calendar.getMinimum(Calendar.MILLISECOND));
-
-            final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm.ss", Locale.getDefault());
-            Timber.d("scraperAlarm: %s", sdf.format(calendar.getTime()));
-
-            AlarmManager alarmManager =
-                    (AlarmManager) this.context.getSystemService(Context.ALARM_SERVICE);
-
-            PendingIntent alarmPendingIntent
-                    = IntentFactoryHelper.createClickPendingIntent(
-                    this.context, this.widgetId, IntentFactoryHelper.SCRAPER_ALARM);
-
-            alarmManager.setExactAndAllowWhileIdle(
-                    AlarmManager.RTC_WAKEUP,
-                    calendar.getTimeInMillis(),
-                    alarmPendingIntent);
         }
     }
 

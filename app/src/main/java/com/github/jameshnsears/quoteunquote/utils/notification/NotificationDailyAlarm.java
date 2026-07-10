@@ -4,12 +4,12 @@ import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.github.jameshnsears.quoteunquote.configure.fragment.notifications.NotificationsPreferences;
+import com.github.jameshnsears.quoteunquote.utils.AlarmManagerHelper;
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
 
 import java.text.SimpleDateFormat;
@@ -36,34 +36,39 @@ public class NotificationDailyAlarm {
     public void setAlarm() {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            if (alarmManager.canScheduleExactAlarms()) {
+        if (AlarmManagerHelper.canScheduleExactAlarms(context)) {
+            if (notificationsPreferences != null && notificationsPreferences.getEventDaily()) {
 
-                if (notificationsPreferences.getEventDaily()) {
+                final Calendar calendar = Calendar.getInstance();
+                calendar.setTimeInMillis(System.currentTimeMillis());
+                calendar.set(
+                        Calendar.HOUR_OF_DAY,
+                        notificationsPreferences.getEventDailyTimeHour());
+                calendar.set(
+                        Calendar.MINUTE,
+                        notificationsPreferences.getEventDailyTimeMinute());
+                calendar.set(Calendar.SECOND, 0);
 
-                    final Calendar calendar = Calendar.getInstance();
-                    calendar.setTimeInMillis(System.currentTimeMillis());
-                    calendar.set(
-                            Calendar.HOUR_OF_DAY,
-                            notificationsPreferences.getEventDailyTimeHour());
-                    calendar.set(
-                            Calendar.MINUTE,
-                            notificationsPreferences.getEventDailyTimeMinute());
-                    calendar.set(Calendar.SECOND, 0);
+                // if user's time is < now then fire alarm tomorrow
+                if (calendar.getTimeInMillis() < System.currentTimeMillis() + 1000) {
+                    calendar.add(Calendar.DAY_OF_YEAR, 1);
+                }
 
-                    // if user's time is < now then fire alarm tomorrow
-                    if (calendar.getTimeInMillis() < System.currentTimeMillis() + 1000) {
-                        calendar.add(Calendar.DAY_OF_YEAR, 1);
-                    }
+                final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm.ss", Locale.getDefault());
+                Timber.d("dailyAlarm: %s", sdf.format(calendar.getTime()));
 
-                    final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm.ss", Locale.getDefault());
-                    Timber.d("dailyAlarm: %s", sdf.format(calendar.getTime()));
+                final PendingIntent alarmPendingIntent
+                        = IntentFactoryHelper.createClickPendingIntent(
+                        context, widgetId, IntentFactoryHelper.DAILY_ALARM);
 
-                    final PendingIntent alarmPendingIntent
-                            = IntentFactoryHelper.createClickPendingIntent(
-                            context, widgetId, IntentFactoryHelper.DAILY_ALARM);
-
+                try {
                     alarmManager.setExactAndAllowWhileIdle(
+                            AlarmManager.RTC_WAKEUP,
+                            calendar.getTimeInMillis(),
+                            alarmPendingIntent);
+                } catch (SecurityException e) {
+                    Timber.e(e, "Exact alarm permission not granted despite check");
+                    alarmManager.setAndAllowWhileIdle(
                             AlarmManager.RTC_WAKEUP,
                             calendar.getTimeInMillis(),
                             alarmPendingIntent);
@@ -73,13 +78,13 @@ public class NotificationDailyAlarm {
     }
 
     public void resetAlarm() {
-        if (!notificationsPreferences.getEventDaily()) {
+        if (notificationsPreferences != null && !notificationsPreferences.getEventDaily()) {
 
             final AlarmManager alarmManager =
                     (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
                 alarmManager.cancel(IntentFactoryHelper.createClickPendingIntent(
-                        context, widgetId, IntentFactoryHelper.CUSTOMISABLE_INTERVAL_ALARM));
+                        context, widgetId, IntentFactoryHelper.DAILY_ALARM));
             }
         }
     }

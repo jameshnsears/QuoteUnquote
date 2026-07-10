@@ -3,8 +3,6 @@ package com.github.jameshnsears.quoteunquote.configure.fragment.notifications;
 import static android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM;
 
 import android.Manifest;
-import android.app.AlarmManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -31,6 +29,7 @@ import com.github.jameshnsears.quoteunquote.R;
 import com.github.jameshnsears.quoteunquote.configure.ConfigureActivity;
 import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentNotificationsBinding;
+import com.github.jameshnsears.quoteunquote.utils.AlarmManagerHelper;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
@@ -79,12 +78,7 @@ public class NotificationsFragment extends FragmentCommon {
             result -> {
                 Boolean isChecked = false;
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
-                    if (alarmManager.canScheduleExactAlarms()) {
-                        isChecked = true;
-                    }
-                } else {
+                if (AlarmManagerHelper.canScheduleExactAlarms(getContext())) {
                     isChecked = true;
                 }
 
@@ -174,20 +168,14 @@ public class NotificationsFragment extends FragmentCommon {
     }
 
     private void handleSpecialPermissionForExactAlarm() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        if (!AlarmManagerHelper.canScheduleExactAlarms(getContext())) {
+            fragmentNotificationsBinding.checkBoxCustomisableInterval.setChecked(false);
+            notificationsPreferences.setCustomisableInterval(false);
 
-            AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
-            if (!alarmManager.canScheduleExactAlarms()) {
-                fragmentNotificationsBinding.checkBoxCustomisableInterval.setChecked(false);
-                notificationsPreferences.setCustomisableInterval(false);
-
-                fragmentNotificationsBinding.checkBoxDailyAt.setChecked(false);
-                notificationsPreferences.setEventDaily(false);
-            } else {
-                ConfigureActivity.launcherInvoked = false;
-                handleSpecialPermissionForExactAlarmCommon();
-            }
+            fragmentNotificationsBinding.checkBoxDailyAt.setChecked(false);
+            notificationsPreferences.setEventDaily(false);
         } else {
+            ConfigureActivity.launcherInvoked = false;
             handleSpecialPermissionForExactAlarmCommon();
         }
     }
@@ -396,9 +384,8 @@ public class NotificationsFragment extends FragmentCommon {
 
         checkBoxDailyAt.setOnClickListener(view -> {
             boolean isChecked = ((CheckBox) view).isChecked();
-            if (isChecked && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
-                if (!alarmManager.canScheduleExactAlarms()) {
+            if (isChecked) {
+                if (!AlarmManagerHelper.canScheduleExactAlarms(getContext())) {
                     ConfigureActivity.launcherInvoked = true;
                     startActivity(new Intent(ACTION_REQUEST_SCHEDULE_EXACT_ALARM));
                 }
@@ -453,9 +440,8 @@ public class NotificationsFragment extends FragmentCommon {
 
         checkBoxCustomisableInterval.setOnClickListener(view -> {
             boolean isChecked = ((CheckBox) view).isChecked();
-            if (isChecked && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
-                if (!alarmManager.canScheduleExactAlarms()) {
+            if (isChecked) {
+                if (!AlarmManagerHelper.canScheduleExactAlarms(getContext())) {
                     ConfigureActivity.launcherInvoked = true;
                     Intent intent = new Intent(ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
                     requestExactAlarmLauncher.launch(intent);

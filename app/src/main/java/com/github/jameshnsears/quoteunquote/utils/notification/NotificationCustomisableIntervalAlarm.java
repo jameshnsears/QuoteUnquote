@@ -7,6 +7,7 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
+import com.github.jameshnsears.quoteunquote.utils.AlarmManagerHelper;
 import com.github.jameshnsears.quoteunquote.utils.IntentFactoryHelper;
 
 import java.text.SimpleDateFormat;
@@ -26,60 +27,70 @@ public class NotificationCustomisableIntervalAlarm extends NotificationDailyAlar
 
     @SuppressLint("ScheduleExactAlarm")
     public void setAlarm() {
-        if (notificationsPreferences.getCustomisableInterval()) {
+        if (AlarmManagerHelper.canScheduleExactAlarms(context)) {
+            if (notificationsPreferences != null && notificationsPreferences.getCustomisableInterval()) {
 
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.MINUTE, calendar.getMinimum(Calendar.MINUTE));
-            calendar.set(Calendar.SECOND, calendar.getMinimum(Calendar.SECOND));
-            calendar.set(Calendar.MILLISECOND, calendar.getMinimum(Calendar.MILLISECOND));
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.MINUTE, calendar.getMinimum(Calendar.MINUTE));
+                calendar.set(Calendar.SECOND, calendar.getMinimum(Calendar.SECOND));
+                calendar.set(Calendar.MILLISECOND, calendar.getMinimum(Calendar.MILLISECOND));
 
-            int from = this.notificationsPreferences.getCustomisableIntervalHourFrom();
-            int to = this.notificationsPreferences.getCustomisableIntervalHourTo();
-            int hours = this.notificationsPreferences.getCustomisableIntervalHours();
+                int from = this.notificationsPreferences.getCustomisableIntervalHourFrom();
+                int to = this.notificationsPreferences.getCustomisableIntervalHourTo();
+                int hours = this.notificationsPreferences.getCustomisableIntervalHours();
 
-            if (currentHour() < from) {
-                calendar.set(Calendar.HOUR_OF_DAY, from);
-                nextAlarmHour = from;
-                nextAlarmDay = false;
-            } else if (currentHour() > to) {
-                calendar.set(Calendar.HOUR_OF_DAY, from);
-                nextAlarmHour = from;
-                calendar.add(Calendar.DAY_OF_YEAR, 1);
-                nextAlarmDay = true;
-            } else {
-                for (int alarmHour = from; alarmHour <= to; alarmHour += hours) {
-                    if (alarmHour > currentHour()) {
-                        calendar.set(Calendar.HOUR_OF_DAY, alarmHour);
-                        nextAlarmHour = alarmHour;
-                        nextAlarmDay = false;
-                        break;
-                    }
-                }
-
-                if (nextAlarmHour == 0) {
+                if (currentHour() < from) {
+                    calendar.set(Calendar.HOUR_OF_DAY, from);
+                    nextAlarmHour = from;
+                    nextAlarmDay = false;
+                } else if (currentHour() > to) {
                     calendar.set(Calendar.HOUR_OF_DAY, from);
                     nextAlarmHour = from;
                     calendar.add(Calendar.DAY_OF_YEAR, 1);
                     nextAlarmDay = true;
+                } else {
+                    for (int alarmHour = from; alarmHour <= to; alarmHour += hours) {
+                        if (alarmHour > currentHour()) {
+                            calendar.set(Calendar.HOUR_OF_DAY, alarmHour);
+                            nextAlarmHour = alarmHour;
+                            nextAlarmDay = false;
+                            break;
+                        }
+                    }
+
+                    if (nextAlarmHour == 0) {
+                        calendar.set(Calendar.HOUR_OF_DAY, from);
+                        nextAlarmHour = from;
+                        calendar.add(Calendar.DAY_OF_YEAR, 1);
+                        nextAlarmDay = true;
+                    }
+                }
+
+                final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm.ss", Locale.getDefault());
+                Timber.d("customisableIntervalAlarm: %s", sdf.format(calendar.getTime()));
+                Timber.d("nextAlarmHour: %d", this.nextAlarmHour);
+                Timber.d("nextAlarmDay: %b", this.nextAlarmDay);
+
+                AlarmManager alarmManager =
+                        (AlarmManager) this.context.getSystemService(Context.ALARM_SERVICE);
+
+                PendingIntent alarmPendingIntent
+                        = IntentFactoryHelper.createClickPendingIntent(
+                        this.context, this.widgetId, IntentFactoryHelper.CUSTOMISABLE_INTERVAL_ALARM);
+
+                try {
+                    alarmManager.setExactAndAllowWhileIdle(
+                            AlarmManager.RTC_WAKEUP,
+                            calendar.getTimeInMillis(),
+                            alarmPendingIntent);
+                } catch (SecurityException e) {
+                    Timber.e(e, "Exact alarm permission not granted despite check");
+                    alarmManager.setAndAllowWhileIdle(
+                            AlarmManager.RTC_WAKEUP,
+                            calendar.getTimeInMillis(),
+                            alarmPendingIntent);
                 }
             }
-
-            final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm.ss", Locale.getDefault());
-            Timber.d("customisableIntervalAlarm: %s", sdf.format(calendar.getTime()));
-            Timber.d("nextAlarmHour: %d", this.nextAlarmHour);
-            Timber.d("nextAlarmDay: %b", this.nextAlarmDay);
-
-            AlarmManager alarmManager =
-                    (AlarmManager) this.context.getSystemService(Context.ALARM_SERVICE);
-
-            PendingIntent alarmPendingIntent
-                    = IntentFactoryHelper.createClickPendingIntent(
-                    this.context, this.widgetId, IntentFactoryHelper.CUSTOMISABLE_INTERVAL_ALARM);
-
-            alarmManager.setExactAndAllowWhileIdle(
-                    AlarmManager.RTC_WAKEUP,
-                    calendar.getTimeInMillis(),
-                    alarmPendingIntent);
         }
     }
 
