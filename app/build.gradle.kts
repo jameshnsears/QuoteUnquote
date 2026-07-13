@@ -371,11 +371,11 @@ configurations.all {
     resolutionStrategy {
         force("androidx.core:core:${libs.versions.coreKtx.get()}")
         force("androidx.core:core-ktx:${libs.versions.coreKtx.get()}")
-        force("androidx.test:core:1.7.0")
-        force("androidx.test:core-ktx:1.7.0")
-        force("androidx.test:runner:1.7.0")
-        force("androidx.test:rules:1.7.0")
-        force("androidx.test:monitor:1.7.0")
+        force("androidx.test:core:1.8.0")
+        force("androidx.test:core-ktx:1.8.0")
+        force("androidx.test:runner:1.8.0")
+        force("androidx.test:rules:1.8.0")
+        force("androidx.test:monitor:1.8.0")
     }
 }
 
