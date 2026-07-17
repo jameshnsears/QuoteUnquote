@@ -373,7 +373,7 @@ open class ContentExternalFileFragment(
                         val parcelFileDescriptor =
                             requireContext().contentResolver.openFileDescriptor(
                                 activityResult.data!!.data!!,
-                                "w",
+                                "wt",
                             )
 
                         val fileOutputStream =

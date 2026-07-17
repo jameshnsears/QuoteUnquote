@@ -43,9 +43,7 @@
 * ADB Idea - <https://plugins.jetbrains.com/plugin/7380-adb-idea>
 * JSON To Kotlin Class (
   JsonToKotlinClass) - <https://plugins.jetbrains.com/plugin/9960-json-to-kotlin-class-jsontokotlinclass>-
-* Qodana - JetBrains
 * Docker - JetBrains
-* GitHub Copilot
 
 ---
 
@@ -137,13 +135,3 @@ http://localhost:8000/
 ### 12. Debug Symbols
 
 * app/build/outputs/mapping/googleplayRelease/mapping.txt
-
-### 13. GitHub Secrets
-
-* GOOGLE_PLAY_JSON_DEVELOPMENT
-* GOOGLE_PLAY_JSON_PRODUCTION
-* KEYSTORE_JKS
-* LOCAL_PROPERTIES
-* LOCAL_PROPERTIES_CLOUDLIB
-* LOCAL_PROPERTIES_UTILSLIB
-* SONAR_TOKEN

@@ -33,11 +33,11 @@ public class BrowseFavouritesDialogFragment extends BrowseDialogFragment {
         int index = 1;
         for (final QuotationEntity favouriteQuotation : favouriteQuotationsList) {
             browseFavouritesList.add(new BrowseData(
-                    Strings.padStart(String.valueOf(index), padding, '0'),
-                    favouriteQuotation.quotation,
-                    favouriteQuotation.author,
-                    false,
-                    favouriteQuotation.digest)
+                Strings.padStart(String.valueOf(index), padding, '0'),
+                favouriteQuotation.quotation,
+                favouriteQuotation.author,
+                false,
+                favouriteQuotation.digest)
             );
             index += 1;
         }

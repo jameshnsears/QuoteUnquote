@@ -31,11 +31,11 @@ public class BrowseSourceDialogFragment extends BrowseDialogFragment {
         int index = 1;
         for (final QuotationEntity sourceQuotation : sourceQuotationsList) {
             browseSearchList.add(new BrowseData(
-                    Strings.padStart(String.valueOf(index), padding, '0'),
-                    sourceQuotation.quotation,
-                    sourceQuotation.author,
-                    this.quoteUnquoteModel.isFavourite(sourceQuotation.digest),
-                    sourceQuotation.digest)
+                Strings.padStart(String.valueOf(index), padding, '0'),
+                sourceQuotation.quotation,
+                sourceQuotation.author,
+                this.quoteUnquoteModel.isFavourite(sourceQuotation.digest),
+                sourceQuotation.digest)
             );
             index += 1;
         }

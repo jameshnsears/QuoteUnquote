@@ -36,7 +36,7 @@
     <string name="fragment_quotations_selection_all"><b>Tout: %d</b></string>
     <string name="fragment_quotations_selection_exclusion_instructions">Exclusion de Source…</string>
     <string name="fragment_quotations_selection_exclusion_info"></string>
-    <string name="fragment_quotations_selection_exclusion_1">\u2022&#160;&#160;4 caractères minimum</string>
+    <string name="fragment_quotations_selection_exclusion_1">\u2022&#160;&#160;Insensible à la casse; 4 caractères minimum</string>
     <string name="fragment_quotations_selection_exclusion_2">\u2022&#160;&#160;Séparer chaque Source avec une virgule</string>
     <string name="fragment_quotations_selection_all_ascending">Sources par ordre croissant</string>
     <string name="fragment_quotations_selection_all_ascending_info">\u2022&#160;&#160;Commencer par la source avec le moins de citations ; terminer par celle avec le plus ; tout Précédent existant est conservé</string>
@@ -53,9 +53,10 @@
     <string name="fragment_quotations_selection_search_favourites_only">Favoris uniquement</string>
     <string name="fragment_quotations_selection_search_instructions_text">Texte de recherche…</string>
     <string name="fragment_quotations_selection_search_switch_regex">Expression régulière</string>
-    <string name="fragment_quotations_selection_search_switch_regex_invalid">Expression régulière invalide</string>
     <string name="fragment_quotations_selection_search_instructions_info"></string>
-    <string name="fragment_quotations_selection_search_instructions_1">\u2022&#160;&#160;4 caractères minimum</string>
+    <string name="fragment_quotations_selection_search_instructions_1">\u2022&#160;&#160;Insensible à la casse; 4 caractères minimum</string>
+    <string name="fragment_quotations_selection_search_instructions_2">\u2022&#160;&#160;Rechercher dans les citations et les sources</string>
+    <string name="fragment_quotations_selection_search_instructions_3">\u2022&#160;&#160;Exemple d\'expression régulière: .*(Aristotle|Sun Tzu).*</string>
 
     <string name="fragment_quotations_selection_search_no_results">Aucun résultat pour cette recherche</string>
     <string name="fragment_quotations_selection_dialog_browse_favourites">Favoris</string>

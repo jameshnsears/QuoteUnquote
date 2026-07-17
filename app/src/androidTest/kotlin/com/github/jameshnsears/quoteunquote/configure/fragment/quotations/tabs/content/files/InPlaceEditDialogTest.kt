@@ -10,6 +10,8 @@ import com.github.jameshnsears.quoteunquote.QuoteUnquoteModelUtility
 import com.github.jameshnsears.quoteunquote.configure.ConfigureActivityDouble
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
@@ -19,6 +21,17 @@ class InPlaceEditDialogTest : QuoteUnquoteModelUtility() {
 
     @get:Rule
     val composeRule = createAndroidComposeRule<ConfigureActivityDouble>()
+
+    @Before
+    override fun before() {
+        super.before()
+        databaseRepositoryDouble.useInternalDatabaseFromAsset()
+    }
+
+    @After
+    fun after() {
+        databaseRepositoryDouble.createQuotationsDatabaseInternal()
+    }
 
     @Test
     fun contentCsvInPlaceEditDialog() {
@@ -33,7 +46,7 @@ class InPlaceEditDialogTest : QuoteUnquoteModelUtility() {
             )
 
         scenario.onFragment { contentCsvInPlaceEditDialog ->
-            assertThat(contentCsvInPlaceEditDialog.quoteUnquoteModel.allQuotations.size, equalTo(19894))
+            assertThat(contentCsvInPlaceEditDialog.quoteUnquoteModel.allQuotations.size, equalTo(19832))
         }
 
         composeRule.onNodeWithText("Save").assertExists().performClick()

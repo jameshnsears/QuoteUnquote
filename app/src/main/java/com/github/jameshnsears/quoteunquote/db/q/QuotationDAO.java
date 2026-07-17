@@ -35,12 +35,13 @@ public interface QuotationDAO {
     @Query("UPDATE QUOTATIONS SET digest = :digest WHERE author = :author AND quotation = :quotation")
     void updateQuotationUsingAuthorQuotation(String digest, String author, String quotation);
 
-    @Query("SELECT AUTHOR, QUOTATION, WIKIPEDIA, DIGEST FROM QUOTATIONS WHERE DIGEST = :digest ORDER BY AUTHOR ASC")
+    @Query("SELECT AUTHOR, QUOTATION, WIKIPEDIA, DIGEST FROM QUOTATIONS WHERE DIGEST = :digest ORDER BY AUTHOR ASC, QUOTATION ASC")
     QuotationEntity getQuotation(String digest);
 
-    @Query("SELECT AUTHOR, QUOTATION, WIKIPEDIA, DIGEST FROM QUOTATIONS WHERE DIGEST IN (:digests)")
+    @Query("SELECT AUTHOR, QUOTATION, WIKIPEDIA, DIGEST FROM QUOTATIONS WHERE DIGEST IN (:digests) ORDER BY AUTHOR ASC, QUOTATION ASC")
     List<QuotationEntity> getQuotations(List<String> digests);
 
+    // Shakespeare order is important
     @Query("SELECT AUTHOR, QUOTATION, WIKIPEDIA, DIGEST FROM QUOTATIONS WHERE AUTHOR = :author ORDER BY ROWID ASC")
     List<QuotationEntity> getQuotationsByAuthor(String author);
 
@@ -68,7 +69,7 @@ public interface QuotationDAO {
     @Query("SELECT DIGEST FROM QUOTATIONS ORDER BY AUTHOR ASC, ROWID ASC")
     List<String> getNextAllDigests();
 
-    @Query("SELECT AUTHOR, QUOTATION, WIKIPEDIA, DIGEST FROM QUOTATIONS WHERE INSTR(LOWER(AUTHOR || QUOTATION), LOWER(:text)) > 0")
+    @Query("SELECT AUTHOR, QUOTATION, WIKIPEDIA, DIGEST FROM QUOTATIONS WHERE INSTR(LOWER(AUTHOR || QUOTATION), LOWER(:text)) > 0 ORDER BY AUTHOR, QUOTATION ASC")
     List<QuotationEntity> getQuotationsByText(@NonNull String text);
 
     @Query("SELECT COUNT(*) FROM QUOTATIONS WHERE INSTR(LOWER(AUTHOR || QUOTATION), LOWER(:text)) > 0")

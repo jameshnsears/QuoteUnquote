@@ -87,7 +87,7 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
                 if (quotationEntity != null) {
                     try {
                         if (!"".equals(quotationEntity.theQuotation())
-                                && !quotationList.get(0).equals(quotationEntity.theQuotation())) {
+                            && !quotationList.get(0).equals(quotationEntity.theQuotation())) {
                             quotationList.set(0, quotationEntity.theQuotation());
                             quotationList.set(1, quotationEntity.theAuthor());
                             quotationList.set(2, postion);
@@ -113,21 +113,21 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
         if (quotationEntity != null) {
             try {
                 remoteViews.setOnClickFillInIntent(
-                        R.id.textViewRowQuotation,
-                        IntentFactoryHelper.createIntent(widgetId));
+                    R.id.textViewRowQuotation,
+                    IntentFactoryHelper.createIntent(widgetId));
 
                 if (quotationEntity.wikipedia != null) {
                     remoteViews.setOnClickFillInIntent(
-                            R.id.textViewRowAuthor,
-                            IntentFactoryHelper.createClickFillInIntent(
-                                    "wikipedia",
-                                    quotationEntity.wikipedia,
-                                    widgetId));
+                        R.id.textViewRowAuthor,
+                        IntentFactoryHelper.createClickFillInIntent(
+                            "wikipedia",
+                            quotationEntity.wikipedia,
+                            widgetId));
                 }
 
                 remoteViews.setOnClickFillInIntent(
-                        R.id.textViewRowPosition,
-                        IntentFactoryHelper.createIntent(widgetId));
+                    R.id.textViewRowPosition,
+                    IntentFactoryHelper.createIntent(widgetId));
             } catch (NullPointerException e) {
                 Timber.e("%s", e.getMessage());
             }
@@ -137,11 +137,11 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
     }
 
     private int getRowLayoutId(
-            String textFamily,
-            String textStyle,
-            boolean forceItalicRegular,
-            boolean center,
-            boolean rightSource) {
+        String textFamily,
+        String textStyle,
+        boolean forceItalicRegular,
+        boolean center,
+        boolean rightSource) {
         int layoutId;
 
         switch (textFamily) {
@@ -228,19 +228,19 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
         AppearancePreferences appearancePreferences = new AppearancePreferences(widgetId, context);
 
         final RemoteViews remoteViews = new RemoteViews(
-                context.getPackageName(),
-                getRowLayoutId(
-                        appearancePreferences.getAppearanceTextFamily(),
-                        appearancePreferences.getAppearanceTextStyle(),
-                        appearancePreferences.getAppearanceTextForceItalicRegular(),
-                        appearancePreferences.getAppearanceTextCenter(),
-                        appearancePreferences.getAppearanceTextRightSource()
-                )
+            context.getPackageName(),
+            getRowLayoutId(
+                appearancePreferences.getAppearanceTextFamily(),
+                appearancePreferences.getAppearanceTextStyle(),
+                appearancePreferences.getAppearanceTextForceItalicRegular(),
+                appearancePreferences.getAppearanceTextCenter(),
+                appearancePreferences.getAppearanceTextRightSource()
+            )
         );
 
         if (!quotationList.isEmpty()
-                && !"".equals(quotationEntity.theQuotation())
-                && !"".equals(postion)) {
+            && !"".equals(quotationEntity.theQuotation())
+            && !"".equals(postion)) {
             setRemoteViewQuotation(remoteViews);
             setRemoteViewAuthor(remoteViews);
             setRemoteViewPosition(remoteViews);
@@ -274,16 +274,16 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
         setTextColour(remoteViews, R.id.textViewRowAuthor, appearancePreferences.getAppearanceAuthorTextColour());
         if (!quotationEntity.wikipedia.equals("?")) {
             setTextPaintFlags(
-                    remoteViews,
-                    R.id.textViewRowAuthor,
-                    Paint.ANTI_ALIAS_FLAG | Paint.UNDERLINE_TEXT_FLAG);
+                remoteViews,
+                R.id.textViewRowAuthor,
+                Paint.ANTI_ALIAS_FLAG | Paint.UNDERLINE_TEXT_FLAG);
         } else {
             setTextPaintFlags(remoteViews, R.id.textViewRowAuthor, Paint.ANTI_ALIAS_FLAG);
         }
         setRemoteViewHide(
-                remoteViews,
-                appearancePreferences.getAppearanceAuthorTextHide(),
-                R.id.textViewRowAuthor);
+            remoteViews,
+            appearancePreferences.getAppearanceAuthorTextHide(),
+            R.id.textViewRowAuthor);
     }
 
     private void setRemoteViewPosition(RemoteViews remoteViews) {
@@ -294,9 +294,9 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
         setTextColour(remoteViews, R.id.textViewRowPosition, appearancePreferences.getAppearancePositionTextColour());
         setTextPaintFlags(remoteViews, R.id.textViewRowPosition, Paint.ANTI_ALIAS_FLAG);
         setRemoteViewHide(
-                remoteViews,
-                appearancePreferences.getAppearancePositionTextHide(),
-                R.id.textViewRowPosition);
+            remoteViews,
+            appearancePreferences.getAppearancePositionTextHide(),
+            R.id.textViewRowPosition);
     }
 
     private void setTextPaintFlags(RemoteViews remoteViews, int viewId, int paintFlags) {
@@ -317,8 +317,8 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
             }
         } else {
             remoteViews.setTextColor(
-                    viewId,
-                    Color.parseColor(colour));
+                viewId,
+                Color.parseColor(colour));
         }
     }
 
@@ -326,7 +326,7 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
         boolean isNightMode = false;
 
         if ((context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
-                == Configuration.UI_MODE_NIGHT_YES) {
+            == Configuration.UI_MODE_NIGHT_YES) {
             isNightMode = true;
         }
 
@@ -335,9 +335,9 @@ class ListViewProvider implements RemoteViewsService.RemoteViewsFactory {
 
     private void setTextSize(RemoteViews remoteViews, int viewId, int size) {
         remoteViews.setTextViewTextSize(
-                viewId,
-                TypedValue.COMPLEX_UNIT_DIP,
-                (float) size);
+            viewId,
+            TypedValue.COMPLEX_UNIT_DIP,
+            (float) size);
     }
 
     @NonNull

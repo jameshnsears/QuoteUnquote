@@ -22,7 +22,8 @@ class BrowseSearchDialogFragmentTest : ShadowLoggingHelper() {
     fun confirmInitialState() {
         val quoteUnquoteModel = mockk<QuoteUnquoteModel>()
         every { quoteUnquoteModel.favourites } returns emptyList()
-        every { quoteUnquoteModel.getSearchQuotations(any(), any()) } returns emptyList()
+        every { quoteUnquoteModel.getSearchQuotations(any(), any(), any()) } returns emptyList()
+        every { quoteUnquoteModel.getSearchQuotationsRegEx(any(), any(), any()) } returns emptyList()
 
         launchFragment(themeResId = R.style.AppTheme) {
             BrowseSearchDialogFragmentDouble(quoteUnquoteModel)

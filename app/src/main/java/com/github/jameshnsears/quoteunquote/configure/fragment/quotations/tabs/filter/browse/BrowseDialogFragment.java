@@ -65,9 +65,9 @@ public class BrowseDialogFragment extends DialogFragment {
         final LayoutInflater inflater = this.requireActivity().getLayoutInflater();
 
         this.fragmentQuotationsTabFilterBrowseDialogBinding
-                = FragmentQuotationsTabFilterBrowseDialogBinding.inflate(inflater.cloneInContext(
-                new ContextThemeWrapper(
-                        this.getActivity(), R.style.AppTheme)));
+            = FragmentQuotationsTabFilterBrowseDialogBinding.inflate(inflater.cloneInContext(
+            new ContextThemeWrapper(
+                this.getActivity(), R.style.AppTheme)));
 
         if (null == titleString) {
             builder.setTitle(this.titleResourceId);
@@ -84,11 +84,11 @@ public class BrowseDialogFragment extends DialogFragment {
 
     protected void constructRecyclerView() {
         this.fragmentQuotationsTabFilterBrowseDialogBinding.recycleViewBrowse
-                .setLayoutManager(new LinearLayoutManager(this.getActivity()));
+            .setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
         // doesn't look good when RecyclerView has rounded corners!
         final RecyclerView.ItemDecoration divider
-                = new BrowseDividerItemDecorator(ContextCompat.getDrawable(this.getActivity(), R.drawable.recyclerview_row_divider));
+            = new BrowseDividerItemDecorator(ContextCompat.getDrawable(this.getActivity(), R.drawable.recyclerview_row_divider));
 
         this.fragmentQuotationsTabFilterBrowseDialogBinding.recycleViewBrowse.addItemDecoration(divider);
 
@@ -107,7 +107,7 @@ public class BrowseDialogFragment extends DialogFragment {
                         Timber.d("currentPage=%d", BrowseDialogFragment.this.currentPage);
 
                         recyclerView.post(() ->
-                                BrowseDialogFragment.this.adapter.addData(BrowseDialogFragment.this.getCachedRecyclerViewData(BrowseDialogFragment.this.currentPage), BrowseDialogFragment.this.adapter.getItemCount()));
+                            BrowseDialogFragment.this.adapter.addData(BrowseDialogFragment.this.getCachedRecyclerViewData(BrowseDialogFragment.this.currentPage), BrowseDialogFragment.this.adapter.getItemCount()));
                     }
                 }
             }
@@ -116,9 +116,9 @@ public class BrowseDialogFragment extends DialogFragment {
         this.cachedRecyclerViewData = this.setCachedRecyclerViewData();
 
         this.adapter = new BrowseAdapter(
-                this.widgetId,
-                this.getCachedRecyclerViewData(this.currentPage),
-                this.dialogType);
+            this.widgetId,
+            this.getCachedRecyclerViewData(this.currentPage),
+            this.dialogType);
 
         this.fragmentQuotationsTabFilterBrowseDialogBinding.recycleViewBrowse.setAdapter(this.adapter);
     }

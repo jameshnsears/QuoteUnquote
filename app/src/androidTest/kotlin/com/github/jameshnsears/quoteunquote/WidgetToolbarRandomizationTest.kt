@@ -29,7 +29,7 @@ class WidgetToolbarRandomizationTest : QuoteUnquoteModelUtility() {
             Timber.plant(MethodLineLoggingTree())
         }
 
-        databaseRepositoryDouble.eraseAllDatabsaes()
+        databaseRepositoryDouble.eraseAllDatabases()
         insertQuotationTestData01(true)
         insertQuotationTestData02(true)
         insertQuotationTestData03(true)

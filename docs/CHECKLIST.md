@@ -25,7 +25,7 @@ find . -name "*.gpg"
 ## Assets
 
 ```text
-[ ] Medium Phone API 36.0 AOSP emulator, Medium Phone, get latest screenshots 
+[ ] Medium Phone API 37.0 AOSP emulator, Medium Phone, get latest screenshots
 ```
 
 ## General
@@ -37,7 +37,7 @@ find . -name "*.gpg"
 [ ] delete development and extract production app/google-services.json
 [ ] update versionCode + versionName in app/build.gradle
 [ ] make sure changelogs/xxx.txt matches versionCode
-[ ] update app/schemas/com.github.jameshnsears.quoteunquote.database.quotation.QuotationDatabase/xx.json to match AbstractQuotationDatabase.java
+[ ] update app/schemas/com.github.jameshnsears.quoteunquote.db.q.QuotationDatabase/xx.json to match QuotationDatabase.java
 [ ] deploy app-googleplay-release.aab
 [ ] deploy app/build/outputs/mapping/googleplayRelease/mapping.txt
 [ ] tag the release, and push tag

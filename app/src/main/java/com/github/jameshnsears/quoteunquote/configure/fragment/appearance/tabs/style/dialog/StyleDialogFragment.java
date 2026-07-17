@@ -59,26 +59,26 @@ public class StyleDialogFragment extends DialogFragment {
         LayoutInflater inflater = requireActivity().getLayoutInflater();
 
         fragmentAppearanceTabStyleDialogBinding
-                = FragmentAppearanceTabStyleDialogBinding.inflate(inflater.cloneInContext(
-                new ContextThemeWrapper(
-                        getActivity(), R.style.AppTheme)));
+            = FragmentAppearanceTabStyleDialogBinding.inflate(inflater.cloneInContext(
+            new ContextThemeWrapper(
+                getActivity(), R.style.AppTheme)));
 
         builder.setView(fragmentAppearanceTabStyleDialogBinding.getRoot())
-                .setPositiveButton(R.string.fragment_appearance_ok, (dialog, id) -> {
-                    sharedPreferenceSaveTextColour(envelope);
-                    sharedPreferenceSaveTextSize(fragmentAppearanceTabStyleDialogBinding.spinnerSize);
-                    sharedPreferenceSetTextHide(hideText);
+            .setPositiveButton(R.string.fragment_appearance_ok, (dialog, id) -> {
+                sharedPreferenceSaveTextColour(envelope);
+                sharedPreferenceSaveTextSize(fragmentAppearanceTabStyleDialogBinding.spinnerSize);
+                sharedPreferenceSetTextHide(hideText);
 
-                    Bundle result = new Bundle();
-                    // we don't populate the bundle
-                    getParentFragmentManager().setFragmentResult("requestKey", result);
-                    getDialog().dismiss();
-                })
-                .setNegativeButton(R.string.fragment_appearance_cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        getDialog().cancel();
-                    }
-                });
+                Bundle result = new Bundle();
+                // we don't populate the bundle
+                getParentFragmentManager().setFragmentResult("requestKey", result);
+                getDialog().dismiss();
+            })
+            .setNegativeButton(R.string.fragment_appearance_cancel, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    getDialog().cancel();
+                }
+            });
 
         builder.setTitle(title);
 
@@ -143,21 +143,21 @@ public class StyleDialogFragment extends DialogFragment {
     private void createListenerTextColourPicker() {
         fragmentAppearanceTabStyleDialogBinding.textColourPickerButton.setOnClickListener(v -> {
             QuoteUnquoteColorPickerDialog.Builder builder = new QuoteUnquoteColorPickerDialog.Builder(getContext(), R.style.CustomColourPickerAlertDialog)
-                    .setTitle(getString(titleId))
-                    .setPositiveButton(getString(R.string.fragment_appearance_ok),
-                            (ColorEnvelopeListener) (envelope, fromUser) -> {
+                .setTitle(getString(titleId))
+                .setPositiveButton(getString(R.string.fragment_appearance_ok),
+                    (ColorEnvelopeListener) (envelope, fromUser) -> {
 
-                                fragmentAppearanceTabStyleDialogBinding
-                                        .textColourPickerButton
-                                        .setBackgroundColor(envelope.getColor());
+                        fragmentAppearanceTabStyleDialogBinding
+                            .textColourPickerButton
+                            .setBackgroundColor(envelope.getColor());
 
-                                this.envelope = envelope;
-                            }
-                    )
-                    .setNegativeButton(getString(R.string.fragment_appearance_cancel),
-                            (dialogInterface, i) -> dialogInterface.dismiss())
-                    .attachAlphaSlideBar(false)
-                    .attachBrightnessSlideBar(true);
+                        this.envelope = envelope;
+                    }
+                )
+                .setNegativeButton(getString(R.string.fragment_appearance_cancel),
+                    (dialogInterface, i) -> dialogInterface.dismiss())
+                .attachAlphaSlideBar(false)
+                .attachBrightnessSlideBar(true);
 
             ColorPickerView colorPickerView = builder.getColorPickerView();
 
@@ -176,37 +176,37 @@ public class StyleDialogFragment extends DialogFragment {
         final List<Integer> sizeIntegerArray = getTextSizeIntegerArray(sizeArray);
 
         final ArrayAdapter<Integer> spinnerArrayAdapter =
-                new ArrayAdapter<Integer>(
-                        getContext(),
-                        android.R.layout.simple_list_item_1,
-                        sizeIntegerArray) {
+            new ArrayAdapter<Integer>(
+                getContext(),
+                android.R.layout.simple_list_item_1,
+                sizeIntegerArray) {
 
-                    @NonNull
-                    @Override
-                    public View getView(final int position, final View convertView, @NonNull final ViewGroup parent) {
-                        return getTextSizeDefault(
-                                position,
-                                super.getView(position, convertView, parent),
-                                sizeIntegerArray);
-                    }
+                @NonNull
+                @Override
+                public View getView(final int position, final View convertView, @NonNull final ViewGroup parent) {
+                    return getTextSizeDefault(
+                        position,
+                        super.getView(position, convertView, parent),
+                        sizeIntegerArray);
+                }
 
-                    @NonNull
-                    @Override
-                    public View getDropDownView(final int position, final View convertView, @NonNull final ViewGroup parent) {
-                        return getTextSizeDefault(
-                                position,
-                                super.getDropDownView(position, convertView, parent),
-                                sizeIntegerArray);
-                    }
-                };
+                @NonNull
+                @Override
+                public View getDropDownView(final int position, final View convertView, @NonNull final ViewGroup parent) {
+                    return getTextSizeDefault(
+                        position,
+                        super.getDropDownView(position, convertView, parent),
+                        sizeIntegerArray);
+                }
+            };
 
         fragmentAppearanceTabStyleDialogBinding.spinnerSize.setAdapter(spinnerArrayAdapter);
         setTextSizePreference(sizeIntegerArray, fragmentAppearanceTabStyleDialogBinding.spinnerSize);
     }
 
     private void setTextSizePreference(
-            @NonNull final List<Integer> sizeIntegerArray,
-            @NonNull final Spinner spinnerSize) {
+        @NonNull final List<Integer> sizeIntegerArray,
+        @NonNull final Spinner spinnerSize) {
         final int testSizePreference = sharedPreferenceGetTextSize();
         if (testSizePreference == -1) {
             if (getContext().getResources().getConfiguration().smallestScreenWidthDp >= 600) {
@@ -230,9 +230,9 @@ public class StyleDialogFragment extends DialogFragment {
 
     @NonNull
     public View getTextSizeDefault(
-            final int position,
-            @NonNull final View view,
-            @NonNull final List<Integer> sizeIntegerArray) {
+        final int position,
+        @NonNull final View view,
+        @NonNull final List<Integer> sizeIntegerArray) {
         final TextView textView = (TextView) view;
         textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, sizeIntegerArray.get(position).floatValue());
         return view;
@@ -252,8 +252,8 @@ public class StyleDialogFragment extends DialogFragment {
         String appearanceTextColour = sharedPreferenceGetTextColour();
         appearanceTextColour = appearanceTextColour.replace("#", "");
         fragmentAppearanceTabStyleDialogBinding
-                .textColourPickerButton.setBackgroundColor(
-                        Integer.parseUnsignedInt(appearanceTextColour, 16));
+            .textColourPickerButton.setBackgroundColor(
+                Integer.parseUnsignedInt(appearanceTextColour, 16));
         this.envelope = new ColorEnvelope(Integer.parseUnsignedInt(appearanceTextColour, 16));
     }
 

@@ -6,8 +6,8 @@ import androidx.room.Entity;
 import androidx.room.Index;
 
 @Entity(tableName = "quotations",
-        indices = {@Index("digest"), @Index({"digest", "author"})},
-        primaryKeys = {"author", "quotation"})
+    indices = {@Index("digest"), @Index({"digest", "author"})},
+    primaryKeys = {"author", "quotation"})
 public class QuotationEntity {
     @NonNull
     @ColumnInfo(name = "quotation", collate = ColumnInfo.NOCASE)
@@ -23,10 +23,10 @@ public class QuotationEntity {
     public String author;
 
     public QuotationEntity(
-            @NonNull String digest,
-            @NonNull String wikipedia,
-            @NonNull String author,
-            @NonNull String quotation) {
+        @NonNull String digest,
+        @NonNull String wikipedia,
+        @NonNull String author,
+        @NonNull String quotation) {
         this.author = author;
         this.wikipedia = wikipedia;
         this.quotation = quotation;

@@ -67,4 +67,20 @@ class SearchCountTest : QuoteUnquoteModelUtility() {
             ),
         )
     }
+
+    @Test
+    fun getSearchQuotationsInvalidRegEx() {
+        val quotationEntityList: MutableList<QuotationEntity> = ArrayList()
+        quotationEntityList.add(QuotationEntity("d2345678", "w1", "aaa", "zzz1"))
+        databaseRepositoryDouble.insertQuotations(true, quotationEntityList)
+
+        assertThat(
+            quoteUnquoteModelDouble
+                .getSearchQuotationsRegEx(
+                    "[",
+                    false,
+                ).size,
+            equalTo(0),
+        )
+    }
 }

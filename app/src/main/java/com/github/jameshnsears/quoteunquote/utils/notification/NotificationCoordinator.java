@@ -27,20 +27,20 @@ public class NotificationCoordinator {
     }
 
     public void rememberNotification(
-            @NonNull String notificationChannelId,
-            int notificationId,
-            @NonNull final String digest) {
+        @NonNull String notificationChannelId,
+        int notificationId,
+        @NonNull final String digest) {
         notificationIdToDigestMap.put(notificationId, digest);
         notificationIdToChannelMap.put(notificationId, notificationChannelId);
 
         Timber.d("notificationId=%d; notificationIdToDigestMap.size=%d; notificationIdToChannelMap.size=%d",
-                notificationId, notificationIdToDigestMap.size(), notificationIdToChannelMap.size());
+            notificationId, notificationIdToDigestMap.size(), notificationIdToChannelMap.size());
     }
 
     public void dismissNotification(
-            @NonNull final Context context,
-            @NonNull final NotificationHelper notificationHelper,
-            final int notificationId) {
+        @NonNull final Context context,
+        @NonNull final NotificationHelper notificationHelper,
+        final int notificationId) {
         notificationHelper.dismissNotification(context, notificationId);
         forgetNotification(notificationId);
     }
@@ -50,7 +50,7 @@ public class NotificationCoordinator {
         notificationIdToChannelMap.remove(notificationId);
 
         Timber.d("notificationId=%d; notificationIdToDigestMap.size=%d; notificationIdToChannelMap.size=%d",
-                notificationId, notificationIdToDigestMap.size(), notificationIdToChannelMap.size());
+            notificationId, notificationIdToDigestMap.size(), notificationIdToChannelMap.size());
     }
 
     public String getNotificationChannelId(final int notificationId) {

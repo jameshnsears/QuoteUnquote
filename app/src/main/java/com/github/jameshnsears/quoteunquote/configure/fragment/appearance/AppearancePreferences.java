@@ -15,11 +15,11 @@ public class AppearancePreferences extends PreferencesFacade {
     public static final String APPEARANCE_TEXT_STYLE = "APPEARANCE_TEXT_STYLE";
     public static final String APPEARANCE_TEXT_SIZE = "APPEARANCE_TEXT_SIZE";
     public static final String APPEARANCE_TEXT_FORCE_ITALIC_REGULAR
-            = "APPEARANCE_TEXT_FORCE_ITALIC_REGULAR";
+        = "APPEARANCE_TEXT_FORCE_ITALIC_REGULAR";
     public static final String APPEARANCE_TEXT_CENTER
-            = "APPEARANCE_TEXT_CENTER";
+        = "APPEARANCE_TEXT_CENTER";
     public static final String APPEARANCE_TEXT_RIGHT_SOURCE
-            = "APPEARANCE_TEXT_RIGHT_SOURCE";
+        = "APPEARANCE_TEXT_RIGHT_SOURCE";
 
     public static final String APPEARANCE_QUOTATION_TEXT_COLOUR = "APPEARANCE_TEXT_COLOUR";
     public static final String APPEARANCE_QUOTATION_TEXT_FAMILY = "APPEARANCE_TEXT_FAMILY";
@@ -45,13 +45,13 @@ public class AppearancePreferences extends PreferencesFacade {
     public static String DEFAULT_COLOUR = "#FF000000";
 
     public AppearancePreferences(
-            @NonNull final Context applicationContext) {
+        @NonNull final Context applicationContext) {
         super(applicationContext);
     }
 
     public AppearancePreferences(
-            final int widgetId,
-            @NonNull final Context applicationContext) {
+        final int widgetId,
+        @NonNull final Context applicationContext) {
         super(widgetId, applicationContext);
     }
 
@@ -174,32 +174,32 @@ public class AppearancePreferences extends PreferencesFacade {
 
     public boolean getAppearanceTextForceItalicRegular() {
         return preferenceHelper.getPreferenceBoolean(
-                getPreferenceKey(APPEARANCE_TEXT_FORCE_ITALIC_REGULAR), false);
+            getPreferenceKey(APPEARANCE_TEXT_FORCE_ITALIC_REGULAR), false);
     }
 
     public void setAppearanceTextForceItalicRegular(final boolean value) {
         preferenceHelper.setPreference(
-                getPreferenceKey(APPEARANCE_TEXT_FORCE_ITALIC_REGULAR), value);
+            getPreferenceKey(APPEARANCE_TEXT_FORCE_ITALIC_REGULAR), value);
     }
 
     public boolean getAppearanceTextCenter() {
         return preferenceHelper.getPreferenceBoolean(
-                getPreferenceKey(APPEARANCE_TEXT_CENTER), true);
+            getPreferenceKey(APPEARANCE_TEXT_CENTER), true);
     }
 
     public void setAppearanceTextCenter(final boolean value) {
         preferenceHelper.setPreference(
-                getPreferenceKey(APPEARANCE_TEXT_CENTER), value);
+            getPreferenceKey(APPEARANCE_TEXT_CENTER), value);
     }
 
     public boolean getAppearanceTextRightSource() {
         return preferenceHelper.getPreferenceBoolean(
-                getPreferenceKey(APPEARANCE_TEXT_RIGHT_SOURCE), false);
+            getPreferenceKey(APPEARANCE_TEXT_RIGHT_SOURCE), false);
     }
 
     public void setAppearanceTextRightSource(final boolean value) {
         preferenceHelper.setPreference(
-                getPreferenceKey(APPEARANCE_TEXT_RIGHT_SOURCE), value);
+            getPreferenceKey(APPEARANCE_TEXT_RIGHT_SOURCE), value);
     }
 
     public boolean getAppearanceToolbarJump() {

@@ -21,7 +21,7 @@ abstract class DatabaseTestHelper {
 
     @Before
     open fun before() {
-        databaseRepositoryDouble.eraseAllDatabsaes()
+        databaseRepositoryDouble.eraseAllDatabases()
         PreferencesFacade.erase(context)
     }
 

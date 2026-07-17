@@ -47,7 +47,7 @@
         android:gravity="end"
         android:minHeight="10dp"
         android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-        android:paddingEnd="15dp"
+        android:paddingEnd="20dp"
         android:shadowColor="@android:color/black"
         android:shadowDx="2"
         android:shadowDy="2"

@@ -38,9 +38,9 @@ public class ContentWebFragment extends ContentFragment {
     @Override
     @NonNull
     public View onCreateView(
-            @NonNull LayoutInflater inflater,
-            @NonNull ViewGroup container,
-            @NonNull Bundle savedInstanceState) {
+        @NonNull LayoutInflater inflater,
+        @NonNull ViewGroup container,
+        @NonNull Bundle savedInstanceState) {
         if (this.quotationsPreferences == null) {
             this.quotationsPreferences = new QuotationsPreferences(this.widgetId, this.getContext());
         }
@@ -51,7 +51,7 @@ public class ContentWebFragment extends ContentFragment {
 
     @Override
     public void onViewCreated(
-            @NonNull View view, @NonNull Bundle savedInstanceState) {
+        @NonNull View view, @NonNull Bundle savedInstanceState) {
         if (this.quotationsPreferences.getDatabaseExternalWeb()) {
             this.fragmentQuotationsTabDatabaseTabWebBinding.radioButtonDatabaseExternalWeb.setChecked(true);
             this.fragmentQuotationsTabDatabaseTabWebBinding.radioButtonDatabaseExternalWeb.setEnabled(true);
@@ -64,7 +64,7 @@ public class ContentWebFragment extends ContentFragment {
         fragmentQuotationsTabDatabaseTabWebBinding.editTextXpathQuotation.setText(quotationsPreferences.getDatabaseWebXpathQuotation());
         fragmentQuotationsTabDatabaseTabWebBinding.editTextXpathSource.setText(quotationsPreferences.getDatabaseWebXpathSource());
         this.fragmentQuotationsTabDatabaseTabWebBinding.switchKeepLatestResponseOnly.setChecked(
-                this.quotationsPreferences.getDatabaseWebKeepLatestOnly()
+            this.quotationsPreferences.getDatabaseWebKeepLatestOnly()
         );
 
         createListenerRadioWebPage();
@@ -81,13 +81,13 @@ public class ContentWebFragment extends ContentFragment {
         super.onDestroyView();
 
         quotationsPreferences.setDatabaseWebUrl(
-                fragmentQuotationsTabDatabaseTabWebBinding.editTextUrl.getText().toString()
+            fragmentQuotationsTabDatabaseTabWebBinding.editTextUrl.getText().toString()
         );
         quotationsPreferences.setDatabaseWebXpathQuotation(
-                fragmentQuotationsTabDatabaseTabWebBinding.editTextXpathQuotation.getText().toString()
+            fragmentQuotationsTabDatabaseTabWebBinding.editTextXpathQuotation.getText().toString()
         );
         quotationsPreferences.setDatabaseWebXpathSource(
-                fragmentQuotationsTabDatabaseTabWebBinding.editTextXpathSource.getText().toString()
+            fragmentQuotationsTabDatabaseTabWebBinding.editTextXpathSource.getText().toString()
         );
 
         this.fragmentQuotationsTabDatabaseTabWebBinding = null;
@@ -122,27 +122,27 @@ public class ContentWebFragment extends ContentFragment {
         fragmentQuotationsTabDatabaseTabWebBinding.editTextUrl.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
                 Timber.d("editTextUrl=%s",
-                        fragmentQuotationsTabDatabaseTabWebBinding.editTextUrl.getText().toString());
+                    fragmentQuotationsTabDatabaseTabWebBinding.editTextUrl.getText().toString());
                 quotationsPreferences.setDatabaseWebUrl(
-                        fragmentQuotationsTabDatabaseTabWebBinding.editTextUrl.getText().toString());
+                    fragmentQuotationsTabDatabaseTabWebBinding.editTextUrl.getText().toString());
             }
         });
 
         fragmentQuotationsTabDatabaseTabWebBinding.editTextXpathQuotation.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
                 Timber.d("editTextXpathQuotation=%s",
-                        fragmentQuotationsTabDatabaseTabWebBinding.editTextXpathQuotation.getText().toString());
+                    fragmentQuotationsTabDatabaseTabWebBinding.editTextXpathQuotation.getText().toString());
                 quotationsPreferences.setDatabaseWebXpathQuotation(
-                        fragmentQuotationsTabDatabaseTabWebBinding.editTextXpathQuotation.getText().toString());
+                    fragmentQuotationsTabDatabaseTabWebBinding.editTextXpathQuotation.getText().toString());
             }
         });
 
         fragmentQuotationsTabDatabaseTabWebBinding.editTextXpathSource.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
                 Timber.d("editTextXpathSource=%s",
-                        fragmentQuotationsTabDatabaseTabWebBinding.editTextXpathSource.getText().toString());
+                    fragmentQuotationsTabDatabaseTabWebBinding.editTextXpathSource.getText().toString());
                 quotationsPreferences.setDatabaseWebXpathSource(
-                        fragmentQuotationsTabDatabaseTabWebBinding.editTextXpathSource.getText().toString());
+                    fragmentQuotationsTabDatabaseTabWebBinding.editTextXpathSource.getText().toString());
             }
         });
     }
@@ -170,7 +170,7 @@ public class ContentWebFragment extends ContentFragment {
 
     private void createListenerSwitchKeepLatestReponseOnly() {
         fragmentQuotationsTabDatabaseTabWebBinding.switchKeepLatestResponseOnly.setOnCheckedChangeListener((buttonView, isChecked) ->
-                this.quotationsPreferences.setDatabaseWebKeepLatestOnly(isChecked)
+            this.quotationsPreferences.setDatabaseWebKeepLatestOnly(isChecked)
         );
     }
 
@@ -183,28 +183,28 @@ public class ContentWebFragment extends ContentFragment {
                 String xpathSource = getWebXpathSource();
 
                 if ("".equals(url) || "".equals(xpathQuotation) || "".equals(xpathSource)
-                        || 10 > url.length()) {
+                    || 10 > url.length()) {
                     useInternalDatabase();
 
                     Toast.makeText(
-                            getContext(),
-                            getContext().getString(R.string.fragment_quotations_database_scrape_fields_error_incomplete),
-                            Toast.LENGTH_SHORT).show();
+                        getContext(),
+                        getContext().getString(R.string.fragment_quotations_database_scrape_fields_error_incomplete),
+                        Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(
-                            this.getContext(),
-                            this.getContext().getString(R.string.fragment_quotations_database_scrape_importing),
-                            Toast.LENGTH_SHORT).show();
+                        this.getContext(),
+                        this.getContext().getString(R.string.fragment_quotations_database_scrape_importing),
+                        Toast.LENGTH_SHORT).show();
 
                     ScraperData scraperData = quoteUnquoteModel.getWebPage(
-                            getContext(), url, xpathQuotation, xpathSource);
+                        getContext(), url, xpathQuotation, xpathSource);
 
                     if (scraperData.getScrapeResult()) {
                         quoteUnquoteModel.insertWebPage(
-                                widgetId,
-                                scraperData.getQuotation(),
-                                scraperData.getSource(),
-                                ImportHelper.DEFAULT_DIGEST
+                            widgetId,
+                            scraperData.getQuotation(),
+                            scraperData.getSource(),
+                            ImportHelper.DEFAULT_DIGEST
                         );
 
                         usingWebPage();
@@ -214,9 +214,9 @@ public class ContentWebFragment extends ContentFragment {
                         this.fragmentQuotationsTabDatabaseTabWebBinding.radioButtonDatabaseExternalWeb.setEnabled(false);
 
                         Toast.makeText(
-                                getContext(),
-                                getContext().getString(R.string.fragment_quotations_database_scrape_test_success),
-                                Toast.LENGTH_SHORT).show();
+                            getContext(),
+                            getContext().getString(R.string.fragment_quotations_database_scrape_test_success),
+                            Toast.LENGTH_SHORT).show();
                     } else {
                         useInternalDatabase();
                     }

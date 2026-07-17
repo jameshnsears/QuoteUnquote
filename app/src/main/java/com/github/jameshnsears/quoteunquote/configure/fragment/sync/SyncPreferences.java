@@ -19,7 +19,7 @@ public class SyncPreferences extends PreferencesFacade {
     @NonNull
     public String getLastSuccessfulCloudBackupTimestamp() {
         String lastCloudTimestamp
-                = this.preferenceHelper.getPreferenceString(this.getLastBackupTimestamp());
+            = this.preferenceHelper.getPreferenceString(this.getLastBackupTimestamp());
 
         if (lastCloudTimestamp.equals("")) {
             return "N/A";

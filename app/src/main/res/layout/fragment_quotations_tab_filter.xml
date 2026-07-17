@@ -208,12 +208,12 @@
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/buttonSourceBrowse"
+                        android:id="@+id/buttonSourceExport"
                         android:layout_width="120dp"
                         android:layout_height="48dp"
-                        android:contentDescription="@string/fragment_quotations_selection_browse"
+                        android:contentDescription="@string/fragment_quotations_selection_export_button"
                         android:enabled="false"
-                        android:text="@string/fragment_quotations_selection_browse"
+                        android:text="@string/fragment_quotations_selection_export_button"
                         android:textColor="@android:color/white"
                         android:textSize="16sp"
                         app:strokeColor="?attr/colorPrimary" />
@@ -227,12 +227,12 @@
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/buttonSourceExport"
+                        android:id="@+id/buttonSourceBrowse"
                         android:layout_width="120dp"
                         android:layout_height="48dp"
-                        android:contentDescription="@string/fragment_quotations_selection_export_button"
+                        android:contentDescription="@string/fragment_quotations_selection_browse"
                         android:enabled="false"
-                        android:text="@string/fragment_quotations_selection_export_button"
+                        android:text="@string/fragment_quotations_selection_browse"
                         android:textColor="@android:color/white"
                         android:textSize="16sp"
                         app:strokeColor="?attr/colorPrimary" />
@@ -293,12 +293,12 @@
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/buttonFavouritesBrowse"
+                        android:id="@+id/buttonFavouritesExport"
                         android:layout_width="120dp"
                         android:layout_height="48dp"
-                        android:contentDescription="@string/fragment_quotations_selection_browse"
+                        android:contentDescription="@string/fragment_quotations_selection_export_button"
                         android:enabled="false"
-                        android:text="@string/fragment_quotations_selection_browse"
+                        android:text="@string/fragment_quotations_selection_export_button"
                         android:textColor="@android:color/white"
                         android:textSize="16sp"
                         app:strokeColor="?attr/colorPrimary" />
@@ -312,12 +312,12 @@
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/buttonFavouritesExport"
+                        android:id="@+id/buttonFavouritesBrowse"
                         android:layout_width="120dp"
                         android:layout_height="48dp"
-                        android:contentDescription="@string/fragment_quotations_selection_export_button"
+                        android:contentDescription="@string/fragment_quotations_selection_browse"
                         android:enabled="false"
-                        android:text="@string/fragment_quotations_selection_export_button"
+                        android:text="@string/fragment_quotations_selection_browse"
                         android:textColor="@android:color/white"
                         android:textSize="16sp"
                         app:strokeColor="?attr/colorPrimary" />
@@ -447,10 +447,34 @@
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:paddingStart="9dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="0dp"
+                android:paddingBottom="5dp"
+                android:text="@string/fragment_quotations_selection_search_instructions_1"
+                android:textAppearance="?attr/textAppearanceBodySmall" />
+
+            <TextView
+                android:id="@+id/textViewSearchMinimum2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:paddingStart="9dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="0dp"
+                android:paddingBottom="5dp"
+                android:text="@string/fragment_quotations_selection_search_instructions_2"
+                android:textAppearance="?attr/textAppearanceBodySmall" />
+
+            <TextView
+                android:id="@+id/textViewSearchMinimum3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:paddingStart="9dp"
                 android:paddingTop="10dp"
                 android:paddingEnd="0dp"
                 android:paddingBottom="10dp"
-                android:text="@string/fragment_quotations_selection_search_instructions_1"
+                android:text="@string/fragment_quotations_selection_search_instructions_3"
                 android:textAppearance="?attr/textAppearanceBodySmall" />
 
             <LinearLayout
@@ -460,6 +484,25 @@
                 android:orientation="horizontal"
                 android:paddingTop="5dp"
                 android:paddingBottom="3dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/buttonSearchExport"
+                        android:layout_width="120dp"
+                        android:layout_height="48dp"
+                        android:contentDescription="@string/fragment_quotations_selection_browse"
+                        android:enabled="false"
+                        android:text="@string/fragment_quotations_selection_export_button"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        app:strokeColor="?attr/colorPrimary" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -480,24 +523,6 @@
                         app:strokeColor="?attr/colorPrimary" />
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/buttonSearchExport"
-                        android:layout_width="120dp"
-                        android:layout_height="48dp"
-                        android:contentDescription="@string/fragment_quotations_selection_browse"
-                        android:enabled="false"
-                        android:text="@string/fragment_quotations_selection_export_button"
-                        android:textColor="@android:color/white"
-                        android:textSize="16sp"
-                        app:strokeColor="?attr/colorPrimary" />
-                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>

@@ -79,17 +79,17 @@ public class AppearanceStyleFragment extends FragmentCommon {
     @Override
     @NonNull
     public View onCreateView(
-            @NonNull final LayoutInflater inflater,
-            @NonNull ViewGroup container,
-            @NonNull Bundle savedInstanceState) {
+        @NonNull final LayoutInflater inflater,
+        @NonNull ViewGroup container,
+        @NonNull Bundle savedInstanceState) {
         appearancePreferences = new AppearancePreferences(this.widgetId, getContext());
 
         quoteUnquoteModel = new QuoteUnquoteModel(widgetId, getContext());
 
         fragmentAppearanceTabStyleBinding
-                = FragmentAppearanceTabStyleBinding.inflate(inflater.cloneInContext(
-                new ContextThemeWrapper(
-                        getActivity(), com.google.android.material.R.style.Theme_Material3_DayNight)));
+            = FragmentAppearanceTabStyleBinding.inflate(inflater.cloneInContext(
+            new ContextThemeWrapper(
+                getActivity(), com.google.android.material.R.style.Theme_Material3_DayNight)));
         return fragmentAppearanceTabStyleBinding.getRoot();
     }
 
@@ -101,7 +101,7 @@ public class AppearanceStyleFragment extends FragmentCommon {
 
     @Override
     public void onViewCreated(
-            @NonNull final View view, @NonNull Bundle savedInstanceState) {
+        @NonNull final View view, @NonNull Bundle savedInstanceState) {
         createListenerBackgroundColourPicker();
         createListenerTransparency();
 
@@ -179,41 +179,41 @@ public class AppearanceStyleFragment extends FragmentCommon {
         int appearanceColourUnsignedInt = Integer.parseUnsignedInt(appearanceColour, 16);
 
         fragmentAppearanceTabStyleBinding
-                .backgroundColourPickerButton.setBackgroundColor(appearanceColourUnsignedInt);
+            .backgroundColourPickerButton.setBackgroundColor(appearanceColourUnsignedInt);
 
         setTextViewBackgroundColour(appearanceColourUnsignedInt);
     }
 
     private void setTextViewBackgroundColour(int appearanceColourUnsignedInt) {
         fragmentAppearanceTabStyleBinding.textViewCurrentQuotation
-                .setBackgroundColor(appearanceColourUnsignedInt);
+            .setBackgroundColor(appearanceColourUnsignedInt);
         fragmentAppearanceTabStyleBinding.textViewCurrentAuthor
-                .setBackgroundColor(appearanceColourUnsignedInt);
+            .setBackgroundColor(appearanceColourUnsignedInt);
         fragmentAppearanceTabStyleBinding.textViewCurrentPosition
-                .setBackgroundColor(appearanceColourUnsignedInt);
+            .setBackgroundColor(appearanceColourUnsignedInt);
     }
 
     private void createListenerBackgroundColourPicker() {
         fragmentAppearanceTabStyleBinding.backgroundColourPickerButton.setOnClickListener(v -> {
             QuoteUnquoteColorPickerDialog.Builder builder = new QuoteUnquoteColorPickerDialog.Builder(getContext(), R.style.CustomColourPickerAlertDialog)
-                    .setTitle(getString(R.string.fragment_appearance_background_colour_dialog_title))
-                    .setPositiveButton(getString(R.string.fragment_appearance_ok),
-                            (ColorEnvelopeListener) (envelope, fromUser) -> {
+                .setTitle(getString(R.string.fragment_appearance_background_colour_dialog_title))
+                .setPositiveButton(getString(R.string.fragment_appearance_ok),
+                    (ColorEnvelopeListener) (envelope, fromUser) -> {
 
-                                fragmentAppearanceTabStyleBinding
-                                        .backgroundColourPickerButton
-                                        .setBackgroundColor(envelope.getColor());
+                        fragmentAppearanceTabStyleBinding
+                            .backgroundColourPickerButton
+                            .setBackgroundColor(envelope.getColor());
 
-                                appearancePreferences.setAppearanceColour("#" + envelope.getHexCode());
+                        appearancePreferences.setAppearanceColour("#" + envelope.getHexCode());
 
-                                setTextViewBackgroundColour(envelope.getColor());
-                            }
+                        setTextViewBackgroundColour(envelope.getColor());
+                    }
 
-                    )
-                    .setNegativeButton(getString(R.string.fragment_appearance_cancel),
-                            (dialogInterface, i) -> dialogInterface.dismiss())
-                    .attachAlphaSlideBar(false)
-                    .attachBrightnessSlideBar(true);
+                )
+                .setNegativeButton(getString(R.string.fragment_appearance_cancel),
+                    (dialogInterface, i) -> dialogInterface.dismiss())
+                .attachAlphaSlideBar(false)
+                .attachBrightnessSlideBar(true);
 
             ColorPickerView colorPickerView = builder.getColorPickerView();
 
@@ -229,19 +229,19 @@ public class AppearanceStyleFragment extends FragmentCommon {
 
     private void createListenerTransparency() {
         fragmentAppearanceTabStyleBinding.seekBarTransparency.addOnSliderTouchListener(
-                new Slider.OnSliderTouchListener() {
-                    @Override
-                    public void onStartTrackingTouch(@NonNull Slider slider) {
-                        // ...
-                    }
+            new Slider.OnSliderTouchListener() {
+                @Override
+                public void onStartTrackingTouch(@NonNull Slider slider) {
+                    // ...
+                }
 
-                    @Override
-                    public void onStopTrackingTouch(@NonNull Slider slider) {
-                        int sliderValue = (int) slider.getValue();
-                        Timber.d("%d", sliderValue);
-                        appearancePreferences.setAppearanceTransparency(sliderValue);
-                    }
-                });
+                @Override
+                public void onStopTrackingTouch(@NonNull Slider slider) {
+                    int sliderValue = (int) slider.getValue();
+                    Timber.d("%d", sliderValue);
+                    appearancePreferences.setAppearanceTransparency(sliderValue);
+                }
+            });
     }
 
     private void createListenerTextFamily() {
@@ -359,7 +359,7 @@ public class AppearanceStyleFragment extends FragmentCommon {
     private void createListenerButtonQuotation() {
         fragmentAppearanceTabStyleBinding.buttonQuotation.setOnClickListener(v -> {
             StyleDialogQuotation appearanceTextDialogQuotation
-                    = new StyleDialogQuotation(widgetId);
+                = new StyleDialogQuotation(widgetId);
             appearanceTextDialogQuotation.show(getParentFragmentManager(), "");
         });
     }
@@ -367,7 +367,7 @@ public class AppearanceStyleFragment extends FragmentCommon {
     private void createListenerButtonAuthor() {
         fragmentAppearanceTabStyleBinding.buttonAuthor.setOnClickListener(v -> {
             StyleDialogAuthor styleDialogAuthor
-                    = new StyleDialogAuthor(widgetId);
+                = new StyleDialogAuthor(widgetId);
             styleDialogAuthor.show(getParentFragmentManager(), "");
         });
     }
@@ -375,20 +375,20 @@ public class AppearanceStyleFragment extends FragmentCommon {
     private void createListenerButtonPosition() {
         fragmentAppearanceTabStyleBinding.buttonPosition.setOnClickListener(v -> {
             StyleDialogPosition appearanceTextDialogPosition
-                    = new StyleDialogPosition(widgetId);
+                = new StyleDialogPosition(widgetId);
             appearanceTextDialogPosition.show(getParentFragmentManager(), "");
         });
     }
 
     private void createListenerTextDialogFragmentResult() {
         getParentFragmentManager().setFragmentResultListener(
-                "requestKey",
-                this,
-                (requestKey, bundle) -> {
-                    setTextQuotation();
-                    setTextAuthor();
-                    setTextPosition();
-                });
+            "requestKey",
+            this,
+            (requestKey, bundle) -> {
+                setTextQuotation();
+                setTextAuthor();
+                setTextPosition();
+            });
     }
 
     public void setTransparency() {
@@ -404,11 +404,11 @@ public class AppearanceStyleFragment extends FragmentCommon {
 
     public void setTextFamily() {
         setSpinner(
-                fragmentAppearanceTabStyleBinding.spinnerFamily,
-                new AppearanceTextFamilySpinnerAdapter(getActivity().getBaseContext()),
-                sharedPreferenceGetTextFamily(),
-                2,
-                R.array.fragment_appearance_family_array
+            fragmentAppearanceTabStyleBinding.spinnerFamily,
+            new AppearanceTextFamilySpinnerAdapter(getActivity().getBaseContext()),
+            sharedPreferenceGetTextFamily(),
+            2,
+            R.array.fragment_appearance_family_array
         );
 
         sharedPreferenceSaveTextFamily(fragmentAppearanceTabStyleBinding.spinnerFamily.getSelectedItem().toString());
@@ -416,11 +416,11 @@ public class AppearanceStyleFragment extends FragmentCommon {
 
     public void setTextStyle() {
         setSpinner(
-                fragmentAppearanceTabStyleBinding.spinnerStyle,
-                new AppearanceTextStyleSpinnerAdapter(getActivity().getBaseContext()),
-                sharedPreferenceGetTextStyle(),
-                3,
-                R.array.fragment_appearance_style_array
+            fragmentAppearanceTabStyleBinding.spinnerStyle,
+            new AppearanceTextStyleSpinnerAdapter(getActivity().getBaseContext()),
+            sharedPreferenceGetTextStyle(),
+            3,
+            R.array.fragment_appearance_style_array
         );
 
         sharedPreferenceSaveTextStyle(fragmentAppearanceTabStyleBinding.spinnerStyle);
@@ -428,7 +428,7 @@ public class AppearanceStyleFragment extends FragmentCommon {
 
     public void setTextForceItalicRegular() {
         fragmentAppearanceTabStyleBinding.switchForceItalicRegular
-                .setChecked(appearancePreferences.getAppearanceTextForceItalicRegular());
+            .setChecked(appearancePreferences.getAppearanceTextForceItalicRegular());
 
         if (appearancePreferences.getAppearanceTextForceItalicRegular()) {
             fragmentAppearanceTabStyleBinding.spinnerStyle.setEnabled(false);
@@ -439,10 +439,10 @@ public class AppearanceStyleFragment extends FragmentCommon {
 
     public void setText() {
         fragmentAppearanceTabStyleBinding.switchCenter
-                .setChecked(appearancePreferences.getAppearanceTextCenter());
+            .setChecked(appearancePreferences.getAppearanceTextCenter());
 
         fragmentAppearanceTabStyleBinding.switchRightSource
-                .setChecked(appearancePreferences.getAppearanceTextRightSource());
+            .setChecked(appearancePreferences.getAppearanceTextRightSource());
 
         if (appearancePreferences.getAppearanceTextCenter()) {
             fragmentAppearanceTabStyleBinding.textViewCurrentQuotation.setGravity(Gravity.CENTER);
@@ -458,7 +458,7 @@ public class AppearanceStyleFragment extends FragmentCommon {
 
     public void setTextRightSource() {
         fragmentAppearanceTabStyleBinding.switchRightSource
-                .setChecked(appearancePreferences.getAppearanceTextRightSource());
+            .setChecked(appearancePreferences.getAppearanceTextRightSource());
 
         if (appearancePreferences.getAppearanceTextRightSource()) {
             fragmentAppearanceTabStyleBinding.textViewCurrentQuotation.setGravity(Gravity.CENTER);
@@ -472,11 +472,11 @@ public class AppearanceStyleFragment extends FragmentCommon {
     }
 
     public void setSpinner(
-            @NonNull final Spinner spinner,
-            @NonNull final BaseAdapter spinnerAdapter,
-            @NonNull final String preference,
-            int defaultSelection,
-            int resourceArrayId) {
+        @NonNull final Spinner spinner,
+        @NonNull final BaseAdapter spinnerAdapter,
+        @NonNull final String preference,
+        int defaultSelection,
+        int resourceArrayId) {
 
         spinner.setAdapter(spinnerAdapter);
 
@@ -498,54 +498,54 @@ public class AppearanceStyleFragment extends FragmentCommon {
         boolean followSystemTheme = appearancePreferences.getAppearanceForceFollowSystemTheme();
         if (followSystemTheme) {
             fragmentAppearanceTabStyleBinding.textViewCurrentQuotation
-                    .setTextColor(
-                            Color.parseColor(AppearancePreferences.DEFAULT_COLOUR)
-                    );
+                .setTextColor(
+                    Color.parseColor(AppearancePreferences.DEFAULT_COLOUR)
+                );
         } else {
             fragmentAppearanceTabStyleBinding.textViewCurrentQuotation
-                    .setTextColor(
-                            Color.parseColor(appearancePreferences.getAppearanceQuotationTextColour())
-                    );
+                .setTextColor(
+                    Color.parseColor(appearancePreferences.getAppearanceQuotationTextColour())
+                );
         }
 
         setTextStyle(
-                fragmentAppearanceTabStyleBinding.textViewCurrentQuotation,
-                getTextFamily(appearancePreferences.getAppearanceTextFamily()),
-                appearancePreferences.getAppearanceTextStyle(),
-                appearancePreferences.getAppearanceTextForceItalicRegular(),
-                TextStyle.Quotation);
+            fragmentAppearanceTabStyleBinding.textViewCurrentQuotation,
+            getTextFamily(appearancePreferences.getAppearanceTextFamily()),
+            appearancePreferences.getAppearanceTextStyle(),
+            appearancePreferences.getAppearanceTextForceItalicRegular(),
+            TextStyle.Quotation);
 
         fragmentAppearanceTabStyleBinding.textViewCurrentQuotation
-                .setTextSize(appearancePreferences.getAppearanceQuotationTextSize());
+            .setTextSize(appearancePreferences.getAppearanceQuotationTextSize());
 
         setText();
 
         fragmentAppearanceTabStyleBinding.textViewCurrentQuotation
-                .setText(R.string.fragment_appearance_button_quotation);
+            .setText(R.string.fragment_appearance_button_quotation);
     }
 
     public void setTextAuthor() {
         if (appearancePreferences.getAppearanceForceFollowSystemTheme()) {
             fragmentAppearanceTabStyleBinding.textViewCurrentAuthor
-                    .setTextColor(
-                            Color.parseColor(AppearancePreferences.DEFAULT_COLOUR)
-                    );
+                .setTextColor(
+                    Color.parseColor(AppearancePreferences.DEFAULT_COLOUR)
+                );
         } else {
             fragmentAppearanceTabStyleBinding.textViewCurrentAuthor
-                    .setTextColor(
-                            Color.parseColor(appearancePreferences.getAppearanceAuthorTextColour())
-                    );
+                .setTextColor(
+                    Color.parseColor(appearancePreferences.getAppearanceAuthorTextColour())
+                );
         }
 
         setTextStyle(
-                fragmentAppearanceTabStyleBinding.textViewCurrentAuthor,
-                getTextFamily(appearancePreferences.getAppearanceTextFamily()),
-                appearancePreferences.getAppearanceTextStyle(),
-                appearancePreferences.getAppearanceTextForceItalicRegular(),
-                TextStyle.Author);
+            fragmentAppearanceTabStyleBinding.textViewCurrentAuthor,
+            getTextFamily(appearancePreferences.getAppearanceTextFamily()),
+            appearancePreferences.getAppearanceTextStyle(),
+            appearancePreferences.getAppearanceTextForceItalicRegular(),
+            TextStyle.Author);
 
         fragmentAppearanceTabStyleBinding.textViewCurrentAuthor
-                .setTextSize(appearancePreferences.getAppearanceAuthorTextSize());
+            .setTextSize(appearancePreferences.getAppearanceAuthorTextSize());
 
         setText();
 
@@ -557,56 +557,56 @@ public class AppearanceStyleFragment extends FragmentCommon {
         }
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         fragmentAppearanceTabStyleBinding.textViewCurrentAuthor
-                .setText(content);
+            .setText(content);
 
         showHideIconOnButton(
-                appearancePreferences.getAppearanceAuthorTextHide(),
-                fragmentAppearanceTabStyleBinding.buttonAuthor);
+            appearancePreferences.getAppearanceAuthorTextHide(),
+            fragmentAppearanceTabStyleBinding.buttonAuthor);
     }
 
     public void setTextPosition() {
         if (appearancePreferences.getAppearanceForceFollowSystemTheme()) {
             fragmentAppearanceTabStyleBinding.textViewCurrentPosition
-                    .setTextColor(
-                            Color.parseColor(AppearancePreferences.DEFAULT_COLOUR)
-                    );
+                .setTextColor(
+                    Color.parseColor(AppearancePreferences.DEFAULT_COLOUR)
+                );
         } else {
             fragmentAppearanceTabStyleBinding.textViewCurrentPosition
-                    .setTextColor(
-                            Color.parseColor(appearancePreferences.getAppearancePositionTextColour())
-                    );
+                .setTextColor(
+                    Color.parseColor(appearancePreferences.getAppearancePositionTextColour())
+                );
         }
 
         setTextStyle(
-                fragmentAppearanceTabStyleBinding.textViewCurrentPosition,
-                getTextFamily(appearancePreferences.getAppearanceTextFamily()),
-                appearancePreferences.getAppearanceTextStyle(),
-                appearancePreferences.getAppearanceTextForceItalicRegular(),
-                TextStyle.Position);
+            fragmentAppearanceTabStyleBinding.textViewCurrentPosition,
+            getTextFamily(appearancePreferences.getAppearanceTextFamily()),
+            appearancePreferences.getAppearanceTextStyle(),
+            appearancePreferences.getAppearanceTextForceItalicRegular(),
+            TextStyle.Position);
 
         fragmentAppearanceTabStyleBinding.textViewCurrentPosition
-                .setTextSize(appearancePreferences.getAppearanceAuthorTextSize());
+            .setTextSize(appearancePreferences.getAppearanceAuthorTextSize());
 
         fragmentAppearanceTabStyleBinding.textViewCurrentPosition
-                .setTextSize(appearancePreferences.getAppearancePositionTextSize());
+            .setTextSize(appearancePreferences.getAppearancePositionTextSize());
 
         if (appearancePreferences.getAppearancePositionTextHide()) {
             fragmentAppearanceTabStyleBinding.textViewCurrentPosition
-                    .setText("");
+                .setText("");
         } else {
             fragmentAppearanceTabStyleBinding.textViewCurrentPosition
-                    .setText(R.string.fragment_appearance_button_position);
+                .setText(R.string.fragment_appearance_button_position);
         }
 
         showHideIconOnButton(
-                appearancePreferences.getAppearancePositionTextHide(),
-                fragmentAppearanceTabStyleBinding.buttonPosition);
+            appearancePreferences.getAppearancePositionTextHide(),
+            fragmentAppearanceTabStyleBinding.buttonPosition);
     }
 
     public void showHideIconOnButton(boolean appearancePositionTextHide, Button button) {
         if (appearancePositionTextHide) {
             Drawable icon
-                    = ContextCompat.getDrawable(getContext(), R.drawable.ic_appearance_visibility_off_24);
+                = ContextCompat.getDrawable(getContext(), R.drawable.ic_appearance_visibility_off_24);
             ((MaterialButton) button).setIcon(icon);
         } else {
             ((MaterialButton) button).setIcon(null);
@@ -616,29 +616,29 @@ public class AppearanceStyleFragment extends FragmentCommon {
     private Typeface getTextFamily(String family) {
         if (family.equals("Cursive")) {
             return Typeface.createFromAsset(
-                    getContext().getAssets(), "font/DancingScript_Regular.ttf");
+                getContext().getAssets(), "font/DancingScript_Regular.ttf");
         } else if (family.equals("Monospace")) {
             return Typeface.createFromAsset(
-                    getContext().getAssets(), "font/DroidSansMono.ttf");
+                getContext().getAssets(), "font/DroidSansMono.ttf");
         } else if (family.equals("Sans Serif")) {
             return Typeface.createFromAsset(
-                    getContext().getAssets(), "font/Roboto_Regular.ttf");
+                getContext().getAssets(), "font/Roboto_Regular.ttf");
         } else if (family.equals("Sans Serif Condensed")) {
             return Typeface.createFromAsset(
-                    getContext().getAssets(), "font/RobotoCondensed_Regular.ttf");
+                getContext().getAssets(), "font/RobotoCondensed_Regular.ttf");
         } else if (family.equals("Sans Serif Medium")) {
             return Typeface.createFromAsset(
-                    getContext().getAssets(), "font/Roboto_Medium.ttf");
+                getContext().getAssets(), "font/Roboto_Medium.ttf");
         }
         // "Serif":
         return Typeface.createFromAsset(
-                getContext().getAssets(), "font/NotoSerif_Regular.ttf");
+            getContext().getAssets(), "font/NotoSerif_Regular.ttf");
 
     }
 
     private void setTextStyle(
-            TextView textView, Typeface typeFace, String style,
-            boolean forceItalicRegular, TextStyle textStyle) {
+        TextView textView, Typeface typeFace, String style,
+        boolean forceItalicRegular, TextStyle textStyle) {
         textView.setShadowLayer(0, 0, 0, 0);
 
         if (forceItalicRegular) {

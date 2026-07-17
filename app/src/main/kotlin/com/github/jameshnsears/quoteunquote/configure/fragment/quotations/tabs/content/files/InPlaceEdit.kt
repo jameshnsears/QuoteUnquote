@@ -177,7 +177,8 @@ fun inPlaceEditList(filesCsvViewModel: FilesCsvViewModel) {
                                 }
 
                                 focusManager.clearFocus()
-                            }.padding(top = 3.dp)
+                            }
+                            .padding(top = 3.dp)
                             .padding(3.dp)
                             .focusable(),
                 ) {
@@ -353,6 +354,24 @@ private fun inPlaceEditSaveDeleteButtons(filesCsvViewModel: FilesCsvViewModel) {
             modifier = Modifier.padding(start = 24.dp, end = 24.dp),
         ) {
             Button(
+                colors = deleteButtonColors,
+                modifier =
+                    Modifier
+                        .height(41.dp)
+                        .width(120.dp),
+                onClick = {
+                    filesCsvViewModel.buttonDeletePressed()
+                },
+                enabled = digest.isNotEmpty(),
+            ) {
+                Text(
+                    stringResource(id = R.string.fragment_quotations_database_file_csv_inplace_delete),
+                )
+            }
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            Button(
                 colors = saveButtonColors,
                 modifier =
                     Modifier
@@ -373,24 +392,6 @@ private fun inPlaceEditSaveDeleteButtons(filesCsvViewModel: FilesCsvViewModel) {
             ) {
                 Text(
                     stringResource(id = R.string.fragment_quotations_database_file_csv_inplace_save),
-                )
-            }
-
-            Spacer(modifier = Modifier.weight(1f))
-
-            Button(
-                colors = deleteButtonColors,
-                modifier =
-                    Modifier
-                        .height(41.dp)
-                        .width(120.dp),
-                onClick = {
-                    filesCsvViewModel.buttonDeletePressed()
-                },
-                enabled = digest.isNotEmpty(),
-            ) {
-                Text(
-                    stringResource(id = R.string.fragment_quotations_database_file_csv_inplace_delete),
                 )
             }
         }

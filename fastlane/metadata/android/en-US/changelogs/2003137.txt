@@ -1,2 +1,0 @@
-- Fix: Force resolutionStrategy: OEM liar API usage
-- Dev: Android Studio Quail 1 | 2026.1.1 Patch 2

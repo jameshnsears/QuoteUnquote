@@ -47,12 +47,12 @@ public class ConfigureActivity extends AppCompatActivity {
     protected boolean finishCalled;
     @NonNull
     private ActivityResultLauncher<Intent> wikipediaActivityLauncher = this.registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == Activity.RESULT_OK) {
-                    finish();
-                }
-            });
+        new ActivityResultContracts.StartActivityForResult(),
+        result -> {
+            if (result.getResultCode() == Activity.RESULT_OK) {
+                finish();
+            }
+        });
 
     public static boolean isLauncherInvoked() {
         return launcherInvoked;
@@ -66,6 +66,8 @@ public class ConfigureActivity extends AppCompatActivity {
 
     @Override
     public void finish() {
+        QuotationsFilterFragment.ensureFragmentContentSearchConsistency(widgetId, getApplicationContext());
+
         // back pressed
         if (broadcastFinishIntent) {
             broadcastTheFinishIntent();
@@ -91,7 +93,7 @@ public class ConfigureActivity extends AppCompatActivity {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         for (int id : appWidgetManager.getAppWidgetIds(new ComponentName(this, QuoteUnquoteWidget.class))) {
             sendBroadcast(IntentFactoryHelper.createIntentAction(
-                    this, id, IntentFactoryHelper.ACTIVITY_FINISHED_CONFIGURATION));
+                this, id, IntentFactoryHelper.ACTIVITY_FINISHED_CONFIGURATION));
         }
 
         setResult(Activity.RESULT_OK, IntentFactoryHelper.createIntent(this.widgetId));
@@ -100,7 +102,6 @@ public class ConfigureActivity extends AppCompatActivity {
     @SuppressLint("GestureBackNavigation")
     @Override
     public void onBackPressed() {
-        QuotationsFilterFragment.ensureFragmentContentSearchConsistency(widgetId, getApplicationContext());
         super.onBackPressed();
     }
 
@@ -123,14 +124,14 @@ public class ConfigureActivity extends AppCompatActivity {
                 linkToWikipedia(wikipedia);
             } else {
                 widgetId = extras.getInt(
-                        AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+                    AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
                 broadcastFinishIntent = extras.getBoolean("broadcastFinishIntent", true);
 
                 QuoteUnquoteWidget.currentContentSelection
-                        = new QuotationsPreferences(widgetId, getApplicationContext()).getContentSelection();
+                    = new QuotationsPreferences(widgetId, getApplicationContext()).getContentSelection();
 
                 QuoteUnquoteWidget.currentAuthorSelection
-                        = new QuotationsPreferences(widgetId, getApplicationContext()).getContentSelectionAuthor();
+                    = new QuotationsPreferences(widgetId, getApplicationContext()).getContentSelectionAuthor();
             }
         }
 
@@ -138,7 +139,7 @@ public class ConfigureActivity extends AppCompatActivity {
         setContentView(activityConfigureBinding.getRoot());
 
         WindowInsetsControllerCompat windowInsetsController =
-                WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
+            WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
         windowInsetsController.hide(WindowInsetsCompat.Type.statusBars());
         windowInsetsController.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
 
@@ -159,7 +160,7 @@ public class ConfigureActivity extends AppCompatActivity {
 
     protected void routeToLastScreen() {
         String screen =
-                new QuotationsPreferences(widgetId, getApplicationContext()).getScreen();
+            new QuotationsPreferences(widgetId, getApplicationContext()).getScreen();
 
         if (!screen.equals("")) {
             switch (FragmentCommon.Screen.fromString(screen)) {
@@ -190,7 +191,7 @@ public class ConfigureActivity extends AppCompatActivity {
             Fragment selectedFragment = getFragmentContentNewInstance();
 
             String screen =
-                    new QuotationsPreferences(widgetId, getApplicationContext()).getScreen();
+                new QuotationsPreferences(widgetId, getApplicationContext()).getScreen();
 
             int itemId = item.getItemId();
 
@@ -214,9 +215,9 @@ public class ConfigureActivity extends AppCompatActivity {
             }
 
             getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.fragmentPlaceholderContent, selectedFragment)
-                    .commit();
+                .beginTransaction()
+                .replace(R.id.fragmentPlaceholderContent, selectedFragment)
+                .commit();
 
             activityConfigureBinding.scrollView.scrollTo(0, 0);
 
@@ -225,10 +226,10 @@ public class ConfigureActivity extends AppCompatActivity {
     }
 
     private void enableDisableMenuToHelpWithRouting(
-            final boolean navigationBarQuotations,
-            final boolean navigationBarAppearance,
-            final boolean navigationBarNotification,
-            final boolean navigationBarSync
+        final boolean navigationBarQuotations,
+        final boolean navigationBarAppearance,
+        final boolean navigationBarNotification,
+        final boolean navigationBarSync
     ) {
         Menu menu = activityConfigureBinding.configureNavigation.getMenu();
         menu.findItem(R.id.navigationBarQuotations).setEnabled(navigationBarQuotations);
@@ -242,10 +243,10 @@ public class ConfigureActivity extends AppCompatActivity {
 
         if (wikipedia.equals("r/quotes/")) {
             wikipediaActivityLauncher.launch(
-                    IntentFactoryHelper.createIntentActionView("https://www.reddit.com/" + wikipedia));
+                IntentFactoryHelper.createIntentActionView("https://www.reddit.com/" + wikipedia));
         } else {
             wikipediaActivityLauncher.launch(
-                    IntentFactoryHelper.createIntentActionView("https://en.wikipedia.org/wiki/" + wikipedia));
+                IntentFactoryHelper.createIntentActionView("https://en.wikipedia.org/wiki/" + wikipedia));
         }
     }
 

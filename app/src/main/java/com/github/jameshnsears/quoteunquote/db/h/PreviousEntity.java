@@ -10,7 +10,7 @@ import androidx.room.TypeConverters;
 import com.github.jameshnsears.quoteunquote.utils.ContentSelection;
 
 @Entity(tableName = "previous",
-        indices = {@Index("digest"), @Index({"widget_id", "content_type", "digest"})})
+    indices = {@Index("digest"), @Index({"widget_id", "content_type", "digest"})})
 @TypeConverters(ContentSelection.class)
 public class PreviousEntity {
     @ColumnInfo(name = "widget_id")
@@ -28,9 +28,9 @@ public class PreviousEntity {
     public int navigation;
 
     public PreviousEntity(
-            final int widgetId,
-            @NonNull final ContentSelection contentType,
-            @NonNull final String digest) {
+        final int widgetId,
+        @NonNull final ContentSelection contentType,
+        @NonNull final String digest) {
         this.widgetId = widgetId;
         this.contentType = contentType;
         this.digest = digest;

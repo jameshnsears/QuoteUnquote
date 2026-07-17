@@ -32,9 +32,9 @@ public class ContentInternalFragment extends ContentFragment {
     @Override
     @NonNull
     public View onCreateView(
-            @NonNull LayoutInflater inflater,
-            @NonNull ViewGroup container,
-            @NonNull Bundle savedInstanceState) {
+        @NonNull LayoutInflater inflater,
+        @NonNull ViewGroup container,
+        @NonNull Bundle savedInstanceState) {
         this.quotationsPreferences = new QuotationsPreferences(this.widgetId, this.getContext());
 
         this.fragmentQuotationsTabDatabaseTabInternalBinding = FragmentQuotationsTabDatabaseTabInternalBinding.inflate(this.getLayoutInflater());
@@ -43,7 +43,7 @@ public class ContentInternalFragment extends ContentFragment {
 
     @Override
     public void onViewCreated(
-            @NonNull View view, @NonNull Bundle savedInstanceState) {
+        @NonNull View view, @NonNull Bundle savedInstanceState) {
         if (this.quotationsPreferences.getDatabaseInternal()) {
             this.fragmentQuotationsTabDatabaseTabInternalBinding.radioButtonDatabaseInternal.setChecked(true);
         } else {

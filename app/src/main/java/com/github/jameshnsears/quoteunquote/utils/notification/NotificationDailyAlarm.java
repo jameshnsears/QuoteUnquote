@@ -26,7 +26,7 @@ public class NotificationDailyAlarm {
     protected final int widgetId;
 
     public NotificationDailyAlarm(
-            @NonNull final Context widgetContext, final int theWidgetId) {
+        @NonNull final Context widgetContext, final int theWidgetId) {
         this.context = widgetContext;
         this.widgetId = theWidgetId;
         notificationsPreferences = new NotificationsPreferences(theWidgetId, widgetContext);
@@ -42,11 +42,11 @@ public class NotificationDailyAlarm {
                 final Calendar calendar = Calendar.getInstance();
                 calendar.setTimeInMillis(System.currentTimeMillis());
                 calendar.set(
-                        Calendar.HOUR_OF_DAY,
-                        notificationsPreferences.getEventDailyTimeHour());
+                    Calendar.HOUR_OF_DAY,
+                    notificationsPreferences.getEventDailyTimeHour());
                 calendar.set(
-                        Calendar.MINUTE,
-                        notificationsPreferences.getEventDailyTimeMinute());
+                    Calendar.MINUTE,
+                    notificationsPreferences.getEventDailyTimeMinute());
                 calendar.set(Calendar.SECOND, 0);
 
                 // if user's time is < now then fire alarm tomorrow
@@ -58,20 +58,20 @@ public class NotificationDailyAlarm {
                 Timber.d("dailyAlarm: %s", sdf.format(calendar.getTime()));
 
                 final PendingIntent alarmPendingIntent
-                        = IntentFactoryHelper.createClickPendingIntent(
-                        context, widgetId, IntentFactoryHelper.DAILY_ALARM);
+                    = IntentFactoryHelper.createClickPendingIntent(
+                    context, widgetId, IntentFactoryHelper.DAILY_ALARM);
 
                 try {
                     alarmManager.setExactAndAllowWhileIdle(
-                            AlarmManager.RTC_WAKEUP,
-                            calendar.getTimeInMillis(),
-                            alarmPendingIntent);
+                        AlarmManager.RTC_WAKEUP,
+                        calendar.getTimeInMillis(),
+                        alarmPendingIntent);
                 } catch (SecurityException e) {
                     Timber.e(e, "Exact alarm permission not granted despite check");
                     alarmManager.setAndAllowWhileIdle(
-                            AlarmManager.RTC_WAKEUP,
-                            calendar.getTimeInMillis(),
-                            alarmPendingIntent);
+                        AlarmManager.RTC_WAKEUP,
+                        calendar.getTimeInMillis(),
+                        alarmPendingIntent);
                 }
             }
         }
@@ -81,10 +81,10 @@ public class NotificationDailyAlarm {
         if (notificationsPreferences != null && !notificationsPreferences.getEventDaily()) {
 
             final AlarmManager alarmManager =
-                    (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+                (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
                 alarmManager.cancel(IntentFactoryHelper.createClickPendingIntent(
-                        context, widgetId, IntentFactoryHelper.DAILY_ALARM));
+                    context, widgetId, IntentFactoryHelper.DAILY_ALARM));
             }
         }
     }

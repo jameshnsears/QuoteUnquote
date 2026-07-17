@@ -3,6 +3,7 @@ package com.github.jameshnsears.quoteunquote.db;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.sqlite.SQLiteConstraintException;
+import android.util.LruCache;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,22 +29,26 @@ import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import io.reactivex.Single;
 import timber.log.Timber;
 
 public class DatabaseRepository {
     @SuppressLint("StaticFieldLeak")
-    @NonNull
+    @Nullable
     public static DatabaseRepository databaseRepository;
 
     @NonNull
     protected final SecureRandom secureRandom = new SecureRandom();
-
+    private final LruCache<SearchCacheKey, List<QuotationEntity>> searchCache = new LruCache<>(20);
     @Nullable
     public QuotationDatabase quotationDatabase;
     @Nullable
@@ -68,35 +73,50 @@ public class DatabaseRepository {
     protected FavouriteDAO favouriteExternalDAO;
     @Nullable
     protected CurrentDAO currentExternalDAO;
-
     @Nullable
     protected Context context;
-
-    public DatabaseRepository() {
-        //
-    }
+    @Nullable
+    protected List<QuotationEntity> cacheInternalQuotations;
+    @Nullable
+    protected Map<String, QuotationEntity> cacheInternalQuotationsMap;
+    @Nullable
+    protected List<QuotationEntity> cacheExternalQuotations;
+    @Nullable
+    protected Map<String, QuotationEntity> cacheExternalQuotationsMap;
+    @Nullable
+    protected Map<Boolean, List<String>> cacheFavouriteDigests;
+    @Nullable
+    protected Map<String, QuotationEntity> cacheCurrentQuotation;
 
     protected DatabaseRepository(@NonNull final Context context) {
-        quotationDatabase = QuotationDatabase.getDatabase(context);
+        Context appContext = context.getApplicationContext();
+        quotationDatabase = QuotationDatabase.getDatabase(appContext);
         quotationDAO = quotationDatabase.quotationDAO();
 
-        externalDatabase = ExternalDatabase.getDatabase(context);
+        externalDatabase = ExternalDatabase.getDatabase(appContext);
         quotationExternalDAO = externalDatabase.quotationExternalDAO();
 
-        historyDatabase = HistoryDatabase.getDatabase(context);
+        historyDatabase = HistoryDatabase.getDatabase(appContext);
         previousDAO = historyDatabase.previousDAO();
         favouriteDAO = historyDatabase.favouritesDAO();
         currentDAO = historyDatabase.currentDAO();
 
-        historyExternalDatabase = HistoryExternalDatabase.getDatabase(context);
+        historyExternalDatabase = HistoryExternalDatabase.getDatabase(appContext);
         previousExternalDAO = historyExternalDatabase.previousExternalDAO();
         favouriteExternalDAO = historyExternalDatabase.favouritesExternalDAO();
         currentExternalDAO = historyExternalDatabase.currentExternalDAO();
 
-        this.context = context;
+        this.context = appContext;
+
+        cacheFavouriteDigests = new LinkedHashMap<>();
+        cacheCurrentQuotation = new LinkedHashMap<>();
     }
 
     public static void close(@NonNull final Context context) {
+        if (databaseRepository != null) {
+            databaseRepository = null;
+        }
+
         QuotationDatabase.getDatabase(context).close();
         QuotationDatabase.quotationDatabase = null;
 
@@ -113,7 +133,7 @@ public class DatabaseRepository {
     @NonNull
     public static synchronized DatabaseRepository getInstance(@NonNull final Context context) {
         if (databaseRepository == null) {
-            databaseRepository = new DatabaseRepository(context);
+            databaseRepository = new DatabaseRepository(context.getApplicationContext());
         }
 
         return databaseRepository;
@@ -129,12 +149,62 @@ public class DatabaseRepository {
     }
 
     @NonNull
-    public Single<Integer> countAll(boolean useInternalDatabase) {
-        if (useInternalDatabase) {
-            return quotationDAO.countAll();
+    public synchronized List<QuotationEntity> getSearchQuotationsRegEx(boolean useInternalDatabase, @NonNull final String regEx, boolean favouritesOnly) {
+        return getSearchQuotationsRegEx(useInternalDatabase, -1, regEx, favouritesOnly);
+    }
+
+    @NonNull
+    public synchronized List<QuotationEntity> getSearchQuotationsRegEx(boolean useInternalDatabase, int widgetId, @NonNull final String regEx, boolean favouritesOnly) {
+        SearchCacheKey key = new SearchCacheKey(useInternalDatabase, regEx, favouritesOnly, true);
+        List<QuotationEntity> cached = searchCache.get(key);
+        List<QuotationEntity> searchQuotations;
+
+        if (cached != null) {
+            searchQuotations = new ArrayList<>(cached);
+        } else {
+            searchQuotations = new ArrayList<>();
+            try {
+                final Pattern pattern = Pattern.compile(regEx, Pattern.CASE_INSENSITIVE);
+                searchQuotations = searchInternal(useInternalDatabase, favouritesOnly, quotationEntity -> {
+                    Matcher matcherAuthor = pattern.matcher(quotationEntity.author);
+                    Matcher matcherQuotation = pattern.matcher(quotationEntity.quotation);
+                    return matcherAuthor.find() || matcherQuotation.find();
+                });
+            } catch (PatternSyntaxException e) {
+                Timber.e(e);
+            }
+
+            if (!searchQuotations.isEmpty()) {
+                searchCache.put(key, new ArrayList<>(searchQuotations));
+            }
         }
 
-        return countAllExternal();
+        return searchQuotations;
+    }
+
+    @NonNull
+    private QuotationDAO getQuotationDAO(boolean useInternal) {
+        return Objects.requireNonNull(useInternal ? quotationDAO : quotationExternalDAO);
+    }
+
+    @NonNull
+    private FavouriteDAO getFavouriteDAO(boolean useInternal) {
+        return Objects.requireNonNull(useInternal ? favouriteDAO : favouriteExternalDAO);
+    }
+
+    @NonNull
+    private PreviousDAO getPreviousDAO(boolean useInternal) {
+        return Objects.requireNonNull(useInternal ? previousDAO : previousExternalDAO);
+    }
+
+    @NonNull
+    private CurrentDAO getCurrentDAO(boolean useInternal) {
+        return Objects.requireNonNull(useInternal ? currentDAO : currentExternalDAO);
+    }
+
+    @NonNull
+    public Single<Integer> countAll(boolean useInternalDatabase) {
+        return getQuotationDAO(useInternalDatabase).countAll();
     }
 
     @NonNull
@@ -153,11 +223,7 @@ public class DatabaseRepository {
         for (String exclusion : exclusions.split(";")) {
             // 4 is the smallest author entry
             if (!"".equals(exclusion) && exclusion.length() >= 4) {
-                if (useInternalDatabase) {
-                    digestsExcluded.addAll(quotationDAO.getExclusionDigests(exclusion));
-                } else {
-                    digestsExcluded.addAll(quotationExternalDAO.getExclusionDigests(exclusion));
-                }
+                digestsExcluded.addAll(getQuotationDAO(useInternalDatabase).getExclusionDigests(exclusion));
             }
         }
 
@@ -168,47 +234,27 @@ public class DatabaseRepository {
 
     @NonNull
     public Single<Integer> countAllExternal() {
-        return quotationExternalDAO.countAll();
+        return getQuotationDAO(false).countAll();
     }
 
     public int countPreviousCriteria(boolean useInternalDatabase, final int widgetId, @NonNull final ContentSelection contentSelection) {
-        if (useInternalDatabase) {
-            return previousDAO.countPrevious(widgetId, contentSelection);
-        }
-
-        return previousExternalDAO.countPrevious(widgetId, contentSelection);
-    }
-
-    public int countPreviousDigest(
-            boolean useInternalDatabase,
-            final int widgetId,
-            @NonNull final ContentSelection contentSelection,
-            @NonNull String digest) {
-        if (useInternalDatabase) {
-            return previousDAO.countPreviousDigest(widgetId, contentSelection, digest);
-        }
-
-        return previousExternalDAO.countPreviousDigest(widgetId, contentSelection, digest);
+        return getPreviousDAO(useInternalDatabase).countPrevious(widgetId, contentSelection);
     }
 
     public int countPreviousCriteria(boolean useInternalDatabase, final int widgetId) {
-        if (useInternalDatabase) {
-            return previousDAO.countPrevious(widgetId);
-        }
-
-        return previousExternalDAO.countPrevious(widgetId);
+        return getPreviousDAO(useInternalDatabase).countPrevious(widgetId);
     }
 
     public int findPositionInPrevious(
-            boolean useInternalDatabase,
-            final int widgetId,
-            @NonNull final QuotationsPreferences quotationsPreferences) {
+        boolean useInternalDatabase,
+        final int widgetId,
+        @NonNull final QuotationsPreferences quotationsPreferences) {
 
         List<String> allPrevious = getPreviousDigests(
-                useInternalDatabase,
-                widgetId,
-                quotationsPreferences.getContentSelection(),
-                quotationsPreferences.getContentSelectionAllExclusion());
+            useInternalDatabase,
+            widgetId,
+            quotationsPreferences.getContentSelection(),
+            quotationsPreferences.getContentSelectionAllExclusion());
 
         Collections.reverse(allPrevious);
 
@@ -222,29 +268,19 @@ public class DatabaseRepository {
     }
 
     public ArrayList<QuotationEntity> getQuotationsForAuthor(boolean useInternalDatabase, @NonNull final String author) {
-        ArrayList<String> digestsForAuthor;
+        ArrayList<String> digestsForAuthor = new ArrayList(getQuotationDAO(useInternalDatabase).getDigestsForAuthor(author));
         ArrayList<QuotationEntity> quotationEntityList = new ArrayList<>();
 
-        if (useInternalDatabase) {
-            digestsForAuthor = new ArrayList(quotationDAO.getDigestsForAuthor(author));
-
-            for (String digest : digestsForAuthor) {
-                quotationEntityList.add(quotationDAO.getQuotation(digest));
-            }
-        } else {
-            digestsForAuthor = new ArrayList(quotationExternalDAO.getDigestsForAuthor(author));
-
-            for (String digest : digestsForAuthor) {
-                quotationEntityList.add(quotationExternalDAO.getQuotation(digest));
-            }
+        for (String digest : digestsForAuthor) {
+            quotationEntityList.add(getQuotation(useInternalDatabase, digest));
         }
 
         return quotationEntityList;
     }
 
     public int countNext(
-            boolean useInternalDatabase,
-            @NonNull final QuotationsPreferences quotationsPreferences) {
+        boolean useInternalDatabase,
+        @NonNull final QuotationsPreferences quotationsPreferences) {
         int countTotalNext;
 
         switch (quotationsPreferences.getContentSelection()) {
@@ -253,70 +289,59 @@ public class DatabaseRepository {
                 break;
 
             case AUTHOR:
-                if (useInternalDatabase) {
-                    countTotalNext
-                            = quotationDAO.getDigestsForAuthor(
-                            quotationsPreferences.getContentSelectionAuthor()).size();
-                } else {
-                    countTotalNext
-                            = quotationExternalDAO.getDigestsForAuthor(
-                            quotationsPreferences.getContentSelectionAuthor()).size();
-                }
+                countTotalNext
+                    = getQuotationDAO(useInternalDatabase).getDigestsForAuthor(
+                    quotationsPreferences.getContentSelectionAuthor()).size();
                 break;
 
             case SEARCH:
                 if (quotationsPreferences.getContentSelectionSearchRegEx()) {
                     countTotalNext = getSearchQuotationsRegEx(
-                            useInternalDatabase,
-                            quotationsPreferences.getContentSelectionSearch(),
-                            quotationsPreferences.getContentSelectionSearchFavouritesOnly()).size();
+                        useInternalDatabase,
+                        quotationsPreferences.getWidgetId(),
+                        quotationsPreferences.getContentSelectionSearch(),
+                        quotationsPreferences.getContentSelectionSearchFavouritesOnly()).size();
                 } else {
                     countTotalNext = getSearchQuotations(
-                            useInternalDatabase,
-                            quotationsPreferences.getContentSelectionSearch(),
-                            quotationsPreferences.getContentSelectionSearchFavouritesOnly()).size();
+                        useInternalDatabase,
+                        quotationsPreferences.getWidgetId(),
+                        quotationsPreferences.getContentSelectionSearch(),
+                        quotationsPreferences.getContentSelectionSearchFavouritesOnly()).size();
                 }
                 break;
 
             default:
                 // ALL:
                 countTotalNext
-                        = countAllMinusExclusions(
-                        useInternalDatabase,
-                        quotationsPreferences.getContentSelectionAllExclusion())
-                        .blockingGet();
+                    = countAllMinusExclusions(
+                    useInternalDatabase,
+                    quotationsPreferences.getContentSelectionAllExclusion())
+                    .blockingGet();
                 break;
         }
         return countTotalNext;
     }
 
     public int countPreviousCriteria(
-            boolean useInternalDatabase,
-            final int widgetId,
-            @NonNull final ContentSelection contentSelection,
-            @NonNull final QuotationsPreferences quotationsPreferences
+        boolean useInternalDatabase,
+        final int widgetId,
+        @NonNull final ContentSelection contentSelection,
+        @NonNull final QuotationsPreferences quotationsPreferences
     ) {
-        HashSet<String> previousDigests;
+        HashSet<String> previousDigests = new HashSet<>(getPreviousDigests(useInternalDatabase, widgetId, contentSelection, ""));
         HashSet<String> availableDigests;
 
         if (contentSelection == ContentSelection.AUTHOR) {
-            previousDigests = new HashSet<>(getPreviousDigests(useInternalDatabase, widgetId, ContentSelection.AUTHOR, ""));
-            if (useInternalDatabase) {
-                availableDigests = new HashSet<>(quotationDAO.getDigestsForAuthor(
-                        quotationsPreferences.getContentSelectionAuthor()
-                ));
-            } else {
-                availableDigests = new HashSet<>(quotationExternalDAO.getDigestsForAuthor(
-                        quotationsPreferences.getContentSelectionAuthor()
-                ));
-            }
+            availableDigests = new HashSet<>(getQuotationDAO(useInternalDatabase).getDigestsForAuthor(
+                quotationsPreferences.getContentSelectionAuthor()
+            ));
         } else {
-            previousDigests = new HashSet<>(getPreviousDigests(useInternalDatabase, widgetId, ContentSelection.SEARCH, ""));
 
             List<QuotationEntity> searchQuotations = getSearchQuotations(
-                    useInternalDatabase,
-                    quotationsPreferences.getContentSelectionSearch(),
-                    quotationsPreferences.getContentSelectionSearchFavouritesOnly());
+                useInternalDatabase,
+                quotationsPreferences.getWidgetId(),
+                quotationsPreferences.getContentSelectionSearch(),
+                quotationsPreferences.getContentSelectionSearchFavouritesOnly());
 
             availableDigests = new HashSet<>();
 
@@ -337,22 +362,12 @@ public class DatabaseRepository {
 
     @NonNull
     public Single<Integer> countFavourites(boolean useInternalDatabase) {
-        if (useInternalDatabase) {
-            return favouriteDAO.countFavourites();
-        } else {
-            return favouriteExternalDAO.countFavourites();
-        }
+        return getFavouriteDAO(useInternalDatabase).countFavourites();
     }
 
     @NonNull
     public String getLastPreviousDigest(boolean useInternalDatabase, final int widgetId, @NonNull final ContentSelection contentSelection) {
-        PreviousEntity previousEntity;
-
-        if (useInternalDatabase) {
-            previousEntity = previousDAO.getLastPrevious(widgetId, contentSelection);
-        } else {
-            previousEntity = previousExternalDAO.getLastPrevious(widgetId, contentSelection);
-        }
+        PreviousEntity previousEntity = getPreviousDAO(useInternalDatabase).getLastPrevious(widgetId, contentSelection);
 
         if (previousEntity == null) {
             return getDefaultQuotationDigest(useInternalDatabase);
@@ -363,18 +378,12 @@ public class DatabaseRepository {
 
     @NonNull
     public List<String> getPreviousDigests(
-            boolean useInternalDatabase,
-            final int widgetId,
-            @NonNull final ContentSelection contentSelection,
-            @NonNull final String criteria) {
+        boolean useInternalDatabase,
+        final int widgetId,
+        @NonNull final ContentSelection contentSelection,
+        @NonNull final String criteria) {
 
-        List<String> previousDigests;
-
-        if (useInternalDatabase) {
-            previousDigests = previousDAO.getPreviousDigests(widgetId, contentSelection);
-        } else {
-            previousDigests = previousExternalDAO.getPreviousDigests(widgetId, contentSelection);
-        }
+        List<String> previousDigests = getPreviousDAO(useInternalDatabase).getPreviousDigests(widgetId, contentSelection);
 
         if (contentSelection.equals(ContentSelection.ALL)) {
             previousDigests.removeAll(getAllExcludedDigests(useInternalDatabase, criteria));
@@ -385,153 +394,117 @@ public class DatabaseRepository {
 
     @NonNull
     public List<PreviousEntity> getPrevious(boolean useInternalDatabase) {
-        if (useInternalDatabase) {
-            return previousDAO.getAllPrevious();
-        } else {
-            return previousExternalDAO.getAllPrevious();
-        }
+        return getPreviousDAO(useInternalDatabase).getAllPrevious();
     }
 
     @NonNull
     public void alignHistoryWithQuotations(boolean useInternalDatabase, int widgetId, @NonNull Context context) {
-        boolean alignmentRequired = false;
-
-        if (useInternalDatabase) {
-            for (PreviousEntity previousEntity : previousDAO.getAllPrevious()) {
-                if (quotationDAO.getQuotation(previousEntity.digest) == null) {
-                    Timber.d("alignPrevious=%s", previousEntity.digest);
-                    alignmentRequired = true;
-                    currentDAO.erase(previousEntity.digest);
-                    previousDAO.erase(previousEntity.digest);
-                }
-            }
-
-            List<String> favouriteDigests = favouriteDAO.getFavouriteDigests();
-            final HashSet<String> quotationDigests
-                    = new HashSet<>(quotationDAO.getDigests());
-            for (String favouriteDigest : favouriteDigests) {
-                if (!quotationDigests.contains(favouriteDigest)) {
-                    Timber.d("alignFavourite=%s", favouriteDigest);
-                    alignmentRequired = true;
-
-                    favouriteDAO.erase(favouriteDigest);
-                }
-            }
-        } else {
-            for (PreviousEntity previousEntity : previousExternalDAO.getAllPrevious()) {
-                if (quotationExternalDAO.getQuotation(previousEntity.digest) == null) {
-                    Timber.d("align=%s", previousEntity.digest);
-                    alignmentRequired = true;
-                    currentExternalDAO.erase(previousEntity.digest);
-                    previousExternalDAO.erase(previousEntity.digest);
-                }
-            }
-
-            List<String> favouriteDigests = favouriteExternalDAO.getFavouriteDigests();
-            final HashSet<String> quotationDigests
-                    = new HashSet<>(quotationExternalDAO.getDigests());
-            for (String favouriteDigest : favouriteDigests) {
-                if (!quotationDigests.contains(favouriteDigest)) {
-                    Timber.d("alignFavourite=%s", favouriteDigest);
-                    alignmentRequired = true;
-
-                    favouriteExternalDAO.erase(favouriteDigest);
-                }
-            }
-        }
+        boolean alignPrevious = alignPreviousWithQuotations(useInternalDatabase);
+        boolean alignFavourites = alignFavouritesWithQuotations(useInternalDatabase);
+        boolean alignmentRequired = alignPrevious || alignFavourites;
 
         if (alignmentRequired) {
             QuotationsPreferences quotationsPreferences
-                    = new QuotationsPreferences(widgetId, context);
+                = new QuotationsPreferences(widgetId, context);
             quotationsPreferences.setContentSelection(ContentSelection.ALL);
 
             markAsCurrent(
-                    useInternalDatabase,
-                    widgetId,
-                    getLastPreviousDigest(useInternalDatabase, widgetId, ContentSelection.ALL));
+                useInternalDatabase,
+                widgetId,
+                getLastPreviousDigest(useInternalDatabase, widgetId, ContentSelection.ALL));
         }
     }
 
-    @NonNull
-    public List<String> getFavouritesDigests(boolean useInternalDatabase) {
-        if (useInternalDatabase) {
-            return favouriteDAO.getFavouriteDigests();
-        } else {
-            return favouriteExternalDAO.getFavouriteDigests();
+    private boolean alignPreviousWithQuotations(boolean useInternalDatabase) {
+        boolean alignmentRequired = false;
+        PreviousDAO previousDAO = getPreviousDAO(useInternalDatabase);
+        CurrentDAO currentDAO = getCurrentDAO(useInternalDatabase);
+
+        for (PreviousEntity previousEntity : previousDAO.getAllPrevious()) {
+            if (getQuotation(useInternalDatabase, previousEntity.digest) == null) {
+                Timber.d("alignPrevious=%s", previousEntity.digest);
+                alignmentRequired = true;
+                currentDAO.erase(previousEntity.digest);
+                previousDAO.erase(previousEntity.digest);
+                if (cacheCurrentQuotation != null) {
+                    cacheCurrentQuotation.clear();
+                }
+            }
         }
+        return alignmentRequired;
+    }
+
+    private boolean alignFavouritesWithQuotations(boolean useInternalDatabase) {
+        boolean alignmentRequired = false;
+        FavouriteDAO favouriteDAO = getFavouriteDAO(useInternalDatabase);
+        QuotationDAO quotationDAO = getQuotationDAO(useInternalDatabase);
+
+        List<String> favouriteDigests = getFavouritesDigests(useInternalDatabase);
+        final HashSet<String> quotationDigests = new HashSet<>(quotationDAO.getDigests());
+        for (String favouriteDigest : favouriteDigests) {
+            if (!quotationDigests.contains(favouriteDigest)) {
+                Timber.d("alignFavourite=%s", favouriteDigest);
+                alignmentRequired = true;
+                favouriteDAO.erase(favouriteDigest);
+                if (cacheFavouriteDigests != null) {
+                    cacheFavouriteDigests.remove(useInternalDatabase);
+                }
+            }
+        }
+        return alignmentRequired;
+    }
+
+    @NonNull
+    public synchronized List<String> getFavouritesDigests(boolean useInternalDatabase) {
+        if (cacheFavouriteDigests != null) {
+            List<String> cached = cacheFavouriteDigests.get(useInternalDatabase);
+            if (cached != null) {
+                return new ArrayList<>(cached);
+            }
+        }
+
+        List<String> favouriteDigests = getFavouriteDAO(useInternalDatabase).getFavouriteDigests();
+        if (cacheFavouriteDigests != null) {
+            cacheFavouriteDigests.put(useInternalDatabase, favouriteDigests);
+        }
+        return new ArrayList<>(favouriteDigests);
     }
 
     @NonNull
     public List<FavouriteEntity> getFavourites(boolean useInternalDatabase) {
-        if (useInternalDatabase) {
-            return favouriteDAO.getFavourites();
-        } else {
-            return favouriteExternalDAO.getFavourites();
-        }
+        return getFavouriteDAO(useInternalDatabase).getFavourites();
     }
 
     @NonNull
     public Single<List<Integer>> getAuthorsQuotationCount(boolean useInternalDatabase) {
-        if (useInternalDatabase) {
-            return quotationDAO.getAuthorsQuotationCount();
-        } else {
-            return quotationExternalDAO.getAuthorsQuotationCount();
-        }
+        return getQuotationDAO(useInternalDatabase).getAuthorsQuotationCount();
     }
 
     @NonNull
     public Single<List<AuthorPOJO>> getAuthorsAndQuotationCounts(boolean useInternalDatabase, int authorCount) {
-        if (useInternalDatabase) {
-            return quotationDAO.getAuthorsAndQuotationCounts(authorCount);
-        } else {
-            return quotationExternalDAO.getAuthorsAndQuotationCounts(authorCount);
-        }
+        return getQuotationDAO(useInternalDatabase).getAuthorsAndQuotationCounts(authorCount);
     }
 
     @NonNull
-    public List<QuotationEntity> getSearchQuotationsRegEx(boolean useInternalDatabase, @NonNull final String regEx, boolean favouritesOnly) {
-        List<QuotationEntity> searchQuotations = new ArrayList<>();
+    public synchronized List<QuotationEntity> getSearchQuotations(boolean useInternalDatabase, int widgetId, @NonNull final String text, boolean favouritesOnly) {
+        SearchCacheKey key = new SearchCacheKey(useInternalDatabase, text, favouritesOnly, false);
+        List<QuotationEntity> cached = searchCache.get(key);
+        List<QuotationEntity> searchQuotations;
 
-        Pattern pattern = Pattern.compile(regEx, Pattern.CASE_INSENSITIVE);
-
-        if (favouritesOnly) {
-            if (useInternalDatabase) {
-                for (String digest : favouriteDAO.getFavouriteDigests()) {
-                    QuotationEntity quotationEntity = quotationDAO.getQuotation(digest);
-                    if (isFavourite(useInternalDatabase, quotationEntity.digest)) {
-                        Matcher matcherAuthor = pattern.matcher(quotationEntity.author);
-                        Matcher matcherQuotation = pattern.matcher(quotationEntity.quotation);
-
-                        if (matcherAuthor.find() || matcherQuotation.find()) {
-                            searchQuotations.add(quotationEntity);
-                        }
-                    }
-                }
+        if (cached != null) {
+            searchQuotations = new ArrayList<>(cached);
+        } else {
+            if (favouritesOnly) {
+                final String lowerText = text.toLowerCase();
+                searchQuotations = searchInternal(useInternalDatabase, true, quotationEntity ->
+                    quotationEntity.author.toLowerCase().contains(lowerText)
+                        || quotationEntity.quotation.toLowerCase().contains(lowerText));
             } else {
-                for (String digest : favouriteExternalDAO.getFavouriteDigests()) {
-                    QuotationEntity quotationEntity = quotationExternalDAO.getQuotation(digest);
-                    if (isFavourite(useInternalDatabase, quotationEntity.digest)) {
-                        Matcher matcherAuthor = pattern.matcher(quotationEntity.author);
-                        Matcher matcherQuotation = pattern.matcher(quotationEntity.quotation);
-
-                        if (matcherAuthor.find() || matcherQuotation.find()) {
-                            searchQuotations.add(quotationEntity);
-                        }
-                    }
-                }
+                searchQuotations = getQuotationDAO(useInternalDatabase).getQuotationsByText(text);
             }
 
-            Collections.reverse(searchQuotations);
-        } else {
-            List<QuotationEntity> allQuotations = getAllQuotations(useInternalDatabase);
-
-            for (QuotationEntity quotationEntity : allQuotations) {
-                Matcher matcherAuthor = pattern.matcher(quotationEntity.author);
-                Matcher matcherQuotation = pattern.matcher(quotationEntity.quotation);
-
-                if (matcherAuthor.find() || matcherQuotation.find()) {
-                    searchQuotations.add(quotationEntity);
-                }
+            if (!searchQuotations.isEmpty()) {
+                searchCache.put(key, new ArrayList<>(searchQuotations));
             }
         }
 
@@ -539,223 +512,171 @@ public class DatabaseRepository {
     }
 
     @NonNull
-    public List<QuotationEntity> getSearchQuotations(boolean useInternalDatabase, @NonNull final String text, boolean favouritesOnly) {
-        List<QuotationEntity> searchQuotations = new ArrayList<>();
-
+    private List<QuotationEntity> searchInternal(boolean useInternalDatabase, boolean favouritesOnly, SearchPredicate predicate) {
+        List<QuotationEntity> results = new ArrayList<>();
         if (favouritesOnly) {
-            if (useInternalDatabase) {
-                for (String digest : favouriteDAO.getFavouriteDigests()) {
-                    QuotationEntity quotationEntity = quotationDAO.getQuotation(digest);
-                    if (isFavourite(useInternalDatabase, quotationEntity.digest)) {
-                        String author = quotationEntity.author.toLowerCase();
-                        String quotation = quotationEntity.quotation.toLowerCase();
-
-                        if (author.indexOf(text.toLowerCase()) != -1
-                                || quotation.indexOf(text.toLowerCase()) != -1) {
-                            searchQuotations.add(quotationEntity);
-                        }
-                    }
-                }
-            } else {
-                for (String digest : favouriteExternalDAO.getFavouriteDigests()) {
-                    QuotationEntity quotationEntity = quotationExternalDAO.getQuotation(digest);
-                    if (isFavourite(useInternalDatabase, quotationEntity.digest)) {
-                        String author = quotationEntity.author.toLowerCase();
-                        String quotation = quotationEntity.quotation.toLowerCase();
-
-                        if (author.indexOf(text.toLowerCase()) != -1
-                                || quotation.indexOf(text.toLowerCase()) != -1) {
-                            searchQuotations.add(quotationEntity);
-                        }
-                    }
+            for (String digest : getFavouritesDigests(useInternalDatabase)) {
+                QuotationEntity quotationEntity = getQuotation(useInternalDatabase, digest);
+                if (quotationEntity != null && predicate.test(quotationEntity)) {
+                    results.add(quotationEntity);
                 }
             }
-
-            Collections.reverse(searchQuotations);
+            Collections.reverse(results);
         } else {
-            for (QuotationEntity currentQuotation : getAllQuotations(useInternalDatabase)) {
-                String author = currentQuotation.author.toLowerCase();
-                String quotation = currentQuotation.quotation.toLowerCase();
-
-                if (author.indexOf(text.toLowerCase()) != -1
-                        || quotation.indexOf(text.toLowerCase()) != -1) {
-                    searchQuotations.add(currentQuotation);
+            for (QuotationEntity quotationEntity : getAllQuotations(useInternalDatabase)) {
+                if (predicate.test(quotationEntity)) {
+                    results.add(quotationEntity);
                 }
             }
         }
-
-        return searchQuotations;
+        return results;
     }
 
     @NonNull
     public Integer countSearchTextRegEx(boolean useInternalDatabase, @NonNull final String regEx, boolean favouritesOnly) {
-        Pattern pattern = Pattern.compile(regEx, Pattern.CASE_INSENSITIVE);
-        int searchCount = 0;
+        return countSearchTextRegEx(useInternalDatabase, -1, regEx, favouritesOnly);
+    }
 
-        if (favouritesOnly) {
-            if (useInternalDatabase) {
-                for (String digest : favouriteDAO.getFavouriteDigests()) {
-                    QuotationEntity quotationEntity = quotationDAO.getQuotation(digest);
-
-                    Matcher matcherAuthor = pattern.matcher(quotationEntity.author);
-                    Matcher matcherQuotation = pattern.matcher(quotationEntity.quotation);
-
-                    if (matcherAuthor.find() || matcherQuotation.find()) {
-                        searchCount += 1;
-                    }
-                }
-            } else {
-                for (String digest : favouriteExternalDAO.getFavouriteDigests()) {
-                    QuotationEntity quotationEntity = quotationExternalDAO.getQuotation(digest);
-
-                    Matcher matcherAuthor = pattern.matcher(quotationEntity.author);
-                    Matcher matcherQuotation = pattern.matcher(quotationEntity.quotation);
-
-                    if (matcherAuthor.find() || matcherQuotation.find()) {
-                        searchCount += 1;
-                    }
-                }
-            }
-        } else {
-            for (QuotationEntity quotation : getAllQuotations(useInternalDatabase)) {
-                Matcher matcherAuthor = pattern.matcher(quotation.author);
-                Matcher matcherQuotation = pattern.matcher(quotation.quotation);
-
-                if (matcherAuthor.find() || matcherQuotation.find()) {
-                    searchCount += 1;
-                }
-            }
-        }
-
-        return searchCount;
+    @NonNull
+    public Integer countSearchTextRegEx(boolean useInternalDatabase, int widgetId, @NonNull final String regEx, boolean favouritesOnly) {
+        return getSearchQuotationsRegEx(useInternalDatabase, widgetId, regEx, favouritesOnly).size();
     }
 
     @NonNull
     public Integer countSearchText(boolean useInternalDatabase, @NonNull final String text, boolean favouritesOnly) {
-        int searchCount = 0;
-
-        if (favouritesOnly) {
-            if (useInternalDatabase) {
-                for (String digest : favouriteDAO.getFavouriteDigests()) {
-                    QuotationEntity quotationEntity = quotationDAO.getQuotation(digest);
-                    String author = quotationEntity.author.toLowerCase();
-                    String quotation = quotationEntity.quotation.toLowerCase();
-
-                    if (author.indexOf(text.toLowerCase()) != -1
-                            || quotation.indexOf(text.toLowerCase()) != -1) {
-                        searchCount += 1;
-                    }
-                }
-            } else {
-                for (String digest : favouriteExternalDAO.getFavouriteDigests()) {
-                    QuotationEntity quotationEntity = quotationExternalDAO.getQuotation(digest);
-                    String author = quotationEntity.author.toLowerCase();
-                    String quotation = quotationEntity.quotation.toLowerCase();
-
-                    if (author.indexOf(text.toLowerCase()) != -1
-                            || quotation.indexOf(text.toLowerCase()) != -1) {
-                        searchCount += 1;
-                    }
-                }
-            }
-        } else {
-            for (QuotationEntity currentQuotation : getAllQuotations(useInternalDatabase)) {
-                String author = currentQuotation.author.toLowerCase();
-                String quotation = currentQuotation.quotation.toLowerCase();
-
-                if (author.indexOf(text.toLowerCase()) != -1
-                        || quotation.indexOf(text.toLowerCase()) != -1) {
-                    searchCount += 1;
-                }
-            }
-        }
-
-        return searchCount;
+        return countSearchText(useInternalDatabase, -1, text, favouritesOnly);
     }
 
     @NonNull
-    public List<QuotationEntity> getAllQuotations(boolean useInternalDatabase) {
-        // ensure order is same as that shown in widget when using Next, sequential
-        List<QuotationEntity> getAllQuotations = new ArrayList<>();
-
-        if (useInternalDatabase) {
-            QuotationEntity defaultQuotation = quotationDAO.getQuotation(DatabaseRepository.getDefaultQuotationDigest(useInternalDatabase));
-            if (defaultQuotation != null) {
-                getAllQuotations.add(defaultQuotation);
-            }
-            getAllQuotations.addAll(quotationDAO.getAllQuotations());
-        } else {
-            // Issue 469: Sort all the external
-            getAllQuotations.addAll(quotationExternalDAO.getAllQuotationsIncludingDefault());
-        }
-
-        return getAllQuotations;
+    public Integer countSearchText(boolean useInternalDatabase, int widgetId, @NonNull final String text, boolean favouritesOnly) {
+        return getSearchQuotations(useInternalDatabase, widgetId, text, favouritesOnly).size();
     }
 
-    public QuotationEntity getQuotation(boolean useInternalDatabase, @NonNull final String digest) {
-        if (useInternalDatabase) {
-            return quotationDAO.getQuotation(digest);
-        } else {
-            return quotationExternalDAO.getQuotation(digest);
+    protected synchronized void clearCache(boolean useInternalDatabase) {
+        searchCache.evictAll();
+        if (cacheFavouriteDigests != null) {
+            cacheFavouriteDigests.remove(useInternalDatabase);
         }
+        if (cacheCurrentQuotation != null) {
+            cacheCurrentQuotation.clear();
+        }
+        if (useInternalDatabase) {
+            cacheInternalQuotations = null;
+            cacheInternalQuotationsMap = null;
+        } else {
+            cacheExternalQuotations = null;
+            cacheExternalQuotationsMap = null;
+        }
+    }
+
+    @NonNull
+    public synchronized List<QuotationEntity> getAllQuotations(boolean useInternalDatabase) {
+        populateCache(useInternalDatabase);
+        List<QuotationEntity> cache = useInternalDatabase ? cacheInternalQuotations : cacheExternalQuotations;
+        if (cache == null) {
+            return new ArrayList<>();
+        }
+        return new ArrayList<>(cache);
+    }
+
+    private synchronized void populateCache(boolean useInternalDatabase) {
+        if (useInternalDatabase) {
+            if (cacheInternalQuotations == null) {
+                cacheInternalQuotations = new ArrayList<>();
+                QuotationEntity defaultQuotation = getQuotationDAO(true).getQuotation(DatabaseRepository.getDefaultQuotationDigest(true));
+                if (defaultQuotation != null) {
+                    cacheInternalQuotations.add(defaultQuotation);
+                }
+                cacheInternalQuotations.addAll(getQuotationDAO(true).getAllQuotations());
+
+                cacheInternalQuotationsMap = new LinkedHashMap<>();
+                for (QuotationEntity entity : cacheInternalQuotations) {
+                    cacheInternalQuotationsMap.put(entity.digest, entity);
+                }
+            }
+        } else {
+            if (cacheExternalQuotations == null) {
+                cacheExternalQuotations = new ArrayList<>(getQuotationDAO(false).getAllQuotationsIncludingDefault());
+
+                cacheExternalQuotationsMap = new LinkedHashMap<>();
+                for (QuotationEntity entity : cacheExternalQuotations) {
+                    cacheExternalQuotationsMap.put(entity.digest, entity);
+                }
+            }
+        }
+    }
+
+    public synchronized void markAsFavourite(boolean useInternalDatabase, @NonNull final String digest) {
+        searchCache.evictAll();
+        if (cacheFavouriteDigests != null) {
+            cacheFavouriteDigests.remove(useInternalDatabase);
+        }
+        if (getQuotation(useInternalDatabase, digest) != null) {
+            if (getFavouriteDAO(useInternalDatabase).isFavourite(digest) == 0) {
+                getFavouriteDAO(useInternalDatabase).markAsFavourite(new FavouriteEntity(digest));
+            }
+        }
+    }
+
+    public synchronized QuotationEntity getQuotation(boolean useInternalDatabase, @NonNull final String digest) {
+        if (useInternalDatabase) {
+            if (cacheInternalQuotationsMap != null) {
+                return cacheInternalQuotationsMap.get(digest);
+            }
+        } else {
+            if (cacheExternalQuotationsMap != null) {
+                return cacheExternalQuotationsMap.get(digest);
+            }
+        }
+        return getQuotationDAO(useInternalDatabase).getQuotation(digest);
     }
 
     public void markAsPrevious(
-            boolean useInternalDatabase,
-            final int widgetId,
-            @NonNull final ContentSelection contentSelection,
-            @NonNull final String digest) {
-        if (useInternalDatabase) {
-            if (getQuotation(useInternalDatabase, digest) != null) {
-                previousDAO.markAsPrevious(new PreviousEntity(widgetId, contentSelection, digest));
-            }
-        } else {
-            if (getQuotation(useInternalDatabase, digest) != null) {
-                previousExternalDAO.markAsPrevious(new PreviousEntity(widgetId, contentSelection, digest));
-            }
+        boolean useInternalDatabase,
+        final int widgetId,
+        @NonNull final ContentSelection contentSelection,
+        @NonNull final String digest) {
+        if (getQuotation(useInternalDatabase, digest) != null) {
+            getPreviousDAO(useInternalDatabase).markAsPrevious(new PreviousEntity(widgetId, contentSelection, digest));
         }
     }
 
-    public void markAsFavourite(boolean useInternalDatabase, @NonNull final String digest) {
-        if (useInternalDatabase) {
-            if (favouriteDAO.isFavourite(digest) == 0) {
-                if (getQuotation(useInternalDatabase, digest) != null) {
-                    favouriteDAO.markAsFavourite(new FavouriteEntity(digest));
-                }
-            }
-        } else {
-            if (getQuotation(useInternalDatabase, digest) != null) {
-                if (favouriteExternalDAO.isFavourite(digest) == 0) {
-                    favouriteExternalDAO.markAsFavourite(new FavouriteEntity(digest));
-                }
-            }
-        }
-    }
-
-    public void markAsCurrent(
-            boolean useInternalDatabase,
-            final int widgetId,
-            @NonNull final String digest) {
+    public synchronized void eraseFavourite(boolean useInternalDatabase, final int widgetId, @NonNull final String digest) {
         Timber.d("digest=%s", digest);
-        if (useInternalDatabase) {
-            currentDAO.erase(widgetId);
-            currentDAO.markAsCurrent(new CurrentEntity(widgetId, digest));
-        } else {
-            currentExternalDAO.erase(widgetId);
-            currentExternalDAO.markAsCurrent(new CurrentEntity(widgetId, digest));
+        searchCache.evictAll();
+        if (cacheFavouriteDigests != null) {
+            cacheFavouriteDigests.remove(useInternalDatabase);
+        }
+
+        getFavouriteDAO(useInternalDatabase).erase(digest);
+        getPreviousDAO(useInternalDatabase).erase(widgetId, ContentSelection.FAVOURITES, digest);
+    }
+
+    public synchronized void markAsCurrent(
+        boolean useInternalDatabase,
+        final int widgetId,
+        @NonNull final String digest) {
+        Timber.d("digest=%s", digest);
+        getCurrentDAO(useInternalDatabase).erase(widgetId);
+        getCurrentDAO(useInternalDatabase).markAsCurrent(new CurrentEntity(widgetId, digest));
+
+        if (cacheCurrentQuotation != null) {
+            String key = useInternalDatabase + ":" + widgetId;
+            cacheCurrentQuotation.put(key, getQuotation(useInternalDatabase, digest));
         }
     }
 
-    public QuotationEntity getCurrentQuotation(boolean useInternalDatabase, final int widgetId) {
-        QuotationEntity quotationEntity;
-
-        if (useInternalDatabase) {
-            quotationEntity = getQuotation(useInternalDatabase, currentDAO.getCurrentDigest(widgetId));
-        } else {
-            quotationEntity = getQuotation(useInternalDatabase, currentExternalDAO.getCurrentDigest(widgetId));
+    public synchronized QuotationEntity getCurrentQuotation(boolean useInternalDatabase, final int widgetId) {
+        String key = useInternalDatabase + ":" + widgetId;
+        if (cacheCurrentQuotation != null && cacheCurrentQuotation.containsKey(key)) {
+            return cacheCurrentQuotation.get(key);
         }
 
-        return quotationEntity;
+        QuotationEntity entity = getQuotation(useInternalDatabase, getCurrentDAO(useInternalDatabase).getCurrentDigest(widgetId));
+        if (entity != null && cacheCurrentQuotation != null) {
+            cacheCurrentQuotation.put(key, entity);
+        }
+        return entity;
     }
 
     @NonNull
@@ -765,14 +686,14 @@ public class DatabaseRepository {
 
     @NonNull
     public QuotationEntity getNextQuotation(
-            boolean useInternalDatabase,
-            final int widgetId,
-            @NonNull final ContentSelection contentSelection,
-            @NonNull final String criteria,
-            final boolean randomNext,
-            QuotationsPreferences quotationsPreferences) {
+        boolean useInternalDatabase,
+        final int widgetId,
+        @NonNull final ContentSelection contentSelection,
+        @NonNull final String criteria,
+        final boolean randomNext,
+        QuotationsPreferences quotationsPreferences) {
         Timber.d("contentType=%d; criteria=%s; randomNext=%b",
-                contentSelection.getContentSelection(), criteria, randomNext);
+            contentSelection.getContentSelection(), criteria, randomNext);
 
         List<String> nextDigests = getNextDigests(useInternalDatabase, widgetId, contentSelection, criteria, quotationsPreferences);
         List<String> previousDigests = getPreviousDigests(useInternalDatabase, widgetId, contentSelection, criteria);
@@ -788,23 +709,23 @@ public class DatabaseRepository {
         }
 
         return getNextQuotation(
-                useInternalDatabase,
-                widgetId,
-                randomNext,
-                nextDigests,
-                previousDigests,
-                contentSelection
+            useInternalDatabase,
+            widgetId,
+            randomNext,
+            nextDigests,
+            previousDigests,
+            contentSelection
         );
     }
 
     @NonNull
     private QuotationEntity getNextQuotation(
-            boolean useInternalDatabase,
-            final int widgetId,
-            final boolean randomNext,
-            @Nullable final List<String> nextDigests,
-            @Nullable final List<String> previousDigests,
-            @NonNull final ContentSelection contentSelection) {
+        boolean useInternalDatabase,
+        final int widgetId,
+        final boolean randomNext,
+        @Nullable final List<String> nextDigests,
+        @Nullable final List<String> previousDigests,
+        @NonNull final ContentSelection contentSelection) {
 
         QuotationEntity currentQuotation = getCurrentQuotation(useInternalDatabase, widgetId);
         QuotationEntity nextQuotation;
@@ -812,15 +733,21 @@ public class DatabaseRepository {
         if (!randomNext) {
             // next, sequential
             if (previousDigests.isEmpty()) {
+                if (nextDigests.isEmpty()) {
+                    return getQuotation(useInternalDatabase, getDefaultQuotationDigest(useInternalDatabase));
+                }
                 nextQuotation = getQuotation(useInternalDatabase, nextDigests.get(0));
             } else {
                 int indexInPrevious = previousDigests.indexOf(currentQuotation.digest);
 
-                if (indexInPrevious != 0) {
+                if (indexInPrevious != -1 && indexInPrevious != 0) {
                     // move through previous quotations
                     indexInPrevious -= 1;
                     nextQuotation = getQuotation(useInternalDatabase, previousDigests.get(indexInPrevious));
                 } else {
+                    if (nextDigests.isEmpty()) {
+                        return getQuotation(useInternalDatabase, getDefaultQuotationDigest(useInternalDatabase));
+                    }
                     nextQuotation = getQuotation(useInternalDatabase, nextDigests.get(0));
                 }
             }
@@ -839,39 +766,28 @@ public class DatabaseRepository {
     }
 
     public synchronized List<String> getNextDigests(
-            boolean useInternalDatabase,
-            int widgetId,
-            @NonNull ContentSelection contentSelection,
-            @NonNull String criteria,
-            QuotationsPreferences quotationsPreferences) {
+        boolean useInternalDatabase,
+        int widgetId,
+        @NonNull ContentSelection contentSelection,
+        @NonNull String criteria,
+        QuotationsPreferences quotationsPreferences) {
         // insertion order required
         final LinkedHashSet<String> nextQuotationDigests;
 
         // no order needed
         final HashSet<String> previousDigests
-                = new HashSet<>(getPreviousDigests(useInternalDatabase, widgetId, contentSelection, criteria));
+            = new HashSet<>(getPreviousDigests(useInternalDatabase, widgetId, contentSelection, criteria));
 
         switch (contentSelection) {
             case FAVOURITES:
-                if (useInternalDatabase) {
-                    nextQuotationDigests
-                            = new LinkedHashSet<>(favouriteDAO.getNextFavouriteDigests());
-                } else {
-                    nextQuotationDigests
-                            = new LinkedHashSet<>(favouriteExternalDAO.getNextFavouriteDigests());
-                }
+                nextQuotationDigests
+                    = new LinkedHashSet<>(getFavouriteDAO(useInternalDatabase).getNextFavouriteDigests());
                 nextQuotationDigests.removeAll(previousDigests);
                 break;
 
             case AUTHOR:
-                LinkedHashSet<String> authorDigests;
-                if (useInternalDatabase) {
-                    authorDigests
-                            = new LinkedHashSet<>(quotationDAO.getNextAuthorDigest(criteria));
-                } else {
-                    authorDigests
-                            = new LinkedHashSet<>(quotationExternalDAO.getNextAuthorDigest(criteria));
-                }
+                LinkedHashSet<String> authorDigests
+                    = new LinkedHashSet<>(getQuotationDAO(useInternalDatabase).getNextAuthorDigest(criteria));
                 authorDigests.removeAll(previousDigests);
                 nextQuotationDigests = authorDigests;
                 break;
@@ -886,12 +802,8 @@ public class DatabaseRepository {
 
             default:
                 // ALL:
-                final LinkedHashSet<String> allAvailableDigests;
-                if (useInternalDatabase) {
-                    allAvailableDigests = new LinkedHashSet<>(quotationDAO.getNextAllDigests());
-                } else {
-                    allAvailableDigests = new LinkedHashSet<>(quotationExternalDAO.getNextAllDigests());
-                }
+                final LinkedHashSet<String> allAvailableDigests
+                    = new LinkedHashSet<>(getQuotationDAO(useInternalDatabase).getNextAllDigests());
 
                 allAvailableDigests.removeAll(getAllExcludedDigests(useInternalDatabase, criteria));
 
@@ -905,14 +817,15 @@ public class DatabaseRepository {
 
     @NonNull
     private LinkedHashSet<String> getSearchDigestsRegEx(
-            boolean useInternalDatabase,
-            QuotationsPreferences quotationsPreferences, HashSet<String> previousDigests) {
+        boolean useInternalDatabase,
+        QuotationsPreferences quotationsPreferences, HashSet<String> previousDigests) {
         final LinkedHashSet<String> searchDigests = new LinkedHashSet<>();
 
         List<QuotationEntity> searchQuotations = getSearchQuotationsRegEx(
-                useInternalDatabase,
-                quotationsPreferences.getContentSelectionSearch(),
-                quotationsPreferences.getContentSelectionSearchFavouritesOnly());
+            useInternalDatabase,
+            quotationsPreferences.getWidgetId(),
+            quotationsPreferences.getContentSelectionSearch(),
+            quotationsPreferences.getContentSelectionSearchFavouritesOnly());
 
         for (QuotationEntity quotationEntity : searchQuotations) {
             searchDigests.add(quotationEntity.digest);
@@ -924,14 +837,15 @@ public class DatabaseRepository {
 
     @NonNull
     private LinkedHashSet<String> getSearchDigests(
-            boolean useInternalDatabase,
-            QuotationsPreferences quotationsPreferences, HashSet<String> previousDigests) {
+        boolean useInternalDatabase,
+        QuotationsPreferences quotationsPreferences, HashSet<String> previousDigests) {
         final LinkedHashSet<String> searchDigests = new LinkedHashSet<>();
 
         List<QuotationEntity> searchQuotations = getSearchQuotations(
-                useInternalDatabase,
-                quotationsPreferences.getContentSelectionSearch(),
-                quotationsPreferences.getContentSelectionSearchFavouritesOnly());
+            useInternalDatabase,
+            quotationsPreferences.getWidgetId(),
+            quotationsPreferences.getContentSelectionSearch(),
+            quotationsPreferences.getContentSelectionSearchFavouritesOnly());
 
         for (QuotationEntity quotationEntity : searchQuotations) {
             searchDigests.add(quotationEntity.digest);
@@ -945,153 +859,116 @@ public class DatabaseRepository {
         return secureRandom.nextInt(availableNextQuotations.size());
     }
 
-    public void eraseFavourite(boolean useInternalDatabase, final int widgetId, @NonNull final String digest) {
-        Timber.d("digest=%s", digest);
-
-        if (useInternalDatabase) {
-            favouriteDAO.erase(digest);
-            previousDAO.erase(widgetId, ContentSelection.FAVOURITES, digest);
-        } else {
-            favouriteExternalDAO.erase(digest);
-            previousExternalDAO.erase(widgetId, ContentSelection.FAVOURITES, digest);
+    public synchronized void deleteFavourite(boolean useInternalDatabase, String digest) {
+        searchCache.evictAll();
+        if (cacheFavouriteDigests != null) {
+            cacheFavouriteDigests.remove(useInternalDatabase);
         }
+        getFavouriteDAO(useInternalDatabase).erase(digest);
     }
 
     public void erasePrevious(
-            boolean useInternalDatabase,
-            int widgetId,
-            @NonNull ContentSelection contentSelection,
-            @NonNull List<String> previousDigests) {
+        boolean useInternalDatabase,
+        int widgetId,
+        @NonNull ContentSelection contentSelection,
+        @NonNull List<String> previousDigests) {
         for (String digest : previousDigests) {
-            if (useInternalDatabase) {
-                previousDAO.erase(widgetId, contentSelection, digest);
-            } else {
-                previousExternalDAO.erase(widgetId, contentSelection, digest);
-            }
+            getPreviousDAO(useInternalDatabase).erase(widgetId, contentSelection, digest);
         }
     }
 
     public void erase(boolean useInternalDatabase) {
-        if (useInternalDatabase) {
-            previousDAO.erase();
-            currentDAO.erase();
-            favouriteDAO.erase();
-        } else {
-            quotationExternalDAO.eraseQuotations();
+        clearCache(useInternalDatabase);
+        getPreviousDAO(useInternalDatabase).erase();
+        getCurrentDAO(useInternalDatabase).erase();
+        getFavouriteDAO(useInternalDatabase).erase();
 
-            previousExternalDAO.erase();
-            currentExternalDAO.erase();
-            favouriteExternalDAO.erase();
+        if (!useInternalDatabase) {
+            getQuotationDAO(false).eraseQuotations();
         }
     }
 
-    public void eraseForRestore() {
-        previousDAO.erase();
-        currentDAO.erase();
-        favouriteDAO.erase();
-        previousExternalDAO.erase();
-        currentExternalDAO.erase();
-        favouriteExternalDAO.erase();
+    public synchronized void eraseForRestore() {
+        if (cacheFavouriteDigests != null) {
+            cacheFavouriteDigests.clear();
+        }
+        if (cacheCurrentQuotation != null) {
+            cacheCurrentQuotation.clear();
+        }
+        getPreviousDAO(true).erase();
+        getCurrentDAO(true).erase();
+        getFavouriteDAO(true).erase();
+        getPreviousDAO(false).erase();
+        getCurrentDAO(false).erase();
+        getFavouriteDAO(false).erase();
     }
 
-    public void erase(boolean useInternalDatabase, final int widgetId) {
-        if (useInternalDatabase) {
-            previousDAO.erase(widgetId);
-            currentDAO.erase(widgetId);
-        } else {
-            previousExternalDAO.erase(widgetId);
-            currentExternalDAO.erase(widgetId);
+    public synchronized void erase(boolean useInternalDatabase, final int widgetId) {
+        if (cacheCurrentQuotation != null) {
+            cacheCurrentQuotation.remove(useInternalDatabase + ":" + widgetId);
         }
+        getPreviousDAO(useInternalDatabase).erase(widgetId);
+        getCurrentDAO(useInternalDatabase).erase(widgetId);
     }
 
-    public void erase(boolean useInternalDatabase, final int widgetId, @NonNull final ContentSelection contentSelection) {
-        if (useInternalDatabase) {
-            previousDAO.erase(widgetId, contentSelection);
-            currentDAO.erase(widgetId);
-        } else {
-            previousExternalDAO.erase(widgetId, contentSelection);
-            currentExternalDAO.erase(widgetId);
+    public synchronized void erase(boolean useInternalDatabase, final int widgetId, @NonNull final ContentSelection contentSelection) {
+        if (cacheCurrentQuotation != null) {
+            cacheCurrentQuotation.remove(useInternalDatabase + ":" + widgetId);
         }
+        getPreviousDAO(useInternalDatabase).erase(widgetId, contentSelection);
+        getCurrentDAO(useInternalDatabase).erase(widgetId);
     }
 
     @NonNull
     public Boolean isFavourite(boolean useInternalDatabase, @NonNull final String digest) {
-        if (useInternalDatabase) {
-            return favouriteDAO.isFavourite(digest) > 0;
-        } else {
-            return favouriteExternalDAO.isFavourite(digest) > 0;
-        }
+        return getFavouriteDAO(useInternalDatabase).isFavourite(digest) > 0;
     }
 
     @Transaction
     public void insertQuotationsExternal(
-            @NonNull final LinkedHashSet<QuotationEntity> quotationEntityList) {
-        quotationExternalDAO.insertQuotations(new ArrayList<>(quotationEntityList));
+        @NonNull final LinkedHashSet<QuotationEntity> quotationEntityList) {
+        clearCache(false);
+        getQuotationDAO(false).insertQuotations(new ArrayList<>(quotationEntityList));
     }
 
     public void insertQuotationExternal(QuotationEntity quotationEntity) {
+        clearCache(false);
         try {
-            quotationExternalDAO.insertQuotation(quotationEntity);
+            getQuotationDAO(false).insertQuotation(quotationEntity);
         } catch (SQLiteConstraintException e) {
             Timber.e(e.getMessage());
         }
     }
 
     public void updateQuotationUsingDigest(boolean useInternalDatabase, String digest, String author, String quotation) {
-        if (useInternalDatabase) {
-            quotationDAO.updateQuotationUsingDigest(
-                    digest,
-                    author,
-                    quotation);
-        } else {
-            quotationExternalDAO.updateQuotationUsingDigest(
-                    digest,
-                    author,
-                    quotation);
-        }
+        clearCache(useInternalDatabase);
+        getQuotationDAO(useInternalDatabase).updateQuotationUsingDigest(
+            digest,
+            author,
+            quotation);
     }
 
     public void updateQuotationUsingAuthorQuotation(boolean useInternalDatabase, String digest, String author, String quotation) {
-        if (useInternalDatabase) {
-            quotationDAO.updateQuotationUsingAuthorQuotation(
-                    digest,
-                    author,
-                    quotation);
-        } else {
-            quotationExternalDAO.updateQuotationUsingAuthorQuotation(
-                    digest,
-                    author,
-                    quotation);
-        }
+        clearCache(useInternalDatabase);
+        getQuotationDAO(useInternalDatabase).updateQuotationUsingAuthorQuotation(
+            digest,
+            author,
+            quotation);
     }
 
     public void deleteQuotation(boolean useInternalDatabase, String digest) {
-        if (useInternalDatabase) {
-            quotationDAO.eraseQuotations(digest);
-        } else {
-            quotationExternalDAO.eraseQuotations(digest);
-        }
-    }
-
-    public void deleteFavourite(boolean useInternalDatabase, String digest) {
-        if (useInternalDatabase) {
-            favouriteDAO.erase(digest);
-        } else {
-            favouriteExternalDAO.erase(digest);
-        }
+        clearCache(useInternalDatabase);
+        getQuotationDAO(useInternalDatabase).eraseQuotations(digest);
     }
 
     public void deletePrevious(boolean useInternalDatabase, String digest) {
-        if (useInternalDatabase) {
-            previousDAO.erase(digest);
-        } else {
-            previousExternalDAO.erase(digest);
-        }
+        getPreviousDAO(useInternalDatabase).erase(digest);
     }
 
-    // # Batch restore methods
-
-    public void insertFavourites(@NonNull final List<FavouriteEntity> entities, final boolean internal) {
+    public synchronized void insertFavourites(@NonNull final List<FavouriteEntity> entities, final boolean internal) {
+        if (cacheFavouriteDigests != null) {
+            cacheFavouriteDigests.remove(internal);
+        }
         // deduplicate by digest to prevent duplicate rows
         final List<FavouriteEntity> deduped = new ArrayList<>();
         final HashSet<String> seenDigests = new HashSet<>();
@@ -1100,11 +977,7 @@ public class DatabaseRepository {
                 deduped.add(entity);
             }
         }
-        if (internal) {
-            favouriteDAO.insertFavourites(deduped);
-        } else {
-            favouriteExternalDAO.insertFavourites(deduped);
-        }
+        getFavouriteDAO(internal).insertFavourites(deduped);
     }
 
     public void insertPrevious(@NonNull final List<PreviousEntity> entities, final boolean internal) {
@@ -1116,18 +989,54 @@ public class DatabaseRepository {
                 deduped.add(entity);
             }
         }
-        if (internal) {
-            previousDAO.insertPrevious(deduped);
-        } else {
-            previousExternalDAO.insertPrevious(deduped);
-        }
+        getPreviousDAO(internal).insertPrevious(deduped);
     }
 
-    public void insertCurrent(@NonNull final List<CurrentEntity> entities, final boolean internal) {
-        if (internal) {
-            currentDAO.insertCurrents(entities);
-        } else {
-            currentExternalDAO.insertCurrents(entities);
+    // # Batch restore methods
+
+    public synchronized void insertCurrent(@NonNull final List<CurrentEntity> entities, final boolean internal) {
+        if (cacheCurrentQuotation != null) {
+            cacheCurrentQuotation.clear();
+        }
+        getCurrentDAO(internal).insertCurrents(entities);
+    }
+
+    private interface SearchPredicate {
+        boolean test(QuotationEntity entity);
+    }
+
+    private static class SearchCacheKey {
+        final boolean useInternalDatabase;
+        @NonNull
+        final String query;
+        final boolean favouritesOnly;
+        final boolean isRegEx;
+
+        SearchCacheKey(boolean useInternalDatabase, @NonNull String query, boolean favouritesOnly, boolean isRegEx) {
+            this.useInternalDatabase = useInternalDatabase;
+            this.query = query;
+            this.favouritesOnly = favouritesOnly;
+            this.isRegEx = isRegEx;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            SearchCacheKey that = (SearchCacheKey) o;
+            return useInternalDatabase == that.useInternalDatabase &&
+                favouritesOnly == that.favouritesOnly &&
+                isRegEx == that.isRegEx &&
+                query.equals(that.query);
+        }
+
+        @Override
+        public int hashCode() {
+            int result = (useInternalDatabase ? 1 : 0);
+            result = 31 * result + query.hashCode();
+            result = 31 * result + (favouritesOnly ? 1 : 0);
+            result = 31 * result + (isRegEx ? 1 : 0);
+            return result;
         }
     }
 }

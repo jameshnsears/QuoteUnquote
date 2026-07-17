@@ -1,0 +1,8 @@
+- New: Remove similar quotations
+- New: Improve performance
+- New: Minor UI improvements
+- Fix: Overwrite device restore file issue
+- Fix: Improve switching back and forth between Internal &amp; External
+- Fix: Remember position for each Search
+- Dev: Bump dependency
+- Dev: Android Studio Quail 1 | 2026.1.1 Patch 2

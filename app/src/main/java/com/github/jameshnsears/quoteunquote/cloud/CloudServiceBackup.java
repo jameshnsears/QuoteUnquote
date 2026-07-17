@@ -18,9 +18,9 @@ import timber.log.Timber;
 public class CloudServiceBackup extends CloudService {
     @Override
     public int onStartCommand(
-            @NonNull final Intent intent,
-            final int flags,
-            final int startId) {
+        @NonNull final Intent intent,
+        final int flags,
+        final int startId) {
 
         if (CloudService.startRunning()) {
 
@@ -35,31 +35,31 @@ public class CloudServiceBackup extends CloudService {
 
                 if (!cloudTransfer.isInternetAvailable()) {
                     handler.post(() -> Toast.makeText(
-                            context,
-                            context.getString(R.string.fragment_archive_internet_missing),
-                            Toast.LENGTH_SHORT).show());
+                        context,
+                        context.getString(R.string.fragment_archive_internet_missing),
+                        Toast.LENGTH_SHORT).show());
                 } else if (transferJson.getBytes(StandardCharsets.UTF_8).length > 1_048_500) {
                     handler.post(() -> Toast.makeText(
-                            context,
-                            context.getString(R.string.fragment_archive_select_cloud_warning),
-                            Toast.LENGTH_SHORT).show());
+                        context,
+                        context.getString(R.string.fragment_archive_select_cloud_warning),
+                        Toast.LENGTH_SHORT).show());
                 } else {
                     handler.post(() -> Toast.makeText(
-                            context,
-                            context.getString(R.string.fragment_archive_backup_sending),
-                            Toast.LENGTH_SHORT).show());
+                        context,
+                        context.getString(R.string.fragment_archive_backup_sending),
+                        Toast.LENGTH_SHORT).show());
 
                     if (cloudTransfer.backup(transferJson)) {
 
                         handler.post(() -> Toast.makeText(
-                                context,
-                                context.getString(R.string.fragment_archive_backup_success),
-                                Toast.LENGTH_SHORT).show());
+                            context,
+                            context.getString(R.string.fragment_archive_backup_success),
+                            Toast.LENGTH_SHORT).show());
                     } else {
                         handler.post(() -> Toast.makeText(
-                                context,
-                                context.getString(R.string.fragment_archive_internet_missing),
-                                Toast.LENGTH_SHORT).show());
+                            context,
+                            context.getString(R.string.fragment_archive_internet_missing),
+                            Toast.LENGTH_SHORT).show());
                     }
                 }
 

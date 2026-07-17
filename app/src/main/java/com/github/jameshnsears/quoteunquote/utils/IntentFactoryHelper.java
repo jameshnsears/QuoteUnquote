@@ -32,7 +32,7 @@ public class IntentFactoryHelper {
     public static final String NOTIFICATION_DISMISSED = "NOTIFICATION_DISMISSED";
     @NonNull
     public static final String ALL_WIDGET_INSTANCES_FAVOURITE_NOTIFICATION
-            = "ALL_WIDGET_INSTANCES_FAVOURITE_NOTIFICATION";
+        = "ALL_WIDGET_INSTANCES_FAVOURITE_NOTIFICATION";
     @NonNull
     public static final String TOOLBAR_PRESSED_SHARE = "TOOLBAR_PRESSED_SHARE";
     @NonNull
@@ -88,9 +88,9 @@ public class IntentFactoryHelper {
     @SuppressLint("UnspecifiedImmutableFlag")
     @NonNull
     public static PendingIntent createClickPendingIntent(
-            @NonNull final Context context,
-            final int uniqueId,
-            @NonNull final String action) {
+        @NonNull final Context context,
+        final int uniqueId,
+        @NonNull final String action) {
         final Intent intent = createIntent(context, uniqueId);
         intent.setAction(action);
 
@@ -103,10 +103,10 @@ public class IntentFactoryHelper {
     @SuppressLint("UnspecifiedImmutableFlag")
     @NonNull
     public static PendingIntent createClickPendingIntent(
-            @NonNull final Context context,
-            final int uniqueId,
-            @NonNull final String action,
-            @NonNull Bundle bundle) {
+        @NonNull final Context context,
+        final int uniqueId,
+        @NonNull final String action,
+        @NonNull Bundle bundle) {
         final Intent intent = createIntent(context, uniqueId);
         intent.setAction(action);
         intent.putExtras(bundle);
@@ -120,11 +120,11 @@ public class IntentFactoryHelper {
     @SuppressLint("UnspecifiedImmutableFlag")
     @NonNull
     public static PendingIntent createClickPendingIntent(
-            @NonNull final Context context,
-            final int widgetId,
-            final int uniqueId,
-            @NonNull final String action,
-            @NonNull Bundle bundle) {
+        @NonNull final Context context,
+        final int widgetId,
+        final int uniqueId,
+        @NonNull final String action,
+        @NonNull Bundle bundle) {
         final Intent intent = createIntent(context, widgetId);
         intent.setAction(action);
         intent.putExtras(bundle);
@@ -157,9 +157,9 @@ public class IntentFactoryHelper {
 
     @NonNull
     public static Intent createIntent(
-            @NonNull final Context context,
-            @NonNull final Class cls,
-            final int widgetId) {
+        @NonNull final Context context,
+        @NonNull final Class cls,
+        final int widgetId) {
         final Intent intent = new Intent(context, cls);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
 
@@ -171,9 +171,9 @@ public class IntentFactoryHelper {
 
     @NonNull
     public static Intent createIntentAction(
-            @NonNull final Context context,
-            final int widgetId,
-            @NonNull final String action) {
+        @NonNull final Context context,
+        final int widgetId,
+        @NonNull final String action) {
         final Intent intent = new Intent(context, QuoteUnquoteWidget.class);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
         intent.setAction(action);

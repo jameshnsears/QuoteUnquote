@@ -40,6 +40,10 @@ public class PreferencesFacade {
         return PreferenceHelper.countPreferences(PreferencesFacade.PREFERENCES_FILENAME, context, widgetId);
     }
 
+    public int getWidgetId() {
+        return widgetId;
+    }
+
     private void init(@NonNull Context applicationContext) {
         this.applicationContext = applicationContext;
         preferenceHelper = new PreferenceHelper(PreferencesFacade.PREFERENCES_FILENAME, applicationContext);

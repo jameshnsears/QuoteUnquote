@@ -13,8 +13,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import timber.log.Timber;
 
 @Database(
-        entities = {PreviousEntity.class, FavouriteEntity.class, ReportedEntity.class, CurrentEntity.class},
-        version = 2)
+    entities = {PreviousEntity.class, FavouriteEntity.class, ReportedEntity.class, CurrentEntity.class},
+    version = 2)
 public abstract class HistoryDatabase extends RoomDatabase {
     @NonNull
     public static final String DATABASE_NAME = "history.db";
@@ -36,10 +36,11 @@ public abstract class HistoryDatabase extends RoomDatabase {
             Timber.d("%b", historyDatabase == null);
             if (historyDatabase == null) {
                 historyDatabase = Room.databaseBuilder(context,
-                                HistoryDatabase.class, DATABASE_NAME)
-                        .addMigrations(MIGRATION_1_2)
-                        .fallbackToDestructiveMigration(false)
-                        .build();
+                        HistoryDatabase.class, DATABASE_NAME)
+                    .addMigrations(MIGRATION_1_2)
+                    .fallbackToDestructiveMigration(false)
+                    .setJournalMode(JournalMode.WRITE_AHEAD_LOGGING)
+                    .build();
             }
 
             return historyDatabase;

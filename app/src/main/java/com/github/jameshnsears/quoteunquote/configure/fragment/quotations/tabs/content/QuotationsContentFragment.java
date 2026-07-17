@@ -39,7 +39,7 @@ public class QuotationsContentFragment extends FragmentCommon {
 
     @NonNull
     public static QuotationsContentFragment newInstance(
-            int widgetId) {
+        int widgetId) {
         QuotationsContentFragment fragment = new QuotationsContentFragment(widgetId);
         fragment.setArguments(null);
         return fragment;
@@ -55,9 +55,9 @@ public class QuotationsContentFragment extends FragmentCommon {
     @Override
     @NonNull
     public View onCreateView(
-            @NonNull LayoutInflater inflater,
-            @NonNull ViewGroup container,
-            @NonNull Bundle savedInstanceState) {
+        @NonNull LayoutInflater inflater,
+        @NonNull ViewGroup container,
+        @NonNull Bundle savedInstanceState) {
         this.quotationsPreferences = new QuotationsPreferences(this.widgetId, this.getContext());
 
         this.fragmentQuotationsTabDatabaseBinding = FragmentQuotationsTabDatabaseBinding.inflate(this.getLayoutInflater());
@@ -66,7 +66,7 @@ public class QuotationsContentFragment extends FragmentCommon {
 
     @Override
     public void onViewCreated(
-            @NonNull View view, @NonNull Bundle savedInstanceState) {
+        @NonNull View view, @NonNull Bundle savedInstanceState) {
 
         loadFragment(new ContentInternalFragment(widgetId));
 
@@ -103,7 +103,7 @@ public class QuotationsContentFragment extends FragmentCommon {
         });
 
         String screen =
-                new QuotationsPreferences(widgetId, getContext()).getScreen();
+            new QuotationsPreferences(widgetId, getContext()).getScreen();
 
         if (screen.equals(Screen.ContentFiles.screenName)) {
             fragmentQuotationsTabDatabaseBinding.tabDatabase.getTabAt(1).select();

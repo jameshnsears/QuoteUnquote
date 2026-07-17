@@ -37,7 +37,7 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(final ViewGroup viewGroup, final int viewType) {
         final View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.recyclerview_row, viewGroup, false);
+            .inflate(R.layout.recyclerview_row, viewGroup, false);
 
         return new ViewHolder(view);
     }
@@ -85,7 +85,7 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener, View.OnLongClickListener {
+        implements View.OnClickListener, View.OnLongClickListener {
         private final TextView textViewSequentialIndex;
         private final TextView textViewQuotation;
         private final TextView textViewSource;
@@ -134,8 +134,8 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseAdapter.ViewHolder
             }
 
             view.getContext().startActivity(IntentFactoryHelper.createIntentShare(
-                            view.getContext().getResources().getString(R.string.app_name), toShare
-                    )
+                    view.getContext().getResources().getString(R.string.app_name), toShare
+                )
             );
         }
 

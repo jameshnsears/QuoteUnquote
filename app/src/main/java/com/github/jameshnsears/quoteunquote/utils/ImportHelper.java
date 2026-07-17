@@ -29,8 +29,8 @@ public class ImportHelper {
     public static String makeDigest(String quotation, String author) {
         String rawString = quotation + author;
         return Hashing.sha256()
-                .hashBytes(rawString.getBytes(StandardCharsets.UTF_8))
-                .toString().substring(0, 8);
+            .hashBytes(rawString.getBytes(StandardCharsets.UTF_8))
+            .toString().substring(0, 8);
     }
 
     public void csvExport(FileOutputStream fileOutputStream, ArrayList<QuotationEntity> exportableFavourites) throws IOException {
@@ -43,8 +43,8 @@ public class ImportHelper {
 
             for (final QuotationEntity quotationEntityFavourite : exportableFavourites) {
                 csvPrinter.printRecord(
-                        quotationEntityFavourite.author,
-                        quotationEntityFavourite.quotation);
+                    quotationEntityFavourite.author,
+                    quotationEntityFavourite.quotation);
             }
         } finally {
             if (csvPrinter != null) {
@@ -60,13 +60,13 @@ public class ImportHelper {
 
     private CSVFormat getCsvFormatForExport() {
         return CSVFormat.Builder.create()
-                .setDelimiter("||")
-                .setRecordSeparator("\n")
-                .setEscape('\\')
-                .setQuoteMode(QuoteMode.NONE)
-                .setHeader(headers)
-                .setSkipHeaderRecord(true)
-                .build();
+            .setDelimiter("||")
+            .setRecordSeparator("\n")
+            .setEscape('\\')
+            .setQuoteMode(QuoteMode.NONE)
+            .setHeader(headers)
+            .setSkipHeaderRecord(true)
+            .build();
     }
 
     /*
@@ -74,16 +74,16 @@ public class ImportHelper {
      */
     private CSVFormat getCsvFormatForImport() {
         return CSVFormat.Builder.create()
-                .setDelimiter("||")
-                .setEscape('\\')
-                .setQuote(null)
-                .setHeader(headers)
-                .build();
+            .setDelimiter("||")
+            .setEscape('\\')
+            .setQuote(null)
+            .setHeader(headers)
+            .build();
     }
 
     public LinkedHashSet<QuotationEntity> importFortune(
-            String filePath,
-            InputStream inputStream
+        String filePath,
+        InputStream inputStream
     ) throws ImportHelperException {
         LinkedHashSet<QuotationEntity> quotationEntityLinkedHashSet = new LinkedHashSet<>();
         {
@@ -100,10 +100,10 @@ public class ImportHelper {
                         fortuneLineNumber += 1;
 
                         addFortune(
-                                fortuneLineNumber,
-                                filePath,
-                                fortune.toString().trim(),
-                                quotationEntityLinkedHashSet
+                            fortuneLineNumber,
+                            filePath,
+                            fortune.toString().trim(),
+                            quotationEntityLinkedHashSet
                         );
 
                         fortune.setLength(0);
@@ -116,7 +116,7 @@ public class ImportHelper {
                     if (quotationLineNumber > 50) {
                         Timber.e(filePath);
                         throw new ImportHelperException(quotationLineNumber,
-                                "quotation too big / invalid format"
+                            "quotation too big / invalid format"
                         );
                     }
                 }
@@ -125,10 +125,10 @@ public class ImportHelper {
                     fortuneLineNumber += 1;
 
                     addFortune(
-                            fortuneLineNumber,
-                            filePath,
-                            fortune.toString().trim(),
-                            quotationEntityLinkedHashSet
+                        fortuneLineNumber,
+                        filePath,
+                        fortune.toString().trim(),
+                        quotationEntityLinkedHashSet
                     );
                 }
 
@@ -146,10 +146,10 @@ public class ImportHelper {
     }
 
     private void addFortune(
-            int fortuneLineNumber,
-            String filePath,
-            String fortune,
-            LinkedHashSet<QuotationEntity> quotationEntityLinkedHashSet
+        int fortuneLineNumber,
+        String filePath,
+        String fortune,
+        LinkedHashSet<QuotationEntity> quotationEntityLinkedHashSet
     ) {
         if (!fortune.isEmpty() && !fortune.equals('%')) {
             Timber.d("fortuneLineNumber=%d; fortune=%s", fortuneLineNumber, fortune);
@@ -159,10 +159,10 @@ public class ImportHelper {
             }
 
             QuotationEntity quotationEntity = new QuotationEntity(
-                    makeDigest(fortuneLineNumber, filePath, fortune),
-                    "?",
-                    filePath.substring(1 + filePath.lastIndexOf('/')),
-                    fortune);
+                makeDigest(fortuneLineNumber, filePath, fortune),
+                "?",
+                filePath.substring(1 + filePath.lastIndexOf('/')),
+                fortune);
 
             if (!quotationEntityLinkedHashSet.contains(quotationEntity)) {
                 quotationEntityLinkedHashSet.add(quotationEntity);
@@ -171,7 +171,7 @@ public class ImportHelper {
     }
 
     public LinkedHashSet<QuotationEntity> importCsv(
-            InputStream inputStream
+        InputStream inputStream
     ) throws ImportHelperException {
         CSVParser parser = null;
 
@@ -191,10 +191,10 @@ public class ImportHelper {
                 testNotEmptyQuotation(lineNumber, quotation);
 
                 QuotationEntity quotationEntity = new QuotationEntity(
-                        makeDigest(lineNumber, author, quotation),
-                        "?",
-                        author,
-                        quotation);
+                    makeDigest(lineNumber, author, quotation),
+                    "?",
+                    author,
+                    quotation);
                 if (!quotationEntityLinkedHashSet.contains(quotationEntity)) {
                     quotationEntityLinkedHashSet.add(quotationEntity);
                 }

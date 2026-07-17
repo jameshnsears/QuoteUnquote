@@ -11,8 +11,8 @@ import androidx.room.RoomDatabase;
 import timber.log.Timber;
 
 @Database(
-        entities = {PreviousEntity.class, FavouriteEntity.class, ReportedEntity.class, CurrentEntity.class},
-        version = 1)
+    entities = {PreviousEntity.class, FavouriteEntity.class, ReportedEntity.class, CurrentEntity.class},
+    version = 1)
 public abstract class HistoryExternalDatabase extends RoomDatabase {
     @NonNull
     public static final String DATABASE_NAME = "history.external.db";
@@ -26,8 +26,9 @@ public abstract class HistoryExternalDatabase extends RoomDatabase {
             Timber.d("%b", historyExternalDatabase == null);
             if (historyExternalDatabase == null) {
                 historyExternalDatabase = Room.databaseBuilder(context,
-                                HistoryExternalDatabase.class, DATABASE_NAME)
-                        .build();
+                        HistoryExternalDatabase.class, DATABASE_NAME)
+                    .setJournalMode(RoomDatabase.JournalMode.WRITE_AHEAD_LOGGING)
+                    .build();
             }
 
             return historyExternalDatabase;

@@ -36,8 +36,8 @@
     <string name="fragment_quotations_selection_all"><b>All: %d</b></string>
     <string name="fragment_quotations_selection_exclusion_instructions">Source exclusion…</string>
     <string name="fragment_quotations_selection_exclusion_info"></string>
-    <string name="fragment_quotations_selection_exclusion_1">\u2022&#160;&#160;4 characters minimum</string>
-    <string name="fragment_quotations_selection_exclusion_2">\u2022&#160;&#160;Separate each Source with a semicolon</string>
+    <string name="fragment_quotations_selection_exclusion_1">\u2022&#160;&#160;4 characters minimum; case insensitive; semicolon separator</string>
+    <string name="fragment_quotations_selection_exclusion_2">\u2022&#160;&#160;Example: exclude Shakespeare: shak;</string>
     <string name="fragment_quotations_selection_all_ascending">Ascending Source Count</string>
     <string name="fragment_quotations_selection_all_ascending_info">\u2022&#160;&#160;Start with the Source with the least quotations; end with the Source with the most; any existing Previous is preserved</string>
 
@@ -53,9 +53,10 @@
     <string name="fragment_quotations_selection_search_favourites_only">Favourites only</string>
     <string name="fragment_quotations_selection_search_instructions_text">Search text…</string>
     <string name="fragment_quotations_selection_search_switch_regex">Regular expression</string>
-    <string name="fragment_quotations_selection_search_switch_regex_invalid">Invalid regular expression</string>
     <string name="fragment_quotations_selection_search_instructions_info"></string>
-    <string name="fragment_quotations_selection_search_instructions_1">\u2022&#160;&#160;4 characters minimum</string>
+    <string name="fragment_quotations_selection_search_instructions_1">\u2022&#160;&#160;Search includes both Quotation &amp; Source</string>
+    <string name="fragment_quotations_selection_search_instructions_2">\u2022&#160;&#160;4 characters minimum; regular expressions are case sensitive, can take time but results get cached</string>
+    <string name="fragment_quotations_selection_search_instructions_3">\u2022&#160;&#160;Regular expression example: .*(Aristotle|Sun Tzu).*</string>
 
     <string name="fragment_quotations_selection_search_no_results">No results found for Search</string>
     <string name="fragment_quotations_selection_dialog_browse_favourites">Favourites</string>

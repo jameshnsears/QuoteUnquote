@@ -18,7 +18,6 @@ import com.github.jameshnsears.quoteunquote.configure.fragment.FragmentCommon;
 import com.github.jameshnsears.quoteunquote.databinding.FragmentQuotationsBinding;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-import io.reactivex.disposables.CompositeDisposable;
 import timber.log.Timber;
 
 @Keep
@@ -47,9 +46,9 @@ public class QuotationsFragment extends FragmentCommon implements DialogInterfac
     @Override
     @NonNull
     public View onCreateView(
-            @NonNull final LayoutInflater inflater,
-            final @NonNull ViewGroup container,
-            final @NonNull Bundle savedInstanceState) {
+        @NonNull final LayoutInflater inflater,
+        final @NonNull ViewGroup container,
+        final @NonNull Bundle savedInstanceState) {
         final Context context = new ContextThemeWrapper(getActivity(), com.google.android.material.R.style.Theme_Material3_DayNight);
 
         fragmentQuotationsBinding = FragmentQuotationsBinding.inflate(inflater.cloneInContext(context));
@@ -58,7 +57,7 @@ public class QuotationsFragment extends FragmentCommon implements DialogInterfac
 
     @Override
     public void onViewCreated(
-            @NonNull final View view, final @NonNull Bundle savedInstanceState) {
+        @NonNull final View view, final @NonNull Bundle savedInstanceState) {
 
         pagerAdapter = new QuotationsFragmentStateAdapter(this, widgetId);
         fragmentQuotationsBinding.viewPager2Quotations.setAdapter(pagerAdapter);
@@ -74,11 +73,8 @@ public class QuotationsFragment extends FragmentCommon implements DialogInterfac
                     Timber.d("onPageSelected=0");
                     // re-init the filter, in-case we have switched between internal / external databases
                     if (QuotationsFragmentStateAdapter.quotationsFilterFragment != null) {
-                        if (QuotationsFragmentStateAdapter.quotationsFilterFragment.disposables.size() == 0) {
-                            QuotationsFragmentStateAdapter.quotationsFilterFragment.disposables = new CompositeDisposable();
-                            QuotationsFragmentStateAdapter.quotationsFilterFragment.initUI();
-                            QuotationsFragmentStateAdapter.quotationsFilterFragment.setCard();
-                        }
+                        QuotationsFragmentStateAdapter.quotationsFilterFragment.initUI();
+                        QuotationsFragmentStateAdapter.quotationsFilterFragment.setCard();
                     }
 
                 } else {
@@ -92,23 +88,23 @@ public class QuotationsFragment extends FragmentCommon implements DialogInterfac
 
         // create the tabs first...
         String[] tabs = {
-                getString(R.string.fragment_quotations_selection),
-                getString(R.string.fragment_quotations_database)
+            getString(R.string.fragment_quotations_selection),
+            getString(R.string.fragment_quotations_database)
         };
 
         new TabLayoutMediator(
-                fragmentQuotationsBinding.tabLayout,
-                fragmentQuotationsBinding.viewPager2Quotations,
-                true,
-                false,
-                (tab, position) -> tab.setText(tabs[position])).attach();
+            fragmentQuotationsBinding.tabLayout,
+            fragmentQuotationsBinding.viewPager2Quotations,
+            true,
+            false,
+            (tab, position) -> tab.setText(tabs[position])).attach();
 
         String screen =
-                new QuotationsPreferences(widgetId, getContext()).getScreen();
+            new QuotationsPreferences(widgetId, getContext()).getScreen();
 
         if (screen.equals(Screen.ContentInternal.screenName)
-                || screen.equals(Screen.ContentFiles.screenName)
-                || screen.equals(Screen.ContentWeb.screenName)
+            || screen.equals(Screen.ContentFiles.screenName)
+            || screen.equals(Screen.ContentWeb.screenName)
         ) {
             fragmentQuotationsBinding.viewPager2Quotations.setCurrentItem(1);
         } else {
@@ -130,6 +126,8 @@ public class QuotationsFragment extends FragmentCommon implements DialogInterfac
 
     @Override
     public void onDismiss(DialogInterface dialog) {
-        QuotationsFragmentStateAdapter.quotationsFilterFragment.initUI();
+        if (QuotationsFragmentStateAdapter.quotationsFilterFragment != null) {
+            QuotationsFragmentStateAdapter.quotationsFilterFragment.initUI();
+        }
     }
 }

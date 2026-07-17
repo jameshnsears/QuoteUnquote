@@ -30,8 +30,8 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
@@ -39,6 +39,9 @@ import io.reactivex.Single;
 import timber.log.Timber;
 
 public class QuoteUnquoteModel {
+    private static final int TIMEOUT_SECONDS = 30;
+    private static final int TIMEOUT_BACKUP_SECONDS = 60;
+
     @Nullable
     public DatabaseRepository databaseRepository;
 
@@ -92,35 +95,29 @@ public class QuoteUnquoteModel {
         @NonNull final String digest,
         @NonNull final String criteria) {
 
-        final Future<QuotationEntity> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
-
+        return runTask(() -> {
             List<String> previousDigests = getPreviousDigests(widgetId, contentSelection, criteria);
+
+            if (previousDigests.isEmpty()) {
+                return null;
+            }
 
             int priorDigestIndex = previousDigests.indexOf(digest) + 1;
             if (priorDigestIndex == previousDigests.size()) {
                 priorDigestIndex -= 1;
             }
 
+            if (priorDigestIndex < 0) {
+                return null;
+            }
+
             return databaseRepository.getQuotation(useInternalDatabase, previousDigests.get(priorDigestIndex));
-        });
-
-        QuotationEntity quotationEntity = null;
-
-        try {
-            quotationEntity = future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
-
-        return quotationEntity;
+        }, null);
     }
 
     @Nullable
     public String getLastPreviousDigest(final int widgetId) {
-
-        final Future<String> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
-
+        return runTask(() -> {
             List<String> lastPreviousDigests = databaseRepository.
                 getPreviousDigests(
                     useInternalDatabase,
@@ -128,43 +125,26 @@ public class QuoteUnquoteModel {
                     getContentPreferences(widgetId).getContentSelection(),
                     getContentPreferences(widgetId).getContentSelectionAllExclusion());
 
+            if (lastPreviousDigests.isEmpty()) {
+                return "";
+            }
+
             return lastPreviousDigests.get(0);
-        });
-
-        String lastPreviousDigest = null;
-
-        try {
-            lastPreviousDigest = future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Thread.currentThread().interrupt();
-        }
-
-        return lastPreviousDigest;
+        }, null);
     }
 
     @Nullable
     public QuotationEntity getCurrentQuotation(
         final int widgetId) {
-
-        final Future<QuotationEntity> future = QuoteUnquoteWidget.getExecutorService().submit(() ->
-            databaseRepository.getCurrentQuotation(useInternalDatabase, widgetId));
-
-        QuotationEntity quotationEntity = null;
-
-        try {
-            quotationEntity = future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Thread.currentThread().interrupt();
-        }
-
-        return quotationEntity;
+        return runTask(() ->
+            databaseRepository.getCurrentQuotation(useInternalDatabase, widgetId), null);
     }
 
     @Nullable
     public String getCurrentPosition(
         final int widgetId,
         @NonNull final QuotationsPreferences quotationsPreferences) {
-        final Future<String> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+        return runTask(() -> {
             int positionInPrevious = databaseRepository.findPositionInPrevious(useInternalDatabase, widgetId, quotationsPreferences);
 
             if (positionInPrevious == 0) {
@@ -174,45 +154,37 @@ public class QuoteUnquoteModel {
             return String.format(Locale.ENGLISH, "%d/%d",
                 positionInPrevious,
                 databaseRepository.countNext(useInternalDatabase, quotationsPreferences));
-        });
-
-        String currentPosition = null;
-
-        try {
-            currentPosition = future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
-
-        return currentPosition;
+        }, null);
     }
 
     public void markAsCurrentNext(
         final int widgetId,
         final boolean randomNext) {
-        Timber.d("randomNext=%b", randomNext);
 
         final QuotationsPreferences quotationsPreferences = getContentPreferences(widgetId);
 
-        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+        ContentSelection contentSelection = quotationsPreferences.getContentSelection();
+        Timber.d("markAsCurrentNext.contentSelection=%s", contentSelection.toString());
+        Timber.d("markAsCurrentNext.randomNext=%b", randomNext);
+
+        runAction(() -> {
             QuotationEntity nextQuotation = getNextQuotation(widgetId, randomNext);
 
             List<String> previous = getPreviousDigests(
                 widgetId,
-                quotationsPreferences.getContentSelection(),
+                contentSelection,
                 quotationsPreferences.getContentSelectionAllExclusion());
 
             if (!previous.contains(nextQuotation.digest)) {
                 databaseRepository.markAsPrevious(
                     useInternalDatabase,
                     widgetId,
-                    quotationsPreferences.getContentSelection(),
+                    contentSelection,
                     nextQuotation.digest);
             } else {
                 if (!isNextNew(widgetId, quotationsPreferences, randomNext) && randomNext) {
                     Timber.d("purge Previous");
-                    resetPrevious(widgetId, quotationsPreferences.getContentSelection());
+                    resetPrevious(widgetId, contentSelection);
                     markAsCurrentDefault(widgetId);
                     nextQuotation = getCurrentQuotation(widgetId);
                 } else {
@@ -227,12 +199,6 @@ public class QuoteUnquoteModel {
                 widgetId,
                 nextQuotation.digest);
         });
-
-        try {
-            future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Thread.currentThread().interrupt();
-        }
     }
 
     private void addToPreviousAll(final int widgetId, @NonNull final QuotationEntity quotationEntity) {
@@ -253,7 +219,7 @@ public class QuoteUnquoteModel {
     public QuotationEntity getNextQuotation(
         final int widgetId,
         final boolean randomNext) {
-        final Future<QuotationEntity> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+        return runTask(() -> {
             switch (getContentPreferences(widgetId).getContentSelection()) {
                 case FAVOURITES:
                     return databaseRepository.getNextQuotation(
@@ -288,35 +254,15 @@ public class QuoteUnquoteModel {
                         randomNext,
                         getContentPreferences(widgetId));
             }
-        });
-
-        QuotationEntity nextQuotation = null;
-
-        try {
-            nextQuotation = future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
-
-        return nextQuotation;
+        }, null);
     }
 
     public void markAsCurrent(final int widgetId, @NonNull final String digest) {
-        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
-            databaseRepository.markAsCurrent(useInternalDatabase, widgetId, digest);
-        });
-
-        try {
-            future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
+        runAction(() -> databaseRepository.markAsCurrent(useInternalDatabase, widgetId, digest));
     }
 
     public void markAsCurrentDefault(final int widgetId) {
-        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+        runAction(() -> {
             ContentSelection contentSelection = getContentPreferences(widgetId).getContentSelection();
 
             setDefault(widgetId, contentSelection);
@@ -333,13 +279,6 @@ public class QuoteUnquoteModel {
                     quotationEntity.digest);
             }
         });
-
-        try {
-            future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
     }
 
     public void setDefault(
@@ -365,16 +304,7 @@ public class QuoteUnquoteModel {
 
     @NonNull
     public void alignHistoryWithQuotations(int widgetId) {
-        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
-            databaseRepository.alignHistoryWithQuotations(useInternalDatabase, widgetId, context);
-        });
-
-        try {
-            future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
+        runAction(() -> databaseRepository.alignHistoryWithQuotations(useInternalDatabase, widgetId, context));
     }
 
     @NonNull
@@ -382,19 +312,8 @@ public class QuoteUnquoteModel {
         final int widgetId,
         @NonNull final ContentSelection contentSelection,
         @NonNull final String criteria) {
-        final Future<List<String>> future = QuoteUnquoteWidget.getExecutorService().submit(() ->
-            databaseRepository.getPreviousDigests(useInternalDatabase, widgetId, contentSelection, criteria));
-
-        List<String> allPreviousDigests = new ArrayList<>();
-
-        try {
-            allPreviousDigests = future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
-
-        return allPreviousDigests;
+        return runTask(() ->
+            databaseRepository.getPreviousDigests(useInternalDatabase, widgetId, contentSelection, criteria), Collections.emptyList());
     }
 
     private void setDefaultAuthor(int widgetId) {
@@ -426,62 +345,29 @@ public class QuoteUnquoteModel {
 
     public int countPrevious(final int widgetId,
                              @NonNull final ContentSelection contentSelection) {
-        final Future<Integer> future = QuoteUnquoteWidget.getExecutorService().submit(()
-            -> databaseRepository.countPreviousCriteria(useInternalDatabase, widgetId, contentSelection));
-
-        int countPrevious = 0;
-        try {
-            countPrevious = future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
-
-        return countPrevious;
+        return runTask(() -> databaseRepository.countPreviousCriteria(useInternalDatabase, widgetId, contentSelection), 0);
     }
 
     public int countPrevious(final int widgetId) {
-        final Future<Integer> future = QuoteUnquoteWidget.getExecutorService().submit(()
-            -> databaseRepository.countPreviousCriteria(useInternalDatabase, widgetId));
-
-        int countPrevious = 0;
-        try {
-            countPrevious = future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
-
-        return countPrevious;
+        return runTask(() -> databaseRepository.countPreviousCriteria(useInternalDatabase, widgetId), 0);
     }
 
     public int countPreviousAuthor(final int widgetId) {
-        return databaseRepository.countPreviousCriteria(useInternalDatabase, widgetId, ContentSelection.AUTHOR,
-            getContentPreferences(widgetId));
+        return runTask(() -> databaseRepository.countPreviousCriteria(useInternalDatabase, widgetId, ContentSelection.AUTHOR,
+            getContentPreferences(widgetId)), 0);
     }
 
     public int countPreviousSearch(final int widgetId) {
-        return databaseRepository.countPreviousCriteria(useInternalDatabase, widgetId, ContentSelection.SEARCH,
-            getContentPreferences(widgetId));
+        return runTask(() -> databaseRepository.countPreviousCriteria(useInternalDatabase, widgetId, ContentSelection.SEARCH,
+            getContentPreferences(widgetId)), 0);
     }
 
     public int countFavouritesWithoutRx() {
-        final Future<Integer> future = QuoteUnquoteWidget.getExecutorService().submit(()
-            -> databaseRepository.countFavourites(useInternalDatabase).blockingGet());
-
-        int favouritesCount = 0;
-        try {
-            favouritesCount = future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
-
-        return favouritesCount;
+        return runTask(() -> databaseRepository.countFavourites(useInternalDatabase).blockingGet(), 0);
     }
 
     public int toggleFavourite(final int widgetId, @NonNull final String digest) {
-        final Future<Integer> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+        return runTask(() -> {
             List<String> favourites = databaseRepository.getFavouritesDigests(useInternalDatabase);
 
             if (!favourites.contains(digest)) {
@@ -491,107 +377,38 @@ public class QuoteUnquoteModel {
             }
 
             return databaseRepository.countFavourites(useInternalDatabase).blockingGet();
-        });
-
-        int favouritesCount = 0;
-        try {
-            favouritesCount = future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
-
-        return favouritesCount;
+        }, 0);
     }
 
     public boolean isFavourite(@NonNull final String digest) {
-        final Future<Boolean> future = QuoteUnquoteWidget.getExecutorService().submit(()
-            -> databaseRepository.isFavourite(useInternalDatabase, digest));
-
-        boolean isFavourite = false;
-
-        try {
-            isFavourite = future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
-
-        return isFavourite;
+        return runTask(() -> databaseRepository.isFavourite(useInternalDatabase, digest), false);
     }
 
     public QuotationEntity getQuotation(@NonNull final String digest) {
-        final Future<QuotationEntity> future = QuoteUnquoteWidget.getExecutorService().submit(()
-            -> databaseRepository.getQuotation(useInternalDatabase, digest));
-
-        QuotationEntity quotationEntity = null;
-
-        try {
-            quotationEntity = future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
-
-        return quotationEntity;
+        return runTask(() -> databaseRepository.getQuotation(useInternalDatabase, digest), null);
     }
 
     public List<QuotationEntity> getAllQuotations() {
-        final Future<List<QuotationEntity>> future = QuoteUnquoteWidget.getExecutorService().submit(()
-            -> databaseRepository.getAllQuotations(useInternalDatabase));
-
-        List<QuotationEntity> listQuotationEntity = null;
-
-        try {
-            listQuotationEntity = future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
-
-        return listQuotationEntity;
+        return runTask(() -> databaseRepository.getAllQuotations(useInternalDatabase), Collections.emptyList());
     }
 
     public void delete(final int widgetId) {
-        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() ->
-            databaseRepository.erase(useInternalDatabase, widgetId)
-        );
-
-        try {
-            future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Thread.currentThread().interrupt();
-        }
+        runAction(() -> databaseRepository.erase(useInternalDatabase, widgetId));
     }
 
     public void disable() {
-        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() ->
-            databaseRepository.erase(useInternalDatabase));
-
-        try {
-            future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Thread.currentThread().interrupt();
-        }
+        runAction(() -> databaseRepository.erase(useInternalDatabase));
     }
 
     public void resetPrevious(final int widgetId, @NonNull final ContentSelection contentSelection) {
         Timber.d("contentSelection=%d", contentSelection.getContentSelection());
 
-        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() ->
-            databaseRepository.erase(useInternalDatabase, widgetId, contentSelection)
-        );
-
-        try {
-            future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Thread.currentThread().interrupt();
-        }
+        runAction(() -> databaseRepository.erase(useInternalDatabase, widgetId, contentSelection));
     }
 
     public void markAsCurrentPrevious(
         final int widgetId) {
-        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+        runAction(() -> {
             QuotationEntity previousQuotation = getPreviousQuotation(
                 widgetId,
                 getContentPreferences(widgetId).getContentSelection(),
@@ -600,138 +417,46 @@ public class QuoteUnquoteModel {
 
             databaseRepository.markAsCurrent(useInternalDatabase, widgetId, previousQuotation.digest);
         });
-
-        try {
-            future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
     }
 
     public void markAsCurrentLastPrevious(final int widgetId) {
-        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
-            databaseRepository.markAsCurrent(
-                useInternalDatabase,
-                widgetId,
-                getLastPreviousDigest(widgetId));
-        });
-
-        try {
-            future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Thread.currentThread().interrupt();
-        }
+        runAction(() -> databaseRepository.markAsCurrent(
+            useInternalDatabase,
+            widgetId,
+            getLastPreviousDigest(widgetId)));
     }
 
     @NonNull
     public Single<Integer> countAllMinusExclusions(final int widgetId) {
-        final Future<Single<Integer>> future = QuoteUnquoteWidget.getExecutorService().submit(() ->
+        return runTask(() ->
             databaseRepository.countAllMinusExclusions(
                 useInternalDatabase,
-                getContentPreferences(widgetId).getContentSelectionAllExclusion())
-        );
-
-        try {
-            return future.get(30, TimeUnit.SECONDS);
-        } catch (ExecutionException | InterruptedException | TimeoutException e) {
-            Thread.currentThread().interrupt();
-            return Single.just(0);
-        }
+                getContentPreferences(widgetId).getContentSelectionAllExclusion()), Single.just(0));
     }
 
     @NonNull
     public boolean externalDatabaseContainsQuotations() {
-        final Future<Boolean> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
-            if (databaseRepository.countAllExternal().blockingGet() > 0) {
-                return true;
-            }
-
-            return false;
-        });
-
-        boolean externalDatabaseContainsQuotations = false;
-
-        try {
-            externalDatabaseContainsQuotations = future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
-
-        return externalDatabaseContainsQuotations;
+        return runTask(() -> databaseRepository.countAllExternal().blockingGet() > 0, false);
     }
 
     @NonNull
     public Single<List<Integer>> authorsQuotationCount() {
-        final Future<Single<List<Integer>>> future = QuoteUnquoteWidget.getExecutorService().submit(()
-            -> databaseRepository.getAuthorsQuotationCount(useInternalDatabase));
-
-        Single<List<Integer>> authorsQuotationCount = null;
-
-        try {
-            authorsQuotationCount = future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
-
-        return authorsQuotationCount;
+        return runTask(() -> databaseRepository.getAuthorsQuotationCount(useInternalDatabase), Single.just(Collections.emptyList()));
     }
 
     @NonNull
     public List<Integer> authorsQuotationCountAsList() {
-        final Future<List<Integer>> future = QuoteUnquoteWidget.getExecutorService().submit(()
-            -> databaseRepository.getAuthorsQuotationCount(useInternalDatabase).blockingGet());
-
-        List<Integer> authorsQuotationCount = null;
-
-        try {
-            authorsQuotationCount = future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
-
-        return authorsQuotationCount;
+        return runTask(() -> databaseRepository.getAuthorsQuotationCount(useInternalDatabase).blockingGet(), Collections.emptyList());
     }
 
     @NonNull
     public Single<List<AuthorPOJO>> authors(int authorCount) {
-        final Future<Single<List<AuthorPOJO>>> future = QuoteUnquoteWidget.getExecutorService().submit(()
-            -> databaseRepository.getAuthorsAndQuotationCounts(useInternalDatabase, (authorCount == -1) ? 1 : authorCount));
-
-        Single<List<AuthorPOJO>> authors = null;
-
-        try {
-            authors = future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
-
-        return authors;
+        return runTask(() -> databaseRepository.getAuthorsAndQuotationCounts(useInternalDatabase, (authorCount == -1) ? 1 : authorCount), Single.just(Collections.emptyList()));
     }
 
     @NonNull
     public List<AuthorPOJO> authorsAsList(int authorCount) {
-        final Future<List<AuthorPOJO>> future = QuoteUnquoteWidget.getExecutorService().submit(()
-            -> {
-            Single<List<AuthorPOJO>> list
-                = databaseRepository.getAuthorsAndQuotationCounts(useInternalDatabase, (authorCount == -1) ? 1 : authorCount);
-            return list.blockingGet();
-        });
-
-        List<AuthorPOJO> authors = null;
-
-        try {
-            authors = future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
-
-        return authors;
+        return runTask(() -> databaseRepository.getAuthorsAndQuotationCounts(useInternalDatabase, (authorCount == -1) ? 1 : authorCount).blockingGet(), Collections.emptyList());
     }
 
     @NonNull
@@ -749,10 +474,12 @@ public class QuoteUnquoteModel {
     public int countAuthorQuotations(@NonNull final String author) {
         int countAuthorQuotations = 0;
 
-        for (final AuthorPOJO authorPOJO : cachedAuthorPOJOList) {
-            if (authorPOJO.author.equals(author)) {
-                countAuthorQuotations = authorPOJO.count;
-                break;
+        if (cachedAuthorPOJOList != null) {
+            for (final AuthorPOJO authorPOJO : cachedAuthorPOJOList) {
+                if (authorPOJO.author.equals(author)) {
+                    countAuthorQuotations = authorPOJO.count;
+                    break;
+                }
             }
         }
         return countAuthorQuotations;
@@ -760,11 +487,13 @@ public class QuoteUnquoteModel {
 
     public int authorsIndex(@NonNull final String author) {
         int index = 0;
-        for (final AuthorPOJO authorPOJO : cachedAuthorPOJOList) {
-            if (authorPOJO.author.equals(author)) {
-                break;
-            } else {
-                index++;
+        if (cachedAuthorPOJOList != null) {
+            for (final AuthorPOJO authorPOJO : cachedAuthorPOJOList) {
+                if (authorPOJO.author.equals(author)) {
+                    break;
+                } else {
+                    index++;
+                }
             }
         }
         return index;
@@ -772,111 +501,61 @@ public class QuoteUnquoteModel {
 
     @NonNull
     public Single<Integer> countFavourites() {
-        final Future<Single<Integer>> future = QuoteUnquoteWidget.getExecutorService().submit(()
-            -> databaseRepository.countFavourites(useInternalDatabase));
-
-        Single<Integer> countFavourites = Single.just(0);
-
-        try {
-            countFavourites = future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
-
-        return countFavourites;
+        return runTask(() -> databaseRepository.countFavourites(useInternalDatabase), Single.just(0));
     }
 
     @NonNull
     public List<QuotationEntity> getSearchQuotations(@NonNull final String text, boolean favouritesOnly) {
-        final Future<List<QuotationEntity>> future = QuoteUnquoteWidget.getExecutorService().submit(()
-            -> databaseRepository.getSearchQuotations(useInternalDatabase, text, favouritesOnly));
+        return getSearchQuotations(-1, text, favouritesOnly);
+    }
 
-        List<QuotationEntity> searchResultsList = new ArrayList<>();
-
-        try {
-            searchResultsList = future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
-
-        return searchResultsList;
+    @NonNull
+    public List<QuotationEntity> getSearchQuotations(int widgetId, @NonNull final String text, boolean favouritesOnly) {
+        return runTask(() -> databaseRepository.getSearchQuotations(useInternalDatabase, widgetId, text, favouritesOnly), Collections.emptyList());
     }
 
     @NonNull
     public List<QuotationEntity> getSearchQuotationsRegEx(@NonNull final String text, boolean favouritesOnly) {
-        final Future<List<QuotationEntity>> future = QuoteUnquoteWidget.getExecutorService().submit(()
-            -> databaseRepository.getSearchQuotationsRegEx(useInternalDatabase, text, favouritesOnly));
+        return getSearchQuotationsRegEx(-1, text, favouritesOnly);
+    }
 
-        List<QuotationEntity> searchResultsList = new ArrayList<>();
-
-        try {
-            searchResultsList = future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
-
-        return searchResultsList;
+    @NonNull
+    public List<QuotationEntity> getSearchQuotationsRegEx(int widgetId, @NonNull final String text, boolean favouritesOnly) {
+        return runTask(() -> databaseRepository.getSearchQuotationsRegEx(useInternalDatabase, widgetId, text, favouritesOnly), Collections.emptyList());
     }
 
     @NonNull
     public Integer countQuotationWithSearchTextRegEx(@NonNull final String regEx, boolean favouritesOnly) {
-        final Future<Integer> future = QuoteUnquoteWidget.getExecutorService().submit(()
-            -> databaseRepository.countSearchTextRegEx(useInternalDatabase, regEx, favouritesOnly));
+        return countQuotationWithSearchTextRegEx(-1, regEx, favouritesOnly);
+    }
 
-        Integer searchCount = 0;
-
-        try {
-            searchCount = future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Thread.currentThread().interrupt();
-        }
-
-        return searchCount;
+    @NonNull
+    public Integer countQuotationWithSearchTextRegEx(int widgetId, @NonNull final String regEx, boolean favouritesOnly) {
+        return runTask(() -> databaseRepository.countSearchTextRegEx(useInternalDatabase, widgetId, regEx, favouritesOnly), 0);
     }
 
     @NonNull
     public Integer countQuotationWithSearchText(@NonNull final String searchText, boolean favouritesOnly) {
-        final Future<Integer> future = QuoteUnquoteWidget.getExecutorService().submit(()
-            -> databaseRepository.countSearchText(useInternalDatabase, searchText, favouritesOnly));
+        return countQuotationWithSearchText(-1, searchText, favouritesOnly);
+    }
 
-        Integer searchCount = 0;
-
-        try {
-            searchCount = future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Thread.currentThread().interrupt();
-        }
-
-        return searchCount;
+    @NonNull
+    public Integer countQuotationWithSearchText(int widgetId, @NonNull final String searchText, boolean favouritesOnly) {
+        return runTask(() -> databaseRepository.countSearchText(useInternalDatabase, widgetId, searchText, favouritesOnly), 0);
     }
 
     @NonNull
     public String transferBackup(@NonNull final Context context) {
-        final Future<String> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+        return runTask(() -> {
             TransferBackup transferBackup = new TransferBackup(context);
             Transfer transfer = transferBackup.transfer(databaseRepository);
             return transferBackup.asJson(transfer);
-        });
-
-        String transferJson = "";
-
-        try {
-            transferJson = future.get(60, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
-
-        return transferJson;
+        }, TIMEOUT_BACKUP_SECONDS, "");
     }
 
     @NonNull
     public List<QuotationEntity> getFavourites() {
-        final Future<List<QuotationEntity>> future = QuoteUnquoteWidget.getExecutorService().submit(()
-            -> {
+        return runTask(() -> {
             List<FavouriteEntity> favouritesDigestList = databaseRepository.getFavourites(useInternalDatabase);
             Collections.reverse(favouritesDigestList);
 
@@ -890,23 +569,12 @@ public class QuoteUnquoteModel {
             }
 
             return favouriteQuotationsList;
-        });
-
-        List<QuotationEntity> favourites = new ArrayList<>();
-
-        try {
-            favourites = future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
-
-        return favourites;
+        }, Collections.emptyList());
     }
 
     @Nullable
     public List<QuotationEntity> exportFavourites() {
-        final Future<ArrayList<QuotationEntity>> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+        return runTask(() -> {
             final ArrayList<QuotationEntity> exportedFavourites = new ArrayList<>();
 
             for (final String favouriteDigest : databaseRepository.getFavouritesDigests(useInternalDatabase)) {
@@ -921,55 +589,26 @@ public class QuoteUnquoteModel {
             }
 
             return exportedFavourites;
-        });
-
-        ArrayList<QuotationEntity> exportedFavourites = null;
-
-        try {
-            exportedFavourites = future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.w(e.toString());
-            Thread.currentThread().interrupt();
-        }
-
-        return exportedFavourites;
+        }, null);
     }
 
     public void insertQuotationsExternal(
         @NonNull final LinkedHashSet<QuotationEntity> quotations) {
-        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+        runAction(() -> {
             useInternalDatabase = false;
             databaseRepository.erase(useInternalDatabase);
             databaseRepository.insertQuotationsExternal(quotations);
         });
-
-        try {
-            future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
     }
 
     @NonNull
     public List<QuotationEntity> getQuotationsForAuthor(@NonNull final String author) {
-        final Future<ArrayList<QuotationEntity>> future = QuoteUnquoteWidget.getExecutorService().submit(() ->
-            databaseRepository.getQuotationsForAuthor(useInternalDatabase, author));
-
-        ArrayList<QuotationEntity> quotationsForAuthor = null;
-
-        try {
-            quotationsForAuthor = future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
-
-        return quotationsForAuthor;
+        return runTask(() ->
+            databaseRepository.getQuotationsForAuthor(useInternalDatabase, author), Collections.emptyList());
     }
 
     public void insertQuotationExternal(int widgetId, QuotationEntity quotation) {
-        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+        runAction(() -> {
             useInternalDatabase = false;
             databaseRepository.insertQuotationExternal(quotation);
 
@@ -981,13 +620,6 @@ public class QuoteUnquoteModel {
                 markAsCurrentNext(widgetId, false);
             }
         });
-
-        try {
-            future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
     }
 
     public ScraperData getWebPage(
@@ -996,7 +628,7 @@ public class QuoteUnquoteModel {
         @NonNull final String xpathQuotation,
         @NonNull final String xpathSource
     ) {
-        final Future<ScraperData> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+        return runTask(() -> {
             Handler handler = new Handler(Looper.getMainLooper());
 
             try {
@@ -1026,16 +658,7 @@ public class QuoteUnquoteModel {
             }
 
             return new ScraperData();
-        });
-
-        try {
-            return future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
-
-        return new ScraperData();
+        }, new ScraperData());
     }
 
     public void insertWebPage(
@@ -1046,7 +669,7 @@ public class QuoteUnquoteModel {
     ) {
         Timber.d("scraper: %s; %s; %s", digest, source, quotation);
 
-        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+        runAction(() -> {
             if (digest.equals(ImportHelper.DEFAULT_DIGEST)) {
                 databaseRepository.erase(false);
             }
@@ -1059,17 +682,10 @@ public class QuoteUnquoteModel {
                     source,
                     quotation));
         });
-
-        try {
-            future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
     }
 
     public String getPosition(int widgetId, String digest) {
-        final Future<String> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+        return runTask(() -> {
             QuotationsPreferences quotationsPreferences = new QuotationsPreferences(widgetId, context);
 
             String quotationPosition = getCurrentPosition(
@@ -1081,23 +697,14 @@ public class QuoteUnquoteModel {
             }
 
             return quotationPosition;
-        });
-
-        try {
-            return future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
-
-        return "";
+        }, "");
     }
 
     public boolean isDuplicate(
         String author,
         String quotation
     ) {
-        final Future<Boolean> future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+        return runTask(() -> {
             List<QuotationEntity> quotationsForAuthor = getQuotationsForAuthor(author);
 
             for (QuotationEntity quotationAuthor : quotationsForAuthor) {
@@ -1107,25 +714,14 @@ public class QuoteUnquoteModel {
             }
 
             return false;
-        });
-
-        boolean isDuplicate = false;
-
-        try {
-            isDuplicate = future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
-
-        return isDuplicate;
+        }, false);
     }
 
     public void append(
         String author,
         String quotation
     ) {
-        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+        runAction(() -> {
             LinkedHashSet<QuotationEntity> quotationEntityLinkedHashSet = new LinkedHashSet<>();
 
             String digest = ImportHelper.DEFAULT_DIGEST;
@@ -1144,13 +740,6 @@ public class QuoteUnquoteModel {
 
             databaseRepository.insertQuotationsExternal(quotationEntityLinkedHashSet);
         });
-
-        try {
-            future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
     }
 
     public void update(
@@ -1158,83 +747,93 @@ public class QuoteUnquoteModel {
         String author,
         String quotation
     ) {
-        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
-            databaseRepository.updateQuotationUsingDigest(
-                false,
-                digest,
-                author,
-                quotation
-            );
-        });
-
-        try {
-            future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
-            Timber.e(e);
-            Thread.currentThread().interrupt();
-        }
+        runAction(() -> databaseRepository.updateQuotationUsingDigest(
+            false,
+            digest,
+            author,
+            quotation
+        ));
     }
 
     public void delete(
         int widgetId,
         String digest
     ) {
-        final Future future = QuoteUnquoteWidget.getExecutorService().submit(() -> {
+        runAction(() -> {
             List<QuotationEntity> allQuotations = getAllQuotations();
-            for (QuotationEntity quotationEntity : allQuotations) {
-                if (quotationEntity.digest.equals(digest)) {
-                    allQuotations.remove(quotationEntity);
-                    break;
-                }
-            }
 
             databaseRepository.deleteQuotation(false, digest);
-
             databaseRepository.deleteFavourite(false, digest);
-
             databaseRepository.deletePrevious(false, digest);
 
-            if (digest.equals(ImportHelper.DEFAULT_DIGEST) && allQuotations.size() > 0) {
-                databaseRepository.updateQuotationUsingAuthorQuotation(
-                    false,
-                    ImportHelper.DEFAULT_DIGEST,
-                    allQuotations.get(0).author,
-                    allQuotations.get(0).quotation
-                );
+            if (allQuotations != null) {
+                allQuotations.removeIf(q -> q.digest.equals(digest));
 
-                boolean wasFavourite = databaseRepository.isFavourite(false, allQuotations.get(0).digest);
-                if (wasFavourite) {
-                    databaseRepository.markAsFavourite(false, ImportHelper.DEFAULT_DIGEST);
+                if (digest.equals(ImportHelper.DEFAULT_DIGEST) && !allQuotations.isEmpty()) {
+                    databaseRepository.updateQuotationUsingAuthorQuotation(
+                        false,
+                        ImportHelper.DEFAULT_DIGEST,
+                        allQuotations.get(0).author,
+                        allQuotations.get(0).quotation
+                    );
+
+                    boolean wasFavourite = databaseRepository.isFavourite(false, allQuotations.get(0).digest);
+                    if (wasFavourite) {
+                        databaseRepository.markAsFavourite(false, ImportHelper.DEFAULT_DIGEST);
+                    }
+
+                    databaseRepository.deleteFavourite(false, allQuotations.get(0).digest);
+                    databaseRepository.deletePrevious(false, allQuotations.get(0).digest);
                 }
 
-                databaseRepository.deleteFavourite(false, allQuotations.get(0).digest);
+                if (!allQuotations.isEmpty()) {
+                    if (databaseRepository.getPrevious(false).isEmpty()) {
+                        databaseRepository.markAsCurrent(
+                            false,
+                            widgetId,
+                            ImportHelper.DEFAULT_DIGEST
+                        );
 
-                databaseRepository.deletePrevious(false, allQuotations.get(0).digest);
-            }
-
-            if (allQuotations.size() != 0) {
-                if (databaseRepository.getPrevious(false).size() == 0) {
-                    databaseRepository.markAsCurrent(
-                        false,
-                        widgetId,
-                        ImportHelper.DEFAULT_DIGEST
-                    );
-
-                    databaseRepository.markAsPrevious(
-                        false,
-                        widgetId,
-                        ContentSelection.ALL,
-                        ImportHelper.DEFAULT_DIGEST
-                    );
+                        databaseRepository.markAsPrevious(
+                            false,
+                            widgetId,
+                            ContentSelection.ALL,
+                            ImportHelper.DEFAULT_DIGEST
+                        );
+                    }
                 }
             }
         });
+    }
 
+    private void runAction(Runnable runnable) {
+        runAction(runnable, TIMEOUT_SECONDS);
+    }
+
+    private void runAction(Runnable runnable, int timeoutSeconds) {
         try {
-            future.get(30, TimeUnit.SECONDS);
-        } catch (@NonNull ExecutionException | InterruptedException | TimeoutException e) {
+            QuoteUnquoteWidget.getExecutorService().submit(runnable).get(timeoutSeconds, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
             Timber.e(e);
             Thread.currentThread().interrupt();
+        } catch (ExecutionException | TimeoutException e) {
+            Timber.e(e);
         }
+    }
+
+    private <T> T runTask(Callable<T> callable, T defaultValue) {
+        return runTask(callable, TIMEOUT_SECONDS, defaultValue);
+    }
+
+    private <T> T runTask(Callable<T> callable, int timeoutSeconds, T defaultValue) {
+        try {
+            return QuoteUnquoteWidget.getExecutorService().submit(callable).get(timeoutSeconds, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            Timber.e(e);
+            Thread.currentThread().interrupt();
+        } catch (ExecutionException | TimeoutException e) {
+            Timber.e(e);
+        }
+        return defaultValue;
     }
 }

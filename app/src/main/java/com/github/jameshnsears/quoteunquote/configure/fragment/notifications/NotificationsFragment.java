@@ -48,44 +48,44 @@ public class NotificationsFragment extends FragmentCommon {
     public NotificationsPreferences notificationsPreferences;
 
     private ActivityResultLauncher<String> requestPermissionLauncherNotifications =
-            registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
-                if (!isGranted) {
-                    QuoteUnquoteWidget.notificationPermissionDeniedCount += 1;
-                    if (QuoteUnquoteWidget.notificationPermissionDeniedCount >= 3) {
-                        Toast.makeText(
-                                getContext(),
-                                getContext().getString(R.string.fragment_notifications_notification_permission),
-                                Toast.LENGTH_LONG).show();
-                    }
-
-                    fragmentNotificationsBinding.radioButtonWhereInWidget.performClick();
-                } else {
-                    notificationsPreferences.setEventDisplayWidget(false);
-                    notificationsPreferences.setEventDisplayWidgetAndNotification(true);
-                    fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(true);
-                    fragmentNotificationsBinding.switchTtsUk.setEnabled(true);
-                    fragmentNotificationsBinding.switchTtsSystem.setEnabled(true);
-
-                    fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(true);
-                    fragmentNotificationsBinding.textViewNotificationSizeWarning1.setEnabled(true);
+        registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+            if (!isGranted) {
+                QuoteUnquoteWidget.notificationPermissionDeniedCount += 1;
+                if (QuoteUnquoteWidget.notificationPermissionDeniedCount >= 3) {
+                    Toast.makeText(
+                        getContext(),
+                        getContext().getString(R.string.fragment_notifications_notification_permission),
+                        Toast.LENGTH_LONG).show();
                 }
 
-                ConfigureActivity.launcherInvoked = false;
-            });
+                fragmentNotificationsBinding.radioButtonWhereInWidget.performClick();
+            } else {
+                notificationsPreferences.setEventDisplayWidget(false);
+                notificationsPreferences.setEventDisplayWidgetAndNotification(true);
+                fragmentNotificationsBinding.switchExcludeSourceFromNotification.setEnabled(true);
+                fragmentNotificationsBinding.switchTtsUk.setEnabled(true);
+                fragmentNotificationsBinding.switchTtsSystem.setEnabled(true);
+
+                fragmentNotificationsBinding.textViewNotificationSizeWarningInfo.setEnabled(true);
+                fragmentNotificationsBinding.textViewNotificationSizeWarning1.setEnabled(true);
+            }
+
+            ConfigureActivity.launcherInvoked = false;
+        });
 
     private ActivityResultLauncher<Intent> requestExactAlarmLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                Boolean isChecked = false;
+        new ActivityResultContracts.StartActivityForResult(),
+        result -> {
+            Boolean isChecked = false;
 
-                if (AlarmManagerHelper.canScheduleExactAlarms(getContext())) {
-                    isChecked = true;
-                }
-
-                notificationsPreferences.setCustomisableInterval(isChecked);
-                setCustomisableInterval();
-                ConfigureActivity.launcherInvoked = false;
+            if (AlarmManagerHelper.canScheduleExactAlarms(getContext())) {
+                isChecked = true;
             }
+
+            notificationsPreferences.setCustomisableInterval(isChecked);
+            setCustomisableInterval();
+            ConfigureActivity.launcherInvoked = false;
+        }
     );
 
     public NotificationsFragment() {
@@ -114,9 +114,9 @@ public class NotificationsFragment extends FragmentCommon {
     @Override
     @NonNull
     public View onCreateView(
-            @NonNull final LayoutInflater inflater,
-            @NonNull final ViewGroup container,
-            @NonNull final Bundle savedInstanceState) {
+        @NonNull final LayoutInflater inflater,
+        @NonNull final ViewGroup container,
+        @NonNull final Bundle savedInstanceState) {
         notificationsPreferences = new NotificationsPreferences(this.widgetId, this.getContext());
 
         fragmentNotificationsBinding = FragmentNotificationsBinding.inflate(getLayoutInflater());
@@ -131,7 +131,7 @@ public class NotificationsFragment extends FragmentCommon {
 
     @Override
     public void onViewCreated(
-            @NonNull final View view, @NonNull final Bundle savedInstanceState) {
+        @NonNull final View view, @NonNull final Bundle savedInstanceState) {
         setAction();
 
         setDisplay();
@@ -143,7 +143,7 @@ public class NotificationsFragment extends FragmentCommon {
         setCustomisableInterval();
         setCustomisableIntervalSliderHours();
         setCustomisableIntervalSpinnerHours(
-                notificationsPreferences.getCustomisableIntervalHourTo() - notificationsPreferences.getCustomisableIntervalHourFrom()
+            notificationsPreferences.getCustomisableIntervalHourTo() - notificationsPreferences.getCustomisableIntervalHourFrom()
         );
 
         setSpecificTime();
@@ -195,12 +195,12 @@ public class NotificationsFragment extends FragmentCommon {
     public void createListenerSpecificTime() {
         fragmentNotificationsBinding.specificTime.setOnClickListener(view -> {
             MaterialTimePicker picker =
-                    new MaterialTimePicker.Builder()
-                            .setTimeFormat(TimeFormat.CLOCK_24H)
-                            .setHour(notificationsPreferences.getEventDailyTimeHour())
-                            .setMinute(notificationsPreferences.getEventDailyTimeMinute())
-                            .setTitleText(getContext().getString(R.string.fragment_notifications_time_dialog))
-                            .build();
+                new MaterialTimePicker.Builder()
+                    .setTimeFormat(TimeFormat.CLOCK_24H)
+                    .setHour(notificationsPreferences.getEventDailyTimeHour())
+                    .setMinute(notificationsPreferences.getEventDailyTimeMinute())
+                    .setTitleText(getContext().getString(R.string.fragment_notifications_time_dialog))
+                    .build();
 
             picker.show(getParentFragmentManager(), picker.toString());
 
@@ -209,8 +209,8 @@ public class NotificationsFragment extends FragmentCommon {
                 notificationsPreferences.setEventDailyTimeMinute(picker.getMinute());
 
                 fragmentNotificationsBinding.specificTime.setText(String.format(
-                        Locale.getDefault(),
-                        "%02d: %02d", picker.getHour(), picker.getMinute()
+                    Locale.getDefault(),
+                    "%02d: %02d", picker.getHour(), picker.getMinute()
                 ));
             });
         });
@@ -238,10 +238,10 @@ public class NotificationsFragment extends FragmentCommon {
         notificationsPreferences.setEventDailyTimeMinute(minute);
 
         String timeToDisplay = String.format(
-                Locale.getDefault(),
-                "%02d: %02d",
-                hour,
-                minute
+            Locale.getDefault(),
+            "%02d: %02d",
+            hour,
+            minute
         );
         fragmentNotificationsBinding.specificTime.setText(timeToDisplay);
     }
@@ -276,10 +276,10 @@ public class NotificationsFragment extends FragmentCommon {
         // On HyperOS 3 and similar ROMs, the system may proactively prompt for notification
         // permission before the app requests it. Re-sync the UI to the actual permission state.
         if (fragmentNotificationsBinding.radioButtonWhereAsNotification.isChecked()
-                && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(
-                    getContext(), Manifest.permission.POST_NOTIFICATIONS) !=
-                    PackageManager.PERMISSION_GRANTED) {
+                getContext(), Manifest.permission.POST_NOTIFICATIONS) !=
+                PackageManager.PERMISSION_GRANTED) {
                 fragmentNotificationsBinding.radioButtonWhereInWidget.performClick();
             }
         }
@@ -350,8 +350,8 @@ public class NotificationsFragment extends FragmentCommon {
         fragmentNotificationsBinding.radioButtonWhereAsNotification.setOnClickListener(view -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 if (ContextCompat.checkSelfPermission(
-                        getContext(), Manifest.permission.POST_NOTIFICATIONS) !=
-                        PackageManager.PERMISSION_GRANTED) {
+                    getContext(), Manifest.permission.POST_NOTIFICATIONS) !=
+                    PackageManager.PERMISSION_GRANTED) {
 
                     ConfigureActivity.launcherInvoked = true;
 
@@ -363,7 +363,7 @@ public class NotificationsFragment extends FragmentCommon {
 
     private void createListenerExcludeSourceFromNotification() {
         fragmentNotificationsBinding.switchExcludeSourceFromNotification.setOnCheckedChangeListener((buttonView, isChecked) ->
-                notificationsPreferences.setExcludeSourceFromNotification(isChecked)
+            notificationsPreferences.setExcludeSourceFromNotification(isChecked)
         );
     }
 
@@ -499,7 +499,7 @@ public class NotificationsFragment extends FragmentCommon {
             notificationsPreferences.setCustomisableIntervalHourTo(to);
 
             setCustomisableIntervalSpinnerHours(
-                    notificationsPreferences.getCustomisableIntervalHourTo() - notificationsPreferences.getCustomisableIntervalHourFrom()
+                notificationsPreferences.getCustomisableIntervalHourTo() - notificationsPreferences.getCustomisableIntervalHourFrom()
             );
         });
     }
@@ -546,9 +546,9 @@ public class NotificationsFragment extends FragmentCommon {
         Timber.d("spinner.spinnerArray=%s", spinnerArray.toString());
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                getContext(),
-                R.layout.spinner_item,
-                spinnerArray);
+            getContext(),
+            R.layout.spinner_item,
+            spinnerArray);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         fragmentNotificationsBinding.spinnerCustomisableIntervalHour.setAdapter(adapter);
@@ -559,7 +559,7 @@ public class NotificationsFragment extends FragmentCommon {
         } else {
             int savedHours = notificationsPreferences.getCustomisableIntervalHours();
             fragmentNotificationsBinding.spinnerCustomisableIntervalHour.setSelection(
-                    savedHours - 1
+                savedHours - 1
             );
         }
     }

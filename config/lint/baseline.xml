@@ -4,265 +4,34 @@
     <issue
         id="DefaultLocale"
         message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
-        errorLine1="                        String author = quotationEntity.author.toLowerCase();"
-        errorLine2="                                                               ~~~~~~~~~~~">
+        errorLine1="                final String lowerText = text.toLowerCase();"
+        errorLine2="                                              ~~~~~~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="550"
-            column="64"/>
+            line="498"
+            column="47"/>
     </issue>
 
     <issue
         id="DefaultLocale"
         message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
-        errorLine1="                        String quotation = quotationEntity.quotation.toLowerCase();"
-        errorLine2="                                                                     ~~~~~~~~~~~">
+        errorLine1="                    quotationEntity.author.toLowerCase().contains(lowerText)"
+        errorLine2="                                           ~~~~~~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="551"
-            column="70"/>
+            line="500"
+            column="44"/>
     </issue>
 
     <issue
         id="DefaultLocale"
         message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
-        errorLine1="                        if (author.indexOf(text.toLowerCase()) != -1"
-        errorLine2="                                                ~~~~~~~~~~~">
+        errorLine1="                        || quotationEntity.quotation.toLowerCase().contains(lowerText));"
+        errorLine2="                                                     ~~~~~~~~~~~">
         <location
             file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="553"
-            column="49"/>
-    </issue>
-
-    <issue
-        id="DefaultLocale"
-        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
-        errorLine1="                                || quotation.indexOf(text.toLowerCase()) != -1) {"
-        errorLine2="                                                          ~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="554"
-            column="59"/>
-    </issue>
-
-    <issue
-        id="DefaultLocale"
-        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
-        errorLine1="                        String author = quotationEntity.author.toLowerCase();"
-        errorLine2="                                                               ~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="563"
-            column="64"/>
-    </issue>
-
-    <issue
-        id="DefaultLocale"
-        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
-        errorLine1="                        String quotation = quotationEntity.quotation.toLowerCase();"
-        errorLine2="                                                                     ~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="564"
-            column="70"/>
-    </issue>
-
-    <issue
-        id="DefaultLocale"
-        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
-        errorLine1="                        if (author.indexOf(text.toLowerCase()) != -1"
-        errorLine2="                                                ~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="566"
-            column="49"/>
-    </issue>
-
-    <issue
-        id="DefaultLocale"
-        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
-        errorLine1="                                || quotation.indexOf(text.toLowerCase()) != -1) {"
-        errorLine2="                                                          ~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="567"
-            column="59"/>
-    </issue>
-
-    <issue
-        id="DefaultLocale"
-        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
-        errorLine1="                String author = currentQuotation.author.toLowerCase();"
-        errorLine2="                                                        ~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="577"
-            column="57"/>
-    </issue>
-
-    <issue
-        id="DefaultLocale"
-        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
-        errorLine1="                String quotation = currentQuotation.quotation.toLowerCase();"
-        errorLine2="                                                              ~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="578"
-            column="63"/>
-    </issue>
-
-    <issue
-        id="DefaultLocale"
-        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
-        errorLine1="                if (author.indexOf(text.toLowerCase()) != -1"
-        errorLine2="                                        ~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="580"
-            column="41"/>
-    </issue>
-
-    <issue
-        id="DefaultLocale"
-        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
-        errorLine1="                        || quotation.indexOf(text.toLowerCase()) != -1) {"
-        errorLine2="                                                  ~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="581"
-            column="51"/>
-    </issue>
-
-    <issue
-        id="DefaultLocale"
-        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
-        errorLine1="                    String author = quotationEntity.author.toLowerCase();"
-        errorLine2="                                                           ~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="641"
-            column="60"/>
-    </issue>
-
-    <issue
-        id="DefaultLocale"
-        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
-        errorLine1="                    String quotation = quotationEntity.quotation.toLowerCase();"
-        errorLine2="                                                                 ~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="642"
-            column="66"/>
-    </issue>
-
-    <issue
-        id="DefaultLocale"
-        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
-        errorLine1="                    if (author.indexOf(text.toLowerCase()) != -1"
-        errorLine2="                                            ~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="644"
-            column="45"/>
-    </issue>
-
-    <issue
-        id="DefaultLocale"
-        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
-        errorLine1="                            || quotation.indexOf(text.toLowerCase()) != -1) {"
-        errorLine2="                                                      ~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="645"
-            column="55"/>
-    </issue>
-
-    <issue
-        id="DefaultLocale"
-        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
-        errorLine1="                    String author = quotationEntity.author.toLowerCase();"
-        errorLine2="                                                           ~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="652"
-            column="60"/>
-    </issue>
-
-    <issue
-        id="DefaultLocale"
-        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
-        errorLine1="                    String quotation = quotationEntity.quotation.toLowerCase();"
-        errorLine2="                                                                 ~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="653"
-            column="66"/>
-    </issue>
-
-    <issue
-        id="DefaultLocale"
-        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
-        errorLine1="                    if (author.indexOf(text.toLowerCase()) != -1"
-        errorLine2="                                            ~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="655"
-            column="45"/>
-    </issue>
-
-    <issue
-        id="DefaultLocale"
-        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
-        errorLine1="                            || quotation.indexOf(text.toLowerCase()) != -1) {"
-        errorLine2="                                                      ~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="656"
-            column="55"/>
-    </issue>
-
-    <issue
-        id="DefaultLocale"
-        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
-        errorLine1="                String author = currentQuotation.author.toLowerCase();"
-        errorLine2="                                                        ~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="663"
-            column="57"/>
-    </issue>
-
-    <issue
-        id="DefaultLocale"
-        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
-        errorLine1="                String quotation = currentQuotation.quotation.toLowerCase();"
-        errorLine2="                                                              ~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="664"
-            column="63"/>
-    </issue>
-
-    <issue
-        id="DefaultLocale"
-        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
-        errorLine1="                if (author.indexOf(text.toLowerCase()) != -1"
-        errorLine2="                                        ~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="666"
-            column="41"/>
-    </issue>
-
-    <issue
-        id="DefaultLocale"
-        message="Implicitly using the default locale is a common source of bugs: Use `toLowerCase(Locale)` instead. For strings meant to be internal use `Locale.ROOT`, otherwise `Locale.getDefault()`."
-        errorLine1="                        || quotation.indexOf(text.toLowerCase()) != -1) {"
-        errorLine2="                                                  ~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/db/DatabaseRepository.java"
-            line="667"
-            column="51"/>
+            line="501"
+            column="54"/>
     </issue>
 
     <issue
@@ -279,18 +48,18 @@
     <issue
         id="VectorRaster"
         message="Limit vector icons sizes to 200×200 to keep icon drawing fast; see https://developer.android.com/studio/write/vector-asset-studio#when for more"
-        errorLine1="        android:width=&quot;620dp&quot;"
-        errorLine2="                       ~~~~~">
+        errorLine1="    android:width=&quot;620dp&quot;"
+        errorLine2="                   ~~~~~">
         <location
             file="src/main/res/drawable/ic_instructions_footer_github_logo.xml"
             line="2"
-            column="24"/>
+            column="20"/>
     </issue>
 
     <issue
         id="GradleDependency"
-        message="A newer version of androidx.core:core-ktx than 1.13.1 is available: 1.19.0"
-        errorLine1="    implementation(&quot;androidx.core:core-ktx:1.13.1&quot;) //   # stable, for Liar API: Fatal Exception: java.lang.NoSuchMethodError: No virtual method getRoundedCorner(I)Landroid/view/RoundedCorner; in class Landroid/view/Display"
+        message="A newer version of androidx.core:core-ktx than 1.15.0 is available: 1.19.0"
+        errorLine1="    implementation(&quot;androidx.core:core-ktx:1.15.0&quot;) //   # stable, for Liar API: Fatal Exception: java.lang.NoSuchMethodError: No virtual method getRoundedCorner(I)Landroid/view/RoundedCorner; in class Landroid/view/Display"
         errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle.kts"
@@ -300,9 +69,9 @@
 
     <issue
         id="GradleDependency"
-        message="A newer version of androidx.core:core-ktx than 1.13.1 is available: 1.19.0"
-        errorLine1="    implementation(&quot;androidx.core:core-ktx:1.13.1&quot;) //   # stable, for Liar API: Fatal Exception: java.lang.NoSuchMethodError: No virtual method getRoundedCorner(I)Landroid/view/RoundedCorner; in class Landroid/view/Display"
-        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        message="A newer version of androidx.core:core-ktx than 1.5.0 is available: 1.19.0"
+        errorLine1="    implementation(&quot;androidx.core:core-ktx:1.5.0&quot;) //   # stable, for Liar API: Fatal Exception: java.lang.NoSuchMethodError: No virtual method getRoundedCorner(I)Landroid/view/RoundedCorner; in class Landroid/view/Display"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="build.gradle.kts"
             line="288"
@@ -338,7 +107,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/com/github/jameshnsears/quoteunquote/configure/fragment/quotations/tabs/content/files/InPlaceEdit.kt"
-            line="221"
+            line="222"
             column="13"/>
     </issue>
 
@@ -349,7 +118,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/com/github/jameshnsears/quoteunquote/configure/fragment/quotations/tabs/content/files/InPlaceEdit.kt"
-            line="323"
+            line="324"
             column="13"/>
     </issue>
 
@@ -360,7 +129,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/com/github/jameshnsears/quoteunquote/configure/fragment/quotations/tabs/content/files/InPlaceEdit.kt"
-            line="401"
+            line="402"
             column="13"/>
     </issue>
 
@@ -371,7 +140,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/com/github/jameshnsears/quoteunquote/configure/fragment/quotations/tabs/content/files/InPlaceEdit.kt"
-            line="454"
+            line="455"
             column="5"/>
     </issue>
 
@@ -382,7 +151,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/com/github/jameshnsears/quoteunquote/configure/fragment/quotations/tabs/content/files/InPlaceEdit.kt"
-            line="463"
+            line="464"
             column="5"/>
     </issue>
 
@@ -393,52 +162,19 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/com/github/jameshnsears/quoteunquote/configure/fragment/quotations/tabs/content/files/InPlaceEdit.kt"
-            line="468"
+            line="469"
             column="13"/>
     </issue>
 
     <issue
         id="ObsoleteSdkInt"
         message="Unnecessary; `SDK_INT` is always >= 31"
-        errorLine1="        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/utils/IntentFactoryHelper.java"
-            line="100"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="ObsoleteSdkInt"
-        message="Unnecessary; `SDK_INT` is always >= 31"
-        errorLine1="        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/utils/IntentFactoryHelper.java"
-            line="121"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="ObsoleteSdkInt"
-        message="Unnecessary; `SDK_INT` is always >= 31"
-        errorLine1="        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {"
-        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
-        <location
-            file="src/main/java/com/github/jameshnsears/quoteunquote/utils/IntentFactoryHelper.java"
-            line="143"
-            column="13"/>
-    </issue>
-
-    <issue
-        id="ObsoleteSdkInt"
-        message="Unnecessary; `SDK_INT` is always >= 31"
-        errorLine1="        tools:targetApi=&quot;s&quot; />"
-        errorLine2="        ~~~~~~~~~~~~~~~~~~~">
+        errorLine1="    tools:targetApi=&quot;s&quot; />"
+        errorLine2="    ~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/xml/quote_unquote_widget_info.xml"
             line="18"
-            column="9"/>
+            column="5"/>
     </issue>
 
     <issue
@@ -470,7 +206,7 @@
         errorLine2="             ~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_sync.xml"
-            line="98"
+            line="97"
             column="14"/>
     </issue>
 
@@ -514,7 +250,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="112"
+            line="113"
             column="13"/>
     </issue>
 
@@ -525,7 +261,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="193"
+            line="194"
             column="13"/>
     </issue>
 
@@ -536,7 +272,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="228"
+            line="229"
             column="13"/>
     </issue>
 
@@ -547,7 +283,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="229"
+            line="230"
             column="13"/>
     </issue>
 
@@ -598,11 +334,22 @@
     <issue
         id="TypographyQuotes"
         message="Replace apostrophe (&apos;) with typographic apostrophe (’, &amp;#8217;) ?"
+        errorLine1="    &lt;string name=&quot;fragment_quotations_selection_search_instructions_3&quot;>\u2022&amp;#160;&amp;#160;Exemple d\&apos;expression régulière: .*(Aristotle|Sun Tzu).*&lt;/string>"
+        errorLine2="                                                                                         ~">
+        <location
+            file="src/main/res/values-fr/strings.xml"
+            line="59"
+            column="90"/>
+    </issue>
+
+    <issue
+        id="TypographyQuotes"
+        message="Replace apostrophe (&apos;) with typographic apostrophe (’, &amp;#8217;) ?"
         errorLine1="    &lt;string name=&quot;fragment_appearance_toolbar_next_sequential&quot;>Suivante, dans l\&apos;ordre&lt;/string>"
         errorLine2="                                                                                ~">
         <location
             file="src/main/res/values-fr/strings.xml"
-            line="173"
+            line="174"
             column="81"/>
     </issue>
 
@@ -613,7 +360,7 @@
         errorLine2="                                                                               ~">
         <location
             file="src/main/res/values-fr/strings.xml"
-            line="195"
+            line="196"
             column="80"/>
     </issue>
 
@@ -624,7 +371,7 @@
         errorLine2="                                                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/values/strings.xml"
-            line="229"
+            line="230"
             column="66"/>
     </issue>
 
@@ -635,7 +382,7 @@
         errorLine2="                                                                             ~">
         <location
             file="src/main/res/values-fr/strings.xml"
-            line="250"
+            line="251"
             column="78"/>
     </issue>
 

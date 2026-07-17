@@ -19,18 +19,18 @@ public final class DatabaseRepositoryDouble extends DatabaseRepository {
     private static DatabaseRepositoryDouble databaseRepositoryDouble;
 
     private DatabaseRepositoryDouble(@NonNull final Context context) {
+        super(context);
         createQuotationsDatabaseInternal();
         createHistoryDatabaseInternal();
 
         createQuotationsDatabaseExternal();
         createHistoryDatabaseExternal();
-
-        this.context = context;
     }
 
     public static synchronized DatabaseRepositoryDouble getInstance(@NonNull Context context) {
         if (databaseRepositoryDouble == null) {
             databaseRepositoryDouble = new DatabaseRepositoryDouble(context);
+            DatabaseRepository.databaseRepository = databaseRepositoryDouble;
         }
 
         return databaseRepositoryDouble;
@@ -67,7 +67,7 @@ public final class DatabaseRepositoryDouble extends DatabaseRepository {
         quotationExternalDAO = externalDatabase.quotationExternalDAO();
     }
 
-    private void createQuotationsDatabaseInternal() {
+    public void createQuotationsDatabaseInternal() {
         quotationDatabase = Room.inMemoryDatabaseBuilder(
                         ApplicationProvider.getApplicationContext(),
                         QuotationDatabase.class)
@@ -76,13 +76,24 @@ public final class DatabaseRepositoryDouble extends DatabaseRepository {
         quotationDAO = quotationDatabase.quotationDAO();
     }
 
-    public void eraseAllDatabsaes() {
-        databaseRepositoryDouble.quotationDatabase.quotationDAO().eraseQuotations();
+    public void useInternalDatabaseFromAsset() {
+        if (quotationDatabase != null) {
+            quotationDatabase.close();
+        }
+        quotationDatabase = QuotationDatabase.getDatabase(ApplicationProvider.getApplicationContext());
+        quotationDAO = quotationDatabase.quotationDAO();
+    }
+
+    public void eraseAllDatabases() {
+        clearCache(true);
+        clearCache(false);
+
+        quotationDAO.eraseQuotations();
         previousDAO.erase();
         currentDAO.erase();
         favouriteDAO.erase();
 
-        databaseRepositoryDouble.externalDatabase.quotationExternalDAO().eraseQuotations();
+        quotationExternalDAO.eraseQuotations();
         previousExternalDAO.erase();
         currentExternalDAO.erase();
         favouriteExternalDAO.erase();
@@ -99,6 +110,7 @@ public final class DatabaseRepositoryDouble extends DatabaseRepository {
     public void insertQuotations(
             boolean useInternalDatabase,
             @NonNull final List<QuotationEntity> quotationEntityList) {
+        clearCache(useInternalDatabase);
         for (final QuotationEntity quotationEntity : quotationEntityList) {
 
             if (useInternalDatabase) {
@@ -110,6 +122,7 @@ public final class DatabaseRepositoryDouble extends DatabaseRepository {
     }
 
     public void eraseQuotation(boolean useInternalDatabase, @NonNull String digest) {
+        clearCache(useInternalDatabase);
         if (useInternalDatabase) {
             quotationDAO.eraseQuotations(digest);
         } else {

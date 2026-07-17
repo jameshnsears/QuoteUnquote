@@ -26,7 +26,7 @@ public class ScraperAlarm {
     protected final int widgetId;
 
     public ScraperAlarm(
-            @NonNull final Context widgetContext, final int theWidgetId) {
+        @NonNull final Context widgetContext, final int theWidgetId) {
         this.context = widgetContext;
         this.widgetId = theWidgetId;
         quotationsPreferences = new QuotationsPreferences(theWidgetId, widgetContext);
@@ -52,23 +52,23 @@ public class ScraperAlarm {
                 Timber.d("scraperAlarm: %s", sdf.format(calendar.getTime()));
 
                 AlarmManager alarmManager =
-                        (AlarmManager) this.context.getSystemService(Context.ALARM_SERVICE);
+                    (AlarmManager) this.context.getSystemService(Context.ALARM_SERVICE);
 
                 PendingIntent alarmPendingIntent
-                        = IntentFactoryHelper.createClickPendingIntent(
-                        this.context, this.widgetId, IntentFactoryHelper.SCRAPER_ALARM);
+                    = IntentFactoryHelper.createClickPendingIntent(
+                    this.context, this.widgetId, IntentFactoryHelper.SCRAPER_ALARM);
 
                 try {
                     alarmManager.setExactAndAllowWhileIdle(
-                            AlarmManager.RTC_WAKEUP,
-                            calendar.getTimeInMillis(),
-                            alarmPendingIntent);
+                        AlarmManager.RTC_WAKEUP,
+                        calendar.getTimeInMillis(),
+                        alarmPendingIntent);
                 } catch (SecurityException e) {
                     Timber.e(e, "Exact alarm permission not granted despite check");
                     alarmManager.setAndAllowWhileIdle(
-                            AlarmManager.RTC_WAKEUP,
-                            calendar.getTimeInMillis(),
-                            alarmPendingIntent);
+                        AlarmManager.RTC_WAKEUP,
+                        calendar.getTimeInMillis(),
+                        alarmPendingIntent);
                 }
             }
         }
@@ -78,10 +78,10 @@ public class ScraperAlarm {
         if (!quotationsPreferences.getDatabaseExternalWeb()) {
 
             final AlarmManager alarmManager =
-                    (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+                (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             if (alarmManager != null) {
                 alarmManager.cancel(IntentFactoryHelper.createClickPendingIntent(
-                        context, widgetId, IntentFactoryHelper.SCRAPER_ALARM));
+                    context, widgetId, IntentFactoryHelper.SCRAPER_ALARM));
             }
         }
     }

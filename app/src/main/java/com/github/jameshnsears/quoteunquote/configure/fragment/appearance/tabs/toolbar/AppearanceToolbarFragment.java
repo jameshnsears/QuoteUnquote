@@ -50,9 +50,9 @@ public class AppearanceToolbarFragment extends FragmentCommon {
     @Override
     @NonNull
     public View onCreateView(
-            @NonNull final LayoutInflater inflater,
-            final @NonNull ViewGroup container,
-            final @NonNull Bundle savedInstanceState) {
+        @NonNull final LayoutInflater inflater,
+        final @NonNull ViewGroup container,
+        final @NonNull Bundle savedInstanceState) {
         final Context context = new ContextThemeWrapper(getActivity(), com.google.android.material.R.style.Theme_Material3_DayNight);
 
         appearancePreferences = new AppearancePreferences(this.widgetId, getContext());
@@ -69,7 +69,7 @@ public class AppearanceToolbarFragment extends FragmentCommon {
 
     @Override
     public void onViewCreated(
-            @NonNull final View view, @NonNull final Bundle savedInstanceState) {
+        @NonNull final View view, @NonNull final Bundle savedInstanceState) {
         createListenerToolbarColourPicker();
         createListenerToolbarFirst();
         createListenerToolbarPrevious();
@@ -108,22 +108,22 @@ public class AppearanceToolbarFragment extends FragmentCommon {
     private void createListenerToolbarColourPicker() {
         fragmentAppearanceTabToolbarBinding.toolbarColourPickerButton.setOnClickListener(v -> {
             QuoteUnquoteColorPickerDialog.Builder builder = new QuoteUnquoteColorPickerDialog.Builder(getContext(), R.style.CustomColourPickerAlertDialog)
-                    .setTitle(getString(R.string.fragment_appearance_toolbar_colour_dialog_title))
-                    .setPositiveButton(getString(R.string.fragment_appearance_ok),
-                            (ColorEnvelopeListener) (envelope, fromUser) -> {
+                .setTitle(getString(R.string.fragment_appearance_toolbar_colour_dialog_title))
+                .setPositiveButton(getString(R.string.fragment_appearance_ok),
+                    (ColorEnvelopeListener) (envelope, fromUser) -> {
 
-                                fragmentAppearanceTabToolbarBinding
-                                        .toolbarColourPickerButton
-                                        .setBackgroundColor(envelope.getColor());
+                        fragmentAppearanceTabToolbarBinding
+                            .toolbarColourPickerButton
+                            .setBackgroundColor(envelope.getColor());
 
-                                appearancePreferences.setAppearanceToolbarColour("#" + envelope.getHexCode());
-                            }
+                        appearancePreferences.setAppearanceToolbarColour("#" + envelope.getHexCode());
+                    }
 
-                    )
-                    .setNegativeButton(getString(R.string.fragment_appearance_cancel),
-                            (dialogInterface, i) -> dialogInterface.dismiss())
-                    .attachAlphaSlideBar(false)
-                    .attachBrightnessSlideBar(true);
+                )
+                .setNegativeButton(getString(R.string.fragment_appearance_cancel),
+                    (dialogInterface, i) -> dialogInterface.dismiss())
+                .attachAlphaSlideBar(false)
+                .attachBrightnessSlideBar(true);
 
             ColorPickerView colorPickerView = builder.getColorPickerView();
 
@@ -139,19 +139,19 @@ public class AppearanceToolbarFragment extends FragmentCommon {
 
     private void createListenerToolbarFirst() {
         fragmentAppearanceTabToolbarBinding.toolbarSwitchFirst.setOnCheckedChangeListener((buttonView, isChecked) ->
-                appearancePreferences.setAppearanceToolbarFirst(isChecked)
+            appearancePreferences.setAppearanceToolbarFirst(isChecked)
         );
     }
 
     private void createListenerToolbarPrevious() {
         fragmentAppearanceTabToolbarBinding.toolbarSwitchPrevious.setOnCheckedChangeListener((buttonView, isChecked) ->
-                appearancePreferences.setAppearanceToolbarPrevious(isChecked)
+            appearancePreferences.setAppearanceToolbarPrevious(isChecked)
         );
     }
 
     private void createListenerToolbarToggleFavourite() {
         fragmentAppearanceTabToolbarBinding.toolbarSwitchToggleFavourite.setOnCheckedChangeListener((buttonView, isChecked) ->
-                appearancePreferences.setAppearanceToolbarFavourite(isChecked));
+            appearancePreferences.setAppearanceToolbarFavourite(isChecked));
     }
 
     private void createListenerToolbarShare() {
@@ -163,13 +163,13 @@ public class AppearanceToolbarFragment extends FragmentCommon {
 
     private void createListenerToolbarShareNoSource() {
         fragmentAppearanceTabToolbarBinding.toolbarSwitchShareNoSource.setOnCheckedChangeListener((buttonView, isChecked) ->
-                appearancePreferences.setAppearanceToolbarShareNoSource(isChecked)
+            appearancePreferences.setAppearanceToolbarShareNoSource(isChecked)
         );
     }
 
     private void createListenerToolbarJump() {
         fragmentAppearanceTabToolbarBinding.toolbarSwitchJump.setOnCheckedChangeListener((buttonView, isChecked) ->
-                appearancePreferences.setAppearanceToolbarJump(isChecked)
+            appearancePreferences.setAppearanceToolbarJump(isChecked)
         );
     }
 
@@ -181,7 +181,7 @@ public class AppearanceToolbarFragment extends FragmentCommon {
 
     private void createListenerToolbarNextSequential() {
         fragmentAppearanceTabToolbarBinding.toolbarSwitchNextSequential.setOnCheckedChangeListener((buttonView, isChecked) ->
-                appearancePreferences.setAppearanceToolbarSequential(isChecked)
+            appearancePreferences.setAppearanceToolbarSequential(isChecked)
         );
     }
 
@@ -212,7 +212,7 @@ public class AppearanceToolbarFragment extends FragmentCommon {
         appearanceToolbarColour = appearanceToolbarColour.replace("#", "");
         int appearanceColourUnsignedInt = Integer.parseUnsignedInt(appearanceToolbarColour, 16);
         fragmentAppearanceTabToolbarBinding
-                .toolbarColourPickerButton.setBackgroundColor(appearanceColourUnsignedInt);
+            .toolbarColourPickerButton.setBackgroundColor(appearanceColourUnsignedInt);
 
         if (appearancePreferences.getAppearanceForceFollowSystemTheme()) {
             fragmentAppearanceTabToolbarBinding.textViewToolbarColour.setEnabled(false);

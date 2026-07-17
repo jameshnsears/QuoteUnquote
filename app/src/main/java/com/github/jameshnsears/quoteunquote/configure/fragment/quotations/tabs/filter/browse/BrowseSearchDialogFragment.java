@@ -51,13 +51,15 @@ public class BrowseSearchDialogFragment extends BrowseDialogFragment {
 
         if (quotationsPreferences.getContentSelectionSearchRegEx()) {
             searchQuotationsList = this.quoteUnquoteModel.getSearchQuotationsRegEx(
-                    quotationsPreferences.getContentSelectionSearch(),
-                    quotationsPreferences.getContentSelectionSearchFavouritesOnly()
+                this.widgetId,
+                quotationsPreferences.getContentSelectionSearch(),
+                quotationsPreferences.getContentSelectionSearchFavouritesOnly()
             );
         } else {
             searchQuotationsList = this.quoteUnquoteModel.getSearchQuotations(
-                    quotationsPreferences.getContentSelectionSearch(),
-                    quotationsPreferences.getContentSelectionSearchFavouritesOnly()
+                this.widgetId,
+                quotationsPreferences.getContentSelectionSearch(),
+                quotationsPreferences.getContentSelectionSearchFavouritesOnly()
             );
         }
 
@@ -70,11 +72,11 @@ public class BrowseSearchDialogFragment extends BrowseDialogFragment {
             QuotationEntity searchQuotation = searchQuotationsList.get(i);
 
             BrowseData browseData = new BrowseData(
-                    Strings.padStart(String.valueOf(index), padding, '0'),
-                    searchQuotation.quotation,
-                    searchQuotation.author,
-                    isFavourite(searchQuotation.digest),
-                    searchQuotation.digest);
+                Strings.padStart(String.valueOf(index), padding, '0'),
+                searchQuotation.quotation,
+                searchQuotation.author,
+                isFavourite(searchQuotation.digest),
+                searchQuotation.digest);
 
             list.add(browseData);
 

@@ -21,9 +21,10 @@ public abstract class ExternalDatabase extends RoomDatabase {
         synchronized (ExternalDatabase.class) {
             if (null == externalDatabase) {
                 ExternalDatabase.externalDatabase = Room.databaseBuilder(context,
-                                ExternalDatabase.class, ExternalDatabase.DATABASE_NAME)
-                        .createFromAsset(ExternalDatabase.DATABASE_NAME)
-                        .build();
+                        ExternalDatabase.class, ExternalDatabase.DATABASE_NAME)
+                    .createFromAsset(ExternalDatabase.DATABASE_NAME)
+                    .setJournalMode(JournalMode.WRITE_AHEAD_LOGGING)
+                    .build();
             }
             return ExternalDatabase.externalDatabase;
         }

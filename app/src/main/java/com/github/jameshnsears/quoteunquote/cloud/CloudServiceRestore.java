@@ -20,9 +20,9 @@ import timber.log.Timber;
 public class CloudServiceRestore extends CloudService {
     @Override
     public int onStartCommand(
-            @NonNull final Intent intent,
-            final int flags,
-            final int startId) {
+        @NonNull final Intent intent,
+        final int flags,
+        final int startId) {
 
         if (CloudService.startRunning()) {
 
@@ -37,9 +37,9 @@ public class CloudServiceRestore extends CloudService {
 
                 if (!cloudTransfer.isInternetAvailable()) {
                     handler.post(() -> Toast.makeText(
-                            context,
-                            context.getString(R.string.fragment_archive_internet_missing),
-                            Toast.LENGTH_SHORT).show());
+                        context,
+                        context.getString(R.string.fragment_archive_internet_missing),
+                        Toast.LENGTH_SHORT).show());
                 } else {
                     int widgetId = intent.getIntExtra("widgetId", 0);
 
@@ -49,41 +49,41 @@ public class CloudServiceRestore extends CloudService {
                     syncPreferences.setArchiveSharedStorage(syncPreferences.getArchiveSharedStorage());
 
                     handler.post(() -> Toast.makeText(
-                            context,
-                            context.getString(R.string.fragment_archive_restore_receiving),
-                            Toast.LENGTH_SHORT).show());
+                        context,
+                        context.getString(R.string.fragment_archive_restore_receiving),
+                        Toast.LENGTH_SHORT).show());
 
                     TransferRestoreResponse transferRestoreResponse
-                            = cloudTransfer.restore(
-                            CloudTransfer.TIMEOUT_SECONDS,
-                            new TransferRestore().requestJson(
-                                    intent.getStringExtra("remoteCodeValue")));
+                        = cloudTransfer.restore(
+                        CloudTransfer.TIMEOUT_SECONDS,
+                        new TransferRestore().requestJson(
+                            intent.getStringExtra("remoteCodeValue")));
 
                     if (transferRestoreResponse == null) {
                         handler.post(() -> Toast.makeText(
-                                context,
-                                context.getString(R.string.fragment_archive_internet_missing),
-                                Toast.LENGTH_SHORT).show());
+                            context,
+                            context.getString(R.string.fragment_archive_internet_missing),
+                            Toast.LENGTH_SHORT).show());
                     } else if ("no JSON for code".equals(transferRestoreResponse.getReason())) {
                         handler.post(() -> Toast.makeText(
-                                context,
-                                context.getString(R.string.fragment_archive_restore_missing_code),
-                                Toast.LENGTH_SHORT).show());
+                            context,
+                            context.getString(R.string.fragment_archive_restore_missing_code),
+                            Toast.LENGTH_SHORT).show());
                     } else {
                         TransferRestore transferRestore = new TransferRestore();
                         Transfer transfer = transferRestoreResponse.getTransfer();
 
                         DatabaseRepository databaseRepository
-                                = DatabaseRepository.getInstance(context);
+                            = DatabaseRepository.getInstance(context);
 
                         transferRestore.restore(context, databaseRepository, transfer);
 
                         databaseRepository.alignHistoryWithQuotations(true, widgetId, context);
 
                         handler.post(() -> Toast.makeText(
-                                context,
-                                context.getString(R.string.fragment_archive_restore_success),
-                                Toast.LENGTH_SHORT).show());
+                            context,
+                            context.getString(R.string.fragment_archive_restore_success),
+                            Toast.LENGTH_SHORT).show());
                     }
                 }
 

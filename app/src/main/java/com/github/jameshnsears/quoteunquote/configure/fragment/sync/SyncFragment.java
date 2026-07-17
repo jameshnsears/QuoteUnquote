@@ -103,15 +103,15 @@ public class SyncFragment extends FragmentCommon {
         rememberScreen(Screen.Sync, getContext());
 
         eventDisposable = CloudEventBus.getEvents()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(event -> {
-                    if (CLOUD_SERVICE_COMPLETED.equals(event)) {
-                        enableUI(true);
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(event -> {
+                if (CLOUD_SERVICE_COMPLETED.equals(event)) {
+                    enableUI(true);
 
-                        alignLocalCodeWithRestoredCode();
-                        alignCloudBackup();
-                    }
-                });
+                    alignLocalCodeWithRestoredCode();
+                    alignCloudBackup();
+                }
+            });
 
         if (!AlarmManagerHelper.canScheduleExactAlarms(getContext())) {
             fragmentSyncBinding.switchAutoCloudBackup.setChecked(false);
@@ -142,9 +142,9 @@ public class SyncFragment extends FragmentCommon {
     @Override
     @NonNull
     public View onCreateView(
-            @NonNull final LayoutInflater inflater,
-            @NonNull final ViewGroup container,
-            @NonNull final Bundle savedInstanceState) {
+        @NonNull final LayoutInflater inflater,
+        @NonNull final ViewGroup container,
+        @NonNull final Bundle savedInstanceState) {
         syncPreferences = new SyncPreferences(widgetId, getContext());
 
         fragmentSyncBinding = FragmentSyncBinding.inflate(getLayoutInflater());
@@ -153,7 +153,7 @@ public class SyncFragment extends FragmentCommon {
 
     @Override
     public void onViewCreated(
-            @NonNull final View view, @NonNull final Bundle savedInstanceState) {
+        @NonNull final View view, @NonNull final Bundle savedInstanceState) {
         setSyncFields();
 
         setLocalCode();
@@ -247,10 +247,10 @@ public class SyncFragment extends FragmentCommon {
 
     protected void setLastSuccessfulBackup() {
         fragmentSyncBinding.textViewLastSuccessfulBackupTimestamp.setText(
-                String.format(
-                        fragmentSyncBinding.textViewLastSuccessfulBackupTimestamp.getText().toString(),
-                        syncPreferences.getLastSuccessfulCloudBackupTimestamp()
-                )
+            String.format(
+                fragmentSyncBinding.textViewLastSuccessfulBackupTimestamp.getText().toString(),
+                syncPreferences.getLastSuccessfulCloudBackupTimestamp()
+            )
         );
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -297,44 +297,47 @@ public class SyncFragment extends FragmentCommon {
     private void handleDeviceBackupResult() {
         // default: /storage/emulated/0/Download/<10 character code>.json
         storageAccessFrameworkActivityResultBackup = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                activityResult -> {
-                    if (activityResult.getResultCode() == RESULT_OK) {
-                        ParcelFileDescriptor parcelFileDescriptor = null;
-                        FileOutputStream fileOutputStream = null;
+            new ActivityResultContracts.StartActivityForResult(),
+            activityResult -> {
+                if (activityResult.getResultCode() == RESULT_OK
+                    && activityResult.getData() != null
+                    && activityResult.getData().getData() != null
+                    && getContext() != null) {
+                    ParcelFileDescriptor parcelFileDescriptor = null;
+                    FileOutputStream fileOutputStream = null;
+                    try {
+                        parcelFileDescriptor
+                            = getContext().getContentResolver().openFileDescriptor(
+                            activityResult.getData().getData(), "wt");
+                        fileOutputStream
+                            = new FileOutputStream(parcelFileDescriptor.getFileDescriptor());
+
+                        final String exportableString = quoteUnquoteModel.transferBackup(getContext());
+                        fileOutputStream.write(exportableString.getBytes());
+
+                        Toast.makeText(
+                            getContext(),
+                            getContext().getString(R.string.fragment_archive_backup_success),
+                            Toast.LENGTH_SHORT).show();
+                    } catch (final IOException e) {
+                        Timber.e(e.getMessage());
+                    } finally {
                         try {
-                            parcelFileDescriptor
-                                    = getContext().getContentResolver().openFileDescriptor(
-                                    activityResult.getData().getData(), "w");
-                            fileOutputStream
-                                    = new FileOutputStream(parcelFileDescriptor.getFileDescriptor());
-
-                            final String exportableString = quoteUnquoteModel.transferBackup(getContext());
-                            fileOutputStream.write(exportableString.getBytes());
-
-                            Toast.makeText(
-                                    getContext(),
-                                    getContext().getString(R.string.fragment_archive_backup_success),
-                                    Toast.LENGTH_SHORT).show();
+                            if (fileOutputStream != null) {
+                                fileOutputStream.close();
+                            }
+                            if (parcelFileDescriptor != null) {
+                                parcelFileDescriptor.close();
+                            }
                         } catch (final IOException e) {
                             Timber.e(e.getMessage());
-                        } finally {
-                            try {
-                                if (fileOutputStream != null) {
-                                    fileOutputStream.close();
-                                }
-                                if (parcelFileDescriptor != null) {
-                                    parcelFileDescriptor.close();
-                                }
-                            } catch (final IOException e) {
-                                Timber.e(e.getMessage());
-                            }
                         }
                     }
+                }
 
-                    enableUI(true);
-                    ConfigureActivity.launcherInvoked = false;
-                });
+                enableUI(true);
+                ConfigureActivity.launcherInvoked = false;
+            });
     }
 
     private void restoreDevice() {
@@ -350,63 +353,66 @@ public class SyncFragment extends FragmentCommon {
     private void handleDeviceRestoreResult() {
         // default: /storage/emulated/0/Download/<10 character code>
         storageAccessFrameworkActivityResultRestore = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                activityResult -> {
-                    Timber.d("%d", activityResult.getResultCode());
+            new ActivityResultContracts.StartActivityForResult(),
+            activityResult -> {
+                Timber.d("%d", activityResult.getResultCode());
 
-                    if (activityResult.getResultCode() == Activity.RESULT_CANCELED) {
-                        Timber.d("cancelled");
-                    } else {
+                if (activityResult.getResultCode() == Activity.RESULT_CANCELED) {
+                    Timber.d("cancelled");
+                } else {
 
-                        try {
-                            if (activityResult.getResultCode() == RESULT_OK) {
-                                Toast.makeText(
-                                        getContext(),
-                                        getContext().getString(R.string.fragment_archive_restore_receiving),
-                                        Toast.LENGTH_SHORT).show();
-
-                                try {
-                                    final String jsonString = getRestoreJson(activityResult);
-
-                                    Boolean isJsonValid = isRestoreJsonValid(jsonString);
-
-                                    final Transfer transfer
-                                            = new Gson().fromJson(jsonString, Transfer.class);
-
-                                    if (isJsonValid && transfer != null) {
-                                        restoreDeviceJson(transfer);
-
-                                        quoteUnquoteModel.alignHistoryWithQuotations(widgetId);
-
-                                        alignLocalCodeWithRestoredCode();
-
-                                        alignCloudBackup();
-
-                                        Toast.makeText(
-                                                getContext(),
-                                                getContext().getString(R.string.fragment_archive_restore_success),
-                                                Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(
-                                                getContext(),
-                                                getContext().getString(R.string.fragment_archive_restore_saf_invalid),
-                                                Toast.LENGTH_SHORT).show();
-                                    }
-                                } catch (final IOException e) {
-                                    Timber.e(e.getMessage());
-                                }
-                            }
-                        } catch (JsonSyntaxException e) {
+                    try {
+                        if (activityResult.getResultCode() == RESULT_OK
+                            && activityResult.getData() != null
+                            && activityResult.getData().getData() != null
+                            && getContext() != null) {
                             Toast.makeText(
-                                    getContext(),
-                                    getContext().getString(R.string.fragment_archive_restore_saf_invalid),
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    }
+                                getContext(),
+                                getContext().getString(R.string.fragment_archive_restore_receiving),
+                                Toast.LENGTH_SHORT).show();
 
-                    ConfigureActivity.launcherInvoked = false;
-                    enableUI(true);
-                });
+                            try {
+                                final String jsonString = getRestoreJson(activityResult);
+
+                                Boolean isJsonValid = isRestoreJsonValid(jsonString);
+
+                                final Transfer transfer
+                                    = new Gson().fromJson(jsonString, Transfer.class);
+
+                                if (isJsonValid && transfer != null) {
+                                    restoreDeviceJson(transfer);
+
+                                    quoteUnquoteModel.alignHistoryWithQuotations(widgetId);
+
+                                    alignLocalCodeWithRestoredCode();
+
+                                    alignCloudBackup();
+
+                                    Toast.makeText(
+                                        getContext(),
+                                        getContext().getString(R.string.fragment_archive_restore_success),
+                                        Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(
+                                        getContext(),
+                                        getContext().getString(R.string.fragment_archive_restore_saf_invalid),
+                                        Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (final IOException e) {
+                                Timber.e(e.getMessage());
+                            }
+                        }
+                    } catch (JsonSyntaxException e) {
+                        Toast.makeText(
+                            getContext(),
+                            getContext().getString(R.string.fragment_archive_restore_saf_invalid),
+                            Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                ConfigureActivity.launcherInvoked = false;
+                enableUI(true);
+            });
     }
 
     private void restoreDeviceJson(Transfer transfer) {
@@ -417,15 +423,15 @@ public class SyncFragment extends FragmentCommon {
 
             if (syncPreferences.getPurge()) {
                 transferRestore.restorePurge(
-                        getContext(),
-                        DatabaseRepository.getInstance(getContext()),
-                        transfer);
+                    getContext(),
+                    DatabaseRepository.getInstance(getContext()),
+                    transfer);
             } else {
 
                 transferRestore.restore(
-                        getContext(),
-                        DatabaseRepository.getInstance(getContext()),
-                        transfer);
+                    getContext(),
+                    DatabaseRepository.getInstance(getContext()),
+                    transfer);
             }
 
             syncPreferences.setArchiveGoogleCloud(googleCloudRadio);
@@ -443,7 +449,7 @@ public class SyncFragment extends FragmentCommon {
     @NonNull
     private Boolean isRestoreJsonValid(String jsonString) {
         final Future<Boolean> future = QuoteUnquoteWidget.getExecutorService().submit(()
-                -> SyncJsonSchemaValidation.Companion.isJsonValid(getContext(), jsonString));
+            -> SyncJsonSchemaValidation.Companion.isJsonValid(getContext(), jsonString));
 
         boolean isValid = false;
 
@@ -466,14 +472,14 @@ public class SyncFragment extends FragmentCommon {
 
         try {
             parcelFileDescriptor
-                    = getContext().getContentResolver().openFileDescriptor(
-                    activityResult.getData().getData(), "r");
+                = getContext().getContentResolver().openFileDescriptor(
+                activityResult.getData().getData(), "r");
 
             fileInputStream
-                    = new FileInputStream(parcelFileDescriptor.getFileDescriptor());
+                = new FileInputStream(parcelFileDescriptor.getFileDescriptor());
 
             jsonString = CharStreams.toString(new InputStreamReader(
-                    fileInputStream, Charsets.UTF_8));
+                fileInputStream, Charsets.UTF_8));
         } finally {
             if (parcelFileDescriptor != null) {
                 parcelFileDescriptor.close();
@@ -512,18 +518,18 @@ public class SyncFragment extends FragmentCommon {
 
     protected void createListenerSwitchAutoCloudBackup() {
         fragmentSyncBinding.switchAutoCloudBackup.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                    if (isChecked) {
-                        if (!AlarmManagerHelper.canScheduleExactAlarms(getContext())) {
-                            ConfigureActivity.launcherInvoked = true;
-                            startActivity(new Intent(ACTION_REQUEST_SCHEDULE_EXACT_ALARM));
-                            return;
-                        }
+                if (isChecked) {
+                    if (!AlarmManagerHelper.canScheduleExactAlarms(getContext())) {
+                        ConfigureActivity.launcherInvoked = true;
+                        startActivity(new Intent(ACTION_REQUEST_SCHEDULE_EXACT_ALARM));
+                        return;
                     }
-
-                    syncPreferences.setAutoCloudBackup(isChecked);
-
-                    Timber.d("syncPreferences.getAutoCloudBackup=%b", syncPreferences.getAutoCloudBackup());
                 }
+
+                syncPreferences.setAutoCloudBackup(isChecked);
+
+                Timber.d("syncPreferences.getAutoCloudBackup=%b", syncPreferences.getAutoCloudBackup());
+            }
         );
     }
 
@@ -552,7 +558,7 @@ public class SyncFragment extends FragmentCommon {
     public void backupGoogleCloud() {
         final Intent serviceIntent = new Intent(getContext(), CloudServiceBackup.class);
         serviceIntent.putExtra(
-                "localCodeValue", fragmentSyncBinding.textViewLocalCodeValue.getText().toString());
+            "localCodeValue", fragmentSyncBinding.textViewLocalCodeValue.getText().toString());
         getContext().startService(serviceIntent);
     }
 
@@ -562,9 +568,9 @@ public class SyncFragment extends FragmentCommon {
         // correct length?
         if (fragmentSyncBinding.editTextRemoteCodeValue.getText().toString().length() != 10) {
             Toast.makeText(
-                    getContext(),
-                    getContext().getString(R.string.fragment_archive_restore_token_missing),
-                    Toast.LENGTH_SHORT).show();
+                getContext(),
+                getContext().getString(R.string.fragment_archive_restore_token_missing),
+                Toast.LENGTH_SHORT).show();
             enableUI(true);
             return;
         }
@@ -572,9 +578,9 @@ public class SyncFragment extends FragmentCommon {
         // crc wrong?
         if (!CloudTransferHelper.isRemoteCodeValid(fragmentSyncBinding.editTextRemoteCodeValue.getText().toString())) {
             Toast.makeText(
-                    getContext(),
-                    getContext().getString(R.string.fragment_archive_restore_token_invalid),
-                    Toast.LENGTH_SHORT).show();
+                getContext(),
+                getContext().getString(R.string.fragment_archive_restore_token_invalid),
+                Toast.LENGTH_SHORT).show();
             enableUI(true);
             return;
         }
@@ -585,7 +591,7 @@ public class SyncFragment extends FragmentCommon {
 
         final Intent serviceIntent = new Intent(getContext(), CloudServiceRestore.class);
         serviceIntent.putExtra(
-                "remoteCodeValue", fragmentSyncBinding.editTextRemoteCodeValue.getText().toString());
+            "remoteCodeValue", fragmentSyncBinding.editTextRemoteCodeValue.getText().toString());
         serviceIntent.putExtra("widgetId", widgetId);
 
         getContext().startService(serviceIntent);

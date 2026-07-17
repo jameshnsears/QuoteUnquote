@@ -46,9 +46,9 @@ public class AppearanceFragment extends FragmentCommon {
     @Override
     @NonNull
     public View onCreateView(
-            @NonNull final LayoutInflater inflater,
-            final @NonNull ViewGroup container,
-            final @NonNull Bundle savedInstanceState) {
+        @NonNull final LayoutInflater inflater,
+        final @NonNull ViewGroup container,
+        final @NonNull Bundle savedInstanceState) {
         final Context context = new ContextThemeWrapper(getActivity(), com.google.android.material.R.style.Theme_Material3_DayNight);
 
         fragmentAppearanceBinding = FragmentAppearanceBinding.inflate(inflater.cloneInContext(context));
@@ -57,7 +57,7 @@ public class AppearanceFragment extends FragmentCommon {
 
     @Override
     public void onViewCreated(
-            @NonNull final View view, final @NonNull Bundle savedInstanceState) {
+        @NonNull final View view, final @NonNull Bundle savedInstanceState) {
 
         pagerAdapter = new AppearanceFragmentStateAdapter(this, widgetId);
         fragmentAppearanceBinding.viewPager2Appearance.setAdapter(pagerAdapter);
@@ -75,19 +75,19 @@ public class AppearanceFragment extends FragmentCommon {
         });
 
         String[] tabs = {
-                getString(R.string.fragment_appearance_tab_style),
-                getString(R.string.fragment_appearance_navigation)
+            getString(R.string.fragment_appearance_tab_style),
+            getString(R.string.fragment_appearance_navigation)
         };
 
         new TabLayoutMediator(
-                fragmentAppearanceBinding.tabLayout,
-                fragmentAppearanceBinding.viewPager2Appearance,
-                true,
-                false,
-                (tab, position) -> tab.setText(tabs[position])).attach();
+            fragmentAppearanceBinding.tabLayout,
+            fragmentAppearanceBinding.viewPager2Appearance,
+            true,
+            false,
+            (tab, position) -> tab.setText(tabs[position])).attach();
 
         String screen =
-                new QuotationsPreferences(widgetId, getContext()).getScreen();
+            new QuotationsPreferences(widgetId, getContext()).getScreen();
         if (screen.equals(Screen.AppearanceToolbar.screenName)) {
             fragmentAppearanceBinding.viewPager2Appearance.setCurrentItem(1);
         } else {

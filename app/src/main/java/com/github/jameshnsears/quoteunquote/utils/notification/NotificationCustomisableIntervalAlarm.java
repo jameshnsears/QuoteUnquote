@@ -21,7 +21,7 @@ public class NotificationCustomisableIntervalAlarm extends NotificationDailyAlar
     boolean nextAlarmDay;
 
     public NotificationCustomisableIntervalAlarm(
-            @NonNull Context widgetContext, int theWidgetId) {
+        @NonNull Context widgetContext, int theWidgetId) {
         super(widgetContext, theWidgetId);
     }
 
@@ -72,23 +72,23 @@ public class NotificationCustomisableIntervalAlarm extends NotificationDailyAlar
                 Timber.d("nextAlarmDay: %b", this.nextAlarmDay);
 
                 AlarmManager alarmManager =
-                        (AlarmManager) this.context.getSystemService(Context.ALARM_SERVICE);
+                    (AlarmManager) this.context.getSystemService(Context.ALARM_SERVICE);
 
                 PendingIntent alarmPendingIntent
-                        = IntentFactoryHelper.createClickPendingIntent(
-                        this.context, this.widgetId, IntentFactoryHelper.CUSTOMISABLE_INTERVAL_ALARM);
+                    = IntentFactoryHelper.createClickPendingIntent(
+                    this.context, this.widgetId, IntentFactoryHelper.CUSTOMISABLE_INTERVAL_ALARM);
 
                 try {
                     alarmManager.setExactAndAllowWhileIdle(
-                            AlarmManager.RTC_WAKEUP,
-                            calendar.getTimeInMillis(),
-                            alarmPendingIntent);
+                        AlarmManager.RTC_WAKEUP,
+                        calendar.getTimeInMillis(),
+                        alarmPendingIntent);
                 } catch (SecurityException e) {
                     Timber.e(e, "Exact alarm permission not granted despite check");
                     alarmManager.setAndAllowWhileIdle(
-                            AlarmManager.RTC_WAKEUP,
-                            calendar.getTimeInMillis(),
-                            alarmPendingIntent);
+                        AlarmManager.RTC_WAKEUP,
+                        calendar.getTimeInMillis(),
+                        alarmPendingIntent);
                 }
             }
         }
@@ -97,11 +97,11 @@ public class NotificationCustomisableIntervalAlarm extends NotificationDailyAlar
     public void resetAlarm() {
         if (!this.notificationsPreferences.getCustomisableInterval()) {
             AlarmManager alarmManager =
-                    (AlarmManager) this.context.getSystemService(Context.ALARM_SERVICE);
+                (AlarmManager) this.context.getSystemService(Context.ALARM_SERVICE);
 
             if (null != alarmManager) {
                 alarmManager.cancel(IntentFactoryHelper.createClickPendingIntent(
-                        this.context, this.widgetId, IntentFactoryHelper.CUSTOMISABLE_INTERVAL_ALARM));
+                    this.context, this.widgetId, IntentFactoryHelper.CUSTOMISABLE_INTERVAL_ALARM));
             }
         }
     }

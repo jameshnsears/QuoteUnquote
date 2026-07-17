@@ -20,8 +20,8 @@ public class CurrentEntity {
     public final String digest;
 
     public CurrentEntity(
-            final int widgetId,
-            @NonNull final String digest) {
+        final int widgetId,
+        @NonNull final String digest) {
         this.widgetId = widgetId;
         this.digest = digest;
     }
