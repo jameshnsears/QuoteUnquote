@@ -13,7 +13,7 @@
         android:id="@+id/cardViewNext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="12dp"
         app:cardBackgroundColor="?attr/colorSurfaceContainer"
         app:cardCornerRadius="12dp"
@@ -35,8 +35,7 @@
                 android:paddingEnd="0dp"
                 android:paddingBottom="5dp"
                 android:text="@string/fragment_notifications_movement"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textAppearance="?attr/textAppearanceTitleLarge" />
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -54,7 +53,7 @@
                     android:paddingStart="12dp"
                     android:paddingEnd="0dp"
                     android:text="@string/fragment_appearance_toolbar_next_sequential"
-                    android:textSize="16sp" />
+                    android:textAppearance="?attr/textAppearanceBodyLarge" />
 
                 <RadioButton
                     android:id="@+id/radioButtonNextRandom"
@@ -67,7 +66,7 @@
                     android:paddingStart="12dp"
                     android:paddingEnd="0dp"
                     android:text="@string/fragment_appearance_toolbar_next_random"
-                    android:textSize="16sp" />
+                    android:textAppearance="?attr/textAppearanceBodyLarge" />
 
             </RadioGroup>
 
@@ -99,7 +98,7 @@
         android:id="@+id/cardViewDisplay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="12dp"
         app:cardBackgroundColor="?attr/colorSurfaceContainer"
         app:cardCornerRadius="12dp"
@@ -121,8 +120,7 @@
                 android:paddingEnd="0dp"
                 android:paddingBottom="5dp"
                 android:text="@string/fragment_notifications_where"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textAppearance="?attr/textAppearanceTitleLarge" />
 
             <RadioGroup
                 android:id="@+id/radioButtonDisplayGroup"
@@ -142,7 +140,7 @@
                     android:paddingStart="12dp"
                     android:paddingEnd="0dp"
                     android:text="@string/fragment_notifications_widget"
-                    android:textSize="16sp" />
+                    android:textAppearance="?attr/textAppearanceBodyLarge" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -154,7 +152,7 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
-                        android:background="?android:attr/listDivider" />
+                        android:background="?attr/colorOutlineVariant" />
 
                 </LinearLayout>
 
@@ -168,7 +166,7 @@
                     android:paddingStart="12dp"
                     android:paddingEnd="0dp"
                     android:text="@string/fragment_notifications_widget_and_notification"
-                    android:textSize="16sp" />
+                    android:textAppearance="?attr/textAppearanceBodyLarge" />
             </RadioGroup>
 
             <com.google.android.material.materialswitch.MaterialSwitch
@@ -179,7 +177,7 @@
                 android:paddingStart="14dp"
                 android:paddingEnd="8dp"
                 android:text="@string/notification_action_exclude_source"
-                android:textSize="16sp" />
+                android:textAppearance="?attr/textAppearanceBodyLarge" />
 
             <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/switchTtsUk"
@@ -189,7 +187,7 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="8dp"
                 android:text="@string/fragment_notifications_use_tts_uk"
-                android:textSize="16sp" />
+                android:textAppearance="?attr/textAppearanceBodyLarge" />
 
             <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/switchTtsSystem"
@@ -199,7 +197,7 @@
                 android:paddingStart="14dp"
                 android:paddingEnd="8dp"
                 android:text="@string/fragment_notifications_use_tts_system_language"
-                android:textSize="16sp" />
+                android:textAppearance="?attr/textAppearanceBodyLarge" />
 
             <TextView
                 android:id="@+id/textViewNotificationSizeWarningInfo"
@@ -231,7 +229,7 @@
         android:id="@+id/cardViewEvent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="12dp"
         app:cardBackgroundColor="?attr/colorSurfaceContainer"
@@ -254,8 +252,7 @@
                 android:paddingEnd="0dp"
                 android:paddingBottom="5dp"
                 android:text="@string/fragment_notifications_recurring_event"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textAppearance="?attr/textAppearanceTitleLarge" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -276,7 +273,7 @@
                     android:paddingStart="10dp"
                     android:paddingEnd="0dp"
                     android:text="@string/fragment_notifications_screen_unlock"
-                    android:textSize="16sp" />
+                    android:textAppearance="?attr/textAppearanceBodyLarge" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -289,7 +286,7 @@
                         android:id="@+id/dividerTop"
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
-                        android:background="?android:attr/listDivider" />
+                        android:background="?attr/colorOutlineVariant" />
 
                 </LinearLayout>
 
@@ -304,17 +301,17 @@
                     android:paddingStart="10dp"
                     android:paddingEnd="0dp"
                     android:text="@string/fragment_notifications_customisable"
-                    android:textSize="16sp" />
+                    android:textAppearance="?attr/textAppearanceBodyLarge" />
 
                 <TextView
                     android:id="@+id/textViewActivetime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="5dp"
+                    android:paddingVertical="16dp"
                     android:paddingStart="9dp"
                     android:paddingEnd="20dp"
                     android:text="@string/fragment_notifications_customisable_active_time"
-                    android:textSize="16sp" />
+                    android:textAppearance="?attr/textAppearanceBodyLarge" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -350,11 +347,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:paddingVertical="5dp"
+                        android:paddingVertical="16dp"
                         android:paddingStart="0dp"
                         android:paddingEnd="10dp"
                         android:text="@string/fragment_notifications_customisable_every"
-                        android:textSize="16sp" />
+                        android:textAppearance="?attr/textAppearanceBodyLarge" />
 
                     <Spinner
                         android:id="@+id/spinnerCustomisableIntervalHour"
@@ -371,11 +368,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:paddingVertical="5dp"
+                        android:paddingVertical="16dp"
                         android:paddingStart="0dp"
                         android:paddingEnd="10dp"
                         android:text="@string/fragment_notifications_customisable_every_hours"
-                        android:textSize="16sp" />
+                        android:textAppearance="?attr/textAppearanceBodyLarge" />
 
                 </LinearLayout>
 
@@ -390,7 +387,7 @@
                         android:id="@+id/dividerBottom"
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
-                        android:background="?android:attr/listDivider" />
+                        android:background="?attr/colorOutlineVariant" />
 
                 </LinearLayout>
 
@@ -412,7 +409,7 @@
                         android:paddingStart="10dp"
                         android:paddingEnd="20dp"
                         android:text="@string/fragment_notifications_time"
-                        android:textSize="16sp" />
+                        android:textAppearance="?attr/textAppearanceBodyLarge" />
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/specificTimeLayout"

@@ -16,7 +16,7 @@
         android:id="@+id/cardViewButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="12dp"
         app:cardBackgroundColor="?attr/colorSurfaceContainer"
         app:cardCornerRadius="12dp"
@@ -43,7 +43,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingVertical="12dp">
+                    android:paddingVertical="16dp">
 
                     <TextView
                         android:id="@+id/textViewToolbarColour"
@@ -53,16 +53,16 @@
                         android:paddingTop="5dp"
                         android:paddingBottom="5dp"
                         android:text="@string/fragment_appearance_colour"
-                        android:textSize="16sp" />
+                        android:textAppearance="?attr/textAppearanceBodyLarge" />
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/toolbarColourPickerButton"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
                         android:layout_gravity="center"
                         android:paddingStart="0dp"
-                        android:paddingEnd="5dp"
-                        android:textColor="@android:color/white"
+                        android:paddingEnd="8dp"
                         app:strokeColor="?attr/colorPrimary"
                         app:strokeWidth="1dp"
                         tools:ignore="SpeakableTextPresentCheck" />
@@ -81,7 +81,7 @@
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
                     android:text="@string/fragment_appearance_toolbar_first"
-                    android:textSize="16sp" />
+                    android:textAppearance="?attr/textAppearanceBodyLarge" />
             </LinearLayout>
 
             <LinearLayout
@@ -101,7 +101,7 @@
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
                     android:text="@string/fragment_appearance_toolbar_previous"
-                    android:textSize="16sp"
+                    android:textAppearance="?attr/textAppearanceBodyLarge"
                     tools:ignore="TextContrastCheck" />
             </LinearLayout>
 
@@ -122,7 +122,7 @@
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
                     android:text="@string/fragment_appearance_toolbar_favourite"
-                    android:textSize="16sp"
+                    android:textAppearance="?attr/textAppearanceBodyLarge"
                     tools:ignore="TextContrastCheck" />
             </LinearLayout>
 
@@ -136,7 +136,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:background="?android:attr/listDivider" />
+                    android:background="?attr/colorOutlineVariant" />
 
             </LinearLayout>
 
@@ -157,7 +157,7 @@
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
                     android:text="@string/fragment_appearance_toolbar_share"
-                    android:textSize="16sp" />
+                    android:textAppearance="?attr/textAppearanceBodyLarge" />
 
                 <com.google.android.material.materialswitch.MaterialSwitch
                     android:id="@+id/toolbar_switch_share_no_source"
@@ -167,7 +167,7 @@
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
                     android:text="@string/fragment_appearance_toolbar_share_exclude_source"
-                    android:textSize="16sp" />
+                    android:textAppearance="?attr/textAppearanceBodyLarge" />
             </LinearLayout>
 
             <LinearLayout
@@ -180,7 +180,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:background="?android:attr/listDivider" />
+                    android:background="?attr/colorOutlineVariant" />
 
             </LinearLayout>
 
@@ -200,7 +200,7 @@
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
                     android:text="@string/fragment_appearance_toolbar_position_indicator"
-                    android:textSize="16sp" />
+                    android:textAppearance="?attr/textAppearanceBodyLarge" />
             </LinearLayout>
 
             <LinearLayout
@@ -219,7 +219,7 @@
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
                     android:text="@string/fragment_appearance_toolbar_next_sequential"
-                    android:textSize="16sp" />
+                    android:textAppearance="?attr/textAppearanceBodyLarge" />
             </LinearLayout>
 
             <LinearLayout
@@ -239,7 +239,7 @@
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
                     android:text="@string/fragment_appearance_toolbar_next_random"
-                    android:textSize="16sp"
+                    android:textAppearance="?attr/textAppearanceBodyLarge"
                     tools:ignore="TextContrastCheck" />
             </LinearLayout>
 
@@ -251,7 +251,7 @@
         android:id="@+id/cardViewPosition"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="12dp"
         app:cardBackgroundColor="?attr/colorSurfaceContainer"
@@ -277,8 +277,7 @@
                 android:paddingEnd="0dp"
                 android:paddingBottom="5dp"
                 android:text="@string/fragment_appearance_toolbar_position"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textAppearance="?attr/textAppearanceTitleLarge" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -304,7 +303,7 @@
                         android:paddingStart="12dp"
                         android:paddingEnd="0dp"
                         android:text="@string/fragment_appearance_toolbar_position_bottom"
-                        android:textSize="16sp" />
+                        android:textAppearance="?attr/textAppearanceBodyLarge" />
 
                     <RadioButton
                         android:id="@+id/radioButtonRightHandSide"
@@ -316,7 +315,7 @@
                         android:paddingStart="12dp"
                         android:paddingEnd="0dp"
                         android:text="@string/fragment_appearance_toolbar_position_rhs"
-                        android:textSize="16sp" />
+                        android:textAppearance="?attr/textAppearanceBodyLarge" />
 
                 </RadioGroup>
 

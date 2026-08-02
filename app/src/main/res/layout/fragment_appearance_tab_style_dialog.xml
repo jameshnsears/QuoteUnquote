@@ -29,22 +29,22 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:paddingVertical="5dp"
+                android:paddingVertical="16dp"
                 android:paddingStart="0dp"
                 android:paddingTop="0dp"
                 android:paddingEnd="10dp"
                 android:paddingBottom="5dp"
                 android:text="@string/fragment_appearance_colour"
-                android:textSize="16sp" />
+                android:textAppearance="?attr/textAppearanceBodyLarge" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/textColourPickerButton"
+                style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_gravity="center"
                 android:paddingStart="0dp"
-                android:paddingEnd="5dp"
-                android:textColor="@android:color/white"
+                android:paddingEnd="8dp"
                 app:strokeColor="?attr/colorPrimary"
                 app:strokeWidth="1dp"
                 tools:ignore="SpeakableTextPresentCheck" />
@@ -62,11 +62,11 @@
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:paddingVertical="5dp"
+                android:paddingVertical="16dp"
                 android:paddingStart="0dp"
                 android:paddingEnd="10dp"
                 android:text="@string/fragment_appearance_size"
-                android:textSize="16sp" />
+                android:textAppearance="?attr/textAppearanceBodyLarge" />
 
             <Spinner
                 android:id="@+id/spinnerSize"
@@ -92,7 +92,7 @@
                 android:checked="false"
                 android:paddingVertical="16dp"
                 android:text="@string/fragment_appearance_style_text_dialog_visibility"
-                android:textSize="16sp"
+                android:textAppearance="?attr/textAppearanceBodyLarge"
                 tools:ignore="TextContrastCheck" />
         </LinearLayout>
 
@@ -108,7 +108,7 @@
                 android:checked="false"
                 android:paddingVertical="16dp"
                 android:text="@string/fragment_appearance_style_text_dialog_visibility"
-                android:textSize="16sp"
+                android:textAppearance="?attr/textAppearanceBodyLarge"
                 tools:ignore="TextContrastCheck" />
         </LinearLayout>
     </LinearLayout>

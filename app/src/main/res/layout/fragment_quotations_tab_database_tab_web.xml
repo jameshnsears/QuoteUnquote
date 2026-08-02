@@ -16,7 +16,7 @@
         android:id="@+id/cardViewDatabaseExternal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="12dp"
         app:cardBackgroundColor="?attr/colorSurfaceContainer"
@@ -42,8 +42,7 @@
                 android:paddingStart="12dp"
                 android:paddingEnd="0dp"
                 android:text="@string/fragment_quotations_database_scrape_web_page"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textAppearance="?attr/textAppearanceTitleLarge" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -76,7 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:paddingVertical="5dp"
+                android:paddingVertical="16dp"
                 android:paddingStart="6dp"
                 android:paddingEnd="6dp">
 
@@ -104,7 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:paddingVertical="5dp"
+                android:paddingVertical="16dp"
                 android:paddingStart="6dp"
                 android:paddingEnd="6dp">
 
@@ -147,7 +146,7 @@
                     android:paddingStart="7dp"
                     android:paddingEnd="0dp"
                     android:text="@string/fragment_quotations_database_scrape_erase"
-                    android:textSize="16sp" />
+                    android:textAppearance="?attr/textAppearanceBodyLarge" />
             </LinearLayout>
 
             <LinearLayout
@@ -160,13 +159,13 @@
                 android:paddingEnd="0dp"
                 android:paddingBottom="10dp">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/buttonImportWebPage"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
                     android:layout_width="120dp"
                     android:layout_height="48dp"
                     android:text="@string/fragment_quotations_database_button_import"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"
+                    android:textAppearance="?attr/textAppearanceBodyLarge"
                     app:strokeColor="?attr/colorPrimary" />
 
             </LinearLayout>

@@ -14,7 +14,7 @@
         android:id="@+id/cardViewSync"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="12dp"
         app:cardBackgroundColor="?attr/colorSurfaceContainer"
         app:cardCornerRadius="12dp"
@@ -45,7 +45,7 @@
                     android:paddingStart="12dp"
                     android:paddingEnd="0dp"
                     android:text="@string/fragment_archive_select_cloud"
-                    android:textSize="16sp" />
+                    android:textAppearance="?attr/textAppearanceBodyLarge" />
 
                 <RadioButton
                     android:id="@+id/radioButtonSyncDevice"
@@ -57,7 +57,7 @@
                     android:paddingStart="12dp"
                     android:paddingEnd="0dp"
                     android:text="@string/fragment_archive_select_filesystem"
-                    android:textSize="16sp" />
+                    android:textAppearance="?attr/textAppearanceBodyLarge" />
 
             </RadioGroup>
 
@@ -81,15 +81,15 @@
                     android:paddingEnd="48dp"
                     android:text="@string/fragment_archive_backup_local_code_value"
                     android:textIsSelectable="true"
-                    android:textSize="18sp" />
+                    android:textAppearance="?attr/textAppearanceTitleMedium" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/buttonBackup"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
                     android:layout_width="120dp"
                     android:layout_height="48dp"
                     android:text="@string/fragment_archive_backup"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"
+                    android:textAppearance="?attr/textAppearanceBodyLarge"
                     app:strokeColor="?attr/colorPrimary" />
             </LinearLayout>
 
@@ -98,7 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:paddingVertical="2dp"
+                android:paddingVertical="16dp"
                 android:paddingStart="7dp"
                 android:paddingEnd="0dp">
 
@@ -120,7 +120,7 @@
                         android:layout_weight="1"
                         android:inputType="textNoSuggestions"
                         android:maxLength="10"
-                        android:textSize="16sp" />
+                        android:textAppearance="?attr/textAppearanceBodyLarge" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -131,13 +131,13 @@
                     android:paddingTop="5dp"
                     android:paddingBottom="0dp">
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/buttonRestore"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
                         android:layout_width="120dp"
                         android:layout_height="48dp"
                         android:text="@string/fragment_archive_restore"
-                        android:textColor="@android:color/white"
-                        android:textSize="16sp"
+                        android:textAppearance="?attr/textAppearanceBodyLarge"
                         app:strokeColor="?attr/colorPrimary" />
 
                 </LinearLayout>
@@ -184,7 +184,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:background="?android:attr/listDivider" />
+                    android:background="?attr/colorOutlineVariant" />
 
             </LinearLayout>
 
@@ -196,14 +196,14 @@
                 android:paddingEnd="0dp"
                 android:paddingBottom="4dp">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/buttonNewCode"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:gravity="center"
                     android:text="@string/fragment_archive_create_new_sync_code"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"
+                    android:textAppearance="?attr/textAppearanceBodyLarge"
                     app:strokeColor="?attr/colorPrimary" />
             </LinearLayout>
 
@@ -215,7 +215,7 @@
         android:id="@+id/cardViewSyncOnFavourite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="12dp"
         app:cardBackgroundColor="?attr/colorSurfaceContainer"
@@ -242,7 +242,7 @@
                 android:drawablePadding="20dp"
                 android:paddingVertical="16dp"
                 android:text="@string/fragment_archive_sync_to_cloud_on_favourite"
-                android:textSize="16sp" />
+                android:textAppearance="?attr/textAppearanceBodyLarge" />
 
             <TextView
                 android:id="@+id/textViewLastSuccessfulBackupTimestamp"

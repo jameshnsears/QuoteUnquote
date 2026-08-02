@@ -2,6 +2,7 @@ package com.github.jameshnsears.quoteunquote.configure.fragment.quotations.tabs.
 
 import android.content.res.Configuration
 import android.widget.Toast
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.focusable
@@ -36,6 +37,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -55,7 +57,6 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -94,7 +95,7 @@ fun inPlaceEdit(filesCsvViewModel: FilesCsvViewModel) {
                         modifier =
                             Modifier
                                 .fillMaxWidth()
-                                .padding(horizontal = 8.dp, vertical = 8.dp),
+                                .padding(horizontal = 16.dp, vertical = 8.dp),
                         shape = RoundedCornerShape(12.dp),
                         colors =
                             CardDefaults.cardColors(
@@ -103,11 +104,11 @@ fun inPlaceEdit(filesCsvViewModel: FilesCsvViewModel) {
                         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
                     ) {
                         Column(
-                            modifier = Modifier.padding(12.dp),
+                            modifier = Modifier.padding(16.dp),
                         ) {
                             inPlaceEditList(filesCsvViewModel)
 
-                            HorizontalDivider(color = MaterialTheme.colorScheme.outline)
+                            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
 
                             inPlaceEditSaveDeleteButtons(filesCsvViewModel)
 
@@ -189,8 +190,7 @@ fun inPlaceEditList(filesCsvViewModel: FilesCsvViewModel) {
                                     modifier = Modifier.padding(3.dp),
                                     text = (1 + index).toString(),
                                     color = itemTextColor,
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight.Bold,
+                                    style = MaterialTheme.typography.titleSmall,
                                 )
 
                                 Text(
@@ -200,7 +200,7 @@ fun inPlaceEditList(filesCsvViewModel: FilesCsvViewModel) {
                                             .padding(3.dp),
                                     text = quotation.quotation,
                                     color = itemTextColor,
-                                    fontSize = 14.sp,
+                                    style = MaterialTheme.typography.bodyMedium,
                                 )
                             }
 
@@ -208,7 +208,7 @@ fun inPlaceEditList(filesCsvViewModel: FilesCsvViewModel) {
                                 modifier = Modifier.padding(start = 3.dp, top = 3.dp),
                                 text = quotation.author,
                                 color = itemTextColor,
-                                fontSize = 14.sp,
+                                style = MaterialTheme.typography.bodySmall,
                             )
                         }
                     }
@@ -322,18 +322,6 @@ private fun inPlaceEditTextSourceQuotationFields(filesCsvViewModel: FilesCsvView
 
 @Composable
 private fun inPlaceEditSaveDeleteButtons(filesCsvViewModel: FilesCsvViewModel) {
-    val saveButtonColors =
-        ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.primary,
-            contentColor = Color.White,
-        )
-
-    val deleteButtonColors =
-        ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.error,
-            contentColor = Color.White,
-        )
-
     val context = LocalContext.current
 
     val digest by filesCsvViewModel.digest.collectAsState()
@@ -353,11 +341,12 @@ private fun inPlaceEditSaveDeleteButtons(filesCsvViewModel: FilesCsvViewModel) {
         Row(
             modifier = Modifier.padding(start = 24.dp, end = 24.dp),
         ) {
-            Button(
-                colors = deleteButtonColors,
+            OutlinedButton(
+                colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.error),
+                border = BorderStroke(1.dp, MaterialTheme.colorScheme.error),
                 modifier =
                     Modifier
-                        .height(41.dp)
+                        .height(48.dp)
                         .width(120.dp),
                 onClick = {
                     filesCsvViewModel.buttonDeletePressed()
@@ -371,11 +360,12 @@ private fun inPlaceEditSaveDeleteButtons(filesCsvViewModel: FilesCsvViewModel) {
 
             Spacer(modifier = Modifier.weight(1f))
 
-            Button(
-                colors = saveButtonColors,
+            OutlinedButton(
+                colors = ButtonDefaults.outlinedButtonColors(contentColor = MaterialTheme.colorScheme.primary),
+                border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
                 modifier =
                     Modifier
-                        .height(41.dp)
+                        .height(48.dp)
                         .width(120.dp),
                 onClick = {
                     filesCsvViewModel.buttonSavePressed { result ->

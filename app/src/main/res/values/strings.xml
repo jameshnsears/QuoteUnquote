@@ -25,8 +25,8 @@
     <string name="activity_instructions_version">%1$s/%2$s</string>
     <string name="activity_instructions_oss">Open-source software</string>
 
-    <string name="configure_navigation_bar_quotations">Quotations</string>
-    <string name="configure_navigation_bar_appearance">Appearance</string>
+    <string name="configure_navigation_bar_quotations">Quotes</string>
+    <string name="configure_navigation_bar_appearance">Layout</string>
 
     <string name="settings">Configure</string>
 
@@ -55,8 +55,8 @@
     <string name="fragment_quotations_selection_search_switch_regex">Regular expression</string>
     <string name="fragment_quotations_selection_search_instructions_info"></string>
     <string name="fragment_quotations_selection_search_instructions_1">\u2022&#160;&#160;Search includes both Quotation &amp; Source</string>
-    <string name="fragment_quotations_selection_search_instructions_2">\u2022&#160;&#160;4 characters minimum; regular expressions are case sensitive, can take time but results get cached</string>
-    <string name="fragment_quotations_selection_search_instructions_3">\u2022&#160;&#160;Regular expression example: .*(Aristotle|Sun Tzu).*</string>
+    <string name="fragment_quotations_selection_search_instructions_2">\u2022&#160;&#160;4 characters minimum</string>
+    <string name="fragment_quotations_selection_search_instructions_3">\u2022&#160;&#160;Regular expression are case-sensitive, can take time but results get cached; example: .*(Aristotle|Sun Tzu).*</string>
 
     <string name="fragment_quotations_selection_search_no_results">No results found for Search</string>
     <string name="fragment_quotations_selection_dialog_browse_favourites">Favourites</string>
@@ -67,7 +67,7 @@
     <string name="fragment_quotations_database_default_info"></string>
     <string name="fragment_quotations_database_default_0">\u2022&#160;&#160;Discover High Quality Quotations!</string>
 
-    <string name="fragment_quotations_database_file">External File</string>
+    <string name="fragment_quotations_database_file">External file</string>
     <string name="fragment_quotations_database_file_inplace_edit">Edit</string>
     <string name="fragment_quotations_database_file_inplace_export">Export</string>
     <string name="fragment_quotations_database_file_csv">CSV</string>
@@ -80,7 +80,7 @@
     <string name="fragment_quotations_database_file_csv_inplace_save_warning_duplicate">Unable to Save - duplicate</string>
     <string name="fragment_quotations_database_file_csv_inplace_warning_empty_database">Internal database selected</string>
     <string name="fragment_quotations_database_file_fortune">Fortune</string>
-    <string name="fragment_quotations_database_file_fortune_info_01">\u2022&#160;&#160;See https://wikipedia.org/wiki/Fortune_(Unix)</string>
+    <string name="fragment_quotations_database_file_fortune_info_01">\u2022&#160;&#160;See https://en.wikipedia.org/wiki/Fortune_(Unix)</string>
     <string name="fragment_quotations_database_file_fortune_info_02">\u2022&#160;&#160;The filename is used to populate the Source field</string>
     <string name="fragment_quotations_database_file_warning">\u2022&#160;&#160;Use Export to backup data prior to any reinstall</string>
 
@@ -122,7 +122,7 @@
     <string name="fragment_appearance_force"><i>Italic</i> + Regular + Regular</string>
     <string name="fragment_appearance_center">Center  + Center + Right</string>
     <string name="fragment_appearance_source_right_aligned">Center + Right + Right</string>
-    <string name="fragment_appearance_button_quotation">Quotation</string>
+    <string name="fragment_appearance_button_quotation">Quote</string>
     <string name="fragment_appearance_button_author">Source</string>
     <string name="fragment_appearance_button_position">Position</string>
     <string name="fragment_appearance_text_info">\u2022&#160;&#160;Appearance is device dependent</string>
@@ -180,12 +180,12 @@
     <string name="fragment_appearance_toolbar_position_bottom">Bottom</string>
     <string name="fragment_appearance_toolbar_position_rhs">Right-hand side</string>
 
-    <string name="fragment_notifications_title">Notifications</string>
+    <string name="fragment_notifications_title">Event</string>
     <string name="fragment_notifications_where">Result</string>
     <string name="fragment_notifications_movement">Action</string>
     <string name="fragment_notifications_widget">Widget only</string>
     <string name="fragment_notifications_widget_and_notification">Widget &amp; Notification</string>
-    <string name="fragment_notifications_use_tts_uk">UK TTS (Internal database)</string>
+    <string name="fragment_notifications_use_tts_uk">UK TTS</string>
     <string name="fragment_notifications_use_tts_system_language">System TTS</string>
 
     <string name="fragment_notifications_notification_warning_info"></string>

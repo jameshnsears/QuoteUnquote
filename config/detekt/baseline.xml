@@ -10,7 +10,6 @@
     <ID>CyclomaticComplexMethod:ListViewLayoutIdHelper.kt$ListViewLayoutIdHelper.Companion$fun layoutIdForSerif( textStyle: String, center: Boolean, rightSource: Boolean, ): Int</ID>
     <ID>LongMethod:ContentExternalFileFragment.kt$ContentExternalFileFragment$private fun import( activityResult: ActivityResult, isCsvFile: Boolean, )</ID>
     <ID>LongMethod:InPlaceEdit.kt$@Composable fun inPlaceEditList(filesCsvViewModel: FilesCsvViewModel)</ID>
-    <ID>LongMethod:InPlaceEdit.kt$@Composable private fun inPlaceEditSaveDeleteButtons(filesCsvViewModel: FilesCsvViewModel)</ID>
     <ID>LongMethod:InPlaceEdit.kt$@Composable private fun inPlaceEditTextSourceQuotationFields(filesCsvViewModel: FilesCsvViewModel)</ID>
     <ID>LongMethod:ListViewLayoutIdHelperTest.kt$ListViewLayoutIdHelperTest$@Test fun layoutIdForCursive()</ID>
     <ID>LongMethod:ListViewLayoutIdHelperTest.kt$ListViewLayoutIdHelperTest$@Test fun layoutIdForMonospace()</ID>

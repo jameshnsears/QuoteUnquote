@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/navigationBarQuotations"
         android:icon="@drawable/ic_selector_navigation_bar_quote_24"
-        android:title="@string/configure_navigation_bar_quotations" />
+        android:title="@string/configure_navigation_bar_quotations"
+        app:itemIconSize="32dp" />
     <item
         android:id="@+id/navigationBarAppearance"
         android:icon="@drawable/ic_selector_navigation_bar_brush_24"
-        android:title="@string/configure_navigation_bar_appearance" />
+        android:title="@string/configure_navigation_bar_appearance"
+        app:itemIconSize="32dp" />
     <item
         android:id="@+id/navigationBarNotification"
         android:icon="@drawable/ic_selector_navigation_bar_update_24"
-        android:title="@string/fragment_notifications_title" />
+        android:title="@string/fragment_notifications_title"
+        app:itemIconSize="32dp" />
     <item
         android:id="@+id/navigationBarSync"
         android:icon="@drawable/ic_selector_navigation_bar_sync_alt_24"
-        android:title="@string/fragment_archive_title" />
+        android:title="@string/fragment_archive_title"
+        app:itemIconSize="32dp" />
 </menu>

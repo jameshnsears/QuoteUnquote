@@ -79,13 +79,24 @@
     </issue>
 
     <issue
+        id="NewerVersionAvailable"
+        message="A newer version of commons-codec:commons-codec than 1.22.0 is available: 1.22.1"
+        errorLine1="    implementation(&quot;commons-codec:commons-codec:1.22.0&quot;)"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle.kts"
+            line="291"
+            column="20"/>
+    </issue>
+
+    <issue
         id="ComposableNaming"
         message="Composable functions that return Unit should start with an uppercase letter"
         errorLine1="fun inPlaceEdit(filesCsvViewModel: FilesCsvViewModel) {"
         errorLine2="    ~~~~~~~~~~~">
         <location
             file="src/main/kotlin/com/github/jameshnsears/quoteunquote/configure/fragment/quotations/tabs/content/files/InPlaceEdit.kt"
-            line="68"
+            line="69"
             column="5"/>
     </issue>
 
@@ -96,7 +107,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/com/github/jameshnsears/quoteunquote/configure/fragment/quotations/tabs/content/files/InPlaceEdit.kt"
-            line="126"
+            line="127"
             column="5"/>
     </issue>
 
@@ -129,7 +140,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/com/github/jameshnsears/quoteunquote/configure/fragment/quotations/tabs/content/files/InPlaceEdit.kt"
-            line="402"
+            line="392"
             column="13"/>
     </issue>
 
@@ -140,7 +151,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/com/github/jameshnsears/quoteunquote/configure/fragment/quotations/tabs/content/files/InPlaceEdit.kt"
-            line="455"
+            line="445"
             column="5"/>
     </issue>
 
@@ -151,7 +162,7 @@
         errorLine2="    ~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/com/github/jameshnsears/quoteunquote/configure/fragment/quotations/tabs/content/files/InPlaceEdit.kt"
-            line="464"
+            line="454"
             column="5"/>
     </issue>
 
@@ -162,7 +173,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/kotlin/com/github/jameshnsears/quoteunquote/configure/fragment/quotations/tabs/content/files/InPlaceEdit.kt"
-            line="469"
+            line="459"
             column="13"/>
     </issue>
 
@@ -305,7 +316,7 @@
         errorLine2="                 ~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_appearance_tab_toolbar.xml"
-            line="291"
+            line="290"
             column="18"/>
     </issue>
 
@@ -422,176 +433,176 @@
     <issue
         id="RtlSymmetry"
         message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry"
-        errorLine1="                        android:paddingStart=&quot;10dp&quot;"
+        errorLine1="                        android:paddingStart=&quot;16dp&quot;"
         errorLine2="                        ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/activity_instructions.xml"
-            line="82"
+            line="81"
             column="25"/>
     </issue>
 
     <issue
         id="RtlSymmetry"
         message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry"
-        errorLine1="                        android:paddingStart=&quot;10dp&quot;"
+        errorLine1="                        android:paddingStart=&quot;16dp&quot;"
         errorLine2="                        ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/activity_instructions.xml"
-            line="103"
+            line="104"
             column="25"/>
     </issue>
 
     <issue
         id="RtlSymmetry"
         message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry"
-        errorLine1="                        android:paddingStart=&quot;10dp&quot;"
+        errorLine1="                        android:paddingStart=&quot;16dp&quot;"
         errorLine2="                        ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/activity_instructions.xml"
-            line="123"
+            line="126"
             column="25"/>
     </issue>
 
     <issue
         id="RtlSymmetry"
         message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry"
-        errorLine1="                        android:paddingStart=&quot;10dp&quot;"
+        errorLine1="                        android:paddingStart=&quot;16dp&quot;"
         errorLine2="                        ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/activity_instructions.xml"
-            line="143"
+            line="148"
             column="25"/>
     </issue>
 
     <issue
         id="RtlSymmetry"
         message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry"
-        errorLine1="                        android:paddingStart=&quot;10dp&quot;"
+        errorLine1="                        android:paddingStart=&quot;16dp&quot;"
         errorLine2="                        ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/activity_instructions.xml"
-            line="163"
+            line="170"
             column="25"/>
     </issue>
 
     <issue
         id="RtlSymmetry"
         message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry"
-        errorLine1="                        android:paddingStart=&quot;10dp&quot;"
+        errorLine1="                        android:paddingStart=&quot;16dp&quot;"
         errorLine2="                        ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/activity_instructions.xml"
-            line="224"
+            line="232"
             column="25"/>
     </issue>
 
     <issue
         id="RtlSymmetry"
         message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry"
-        errorLine1="                        android:paddingStart=&quot;10dp&quot;"
+        errorLine1="                        android:paddingStart=&quot;16dp&quot;"
         errorLine2="                        ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/activity_instructions.xml"
-            line="244"
+            line="254"
             column="25"/>
     </issue>
 
     <issue
         id="RtlSymmetry"
         message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry"
-        errorLine1="                        android:paddingStart=&quot;10dp&quot;"
+        errorLine1="                        android:paddingStart=&quot;16dp&quot;"
         errorLine2="                        ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/activity_instructions.xml"
-            line="264"
+            line="276"
             column="25"/>
     </issue>
 
     <issue
         id="RtlSymmetry"
         message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry"
-        errorLine1="                        android:paddingStart=&quot;10dp&quot;"
+        errorLine1="                        android:paddingStart=&quot;16dp&quot;"
         errorLine2="                        ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/activity_instructions.xml"
-            line="284"
+            line="298"
             column="25"/>
     </issue>
 
     <issue
         id="RtlSymmetry"
         message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry"
-        errorLine1="                        android:paddingStart=&quot;10dp&quot;"
+        errorLine1="                        android:paddingStart=&quot;16dp&quot;"
         errorLine2="                        ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/activity_instructions.xml"
-            line="304"
+            line="320"
             column="25"/>
     </issue>
 
     <issue
         id="RtlSymmetry"
         message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry"
-        errorLine1="                        android:paddingStart=&quot;10dp&quot;"
+        errorLine1="                        android:paddingStart=&quot;16dp&quot;"
         errorLine2="                        ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/activity_instructions.xml"
-            line="324"
+            line="342"
             column="25"/>
     </issue>
 
     <issue
         id="RtlSymmetry"
         message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry"
-        errorLine1="                        android:paddingStart=&quot;10dp&quot;"
+        errorLine1="                        android:paddingStart=&quot;16dp&quot;"
         errorLine2="                        ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/activity_instructions.xml"
-            line="344"
+            line="364"
             column="25"/>
     </issue>
 
     <issue
         id="RtlSymmetry"
         message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry"
-        errorLine1="                        android:paddingStart=&quot;10dp&quot;"
+        errorLine1="                        android:paddingStart=&quot;16dp&quot;"
         errorLine2="                        ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/activity_instructions.xml"
-            line="406"
+            line="427"
             column="25"/>
     </issue>
 
     <issue
         id="RtlSymmetry"
         message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry"
-        errorLine1="                        android:paddingStart=&quot;10dp&quot;"
+        errorLine1="                        android:paddingStart=&quot;16dp&quot;"
         errorLine2="                        ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/activity_instructions.xml"
-            line="426"
+            line="449"
             column="25"/>
     </issue>
 
     <issue
         id="RtlSymmetry"
         message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry"
-        errorLine1="                        android:paddingStart=&quot;10dp&quot;"
+        errorLine1="                        android:paddingStart=&quot;16dp&quot;"
         errorLine2="                        ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/activity_instructions.xml"
-            line="446"
+            line="471"
             column="25"/>
     </issue>
 
     <issue
         id="RtlSymmetry"
         message="When you define `paddingStart` you should probably also define `paddingEnd` for right-to-left symmetry"
-        errorLine1="                        android:paddingStart=&quot;10dp&quot;"
+        errorLine1="                        android:paddingStart=&quot;16dp&quot;"
         errorLine2="                        ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/activity_instructions.xml"
-            line="466"
+            line="493"
             column="25"/>
     </issue>
 
@@ -602,7 +613,7 @@
         errorLine2="                    ~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/fragment_appearance_tab_style.xml"
-            line="394"
+            line="392"
             column="21"/>
     </issue>
 

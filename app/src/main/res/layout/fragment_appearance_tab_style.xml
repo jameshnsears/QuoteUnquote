@@ -16,7 +16,7 @@
         android:id="@+id/cardViewBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="12dp"
         app:cardBackgroundColor="?attr/colorSurfaceContainer"
         app:cardCornerRadius="12dp"
@@ -43,8 +43,7 @@
                     android:paddingEnd="0dp"
                     android:paddingBottom="5dp"
                     android:text="@string/fragment_appearance_background"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textAppearance="?attr/textAppearanceTitleLarge" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -59,21 +58,21 @@
                         android:layout_width="90dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:paddingVertical="5dp"
+                        android:paddingVertical="16dp"
                         android:paddingStart="0dp"
                         android:paddingEnd="10dp"
                         android:text="@string/fragment_appearance_colour"
-                        android:textSize="16sp" />
+                        android:textAppearance="?attr/textAppearanceBodyLarge" />
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/backgroundColourPickerButton"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
                         android:layout_width="wrap_content"
                         android:layout_height="48dp"
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:paddingStart="0dp"
-                        android:paddingEnd="5dp"
-                        android:textColor="@android:color/white"
+                        android:paddingEnd="8dp"
                         app:strokeColor="?attr/colorPrimary"
                         app:strokeWidth="1dp"
                         tools:ignore="SpeakableTextPresentCheck" />
@@ -92,11 +91,11 @@
                     android:id="@+id/textViewTransparency"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="5dp"
+                    android:paddingVertical="16dp"
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:text="@string/fragment_appearance_transparency"
-                    android:textSize="16sp" />
+                    android:textAppearance="?attr/textAppearanceBodyLarge" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -113,7 +112,7 @@
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/fragment_appearance_transparency"
                         android:max="10"
-                        android:paddingVertical="5dp"
+                        android:paddingVertical="16dp"
                         android:stepSize="10"
                         android:theme="@style/AppTheme"
                         android:value="false"
@@ -133,7 +132,7 @@
         android:id="@+id/cardViewText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="12dp"
         app:cardBackgroundColor="?attr/colorSurfaceContainer"
         app:cardCornerRadius="12dp"
@@ -162,8 +161,7 @@
                     android:paddingEnd="0dp"
                     android:paddingBottom="5dp"
                     android:text="@string/fragment_appearance_text"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textAppearance="?attr/textAppearanceTitleLarge" />
             </LinearLayout>
 
             <LinearLayout
@@ -178,11 +176,11 @@
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:paddingVertical="5dp"
+                    android:paddingVertical="16dp"
                     android:paddingStart="0dp"
                     android:paddingEnd="10dp"
                     android:text="@string/fragment_appearance_family"
-                    android:textSize="16sp" />
+                    android:textAppearance="?attr/textAppearanceBodyLarge" />
 
                 <Spinner
                     android:id="@+id/spinnerFamily"
@@ -207,11 +205,11 @@
                     android:layout_width="90dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:paddingVertical="5dp"
+                    android:paddingVertical="16dp"
                     android:paddingStart="0dp"
                     android:paddingEnd="10dp"
                     android:text="@string/fragment_appearance_style"
-                    android:textSize="16sp" />
+                    android:textAppearance="?attr/textAppearanceBodyLarge" />
 
                 <Spinner
                     android:id="@+id/spinnerStyle"
@@ -241,7 +239,7 @@
                     android:checked="false"
                     android:paddingVertical="16dp"
                     android:text="@string/fragment_appearance_force"
-                    android:textSize="16sp"
+                    android:textAppearance="?attr/textAppearanceBodyLarge"
                     tools:ignore="TextContrastCheck" />
             </LinearLayout>
 
@@ -261,7 +259,7 @@
                     android:checked="false"
                     android:paddingVertical="16dp"
                     android:text="@string/fragment_appearance_center"
-                    android:textSize="16sp"
+                    android:textAppearance="?attr/textAppearanceBodyLarge"
                     tools:ignore="TextContrastCheck" />
             </LinearLayout>
 
@@ -281,7 +279,7 @@
                     android:checked="false"
                     android:paddingVertical="16dp"
                     android:text="@string/fragment_appearance_source_right_aligned"
-                    android:textSize="16sp"
+                    android:textAppearance="?attr/textAppearanceBodyLarge"
                     tools:ignore="TextContrastCheck" />
             </LinearLayout>
 
@@ -294,15 +292,15 @@
                 android:paddingTop="5dp"
                 android:paddingEnd="10dp">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/buttonQuotation"
-                    android:layout_width="150dp"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="152dp"
                     android:layout_height="48dp"
                     android:gravity="center"
                     android:text="@string/fragment_appearance_button_quotation"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"
-                    app:iconTint="@null"
+                    android:textAppearance="?attr/textAppearanceBodyLarge"
+                    app:iconTint="?attr/colorPrimary"
                     app:strokeColor="?attr/colorPrimary"
                     tools:ignore="DuplicateSpeakableTextCheck" />
 
@@ -329,16 +327,16 @@
                 android:paddingTop="15dp"
                 android:paddingEnd="10dp">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/buttonAuthor"
-                    android:layout_width="150dp"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="152dp"
                     android:layout_height="48dp"
                     android:gravity="center"
                     android:text="@string/fragment_appearance_button_author"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"
+                    android:textAppearance="?attr/textAppearanceBodyLarge"
                     app:icon="@drawable/ic_appearance_visibility_off_24"
-                    app:iconTint="@null"
+                    app:iconTint="?attr/colorPrimary"
                     app:strokeColor="?attr/colorPrimary"
                     tools:ignore="DuplicateSpeakableTextCheck" />
 
@@ -367,16 +365,16 @@
                 android:paddingEnd="10dp"
                 android:paddingBottom="3dp">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/buttonPosition"
-                    android:layout_width="150dp"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="152dp"
                     android:layout_height="48dp"
                     android:gravity="center"
                     android:text="@string/fragment_appearance_button_position"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"
+                    android:textAppearance="?attr/textAppearanceBodyLarge"
                     app:icon="@drawable/ic_appearance_visibility_off_24"
-                    app:iconTint="@null"
+                    app:iconTint="?attr/colorPrimary"
                     app:strokeColor="?attr/colorPrimary"
                     tools:ignore="DuplicateSpeakableTextCheck" />
 
@@ -426,7 +424,7 @@
         android:id="@+id/cardFollowSystemTheme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="12dp"
         app:cardBackgroundColor="?attr/colorSurfaceContainer"
@@ -450,7 +448,7 @@
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:text="@string/fragment_appearance_follow_system_theme_follow"
-                android:textSize="16sp" />
+                android:textAppearance="?attr/textAppearanceBodyLarge" />
 
             <TextView
                 android:id="@+id/textViewExclusionInfo"

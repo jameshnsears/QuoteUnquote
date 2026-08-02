@@ -80,7 +80,7 @@
     <string name="fragment_quotations_database_file_csv_inplace_save_warning_duplicate">Impossible d’enregistrer - doublon</string>
     <string name="fragment_quotations_database_file_csv_inplace_warning_empty_database">Base de données interne sélectionnée</string>
     <string name="fragment_quotations_database_file_fortune">Fortune</string>
-    <string name="fragment_quotations_database_file_fortune_info_01">\u2022&#160;&#160;Voir https://wikipedia.org/wiki/Fortune_(Unix)</string>
+    <string name="fragment_quotations_database_file_fortune_info_01">\u2022&#160;&#160;Voir https://fr.wikipedia.org/wiki/Fortune_(logiciel)</string>
     <string name="fragment_quotations_database_file_fortune_info_02">\u2022&#160;&#160;Le nom du fichier est utilisé pour renseigner le champ Source</string>
     <string name="fragment_quotations_database_file_warning">\u2022&#160;&#160;Utilisez Exporter pour sauvegarder les données avant toute réinstallation</string>
 
@@ -180,12 +180,12 @@
     <string name="fragment_appearance_toolbar_position_bottom">En dessous</string>
     <string name="fragment_appearance_toolbar_position_rhs">À droite</string>
 
-    <string name="fragment_notifications_title">Notifications</string>
+    <string name="fragment_notifications_title">Événement</string>
     <string name="fragment_notifications_where">Affichage</string>
     <string name="fragment_notifications_movement">Action</string>
     <string name="fragment_notifications_widget">Widget</string>
     <string name="fragment_notifications_widget_and_notification">Notification</string>
-    <string name="fragment_notifications_use_tts_uk">TTS UK (Base de données interne)</string>
+    <string name="fragment_notifications_use_tts_uk">TTS UK</string>
     <string name="fragment_notifications_use_tts_system_language">TTS Système</string>
 
     <string name="fragment_notifications_notification_warning_info"></string>

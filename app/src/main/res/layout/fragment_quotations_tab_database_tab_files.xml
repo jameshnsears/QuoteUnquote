@@ -16,7 +16,7 @@
         android:id="@+id/cardViewDatabaseExternal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="12dp"
         app:cardBackgroundColor="?attr/colorSurfaceContainer"
@@ -41,8 +41,7 @@
                 android:paddingStart="12dp"
                 android:paddingEnd="0dp"
                 android:text="@string/fragment_quotations_database_file"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textAppearance="?attr/textAppearanceTitleLarge" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -63,16 +62,17 @@
                     android:paddingEnd="0dp"
                     android:paddingBottom="0dp"
                     android:text="@string/fragment_quotations_database_file_csv"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textAppearance="?attr/textAppearanceTitleMedium" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/buttonImport"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
                     android:layout_width="120dp"
                     android:layout_height="48dp"
+                    android:contentDescription="@string/fragment_quotations_database_button_import"
                     android:text="@string/fragment_quotations_database_button_import"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp" />
+                    android:textAppearance="?attr/textAppearanceBodyLarge"
+                    app:strokeColor="?attr/colorPrimary" />
 
             </LinearLayout>
 
@@ -115,7 +115,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:background="?android:attr/listDivider" />
+                    android:background="?attr/colorOutlineVariant" />
             </LinearLayout>
 
             <LinearLayout
@@ -137,16 +137,17 @@
                     android:paddingEnd="0dp"
                     android:paddingBottom="0dp"
                     android:text="@string/fragment_quotations_database_file_fortune"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textAppearance="?attr/textAppearanceTitleMedium" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/buttonImportFortune"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
                     android:layout_width="120dp"
                     android:layout_height="48dp"
+                    android:contentDescription="@string/fragment_quotations_database_button_import"
                     android:text="@string/fragment_quotations_database_button_import"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp" />
+                    android:textAppearance="?attr/textAppearanceBodyLarge"
+                    app:strokeColor="?attr/colorPrimary" />
 
             </LinearLayout>
 
@@ -160,8 +161,11 @@
                 app:drawableStartCompat="@drawable/ic_info_24" />
 
             <TextView
+                android:id="@+id/textViewFortuneLink"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:autoLink="web"
+                android:linksClickable="true"
                 android:paddingStart="9dp"
                 android:paddingTop="5dp"
                 android:paddingEnd="5dp"
@@ -190,7 +194,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:background="?android:attr/listDivider" />
+                    android:background="?attr/colorOutlineVariant" />
             </LinearLayout>
 
             <LinearLayout
@@ -208,14 +212,15 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/button_export"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
                         android:layout_width="120dp"
                         android:layout_height="48dp"
+                        android:contentDescription="@string/fragment_quotations_selection_export_button"
                         android:enabled="false"
                         android:text="@string/fragment_quotations_database_file_inplace_export"
-                        android:textColor="@android:color/white"
-                        android:textSize="16sp"
+                        android:textAppearance="?attr/textAppearanceBodyLarge"
                         app:strokeColor="?attr/colorPrimary" />
 
                 </LinearLayout>
@@ -228,14 +233,15 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/button_edit"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
                         android:layout_width="120dp"
                         android:layout_height="48dp"
+                        android:contentDescription="@string/fragment_quotations_database_file_inplace_edit"
                         android:enabled="false"
                         android:text="@string/fragment_quotations_database_file_inplace_edit"
-                        android:textColor="@android:color/white"
-                        android:textSize="16sp"
+                        android:textAppearance="?attr/textAppearanceBodyLarge"
                         app:strokeColor="?attr/colorPrimary" />
 
                 </LinearLayout>

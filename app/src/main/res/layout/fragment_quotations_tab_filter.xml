@@ -14,7 +14,7 @@
         android:id="@+id/cardViewAll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="12dp"
         app:cardBackgroundColor="?attr/colorSurfaceContainer"
         app:cardCornerRadius="12dp"
@@ -35,12 +35,11 @@
                 android:layout_height="wrap_content"
                 android:checked="false"
                 android:contentDescription="@string/fragment_quotations_selection_all"
-                android:paddingVertical="10dp"
+                android:paddingVertical="16dp"
                 android:paddingStart="12dp"
                 android:paddingEnd="0dp"
                 android:text="@string/fragment_quotations_selection_all"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textAppearance="?attr/textAppearanceTitleLarge" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -112,7 +111,7 @@
         android:id="@+id/cardViewSource"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="12dp"
         app:cardBackgroundColor="?attr/colorSurfaceContainer"
         app:cardCornerRadius="12dp"
@@ -132,12 +131,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/fragment_quotations_selection_author"
-                android:paddingVertical="10dp"
+                android:paddingVertical="16dp"
                 android:paddingStart="12dp"
                 android:paddingEnd="0dp"
                 android:text="@string/fragment_quotations_selection_author"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textAppearance="?attr/textAppearanceTitleLarge" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -162,11 +160,11 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:enabled="false"
-                        android:paddingVertical="5dp"
+                        android:paddingVertical="16dp"
                         android:paddingStart="0dp"
                         android:paddingEnd="10dp"
                         android:text="@string/fragment_quotations_selection_author_count"
-                        android:textSize="16sp" />
+                        android:textAppearance="?attr/textAppearanceBodyLarge" />
 
                     <!-- https://rmirabelle.medium.com/there-is-no-material-design-spinner-for-android-3261b7c77da8 -->
                     <Spinner
@@ -176,7 +174,7 @@
                         android:contentDescription="@string/fragment_quotations_selection_author_name"
                         android:enabled="false"
                         android:minHeight="48dp"
-                        android:paddingVertical="10dp"
+                        android:paddingVertical="16dp"
                         tools:ignore="SpeakableTextPresentCheck" />
 
                 </LinearLayout>
@@ -188,7 +186,7 @@
                     android:contentDescription="@string/fragment_quotations_selection_author_name"
                     android:enabled="false"
                     android:minHeight="48dp"
-                    android:paddingVertical="10dp"
+                    android:paddingVertical="16dp"
                     tools:ignore="SpeakableTextPresentCheck" />
             </LinearLayout>
 
@@ -207,15 +205,15 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/buttonSourceExport"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
                         android:layout_width="120dp"
                         android:layout_height="48dp"
                         android:contentDescription="@string/fragment_quotations_selection_export_button"
                         android:enabled="false"
                         android:text="@string/fragment_quotations_selection_export_button"
-                        android:textColor="@android:color/white"
-                        android:textSize="16sp"
+                        android:textAppearance="?attr/textAppearanceBodyLarge"
                         app:strokeColor="?attr/colorPrimary" />
                 </LinearLayout>
 
@@ -226,15 +224,15 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/buttonSourceBrowse"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
                         android:layout_width="120dp"
                         android:layout_height="48dp"
                         android:contentDescription="@string/fragment_quotations_selection_browse"
                         android:enabled="false"
                         android:text="@string/fragment_quotations_selection_browse"
-                        android:textColor="@android:color/white"
-                        android:textSize="16sp"
+                        android:textAppearance="?attr/textAppearanceBodyLarge"
                         app:strokeColor="?attr/colorPrimary" />
                 </LinearLayout>
 
@@ -248,7 +246,7 @@
         android:id="@+id/cardViewFavourites"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="12dp"
         app:cardBackgroundColor="?attr/colorSurfaceContainer"
         app:cardCornerRadius="12dp"
@@ -270,12 +268,11 @@
                 android:contentDescription="@string/fragment_quotations_selection_favourites"
                 android:drawableStart="@drawable/ic_toolbar_favorite_red_24"
                 android:drawablePadding="20dp"
-                android:paddingVertical="10dp"
+                android:paddingVertical="16dp"
                 android:paddingStart="12dp"
                 android:paddingEnd="0dp"
                 android:text="@string/fragment_quotations_selection_favourites"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textAppearance="?attr/textAppearanceTitleLarge" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -292,15 +289,15 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/buttonFavouritesExport"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
                         android:layout_width="120dp"
                         android:layout_height="48dp"
                         android:contentDescription="@string/fragment_quotations_selection_export_button"
                         android:enabled="false"
                         android:text="@string/fragment_quotations_selection_export_button"
-                        android:textColor="@android:color/white"
-                        android:textSize="16sp"
+                        android:textAppearance="?attr/textAppearanceBodyLarge"
                         app:strokeColor="?attr/colorPrimary" />
                 </LinearLayout>
 
@@ -311,15 +308,15 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/buttonFavouritesBrowse"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
                         android:layout_width="120dp"
                         android:layout_height="48dp"
                         android:contentDescription="@string/fragment_quotations_selection_browse"
                         android:enabled="false"
                         android:text="@string/fragment_quotations_selection_browse"
-                        android:textColor="@android:color/white"
-                        android:textSize="16sp"
+                        android:textAppearance="?attr/textAppearanceBodyLarge"
                         app:strokeColor="?attr/colorPrimary" />
                 </LinearLayout>
 
@@ -333,7 +330,7 @@
         android:id="@+id/cardViewSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="12dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="12dp"
         app:cardBackgroundColor="?attr/colorSurfaceContainer"
@@ -356,12 +353,11 @@
                 android:contentDescription="@string/fragment_quotations_selection_search"
                 android:drawableStart="@drawable/ic_quotations_search_24"
                 android:drawablePadding="20dp"
-                android:paddingVertical="10dp"
+                android:paddingVertical="16dp"
                 android:paddingStart="12dp"
                 android:paddingEnd="0dp"
                 android:text="@string/fragment_quotations_selection_search"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textAppearance="?attr/textAppearanceTitleLarge" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -387,9 +383,10 @@
                         android:drawableStart="@drawable/ic_toolbar_favorite_red_24"
                         android:drawablePadding="20dp"
                         android:paddingStart="0dp"
+                        android:paddingVertical="16dp"
                         android:paddingEnd="0dp"
                         android:text="@string/fragment_quotations_selection_search_favourites_only"
-                        android:textSize="16sp" />
+                        android:textAppearance="?attr/textAppearanceBodyLarge" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -405,9 +402,10 @@
                         android:layout_height="wrap_content"
                         android:drawableStart="@drawable/ic_regular_expression_24"
                         android:drawablePadding="20dp"
+                        android:paddingVertical="16dp"
                         android:enabled="false"
                         android:text="@string/fragment_quotations_selection_search_switch_regex"
-                        android:textSize="16sp" />
+                        android:textAppearance="?attr/textAppearanceBodyLarge" />
                 </LinearLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -416,6 +414,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:enabled="false"
+                    android:paddingVertical="16dp"
                     android:hint="@string/fragment_quotations_selection_search_instructions_text"
                     app:endIconMode="clear_text">
 
@@ -474,6 +473,7 @@
                 android:paddingTop="10dp"
                 android:paddingEnd="0dp"
                 android:paddingBottom="10dp"
+                android:textIsSelectable="true"
                 android:text="@string/fragment_quotations_selection_search_instructions_3"
                 android:textAppearance="?attr/textAppearanceBodySmall" />
 
@@ -492,15 +492,15 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/buttonSearchExport"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
                         android:layout_width="120dp"
                         android:layout_height="48dp"
                         android:contentDescription="@string/fragment_quotations_selection_browse"
                         android:enabled="false"
                         android:text="@string/fragment_quotations_selection_export_button"
-                        android:textColor="@android:color/white"
-                        android:textSize="16sp"
+                        android:textAppearance="?attr/textAppearanceBodyLarge"
                         app:strokeColor="?attr/colorPrimary" />
                 </LinearLayout>
 
@@ -511,15 +511,15 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/buttonSearchBrowse"
+                        style="@style/Widget.Material3.Button.OutlinedButton"
                         android:layout_width="120dp"
                         android:layout_height="48dp"
                         android:contentDescription="@string/fragment_quotations_selection_browse"
                         android:enabled="false"
                         android:text="@string/fragment_quotations_selection_browse"
-                        android:textColor="@android:color/white"
-                        android:textSize="16sp"
+                        android:textAppearance="?attr/textAppearanceBodyLarge"
                         app:strokeColor="?attr/colorPrimary" />
                 </LinearLayout>
 
