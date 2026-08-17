@@ -1,6 +1,6 @@
 [versions]
 activity = "1.9.3"  # support coreKtx, for Liar API
-appcompat = "1.7.1"
+appcompat = "1.8.0"
 checkstyle = "10.12.5"
 colorpickerpreference = "2.0.6"
 commonsCsv = "1.14.1"
